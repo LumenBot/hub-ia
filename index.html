@@ -21,7 +21,6 @@
       </a>
       <div class="nav-links">
         <a href="#modules" class="nav-link">Modules</a>
-        <a href="axes.html" class="nav-link">Axes</a>
         <a href="#a-propos" class="nav-link">À propos</a>
         <a href="https://github.com/LumenBot" class="nav-link nav-link-icon" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
@@ -44,7 +43,7 @@
         Des modules courts et pratiques pour comprendre les usages corporate et industriels de l'intelligence artificielle, du fondamental jusqu'à l'industrialisation.
       </p>
 
-      <a href="#modules" class="hero-cta">
+      <a href="#parcours" class="hero-cta">
         Découvrir les modules
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -56,7 +55,7 @@
         </div>
         <div class="hero-stat">
           <span class="hero-stat-num">5</span>
-          <span class="hero-stat-label">axes</span>
+          <span class="hero-stat-label">axes de valeur</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat-num">10-15</span>
@@ -108,15 +107,74 @@
     </div>
   </header>
 
+  <!-- NAVIGATION SHORTCUTS -->
+  <section class="nav-shortcuts" id="parcours">
+    <div class="nav-shortcuts-header">
+      <h2 class="nav-shortcuts-title">Comment naviguer ?</h2>
+      <p class="nav-shortcuts-desc">Choisis ton point d'entrée selon ce qui t'intéresse — par niveau de maturité IA ou par axe de valeur. Clique sur une catégorie pour filtrer la grille de modules.</p>
+    </div>
+
+    <div class="shortcut-row">
+      <span class="shortcut-label">Par niveau</span>
+      <div class="shortcut-chips">
+        <button type="button" class="shortcut-chip n1" data-shortcut-cat="niveau" data-shortcut-value="n1">🟢 Fondamentaux <span class="shortcut-count">4</span></button>
+        <button type="button" class="shortcut-chip n2" data-shortcut-cat="niveau" data-shortcut-value="n2">🟡 Applications métier <span class="shortcut-count">8</span></button>
+        <button type="button" class="shortcut-chip n3" data-shortcut-cat="niveau" data-shortcut-value="n3">🔴 Industrialisation <span class="shortcut-count">7</span></button>
+      </div>
+    </div>
+
+    <div class="shortcut-row">
+      <span class="shortcut-label">Par axe de valeur</span>
+      <div class="shortcut-chips">
+        <button type="button" class="shortcut-chip axe-a" data-shortcut-cat="axe" data-shortcut-value="a">🚀 Productivité <span class="shortcut-count">5</span></button>
+        <button type="button" class="shortcut-chip axe-b" data-shortcut-cat="axe" data-shortcut-value="b">🎯 Décision <span class="shortcut-count">3</span></button>
+        <button type="button" class="shortcut-chip axe-c" data-shortcut-cat="axe" data-shortcut-value="c">🎨 Création <span class="shortcut-count">2</span></button>
+        <button type="button" class="shortcut-chip axe-d" data-shortcut-cat="axe" data-shortcut-value="d">📈 Croissance <span class="shortcut-count">4</span></button>
+        <button type="button" class="shortcut-chip axe-e" data-shortcut-cat="axe" data-shortcut-value="e">🏭 Industrie <span class="shortcut-count">3</span></button>
+        <button type="button" class="shortcut-chip axe-agentique" data-shortcut-cat="axe" data-shortcut-value="agentique">🔗 Architecture agentique <span class="shortcut-count">3</span></button>
+      </div>
+    </div>
+
+    <details class="nav-explain">
+      <summary class="nav-explain-summary"><span>Comprendre les axes de valeur</span></summary>
+      <div class="nav-explain-body">
+        <article class="nav-explain-item axe-a">
+          <h4>🚀 Productivité</h4>
+          <p>Automatiser les tâches répétitives — premier ROI tangible pour toute organisation. Recherche augmentée, rédaction, comptes-rendus, traduction.</p>
+        </article>
+        <article class="nav-explain-item axe-b">
+          <h4>🎯 Décision</h4>
+          <p>Augmenter l'intelligence collective et la qualité des décisions stratégiques. Knowledge base interrogeable, veille concurrentielle, veille AAP.</p>
+        </article>
+        <article class="nav-explain-item axe-c">
+          <h4>🎨 Création</h4>
+          <p>Accélérer l'idéation, la conception et la personnalisation produit. Content repurposing, idéation IA, newsletter automatisée.</p>
+        </article>
+        <article class="nav-explain-item axe-d">
+          <h4>📈 Croissance</h4>
+          <p>Qualifier, attirer, fidéliser, vendre. Devis, leads chatbot, pipeline contenu, workflow email-CRM. ROI commercial mesurable rapidement.</p>
+        </article>
+        <article class="nav-explain-item axe-e">
+          <h4>🏭 Industrie</h4>
+          <p>Optimiser les opérations physiques et la production. Maintenance prédictive, contrôle qualité par vision, optimisation production.</p>
+        </article>
+        <article class="nav-explain-item axe-agentique">
+          <h4>🔗 Architecture agentique</h4>
+          <p>Pattern d'orchestration multi-agents — applicable à tous les axes ci-dessus quand la complexité le justifie. Cas pivot pour passer à l'IA autonome.</p>
+        </article>
+      </div>
+    </details>
+  </section>
+
   <!-- MAIN -->
   <main class="main" id="modules">
 
-    <!-- FILTRES -->
+    <!-- FILTRES AVANCÉS -->
     <details class="filters" id="filtersPanel">
       <summary class="filters-summary">
         <span class="filters-summary-left">
           <svg class="filters-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
-          Filtrer les modules
+          Filtres avancés
         </span>
         <span class="filters-count" id="filtersCount"><strong>19</strong> sur 19 modules</span>
       </summary>
@@ -124,20 +182,20 @@
         <div class="filters-group">
           <div class="filters-group-title">Axe de valeur</div>
           <div class="filters-options">
-            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="a">A · Productivité</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="b">B · Décision</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="c">C · Création</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="d">D · Croissance</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="e">E · Industrie</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="a">🚀 Productivité</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="b">🎯 Décision</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="c">🎨 Création</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="d">📈 Croissance</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="e">🏭 Industrie</label>
             <label class="filter-chip"><input type="checkbox" data-cat="axe" value="agentique">🔗 Architecture agentique</label>
           </div>
         </div>
         <div class="filters-group">
-          <div class="filters-group-title">Niveau de complexité</div>
+          <div class="filters-group-title">Niveau</div>
           <div class="filters-options">
-            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n1">N1–N3 Fondamentaux</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n2">N4–N6 Applications métier</label>
-            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n3">N7–N8 Industrialisation</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n1">🟢 Fondamentaux</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n2">🟡 Applications métier</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n3">🔴 Industrialisation</label>
           </div>
         </div>
         <div class="filters-group">
@@ -170,12 +228,12 @@
       Aucun module ne correspond à ces filtres. <button type="button" class="filters-reset" onclick="document.getElementById('filtersReset').click()">Réinitialiser</button>
     </div>
 
-    <!-- SECTION FONDAMENTAUX (N1-N3) -->
+    <!-- SECTION FONDAMENTAUX -->
     <section class="modules-section" data-section="n1">
       <div class="section-header">
         <div class="section-icon n1">🟢</div>
         <div>
-          <h2 class="section-title">Fondamentaux <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N1–N3</span></h2>
+          <h2 class="section-title">Fondamentaux</h2>
           <p class="section-desc">Les premiers pas avec l'IA — usages individuels accessibles à tous, sans compétence technique préalable.</p>
         </div>
       </div>
@@ -187,8 +245,8 @@
           <div class="card-top">
             <div class="card-emoji">📚</div>
             <div class="card-badges">
-              <span class="card-badge axe-a">A · Productivité</span>
-              <span class="card-badge n1">N1–N3</span>
+              <span class="card-badge axe-a">🚀 Productivité</span>
+              <span class="card-badge n1">🟢 Fondamentaux</span>
             </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -210,8 +268,8 @@
           <div class="card-top">
             <div class="card-emoji">✍️</div>
             <div class="card-badges">
-              <span class="card-badge axe-a">A · Productivité</span>
-              <span class="card-badge n1">N1–N3</span>
+              <span class="card-badge axe-a">🚀 Productivité</span>
+              <span class="card-badge n1">🟢 Fondamentaux</span>
             </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -233,8 +291,8 @@
           <div class="card-top">
             <div class="card-emoji">🎙️</div>
             <div class="card-badges">
-              <span class="card-badge axe-a">A · Productivité</span>
-              <span class="card-badge n1">N1–N3</span>
+              <span class="card-badge axe-a">🚀 Productivité</span>
+              <span class="card-badge n1">🟢 Fondamentaux</span>
             </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -256,8 +314,8 @@
           <div class="card-top">
             <div class="card-emoji">🌍</div>
             <div class="card-badges">
-              <span class="card-badge axe-a">A · Productivité</span>
-              <span class="card-badge n1">N1–N3</span>
+              <span class="card-badge axe-a">🚀 Productivité</span>
+              <span class="card-badge n1">🟢 Fondamentaux</span>
             </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
@@ -277,12 +335,12 @@
       </div>
     </section>
 
-    <!-- SECTION APPLICATIONS MÉTIER (N4-N6) -->
+    <!-- SECTION APPLICATIONS MÉTIER -->
     <section class="modules-section" data-section="n2">
       <div class="section-header">
         <div class="section-icon n2">🟡</div>
         <div>
-          <h2 class="section-title">Applications métier <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N4–N6</span></h2>
+          <h2 class="section-title">Applications métier</h2>
           <p class="section-desc">Industrialiser l'usage de l'IA dans les fonctions clés — commercial, marketing, RH, R&amp;D, gestion documentaire.</p>
         </div>
       </div>
@@ -294,8 +352,8 @@
           <div class="card-top">
             <div class="card-emoji">📄</div>
             <div class="card-badges">
-              <span class="card-badge axe-d">D · Croissance</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-d">📈 Croissance</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -312,8 +370,8 @@
           <div class="card-top">
             <div class="card-emoji">💬</div>
             <div class="card-badges">
-              <span class="card-badge axe-d">D · Croissance</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-d">📈 Croissance</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -330,8 +388,8 @@
           <div class="card-top">
             <div class="card-emoji">👥</div>
             <div class="card-badges">
-              <span class="card-badge axe-a">A · Productivité</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-a">🚀 Productivité</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
               <span class="card-warning" title="Risque élevé AI Act">⚠️ AI Act</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
@@ -349,8 +407,8 @@
           <div class="card-top">
             <div class="card-emoji">🧠</div>
             <div class="card-badges">
-              <span class="card-badge axe-b">B · Décision</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-b">🎯 Décision</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -367,8 +425,8 @@
           <div class="card-top">
             <div class="card-emoji">🔁</div>
             <div class="card-badges">
-              <span class="card-badge axe-c">C · Création</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-c">🎨 Création</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -385,8 +443,8 @@
           <div class="card-top">
             <div class="card-emoji">📱</div>
             <div class="card-badges">
-              <span class="card-badge axe-d">D · Croissance</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-d">📈 Croissance</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -403,8 +461,8 @@
           <div class="card-top">
             <div class="card-emoji">🔭</div>
             <div class="card-badges">
-              <span class="card-badge axe-b">B · Décision</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-b">🎯 Décision</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -421,8 +479,8 @@
           <div class="card-top">
             <div class="card-emoji">📰</div>
             <div class="card-badges">
-              <span class="card-badge axe-c">C · Création</span>
-              <span class="card-badge n2">N4–N6</span>
+              <span class="card-badge axe-c">🎨 Création</span>
+              <span class="card-badge n2">🟡 Applications métier</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -437,12 +495,12 @@
       </div>
     </section>
 
-    <!-- SECTION INDUSTRIALISATION (N7-N8) -->
+    <!-- SECTION INDUSTRIALISATION -->
     <section class="modules-section" data-section="n3">
       <div class="section-header">
         <div class="section-icon n3">🔴</div>
         <div>
-          <h2 class="section-title">Industrialisation <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N7–N8</span></h2>
+          <h2 class="section-title">Industrialisation</h2>
           <p class="section-desc">Construire des systèmes agentiques et déployer l'IA à l'échelle industrielle — workflows, multi-agents, vision par ordinateur.</p>
         </div>
       </div>
@@ -454,8 +512,8 @@
           <div class="card-top">
             <div class="card-emoji">💸</div>
             <div class="card-badges">
-              <span class="card-badge axe-b">B · Décision</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge axe-b">🎯 Décision</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -472,8 +530,8 @@
           <div class="card-top">
             <div class="card-emoji">📧</div>
             <div class="card-badges">
-              <span class="card-badge axe-d">D · Croissance</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge axe-d">📈 Croissance</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
               <span class="card-subbadge-agentique" title="Module à dimension architecture agentique">🔗 agentique</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
@@ -492,7 +550,7 @@
             <div class="card-emoji">🤖</div>
             <div class="card-badges">
               <span class="card-badge axe-agentique">🔗 Architecture agentique</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -510,7 +568,7 @@
             <div class="card-emoji">👨‍💻</div>
             <div class="card-badges">
               <span class="card-badge axe-agentique">🔗 Architecture agentique</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -527,8 +585,8 @@
           <div class="card-top">
             <div class="card-emoji">🔧</div>
             <div class="card-badges">
-              <span class="card-badge axe-e">E · Industrie</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge axe-e">🏭 Industrie</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -545,8 +603,8 @@
           <div class="card-top">
             <div class="card-emoji">👁️</div>
             <div class="card-badges">
-              <span class="card-badge axe-e">E · Industrie</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge axe-e">🏭 Industrie</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -563,8 +621,8 @@
           <div class="card-top">
             <div class="card-emoji">⚙️</div>
             <div class="card-badges">
-              <span class="card-badge axe-e">E · Industrie</span>
-              <span class="card-badge n3">N7–N8</span>
+              <span class="card-badge axe-e">🏭 Industrie</span>
+              <span class="card-badge n3">🔴 Industrialisation</span>
             </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
@@ -604,7 +662,7 @@
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
-        <a href="axes.html">Axes</a>
+        <a href="#parcours">Naviguer</a>
         <a href="#a-propos">À propos</a>
         <a href="https://github.com/LumenBot" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:contact@quai-alpha.com">Contact</a>
@@ -631,13 +689,14 @@
     });
 
     // ============================================
-    // FILTRES V2
+    // FILTRES — V2.1
     // ============================================
     (function () {
       const STORAGE_KEY = 'hubia_filters';
       const cards = Array.from(document.querySelectorAll('.card[data-module]'));
       const sections = Array.from(document.querySelectorAll('.modules-section'));
       const inputs = Array.from(document.querySelectorAll('.filter-chip input'));
+      const shortcutChips = Array.from(document.querySelectorAll('.shortcut-chip'));
       const emptyMsg = document.getElementById('filtersEmpty');
       const countTop = document.getElementById('filtersCount');
       const countBottom = document.getElementById('filtersCountBottom');
@@ -668,6 +727,15 @@
         inputs.forEach(input => {
           input.checked = !!(state[input.dataset.cat] && state[input.dataset.cat].includes(input.value));
           input.parentElement.classList.toggle('is-active', input.checked);
+        });
+      }
+      function syncShortcutChips() {
+        const state = readState();
+        shortcutChips.forEach(chip => {
+          const cat = chip.dataset.shortcutCat;
+          const value = chip.dataset.shortcutValue;
+          const active = !!(state[cat] && state[cat].includes(value));
+          chip.classList.toggle('is-active', active);
         });
       }
       function cardMatchesAxe(card, selected) {
@@ -706,10 +774,11 @@
         countTop.innerHTML = `<strong>${visible}</strong> sur ${totalCards} modules`;
         countBottom.textContent = visible;
         plural.textContent = plural2.textContent = visible > 1 ? 's' : '';
+        syncShortcutChips();
         saveFilters(state);
       }
 
-      // Init : URL query params overrident localStorage (lien depuis axes.html)
+      // Init : query string > localStorage
       const urlParams = new URLSearchParams(window.location.search);
       const urlState = {};
       ['axe', 'niveau', 'cible', 'filieres'].forEach(cat => {
@@ -719,10 +788,8 @@
       const initialState = Object.keys(urlState).length ? urlState : loadFilters();
       applyState(initialState);
       refresh();
-      // Ouvre le panneau si un filtre est actif
-      if (Object.keys(initialState).some(k => initialState[k] && initialState[k].length)) {
-        panel.open = true;
-      }
+      // Ouvre le panneau de filtres avancés si un filtre cible/filière est actif
+      if (initialState.cible || initialState.filieres) panel.open = true;
 
       inputs.forEach(input => {
         input.addEventListener('change', () => {
@@ -737,6 +804,24 @@
           input.parentElement.classList.remove('is-active');
         });
         refresh();
+      });
+
+      // Shortcut chips ↔ inputs filtres avancés
+      shortcutChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const cat = chip.dataset.shortcutCat;
+          const value = chip.dataset.shortcutValue;
+          const matchingInput = inputs.find(i => i.dataset.cat === cat && i.value === value);
+          if (matchingInput) {
+            matchingInput.checked = !matchingInput.checked;
+            matchingInput.parentElement.classList.toggle('is-active', matchingInput.checked);
+            refresh();
+          }
+          // Scroll vers la grille de modules après un court délai (laisser le filtre s'appliquer)
+          setTimeout(() => {
+            document.getElementById('modules').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 60);
+        });
       });
     })();
   </script>
