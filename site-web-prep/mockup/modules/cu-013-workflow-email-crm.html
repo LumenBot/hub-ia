@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow email → CRM → réponse — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .case-study h2 { color: var(--color-primary); }
+    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
+    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .checklist { margin-top: var(--space-6); }
+    .checklist-section { margin-bottom: var(--space-6); }
+    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
+    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
+    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
+    .checklist-item-content { flex: 1; }
+    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
+    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
+    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
+    .checklist-summary.show { display: block; }
+    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
+    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
+    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 6 — Multi-agents</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+      </div>
+      <h1>📧 Workflow email → CRM → réponse</h1>
+      <p class="module-subtitle">
+        Workflow de référence pour franchir le pas de l'IA agentique. Un agent lit les emails, classe, met à jour le CRM, et propose une réponse contextualisée. 30 à 60 min/jour libérées par collaborateur impacté.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+
+    <h2>Le cas</h2>
+    <p>
+      Un membre de la communauté ZHC Institute partage une mise en œuvre simple : « j'ai mis en place un système où mon agent lit les emails du jour le matin, classifie tout, met à jour mon CRM HubSpot, et me prépare un brief de 5 minutes avec ce qui demande mon attention en priorité. Je gagne 1h par jour de tri. »
+    </p>
+    <p>
+      Le cas Stripe « Minions » va plus loin : 1 000+ pull requests par semaine sont produites par des agents internes, dispatchés depuis Slack par les PMs, designers, support. La constante : <strong>l'asynchronicité</strong>, qui bascule la contrainte de « temps d'exécution » vers « capacité de revue ».
+    </p>
+
+    <h2>L'architecture</h2>
+
+    <h3>Étape 1 — Trigger sur email entrant</h3>
+    <p>
+      Via webhook (Gmail, Outlook), polling, ou intégration native. L'agent reçoit chaque email entrant en quasi temps réel.
+    </p>
+
+    <h3>Étape 2 — Classification</h3>
+    <p>
+      L'agent IA classe chaque email :
+    </p>
+    <ul>
+      <li>Spam / non pertinent → archivage automatique</li>
+      <li>Demande commerciale → routage vers fiche prospect existante ou création</li>
+      <li>Demande support → ticketing</li>
+      <li>Demande urgente → escalade humaine immédiate</li>
+    </ul>
+
+    <h3>Étape 3 — Extraction d'information</h3>
+    <p>
+      Nom, entreprise, demande exprimée, budget mentionné, calendrier souhaité, contexte. L'agent structure ce qui est dans le mail en données exploitables.
+    </p>
+
+    <h3>Étape 4 — Mise à jour CRM</h3>
+    <p>
+      Création ou enrichissement de la fiche prospect, log de l'email avec résumé, scoring du lead. Passage typique de 30-50 % d'emails loggés à 90-95 %.
+    </p>
+
+    <h3>Étape 5 — Génération de réponse</h3>
+    <p>
+      Deux modes selon la règle métier :
+    </p>
+    <ul>
+      <li><strong>Réponse standardisée</strong> (FAQ, accusé de réception, demande d'infos complémentaires) → envoi auto si la règle a été validée préalablement par un humain</li>
+      <li><strong>Réponse complexe</strong> (proposition commerciale, négociation) → draft pour validation humaine, jamais envoi automatique</li>
+    </ul>
+
+    <h2>Stack technique recommandée</h2>
+
+    <h3>Modèles</h3>
+    <ul>
+      <li>Claude — apprécié pour la qualité du ton dans les réponses</li>
+      <li>GPT-4 / GPT-5 — volumes industriels avec économies d'échelle</li>
+      <li>Mistral EU — souveraineté, recommandé pour les contenus stratégiques</li>
+    </ul>
+
+    <h3>Infrastructure email pour agents</h3>
+    <ul>
+      <li><strong>AgentMail</strong> — référence dans la communauté ZHC Institute. Permet de donner à un agent une infrastructure email autonome avec création de comptes à la volée. Compatible protocole x402 pour paiement crypto si besoin (cas marginal en France).</li>
+      <li><strong>Composio</strong> — connecteur Gmail + Outlook + 3000+ apps métier (Slack, GitHub, Linear, Notion, HubSpot…). SDK simple à intégrer.</li>
+      <li><strong>Gmail API directe</strong> ou <strong>Google Workspace</strong> avec compte dédié à l'agent (transparence : adresse type « assistant@... »)</li>
+    </ul>
+
+    <h3>Orchestration</h3>
+    <ul>
+      <li><strong>n8n self-hosted</strong> — recommandation forte de la communauté ZHC. Souverain, open source, suffisant pour la plupart des cas</li>
+      <li><strong>Make</strong> ou <strong>Zapier</strong> — alternatives cloud, plus rapides à démarrer mais moins souverains</li>
+    </ul>
+
+    <h3>CRM cibles</h3>
+    <p>HubSpot, Salesforce, Pipedrive, Monday.com — connecteurs API natifs.</p>
+
+    <h2>Indicateurs documentés</h2>
+    <ul>
+      <li><strong>Tri d'emails</strong> : gain typique 30-60 min/jour par collaborateur impacté</li>
+      <li><strong>Mise à jour CRM</strong> : passage de 30-50 % d'emails loggés à 90-95 %</li>
+      <li><strong>Délai de réponse client</strong> : divisé par 3 à 10 sur les demandes standardisées</li>
+      <li><strong>ROI</strong> : amortissement typique 1-3 mois selon volumes</li>
+    </ul>
+
+    <h2>Limites et points de vigilance</h2>
+
+    <h3>Erreurs de classification</h3>
+    <p>
+      Un email commercial mis en spam = opportunité perdue. Auditer la classification les 2-3 premiers mois, ajuster les prompts et règles.
+    </p>
+
+    <h3>Réponses « robotiques »</h3>
+    <p>
+      Un mauvais calibrage produit des réponses détectables qui dégradent la relation client. <strong>Préférer le mode validation humaine au démarrage</strong>, basculer vers l'auto seulement quand le ton est stabilisé.
+    </p>
+
+    <h3>AI Act — transparence</h3>
+    <p>
+      Un mail rédigé par IA doit pouvoir être identifié comme tel. La signature « répondu avec assistance IA » est une bonne pratique préventive et conforme.
+    </p>
+
+    <h3>Hallucinations sur engagements</h3>
+    <p>
+      Un agent qui rédige une réponse engageante peut promettre ce que l'entreprise ne peut pas tenir. Garde-fous prompt explicites + validation humaine sur tout ce qui engage contractuellement.
+    </p>
+
+    <h3>RGPD</h3>
+    <p>
+      L'agent traite des données personnelles. Documentation, durée de rétention, sécurité, base légale à formaliser dès le départ.
+    </p>
+
+  </article>
+
+  <!-- ÉTUDE DE CAS — Checklist d'éligibilité -->
+  <section class="case-study" id="case-study">
+
+    <div class="case-context">
+      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
+      <p style="margin-bottom:0;">
+        Au lieu d'un quiz, on te propose une <strong>checklist d'éligibilité</strong> pour évaluer si ton organisation est prête à déployer ce workflow. Coche ce qui est applicable. Le score donne une indication de maturité.
+      </p>
+    </div>
+
+    <div class="checklist">
+
+      <div class="checklist-section">
+        <h3>1. Prérequis techniques</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">CRM en place et utilisé activement</div>
+            <div class="checklist-item-desc">HubSpot, Salesforce, Pipedrive ou équivalent. Sans CRM, le workflow perd 50 % de sa valeur.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Volume email entrant suffisant</div>
+            <div class="checklist-item-desc">À partir de 50-100 emails/jour adressés à un compte commercial pour amortir le coût de mise en place.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Boîte email dédiée ou compte agent identifiable</div>
+            <div class="checklist-item-desc">Adresse type « assistant@... » ou équivalent — pour la transparence vis-à-vis du destinataire.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Compétence n8n / Make / Zapier en interne ou via prestataire</div>
+            <div class="checklist-item-desc">Ou un partenaire d'intégration territorial (NIN-IA, Spinalia).</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>2. Compétences mobilisables</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Un référent métier disponible 1-2h/semaine</div>
+            <div class="checklist-item-desc">Pour calibrer les règles, valider les drafts, ajuster les prompts pendant les 2-3 premiers mois.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Quelqu'un capable de définir les règles de classification</div>
+            <div class="checklist-item-desc">Spam vs commercial vs support vs urgent. Souvent le commercial le plus expérimenté ou le dirigeant.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>3. Conditions de réussite organisationnelles</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Politique RGPD documentée et applicable au traitement automatisé</div>
+            <div class="checklist-item-desc">Base légale, durée de conservation, sécurité. À cadrer avant la mise en production.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Acceptation interne du principe « validation humaine au démarrage »</div>
+            <div class="checklist-item-desc">Pas de bascule vers l'envoi automatique sans phase de calibrage validée.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Budget mensuel récurrent prévu (50-300 €/mois)</div>
+            <div class="checklist-item-desc">Hébergement n8n, API modèle (Claude, Mistral), AgentMail si applicable. Le coût d'inférence est variable mais maîtrisable.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Capacité d'audit régulier (mensuel les 3 premiers mois)</div>
+            <div class="checklist-item-desc">Vérifier les classifications, les drafts, les escalades. C'est un investissement de qualité, pas un luxe.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="case-actions">
+        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
+      </div>
+
+    </div>
+
+    <div class="checklist-summary" id="caseSummary"></div>
+
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-014-multi-agents.html">Module connexe — Multi-agents par fonction métier</a> : étendre le pattern à toute l'organisation</li>
+      <li><a href="cu-006-leads-chatbot.html">Module connexe — Qualification leads par chatbot</a> : compléter avec la qualification entrante côté site web</li>
+      <li><a href="../06-points-de-vigilance/conformite-aiact-rgpd.md">Vigilance — AI Act et RGPD</a> : le cadre conformité applicable</li>
+    </ul>
+
+    <h3>Acteurs territoriaux à contacter</h3>
+    <ul>
+      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — intégration agents IA sur-mesure</li>
+      <li><strong>Spinalia</strong> (Marjory Canonne, Épinal) — diagnostic et plan d'action</li>
+      <li><strong>EthiqAIS</strong> (alumni QFC) — gouvernance AI Act et RGPD</li>
+    </ul>
+
+    <h3>Dispositifs de financement applicables</h3>
+    <ul>
+      <li><strong>AAP Pionniers de l'IA</strong> (Bpifrance / DGE / France 2030) — phase faisabilité 100-200 K€</li>
+      <li><strong>Aide aux primo-utilisateurs IA Région Grand Est</strong> — 40 % des dépenses, plafond 20 K€</li>
+      <li><strong>Région Grand Est Compétitivité</strong> — jusqu'à 70 % du déploiement chez le client final</li>
+    </ul>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = 'cu-013';
+
+    function evaluateChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      let total = 0;
+      let scored = 0;
+
+      checkboxes.forEach(cb => {
+        const weight = parseInt(cb.dataset.weight, 10) || 1;
+        total += weight;
+        if (cb.checked) scored += weight;
+      });
+
+      const percent = Math.round((scored / total) * 100);
+      let verdict, advice;
+
+      if (percent >= 75) {
+        verdict = '✅ Éligibilité forte';
+        advice = 'Ton organisation présente la majorité des conditions. Prochaine étape : sélectionner un partenaire d\'intégration territorial (NIN-IA ou Spinalia) et structurer un POC sur 6-8 semaines, avec validation humaine de tous les drafts pendant cette période.';
+      } else if (percent >= 50) {
+        verdict = '⚠️ Éligibilité partielle';
+        advice = 'Plusieurs prérequis sont en place. Combler en priorité les 2-3 écarts identifiés (souvent : volume email insuffisant, CRM pas réellement utilisé, ou absence de référent métier). Un accompagnement EDIH Grand Est ou Cluster ENACT peut accélérer.';
+      } else {
+        verdict = '🔄 Maturité à construire';
+        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Ce n\'est pas un « non », c\'est un « pas tout de suite ». Commencer par les modules N4-N6 (CU-005, CU-006, CU-008) pour structurer les prérequis, puis revenir à ce module dans 6-12 mois.';
+      }
+
+      const summary = document.getElementById('caseSummary');
+      summary.innerHTML = `
+        <h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3>
+        <p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p>
+        <div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div>
+        <p>${advice}</p>
+      `;
+      summary.classList.add('show');
+      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, score: scored, total, percent, date: new Date().toISOString()
+      }));
+    }
+  </script>
+
+</body>
+</html>
