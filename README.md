@@ -28,8 +28,8 @@ hub-ia/
 
 ## Statut
 
-- ✅ 5 modules de référence publiés : CU-001, CU-002, CU-005, CU-013, CU-016
-- 🚧 13 modules en cours de production éditoriale (matière dans l'encyclopédie source)
+- ✅ 18 modules publiés et linkés depuis l'index (CU-001 → CU-018)
+- ➕ CU-019 (Newsletter locale) disponible en accès direct, hors index V1
 
 ## Stack
 

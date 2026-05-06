@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA en RH : CV et entretiens — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
+    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
+    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
+    .diag-question:last-of-type { border-bottom: none; }
+    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
+    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
+    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
+    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
+    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
+    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
+    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
+    .diag-result.show { display: block; }
+    .diag-result-section { margin-bottom: var(--space-4); }
+    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
+    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
+    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+    .warning-banner { background: #FFF7E0; border-left: 4px solid var(--color-warning); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-5) auto; max-width: var(--max-width-narrow); }
+    .warning-banner-title { font-weight: 700; color: #7A5C20; margin-bottom: var(--space-2); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n2">🟡 Applications métier</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 1 — Automatisation</span>
+        <span class="card-badge" style="background:var(--color-warning); color:white;">⚠️ AI Act risque élevé</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+      </div>
+      <h1>👥 IA en RH : CV et entretiens</h1>
+      <p class="module-subtitle">
+        Industrialiser le screening de CV, la préparation d'entretiens, la rédaction de fiches de poste. Cas d'usage à haut potentiel ROI mais classé <strong>« risque élevé » au sens AI Act</strong> — gouvernance prioritaire.
+      </p>
+    </div>
+  </header>
+
+  <div class="warning-banner">
+    <div class="warning-banner-title">⚠️ Attention — AI Act risque élevé</div>
+    <p style="margin:0;">
+      Tout usage IA dans les processus de décision RH (recrutement, promotion, sanction, formation imposée) tombe en <strong>« risque élevé »</strong> au sens de l'AI Act européen. Cela implique : documentation rigoureuse, transparence vis-à-vis des candidats, droit à l'explication, recours humain garanti, audit régulier. Ce module est à aborder avec un cadre de gouvernance avant tout déploiement.
+    </p>
+  </div>
+
+  <article class="module-content">
+
+    <h2>Ce que tu vas comprendre</h2>
+    <ul>
+      <li>Quels usages RH sont accessibles immédiatement (génération fiches de poste) versus à risque élevé (screening, scoring)</li>
+      <li>Les obligations AI Act et RGPD applicables</li>
+      <li>Le risque de biais algorithmique et comment l'auditer</li>
+      <li>Les outils gouvernance qui rendent ces usages conformes (EthiqAIS notamment)</li>
+    </ul>
+
+    <h2>Les usages RH IA en 3 niveaux de risque</h2>
+
+    <h3>Niveau 1 — Faible risque (déployable immédiatement)</h3>
+    <ul>
+      <li><strong>Génération de fiches de poste</strong> à partir de descriptions courtes</li>
+      <li><strong>Réécriture d'annonces</strong> pour optimisation lisibilité, inclusivité, attractivité</li>
+      <li><strong>Synthèse d'entretien</strong> à partir de notes prises</li>
+      <li><strong>Préparation de questions d'entretien</strong> adaptées au poste et au candidat</li>
+    </ul>
+
+    <h3>Niveau 2 — Risque modéré (cadre nécessaire)</h3>
+    <ul>
+      <li><strong>Pré-tri de CV</strong> sur des critères objectifs (compétences, expérience, formation) avec validation humaine systématique</li>
+      <li><strong>Suggestion de candidats à recontacter</strong> dans le vivier interne</li>
+      <li><strong>Aide à la rédaction de retours</strong> aux candidats non retenus</li>
+    </ul>
+
+    <h3>Niveau 3 — Risque élevé (AI Act — gouvernance lourde requise)</h3>
+    <ul>
+      <li><strong>Scoring automatique de candidats</strong> avec ordre de classement</li>
+      <li><strong>Analyse de vidéo d'entretien</strong> (HireVue, BrightHire) — particulièrement sensible</li>
+      <li><strong>Décision automatique de rejet ou de promotion</strong></li>
+      <li><strong>Évaluation des compétences</strong> via tests automatisés à enjeu d'embauche</li>
+    </ul>
+
+    <h2>Stack et outils</h2>
+
+    <h3>Plateformes ATS avec IA intégrée</h3>
+    <p>Greenhouse, Lever, Workday avec modules IA. Les modules à risque élevé sont à activer avec discernement.</p>
+
+    <h3>Custom (plus de contrôle)</h3>
+    <p>Claude / GPT-4 + RAG sur descriptifs internes (fiches de poste, valeurs entreprise, grille d'évaluation). Permet de calibrer finement et de garder la main sur la conformité.</p>
+
+    <h3>Gouvernance (cas d'usage critique)</h3>
+    <p><strong>EthiqAIS</strong> (alumni QFC) couvre exactement ce cas — modules Spotlight (évaluation des outils utilisés), TrustOps (documentation et audit), Safeguard (gouvernance usage quotidien). Conformité AI Act, RGPD, ISO/IEC 42001.</p>
+
+    <h2>Les pièges à éviter</h2>
+
+    <h3>Biais algorithmique</h3>
+    <p>Risque documenté dans la littérature : les modèles entraînés sur des données historiques reproduisent les biais de recrutement passés (genre, origine, parcours). Cas connu : un système Amazon abandonné en 2018 parce qu'il pénalisait systématiquement les CV féminins. <strong>Audit régulier indispensable.</strong></p>
+
+    <h3>RGPD</h3>
+    <p>Les CV sont des données personnelles. Base légale (intérêt légitime de l'employeur, consentement candidat), durée de conservation, sécurisation. Information préalable du candidat sur l'usage IA est devenue une bonne pratique.</p>
+
+    <h3>Décision finale humaine</h3>
+    <p>L'IA produit un classement / une analyse, <strong>jamais une décision d'embauche</strong>. Le DRH/dirigeant tranche. Cette règle est non négociable au sens AI Act.</p>
+
+    <h3>Effet négatif sur le candidat</h3>
+    <p>Un candidat qui se sait évalué par IA peut perdre confiance dans le processus. Communication transparente sur l'usage IA et limitation aux étapes pertinentes (présélection, pas évaluation finale).</p>
+
+  </article>
+
+  <section class="diagnostic" id="diagnostic">
+    <h2>Auto-diagnostic & plan d'action</h2>
+    <p class="diagnostic-intro">
+      Vu la sensibilité du sujet (AI Act risque élevé), ce diagnostic t'aide à identifier <strong>quels usages tu peux activer immédiatement</strong> et quels usages exigent un cadre de gouvernance préalable.
+    </p>
+
+    <form id="diagForm">
+
+      <div class="diag-question">
+        <div class="diag-question-title">1. Combien de recrutements ton organisation effectue-t-elle par an ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="volume" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Moins de 5</span></label>
+          <label><input type="radio" name="volume" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">5 à 15</span></label>
+          <label><input type="radio" name="volume" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">15 à 50</span></label>
+          <label><input type="radio" name="volume" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">50 à 200</span></label>
+          <label><input type="radio" name="volume" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Plus de 200</span></label>
+        </div>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">2. As-tu une politique IA et un cadre RGPD à jour applicable au RH ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="cadre" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Aucun cadre</span></label>
+          <label><input type="radio" name="cadre" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">RGPD basique</span></label>
+          <label><input type="radio" name="cadre" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">RGPD complet</span></label>
+          <label><input type="radio" name="cadre" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">RGPD + politique IA</span></label>
+          <label><input type="radio" name="cadre" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">+ audit AI Act</span></label>
+        </div>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">3. Quel est l'usage RH IA que tu envisages en priorité ?</div>
+        <textarea class="diag-textarea" name="usage" placeholder="Ex. : génération de fiches de poste, ou pré-tri de CV pour les profils techniques, ou aide à la préparation d'entretiens managers…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
+        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : commencer par les usages faible risque (génération fiches, synthèse entretiens) en attendant de cadrer la gouvernance pour le screening de CV…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">5. Qui pilote la gouvernance IA RH dans ton organisation ?</div>
+        <textarea class="diag-textarea" name="gouvernance" placeholder="Ex. : DRH + DPO + direction. Ou : à arbitrer — on n'a pas encore de référent identifié…"></textarea>
+      </div>
+
+      <div class="diag-actions">
+        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
+        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
+      </div>
+
+    </form>
+
+    <div class="diag-result" id="diagResult"></div>
+
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="../06-points-de-vigilance/conformite-aiact-rgpd.md">Vigilance — AI Act et RGPD</a> : le cadre conformité applicable</li>
+      <li><a href="cu-002-assistant-redactionnel.html">Module connexe — Assistant rédactionnel</a> : pour les usages non sensibles (fiches de poste, communication interne)</li>
+    </ul>
+
+    <h3>Acteurs territoriaux à contacter</h3>
+    <ul>
+      <li><strong>EthiqAIS</strong> (alumni QFC) — gouvernance IA conformité AI Act et RGPD</li>
+      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — intégration sur-mesure</li>
+    </ul>
+
+    <h3>Dispositifs de financement applicables</h3>
+    <ul>
+      <li><strong>Aide aux primo-utilisateurs IA Région Grand Est</strong> — 40 %, plafond 20 K€</li>
+    </ul>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = 'cu-007';
+    const moduleName = 'IA en RH : CV et entretiens';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const data = new FormData(form);
+      const volume = data.get('volume') || '—';
+      const cadre = data.get('cadre') || '—';
+      const usage = data.get('usage') || '—';
+      const premierPas = data.get('premier-pas') || '—';
+      const gouvernance = data.get('gouvernance') || '—';
+
+      let priority;
+      if (parseInt(cadre) <= 2) priority = '⚠️ Cadre RGPD/AI Act insuffisant pour les usages risque élevé. Démarrer uniquement par les usages faible risque (génération fiches de poste, synthèse entretiens). Investir en parallèle dans la mise à niveau de la gouvernance avant tout déploiement screening/scoring.';
+      else if (parseInt(volume) <= 1) priority = 'Volume de recrutement faible : le ROI d\'un déploiement RH IA est limité. Privilégier les usages quotidiens de productivité (fiches de poste, communication interne) plutôt qu\'un système structurant.';
+      else if (parseInt(cadre) >= 4 && parseInt(volume) >= 3) priority = 'Conditions favorables. Lancer un POC avec EthiqAIS (alumni QFC) pour structurer la gouvernance dès le départ et avancer sur les usages risque modéré (pré-tri CV avec validation humaine) en parallèle des usages faible risque.';
+      else priority = 'Conditions partielles. Identifier les 2-3 usages les plus directement déployables (faible risque) et avancer dessus pendant la mise à niveau de la gouvernance.';
+
+      const result = document.getElementById('diagResult');
+      result.innerHTML = `
+        <h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
+        <div class="diag-result-section"><div class="diag-result-label">Volume recrutement</div><div>Niveau ${volume}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Maturité cadre RGPD/AI Act</div><div>Niveau ${cadre}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Usage envisagé</div><div>${usage}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Pilote gouvernance</div><div>${gouvernance}</div></div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('exportBtn').style.display = 'inline-flex';
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, volume, cadre, usage, priority, premierPas, gouvernance, date: new Date().toISOString()
+      }));
+    }
+
+    function exportPlan() {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
+      if (!data) return;
+      const txt = `Plan d'action — ${moduleName}
+Date : ${new Date(data.date).toLocaleDateString('fr-FR')}
+
+Volume recrutement : ${data.volume}/5
+Maturité cadre RGPD/AI Act : ${data.cadre}/5
+
+Usage envisagé :
+${data.usage}
+
+Recommandation prioritaire :
+${data.priority}
+
+Premier pas (4 semaines) :
+${data.premierPas}
+
+Pilote gouvernance :
+${data.gouvernance}
+
+— Hub IA territorial · ${moduleId}
+`;
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-${moduleId}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
+      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
+    });
+  </script>
+
+</body>
+</html>
