@@ -1,6 +1,6 @@
 # Hub IA territorial
 
-Site de micro-learning sur les usages de l'IA en entreprise — programme **Quai Alpha × réseau Quest for Change**.
+Site de micro-learning sur les usages de l'IA en entreprise — programme du **réseau Quest for Change**.
 
 🌐 **Site en ligne** : https://lumenbot.github.io/hub-ia/
 
@@ -41,4 +41,4 @@ HTML5 + CSS3 + JS vanilla. Pas de framework, pas de build, pas de backend. Persi
 
 ---
 
-Un programme du **réseau Quest for Change**, porté opérationnellement par **Quai Alpha** (incubateur territorial des Vosges).
+Un programme du **réseau Quest for Change**.
