@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qualification de leads par chatbot — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
+    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
+    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
+    .diag-question:last-of-type { border-bottom: none; }
+    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
+    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
+    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
+    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
+    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
+    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
+    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
+    .diag-result.show { display: block; }
+    .diag-result-section { margin-bottom: var(--space-4); }
+    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
+    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
+    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n2">🟡 Applications métier</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 4 — Marketing/Commercial</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+      </div>
+      <h1>💬 Qualification de leads par chatbot conversationnel</h1>
+      <p class="module-subtitle">
+        Capter les visiteurs qualifiés 24/7, qualifier en quelques messages, prendre rendez-vous directement dans l'agenda commercial. +30 à +50 % de leads qualifiés en plus selon les benchmarks B2B 2025.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+
+    <h2>Ce que tu vas comprendre</h2>
+    <ul>
+      <li>Pourquoi le passage du visiteur web au RDV commercial est un goulot massif pour la majorité des PME B2B</li>
+      <li>Les 3 outils principaux du marché et leurs différences clés (Intercom Fin, HubSpot Chatbot, custom)</li>
+      <li>Comment qualifier sans être intrusif (le piège du chatbot agressif)</li>
+      <li>Les obligations RGPD et AI Act qui s'appliquent à un chatbot conversationnel</li>
+    </ul>
+
+    <h2>Le contexte</h2>
+    <p>
+      Pour beaucoup de PME B2B et de startups, le passage du visiteur web au RDV commercial est un goulot massif :
+    </p>
+    <ul>
+      <li>Le commercial perd du temps avec des leads non qualifiés (mauvais profil, pas le bon timing, hors budget)</li>
+      <li>Les leads chauds qui arrivent en soirée ou week-end repartent sans engagement</li>
+      <li>La qualification téléphonique demande 5 à 15 minutes par lead</li>
+    </ul>
+    <p>
+      Le chatbot conversationnel adresse ces trois verrous simultanément, en automatisant la qualification initiale et le booking.
+    </p>
+
+    <blockquote>
+      Pattern typique selon les benchmarks B2B 2025 : <strong>+30 à +50 % de leads qualifiés captés</strong> versus formulaire classique, <strong>délai de réponse divisé par 10-100</strong> (de plusieurs heures à quelques secondes), couverture <strong>24/7 sans coût marginal</strong>.
+    </blockquote>
+
+    <h2>Comment ça fonctionne</h2>
+    <ol>
+      <li><strong>Déclenchement contextuel</strong> : visiteur sur une page clé (offre, prix, démo). Le chatbot ouvre la conversation avec une question liée au contenu consulté.</li>
+      <li><strong>Qualification progressive</strong> : 4-6 questions formulées en langage naturel (BANT — Budget, Authority, Need, Timeframe — ou variantes métier). Adaptation du ton à l'historique de conversation.</li>
+      <li><strong>Branchement</strong> :
+        <ul>
+          <li>Lead qualifié → proposition de créneaux dans l'agenda commercial (Calendly, HubSpot Meetings, Cal.com)</li>
+          <li>Lead non qualifié → route vers documentation, ressources gratuites, nurturing email</li>
+          <li>Lead à clarifier → escalade vers commercial humain en mode chat</li>
+        </ul>
+      </li>
+      <li><strong>Synchronisation CRM</strong> : la conversation est résumée et insérée dans la fiche CRM du prospect.</li>
+    </ol>
+
+    <h2>Stack et outils</h2>
+
+    <h3>Plateformes commerciales prêtes à l'emploi</h3>
+    <ul>
+      <li><strong>Intercom Fin AI Agent</strong> — référence haut de gamme</li>
+      <li><strong>HubSpot Chatbot</strong> — bon rapport qualité/prix si déjà sur HubSpot</li>
+      <li><strong>Drift, Tidio</strong> — alternatives intermédiaires</li>
+    </ul>
+
+    <h3>Custom (plus de contrôle)</h3>
+    <p>Claude / GPT-4 + n8n self-hosted + interface web. Permet souveraineté et tarif maîtrisé. Demande de la compétence technique ou un partenaire d'intégration (NIN-IA, Spinalia).</p>
+
+    <h3>Booking et CRM</h3>
+    <p>Calendly, Cal.com, HubSpot Meetings. CRM cible : HubSpot, Salesforce, Pipedrive.</p>
+
+    <h2>Les pièges à éviter</h2>
+
+    <h3>Conversation forcée</h3>
+    <p>Un mauvais calibrage produit un chatbot intrusif qui dégrade l'expérience utilisateur. <strong>Activer le déclenchement avec parcimonie</strong> : ne pas ouvrir la conversation systématiquement, mais sur des pages d'intention forte (prix, démo, contact).</p>
+
+    <h3>Faux positifs / faux négatifs de qualification</h3>
+    <p>L'IA peut mal classer un lead. <strong>Toujours laisser la possibilité d'escalade humaine</strong> et d'override commercial.</p>
+
+    <h3>RGPD</h3>
+    <p>La conversation collecte des données personnelles. Information préalable, base légale, durée de rétention à documenter.</p>
+
+    <h3>AI Act — transparence</h3>
+    <p>Un chatbot doit signaler explicitement qu'il est une IA. Obligation de transparence applicable.</p>
+
+    <h3>Tone et marque</h3>
+    <p>L'IA doit refléter la voix de l'entreprise. Investir dans le calibrage prompt avant déploiement.</p>
+
+  </article>
+
+  <section class="diagnostic" id="diagnostic">
+    <h2>Auto-diagnostic & plan d'action</h2>
+    <p class="diagnostic-intro">
+      Positionne-toi sur ta situation actuelle et formalise un premier plan d'action concret. Tes réponses restent dans ton navigateur.
+    </p>
+
+    <form id="diagForm">
+
+      <div class="diag-question">
+        <div class="diag-question-title">1. Quel est ton volume mensuel de leads entrants via le site web ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="volume" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Moins de 20</span></label>
+          <label><input type="radio" name="volume" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">20 à 50</span></label>
+          <label><input type="radio" name="volume" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">50 à 200</span></label>
+          <label><input type="radio" name="volume" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">200 à 1000</span></label>
+          <label><input type="radio" name="volume" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Plus de 1000</span></label>
+        </div>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">2. As-tu un CRM utilisé activement par les commerciaux ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="crm" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Pas de CRM</span></label>
+          <label><input type="radio" name="crm" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">CRM mais peu utilisé</span></label>
+          <label><input type="radio" name="crm" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">CRM utilisé partiellement</span></label>
+          <label><input type="radio" name="crm" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">CRM bien utilisé</span></label>
+          <label><input type="radio" name="crm" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">CRM = pivot du commercial</span></label>
+        </div>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">3. Quels sont tes 3-5 critères de qualification d'un « bon » lead ? (BANT ou équivalent métier)</div>
+        <textarea class="diag-textarea" name="criteres" placeholder="Ex. : taille entreprise > 50 salariés, secteur industriel, budget projet > 30k€, échéance < 6 mois, dirigeant ou DAF en interlocuteur…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">4. Quel premier pas concret peux-tu faire dans les 4 semaines ?</div>
+        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : tester HubSpot Chatbot sur la page « offre » avec 4 questions de qualification, et brancher Calendly pour les leads qualifiés…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">5. Comment mesureras-tu le succès dans 3 mois ?</div>
+        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : passer de 5 à 15 RDV qualifiés/mois, ou diviser par 5 le délai de premier contact…"></textarea>
+      </div>
+
+      <div class="diag-actions">
+        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
+        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
+      </div>
+
+    </form>
+
+    <div class="diag-result" id="diagResult"></div>
+
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-005-devis-propositions.html">Module connexe — Devis et propositions</a> : compléter avec la production aval</li>
+      <li><a href="cu-013-workflow-email-crm.html">Module connexe — Workflow email-CRM</a> : industrialiser la suite avec un agent email</li>
+    </ul>
+
+    <h3>Acteurs territoriaux à contacter</h3>
+    <ul>
+      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — intégrations sur-mesure</li>
+      <li><strong>Spinalia</strong> (Marjory Canonne, Épinal) — diagnostic et accompagnement</li>
+    </ul>
+
+    <h3>Dispositifs de financement applicables</h3>
+    <ul>
+      <li><strong>Aide aux primo-utilisateurs IA Région Grand Est</strong> — 40 %, plafond 20 K€</li>
+      <li><strong>Région Grand Est Compétitivité</strong> — jusqu'à 70 % du déploiement</li>
+    </ul>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = 'cu-006';
+    const moduleName = 'Qualification de leads par chatbot conversationnel';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const data = new FormData(form);
+      const volume = data.get('volume') || '—';
+      const crm = data.get('crm') || '—';
+      const criteres = data.get('criteres') || '—';
+      const premierPas = data.get('premier-pas') || '—';
+      const indicateur = data.get('indicateur') || '—';
+
+      let priority;
+      if (parseInt(volume) <= 1) priority = 'Volume faible : un chatbot apporte peu de valeur tant que le trafic n\'est pas constitué. Travailler d\'abord acquisition (SEO, networking, présence salon) avant d\'investir dans le chatbot.';
+      else if (parseInt(crm) <= 2) priority = 'Volume suffisant mais CRM peu utilisé : commencer par activer réellement le CRM auprès des commerciaux. Sans cela, le chatbot remontera de l\'info dans un système qui ne sera pas exploité.';
+      else if (parseInt(volume) >= 3 && parseInt(crm) >= 3) priority = 'Conditions réunies pour un POC. Démarrer sur 1 page (la plus convertissante : prix, démo, contact) avec 4 questions de qualification et brancher le booking commercial.';
+      else priority = 'Conditions partielles. Identifier le frein principal (volume ou CRM) et le combler avant de lancer le chatbot.';
+
+      const result = document.getElementById('diagResult');
+      result.innerHTML = `
+        <h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
+        <div class="diag-result-section"><div class="diag-result-label">Volume mensuel</div><div>Niveau ${volume}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Maturité CRM</div><div>Niveau ${crm}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Critères de qualification</div><div>${criteres}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès (3 mois)</div><div>${indicateur}</div></div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('exportBtn').style.display = 'inline-flex';
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, volume, crm, criteres, priority, premierPas, indicateur, date: new Date().toISOString()
+      }));
+    }
+
+    function exportPlan() {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
+      if (!data) return;
+      const txt = `Plan d'action — ${moduleName}
+Date : ${new Date(data.date).toLocaleDateString('fr-FR')}
+
+Volume mensuel : ${data.volume}/5
+Maturité CRM : ${data.crm}/5
+
+Critères de qualification :
+${data.criteres}
+
+Recommandation prioritaire :
+${data.priority}
+
+Premier pas (4 semaines) :
+${data.premierPas}
+
+Indicateur de succès (3 mois) :
+${data.indicateur}
+
+— Hub IA territorial · ${moduleId}
+`;
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-${moduleId}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
+      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
+    });
+  </script>
+
+</body>
+</html>

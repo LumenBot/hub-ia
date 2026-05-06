@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veille AAP + auto-drafting — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .case-study h2 { color: var(--color-primary); }
+    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
+    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .checklist { margin-top: var(--space-6); }
+    .checklist-section { margin-bottom: var(--space-6); }
+    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
+    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
+    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
+    .checklist-item-content { flex: 1; }
+    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
+    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
+    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
+    .checklist-summary.show { display: block; }
+    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
+    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
+    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a><a href="../index.html#a-propos" class="nav-link">À propos</a></div></div></nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <div class="module-badges">
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 2 — Aide à la décision</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+      </div>
+      <h1>💸 Veille AAP + auto-drafting de candidatures</h1>
+      <p class="module-subtitle">
+        Auto-discovery des appels à projets, matching profil entreprise, pré-rédaction des sections récurrentes. Cas pivot pour les startups en phase de financement, applicable aussi à l'usage SUM interne.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+    <h2>Le cas</h2>
+    <p>L'écosystème français des AAP (Bpifrance, France 2030, Région Grand Est, ADEME, FEDER) est dense et mouvant. Calendriers, critères, montants varient en permanence. Pour un dirigeant de startup ou un SUM, identifier le bon AAP, comprendre l'éligibilité, produire un dossier convaincant : plusieurs jours d'effort par candidature.</p>
+    <p>Beaucoup de startups passent à côté de financements éligibles faute de monitoring continu et de capacité à structurer rapidement un dossier. Le pattern adresse ces deux verrous.</p>
+
+    <h2>L'architecture</h2>
+    <ol>
+      <li><strong>Agent de veille</strong> — scrute Bpifrance, Région Grand Est, ANR, France 2030, Aides-Territoires</li>
+      <li><strong>Agent de matching</strong> — rapproche AAP × profil entreprise (secteur, stade, R&D, géographie)</li>
+      <li><strong>Agent de drafting</strong> — pré-rédige les sections récurrentes (présentation, équipe, contexte, livrables, financement) à partir du dossier unique entreprise</li>
+      <li><strong>Agent de submission</strong> — envoi via AgentMail ou portail dédié quand l'API existe</li>
+      <li><strong>Boucle apprentissage</strong> — AAP gagnés / perdus alimentent l'apprentissage</li>
+    </ol>
+
+    <h2>Stack technique</h2>
+    <ul>
+      <li><strong>Veille</strong> : Perplexity (recherche augmentée), Scrapling (scrape sites résistants), Aides-Territoires API</li>
+      <li><strong>Matching et structuration</strong> : Claude, GPT-4 (raisonnement éligibilité)</li>
+      <li><strong>Base de connaissance entreprise</strong> : RAG simple sur BP, deck, CVs, projets, comptes</li>
+      <li><strong>Drafting</strong> : Claude (apprécié ZHC pour rédaction longue), Mistral EU pour souveraineté</li>
+      <li><strong>Email submission</strong> : AgentMail, Composio (Gmail), comptes dédiés</li>
+      <li><strong>Orchestration</strong> : n8n self-hosted (souveraineté forte recommandée — contenu stratégique)</li>
+    </ul>
+
+    <h2>Indicateurs typiques</h2>
+    <ul>
+      <li><strong>Temps gagné par dossier</strong> : passage de plusieurs jours à quelques heures</li>
+      <li><strong>Volume de candidatures</strong> : x3 à x5 sur une période donnée</li>
+      <li><strong>Taux de matching pertinent</strong> : à calibrer (faux positifs et négatifs nombreux au démarrage)</li>
+    </ul>
+
+    <h2>Limites et points de vigilance</h2>
+    <ul>
+      <li><strong>Qualité du matching</strong> : critères AAP flous, interprétation difficile pour un agent. Supervision humaine indispensable</li>
+      <li><strong>Risque candidatures bâclées</strong> : la facilité de production peut conduire à postuler sur tout, ce qui détériore la crédibilité auprès des financeurs</li>
+      <li><strong>Confidentialité</strong> : éléments mobilisés (BP, équipe, marché) très stratégiques. Privilégier Mistral EU ou modèle on-premise</li>
+      <li><strong>Signature</strong> : la signature finale reste humaine, jamais automatique</li>
+      <li><strong>Détection IA</strong> : certains financeurs évaluent la part de génération IA. Le résultat doit garder voix humaine et expertise non substituable</li>
+    </ul>
+  </article>
+
+  <section class="case-study" id="case-study">
+    <div class="case-context">
+      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
+      <p style="margin-bottom:0;">Évalue si ton organisation est prête à industrialiser sa démarche AAP avec l'IA. Coche ce qui correspond.</p>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-section">
+        <h3>1. Prérequis documentaires</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Dossier unique entreprise structuré (BP, deck, plan financier, équipe)</div><div class="checklist-item-desc">Sans cette base de référence, le drafting produit des résultats médiocres.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Historique de candidatures passées (5+ dossiers)</div><div class="checklist-item-desc">Sert de matériau pour le calibrage du ton et de la structure attendue.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">CV équipe à jour</div><div class="checklist-item-desc">Sections récurrentes des AAP — peut être stocké en RAG.</div></div></label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>2. Volume et fréquence</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Pipeline de 5+ candidatures à instruire dans les 6 prochains mois</div><div class="checklist-item-desc">Sinon ROI insuffisant pour amortir la mise en place.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Référent interne dédié (responsable financement, CFO startup, SUM)</div><div class="checklist-item-desc">Pour valider matching et drafts. 4-6h/semaine au minimum les premiers mois.</div></div></label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>3. Conditions techniques et conformité</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Infrastructure souveraine identifiée (Mistral EU ou solution gouvernée)</div><div class="checklist-item-desc">Le contenu est stratégique — ne pas utiliser ChatGPT/Claude grand public.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Compétence ou prestataire pour orchestration n8n / agents</div><div class="checklist-item-desc">NIN-IA (alumni QFC) peut accompagner.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Politique d'usage IA RH/admin formalisée</div><div class="checklist-item-desc">Pour cadrer l'usage des CV équipe et infos confidentielles.</div></div></label>
+      </div>
+
+      <div class="case-actions">
+        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
+      </div>
+    </div>
+
+    <div class="checklist-summary" id="caseSummary"></div>
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-008-knowledge-base-rag.html">Module connexe — Knowledge base RAG</a></li>
+      <li><a href="cu-013-workflow-email-crm.html">Module connexe — Workflow email-CRM</a></li>
+    </ul>
+    <h3>Acteurs territoriaux à contacter</h3>
+    <ul>
+      <li><strong>NIN-IA</strong> (alumni QFC, Xertigny) — intégration agents IA</li>
+      <li><strong>Bpifrance Grand Est</strong> — pour les AAP régionalisés</li>
+    </ul>
+  </article>
+
+  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
+
+  <script>
+    const moduleId = 'cu-012';
+    function evaluateChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      let total = 0, scored = 0;
+      checkboxes.forEach(cb => { const w = parseInt(cb.dataset.weight, 10) || 1; total += w; if (cb.checked) scored += w; });
+      const percent = Math.round((scored / total) * 100);
+      let verdict, advice;
+      if (percent >= 75) { verdict = '✅ Éligibilité forte'; advice = 'Conditions réunies. Prochaine étape : mettre en place un POC sur 2-3 AAP en cours, avec validation humaine de tous les drafts. Mistral EU + n8n + Claude pour le drafting. Partenaire d\'intégration : NIN-IA (alumni QFC).'; }
+      else if (percent >= 50) { verdict = '⚠️ Éligibilité partielle'; advice = 'Combler en priorité les manques sur dossier de référence et infrastructure souveraine avant déploiement. Démarrer manuellement avec assistance Claude EU sur 1-2 dossiers test.'; }
+      else { verdict = '🔄 Maturité à construire'; advice = 'Prérequis non réunis. Étapes : (1) structurer le dossier unique entreprise, (2) cadrer l\'infrastructure souveraine, (3) revenir dans 3-6 mois avec ces fondamentaux.'; }
+      const summary = document.getElementById('caseSummary');
+      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
+      summary.classList.add('show');
+      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+    }
+  </script>
+</body>
+</html>

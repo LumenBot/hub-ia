@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter locale automatisée — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
+    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
+    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
+    .diag-question:last-of-type { border-bottom: none; }
+    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
+    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
+    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
+    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
+    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
+    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
+    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
+    .diag-result.show { display: block; }
+    .diag-result-section { margin-bottom: var(--space-4); }
+    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
+    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
+    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n2">🟡 Applications métier</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 4 — Marketing/Com</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+      </div>
+      <h1>📰 Newsletter locale automatisée</h1>
+      <p class="module-subtitle">
+        Cas concret partagé par la communauté ZHC : une newsletter hebdomadaire locale produite avec 5 sub-agents IA + curation humaine. Coût initial : 11 USD pour le domaine. Modèle directement transposable à un « VosgesBrief » ou newsletter sectorielle.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+
+    <h2>Ce que tu vas comprendre</h2>
+    <ul>
+      <li>L'architecture multi-agents pour produire une newsletter sans y consacrer 10h/semaine</li>
+      <li>Pourquoi la curation humaine reste le différenciateur clé</li>
+      <li>Le coût réel de lancement et le modèle économique visé</li>
+      <li>Les pièges à éviter (saturation marché, hallucinations, ton générique)</li>
+    </ul>
+
+    <h2>Le cas concret</h2>
+    <p>
+      Un membre du ZHC Institute a partagé en mars 2026 le lancement de <em>Barcelona Brief</em>, newsletter locale hebdomadaire construite avec :
+    </p>
+    <ul>
+      <li><strong>5 sub-agents Minimax</strong> qui scrapent des sources locales ciblées</li>
+      <li>Une <strong>base anti-doublons</strong> pour éviter de re-publier le même contenu</li>
+      <li>Une <strong>curation humaine</strong> finale (1-2h/semaine) pour valider la sélection et ajouter la voix personnelle</li>
+      <li>Publication via <strong>Beehiiv</strong> (gratuit jusqu'à 2 500 abonnés)</li>
+    </ul>
+    <p>
+      Coût initial : <strong>11 USD pour le domaine</strong>. Modèle économique visé : sponsoring local quand l'audience grandit.
+    </p>
+
+    <blockquote>
+      Le pattern est <strong>directement transposable</strong> à un projet « VosgesBrief » ou « LorraineBrief », qui pourrait servir de produit de visibilité pour Quai Alpha tout en validant un cas d'usage commercialement viable.
+    </blockquote>
+
+    <h2>Architecture détaillée</h2>
+    <ol>
+      <li><strong>Définition de la cible et de la voix</strong> — public visé, sources de référence, ton, format</li>
+      <li><strong>Constitution d'une base anti-doublons</strong> — chaque article ingéré est indexé pour éviter doublons</li>
+      <li><strong>5 sub-agents spécialisés</strong> :
+        <ul>
+          <li>Agent 1 — scrape les sources (médias locaux, blogs, sites institutionnels)</li>
+          <li>Agent 2 — vérifie les doublons et l'unicité</li>
+          <li>Agent 3 — produit un résumé de chaque article retenu</li>
+          <li>Agent 4 — propose un angle éditorial / une mise en perspective</li>
+          <li>Agent 5 — assemble le draft final dans le format newsletter</li>
+        </ul>
+      </li>
+      <li><strong>Curation humaine</strong> — l'humain valide la sélection, ajuste le ton, ajoute la voix personnelle. <strong>Étape non automatisée — c'est le différenciateur qualité.</strong></li>
+      <li><strong>Publication via Beehiiv</strong> — éditeur newsletter avec API, gratuit jusqu'à 2 500 abonnés</li>
+    </ol>
+
+    <h2>Stack et outils</h2>
+    <ul>
+      <li><strong>Modèles agents</strong> — Minimax, Claude, Mistral (souveraineté EU recommandée si contenu sensible)</li>
+      <li><strong>Orchestration</strong> — n8n self-hosted ou OpenClaw</li>
+      <li><strong>Sources scraping</strong> — Scrapling (cité par communauté ZHC), feeds RSS, API publiques</li>
+      <li><strong>Base anti-doublons</strong> — vector store simple (Pinecone, Qdrant)</li>
+      <li><strong>Plateforme newsletter</strong> — Beehiiv (recommandé), Substack, Buttondown (alternative française open source)</li>
+      <li><strong>Domaine</strong> — registrar standard (~10-15 €/an)</li>
+    </ul>
+
+    <h2>Les pièges à éviter</h2>
+
+    <h3>Authenticité de la voix</h3>
+    <p>La curation humaine est essentielle pour garder une voix reconnaissable. Sans elle, la newsletter devient générique et son taux d'ouverture chute. <strong>Ne pas vouloir tout automatiser.</strong></p>
+
+    <h3>Vérification des sources</h3>
+    <p>Les agents peuvent halluciner ou citer des sources inexistantes. Audit hebdomadaire recommandé.</p>
+
+    <h3>Saturation du marché</h3>
+    <p>Les newsletters locales se multiplient en 2026. Différenciation indispensable (angle, fréquence, ton, niche thématique précise plutôt que généraliste).</p>
+
+    <h3>Modèle économique non garanti</h3>
+    <p>Le sponsoring local fonctionne sur des audiences ciblées avec engagement réel. Une newsletter à 5 000 inscrits inactifs vaut moins qu'une à 1 000 lecteurs engagés.</p>
+
+  </article>
+
+  <section class="diagnostic" id="diagnostic">
+    <h2>Auto-diagnostic & plan d'action</h2>
+    <p class="diagnostic-intro">
+      Positionne-toi sur ton projet potentiel et formalise le concept.
+    </p>
+
+    <form id="diagForm">
+
+      <div class="diag-question">
+        <div class="diag-question-title">1. As-tu déjà une audience identifiée que tu pourrais convertir en abonnés ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="audience" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Aucune</span></label>
+          <label><input type="radio" name="audience" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">Petit réseau</span></label>
+          <label><input type="radio" name="audience" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">Quelques centaines</span></label>
+          <label><input type="radio" name="audience" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">Quelques milliers</span></label>
+          <label><input type="radio" name="audience" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Communauté établie</span></label>
+        </div>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">2. Décris en 1-2 phrases l'angle / le créneau de ta newsletter envisagée :</div>
+        <textarea class="diag-textarea" name="angle" placeholder="Ex. : « VosgesBrief » — newsletter hebdo de l'innovation et de l'entrepreneuriat dans les Vosges, ciblée dirigeants PME et porteurs de projets…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">3. Quelles sont les 5-10 sources que tu agrégerais en priorité ?</div>
+        <textarea class="diag-textarea" name="sources" placeholder="Ex. : Vosges Matin (économie), CCI Vosges newsletter, blogs Quai Alpha + autres incubateurs QFC, Bpifrance Grand Est, ENSTIB / Université de Lorraine actualités, Cluster ENACT…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
+        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : acheter le domaine, créer compte Beehiiv, configurer 1-2 agents test sur 3 sources, produire 2 numéros pilotes en interne avant de lancer la collecte d'abonnés…"></textarea>
+      </div>
+
+      <div class="diag-question">
+        <div class="diag-question-title">5. Comment mesureras-tu le succès dans 6 mois ?</div>
+        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : 500 abonnés engagés (taux d'ouverture > 40%), 1 partenariat sponsoring confirmé, présence régulière dans les radars de l'écosystème…"></textarea>
+      </div>
+
+      <div class="diag-actions">
+        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
+        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
+      </div>
+
+    </form>
+
+    <div class="diag-result" id="diagResult"></div>
+
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-009-content-repurposing.html">Module connexe — Content repurposing</a></li>
+      <li><a href="cu-010-pipeline-contenu-social.html">Module connexe — Pipeline contenu social</a></li>
+      <li><a href="cu-011-veille-concurrentielle.html">Module connexe — Veille concurrentielle continue</a></li>
+    </ul>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = 'cu-019';
+    const moduleName = 'Newsletter locale automatisée';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const data = new FormData(form);
+      const audience = data.get('audience') || '—';
+      const angle = data.get('angle') || '—';
+      const sources = data.get('sources') || '—';
+      const premierPas = data.get('premier-pas') || '—';
+      const indicateur = data.get('indicateur') || '—';
+
+      let priority;
+      if (parseInt(audience) <= 1) priority = 'Audience initiale faible : la newsletter sera lente à décoller. Démarrer en parallèle un travail de présence (LinkedIn, événements territoriaux) pour constituer un premier réseau exploitable. Sans audience, la newsletter prend 12-18 mois pour atteindre une masse critique.';
+      else if (parseInt(audience) >= 4) priority = 'Audience favorable : tu peux capitaliser sur ton réseau pour les 200-500 premiers abonnés. Concentrer l\'effort sur la qualité éditoriale du premier numéro pour fidéliser et déclencher le bouche-à-oreille.';
+      else priority = 'Audience intermédiaire : démarrer sur une niche très précise plutôt qu\'un sujet large. Mieux vaut 500 abonnés engagés sur un angle pointu qu\'une newsletter généraliste à 2 000 abonnés mollement engagés.';
+
+      const result = document.getElementById('diagResult');
+      result.innerHTML = `
+        <h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
+        <div class="diag-result-section"><div class="diag-result-label">Audience initiale</div><div>Niveau ${audience}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Angle / créneau</div><div>${angle}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Sources prévues</div><div>${sources}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès (6 mois)</div><div>${indicateur}</div></div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('exportBtn').style.display = 'inline-flex';
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, audience, angle, sources, priority, premierPas, indicateur, date: new Date().toISOString()
+      }));
+    }
+
+    function exportPlan() {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
+      if (!data) return;
+      const txt = `Plan d'action — ${moduleName}
+Date : ${new Date(data.date).toLocaleDateString('fr-FR')}
+
+Audience initiale : ${data.audience}/5
+
+Angle / créneau :
+${data.angle}
+
+Sources prévues :
+${data.sources}
+
+Recommandation prioritaire :
+${data.priority}
+
+Premier pas (4 semaines) :
+${data.premierPas}
+
+Indicateur de succès (6 mois) :
+${data.indicateur}
+
+— Hub IA territorial · ${moduleId}
+`;
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-${moduleId}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
+      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
+    });
+  </script>
+
+</body>
+</html>
