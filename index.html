@@ -21,6 +21,7 @@
       </a>
       <div class="nav-links">
         <a href="#modules" class="nav-link">Modules</a>
+        <a href="axes.html" class="nav-link">Axes</a>
         <a href="#a-propos" class="nav-link">À propos</a>
         <a href="https://github.com/LumenBot" class="nav-link nav-link-icon" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
@@ -50,12 +51,12 @@
 
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-num">18</span>
+          <span class="hero-stat-num">19</span>
           <span class="hero-stat-label">modules</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-num">3</span>
-          <span class="hero-stat-label">niveaux</span>
+          <span class="hero-stat-num">5</span>
+          <span class="hero-stat-label">axes</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat-num">10-15</span>
@@ -110,22 +111,85 @@
   <!-- MAIN -->
   <main class="main" id="modules">
 
+    <!-- FILTRES -->
+    <details class="filters" id="filtersPanel">
+      <summary class="filters-summary">
+        <span class="filters-summary-left">
+          <svg class="filters-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+          Filtrer les modules
+        </span>
+        <span class="filters-count" id="filtersCount"><strong>19</strong> sur 19 modules</span>
+      </summary>
+      <div class="filters-body">
+        <div class="filters-group">
+          <div class="filters-group-title">Axe de valeur</div>
+          <div class="filters-options">
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="a">A · Productivité</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="b">B · Décision</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="c">C · Création</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="d">D · Croissance</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="e">E · Industrie</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="axe" value="agentique">🔗 Architecture agentique</label>
+          </div>
+        </div>
+        <div class="filters-group">
+          <div class="filters-group-title">Niveau de complexité</div>
+          <div class="filters-options">
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n1">N1–N3 Fondamentaux</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n2">N4–N6 Applications métier</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="niveau" value="n3">N7–N8 Industrialisation</label>
+          </div>
+        </div>
+        <div class="filters-group">
+          <div class="filters-group-title">Cible</div>
+          <div class="filters-options">
+            <label class="filter-chip"><input type="checkbox" data-cat="cible" value="startup">Startup</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="cible" value="pme-eti">PME-ETI</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="cible" value="les-deux">Les deux</label>
+          </div>
+        </div>
+        <div class="filters-group">
+          <div class="filters-group-title">Filière</div>
+          <div class="filters-options">
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="industrie">Industrie</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="bois-papier">Bois/Papier</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="textile">Textile</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="agro">Agro</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="tertiaire">Tertiaire</label>
+            <label class="filter-chip"><input type="checkbox" data-cat="filieres" value="transverse">Transverse</label>
+          </div>
+        </div>
+        <div class="filters-footer">
+          <button type="button" class="filters-reset" id="filtersReset">Réinitialiser</button>
+          <span class="filters-count"><strong id="filtersCountBottom">19</strong> module<span id="filtersPlural">s</span> visible<span id="filtersPlural2">s</span></span>
+        </div>
+      </div>
+    </details>
+
+    <div class="filters-empty" id="filtersEmpty">
+      Aucun module ne correspond à ces filtres. <button type="button" class="filters-reset" onclick="document.getElementById('filtersReset').click()">Réinitialiser</button>
+    </div>
+
     <!-- SECTION FONDAMENTAUX (N1-N3) -->
-    <section class="modules-section">
+    <section class="modules-section" data-section="n1">
       <div class="section-header">
         <div class="section-icon n1">🟢</div>
         <div>
-          <h2 class="section-title">Fondamentaux IA</h2>
+          <h2 class="section-title">Fondamentaux <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N1–N3</span></h2>
           <p class="section-desc">Les premiers pas avec l'IA — usages individuels accessibles à tous, sans compétence technique préalable.</p>
         </div>
       </div>
 
       <div class="cards-grid">
 
-        <a href="modules/cu-001-recherche-veille.html" class="card n1" data-module="cu-001">
+        <a href="modules/cu-001-recherche-veille.html" class="card axe-a"
+           data-module="cu-001" data-axe="a" data-niveau="n1" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">📚</div>
-            <span class="card-badge n1">Fondamentaux</span>
+            <div class="card-badges">
+              <span class="card-badge axe-a">A · Productivité</span>
+              <span class="card-badge n1">N1–N3</span>
+            </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
               Complété
@@ -141,10 +205,14 @@
           </div>
         </a>
 
-        <a href="modules/cu-002-assistant-redactionnel.html" class="card n1" data-module="cu-002">
+        <a href="modules/cu-002-assistant-redactionnel.html" class="card axe-a"
+           data-module="cu-002" data-axe="a" data-niveau="n1" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">✍️</div>
-            <span class="card-badge n1">Fondamentaux</span>
+            <div class="card-badges">
+              <span class="card-badge axe-a">A · Productivité</span>
+              <span class="card-badge n1">N1–N3</span>
+            </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
               Complété
@@ -160,10 +228,14 @@
           </div>
         </a>
 
-        <a href="modules/cu-003-cr-reunion.html" class="card n1" data-module="cu-003">
+        <a href="modules/cu-003-cr-reunion.html" class="card axe-a"
+           data-module="cu-003" data-axe="a" data-niveau="n1" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🎙️</div>
-            <span class="card-badge n1">Fondamentaux</span>
+            <div class="card-badges">
+              <span class="card-badge axe-a">A · Productivité</span>
+              <span class="card-badge n1">N1–N3</span>
+            </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
               Complété
@@ -179,10 +251,14 @@
           </div>
         </a>
 
-        <a href="modules/cu-004-traduction.html" class="card n1" data-module="cu-004">
+        <a href="modules/cu-004-traduction.html" class="card axe-a"
+           data-module="cu-004" data-axe="a" data-niveau="n1" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🌍</div>
-            <span class="card-badge n1">Fondamentaux</span>
+            <div class="card-badges">
+              <span class="card-badge axe-a">A · Productivité</span>
+              <span class="card-badge n1">N1–N3</span>
+            </div>
             <span class="card-completed-badge">
               <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/></svg>
               Complété
@@ -202,113 +278,159 @@
     </section>
 
     <!-- SECTION APPLICATIONS MÉTIER (N4-N6) -->
-    <section class="modules-section">
+    <section class="modules-section" data-section="n2">
       <div class="section-header">
         <div class="section-icon n2">🟡</div>
         <div>
-          <h2 class="section-title">Applications métier</h2>
+          <h2 class="section-title">Applications métier <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N4–N6</span></h2>
           <p class="section-desc">Industrialiser l'usage de l'IA dans les fonctions clés — commercial, marketing, RH, R&amp;D, gestion documentaire.</p>
         </div>
       </div>
 
       <div class="cards-grid">
 
-        <a href="modules/cu-005-devis-propositions.html" class="card n2" data-module="cu-005">
+        <a href="modules/cu-005-devis-propositions.html" class="card axe-d"
+           data-module="cu-005" data-axe="d" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">📄</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-d">D · Croissance</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Génération de devis et propositions</h3>
           <p>Industrialiser la production de propositions commerciales : 1-4h économisées par dossier.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-006-leads-chatbot.html" class="card n2" data-module="cu-006">
+        <a href="modules/cu-006-leads-chatbot.html" class="card axe-d"
+           data-module="cu-006" data-axe="d" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">💬</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-d">D · Croissance</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Qualification de leads par chatbot</h3>
           <p>Capter les leads chauds 24/7, qualifier automatiquement, prendre rendez-vous dans l'agenda commercial.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-007-rh-cv-entretiens.html" class="card n2 has-warning" data-module="cu-007">
+        <a href="modules/cu-007-rh-cv-entretiens.html" class="card axe-a has-warning"
+           data-module="cu-007" data-axe="a" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">👥</div>
-            <span class="card-badge n2">Applications</span>
-            <span class="card-warning" title="Risque élevé AI Act">⚠️ AI Act</span>
+            <div class="card-badges">
+              <span class="card-badge axe-a">A · Productivité</span>
+              <span class="card-badge n2">N4–N6</span>
+              <span class="card-warning" title="Risque élevé AI Act">⚠️ AI Act</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>IA en RH : CV et entretiens</h3>
           <p>Analyse de CV, screening, préparation d'entretiens. Cas à risque élevé au sens AI Act — gouvernance prioritaire.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-008-knowledge-base-rag.html" class="card n2" data-module="cu-008">
+        <a href="modules/cu-008-knowledge-base-rag.html" class="card axe-b"
+           data-module="cu-008" data-axe="b" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🧠</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-b">B · Décision</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Knowledge base interne (RAG)</h3>
           <p>Rendre la connaissance interne interrogeable en langage naturel. Onboarding, mémoire d'organisation, archives.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-009-content-repurposing.html" class="card n2" data-module="cu-009">
+        <a href="modules/cu-009-content-repurposing.html" class="card axe-c"
+           data-module="cu-009" data-axe="c" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🔁</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-c">C · Création</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Content repurposing</h3>
           <p>Transformer un contenu long (podcast, webinar) en clips, threads et posts multi-canaux automatiquement.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-010-pipeline-contenu-social.html" class="card n2" data-module="cu-010">
+        <a href="modules/cu-010-pipeline-contenu-social.html" class="card axe-d"
+           data-module="cu-010" data-axe="d" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">📱</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-d">D · Croissance</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Pipeline contenu social automatisé</h3>
           <p>Système 4 agents : recherche → idéation → rédaction → publication. Du sujet au post programmé sans intervention.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
-        <a href="modules/cu-011-veille-concurrentielle.html" class="card n2" data-module="cu-011">
+        <a href="modules/cu-011-veille-concurrentielle.html" class="card axe-b"
+           data-module="cu-011" data-axe="b" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🔭</div>
-            <span class="card-badge n2">Applications</span>
+            <div class="card-badges">
+              <span class="card-badge axe-b">B · Décision</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Veille concurrentielle continue</h3>
           <p>Surveillance permanente d'un panel de concurrents, alerte sur les évolutions significatives, sans temps quotidien dédié.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Auto-diagnostic</span>
+          </div>
+        </a>
+
+        <a href="modules/cu-019-newsletter-locale.html" class="card axe-c"
+           data-module="cu-019" data-axe="c" data-niveau="n2" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
+          <div class="card-top">
+            <div class="card-emoji">📰</div>
+            <div class="card-badges">
+              <span class="card-badge axe-c">C · Création</span>
+              <span class="card-badge n2">N4–N6</span>
+            </div>
+            <span class="card-completed-badge">✓ Complété</span>
+          </div>
+          <h3>Newsletter locale automatisée</h3>
+          <p>Industrialiser la production d'une newsletter territoriale : recherche, rédaction, mise en page, envoi assistés par IA.</p>
+          <div class="card-footer">
+            <span class="card-cta">Commencer →</span>
+            <span class="card-quiz">Auto-diagnostic</span>
           </div>
         </a>
 
@@ -316,112 +438,141 @@
     </section>
 
     <!-- SECTION INDUSTRIALISATION (N7-N8) -->
-    <section class="modules-section">
+    <section class="modules-section" data-section="n3">
       <div class="section-header">
         <div class="section-icon n3">🔴</div>
         <div>
-          <h2 class="section-title">Industrialisation</h2>
+          <h2 class="section-title">Industrialisation <span style="color:var(--color-text-mute); font-weight:500; font-size:0.875em;">· N7–N8</span></h2>
           <p class="section-desc">Construire des systèmes agentiques et déployer l'IA à l'échelle industrielle — workflows, multi-agents, vision par ordinateur.</p>
         </div>
       </div>
 
       <div class="cards-grid">
 
-        <a href="modules/cu-012-veille-aap-drafting.html" class="card n3" data-module="cu-012">
+        <a href="modules/cu-012-veille-aap-drafting.html" class="card axe-b"
+           data-module="cu-012" data-axe="b" data-niveau="n3" data-cible="les-deux" data-filieres="transverse" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">💸</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-b">B · Décision</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Veille AAP + drafting de candidatures</h3>
           <p>Auto-discovery des appels à projets, matching profil, pré-rédaction des dossiers. Cas pivot pour les startups.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-013-workflow-email-crm.html" class="card n3" data-module="cu-013">
+        <a href="modules/cu-013-workflow-email-crm.html" class="card axe-d"
+           data-module="cu-013" data-axe="d" data-niveau="n3" data-cible="les-deux" data-filieres="transverse" data-agentique="true">
           <div class="card-top">
             <div class="card-emoji">📧</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-d">D · Croissance</span>
+              <span class="card-badge n3">N7–N8</span>
+              <span class="card-subbadge-agentique" title="Module à dimension architecture agentique">🔗 agentique</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Workflow email → CRM → réponse</h3>
           <p>Workflow de référence pour franchir le pas de l'IA agentique : 30-60 min/jour libérées sur le tri d'emails.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-014-multi-agents.html" class="card n3" data-module="cu-014">
+        <a href="modules/cu-014-multi-agents.html" class="card axe-agentique"
+           data-module="cu-014" data-axe="agentique" data-niveau="n3" data-cible="les-deux" data-filieres="transverse" data-agentique="true">
           <div class="card-top">
             <div class="card-emoji">🤖</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-agentique">🔗 Architecture agentique</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Multi-agents par fonction métier</h3>
           <p>Pattern « un agent par fonction » avec orchestrateur central. Vision systémique de la transformation IA.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-015-stripe-minions.html" class="card n3" data-module="cu-015">
+        <a href="modules/cu-015-stripe-minions.html" class="card axe-agentique"
+           data-module="cu-015" data-axe="agentique" data-niveau="n3" data-cible="les-deux" data-filieres="transverse" data-agentique="true">
           <div class="card-top">
             <div class="card-emoji">👨‍💻</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-agentique">🔗 Architecture agentique</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Agents codeurs internes (cas Stripe)</h3>
           <p>1000+ PRs/semaine produits par agents. Le passage de l'IA assistant à l'IA autonome sur cycle court.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-016-maintenance-predictive.html" class="card n3" data-module="cu-016">
+        <a href="modules/cu-016-maintenance-predictive.html" class="card axe-e"
+           data-module="cu-016" data-axe="e" data-niveau="n3" data-cible="les-deux" data-filieres="industrie" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">🔧</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-e">E · Industrie</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Maintenance prédictive industrielle</h3>
           <p>Capteurs + IA pour anticiper les défaillances. -15 à 30% sur coûts maintenance, -20 à 50% sur arrêts non planifiés.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-017-controle-qualite-vision.html" class="card n3" data-module="cu-017">
+        <a href="modules/cu-017-controle-qualite-vision.html" class="card axe-e"
+           data-module="cu-017" data-axe="e" data-niveau="n3" data-cible="les-deux" data-filieres="industrie" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">👁️</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-e">E · Industrie</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Contrôle qualité par vision IA</h3>
           <p>Détection automatique de défauts à cadence industrielle : papier, panneaux bois, textile, agro.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
-        <a href="modules/cu-018-optimisation-production.html" class="card n3" data-module="cu-018">
+        <a href="modules/cu-018-optimisation-production.html" class="card axe-e"
+           data-module="cu-018" data-axe="e" data-niveau="n3" data-cible="les-deux" data-filieres="industrie" data-agentique="false">
           <div class="card-top">
             <div class="card-emoji">⚙️</div>
-            <span class="card-badge n3">Industrialisation</span>
+            <div class="card-badges">
+              <span class="card-badge axe-e">E · Industrie</span>
+              <span class="card-badge n3">N7–N8</span>
+            </div>
             <span class="card-completed-badge">✓ Complété</span>
           </div>
           <h3>Optimisation de production</h3>
           <p>Nesting, ordonnancement, ajustement paramètres machine. -10 à 30% de chutes matière sur les filières adaptées.</p>
           <div class="card-footer">
             <span class="card-cta">Commencer →</span>
-            <span class="card-quiz">5 questions</span>
+            <span class="card-quiz">Étude de cas</span>
           </div>
         </a>
 
@@ -453,6 +604,7 @@
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
+        <a href="axes.html">Axes</a>
         <a href="#a-propos">À propos</a>
         <a href="https://github.com/LumenBot" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:contact@quai-alpha.com">Contact</a>
@@ -477,6 +629,116 @@
         card.classList.add('is-done');
       }
     });
+
+    // ============================================
+    // FILTRES V2
+    // ============================================
+    (function () {
+      const STORAGE_KEY = 'hubia_filters';
+      const cards = Array.from(document.querySelectorAll('.card[data-module]'));
+      const sections = Array.from(document.querySelectorAll('.modules-section'));
+      const inputs = Array.from(document.querySelectorAll('.filter-chip input'));
+      const emptyMsg = document.getElementById('filtersEmpty');
+      const countTop = document.getElementById('filtersCount');
+      const countBottom = document.getElementById('filtersCountBottom');
+      const plural = document.getElementById('filtersPlural');
+      const plural2 = document.getElementById('filtersPlural2');
+      const resetBtn = document.getElementById('filtersReset');
+      const panel = document.getElementById('filtersPanel');
+      const totalCards = cards.length;
+
+      function loadFilters() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+        catch { return {}; }
+      }
+      function saveFilters(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+      function readState() {
+        const state = {};
+        inputs.forEach(input => {
+          if (input.checked) {
+            const cat = input.dataset.cat;
+            (state[cat] = state[cat] || []).push(input.value);
+          }
+        });
+        return state;
+      }
+      function applyState(state) {
+        inputs.forEach(input => {
+          input.checked = !!(state[input.dataset.cat] && state[input.dataset.cat].includes(input.value));
+          input.parentElement.classList.toggle('is-active', input.checked);
+        });
+      }
+      function cardMatchesAxe(card, selected) {
+        // « agentique » dans la catégorie axe matche aussi data-agentique="true"
+        const cardAxe = (card.dataset.axe || '').split(',').map(s => s.trim()).filter(Boolean);
+        const cardIsAgentique = card.dataset.agentique === 'true';
+        return selected.some(v => cardAxe.includes(v) || (v === 'agentique' && cardIsAgentique));
+      }
+      function cardMatches(card, state) {
+        for (const cat in state) {
+          const selected = state[cat];
+          if (!selected.length) continue;
+          if (cat === 'axe') {
+            if (!cardMatchesAxe(card, selected)) return false;
+            continue;
+          }
+          const cardValue = (card.dataset[cat] || '').split(',').map(s => s.trim()).filter(Boolean);
+          if (!cardValue.some(v => selected.includes(v))) return false;
+        }
+        return true;
+      }
+      function refresh() {
+        const state = readState();
+        let visible = 0;
+        cards.forEach(card => {
+          const ok = cardMatches(card, state);
+          card.style.display = ok ? '' : 'none';
+          if (ok) visible++;
+        });
+        sections.forEach(section => {
+          const visibleInSection = Array.from(section.querySelectorAll('.card[data-module]'))
+            .filter(c => c.style.display !== 'none').length;
+          section.classList.toggle('is-empty', visibleInSection === 0);
+        });
+        emptyMsg.classList.toggle('show', visible === 0);
+        countTop.innerHTML = `<strong>${visible}</strong> sur ${totalCards} modules`;
+        countBottom.textContent = visible;
+        plural.textContent = plural2.textContent = visible > 1 ? 's' : '';
+        saveFilters(state);
+      }
+
+      // Init : URL query params overrident localStorage (lien depuis axes.html)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlState = {};
+      ['axe', 'niveau', 'cible', 'filieres'].forEach(cat => {
+        const v = urlParams.get(cat);
+        if (v) urlState[cat] = v.split(',').map(s => s.trim()).filter(Boolean);
+      });
+      const initialState = Object.keys(urlState).length ? urlState : loadFilters();
+      applyState(initialState);
+      refresh();
+      // Ouvre le panneau si un filtre est actif
+      if (Object.keys(initialState).some(k => initialState[k] && initialState[k].length)) {
+        panel.open = true;
+      }
+
+      inputs.forEach(input => {
+        input.addEventListener('change', () => {
+          input.parentElement.classList.toggle('is-active', input.checked);
+          refresh();
+        });
+      });
+
+      resetBtn.addEventListener('click', () => {
+        inputs.forEach(input => {
+          input.checked = false;
+          input.parentElement.classList.remove('is-active');
+        });
+        refresh();
+      });
+    })();
   </script>
 
 </body>
