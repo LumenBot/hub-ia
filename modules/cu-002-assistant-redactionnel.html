@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistant rédactionnel — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n1">🟢 Fondamentaux</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 1 — Automatisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+      </div>
+      <h1>✍️ Assistant rédactionnel personnel</h1>
+      <p class="module-subtitle">
+        L'usage IA le plus rentable pour un dirigeant : reformuler, structurer, rédiger un premier jet en quelques minutes. Le ROI commence dès le premier mail.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+
+    <h2>Ce que tu vas comprendre</h2>
+    <ul>
+      <li>Pourquoi la rédaction IA est le premier réflexe à adopter pour un dirigeant non-tech</li>
+      <li>Les 4 outils principaux et leurs usages différenciés (mails, notes, propositions, communications)</li>
+      <li>Comment calibrer la voix de l'outil pour qu'il sonne « toi » et pas « IA générique »</li>
+      <li>Les limites de confidentialité à connaître avant de coller des contenus stratégiques</li>
+    </ul>
+
+    <h2>Le contexte</h2>
+    <p>
+      Selon Bpifrance (2025), <strong>67 % des dirigeants de PME et TPE ne savent pas par où commencer avec l'IA</strong>. La rédaction assistée est précisément la première marche : usage individuel, sans engagement organisationnel, ROI immédiat sur des tâches que tout dirigeant fait quotidiennement (mails, propositions, notes, communications internes).
+    </p>
+    <p>
+      Selon une enquête Goodweek 2025, <strong>93 % des salariés utilisent déjà l'IA, 78 % sans approbation IT</strong>. Cela signifie que ce module n'apprend probablement rien de nouveau à tes équipes — mais te donne le cadre pour <em>en parler</em> et structurer les pratiques au lieu de les laisser s'installer dans le shadow IA.
+    </p>
+
+    <blockquote>
+      Passer de 30 minutes à 5 minutes pour rédiger un mail commercial ou une note de synthèse. Sur 10-20 documents par jour, le gain est massif et mesurable dès la première semaine.
+    </blockquote>
+
+    <h2>Quels outils pour quels usages</h2>
+
+    <h3>Pour la rédaction quotidienne (mails, notes, comm interne)</h3>
+    <p>
+      <strong>ChatGPT</strong>, <strong>Claude</strong>, <strong>Le Chat (Mistral)</strong>, <strong>Gemini</strong> — usage direct via interface web ou app mobile. Tous gratuits en version de base, 20 €/mois pour les versions Pro avec capacités étendues. Choix selon préférence personnelle de ton et d'interface.
+    </p>
+
+    <h3>Pour la rédaction in situ (sans changer d'outil)</h3>
+    <p>
+      <strong>Microsoft 365 Copilot</strong> ou <strong>Google Workspace Gemini</strong> — intégration native dans Word, Outlook, Docs. Pratique pour ne pas casser le flux de travail, mais payant en plus de l'abonnement bureautique (≈ 21 €/utilisateur/mois).
+    </p>
+
+    <h3>Pour la rédaction longue itérative</h3>
+    <p>
+      <strong>Canvas</strong> (Claude, ChatGPT) — interface dédiée à la rédaction longue avec retravaillage continu. Idéal pour rapports, articles, livres blancs, propositions complexes. Gratuit dans les versions Pro.
+    </p>
+
+    <h2>Calibrer la voix</h2>
+    <p>
+      Le piège classique : un texte qui « sent » l'IA. Pour l'éviter, donne au modèle des exemples de ton style (3-5 textes existants) et demande-lui de t'imiter. Beaucoup d'outils permettent désormais de sauvegarder un « assistant personnel » avec ton ton intégré une fois pour toutes.
+    </p>
+    <p>
+      Pour les cas un peu plus avancés (assistant qui connaît ton contexte récurrent, tes clients, tes engagements), c'est l'étape suivante : voir le module <a href="cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a>.
+    </p>
+
+    <h2>Les pièges à éviter</h2>
+
+    <h3>La confidentialité</h3>
+    <p>
+      Les chatbots grand public envoient tes prompts à leurs serveurs et peuvent les utiliser pour entraîner leurs modèles. <strong>Ne jamais coller des données personnelles, contractuelles, financières ou stratégiques</strong> dans une version gratuite. Pour ces usages, basculer sur Mistral Le Chat (souveraineté EU) ou une solution gouvernée comme <a href="https://goodweek.com" target="_blank" rel="noopener">Goodweek</a> (alumni QFC).
+    </p>
+
+    <h3>Le shadow IA non encadré</h3>
+    <p>
+      Selon Goodweek (2025), 93 % des salariés utilisent l'IA, 78 % sans approbation IT. Le shadow IA s'installe rapidement. Bonne pratique : préférer une <strong>politique d'usage claire</strong> (avec liste d'outils approuvés, règles de confidentialité) à une interdiction formelle souvent contournée.
+    </p>
+
+    <h3>Le ton générique</h3>
+    <p>
+      Sans calibrage, le résultat est passable mais reconnaissable comme IA. Pour des contenus engageants (commerciaux, communication externe), prévoir au moins une relecture humaine pour réinjecter de la voix.
+    </p>
+
+    <h3>L'AI Act et la transparence</h3>
+    <p>
+      Pour les contenus externes (communications publiques, marketing), l'AI Act commence à imposer une <strong>obligation de transparence</strong> sur le caractère assisté par IA. Ce n'est pas obligatoire dans tous les cas, mais signaler « rédigé avec assistance IA » devient une bonne pratique préventive.
+    </p>
+
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-001-recherche-veille.html">Module précédent — Recherche & veille augmentée</a> : la porte d'entrée si pas encore vue</li>
+      <li><a href="cu-003-cr-reunion.html">Module suivant — CR de réunion automatisé</a> : étendre l'usage à l'oral</li>
+      <li><a href="cu-008-knowledge-base-rag.html">Module — Knowledge base RAG</a> : faire interroger ses propres documents</li>
+    </ul>
+
+  </article>
+
+  <!-- QUIZ -->
+  <section class="quiz" id="quiz">
+    <h2>Quiz — 5 questions</h2>
+
+    <form id="quizForm">
+
+      <div class="quiz-question">
+        <div class="quiz-question-title">1. Selon Goodweek (2025), quelle proportion de salariés utilise déjà l'IA sans approbation IT ?</div>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> 23 %</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> 45 %</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> 78 %</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="d"> 95 %</label>
+      </div>
+
+      <div class="quiz-question">
+        <div class="quiz-question-title">2. Quel outil privilégier pour rédiger un mail contenant des informations stratégiques d'entreprise ?</div>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT version gratuite</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> Mistral Le Chat (souveraineté EU) ou solution gouvernée</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> Gemini grand public</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="d"> N'importe lequel, c'est équivalent</label>
+      </div>
+
+      <div class="quiz-question">
+        <div class="quiz-question-title">3. Pour qu'un texte généré par IA ne « sente » pas l'IA, quelle est la bonne pratique ?</div>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> Utiliser un modèle plus puissant</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> Donner au modèle 3-5 exemples de ton style à imiter</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> Demander à l'IA d'être « professionnelle »</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="d"> Augmenter la longueur du prompt</label>
+      </div>
+
+      <div class="quiz-question">
+        <div class="quiz-question-title">4. Quel outil permet de rédiger directement dans Word ou Outlook sans changer d'application ?</div>
+        <label class="quiz-option"><input type="radio" name="q4" value="a"> Perplexity</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="b"> NotebookLM</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="c"> Microsoft 365 Copilot</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="d"> Claude version gratuite</label>
+      </div>
+
+      <div class="quiz-question">
+        <div class="quiz-question-title">5. Face au shadow IA, quelle posture est la plus efficace ?</div>
+        <label class="quiz-option"><input type="radio" name="q5" value="a"> Interdiction formelle de tout outil IA</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="b"> Politique d'usage claire avec liste d'outils approuvés et règles de confidentialité</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="c"> Laisser faire et observer</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="d"> Surveiller individuellement chaque collaborateur</label>
+      </div>
+
+      <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+
+    </form>
+
+    <div class="quiz-result" id="quizResult"></div>
+
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const correctAnswers = { q1: 'c', q2: 'b', q3: 'b', q4: 'c', q5: 'b' };
+    const moduleId = 'cu-002';
+
+    function validateQuiz() {
+      const form = document.getElementById('quizForm');
+      const result = document.getElementById('quizResult');
+      let score = 0;
+
+      for (const q in correctAnswers) {
+        const selected = form.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === correctAnswers[q]) score++;
+      }
+
+      let message;
+      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu as bien intégré les concepts. Module suivant ?`;
+      else if (score >= 3) message = `✅ <strong>Score : ${score}/5</strong><br>Bonne maîtrise. Revois les questions ratées si tu veux consolider.`;
+      else message = `📖 <strong>Score : ${score}/5</strong><br>Une relecture est conseillée avant de passer au suivant.`;
+
+      result.innerHTML = message;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, score, total: 5, date: new Date().toISOString()
+      }));
+    }
+  </script>
+
+</body>
+</html>

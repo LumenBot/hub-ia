@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance prédictive industrielle — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .case-study h2 { color: var(--color-primary); }
+    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
+    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .checklist { margin-top: var(--space-6); }
+    .checklist-section { margin-bottom: var(--space-6); }
+    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
+    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
+    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
+    .checklist-item-content { flex: 1; }
+    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
+    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
+    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
+    .checklist-summary.show { display: block; }
+    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
+    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
+    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 5 — Production</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+      </div>
+      <h1>🔧 Maintenance prédictive industrielle</h1>
+      <p class="module-subtitle">
+        Cas d'usage industriel mature : 15 à 30 % de réduction des coûts de maintenance, 20 à 50 % de baisse des arrêts non planifiés. Cas pivot pour les filières papetiers, équipementiers, transformateurs.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+
+    <h2>Le cas</h2>
+    <p>
+      Pour une ETI industrielle, l'arrêt non programmé d'une ligne de production coûte typiquement entre 5 000 et 50 000 € par heure (selon le secteur et la criticité). La maintenance préventive systématique — changement de pièces à intervalles fixes — génère des arrêts inutiles (équipement en bon état changé prématurément), des défaillances non anticipées (équipement qui casse entre deux interventions), des stocks de pièces de rechange surdimensionnés.
+    </p>
+    <p>
+      La maintenance prédictive aligne l'intervention sur l'<strong>état réel</strong> de l'équipement. Les données issues des capteurs (vibrations, température, courant moteur, débit) et l'historique de pannes nourrissent un modèle qui détecte les <strong>patterns précurseurs</strong> de défaillance.
+    </p>
+    <p>
+      Sur le territoire vosgien, <strong>Atsora Solutions</strong> (portefeuille QA) opère précisément sur ce segment — supervision data process et IA industrielle. Cas-école territorial à mettre en avant.
+    </p>
+
+    <h2>L'architecture</h2>
+
+    <ol>
+      <li><strong>Instrumentation</strong> : capteurs sur les équipements critiques (vibration, température, courant moteur, débit, pression). Souvent déjà en place dans une optique GMAO basique.</li>
+      <li><strong>Acquisition et stockage</strong> : remontée des données vers un système central (cloud souverain ou serveur sur site).</li>
+      <li><strong>Modélisation</strong> : entraînement de modèles ML/IA sur l'historique de pannes et les signaux capteurs pour identifier les patterns précurseurs de défaillance.</li>
+      <li><strong>Détection en temps réel</strong> : monitoring continu, alerte quand un pattern précurseur est détecté.</li>
+      <li><strong>Recommandation d'action</strong> : ordre de mission GMAO, priorisation, échéance estimée avant casse.</li>
+      <li><strong>Boucle d'amélioration</strong> : les pannes effectives et les fausses alertes alimentent l'apprentissage.</li>
+    </ol>
+
+    <h2>Stack technique</h2>
+
+    <h3>Solutions du marché</h3>
+    <ul>
+      <li><strong>Atsora Solutions</strong> (portefeuille QA) — supervision data process et IA industrielle. Partenaire territorial naturel pour démos et déploiements.</li>
+      <li>SAP Predictive Maintenance, GE Digital Predix, Siemens MindSphere, Microsoft Azure IoT — solutions globales pour ETI / grands groupes.</li>
+      <li>Senseye, Augury, MaintainX — solutions plus accessibles aux PME.</li>
+    </ul>
+
+    <h3>Frameworks open source</h3>
+    <p>TensorFlow, PyTorch + bibliothèques dédiées (PyOD, sktime). Pour les organisations avec compétences data internes.</p>
+
+    <h3>Plateforme intégrée</h3>
+    <p><strong>Mistral Forge</strong> — pour fine-tuner un modèle sur les datasets propres à l'industriel. Souveraineté EU.</p>
+
+    <h3>Infrastructure</h3>
+    <p>Souvent <strong>on-premise pour la latence</strong> — un cloud distant ne convient pas à une analyse temps réel critique. Edge computing recommandé.</p>
+
+    <h2>Indicateurs documentés</h2>
+
+    <p>Sources : McKinsey State of AI in Manufacturing 2025, retours pilotes Bpifrance Industrie 4.0.</p>
+
+    <ul>
+      <li><strong>Réduction coûts maintenance</strong> : 15-30 %</li>
+      <li><strong>Arrêts non planifiés</strong> : -20 à -50 %</li>
+      <li><strong>Durée de vie équipement</strong> : +20 à +40 %</li>
+      <li><strong>Amortissement</strong> : 12-24 mois pour un ETI sur lignes critiques</li>
+    </ul>
+
+    <h2>Levier financier territorial</h2>
+
+    <ul>
+      <li><strong>DECARB IND 25</strong> (ADEME × France 2030) — efficacité énergétique et matière, jusqu'à 30 M€</li>
+      <li><strong>Région Grand Est Compétitivité</strong> — le client peut financer jusqu'à 70 % du déploiement</li>
+      <li><strong>Première Usine France 2030</strong> (Bpifrance) — pour startups en industrialisation</li>
+      <li><strong>AAP Pionniers de l'IA</strong> (Bpifrance/DGE) — startups IA industrielle</li>
+      <li><strong>Aide primo-utilisateurs IA Région Grand Est</strong> — 40 %, plafond 20 K€</li>
+    </ul>
+
+    <h2>Limites et points de vigilance</h2>
+
+    <h3>Volume de données nécessaire</h3>
+    <p>
+      Démarrer sans historique est très difficile. Compter <strong>1-3 ans de données capteurs + log de pannes</strong> pour entraîner correctement. Investissement préalable en capteurs et collecte avant exploitation.
+    </p>
+
+    <h3>Faux positifs et faux négatifs</h3>
+    <p>
+      Un modèle imparfait génère des alertes qui ne se vérifient pas (perte de confiance des opérateurs) ou rate des défaillances. <strong>Calibrage fin et amélioration continue indispensables</strong>.
+    </p>
+
+    <h3>Compétences internes</h3>
+    <p>
+      Le déploiement initial nécessite une équipe data dédiée ou un prestataire compétent. Les ETI vosgiennes ne disposent souvent pas de cette compétence en interne. <strong>Atsora Solutions, NIN-IA, Cluster ENACT</strong> sont les partenaires territoriaux à mobiliser.
+    </p>
+
+    <h3>Souveraineté</h3>
+    <p>
+      Données opérationnelles sensibles. Privilégier solutions on-premise ou cloud souverain (Mistral EU, OVHcloud SecNumCloud).
+    </p>
+
+  </article>
+
+  <!-- ÉTUDE DE CAS — Checklist d'éligibilité -->
+  <section class="case-study" id="case-study">
+
+    <div class="case-context">
+      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité industrielle</div>
+      <p style="margin-bottom:0;">
+        Coche ce qui correspond à ta situation industrielle. Le score donne une indication de maturité — pas un verdict définitif. Conçu pour des ETI ou grands sites de production.
+      </p>
+    </div>
+
+    <div class="checklist">
+
+      <div class="checklist-section">
+        <h3>1. Prérequis matériels et données</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Équipements critiques déjà instrumentés (capteurs)</div>
+            <div class="checklist-item-desc">Vibration, température, courant moteur, débit. Sans capteurs, démarrer par cette étape avant tout projet IA.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Historique de pannes documenté (1-3 ans minimum)</div>
+            <div class="checklist-item-desc">GMAO renseignée, dates et causes des défaillances passées exploitables pour entraînement.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Système de remontée des données vers un central</div>
+            <div class="checklist-item-desc">PLC, SCADA, MES, ou même Excel partagé — peu importe le niveau, mais centralisation effective.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Lignes de production avec arrêt non planifié coûteux (> 1000 €/h)</div>
+            <div class="checklist-item-desc">Sinon le ROI est plus difficile à atteindre rapidement.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>2. Compétences mobilisables</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Responsable maintenance ou production référent du projet</div>
+            <div class="checklist-item-desc">Disponible 4-6h/semaine pendant la phase POC pour calibrer les alertes et valider les modèles.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Partenaire d'intégration identifié</div>
+            <div class="checklist-item-desc">Atsora Solutions (portefeuille QA), NIN-IA (alumni QFC), ou intégrateur industriel spécialisé.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Capacité d'expertise data interne ou via labo (CRAN, ENSTIB)</div>
+            <div class="checklist-item-desc">Pour la phase de modélisation. Le Cluster IA Grand Est ENACT propose un guichet PME R&D dédié.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>3. Conditions financières et organisationnelles</h3>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Budget pluriannuel (>50 K€) prévu ou candidat à un AAP</div>
+            <div class="checklist-item-desc">DECARB IND, Région Grand Est Compétitivité, Première Usine, AAP Pionniers de l'IA.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="2">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Acceptation d'un déploiement progressif (POC sur 1-2 lignes critiques avant scale)</div>
+            <div class="checklist-item-desc">Pas de big bang. Itération sur 12-18 mois minimum.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Direction engagée comme sponsor du projet</div>
+            <div class="checklist-item-desc">Le passage à l'échelle nécessite un appui hiérarchique fort, pas seulement le service maintenance.</div>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" data-weight="1">
+          <div class="checklist-item-content">
+            <div class="checklist-item-title">Politique de souveraineté des données opérationnelles définie</div>
+            <div class="checklist-item-desc">Cloud souverain, on-premise, hybride. Choix à arbitrer avant le déploiement.</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="case-actions">
+        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité industrielle</button>
+      </div>
+
+    </div>
+
+    <div class="checklist-summary" id="caseSummary"></div>
+
+  </section>
+
+  <article class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="cu-017-controle-qualite-vision.html">Module connexe — Contrôle qualité par vision IA</a> : autre brique d'industrie 4.0</li>
+      <li><a href="cu-018-optimisation-production.html">Module connexe — Optimisation production / nesting</a> : optimisation matière et ordonnancement</li>
+    </ul>
+
+    <h3>Acteurs territoriaux à contacter</h3>
+    <ul>
+      <li><strong>Atsora Solutions</strong> (portefeuille QA) — IA industrielle, supervision data process</li>
+      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — agents IA et formation</li>
+      <li><strong>Cluster IA Grand Est ENACT</strong> — guichet PME R&D IA dédié</li>
+      <li><strong>Hind Bril El Haouzi</strong> (chercheure ENSTIB / CRAN) — pivot industrie 4.0 × filière bois</li>
+      <li><strong>CRITT Bois, ENSTIB, LERMAB</strong> — recherche appliquée filière bois</li>
+    </ul>
+
+    <h3>Acteurs territoriaux candidats au déploiement</h3>
+    <p>Filière papier-bois : Norske Skog Golbey, Lucart, Pavafrance, Egger Rambervillers, Clairefontaine. Industrie : Trane, Numalliance, Alfa Laval Golbey, Michelin. Textile : Innothera, Linvosges (process textile mécanisé).</p>
+
+    <h3>Dispositifs de financement applicables</h3>
+    <ul>
+      <li><strong>DECARB IND 25</strong> (ADEME × France 2030) — efficacité énergétique et matière</li>
+      <li><strong>Région Grand Est Compétitivité</strong> — jusqu'à 70 % du déploiement client final</li>
+      <li><strong>AAP Pionniers de l'IA</strong> — startups IA industrielle</li>
+      <li><strong>Première Usine France 2030</strong> — industrialisation</li>
+    </ul>
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = 'cu-016';
+
+    function evaluateChecklist() {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      let total = 0;
+      let scored = 0;
+
+      checkboxes.forEach(cb => {
+        const weight = parseInt(cb.dataset.weight, 10) || 1;
+        total += weight;
+        if (cb.checked) scored += weight;
+      });
+
+      const percent = Math.round((scored / total) * 100);
+      let verdict, advice;
+
+      if (percent >= 75) {
+        verdict = '✅ Éligibilité forte — projet structurant possible';
+        advice = 'Les conditions sont réunies pour engager un projet structurant. Prochaine étape : prendre contact avec Atsora Solutions ou un intégrateur industriel pour cadrer un POC sur 1-2 lignes critiques. Mobiliser en parallèle un AAP (DECARB IND, Région Compétitivité, Pionniers IA) pour le cofinancement.';
+      } else if (percent >= 50) {
+        verdict = '⚠️ Maturité partielle — à consolider';
+        advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Le plus fréquent : historique de données insuffisant ou capteurs incomplets. Avant de lancer un projet IA, investir 6-12 mois dans la collecte structurée. Le Cluster IA Grand Est ENACT et NIN-IA peuvent accompagner cette phase préparatoire.';
+      } else {
+        verdict = '🔄 Prérequis à construire';
+        advice = 'Les conditions pour un déploiement direct ne sont pas réunies. Cela ne signifie pas « jamais » — cela signifie « pas encore ». Les étapes recommandées : (1) instrumenter les équipements critiques, (2) structurer la GMAO et l\'historique de pannes, (3) revenir sur ce module dans 12-18 mois.';
+      }
+
+      const summary = document.getElementById('caseSummary');
+      summary.innerHTML = `
+        <h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3>
+        <p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p>
+        <div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div>
+        <p>${advice}</p>
+      `;
+      summary.classList.add('show');
+      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, score: scored, total, percent, date: new Date().toISOString()
+      }));
+    }
+  </script>
+
+</body>
+</html>

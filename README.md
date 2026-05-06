@@ -1,2 +1,44 @@
-# hub-ia
-Learning center for corporate's agentic IA applications
+# Hub IA territorial
+
+Site de micro-learning sur les usages de l'IA en entreprise — programme **Quai Alpha × réseau Quest for Change**.
+
+🌐 **Site en ligne** : https://lumenbot.github.io/hub-ia/
+
+## V1.1 — Mai 2026
+
+18 modules courts (10-15 min de lecture) classés par niveau de complexité, avec un format pédagogique différencié selon le niveau :
+
+- 🟢 **N1-N3 Fondamentaux** — quiz 5 questions
+- 🟡 **N4-N6 Applications métier** — auto-diagnostic + plan d'action exportable (.txt)
+- 🔴 **N7-N8 Industrialisation** — étude de cas + checklist d'éligibilité pondérée
+
+## Structure
+
+```
+hub-ia/
+├── index.html              ← landing page (3 sections, 18 cards)
+├── css/style.css           ← design system unique
+├── modules/                ← une page par cas d'usage
+│   ├── cu-NNN-*.html       ← modules pédagogiques
+│   ├── _template-quiz.html             ← gabarit N1-N3
+│   ├── _template-auto-diagnostic.html  ← gabarit N4-N6
+│   └── _template-etude-de-cas.html     ← gabarit N7-N8
+└── .nojekyll               ← désactive Jekyll côté GitHub Pages
+```
+
+## Statut
+
+- ✅ 5 modules de référence publiés : CU-001, CU-002, CU-005, CU-013, CU-016
+- 🚧 13 modules en cours de production éditoriale (matière dans l'encyclopédie source)
+
+## Stack
+
+HTML5 + CSS3 + JS vanilla. Pas de framework, pas de build, pas de backend. Persistance des progressions via `localStorage` (clé `hubia_<module-id>`). Hébergement GitHub Pages.
+
+## Licence
+
+[MIT](LICENSE).
+
+---
+
+Un programme du **réseau Quest for Change**, porté opérationnellement par **Quai Alpha** (incubateur territorial des Vosges).

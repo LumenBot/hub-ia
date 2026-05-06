@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TITRE MODULE] — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Styles spécifiques au format auto-diagnostic */
+    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
+    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
+    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
+    .diag-question:last-of-type { border-bottom: none; }
+    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
+    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
+    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
+    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .diag-scale input[type="radio"] { margin-bottom: var(--space-2); }
+    .diag-scale input[type="radio"]:checked + .diag-scale-text { font-weight: 700; color: var(--color-primary); }
+    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
+    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
+    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; transition: border-color var(--transition-fast); }
+    .diag-textarea:focus { outline: none; border-color: var(--color-primary-light); }
+    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
+    .diag-result.show { display: block; }
+    .diag-result h3 { color: var(--color-primary); margin-bottom: var(--space-3); }
+    .diag-result-section { margin-bottom: var(--space-4); }
+    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
+    .diag-result-value { font-size: 1rem; }
+    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
+    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n2">🟡 Applications métier</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">[AXE]</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+      </div>
+      <h1>[EMOJI] [Titre du module]</h1>
+      <p class="module-subtitle">[Promesse pédagogique courte]</p>
+    </div>
+  </header>
+
+  <article class="module-content">
+    <h2>Ce que tu vas comprendre</h2>
+    <ul>
+      <li>[Apprentissage 1]</li>
+      <li>[Apprentissage 2]</li>
+      <li>[Apprentissage 3]</li>
+    </ul>
+
+    <h2>Le contexte</h2>
+    <p>[Description du contexte 2-3 paragraphes]</p>
+
+    <h2>Comment ça fonctionne</h2>
+    <p>[Description du fonctionnement, étapes-clés]</p>
+
+    <h2>Stack et outils</h2>
+    <p>[Outils principaux et alternatives]</p>
+
+    <h2>Les pièges à éviter</h2>
+    <p>[Limites et points de vigilance]</p>
+  </article>
+
+  <!-- AUTO-DIAGNOSTIC -->
+  <section class="diagnostic" id="diagnostic">
+    <h2>Auto-diagnostic & plan d'action</h2>
+    <p class="diagnostic-intro">
+      Au lieu d'un quiz, on te propose de te positionner sur ta propre situation et de formaliser un premier plan d'action concret. Tes réponses sont enregistrées localement (rien ne quitte ton navigateur) et tu peux les exporter à la fin.
+    </p>
+
+    <form id="diagForm">
+
+      <!-- Échelle de positionnement -->
+      <div class="diag-question">
+        <div class="diag-question-title">1. Où en es-tu actuellement sur cet usage de l'IA ?</div>
+        <div class="diag-scale">
+          <label><input type="radio" name="positionnement" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">J'ignore ce que c'est</span></label>
+          <label><input type="radio" name="positionnement" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">J'en ai entendu parler</span></label>
+          <label><input type="radio" name="positionnement" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">J'ai testé une fois</span></label>
+          <label><input type="radio" name="positionnement" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">J'utilise régulièrement</span></label>
+          <label><input type="radio" name="positionnement" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">C'est intégré à mon process</span></label>
+        </div>
+      </div>
+
+      <!-- Identification du cas concret -->
+      <div class="diag-question">
+        <div class="diag-question-title">2. Quel est le cas concret que tu pourrais commencer à explorer dans ton organisation ?</div>
+        <textarea class="diag-textarea" name="cas-concret" placeholder="Ex. : automatiser la rédaction de mes propositions commerciales pour les prospects industriels…"></textarea>
+      </div>
+
+      <!-- Frein principal -->
+      <div class="diag-question">
+        <div class="diag-question-title">3. Quel est ton principal frein actuel ?</div>
+        <div class="diag-scale" style="grid-template-columns: repeat(4, 1fr);">
+          <label><input type="radio" name="frein" value="competence"><span class="diag-scale-text">Compétence interne</span></label>
+          <label><input type="radio" name="frein" value="confidentialite"><span class="diag-scale-text">Confidentialité données</span></label>
+          <label><input type="radio" name="frein" value="cout"><span class="diag-scale-text">Coût / ROI incertain</span></label>
+          <label><input type="radio" name="frein" value="temps"><span class="diag-scale-text">Manque de temps</span></label>
+        </div>
+      </div>
+
+      <!-- Premier pas concret -->
+      <div class="diag-question">
+        <div class="diag-question-title">4. Quel premier pas concret peux-tu faire dans les 2 semaines à venir ?</div>
+        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : tester [outil] sur [cas concret] avec [collaborateur ou prestataire] avant fin de mois…"></textarea>
+      </div>
+
+      <!-- Indicateur de succès -->
+      <div class="diag-question">
+        <div class="diag-question-title">5. Comment sauras-tu que ça marche ? (1 indicateur observable)</div>
+        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : 30 min gagnées par devis, ou 5 propositions générées en 2 semaines…"></textarea>
+      </div>
+
+      <div class="diag-actions">
+        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
+        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
+      </div>
+
+    </form>
+
+    <div class="diag-result" id="diagResult"></div>
+
+  </section>
+
+  <!-- POUR ALLER PLUS LOIN -->
+  <section class="module-content">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li><a href="...">Module connexe 1</a></li>
+      <li><a href="...">Module connexe 2</a></li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moduleId = '[CU-XXX]'; // À remplacer par l'ID réel
+    const moduleName = '[Nom du module]';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const data = new FormData(form);
+      const positionnement = data.get('positionnement') || '—';
+      const casConcret = data.get('cas-concret') || '—';
+      const frein = data.get('frein') || '—';
+      const premierPas = data.get('premier-pas') || '—';
+      const indicateur = data.get('indicateur') || '—';
+
+      const result = document.getElementById('diagResult');
+      result.innerHTML = `
+        <h3>📋 Ton plan d'action — ${moduleName}</h3>
+        <div class="diag-result-section"><div class="diag-result-label">Positionnement actuel</div><div class="diag-result-value">${positionnement}/5</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Cas concret identifié</div><div class="diag-result-value">${casConcret}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Frein principal</div><div class="diag-result-value">${frein}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Premier pas (sous 2 semaines)</div><div class="diag-result-value">${premierPas}</div></div>
+        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès</div><div class="diag-result-value">${indicateur}</div></div>
+        <p style="margin-top:var(--space-4); color:var(--color-text-soft); font-style:italic;">Ce plan est sauvegardé localement dans ton navigateur. Tu peux l'exporter en .txt pour le partager ou le coller dans tes notes.</p>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('exportBtn').style.display = 'inline-flex';
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        positionnement, casConcret, frein, premierPas, indicateur,
+        date: new Date().toISOString()
+      }));
+    }
+
+    function exportPlan() {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
+      if (!data) return;
+      const txt = `Plan d'action — ${moduleName}
+Date : ${new Date(data.date).toLocaleDateString('fr-FR')}
+
+Positionnement actuel : ${data.positionnement}/5
+
+Cas concret identifié :
+${data.casConcret}
+
+Frein principal : ${data.frein}
+
+Premier pas (sous 2 semaines) :
+${data.premierPas}
+
+Indicateur de succès :
+${data.indicateur}
+
+— Hub IA territorial · ${moduleId}
+`;
+      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-${moduleId}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Rappeler le plan existant au chargement
+    window.addEventListener('DOMContentLoaded', () => {
+      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
+      if (data && data.completed) {
+        document.getElementById('exportBtn').style.display = 'inline-flex';
+      }
+    });
+  </script>
+
+</body>
+</html>
