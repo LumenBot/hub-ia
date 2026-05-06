@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrôle qualité par vision IA — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
+    .case-study h2 { color: var(--color-primary); }
+    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
+    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .checklist { margin-top: var(--space-6); }
+    .checklist-section { margin-bottom: var(--space-6); }
+    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
+    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
+    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
+    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
+    .checklist-item-content { flex: 1; }
+    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
+    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
+    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
+    .checklist-summary.show { display: block; }
+    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
+    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
+    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a><a href="../index.html#a-propos" class="nav-link">À propos</a></div></div></nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <div class="module-badges">
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Axe 5 — Production</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+      </div>
+      <h1>👁️ Contrôle qualité par vision IA</h1>
+      <p class="module-subtitle">
+        Détection automatique de défauts à cadence industrielle : papier, panneaux bois, textile, agroalimentaire. Taux de détection 95-99 %, ROI 12-18 mois pour un ETI sur ligne moyenne.
+      </p>
+    </div>
+  </header>
+
+  <article class="module-content">
+    <h2>Le cas</h2>
+    <p>Le contrôle qualité humain a quatre limites structurelles : vitesse de cadence, fatigue, subjectivité, coût. Le contrôle par vision IA adresse ces quatre limites simultanément. Il <strong>augmente</strong> typiquement le contrôle humain en première ligne, plutôt que de le remplacer totalement, sauf sur des process de très grande série.</p>
+    <p>Sur le territoire vosgien, les filières concernées sont multiples : papier (Norske Skog, Lucart, Clairefontaine), panneaux bois (Egger, NS-Weisrock), textile (Innothera, Bleu Forêt), plasturgie (Reborn, PTP Industry), agroalimentaire (Ermitage, Lactalis Marcillat).</p>
+
+    <h2>L'architecture</h2>
+    <ol>
+      <li><strong>Caméras industrielles</strong> placées en ligne ou hors ligne. Choix selon défaut : caméra couleur standard, hyperspectrale, caméra ligne (flux continus type bobines)</li>
+      <li><strong>Modèle de vision IA</strong> entraîné sur images de pièces conformes + images de défauts (toutes catégories)</li>
+      <li><strong>Inférence en ligne</strong> — chaque pièce analysée en temps réel. Verdict : OK / NOK + catégorie de défaut</li>
+      <li><strong>Action automatique</strong> — éjection, marquage, alerte opérateur, ralentissement ligne</li>
+      <li><strong>Boucle d'amélioration</strong> — pièces ambiguës validées par opérateur, enrichissement du dataset</li>
+    </ol>
+
+    <h2>Stack technique</h2>
+    <ul>
+      <li><strong>Solutions du marché</strong> : Cognex VisionPro, Keyence, Landing AI, Neurala</li>
+      <li><strong>Solutions françaises</strong> : Pollen Robotics, Wisecode</li>
+      <li><strong>Cloud / pre-built</strong> : AWS Rekognition, Azure Computer Vision, Google Vision (cas génériques)</li>
+      <li><strong>Custom open source</strong> : YOLO, MMDetection, PyTorch / TensorFlow (équipe data interne)</li>
+      <li><strong>Hardware</strong> : caméras industrielles (Basler, IDS), éclairage technique, edge computing (NVIDIA Jetson)</li>
+      <li><strong>Mistral Forge</strong> pour fine-tuner sur datasets propres à l'industriel</li>
+    </ul>
+
+    <h2>Indicateurs documentés</h2>
+    <ul>
+      <li><strong>Taux de détection</strong> : 95-99 % typique pour des cas matures</li>
+      <li><strong>Faux rejets</strong> : <1 % pour les systèmes bien calibrés</li>
+      <li><strong>Cadence</strong> : 100 à 1 000 pièces/seconde possible</li>
+      <li><strong>ROI</strong> : 12-18 mois pour un ETI sur ligne moyenne, 6-12 mois pour très grandes séries</li>
+      <li><strong>Réduction du coût qualité</strong> : 30-50 % typique</li>
+    </ul>
+
+    <h2>Limites et points de vigilance</h2>
+    <ul>
+      <li><strong>Volume initial d'images annotées</strong> — démarrer sans dataset est très difficile. Pour défauts rares, plusieurs mois de collecte initiale</li>
+      <li><strong>Drift du process</strong> — quand le process évolue (matière, paramètres), modèle peut perdre en performance. Re-calibration nécessaire</li>
+      <li><strong>Coût de mise en place</strong> — 30 à 200 K€ pour un système robuste, intégré et calibré</li>
+      <li><strong>Compétences internes</strong> — partenaires territoriaux : Atsora Solutions, NIN-IA, intégrateurs spécialisés</li>
+      <li><strong>AAP mobilisables</strong> : DECARB IND, Région Grand Est Compétitivité (jusqu'à 70 %), Pionniers IA</li>
+    </ul>
+  </article>
+
+  <section class="case-study" id="case-study">
+    <div class="case-context">
+      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité industrielle</div>
+      <p style="margin-bottom:0;">Conçu pour les ETI ou grands sites de production. Coche ce qui correspond à ta situation industrielle.</p>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-section">
+        <h3>1. Prérequis matériels et données</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Lignes de production avec contrôle qualité existant (humain ou basique)</div><div class="checklist-item-desc">Sans contrôle qualité dans le process actuel, l'IA ne peut pas être greffée — elle remplace ou augmente, jamais ne crée le besoin.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Volume de production justifiant l'investissement (>500 K€ annuel produit)</div><div class="checklist-item-desc">ROI 12-18 mois exige un volume minimum.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Conditions d'éclairage et positionnement maîtrisables</div><div class="checklist-item-desc">Si la pièce bouge dans tous les sens sous éclairage variable, la vision IA est plus difficile à fiabiliser.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Capacité à constituer un dataset d'images défauts</div><div class="checklist-item-desc">Plusieurs milliers d'images par catégorie de défaut. Pour défauts rares, accepter une phase de collecte préalable de 6-12 mois.</div></div></label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>2. Compétences et partenaires</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Référent qualité ou production identifié</div><div class="checklist-item-desc">Disponible 4-6h/semaine pour calibrer alertes et valider modèles.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Partenaire d'intégration identifié</div><div class="checklist-item-desc">Atsora Solutions (portefeuille QA), NIN-IA (alumni QFC), ou intégrateur spécialisé Cognex/Keyence.</div></div></label>
+      </div>
+
+      <div class="checklist-section">
+        <h3>3. Conditions financières</h3>
+        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Budget pluriannuel (50-200 K€) prévu ou candidat à un AAP</div><div class="checklist-item-desc">DECARB IND, Région Grand Est Compétitivité (jusqu'à 70 %), Pionniers IA.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Direction engagée comme sponsor</div><div class="checklist-item-desc">Le passage à l'échelle nécessite un appui hiérarchique fort.</div></div></label>
+        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Acceptation déploiement progressif (POC sur 1 ligne avant scale)</div><div class="checklist-item-desc">Pas de big bang. Itération sur 12-18 mois minimum.</div></div></label>
+      </div>
+
+      <div class="case-actions">
+        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité industrielle</button>
+      </div>
+    </div>
+
+    <div class="checklist-summary" id="caseSummary"></div>
+  </section>
+
+  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
+
+  <script>
+    const moduleId = 'cu-017';
+    function evaluateChecklist() {
+      const cb = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      let total = 0, scored = 0;
+      cb.forEach(c => { const w = parseInt(c.dataset.weight, 10) || 1; total += w; if (c.checked) scored += w; });
+      const percent = Math.round((scored / total) * 100);
+      let verdict, advice;
+      if (percent >= 75) { verdict = '✅ Éligibilité forte — projet structurant possible'; advice = 'Conditions réunies. Prochaine étape : prendre contact avec Atsora Solutions ou un intégrateur spécialisé pour cadrer un POC sur 1 ligne critique. Mobiliser en parallèle un AAP (DECARB IND, Région Compétitivité, Pionniers IA) pour le cofinancement.'; }
+      else if (percent >= 50) { verdict = '⚠️ Maturité partielle — à consolider'; advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Le plus fréquent : dataset d\'images insuffisant ou conditions d\'éclairage instables. Investir 3-6 mois dans la collecte d\'images structurée avant de lancer le projet IA. Le Cluster IA Grand Est ENACT et NIN-IA peuvent accompagner.'; }
+      else { verdict = '🔄 Prérequis à construire'; advice = 'Conditions pour un déploiement direct non réunies. Cela ne signifie pas « jamais » — cela signifie « pas encore ». Étapes : (1) standardiser le contrôle qualité actuel, (2) collecter le dataset images défauts pendant 6-12 mois, (3) revenir à ce module dans 12-18 mois.'; }
+      const summary = document.getElementById('caseSummary');
+      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
+      summary.classList.add('show');
+      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+    }
+  </script>
+</body>
+</html>
