@@ -3,196 +3,570 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pipeline contenu social automatisé — Hub IA territorial</title>
+  <title>Pipeline contenu social — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
-    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
-    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
-    .diag-question:last-of-type { border-bottom: none; }
-    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
-    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
-    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
-    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
-    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
-    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
-    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
-    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
-    .diag-result.show { display: block; }
-    .diag-result-section { margin-bottom: var(--space-4); }
-    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
-    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
-    .diag-export-btn:hover { background: var(--color-primary); color: white; }
-  </style>
+  <link rel="stylesheet" href="../css/module-v3.css">
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
         <a href="../index.html?axe=d#modules" class="card-badge axe-d">📈 Croissance</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
-      <h1>📱 Pipeline de production de contenu social automatisé</h1>
+      <h1>📲 Pipeline contenu social automatisé</h1>
       <p class="module-subtitle">
-        Système 4 agents IA en chaîne : recherche → idéation → rédaction (dans ta voix) → publication. Du sujet à la publication programmée sans intervention manuelle au-delà de la validation finale.
+        Une chaîne d'agents IA qui transforme un sujet en un post calibré sur ta voix de marque, prêt à publier. Idée → recherche → angle → rédaction → programmation, avec validation humaine au bout. Production passée de plusieurs heures à quelques minutes par publication.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>L'architecture multi-agents en chaîne pour produire du contenu social qualitatif</li>
-      <li>Comment calibrer la voix pour que le contenu ne « sente pas l'IA »</li>
-      <li>Les outils du marché et les patterns de la communauté ZHC</li>
-      <li>Les limites de l'automatisation marketing (shadow-ban, perte d'engagement, AI Act)</li>
-    </ul>
+  <div class="module-layout">
 
-    <h2>Le contexte</h2>
-    <p>La présence sociale est devenue un enjeu de visibilité commerciale et de recrutement même pour les PME/ETI traditionnelles. Mais produire 3-5 contenus par semaine demande un temps significatif (idéation, rédaction, programmation, suivi de performance). Le pattern multi-agents adresse ce verrou en automatisant le pipeline tout en préservant la voix de l'auteur.</p>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Architecture du pipeline</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Stack et outils</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#diagnostic"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h2>Architecture observée</h2>
-    <ol>
-      <li><strong>Saisie d'un sujet</strong> par l'humain (1 phrase ou 1 mot-clé)</li>
-      <li><strong>Agent 1 — Recherche</strong> : scrape les contenus récents les plus engageants sur le sujet, identifie angles dominants et controverses</li>
-      <li><strong>Agent 2 — Idéation</strong> : génère 3 à 5 angles d'accroche avec hooks différents</li>
-      <li><strong>Agent 3 — Rédaction</strong> : produit un draft <strong>dans la voix de l'auteur</strong> (calibrage préalable sur corpus de posts précédents)</li>
-      <li><strong>Agent 4 — Scheduling</strong> : envoie le draft validé vers Typefully / Buffer pour publication programmée</li>
-    </ol>
+    <main class="module-main">
 
-    <h2>Stack et outils</h2>
-    <ul>
-      <li><strong>Recherche</strong> : Perplexity, NotebookLM, scrape custom (Scrapling)</li>
-      <li><strong>Modèle de rédaction</strong> : Claude (apprécié pour le ton naturel), GPT-4, Mistral</li>
-      <li><strong>Calibrage de voix</strong> : corpus 20-30 posts précédents fournis en contexte (RAG simple) ou fine-tuning léger</li>
-      <li><strong>Scheduling</strong> : Typefully (X), Buffer, Hootsuite, Hypefury, Beehiiv (newsletter)</li>
-      <li><strong>Orchestration</strong> : n8n self-hosted recommandé</li>
-    </ul>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Une présence sociale régulière sans recruter de community manager</h2>
 
-    <h2>Les pièges à éviter</h2>
-    <ul>
-      <li><strong>Authenticité du ton</strong> : un calibrage insuffisant produit des posts « passables mais reconnaissables comme IA »</li>
-      <li><strong>Conformité plateforme</strong> : X notamment commence à mal tolérer le contenu IA en masse — risque de shadow-ban</li>
-      <li><strong>Hallucinations</strong> : l'agent recherche peut citer des chiffres faux. Vérifier avant publication</li>
-      <li><strong>AI Act — transparence</strong> sur le caractère assisté</li>
-    </ul>
-  </article>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Pattern à <strong>4 agents en chaîne</strong> (recherche, idéation, rédaction, scheduling) avec validation humaine obligatoire au bout. Production passée de plusieurs heures à <strong>quelques minutes par publication</strong>. Tu fournis un sujet, le pipeline produit un draft calibré sur ta voix, prêt à valider et programmer.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>Le différenciateur n'est pas la techno, c'est <strong>la voix calibrée sur 20-30 posts existants</strong>. Sans corpus solide en contexte, le pipeline produit du « passable mais reconnaissable comme IA », l'audience le perçoit, l'engagement chute. L'investissement amont = non négociable.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Conformité plateforme : <strong>shadow-ban X documenté</strong>, LinkedIn évolue dans le même sens. Garde-fous : limite à 3-5 posts/semaine en automatisé sur compte personnel, conserver au moins <strong>30 % de production purement humaine</strong>, mention « assisté par IA » comme bonne pratique préventive.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Pas d'auto-publication aveugle</strong>. Chaque draft passe une validation humaine de 3-5 minutes (ton, exactitude factuelle, alignement éditorial). C'est ce qui distingue une présence stratégique d'un flux indifférencié — discipline opérationnelle, pas une option.</p>
+            </div>
+          </div>
 
-  <section class="diagnostic" id="diagnostic">
-    <h2>Auto-diagnostic & plan d'action</h2>
-    <p class="diagnostic-intro">Positionne-toi sur ta présence sociale actuelle.</p>
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">4 agents</div><div class="exec-stat-label">En chaîne</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">20-30</div><div class="exec-stat-label">Posts corpus minimum</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">3-5 min</div><div class="exec-stat-label">Validation par post</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">25 min</div><div class="exec-stat-label">De lecture</div></div>
+          </div>
 
-    <form id="diagForm">
-      <div class="diag-question">
-        <div class="diag-question-title">1. Quelle est ta fréquence actuelle de publication sur le canal social principal ?</div>
-        <div class="diag-scale">
-          <label><input type="radio" name="frequence" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Jamais</span></label>
-          <label><input type="radio" name="frequence" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">Mensuelle</span></label>
-          <label><input type="radio" name="frequence" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">Hebdo</span></label>
-          <label><input type="radio" name="frequence" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">Plurihebdo</span></label>
-          <label><input type="radio" name="frequence" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Quotidienne</span></label>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu publies <strong>1-2 posts par semaine en bricolage</strong> et veux passer à 3-5 sans dégrader la qualité</li>
+              <li>Tu n'as <strong>jamais constitué un corpus de calibrage</strong> de voix de marque pour un assistant IA</li>
+              <li>Tu n'as pas de <strong>stratégie éditoriale formalisée</strong> (cible, thèmes-piliers, voix, fréquence)</li>
+              <li>Tu veux <strong>90 minutes</strong> pour configurer un pipeline minimal viable et tester sur 3 sujets réels</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="diag-question">
-        <div class="diag-question-title">2. As-tu un corpus suffisant de posts précédents pour calibrer la voix ?</div>
-        <div class="diag-scale" style="grid-template-columns: repeat(3, 1fr);">
-          <label><input type="radio" name="corpus" value="petit"><span class="diag-scale-text">Moins de 10 posts</span></label>
-          <label><input type="radio" name="corpus" value="moyen"><span class="diag-scale-text">10-30 posts</span></label>
-          <label><input type="radio" name="corpus" value="grand"><span class="diag-scale-text">Plus de 30 posts</span></label>
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
         </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Comprendre l'architecture d'un pipeline à 4 agents (recherche, idéation, rédaction, programmation) et son intérêt par rapport à un usage ChatGPT manuel</li>
+            <li>Calibrer la voix de marque sur un corpus de 20 à 30 posts existants pour éviter le syndrome « ça sent l'IA »</li>
+            <li>Configurer un workflow no-code (n8n, Make) qui industrialise la production sans déléguer la stratégie éditoriale</li>
+            <li>Verrouiller les points sensibles : authenticité du ton, conformité plateformes (shadow-ban X), hallucinations factuelles, transparence AI Act</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>La présence sociale est devenue un enjeu de visibilité commerciale et de recrutement, même pour les PME et ETI traditionnelles. Mais produire 3 à 5 contenus par semaine de manière régulière et qualitative demande un temps significatif — idéation, rédaction, programmation, suivi de performance — souvent indisponible chez les dirigeants. Résultat : une présence en pointillé qui ne génère ni notoriété ni leads.</p>
+        <p>Le pattern « pipeline à 4 agents en chaîne », documenté notamment dans la communauté ZHC Institute, transforme une intuition de sujet en contenu publié sans passer par les étapes manuelles intermédiaires. Tu fournis un sujet en une phrase ; le pipeline produit un draft calibré sur ta voix, prêt à être validé et programmé en file d'attente.</p>
+        <div class="pull-quote">
+          <p>Ce qui distingue un compte personnel d'un compte corporate générique, c'est le ton. Un pipeline mal calibré produit des posts « passables mais reconnaissables comme IA ». L'audience le perçoit, l'engagement chute, et le compte se discrédite. L'investissement amont — corpus de calibrage, prompts précis, relecture humaine — fait toute la différence.</p>
+        </div>
+        <p>Le pipeline est applicable autant aux <strong>startups B2B en go-to-market</strong> qu'aux <strong>PME/ETI industrielles</strong> qui doivent communiquer sur leurs innovations sans recruter de community manager dédié — papetiers, équipementiers, textile, agro. La matière technique dense est leur actif ; la mise en forme communicationnelle est leur point faible. Le pipeline résout exactement ce déséquilibre.</p>
+      </section>
+
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Architecture du pipeline</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar7" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+              <marker id="ar7green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/></marker>
+            </defs>
+            <rect x="20" y="40" width="170" height="80" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">SUJET</text>
+            <text x="105" y="93" text-anchor="middle" font-size="12" fill="#333">Une phrase</text>
+            <text x="105" y="110" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Saisie humaine</text>
+            <rect x="220" y="40" width="170" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="305" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">AGENT 1 — RECHERCHE</text>
+            <text x="305" y="93" text-anchor="middle" font-size="11" fill="#333">Posts engageants, angles,</text>
+            <text x="305" y="108" text-anchor="middle" font-size="11" fill="#333">controverses sur le sujet</text>
+            <rect x="420" y="40" width="170" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="505" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">AGENT 2 — IDÉATION</text>
+            <text x="505" y="93" text-anchor="middle" font-size="11" fill="#333">3 à 5 angles d'accroche</text>
+            <text x="505" y="108" text-anchor="middle" font-size="11" fill="#333">Hooks différenciés</text>
+            <rect x="620" y="40" width="170" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="705" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">AGENT 3 — RÉDACTION</text>
+            <text x="705" y="93" text-anchor="middle" font-size="11" fill="white">Draft dans la voix</text>
+            <text x="705" y="108" text-anchor="middle" font-size="11" fill="white">Calibrée sur corpus</text>
+            <rect x="320" y="180" width="280" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="460" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#2E5C2E">VALIDATION HUMAINE</text>
+            <text x="460" y="232" text-anchor="middle" font-size="12" fill="#333">Relecture, ajustement, GO/NO GO</text>
+            <text x="460" y="250" text-anchor="middle" font-size="11" fill="#2E5C2E" font-weight="600">Étape obligatoire — pas d'auto-publication aveugle</text>
+            <rect x="620" y="180" width="170" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="705" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">AGENT 4 — SCHEDULING</text>
+            <text x="705" y="232" text-anchor="middle" font-size="11" fill="#333">Typefully · Buffer</text>
+            <text x="705" y="248" text-anchor="middle" font-size="11" fill="#333">File d'attente</text>
+            <rect x="80" y="290" width="660" height="50" rx="8" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="410" y="312" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">PUBLICATION SUR PLATEFORMES</text>
+            <text x="410" y="330" text-anchor="middle" font-size="11" fill="#333">LinkedIn · X / Twitter · Instagram · TikTok selon stratégie</text>
+            <line x1="190" y1="80" x2="218" y2="80" stroke="#2E5395" stroke-width="3" marker-end="url(#ar7)"/>
+            <line x1="390" y1="80" x2="418" y2="80" stroke="#2E5395" stroke-width="3" marker-end="url(#ar7)"/>
+            <line x1="590" y1="80" x2="618" y2="80" stroke="#2E5395" stroke-width="3" marker-end="url(#ar7)"/>
+            <line x1="705" y1="120" x2="600" y2="178" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar7)"/>
+            <line x1="600" y1="220" x2="618" y2="220" stroke="#5C8C5C" stroke-width="3" marker-end="url(#ar7green)"/>
+            <line x1="705" y1="260" x2="705" y2="288" stroke="#2E5395" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#ar7)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">4 agents en chaîne (recherche, idéation, rédaction, scheduling) + une validation humaine obligatoire avant programmation. Pas d'auto-publication aveugle.</p>
+
+        <div class="alert-warning">
+          <div class="alert-warning-icon">⚠️</div>
+          <div class="alert-warning-content">
+            <strong>Attention conformité plateforme.</strong> Les plateformes (X notamment, et progressivement LinkedIn) tolèrent de moins en moins le contenu généré en masse. Le risque de shadow-ban est documenté. Limiter le volume publié en automatique, préserver une part de production purement humaine, et marquer le contenu comme assisté par IA quand approprié — c'est aussi une obligation AI Act émergente.
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. ÉTAPES -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les étapes en détail</h2>
+          </div>
+        </div>
+        <ol>
+          <li><strong>Saisie du sujet par l'humain.</strong> Une phrase ou un mot-clé suffisent. Exemples : « le piège du faux pilotage par la donnée », « onboarding d'un nouveau collaborateur en 2 semaines », « 3 erreurs qu'on a faites lors de notre premier salon ».</li>
+          <li><strong>Agent 1 — Recherche.</strong> Scrape les posts récents les plus engageants sur le sujet, identifie les angles dominants, repère les controverses ou contre-points. Donne à l'agent suivant une matière fraîche, pas la mémoire pré-entraînée du modèle.</li>
+          <li><strong>Agent 2 — Idéation.</strong> À partir de la matière fournie par l'Agent 1, génère 3 à 5 angles d'accroche avec des hooks différents : provocation, contre-pied, statistique marquante, anecdote personnelle, question rhétorique. Tu choisis l'angle qui te parle.</li>
+          <li><strong>Agent 3 — Rédaction.</strong> Produit un draft complet dans la voix de l'auteur. Le calibrage de voix est obtenu via un corpus de 20 à 30 posts existants fournis en contexte au modèle. Sortie : un post structuré (hook, développement, CTA si pertinent), longueur adaptée à la plateforme.</li>
+          <li><strong>Validation humaine.</strong> <strong>Étape obligatoire — pas d'auto-publication aveugle</strong>. Tu relis, tu ajustes le ton si nécessaire, tu vérifies les chiffres factuels, tu valides ou tu reprends. Compte 3 à 5 minutes par post.</li>
+          <li><strong>Agent 4 — Scheduling.</strong> Envoie le draft validé vers Typefully, Buffer ou le calendrier natif. Programmation au moment optimal (en fonction des heures de présence de ton audience).</li>
+          <li><strong>Boucle de mesure (optionnel).</strong> Les indicateurs de performance post-publication remontent dans la base de l'Agent 1, qui apprend quels sujets et quels angles fonctionnent réellement.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK ET OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Stack et outils</h2>
+          </div>
+        </div>
+
+        <h3>Recherche (Agent 1)</h3>
+        <p><strong>Perplexity</strong> est la solution la plus directe pour la recherche augmentée. <strong>NotebookLM</strong> permet d'interroger un corpus que tu fournis. Pour un scraping plus avancé sur des sites résistants ou pour pousser la veille sur des posts sociaux, <strong>Scrapling</strong> (cité par la communauté ZHC) ou des solutions custom via Apify peuvent être nécessaires.</p>
+
+        <h3>Idéation et rédaction (Agents 2-3)</h3>
+        <p><strong>Claude</strong> est apprécié pour son ton naturel et sa capacité à reproduire une voix de marque à partir d'un corpus. <strong>GPT-4 / GPT-5</strong> reste la référence robuste avec une large adoption. <strong>Mistral</strong> est l'option à privilégier pour les structures sensibles à la souveraineté EU ou aux données stratégiques.</p>
+
+        <h3>Calibrage de la voix de marque</h3>
+        <p>Méthode simple : fournir un corpus de 20 à 30 posts existants en contexte au modèle, avec une instruction claire (« Reproduis ce ton, cette structure, ce vocabulaire »). Méthode avancée : RAG sur ce corpus pour que le modèle pioche dynamiquement dans tes posts précédents. Méthode lourde : fine-tuning léger d'un modèle (à éviter pour la majorité des cas — coût/bénéfice rarement justifié).</p>
+
+        <h3>Outils de scheduling (Agent 4)</h3>
+        <p><strong>Typefully</strong> est la référence pour X / Twitter (programmation, threads, statistiques). <strong>Buffer</strong> et <strong>Hootsuite</strong> couvrent multi-plateformes (LinkedIn, X, Instagram, Facebook). <strong>Hypefury</strong> propose une approche centrée X avec automation poussée. <strong>Beehiiv</strong> pour les newsletters dérivées. Les calendriers natifs (LinkedIn, Meta Business Suite) sont gratuits et suffisants si tu publies sur 2-3 plateformes.</p>
+
+        <h3>Orchestration end-to-end</h3>
+        <p><strong>n8n</strong> en self-hosted est la solution recommandée pour la souveraineté et le coût. <strong>Make</strong> (ex-Integromat) et <strong>Zapier</strong> sont des alternatives no-code sans serveur, plus rapides à mettre en place mais avec un coût mensuel qui croît avec le volume.</p>
+
+        <h3>Prérequis</h3>
+        <p>Un corpus suffisant de 20 à 30 posts précédents pour le calibrage de voix (sans cela, le pipeline produit du contenu « passable mais reconnaissable comme IA »). Une compétence de configuration d'un workflow no-code (n8n, Make), ou un partenaire qui sait le faire pour toi. Un outil de scheduling avec API. Une stratégie éditoriale qui définit les sujets-piliers et la fréquence cible.</p>
+      </section>
+
+      <!-- 6. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
+
+        <p>Tu vas suivre les 4 étapes ci-dessous pour configurer un pipeline minimal viable. Compte 90 à 120 minutes pour le faire complètement, ou 15 minutes en lecture seule.</p>
+
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu publies <strong>1 à 2 posts par semaine sur LinkedIn</strong>, en bricolant entre rédaction directe et copier-coller depuis ChatGPT. Le ton n'est pas toujours stable, le rythme n'est pas tenu, et tu sens que tu pourrais en faire 3 à 4 par semaine si la production était mieux outillée. Objectif : configurer un mini-pipeline qui produit des drafts calibrés sur ta voix, à valider en 5 minutes, programmés automatiquement.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Constituer ton corpus de calibrage de voix</h4>
+            <p>Sélectionne 20 à 30 de tes meilleurs posts LinkedIn ou X — ceux qui sonnent le plus « toi ». Copie-les dans un seul fichier texte ou Markdown. Range les meilleurs en haut. <strong>Ce corpus est l'actif le plus important du pipeline</strong> — sans lui, l'IA produit du contenu corporate générique, avec lui, elle produit du contenu qui te ressemble.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>📁 Fichier corpus.md (20-30 posts) · 🛠️ Pas d'outil IA à cette étape</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un fichier corpus prêt à être utilisé en contexte par les modèles, qui définit ta voix de marque.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Configurer un projet Claude avec ton corpus</h4>
+            <p>Pour démarrer simple sans n8n, crée un projet dans <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> ou <a href="https://chat.openai.com" target="_blank" rel="noopener">ChatGPT</a>. Charge ton corpus dans le contexte. Ajoute un prompt système :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.875rem;">Tu es mon assistant rédactionnel pour LinkedIn. Tu produis des posts dans MA voix, calibrée sur le corpus joint. Pour chaque sujet que je te donne : (1) propose 3 angles d'accroche différents avec des hooks variés, (2) je te dis lequel développer, (3) tu rédiges un post complet de 800 à 1500 caractères, structuré (hook, développement en 3-4 paragraphes courts, CTA optionnel). Tu n'inventes JAMAIS de chiffres ou de citations — si tu as besoin d'un chiffre, tu me le demandes.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Claude Projects / ChatGPT Custom GPT · 📋 Prompt système avec garde-fous</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un assistant configuré qui produit des drafts calibrés sur ta voix, sans hallucination factuelle.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Tester le pipeline sur 3 sujets réels</h4>
+            <p>Choisis 3 sujets que tu voulais aborder cette semaine. Pour chacun : (1) saisis le sujet en 1 phrase, (2) reçois 3 angles, choisis-en 1, (3) reçois le draft, lis-le critique en main. Mesure le temps total : combien de minutes par post, du sujet au draft prêt à valider ? Compare au temps que tu mets habituellement.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Assistant configuré · ⏱️ Mesure temps de production</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>3 drafts prêts à valider, mesure objective du gain de temps. Si le ton sonne juste, tu peux passer à l'industrialisation. Sinon, retour à l'étape 1 pour enrichir le corpus.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Brancher le scheduling et automatiser le flux</h4>
+            <p>Une fois le ton stabilisé, ajoute la couche scheduling. Solution simple : valide les drafts directement dans le calendrier natif LinkedIn ou via <a href="https://buffer.com" target="_blank" rel="noopener">Buffer</a>. Solution avancée : configure un workflow <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> qui (1) déclenche l'Agent 1 sur un sujet déposé dans un Notion ou un Sheet, (2) enchaîne les agents 2 et 3, (3) pousse le draft dans Typefully en file d'attente avec un statut « à valider ». Tu interviens uniquement à la validation.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Buffer / Typefully · 🛠️ n8n (avancé)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un pipeline opérationnel qui produit 3 à 5 drafts par semaine en file d'attente, à valider en 5 min chacun avant publication.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu es passé d'une production de 1 à 2 posts par semaine bricolée à un pipeline qui produit 3 à 5 drafts calibrés sur ta voix, validés en 5 minutes chacun avant programmation. <strong>Le coût marginal d'un post supplémentaire est devenu négligeable</strong>. Ta présence sur les réseaux est régulière, ton ton est stable, et tu as récupéré le temps de te concentrer sur la stratégie éditoriale plutôt que sur la production. Important : tu n'as pas délégué la voix de marque à l'IA — tu lui as appris la tienne, et tu valides chaque sortie.</p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <h3>Le ton « passable mais reconnaissable comme IA »</h3>
+        <p>Un calibrage insuffisant produit des posts plats, génériques, à formules toutes faites. L'audience le perçoit, l'engagement chute, et le compte se discrédite progressivement. <strong>L'investissement amont sur le corpus de calibrage et la précision des prompts est non négociable</strong>. Sans corpus de 20-30 posts solides en contexte, ne pas industrialiser.</p>
+
+        <h3>Le risque de shadow-ban et la conformité plateforme</h3>
+        <p>X (Twitter) limite explicitement la portée des comptes identifiés comme producteurs de contenu IA en masse. LinkedIn évolue dans le même sens. <strong>Limiter le volume publié en automatique</strong> (3-5 posts par semaine maximum sur un compte personnel), <strong>préserver une part de production purement humaine</strong> (au moins 30 % du flux), et envisager la mention « assisté par IA » sur les contenus générés sont des bonnes pratiques préventives.</p>
+
+        <h3>Les hallucinations factuelles</h3>
+        <p>L'Agent 1 (recherche) peut citer des chiffres faux ou des sources qui n'existent pas. L'Agent 3 (rédaction) peut inventer des anecdotes ou des citations. <strong>Toujours vérifier les éléments factuels avant publication</strong>, particulièrement pour les contenus B2B où la rigueur est attendue. Garde-fou efficace : interdire explicitement dans le prompt de citer des chiffres ou des sources non fournis.</p>
+
+        <h3>La dépendance opérationnelle</h3>
+        <p>Un pipeline n8n complexe peut tomber en panne au mauvais moment (changement d'API, modèle déprécié, panne du modèle). <strong>Documenter le pipeline et garder une capacité de production manuelle de secours</strong>. Ne pas devenir totalement dépendant d'un système qui peut casser.</p>
+
+        <h3>Transparence AI Act</h3>
+        <p>Pour les contenus générés ou substantiellement assistés par IA, le règlement européen IA pousse vers une obligation de transparence. <strong>Mention « contenu rédigé avec assistance IA » dans le post ou dans la bio</strong> est une bonne pratique préventive, sans dégrader l'engagement si elle est intégrée naturellement.</p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="diagnostic">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🔎</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Auto-diagnostic — Es-tu prêt à industrialiser ta production sociale ?</h2>
+          </div>
+        </div>
+
+        <p>Réponds aux 6 questions suivantes pour évaluer ton point de départ et générer un plan d'action priorisé.</p>
+
+        <div class="diagnostic">
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Combien de posts publies-tu actuellement par semaine sur les réseaux pro ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>0 ou très ponctuellement</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>1 par semaine</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>2 à 3 par semaine</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>4+ par semaine</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Disposes-tu d'un corpus de posts existants pour calibrer la voix ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Moins de 10 posts</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>10 à 20 posts</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>20 à 50 posts</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Plus de 50 posts</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Le ton de tes publications actuelles est-il stable et identifiable ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Très variable, peu identifiable</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>En recherche</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>Stable, en cours de consolidation</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Stable et identifiable</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Combien de temps passes-tu actuellement à produire un post (idéation + rédaction) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Moins de 30 min</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>30 min à 1h</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>1 à 2h</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Plus de 2h</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. As-tu une compétence de configuration d'outils no-code (n8n, Make, Zapier) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Aucune</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Notion vague</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Bases utilisables</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Maîtrise opérationnelle</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Sur quelles plateformes veux-tu industrialiser ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>1 plateforme uniquement</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>2 plateformes</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>3 plateformes</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>4+ plateformes</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.linkedin.com/business/marketing/blog" target="_blank" rel="noopener">LinkedIn Marketing Blog</a><span class="resources-meta">LinkedIn — best practices officielles, dont les évolutions sur le contenu IA</span></li>
+            <li><a href="https://buffer.com/library" target="_blank" rel="noopener">Buffer Library — content automation</a><span class="resources-meta">Buffer — articles pratiques sur l'automatisation responsable de la production sociale</span></li>
+            <li><a href="https://hbr.org/topic/subject/social-media" target="_blank" rel="noopener">Harvard Business Review — Social Media</a><span class="resources-meta">HBR — analyses managériales sur la stratégie sociale et l'attention digitale</span></li>
+            <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a><span class="resources-meta">Commission européenne — obligations de transparence sur les contenus générés par IA</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=n8n+social+media+automation+tutorial" target="_blank" rel="noopener">n8n — automatisation publication sociale</a><span class="resources-meta">YouTube — workflows complets de production sociale automatisée</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=claude+linkedin+post+voice+brand" target="_blank" rel="noopener">Claude pour LinkedIn — calibrage voix de marque</a><span class="resources-meta">YouTube — démonstrations de calibrage avec corpus en contexte</span></li>
+            <li><a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Short Courses (Andrew Ng)</a><span class="resources-meta">Cours « Agentic AI » d'Andrew Ng — pattern multi-agents en chaîne</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a><span class="resources-meta">Plateforme d'orchestration self-hosted, recommandée pour la souveraineté</span></li>
+            <li><a href="https://typefully.com/api" target="_blank" rel="noopener">Typefully API</a><span class="resources-meta">API du scheduler X référence, pour automatisation programmatique</span></li>
+            <li><a href="https://buffer.com/developers" target="_blank" rel="noopener">Buffer Developers</a><span class="resources-meta">API Buffer pour intégration multi-plateformes</span></li>
+            <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/projects" target="_blank" rel="noopener">Claude Projects — documentation Anthropic</a><span class="resources-meta">Configuration d'assistants spécialisés avec corpus en contexte</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/marketing" target="_blank" rel="noopener">r/marketing sur Reddit</a><span class="resources-meta">Communauté marketing internationale, discussions sur l'automatisation sociale</span></li>
+            <li><a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a><span class="resources-meta">Communauté n8n, partage de workflows incluant des pipelines sociaux</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo"><span class="footer-title">Hub IA — Learning Center</span></div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
+    </div>
+  </footer>
 
-      <div class="diag-question">
-        <div class="diag-question-title">3. Quelle est ta thématique principale et ta cible ?</div>
-        <textarea class="diag-textarea" name="theme" placeholder="Ex. : innovation IA territoriale Vosges pour dirigeants PME et porteurs startups…"></textarea>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
-        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : extraire mes 20 derniers posts, calibrer un GPT custom sur ma voix, tester 5 publications semi-automatisées sur 2 semaines pour valider le ton…"></textarea>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">5. Comment mesureras-tu le succès dans 3 mois ?</div>
-        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : passer de 1 à 4 posts/semaine sans dégrader le taux d'engagement, ou augmenter de 30% le reach moyen…"></textarea>
-      </div>
-
-      <div class="diag-actions">
-        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
-        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
-      </div>
-    </form>
-
-    <div class="diag-result" id="diagResult"></div>
-  </section>
-
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-009-content-repurposing.html">Module connexe — Content repurposing</a></li>
-      <li><a href="cu-019-newsletter-locale.html">Module connexe — Newsletter locale automatisée</a></li>
-    </ul>
-  </article>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-010';
-    const moduleName = 'Pipeline contenu social automatisé';
 
     function generatePlan() {
       const form = document.getElementById('diagForm');
-      const data = new FormData(form);
-      const frequence = data.get('frequence') || '—';
-      const corpus = data.get('corpus') || '—';
-      const theme = data.get('theme') || '—';
-      const premierPas = data.get('premier-pas') || '—';
-      const indicateur = data.get('indicateur') || '—';
-
-      let priority;
-      if (corpus === 'petit') priority = 'Corpus insuffisant pour calibrer la voix : produire d\'abord 15-20 posts manuellement pour constituer la base de calibrage. Sans cela, le pipeline produit du contenu reconnaissable comme IA.';
-      else if (parseInt(frequence) >= 4) priority = 'Fréquence déjà élevée : tu maîtrises probablement déjà le rythme. L\'IA peut t\'aider à passer en quotidien sans perdre la qualité, ou libérer du temps pour la stratégie.';
-      else priority = 'Conditions favorables : démarrer par un POC avec calibrage voix sur le corpus existant, puis tester une fréquence accrue progressivement (semaine 1 = 2 posts/semaine, semaine 4 = 4 posts/semaine).';
-
       const result = document.getElementById('diagResult');
-      result.innerHTML = `<h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
-        <div class="diag-result-section"><div class="diag-result-label">Fréquence actuelle</div><div>Niveau ${frequence}/5</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Corpus de calibrage</div><div>${corpus}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Thématique / cible</div><div>${theme}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès (3 mois)</div><div>${indicateur}</div></div>`;
+      const answers = {};
+      let allAnswered = true;
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+      const opportunite = answers.d1 + answers.d4;
+
+      if (opportunite >= 4) actions.push({ prio: 'haute', titre: 'Lancer le pilote sous 2 semaines', desc: 'Volume actuel élevé et temps de production significatif : c\'est exactement la situation où le pipeline produit un ROI immédiat. Démarre par un Claude Projects ou ChatGPT Custom GPT calibré sur ton corpus, sans n8n. Mesure le gain sur 10 publications avant d\'industrialiser plus loin.' });
+      else if (opportunite >= 2) actions.push({ prio: 'moyenne', titre: 'Tester sur 3 posts avant de structurer', desc: 'Volume modéré : valide d\'abord la valeur sur 3 sujets en utilisant un assistant simple (Claude Projects). Si le ton est stable et le gain de temps mesurable, structure ensuite. Sinon, ajuste le corpus et recommence.' });
+      else actions.push({ prio: 'basse', titre: 'Démarrer par la régularité avant l\'industrialisation', desc: 'Activité actuelle faible : avant d\'industrialiser, installe une régularité de publication (1-2 posts par semaine) en mode manuel ou semi-assisté pendant 4 à 6 semaines. Tu auras un corpus suffisant et une voix stabilisée pour démarrer le pipeline.' });
+
+      if (answers.d2 <= 1) actions.push({ prio: 'haute', titre: 'Constituer ou enrichir le corpus de calibrage', desc: 'Sans corpus de 20-30 posts solides, le pipeline produira du contenu plat et reconnaissable comme IA. Avant tout outil : (1) sélectionne tes meilleurs posts existants, (2) si insuffisants, écris 10-15 posts manuellement sur 4-6 semaines pour étoffer la base, (3) range-les dans un fichier corpus dédié. C\'est le prérequis non négociable.' });
+      if (answers.d3 <= 1) actions.push({ prio: 'haute', titre: 'Stabiliser ta voix de marque avant d\'automatiser', desc: 'Si le ton est encore en recherche, l\'industrialisation amplifierait l\'incohérence. Travaille d\'abord 4-6 semaines en production manuelle pour fixer ta voix : 3 thèmes-piliers, 2-3 hooks récurrents, longueur typique. Puis seulement industrialise.' });
+      if (answers.d5 <= 1) actions.push({ prio: 'moyenne', titre: 'Démarrer en mode simple sans n8n', desc: 'Sans compétence n8n / Make, ne pas viser un pipeline complet d\'emblée. Démarre avec Claude Projects ou ChatGPT Custom GPT (5-10 minutes de config), passe par une validation manuelle dans Buffer ou le calendrier natif. Tu pourras passer à n8n dans 3-6 mois si la valeur est démontrée.' });
+      else if (answers.d5 >= 2) actions.push({ prio: 'moyenne', titre: 'Configurer un workflow n8n complet en 1-2 jours', desc: 'Avec ta compétence no-code, tu peux viser le pipeline complet à 4 agents en n8n (déploiement self-hosted recommandé pour souveraineté). Compte 1 à 2 jours pour la configuration, puis quelques heures par mois de maintenance.' });
+      if (answers.d6 >= 2) actions.push({ prio: 'moyenne', titre: 'Calibrer une voix par plateforme', desc: 'Tu cibles 3+ plateformes. Important : LinkedIn et X / Twitter ont des codes très différents (longueur, formalité, hooks). Ne pas reposter le même contenu mécaniquement. Configure un prompt distinct par plateforme, avec un sous-corpus dédié si possible.' });
+
+      actions.push({ prio: 'haute', titre: 'Limiter le volume publié et préserver la production humaine', desc: 'Pour éviter shadow-ban (X notamment) et préserver l\'authenticité : ne pas dépasser 3-5 posts par semaine en pipeline automatisé sur un compte personnel, et garder au moins 30 % de la production purement humaine. C\'est ce qui distingue une présence stratégique d\'un flux indifférencié.' });
+      actions.push({ prio: 'haute', titre: 'Verrouiller la validation humaine systématique', desc: 'Pas d\'auto-publication aveugle. Chaque draft passe par une relecture humaine de 3 à 5 minutes minimum : ton, exactitude factuelle, alignement éditorial. Documente cette règle comme une discipline opérationnelle, pas une option.' });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — pipeline complet pertinent';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — démarrage en mode simple recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      let html = `<div class="diag-score-box"><div class="diag-score-num">${maturite}%</div><div class="diag-score-label">${scoreLabel}</div></div><h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>`;
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+      actions.forEach((a, i) => html += `<div class="diag-action"><span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span><h4>${i+1}. ${a.titre}</h4><p>${a.desc}</p></div>`);
+      html += `<div class="diag-export"><button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button><button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button></div>`;
+      result.innerHTML = html;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      document.getElementById('exportBtn').style.display = 'inline-flex';
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, frequence, corpus, theme, priority, premierPas, indicateur, date: new Date().toISOString() }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, maturite, actions: actions.map(a => ({ prio: a.prio, titre: a.titre })), date: new Date().toISOString() }));
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
     }
 
-    function exportPlan() {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
-      if (!data) return;
-      const txt = `Plan d'action — ${moduleName}\nDate : ${new Date(data.date).toLocaleDateString('fr-FR')}\n\nFréquence actuelle : ${data.frequence}/5\nCorpus : ${data.corpus}\n\nThématique :\n${data.theme}\n\nRecommandation :\n${data.priority}\n\nPremier pas :\n${data.premierPas}\n\nIndicateur :\n${data.indicateur}\n\n— Hub IA territorial · ${moduleId}\n`;
-      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+      if (format === 'md') {
+        content += `# Plan d'action — Pipeline contenu social\n\n*Auto-diagnostic Hub IA — Learning Center — ${plan.date}*\n\n**Maturité éditoriale : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`);
+        content += `---\n\n*Plan généré par le module CU-010 du Hub IA — Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — PIPELINE CONTENU SOCIAL\nAuto-diagnostic Hub IA — Learning Center — ${plan.date}\n\nMaturite editoriale : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`);
+        content += `=========================================\nPlan genere par le module CU-010 du Hub IA — Learning Center — questforchange.eu\n`;
+      }
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `plan-${moduleId}.txt`; a.click();
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-action-pipeline-contenu-social.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
-      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
-    });
   </script>
+
 </body>
 </html>

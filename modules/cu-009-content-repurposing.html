@@ -3,204 +3,576 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content repurposing — Hub IA territorial</title>
+  <title>Content repurposing — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
-    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
-    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
-    .diag-question:last-of-type { border-bottom: none; }
-    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
-    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
-    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
-    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
-    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
-    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
-    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
-    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
-    .diag-result.show { display: block; }
-    .diag-result-section { margin-bottom: var(--space-4); }
-    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
-    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
-    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+    /* Bloc fan-out — spécifique CU-009 */
+    .fanout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .fanout-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); text-align: center; transition: border-color 0.15s ease; }
+    .fanout-card:hover { border-color: var(--color-primary-light); }
+    .fanout-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+    .fanout-card-title { font-weight: 600; color: var(--color-primary); font-size: 0.9375rem; margin-bottom: var(--space-1); }
+    .fanout-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
         <a href="../index.html?axe=c#modules" class="card-badge axe-c">🎨 Création</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d" style="opacity:0.7;">+ 📈 Croissance</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
-      <h1>🔁 Content repurposing</h1>
+      <h1>🎬 Content repurposing — du long format aux clips multi-canaux</h1>
       <p class="module-subtitle">
-        Transformer un contenu long (podcast, webinar, conférence) en clips, threads, posts multi-canaux automatisés. Tirer 20 livrables d'un même tournage de 60 minutes.
+        Transformer un contenu long (podcast, webinar, conférence, visite d'usine filmée) en 15 à 30 livrables dérivés multi-canaux : clips réseaux sociaux, posts LinkedIn, citations visuelles, transcripts indexables. Plus une heure de production = plus une publication, mais une présence sur l'ensemble de tes canaux pendant deux semaines.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Comment industrialiser la dérivation d'un contenu long en formats multi-canaux</li>
-      <li>Quels outils combiner (transcription, découpage, scripts dérivés, scheduling)</li>
-      <li>Pourquoi c'est particulièrement pertinent pour les filières où le storytelling matière apporte de la valeur</li>
-      <li>Les questions de droit à l'image et droit voisin à anticiper</li>
-    </ul>
+  <div class="module-layout">
 
-    <h2>Le contexte</h2>
-    <p>Beaucoup d'organisations produisent du contenu long sous-exploité (podcasts d'équipe, webinars, démos client, visites d'usine filmées) et n'ont pas la bande passante pour en tirer la valeur multi-canal. Le content repurposing IA résout ce verrou : <strong>un tournage de 60 minutes peut produire 20 livrables dérivés</strong> avec un effort humain limité à la sélection finale.</p>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Stack et outils</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#diagnostic"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <blockquote>
-      Particulièrement pertinent pour les filières vosgiennes avec dimension storytelling matière : textile, bois, agro, savoir-faire artisanaux. Une visite d'usine filmée = clips d'expertise + témoignages + processus + citations dirigeants + transcripts indexables.
-    </blockquote>
+    <main class="module-main">
 
-    <h2>Architecture type</h2>
-    <ol>
-      <li><strong>Ingestion / transcription</strong> — Whisper (OpenAI), AssemblyAI, NotebookLM</li>
-      <li><strong>Identification des moments-clés</strong> — modèles vidéo type Synta.io</li>
-      <li><strong>Génération de scripts dérivés</strong> — Claude / GPT-4 pour transformation contextuelle</li>
-      <li><strong>Génération de visuels associés</strong> — Gamma (présentations), HeyGen (vidéos avatars), ElevenLabs (voix)</li>
-      <li><strong>Distribution / scheduling</strong> — Typefully, Buffer, Hootsuite, calendriers natifs LinkedIn</li>
-      <li><strong>Orchestration</strong> — n8n self-hosted recommandé</li>
-    </ol>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Une heure de matière brute = 3 semaines de présence multi-canale</h2>
 
-    <h2>Stack et outils</h2>
-    <ul>
-      <li><strong>Transcription</strong> : Whisper, AssemblyAI, NotebookLM</li>
-      <li><strong>Découpage vidéo</strong> : Synta.io (édition sélective IA)</li>
-      <li><strong>Génération scripts</strong> : Claude (qualité ton), GPT-4, Mistral</li>
-      <li><strong>Visuels</strong> : Gamma, HeyGen, ElevenLabs, fal (image API)</li>
-      <li><strong>Scheduling</strong> : Typefully, Buffer, Beehiiv (newsletter)</li>
-      <li><strong>Orchestration</strong> : n8n self-hosted</li>
-    </ul>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Une heure de matériau brut bien exploitée produit <strong>15 à 30 livrables différents</strong> (clips courts, posts longs, citations, transcript, résumé exécutif, audio découpé) sur <strong>2 à 4 semaines de présence</strong>. Le coût marginal d'un livrable supplémentaire devient quasi nul.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>Pattern à 3 dimensions : <strong>transcription automatique</strong> (Whisper, AssemblyAI, NotebookLM) + <strong>sélection IA des moments-clés</strong> (Claude, GPT) + <strong>génération multi-formats</strong> (CapCut, Canva, Buffer). Tu peux démarrer 100 % gratuit ou viser 50-200 €/mois pour gagner du temps aval.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Le shift mental : <strong>la vraie question n'est plus « est-ce qu'on a le temps de tirer la valeur » mais « est-ce qu'on a la stratégie éditoriale pour le mériter »</strong>. Le repurposing accélère la production, pas la pertinence éditoriale. Voix de marque et angle = vrai différenciateur.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>4 vigilances : <strong>banalisation visuelle</strong> si tout le monde adopte le même pattern, <strong>qualité de la source</strong> (vidéo plate = 18 livrables plats), <strong>droit à l'image</strong> des intervenants (consentement explicite obligatoire), <strong>avatars/voix synthétiques</strong> (HeyGen, ElevenLabs) qui demandent consentement explicite.</p>
+            </div>
+          </div>
 
-    <h2>Les pièges à éviter</h2>
-    <ul>
-      <li><strong>Qualité du découpage variable</strong> selon le matériau source — un tournage chaotique reste chaotique</li>
-      <li><strong>Banalisation visuelle</strong> si tous les acteurs adoptent le même pattern</li>
-      <li><strong>Droit à l'image</strong> et droit voisin pour les intervenants externes</li>
-      <li><strong>AI Act — transparence</strong> sur le caractère IA-assisté du contenu</li>
-    </ul>
-  </article>
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">15-30</div><div class="exec-stat-label">Livrables / 1h source</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">2-4 sem.</div><div class="exec-stat-label">Présence multi-canale</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">0 €</div><div class="exec-stat-label">Démarrage gratuit</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">25 min</div><div class="exec-stat-label">De lecture</div></div>
+          </div>
 
-  <section class="diagnostic" id="diagnostic">
-    <h2>Auto-diagnostic & plan d'action</h2>
-    <p class="diagnostic-intro">Positionne-toi sur tes contenus existants et formalise un plan d'exploitation.</p>
-
-    <form id="diagForm">
-      <div class="diag-question">
-        <div class="diag-question-title">1. Combien de contenus longs (>15 min) produis-tu par mois ?</div>
-        <div class="diag-scale">
-          <label><input type="radio" name="volume" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Aucun</span></label>
-          <label><input type="radio" name="volume" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">1-2</span></label>
-          <label><input type="radio" name="volume" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">3-5</span></label>
-          <label><input type="radio" name="volume" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">6-15</span></label>
-          <label><input type="radio" name="volume" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Plus de 15</span></label>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu produis <strong>1 ou plusieurs contenus longs par mois</strong> (podcast, webinar, démo, conférence) sous-exploités</li>
+              <li>Tu as une <strong>présence sociale en pointillé</strong> faute de bande passante de production</li>
+              <li>Tu n'as <strong>jamais formalisé une stratégie éditoriale</strong> ni un workflow de fan-out</li>
+              <li>Tu veux <strong>90 minutes</strong> pour transformer une vidéo en 12-18 livrables programmés sur 3 semaines</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="diag-question">
-        <div class="diag-question-title">2. Quels canaux de distribution as-tu déjà actifs ?</div>
-        <textarea class="diag-textarea" name="canaux" placeholder="Ex. : LinkedIn entreprise, page Facebook, newsletter Mailchimp, chaîne YouTube…"></textarea>
-      </div>
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Identifier les contenus longs sous-exploités dans ton organisation et estimer leur potentiel de fan-out</li>
+            <li>Configurer un pipeline transcription → sélection des moments-clés → génération de dérivés, en partant d'outils gratuits ou peu coûteux</li>
+            <li>Multiplier par 5 à 10 le nombre de livrables produits à partir d'un même tournage, sans dégrader la qualité ni industrialiser le faux-semblant</li>
+            <li>Verrouiller les points juridiques sensibles : droit à l'image des intervenants, droit voisin sur les sources externes, banalisation visuelle</li>
+          </ul>
+        </div>
+      </section>
 
-      <div class="diag-question">
-        <div class="diag-question-title">3. Quel est le contenu long le plus exploitable que tu as actuellement ?</div>
-        <textarea class="diag-textarea" name="contenu" placeholder="Ex. : 4 webinars produits l'année dernière non exploités au-delà du visionnage live…"></textarea>
-      </div>
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>Beaucoup d'organisations produisent du contenu long sous-exploité. Une startup enregistre un podcast d'équipe qui finit en URL oubliée. Un dirigeant industriel filme une visite d'usine pour un client et l'archive. Un cabinet conseil donne une conférence devant 30 personnes et n'en tire qu'un compte-rendu PDF. Pourtant, <strong>une heure de matériau brut bien exploitée peut produire 15 à 30 livrables différents</strong> — clips courts, posts, citations visuelles, transcripts, threads — sur 2 à 4 semaines de présence multi-canale.</p>
+        <p>Le pattern « Content Repurposing Engine » — décrit notamment dans la communauté ZHC Institute — consiste à industrialiser ce fan-out grâce à une chaîne IA : transcription automatique, sélection des moments-clés, génération des scripts dérivés adaptés à chaque format et chaque plateforme, programmation automatique de la publication. Le coût de production marginal d'un livrable supplémentaire devient quasi nul.</p>
+        <div class="pull-quote">
+          <p>Le bon contenu ne se mesure pas en quantité produite mais en présence soutenue dans l'attention de ta cible. Le repurposing transforme un événement ponctuel en feuilleton. Une visite d'usine filmée en 1h peut nourrir 3 semaines de contenu réseaux.</p>
+        </div>
+        <p>Pour les <strong>startups en go-to-market</strong>, c'est un outil de visibilité multi-canal sans recruter un community manager dédié. Pour les <strong>PME et ETI</strong>, c'est l'occasion de valoriser le storytelling matière, produit ou patrimoine — particulièrement pertinent pour les filières où le savoir-faire fait la différence (textile, agro, bois, industrie de précision).</p>
 
-      <div class="diag-question">
-        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
-        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : prendre 1 webinar de 60 min, le faire transcrire via Whisper, demander à Claude 5 angles d'extraction et tester sur LinkedIn…"></textarea>
-      </div>
+        <h3>Ce qu'on tire d'1 heure de matériau brut</h3>
+        <div class="fanout-grid">
+          <div class="fanout-card"><div class="fanout-card-icon">🎥</div><div class="fanout-card-title">5 à 8 clips courts</div><div class="fanout-card-desc">30s à 90s pour LinkedIn, Instagram, TikTok, YouTube Shorts</div></div>
+          <div class="fanout-card"><div class="fanout-card-icon">📝</div><div class="fanout-card-title">3 à 5 posts longs</div><div class="fanout-card-desc">LinkedIn carrousel, post texte, thread X/Twitter</div></div>
+          <div class="fanout-card"><div class="fanout-card-icon">💬</div><div class="fanout-card-title">10 à 15 citations</div><div class="fanout-card-desc">Visuels avec quote-cards pour réseaux sociaux</div></div>
+          <div class="fanout-card"><div class="fanout-card-icon">📄</div><div class="fanout-card-title">1 transcript indexable</div><div class="fanout-card-desc">Article de fond pour le blog ou la newsletter, SEO</div></div>
+          <div class="fanout-card"><div class="fanout-card-icon">📊</div><div class="fanout-card-title">1 résumé exécutif</div><div class="fanout-card-desc">2 à 3 paragraphes pour mailing client ou prospect</div></div>
+          <div class="fanout-card"><div class="fanout-card-icon">🎙️</div><div class="fanout-card-title">Audio découpé</div><div class="fanout-card-desc">Extraits podcast, snippets pour la newsletter</div></div>
+        </div>
+      </section>
 
-      <div class="diag-question">
-        <div class="diag-question-title">5. Comment mesureras-tu le succès dans 3 mois ?</div>
-        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : passer de 0 à 30 posts dérivés par mois, ou doubler le reach LinkedIn organique…"></textarea>
-      </div>
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs><marker id="ar6" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker></defs>
+            <rect x="20" y="140" width="170" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — SOURCE</text>
+            <text x="105" y="193" text-anchor="middle" font-size="12" fill="#333">Podcast · webinar</text>
+            <text x="105" y="210" text-anchor="middle" font-size="12" fill="#333">Conférence · vidéo</text>
+            <text x="105" y="227" text-anchor="middle" font-size="11" fill="#666" font-style="italic">30 min à 2h</text>
+            <rect x="220" y="140" width="170" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="305" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">2 — TRANSCRIPTION</text>
+            <text x="305" y="193" text-anchor="middle" font-size="12" fill="#333">Whisper · AssemblyAI</text>
+            <text x="305" y="210" text-anchor="middle" font-size="12" fill="#333">Texte horodaté</text>
+            <rect x="420" y="140" width="170" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="505" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">3 — SÉLECTION</text>
+            <text x="505" y="193" text-anchor="middle" font-size="12" fill="white">Modèle IA détecte</text>
+            <text x="505" y="210" text-anchor="middle" font-size="12" fill="white">les moments forts</text>
+            <rect x="620" y="40" width="180" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="710" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#4A3A8C">4a — CLIPS VIDÉO</text>
+            <text x="710" y="88" text-anchor="middle" font-size="11" fill="#333">Synta · CapCut</text>
+            <text x="710" y="105" text-anchor="middle" font-size="11" fill="#333">Sous-titrés auto</text>
+            <rect x="620" y="140" width="180" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="710" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#8C5410">4b — POSTS / THREADS</text>
+            <text x="710" y="188" text-anchor="middle" font-size="11" fill="#333">Claude · GPT</text>
+            <text x="710" y="205" text-anchor="middle" font-size="11" fill="#333">LinkedIn · X</text>
+            <rect x="620" y="240" width="180" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="710" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">4c — VISUELS / QUOTES</text>
+            <text x="710" y="288" text-anchor="middle" font-size="11" fill="#333">Gamma · Canva</text>
+            <text x="710" y="305" text-anchor="middle" font-size="11" fill="#333">Quote-cards</text>
+            <line x1="190" y1="190" x2="218" y2="190" stroke="#2E5395" stroke-width="3" marker-end="url(#ar6)"/>
+            <line x1="390" y1="190" x2="418" y2="190" stroke="#2E5395" stroke-width="3" marker-end="url(#ar6)"/>
+            <line x1="590" y1="190" x2="618" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar6)"/>
+            <line x1="590" y1="190" x2="618" y2="180" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar6)"/>
+            <line x1="590" y1="190" x2="618" y2="280" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar6)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">Source longue → transcription → sélection IA des moments forts → fan-out vers clips vidéo, posts/threads textuels, visuels et quotes.</p>
+      </section>
 
-      <div class="diag-actions">
-        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
-        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
-      </div>
-    </form>
+      <!-- 4. ÉTAPES -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les étapes en détail</h2>
+          </div>
+        </div>
+        <ol>
+          <li><strong>Capter le matériau brut.</strong> Podcast, webinar, conférence, démo client filmée, visite d'usine, table ronde interne. Qualité audio correcte (microphone-cravate, salle calme), bonne lumière si vidéo. Mieux vaut 30 minutes propres que 2 heures bruyantes.</li>
+          <li><strong>Transcrire.</strong> Whisper (OpenAI), AssemblyAI ou la transcription native de NotebookLM produisent un texte horodaté avec une précision excellente sur le français. Pour les sujets très techniques, prévoir 15-30 minutes de relecture humaine pour corriger les termes spécifiques.</li>
+          <li><strong>Sélectionner les moments-clés.</strong> Un modèle IA (Claude, GPT) lit le transcript et identifie les passages à fort potentiel : phrases percutantes, exemples concrets, contre-intuitions, données chiffrées marquantes. C'est la couche éditoriale, et elle reste perfectible — une relecture humaine permet d'éliminer les faux positifs.</li>
+          <li><strong>Découper et formater par canal.</strong> Chaque moment-clé devient un livrable adapté au format cible : clip vidéo de 30 à 90 secondes avec sous-titres pour LinkedIn / Instagram, post texte structuré pour LinkedIn, thread pour X, citation isolée pour quote-card, paragraphe pour newsletter.</li>
+          <li><strong>Programmer la diffusion.</strong> Étaler les publications sur 2 à 4 semaines via Buffer, Hootsuite, Typefully ou les calendriers natifs des plateformes. <strong>Une publication tous les 2-3 jours est plus efficace qu'une rafale en une journée</strong> — l'algorithme et l'audience préfèrent la régularité.</li>
+          <li><strong>Boucle de mesure.</strong> Suivre engagement par format, taux de clics, taux de conversion (si CTA) sur 30 jours. Identifier les formats qui performent le mieux pour itérer sur le prochain cycle.</li>
+        </ol>
+      </section>
 
-    <div class="diag-result" id="diagResult"></div>
-  </section>
+      <!-- 5. STACK ET OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Stack et outils</h2>
+          </div>
+        </div>
 
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-010-pipeline-contenu-social.html">Module connexe — Pipeline contenu social</a></li>
-      <li><a href="cu-019-newsletter-locale.html">Module connexe — Newsletter locale automatisée</a></li>
-    </ul>
-  </article>
+        <h3>Transcription</h3>
+        <p><strong>Whisper</strong> (OpenAI, open source) reste la référence en qualité française. Disponible en API ou en déploiement local. <strong>AssemblyAI</strong> propose une API SaaS avec features avancées (détection de speakers, classification). <strong>NotebookLM</strong> intègre la transcription pour les usages individuels, sans configuration technique.</p>
+
+        <h3>Sélection des moments-clés et génération de scripts</h3>
+        <p><strong>Claude</strong> et <strong>GPT-4 / GPT-5</strong> font le travail de lecture et de sélection éditoriale. Pour de la sélection vidéo plus avancée, <strong>Synta.io</strong> (cité dans la communauté ZHC) propose une approche orientée édition automatique par compréhension du contenu.</p>
+
+        <h3>Production visuelle</h3>
+        <p><strong>CapCut</strong> et <strong>Descript</strong> gèrent l'édition vidéo avec sous-titrage automatique et découpage par texte. <strong>Gamma</strong> produit des présentations dérivées d'un script. <strong>Canva</strong> reste l'outil le plus accessible pour les quote-cards et visuels statiques. <strong>HeyGen</strong> et <strong>ElevenLabs</strong> permettent de générer voix et avatars — usage à manier avec précaution juridique (cf. droit à l'image).</p>
+
+        <h3>Distribution et programmation</h3>
+        <p><strong>Typefully</strong> est la référence pour X / Twitter (programmation, threads). <strong>Buffer</strong> et <strong>Hootsuite</strong> gèrent multi-plateformes (LinkedIn, X, Instagram, Facebook). Les calendriers natifs LinkedIn et Meta Business Suite sont gratuits et suffisants si tu publies sur 2-3 plateformes seulement.</p>
+
+        <h3>Orchestration end-to-end</h3>
+        <p>Pour automatiser le pipeline complet (« nouvelle vidéo dans le Drive → transcription → génération scripts → programmation »), <strong>n8n</strong> en mode self-hosted est la solution la plus pragmatique. <strong>Make</strong> (ex-Integromat) ou <strong>Zapier</strong> sont des alternatives no-code sans serveur.</p>
+
+        <h3>Prérequis</h3>
+        <p>Une stratégie éditoriale au moins esquissée (sur quels canaux, à quelle fréquence, pour quelle audience). Une licence claire sur le matériau source — notamment droit à l'image des intervenants si vidéo. Un référent qui supervise la cohérence éditoriale (le pipeline IA produit, l'humain choisit ce qui sort). Un budget transcription/édition mensuel à anticiper (typiquement 50-200 €/mois pour un volume modéré).</p>
+      </section>
+
+      <!-- 6. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
+
+        <p>Tu vas suivre les 4 étapes ci-dessous pour transformer une vidéo source de 45 minutes en 12 à 18 livrables. Compte 90 minutes pour faire l'exercice complet.</p>
+
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu as <strong>une vidéo source de 45 minutes</strong> — webinar client, table ronde interne, démo produit, ou interview équipe. Tu veux en tirer du contenu social pour les 3 semaines à venir, sur LinkedIn principalement, avec quelques posts X / Twitter et 2-3 citations visuelles. Objectif : 12 à 18 livrables programmés en sortie de cette session.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Transcrire avec Whisper ou NotebookLM</h4>
+            <p>Pour un usage individuel rapide, charge la vidéo dans <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a> (transcription native). Pour un contrôle plus fin, utilise <a href="https://github.com/openai/whisper" target="_blank" rel="noopener">Whisper</a> en local (gratuit) ou via une interface comme <a href="https://www.descript.com" target="_blank" rel="noopener">Descript</a> (payant mais pratique). Récupère un texte horodaté.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ NotebookLM (gratuit) · 🛠️ Whisper local (gratuit) · 🛠️ Descript (payant)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un transcript texte de 8 à 12 pages, avec horodatage, qui fixe la matière brute exploitable.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Faire sélectionner les moments-clés par Claude</h4>
+            <p>Dans <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>, charge le transcript et utilise ce prompt :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.875rem;">À partir de ce transcript, identifie 8 à 10 moments forts que je peux extraire pour des publications sur les réseaux sociaux. Pour chaque moment : (1) timing début-fin, (2) phrase pivot ou idée centrale, (3) format suggéré (clip vidéo court / post LinkedIn long / thread X / citation visuelle), (4) accroche d'attention en 1 phrase pour ouvrir le contenu. Privilégie les contre-intuitions, les exemples concrets et les chiffres marquants.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Claude / GPT-4 · 📝 Prompt structuré</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Une grille de 8 à 10 moments à exploiter, chacun classé par format cible. C'est la base éditoriale du fan-out.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Générer et formater chaque livrable</h4>
+            <p>Pour chaque moment retenu, génère le livrable adapté :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;"><strong>Clips vidéo :</strong> découpe sur les timings dans CapCut ou Descript, ajoute des sous-titres automatiques, format vertical 9:16 pour mobile.<br><br><strong>Posts LinkedIn :</strong> demande à Claude de transformer chaque moment en post LinkedIn structuré (accroche, développement en 3-4 paragraphes, CTA).<br><br><strong>Citations :</strong> exporte 3-5 citations marquantes en quote-cards via Canva (template à 1080×1080 ou 1080×1350).<br><br><strong>Article newsletter :</strong> demande à Claude un résumé éditorial de 600-800 mots du contenu source, à publier sur le blog ou la newsletter.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ CapCut / Descript · 🛠️ Canva · 🛠️ Claude</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>12 à 18 livrables prêts à programmer — clips, posts, quotes, article. Compte 1h à 1h30 de production effective avec ces outils.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Programmer sur 3 semaines avec Buffer</h4>
+            <p>Crée un calendrier de publication étalé : 1 publication tous les 2-3 jours, mix de formats (clip vidéo + post long + quote en alternance). Programme dans <a href="https://buffer.com" target="_blank" rel="noopener">Buffer</a> ou directement dans le calendrier natif LinkedIn. Pour X / Twitter, <a href="https://typefully.com" target="_blank" rel="noopener">Typefully</a> est mieux adapté (gestion des threads). Documente la séquence dans un Notion ou un Google Sheet pour mesurer après coup.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Buffer (multi-plateforme) · 🛠️ Typefully (X) · 🛠️ LinkedIn natif</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un calendrier de 3 semaines de présence multi-canale, programmé et automatique. Plus rien à faire pendant 21 jours sauf les réponses aux commentaires.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu as transformé 45 minutes de matériau brut en 3 semaines de présence multi-canale, avec 12 à 18 livrables différents. Avant l'IA, tirer cette valeur d'une seule vidéo aurait demandé 2 à 3 jours de community management. Avec ce pipeline, c'est 90 minutes à 2 heures de production. <strong>Le coût de production marginal d'un livrable supplémentaire est devenu quasi nul</strong> — la vraie question n'est plus « est-ce qu'on a le temps de tirer la valeur » mais « est-ce qu'on a la stratégie éditoriale pour le mériter ».</p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <h3>La banalisation visuelle</h3>
+        <p>Si tous les acteurs d'un secteur adoptent le même pattern (mêmes templates de clips, mêmes formats de posts, mêmes quote-cards), le flux LinkedIn s'uniformise et l'attention s'érode. <strong>Le repurposing accélère la production, pas la pertinence éditoriale</strong>. Investir sur la voix de marque et l'angle éditorial reste le vrai différenciateur.</p>
+
+        <h3>La qualité de la source détermine tout</h3>
+        <p>Une vidéo plate produit 18 livrables plats. <strong>Investir sur le matériau source — préparation des intervenants, qualité audio/vidéo, structuration narrative — apporte plus de valeur que d'optimiser la chaîne de production aval</strong>. Un podcast bien préparé d'1h vaut mieux que 3h de matière brute non scénarisée.</p>
+
+        <h3>Droit à l'image et droit voisin</h3>
+        <p>Si la source contient des intervenants, <strong>le consentement explicite à la diffusion sur les réseaux est obligatoire</strong>. Pour les visites d'usine, le client / l'hôte doit avoir validé. Pour les conférences, vérifier que l'inscription couvre la captation et la rediffusion. Pour les intervenants externes, un accord écrit est recommandé.</p>
+
+        <h3>Le tone deaf — IA qui rate la nuance</h3>
+        <p>Les modèles IA peuvent générer des accroches qui sonnent fausses ou inappropriées au contexte (humour mal calibré, formules trop génériques, sur-promesse marketing). <strong>Toujours relire chaque livrable avant programmation</strong>. Le pipeline produit, l'humain valide.</p>
+
+        <h3>Avatars et voix synthétiques</h3>
+        <p>Les outils comme <strong>HeyGen</strong> ou <strong>ElevenLabs</strong> permettent de générer des avatars vidéo et des voix synthétiques. Cloner une voix ou un visage réel <strong>nécessite le consentement explicite</strong> de la personne concernée — c'est une obligation juridique, pas une bonne pratique. Pour la com d'entreprise, signaler le caractère assisté ou synthétique du contenu est une bonne pratique préventive.</p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="diagnostic">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🔎</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Auto-diagnostic — As-tu de la matière à industrialiser ?</h2>
+          </div>
+        </div>
+
+        <p>Réponds aux 6 questions suivantes pour évaluer le potentiel de ton activité en repurposing et générer un plan d'action priorisé.</p>
+
+        <div class="diagnostic">
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Combien de contenus longs (vidéo, podcast, conférence) produis-tu par mois ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>0 ou très ponctuellement</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>1 par mois</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>2 à 4 par mois</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Plus de 4 par mois</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. As-tu une stratégie éditoriale réseaux sociaux formalisée ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Aucune</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>Implicite, dans la tête</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>Esquissée, à finaliser</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Documentée et tenue</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Sur combien de canaux veux-tu être présent activement ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>1 canal</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>2 canaux</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>3 à 4 canaux</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>5+ canaux</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Qui produit aujourd'hui ton contenu social ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Personne / sporadique</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Toi / le dirigeant</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Un référent en interne</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Une équipe dédiée</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. As-tu validé les droits à l'image de tes intervenants potentiels ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Pas du tout</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Implicite, oral</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Mention dans inscriptions</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Cession écrite formalisée</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Quel budget mensuel peux-tu allouer aux outils de repurposing ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>0 € (gratuits uniquement)</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>Moins de 50 €</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>50 à 200 €</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>Plus de 200 €</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://buffer.com/library/social-media-content-strategy/" target="_blank" rel="noopener">Buffer Library — Content Strategy</a><span class="resources-meta">Buffer — articles pratiques sur la stratégie de contenu multi-canal</span></li>
+            <li><a href="https://www.linkedin.com/business/marketing/blog" target="_blank" rel="noopener">LinkedIn Marketing Blog</a><span class="resources-meta">LinkedIn — best practices officielles pour la création de contenu</span></li>
+            <li><a href="https://www.cnil.fr/fr/utilisation-de-limage-des-personnes" target="_blank" rel="noopener">CNIL — Utilisation de l'image des personnes</a><span class="resources-meta">CNIL — cadre juridique français du droit à l'image</span></li>
+            <li><a href="https://hbr.org/topic/subject/marketing" target="_blank" rel="noopener">Harvard Business Review — Marketing</a><span class="resources-meta">HBR — analyses sur la stratégie de contenu et l'attention digitale</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=content+repurposing+workflow+claude" target="_blank" rel="noopener">Workflows de content repurposing avec Claude</a><span class="resources-meta">YouTube — pas-à-pas par des créateurs</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=descript+podcast+repurposing+tutorial" target="_blank" rel="noopener">Descript — repurposing podcast</a><span class="resources-meta">YouTube — l'outil édition vidéo orienté repurposing</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=n8n+content+automation+social+media" target="_blank" rel="noopener">n8n — automatisation publication sociale</a><span class="resources-meta">YouTube — orchestration end-to-end self-hosted</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://github.com/openai/whisper" target="_blank" rel="noopener">Whisper — repository GitHub officiel</a><span class="resources-meta">OpenAI — modèle de transcription open source, déployable en local</span></li>
+            <li><a href="https://www.descript.com/learn" target="_blank" rel="noopener">Descript Learn</a><span class="resources-meta">Documentation et tutoriels Descript pour l'édition orientée texte</span></li>
+            <li><a href="https://buffer.com/help" target="_blank" rel="noopener">Buffer Help Center</a><span class="resources-meta">Documentation Buffer — programmation multi-canal</span></li>
+            <li><a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a><span class="resources-meta">Plateforme d'orchestration self-hosted</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/podcasting" target="_blank" rel="noopener">r/podcasting sur Reddit</a><span class="resources-meta">Communauté podcasteurs — discussions sur le repurposing</span></li>
+            <li><a href="https://www.reddit.com/r/marketing" target="_blank" rel="noopener">r/marketing sur Reddit</a><span class="resources-meta">Communauté marketing internationale — tactiques content multi-canal</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div>
+      <div class="footer-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo"><span class="footer-title">Hub IA — Learning Center</span></div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
-      <div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
   </footer>
 
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-009';
-    const moduleName = 'Content repurposing';
 
     function generatePlan() {
       const form = document.getElementById('diagForm');
-      const data = new FormData(form);
-      const volume = data.get('volume') || '—';
-      const canaux = data.get('canaux') || '—';
-      const contenu = data.get('contenu') || '—';
-      const premierPas = data.get('premier-pas') || '—';
-      const indicateur = data.get('indicateur') || '—';
-
-      let priority;
-      if (parseInt(volume) <= 1) priority = 'Pas de contenu long produit : commencer par produire 1-2 contenus longs (webinar interne, interview de dirigeant, visite d\'usine filmée) avant de songer au repurposing. La matière source est le préalable.';
-      else if (parseInt(volume) >= 3) priority = 'Volume favorable : tu as une matière sous-exploitée. Démarrer par un POC sur 1 contenu existant pour valider le pattern, puis industrialiser.';
-      else priority = 'Volume intermédiaire : exploiter d\'abord les contenus existants avant de produire davantage. Quick win sur 2-3 contenus historiques.';
-
       const result = document.getElementById('diagResult');
-      result.innerHTML = `<h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
-        <div class="diag-result-section"><div class="diag-result-label">Volume contenu long</div><div>Niveau ${volume}/5</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Canaux actifs</div><div>${canaux}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Contenu source identifié</div><div>${contenu}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès (3 mois)</div><div>${indicateur}</div></div>`;
+      const answers = {};
+      let allAnswered = true;
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+
+      if (answers.d1 == 0) actions.push({ prio: 'haute', titre: 'Créer la matière source avant tout pipeline', desc: 'Sans contenu long régulier, le pipeline de repurposing n\'a rien à exploiter. Première étape : intégrer dans ton calendrier la captation d\'1 à 2 contenus longs par mois (interview équipe, démo client filmée, podcast court 30 min, table ronde interne). Sans cette source, ne pas investir dans les outils.' });
+      else if (answers.d1 == 1) actions.push({ prio: 'moyenne', titre: 'Tester le pipeline sur ton contenu mensuel actuel', desc: 'Volume de source juste suffisant pour valider le pipeline. Sur ton prochain contenu long, applique le pipeline complet (transcription → sélection → fan-out → programmation) et mesure le gain de présence multi-canal sur 30 jours.' });
+      else actions.push({ prio: 'haute', titre: 'Industrialiser dès le prochain contenu long', desc: 'Volume suffisant pour justifier un pipeline outillé. Mets en place sous 4 semaines : transcription automatique, sélection IA, génération multi-formats, programmation Buffer ou natif. Ratio attendu : 12-18 livrables par contenu source de 45 min.' });
+
+      if (answers.d2 <= 1) actions.push({ prio: 'haute', titre: 'Formaliser une stratégie éditoriale (1 page max)', desc: 'Sans angle éditorial clair, le repurposing produit du flux indifférencié. Avant tout outil : écris en 1 page (1) qui est ta cible, (2) quels 3 thèmes tu défends, (3) quelle voix de marque, (4) quels canaux prioritaires, (5) quelle fréquence cible. C\'est ce qui fera la différence avec les concurrents qui adoptent le même pattern technique.' });
+      if (answers.d3 >= 2) actions.push({ prio: 'moyenne', titre: 'Démarrer sur 2 canaux avant d\'élargir', desc: 'Tu cibles 3+ canaux. Pragmatique : commence par les 2 plus pertinents (LinkedIn + 1 second selon ta cible — X pour le tech, Instagram pour le visuel, YouTube pour la vidéo longue). Élargis dans 3 mois si ça performe et si tu as la bande passante.' });
+      if (answers.d4 == 0) actions.push({ prio: 'haute', titre: 'Identifier un référent contenu', desc: 'Sans référent identifié, le pipeline ne tourne pas dans la durée. Désigne une personne (toi, un alternant, un freelance occasionnel) avec un temps dédié hebdomadaire de 2 à 4 heures pour la supervision éditoriale et la validation des livrables avant programmation.' });
+      if (answers.d5 <= 1) actions.push({ prio: 'haute', titre: 'Formaliser les droits à l\'image avant captation', desc: 'Pour toute captation impliquant des tiers (clients, partenaires, intervenants externes, salariés), un consentement écrit à la diffusion sur les réseaux sociaux est obligatoire. Sans cette base, exposition juridique en cas de demande de retrait. Modèle de cession simple à mettre en place via un email validé.' });
+      if (answers.d6 == 0) actions.push({ prio: 'moyenne', titre: 'Démarrer 100 % gratuit avec NotebookLM + Whisper + Canva', desc: 'Budget zéro : NotebookLM (transcription), Whisper en local (transcription avancée), Claude (gratuit jusqu\'à un volume), Canva Free (visuels), calendriers natifs LinkedIn / X (programmation). Pipeline fonctionnel sans coût mais demande plus de manipulation manuelle.' });
+      else if (answers.d6 >= 2) actions.push({ prio: 'basse', titre: 'Investir dans Descript ou Buffer pour gagner du temps', desc: 'Budget confortable : Descript (édition vidéo orientée texte, ~25 €/mois) + Buffer (programmation multi-plateforme, ~15 €/mois) divisent par 3 le temps de production aval. Excellent ratio coût/temps pour qui produit régulièrement.' });
+
+      actions.push({ prio: 'haute', titre: 'Verrouiller la relecture humaine avant chaque publication', desc: 'Le pipeline IA produit, l\'humain valide. Chaque livrable doit passer une relecture rapide (5 min) pour éviter le tone deaf, les formulations gauches ou les sur-promesses. Sans cette étape, risque réputationnel disproportionné par rapport au gain de temps.' });
+      actions.push({ prio: 'moyenne', titre: 'Suivre 3 KPIs sur 30 jours après chaque cycle', desc: 'Engagement par format (clip vs post vs quote), reach total, conversion (si CTA présent). Identifie les formats qui performent, supprime ceux qui ne servent à rien, itère sur les angles qui résonnent. C\'est ce qui transforme un pipeline outillé en machine éditoriale qui apprend.' });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — pipeline industrialisé pertinent';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — pilote ciblé recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      let html = `<div class="diag-score-box"><div class="diag-score-num">${maturite}%</div><div class="diag-score-label">${scoreLabel}</div></div><h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>`;
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+      actions.forEach((a, i) => html += `<div class="diag-action"><span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span><h4>${i+1}. ${a.titre}</h4><p>${a.desc}</p></div>`);
+      html += `<div class="diag-export"><button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button><button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button></div>`;
+      result.innerHTML = html;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      document.getElementById('exportBtn').style.display = 'inline-flex';
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, volume, canaux, contenu, priority, premierPas, indicateur, date: new Date().toISOString() }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, maturite, actions: actions.map(a => ({ prio: a.prio, titre: a.titre })), date: new Date().toISOString() }));
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
     }
 
-    function exportPlan() {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
-      if (!data) return;
-      const txt = `Plan d'action — ${moduleName}\nDate : ${new Date(data.date).toLocaleDateString('fr-FR')}\n\nVolume contenu long : ${data.volume}/5\n\nCanaux actifs :\n${data.canaux}\n\nContenu source :\n${data.contenu}\n\nRecommandation prioritaire :\n${data.priority}\n\nPremier pas :\n${data.premierPas}\n\nIndicateur :\n${data.indicateur}\n\n— Hub IA territorial · ${moduleId}\n`;
-      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+      if (format === 'md') {
+        content += `# Plan d'action — Content repurposing\n\n*Auto-diagnostic Hub IA — Learning Center — ${plan.date}*\n\n**Maturité éditoriale : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`);
+        content += `---\n\n*Plan généré par le module CU-009 du Hub IA — Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — CONTENT REPURPOSING\nAuto-diagnostic Hub IA — Learning Center — ${plan.date}\n\nMaturite editoriale : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`);
+        content += `=========================================\nPlan genere par le module CU-009 du Hub IA — Learning Center — questforchange.eu\n`;
+      }
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `plan-${moduleId}.txt`; a.click();
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-action-content-repurposing.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
-      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
-    });
   </script>
+
 </body>
 </html>

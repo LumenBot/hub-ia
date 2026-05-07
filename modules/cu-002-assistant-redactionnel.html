@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assistant rédactionnel — Hub IA territorial</title>
+  <title>Assistant rédactionnel personnel — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
 </head>
 <body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-brand">
-        <span class="nav-logo">🧭</span>
-        <span class="nav-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
@@ -31,9 +34,9 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
         <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">12 min de lecture</span>
       </div>
       <h1>✍️ Assistant rédactionnel personnel</h1>
       <p class="module-subtitle">
@@ -42,178 +45,409 @@
     </div>
   </header>
 
-  <article class="module-content">
+  <div class="module-layout">
 
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Pourquoi la rédaction IA est le premier réflexe à adopter pour un dirigeant non-tech</li>
-      <li>Les 4 outils principaux et leurs usages différenciés (mails, notes, propositions, communications)</li>
-      <li>Comment calibrer la voix de l'outil pour qu'il sonne « toi » et pas « IA générique »</li>
-      <li>Les limites de confidentialité à connaître avant de coller des contenus stratégiques</li>
-    </ul>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Quels outils, quels usages</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#quiz"><span class="toc-icon">✅</span>Quiz 5 questions</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h2>Le contexte</h2>
-    <p>
-      Selon Bpifrance (2025), <strong>67 % des dirigeants de PME et TPE ne savent pas par où commencer avec l'IA</strong>. La rédaction assistée est précisément la première marche : usage individuel, sans engagement organisationnel, ROI immédiat sur des tâches que tout dirigeant fait quotidiennement (mails, propositions, notes, communications internes).
-    </p>
-    <p>
-      Selon une enquête Goodweek 2025, <strong>93 % des salariés utilisent déjà l'IA, 78 % sans approbation IT</strong>. Cela signifie que ce module n'apprend probablement rien de nouveau à tes équipes — mais te donne le cadre pour <em>en parler</em> et structurer les pratiques au lieu de les laisser s'installer dans le shadow IA.
-    </p>
+    <main class="module-main">
 
-    <blockquote>
-      Passer de 30 minutes à 5 minutes pour rédiger un mail commercial ou une note de synthèse. Sur 10-20 documents par jour, le gain est massif et mesurable dès la première semaine.
-    </blockquote>
+      <!-- 1. EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 60 secondes</div>
+          <h2>Le réflexe le plus rentable du dirigeant en 2026</h2>
 
-    <h2>Quels outils pour quels usages</h2>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>L'usage IA le plus rentable au quotidien : <strong>passer de 30 minutes à 5 minutes</strong> sur les mails, notes, propositions. Sur 10-20 documents par jour, le gain est massif et mesurable dès la première semaine.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>Le piège n°1 : un texte qui « sent » l'IA. <strong>Donner 3 à 5 exemples de ton style existant</strong> au modèle change tout — la différence entre du contenu passable et du contenu qui sonne « toi ».</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Confidentialité non négociable : <strong>jamais de données stratégiques dans les chatbots grand public</strong>. Pour les sujets sensibles, basculer sur Mistral Le Chat (souveraineté EU) ou une solution gouvernée pour entreprise.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>78 % des salariés utilisent déjà l'IA <strong>sans approbation IT</strong> (Goodweek 2025). Ce module ne t'apprend probablement rien à tes équipes — il te donne le cadre pour <em>structurer les pratiques</em> au lieu de laisser le shadow IA s'installer.</p>
+            </div>
+          </div>
 
-    <h3>Pour la rédaction quotidienne (mails, notes, comm interne)</h3>
-    <p>
-      <strong>ChatGPT</strong>, <strong>Claude</strong>, <strong>Le Chat (Mistral)</strong>, <strong>Gemini</strong> — usage direct via interface web ou app mobile. Tous gratuits en version de base, 20 €/mois pour les versions Pro avec capacités étendues. Choix selon préférence personnelle de ton et d'interface.
-    </p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">78 %</div>
+              <div class="exec-stat-label">Shadow IA en entreprise</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">5 min</div>
+              <div class="exec-stat-label">Vs 30 min par mail</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">0-21 €</div>
+              <div class="exec-stat-label">/mois selon usage</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12 min</div>
+              <div class="exec-stat-label">De lecture</div>
+            </div>
+          </div>
 
-    <h3>Pour la rédaction in situ (sans changer d'outil)</h3>
-    <p>
-      <strong>Microsoft 365 Copilot</strong> ou <strong>Google Workspace Gemini</strong> — intégration native dans Word, Outlook, Docs. Pratique pour ne pas casser le flux de travail, mais payant en plus de l'abonnement bureautique (≈ 21 €/utilisateur/mois).
-    </p>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu rédiges <strong>plusieurs mails, notes ou propositions</strong> par jour qui te coûtent du temps</li>
+              <li>Tu veux <strong>installer une politique d'usage IA</strong> dans ton équipe pour sortir du shadow IA</li>
+              <li>Tu n'as <strong>jamais calibré la voix</strong> d'un assistant IA sur ton style propre</li>
+              <li>Tu veux <strong>15 minutes</strong> pour rédiger 3 mails commerciaux en mode pratique</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <h3>Pour la rédaction longue itérative</h3>
-    <p>
-      <strong>Canvas</strong> (Claude, ChatGPT) — interface dédiée à la rédaction longue avec retravaillage continu. Idéal pour rapports, articles, livres blancs, propositions complexes. Gratuit dans les versions Pro.
-    </p>
+      <!-- 2. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Choisir l'outil rédactionnel adapté à ton contexte (mail, note, proposition, communication interne)</li>
+            <li>Calibrer la voix de l'outil pour qu'il sonne « toi » et pas « IA générique »</li>
+            <li>Identifier ce qui peut être collé en chatbot grand public et ce qui doit rester confidentiel</li>
+            <li>Structurer une politique d'usage claire pour ton équipe et sortir du shadow IA</li>
+          </ul>
+        </div>
+      </section>
 
-    <h2>Calibrer la voix</h2>
-    <p>
-      Le piège classique : un texte qui « sent » l'IA. Pour l'éviter, donne au modèle des exemples de ton style (3-5 textes existants) et demande-lui de t'imiter. Beaucoup d'outils permettent désormais de sauvegarder un « assistant personnel » avec ton ton intégré une fois pour toutes.
-    </p>
-    <p>
-      Pour les cas un peu plus avancés (assistant qui connaît ton contexte récurrent, tes clients, tes engagements), c'est l'étape suivante : voir le module <a href="cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a>.
-    </p>
+      <!-- 3. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>
+          Selon Bpifrance (2025), <strong>67 % des dirigeants de PME et TPE ne savent pas par où commencer avec l'IA</strong>. La rédaction assistée est précisément la première marche : usage individuel, sans engagement organisationnel, ROI immédiat sur des tâches que tout dirigeant fait quotidiennement (mails, propositions, notes, communications internes).
+        </p>
+        <p>
+          Selon une enquête Goodweek 2025, <strong>93 % des salariés utilisent déjà l'IA, 78 % sans approbation IT</strong>. Cela signifie que ce module n'apprend probablement rien de nouveau à tes équipes — mais te donne le cadre pour <em>en parler</em> et structurer les pratiques au lieu de les laisser s'installer dans le shadow IA.
+        </p>
+        <div class="pull-quote">
+          <p>Passer de 30 minutes à 5 minutes pour rédiger un mail commercial ou une note de synthèse. Sur 10-20 documents par jour, le gain est massif et mesurable dès la première semaine.</p>
+        </div>
+      </section>
 
-    <h2>Les pièges à éviter</h2>
+      <!-- 4. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar2" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+            </defs>
+            <rect x="20" y="60" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — INTENTION</text>
+            <text x="110" y="115" text-anchor="middle" font-size="12" fill="#333">Brief court</text>
+            <text x="110" y="131" text-anchor="middle" font-size="12" fill="#333">+ contexte</text>
+            <text x="110" y="147" text-anchor="middle" font-size="11" fill="#666" font-style="italic">« mail relance »</text>
+            <rect x="240" y="60" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="330" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — OUTIL IA</text>
+            <text x="330" y="115" text-anchor="middle" font-size="12" fill="white">Claude, GPT,</text>
+            <text x="330" y="131" text-anchor="middle" font-size="12" fill="white">Le Chat, Gemini</text>
+            <text x="330" y="147" text-anchor="middle" font-size="12" fill="white">+ corpus voix</text>
+            <rect x="460" y="60" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="550" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — DRAFT</text>
+            <text x="550" y="115" text-anchor="middle" font-size="12" fill="#333">Premier jet</text>
+            <text x="550" y="131" text-anchor="middle" font-size="12" fill="#333">structuré dans</text>
+            <text x="550" y="147" text-anchor="middle" font-size="12" fill="#333">ton ton</text>
+            <rect x="680" y="60" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="770" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">4 — RELECTURE</text>
+            <text x="770" y="115" text-anchor="middle" font-size="12" fill="#333">Ajustements</text>
+            <text x="770" y="131" text-anchor="middle" font-size="12" fill="#333">finaux + envoi</text>
+            <text x="770" y="147" text-anchor="middle" font-size="12" fill="#333">2 minutes</text>
+            <line x1="200" y1="110" x2="238" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar2)"/>
+            <line x1="420" y1="110" x2="458" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar2)"/>
+            <line x1="640" y1="110" x2="678" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar2)"/>
+            <text x="440" y="200" text-anchor="middle" font-size="12" fill="#666" font-style="italic">5 minutes du brief à la rédaction prête à envoyer, voix calibrée</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Le pattern à 4 étapes : ton intention → l'outil avec ta voix → un draft personnalisé → relecture finale</p>
+      </section>
 
-    <h3>La confidentialité</h3>
-    <p>
-      Les chatbots grand public envoient tes prompts à leurs serveurs et peuvent les utiliser pour entraîner leurs modèles. <strong>Ne jamais coller des données personnelles, contractuelles, financières ou stratégiques</strong> dans une version gratuite. Pour ces usages, basculer sur Mistral Le Chat (souveraineté EU) ou une solution gouvernée comme <a href="https://goodweek.com" target="_blank" rel="noopener">Goodweek</a> (alumni QFC).
-    </p>
+      <!-- 5. OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Quels outils pour quels usages</h2>
+          </div>
+        </div>
 
-    <h3>Le shadow IA non encadré</h3>
-    <p>
-      Selon Goodweek (2025), 93 % des salariés utilisent l'IA, 78 % sans approbation IT. Le shadow IA s'installe rapidement. Bonne pratique : préférer une <strong>politique d'usage claire</strong> (avec liste d'outils approuvés, règles de confidentialité) à une interdiction formelle souvent contournée.
-    </p>
+        <h3>Pour la rédaction quotidienne (mails, notes, comm interne)</h3>
+        <p>
+          <strong>ChatGPT</strong>, <strong>Claude</strong>, <strong>Le Chat (Mistral)</strong>, <strong>Gemini</strong> — usage direct via interface web ou app mobile. Tous gratuits en version de base, environ 20 €/mois pour les versions Pro avec capacités étendues. Choix selon préférence personnelle de ton et d'interface.
+        </p>
 
-    <h3>Le ton générique</h3>
-    <p>
-      Sans calibrage, le résultat est passable mais reconnaissable comme IA. Pour des contenus engageants (commerciaux, communication externe), prévoir au moins une relecture humaine pour réinjecter de la voix.
-    </p>
+        <h3>Pour la rédaction in situ (sans changer d'outil)</h3>
+        <p>
+          <strong>Microsoft 365 Copilot</strong> ou <strong>Google Workspace Gemini</strong> — intégration native dans Word, Outlook, Docs. Pratique pour ne pas casser le flux de travail, mais payant en plus de l'abonnement bureautique (≈ 21 €/utilisateur/mois).
+        </p>
 
-    <h3>L'AI Act et la transparence</h3>
-    <p>
-      Pour les contenus externes (communications publiques, marketing), l'AI Act commence à imposer une <strong>obligation de transparence</strong> sur le caractère assisté par IA. Ce n'est pas obligatoire dans tous les cas, mais signaler « rédigé avec assistance IA » devient une bonne pratique préventive.
-    </p>
+        <h3>Pour la rédaction longue itérative</h3>
+        <p>
+          <strong>Canvas</strong> (Claude, ChatGPT) — interface dédiée à la rédaction longue avec retravaillage continu. Idéal pour rapports, articles, livres blancs, propositions complexes. Inclus dans les versions Pro.
+        </p>
 
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-001-recherche-veille.html">Module précédent — Recherche & veille augmentée</a> : la porte d'entrée si pas encore vue</li>
-      <li><a href="cu-003-cr-reunion.html">Module suivant — CR de réunion automatisé</a> : étendre l'usage à l'oral</li>
-      <li><a href="cu-008-knowledge-base-rag.html">Module — Knowledge base RAG</a> : faire interroger ses propres documents</li>
-    </ul>
+        <h3>Calibrer la voix</h3>
+        <p>
+          Le piège classique : un texte qui « sent » l'IA. Pour l'éviter, donne au modèle <strong>3 à 5 exemples de ton style existant</strong> (mails, notes, articles que tu as déjà écrits) et demande-lui de t'imiter. Beaucoup d'outils permettent désormais de sauvegarder un « assistant personnel » avec ton ton intégré une fois pour toutes.
+        </p>
+      </section>
 
-  </article>
+      <!-- 6. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
 
-  <!-- QUIZ -->
-  <section class="quiz" id="quiz">
-    <h2>Quiz — 5 questions</h2>
+        <p>Tu vas suivre les 3 étapes ci-dessous avec un outil de ton choix. Compte 15 minutes pour le faire en parallèle de la lecture.</p>
 
-    <form id="quizForm">
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Vendredi après-midi. Tu dois envoyer <strong>3 mails de relance commerciale</strong> à 3 prospects qui ne t'ont pas répondu depuis ton dernier rendez-vous. Tu as 30 minutes maximum, et tu veux des mails qui sonnent comme toi — pas un copier-coller de modèle générique.</p>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">1. Selon Goodweek (2025), quelle proportion de salariés utilise déjà l'IA sans approbation IT ?</div>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> 23 %</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> 45 %</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> 78 %</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="d"> 95 %</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Calibre la voix de l'outil</h4>
+            <p>Ouvre <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> ou <a href="https://chat.mistral.ai" target="_blank" rel="noopener">chat.mistral.ai</a>. Colle 3 mails commerciaux que tu as déjà écrits récemment, en début de conversation, avec ce prompt :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">Voici 3 mails commerciaux que j'ai écrits récemment. Analyse mon ton, ma structure type, mes formules récurrentes. Tu vas devoir m'aider à rédiger d'autres mails dans ce même style. Confirme que tu as bien capté ma voix.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>🛠️ Claude ou Le Chat (gratuit)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output attendu</div>L'outil te répond avec une analyse de ton style (longueur des phrases, formules d'ouverture/clôture, niveau de formalité, marqueurs personnels). Tu valides ou tu corriges.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">2. Quel outil privilégier pour rédiger un mail contenant des informations stratégiques d'entreprise ?</div>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT version gratuite</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Mistral Le Chat (souveraineté EU) ou solution gouvernée</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Gemini grand public</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="d"> N'importe lequel, c'est équivalent</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Brief le contexte de chaque relance</h4>
+            <p>Dans la même conversation, donne le contexte du premier prospect :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">Premier prospect : [nom de la société, taille, secteur]. Notre dernier RDV était le [date], on avait évoqué [sujet]. Pas de réponse depuis. Rédige un mail de relance qui rappelle le sujet, propose un angle nouveau (par exemple un cas client comparable), et invite à un créneau de 30 minutes la semaine prochaine. Ton dans MA voix.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>🛠️ Même conversation</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output attendu</div>Un mail prêt à relire, dans ton ton, avec un angle nouveau et un appel à l'action clair. Reproduis le pattern pour les 2 autres prospects.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">3. Pour qu'un texte généré par IA ne « sente » pas l'IA, quelle est la bonne pratique ?</div>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Utiliser un modèle plus puissant</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Donner au modèle 3-5 exemples de ton style à imiter</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Demander à l'IA d'être « professionnelle »</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="d"> Augmenter la longueur du prompt</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Relis et personnalise</h4>
+            <p>Avant l'envoi, lis chaque mail à voix haute. <strong>Si une phrase ne sonne pas comme toi, change-la.</strong> Ajoute un détail personnel (mention d'un échange à un événement, référence à un projet en cours chez le prospect) qui prouve que tu n'as pas envoyé un mail générique.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>👤 Toi seul</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Livrable produit</div>3 mails de relance prêts à envoyer en moins de 30 minutes, contre 1h30 typique en rédaction manuelle. Et la voix reste la tienne.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">4. Quel outil permet de rédiger directement dans Word ou Outlook sans changer d'application ?</div>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"> Perplexity</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="b"> NotebookLM</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="c"> Microsoft 365 Copilot</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="d"> Claude version gratuite</label>
-      </div>
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu viens de calibrer un outil rédactionnel à ta voix avec 3 exemples, puis de produire 3 mails personnalisés en 30 minutes. <strong>Sauvegarde la conversation</strong> ou crée un assistant personnalisé (« Mon mail commercial ») pour réutiliser ce calibrage à chaque session.</p>
+        </div>
+      </section>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">5. Face au shadow IA, quelle posture est la plus efficace ?</div>
-        <label class="quiz-option"><input type="radio" name="q5" value="a"> Interdiction formelle de tout outil IA</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="b"> Politique d'usage claire avec liste d'outils approuvés et règles de confidentialité</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="c"> Laisser faire et observer</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="d"> Surveiller individuellement chaque collaborateur</label>
-      </div>
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
 
-      <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+        <h3>La confidentialité</h3>
+        <p>Les chatbots grand public envoient tes prompts à leurs serveurs et peuvent les utiliser pour entraîner leurs modèles. <strong>Ne jamais coller des données personnelles, contractuelles, financières ou stratégiques</strong> dans une version gratuite. Pour ces usages, basculer sur Mistral Le Chat (souveraineté EU) ou une solution gouvernée pour entreprise.</p>
 
-    </form>
+        <h3>Le shadow IA non encadré</h3>
+        <p>Selon Goodweek (2025), 93 % des salariés utilisent l'IA, 78 % sans approbation IT. Le shadow IA s'installe rapidement. Bonne pratique : préférer une <strong>politique d'usage claire</strong> (avec liste d'outils approuvés, règles de confidentialité) à une interdiction formelle souvent contournée.</p>
 
-    <div class="quiz-result" id="quizResult"></div>
+        <h3>Le ton générique</h3>
+        <p>Sans calibrage, le résultat est passable mais reconnaissable comme IA. Pour des contenus engageants (commerciaux, communication externe), prévoir au moins une relecture humaine pour réinjecter de la voix.</p>
 
-  </section>
+        <h3>L'AI Act et la transparence</h3>
+        <p>Pour les contenus externes (communications publiques, marketing), l'AI Act commence à imposer une <strong>obligation de transparence</strong> sur le caractère assisté par IA. Ce n'est pas obligatoire dans tous les cas, mais signaler « rédigé avec assistance IA » devient une bonne pratique préventive.</p>
+      </section>
+
+      <!-- 8. QUIZ -->
+      <section class="module-section" id="quiz">
+        <div class="module-section-header">
+          <div class="module-section-icon success">✅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Quiz — 5 questions</h2>
+          </div>
+        </div>
+
+        <div class="quiz-v3">
+          <form id="quizForm">
+            <div class="quiz-question">
+              <div class="quiz-question-title">1. Selon Goodweek (2025), quelle proportion de salariés utilise déjà l'IA sans approbation IT ?</div>
+              <label class="quiz-option"><input type="radio" name="q1" value="a"> 23 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="b"> 45 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="c"> 78 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="d"> 95 %</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">2. Quel outil privilégier pour rédiger un mail contenant des informations stratégiques d'entreprise ?</div>
+              <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT version gratuite</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="b"> Mistral Le Chat (souveraineté EU) ou solution gouvernée</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="c"> Gemini grand public</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="d"> N'importe lequel, c'est équivalent</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">3. Pour qu'un texte généré par IA ne « sente » pas l'IA, quelle est la bonne pratique ?</div>
+              <label class="quiz-option"><input type="radio" name="q3" value="a"> Utiliser un modèle plus puissant</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="b"> Donner au modèle 3-5 exemples de ton style à imiter</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="c"> Demander à l'IA d'être « professionnelle »</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="d"> Augmenter la longueur du prompt</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">4. Quel outil permet de rédiger directement dans Word ou Outlook sans changer d'application ?</div>
+              <label class="quiz-option"><input type="radio" name="q4" value="a"> Perplexity</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="b"> NotebookLM</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="c"> Microsoft 365 Copilot</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="d"> Claude version gratuite</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">5. Face au shadow IA, quelle posture est la plus efficace ?</div>
+              <label class="quiz-option"><input type="radio" name="q5" value="a"> Interdiction formelle de tout outil IA</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="b"> Politique d'usage claire avec liste d'outils approuvés et règles de confidentialité</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="c"> Laisser faire et observer</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="d"> Surveiller individuellement chaque collaborateur</label>
+            </div>
+            <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+          </form>
+          <div class="quiz-result" id="quizResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.bpifrance-lelab.fr/etudes-et-rapports" target="_blank" rel="noopener">Études Bpifrance Le Lab — IA & PME 2025</a><span class="resources-meta">Bpifrance Le Lab, 2025 — où en sont les dirigeants français avec l'IA</span></li>
+            <li><a href="https://hbr.org/topic/subject/artificial-intelligence" target="_blank" rel="noopener">Harvard Business Review — Artificial Intelligence</a><span class="resources-meta">HBR, mise à jour continue — analyses sur l'écriture IA-augmentée et la productivité dirigeant</span></li>
+            <li><a href="https://www.mckinsey.com/featured-insights/artificial-intelligence" target="_blank" rel="noopener">McKinsey — AI Insights</a><span class="resources-meta">McKinsey, 2025 — gains documentés par fonction (admin, commercial, communication)</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=claude+projects+tutorial+2026" target="_blank" rel="noopener">Tutoriels Claude Projects</a><span class="resources-meta">YouTube — créer un assistant personnalisé avec ton style en quelques minutes</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=microsoft+copilot+word+outlook+2026" target="_blank" rel="noopener">Microsoft 365 Copilot — démos pratiques</a><span class="resources-meta">YouTube — usage in situ dans Word et Outlook</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://docs.anthropic.com/claude/docs/projects" target="_blank" rel="noopener">Anthropic — Claude Projects</a><span class="resources-meta">Documentation officielle pour créer des assistants persistants avec ta voix</span></li>
+            <li><a href="https://docs.mistral.ai" target="_blank" rel="noopener">Mistral AI — Documentation</a><span class="resources-meta">API et capacités de Le Chat Pro pour usages professionnels souverains</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/ChatGPT" target="_blank" rel="noopener">r/ChatGPT sur Reddit</a><span class="resources-meta">Communauté généraliste — partage de prompts efficaces pour la rédaction</span></li>
+            <li><a href="https://www.reddit.com/r/ClaudeAI" target="_blank" rel="noopener">r/ClaudeAI sur Reddit</a><span class="resources-meta">Cas d'usage et techniques de calibrage de voix</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="footer-logo">🧭</span>
-        <span class="footer-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
 
+  <script src="../js/module-v3.js"></script>
   <script>
     const correctAnswers = { q1: 'c', q2: 'b', q3: 'b', q4: 'c', q5: 'b' };
     const moduleId = 'cu-002';
-
     function validateQuiz() {
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
       let score = 0;
-
       for (const q in correctAnswers) {
         const selected = form.querySelector(`input[name="${q}"]:checked`);
         if (selected && selected.value === correctAnswers[q]) score++;
       }
-
       let message;
-      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu as bien intégré les concepts. Module suivant ?`;
+      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu maîtrises l'usage rédactionnel de l'IA. Module suivant ?`;
       else if (score >= 3) message = `✅ <strong>Score : ${score}/5</strong><br>Bonne maîtrise. Revois les questions ratées si tu veux consolider.`;
       else message = `📖 <strong>Score : ${score}/5</strong><br>Une relecture est conseillée avant de passer au suivant.`;
-
       result.innerHTML = message;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true, score, total: 5, date: new Date().toISOString()
-      }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score, total: 5, date: new Date().toISOString() }));
     }
   </script>
 

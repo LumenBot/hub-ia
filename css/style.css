@@ -160,7 +160,9 @@ img, svg {
 }
 
 .nav-logo {
-  font-size: 1.5rem;
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .nav-links {
@@ -869,9 +871,9 @@ img, svg {
 .card-badge.axe-d { background: var(--color-axe-d-bg); color: var(--color-axe-d-fg); }
 .card-badge.axe-e { background: var(--color-axe-e-bg); color: var(--color-axe-e-fg); }
 .card-badge.axe-agentique {
-  background: var(--color-bg);
-  color: var(--color-primary);
-  border: 1px dashed var(--color-primary);
+  background: #F8F4FF;
+  color: #4A3A8C;
+  border: 1px solid #7A5CB8;
 }
 
 .card.axe-a:hover { border-color: var(--color-axe-a-border); }
@@ -1047,4 +1049,116 @@ a.card-badge:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
   filter: brightness(0.97);
+}
+
+/* ============================================
+   V3 LOT 1 — LOGO NAV/FOOTER + BANDEAU PARTENAIRES + ABOUT
+   ============================================ */
+
+/* Logo nav (img) — voir aussi .nav-logo plus haut */
+.nav-brand img.nav-logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+/* Logo footer (img) */
+.footer-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);  /* logo blanc sur fond sombre */
+}
+
+/* Bandeau partenaires footer */
+.footer-partners {
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-5) var(--space-5);
+}
+
+.footer-partners-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.footer-partners-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.footer-partners-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-7);  /* 48px ≥ 24px requis */
+}
+
+.footer-partners-logos a {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  transition: filter var(--transition-base), opacity var(--transition-base);
+  filter: grayscale(100%) brightness(0) invert(1);
+  opacity: 0.65;
+}
+
+.footer-partners-logos a:hover,
+.footer-partners-logos a:focus {
+  filter: none;
+  opacity: 1;
+}
+
+.footer-partners-logos img {
+  max-height: 36px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .footer-partners-logos { gap: var(--space-5); }
+  .footer-partners-logos a { height: 28px; }
+  .footer-partners-logos img { max-height: 28px; }
+}
+
+/* Page À propos — quote et contact */
+.about-quote {
+  margin: var(--space-7) auto;
+  max-width: 600px;
+  padding: var(--space-5) var(--space-6);
+  border-left: 4px solid var(--color-primary);
+  background: linear-gradient(135deg, #FFF8E8 0%, #FFEFC8 100%);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+  font-style: normal;
+}
+
+.about-quote em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text-soft);
+}
+
+.about-contact {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-contact p {
+  font-size: 1rem;
+  margin-bottom: var(--space-3);
 }

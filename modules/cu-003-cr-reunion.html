@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comptes-rendus de réunion automatisés — Hub IA territorial</title>
+  <title>CR de réunion automatisés — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
 </head>
 <body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-brand">
-        <span class="nav-logo">🧭</span>
-        <span class="nav-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
@@ -31,9 +34,9 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
         <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">12 min de lecture</span>
       </div>
       <h1>🎙️ Comptes-rendus de réunion automatisés</h1>
       <p class="module-subtitle">
@@ -42,169 +45,404 @@
     </div>
   </header>
 
-  <article class="module-content">
+  <div class="module-layout">
 
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Pourquoi le CR est un point d'effort cumulatif sous-estimé pour les dirigeants</li>
-      <li>Les 4 outils principaux du marché et leurs différences clés</li>
-      <li>Comment intégrer ce réflexe sans changer tes habitudes de réunion</li>
-      <li>Les obligations RGPD à connaître avant de mettre tes réunions sur enregistrement</li>
-    </ul>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Quels outils, quels usages</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#quiz"><span class="toc-icon">✅</span>Quiz 5 questions</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h2>Le contexte</h2>
-    <p>
-      Pour un dirigeant qui anime <strong>5 à 10 réunions par semaine</strong>, la documentation post-réunion (CR, suivi décisions, actions à transmettre) consomme typiquement <strong>5 à 7 heures hebdomadaires</strong>. Ces heures sont parmi les plus rentables à automatiser : elles sont répétitives, structurées, et l'IA y excelle.
-    </p>
-    <p>
-      Mieux : un CR généré par IA est <em>toujours produit</em>. Or beaucoup de réunions n'ont pas de CR rédigé en pratique, faute de temps. Le passage à l'IA ne fait pas seulement gagner du temps — il améliore la traçabilité réelle des décisions.
-    </p>
+    <main class="module-main">
 
-    <blockquote>
-      Cas typique : un comité hebdomadaire d'une heure. Avant : 30-45 min de rédaction post-réunion, parfois oubliée. Après : transcription auto pendant la réunion, CR structuré envoyé en 2 minutes après, suivi automatique dans Slack ou Notion.
-    </blockquote>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 60 secondes</div>
+          <h2>Récupérer 5 à 7 heures par semaine sans changer d'outil de réunion</h2>
 
-    <h2>Quels outils pour quels usages</h2>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Pour un dirigeant qui anime <strong>5 à 10 réunions par semaine</strong>, la documentation post-réunion consomme 5 à 7 heures hebdomadaires. C'est parmi les heures les plus rentables à automatiser : répétitives, structurées, l'IA y excelle.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>3 outils dédiés qui font tout (transcription + synthèse + intégration calendrier) : <strong>Otter.ai, Fireflies.ai, tl;dv</strong>. Versions gratuites avec limites, payantes à partir de ~10 €/mois. Intégration native Zoom / Teams / Meet, le bot rejoint la réunion automatiquement.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Obligation RGPD non négociable</strong> : information préalable des participants. Phrase type à dire en début de réunion (« j'ai activé une transcription automatique aujourd'hui »). Sans cette information, l'enregistrement n'est pas conforme.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>Vigilance sur les <strong>hallucinations</strong> : l'IA peut « inventer » une décision ou attribuer une action à la mauvaise personne. <strong>Relecture humaine de 3-5 minutes obligatoire</strong> avant diffusion, particulièrement sur les actions et engagements.</p>
+            </div>
+          </div>
 
-    <h3>Outils dédiés transcription + CR (recommandés)</h3>
-    <p>
-      <strong>Otter.ai, Fireflies.ai, tl;dv</strong> — intégration native à Zoom, Teams, Meet. Transcription en temps réel + résumé structuré (décisions, actions, sujets). Versions gratuites disponibles avec des limites mensuelles, payantes à partir de ~10 €/mois.
-    </p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">5-7h</div>
+              <div class="exec-stat-label">Hebdo sur les CR (avant)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">5 min</div>
+              <div class="exec-stat-label">Validation rapide après</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">10 €</div>
+              <div class="exec-stat-label">/mois Otter Pro</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12 min</div>
+              <div class="exec-stat-label">De lecture</div>
+            </div>
+          </div>
 
-    <h3>Pour les organisations souveraines</h3>
-    <p>
-      <strong>Whisper</strong> (OpenAI, modèle open source) en local ou via API privée. <strong>NotebookLM</strong> (Google) pour transformer une réunion enregistrée en synthèse interrogeable. Pour les organisations qui ne veulent pas envoyer d'enregistrements à des services cloud, <strong>NIN-IA</strong> (alumni QFC, Xertigny) propose des intégrations sur-mesure.
-    </p>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu animes <strong>5 à 10 réunions par semaine</strong> avec décisions et actions à tracer</li>
+              <li>Tu <strong>oublies souvent de rédiger le CR</strong> (ou le rédiges plusieurs jours après, dégradé)</li>
+              <li>Tu n'as <strong>jamais configuré</strong> Otter, Fireflies ou tl;dv sur ton calendrier</li>
+              <li>Tu veux <strong>30 minutes</strong> pour configurer puis tester sur ta prochaine réunion</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <h3>Approche bricolée (gratuite)</h3>
-    <p>
-      Enregistrer la réunion (avec accord des participants), uploader dans Claude ou ChatGPT en demandant un CR structuré. Marche bien pour des essais, moins adapté à un usage quotidien (manipulation manuelle, confidentialité).
-    </p>
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Choisir l'outil de transcription + CR adapté à ton volume de réunions et au niveau de confidentialité requis</li>
+            <li>Mettre en place le réflexe d'enregistrement + CR auto sans perdre 30 minutes en post-réunion</li>
+            <li>Respecter l'obligation RGPD d'information préalable des participants</li>
+            <li>Détecter les hallucinations IA dans le CR (décisions inventées, mauvaise attribution d'actions) avant diffusion</li>
+          </ul>
+        </div>
+      </section>
 
-    <h2>Les pièges à éviter</h2>
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>
+          Pour un dirigeant qui anime <strong>5 à 10 réunions par semaine</strong>, la documentation post-réunion (CR, suivi décisions, actions à transmettre) consomme typiquement <strong>5 à 7 heures hebdomadaires</strong>. Ces heures sont parmi les plus rentables à automatiser : elles sont répétitives, structurées, et l'IA y excelle.
+        </p>
+        <p>
+          Mieux : un CR généré par IA est <em>toujours produit</em>. Or beaucoup de réunions n'ont pas de CR rédigé en pratique, faute de temps. Le passage à l'IA ne fait pas seulement gagner du temps — il améliore la traçabilité réelle des décisions.
+        </p>
+        <div class="pull-quote">
+          <p>Cas typique : un comité hebdomadaire d'une heure. Avant : 30-45 min de rédaction post-réunion, parfois oubliée. Après : transcription auto pendant la réunion, CR structuré envoyé en 2 minutes après, suivi automatique dans Slack ou Notion.</p>
+        </div>
+      </section>
 
-    <h3>RGPD et information préalable</h3>
-    <p>
-      <strong>Toute réunion enregistrée doit faire l'objet d'une information préalable des participants</strong>, idéalement avec accord explicite. C'est une obligation RGPD. La pratique courante : annoncer en début de réunion que la session sera enregistrée pour produire un CR automatique, et donner la possibilité de refuser.
-    </p>
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar3" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+            </defs>
+            <rect x="20" y="60" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — RÉUNION</text>
+            <text x="110" y="115" text-anchor="middle" font-size="12" fill="#333">Audio capté</text>
+            <text x="110" y="131" text-anchor="middle" font-size="12" fill="#333">en direct ou</text>
+            <text x="110" y="147" text-anchor="middle" font-size="12" fill="#333">enregistré</text>
+            <rect x="240" y="60" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="330" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — TRANSCRIPTION</text>
+            <text x="330" y="115" text-anchor="middle" font-size="12" fill="white">Otter, Fireflies,</text>
+            <text x="330" y="131" text-anchor="middle" font-size="12" fill="white">tl;dv, Whisper</text>
+            <text x="330" y="147" text-anchor="middle" font-size="12" fill="white">→ texte brut</text>
+            <rect x="460" y="60" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="550" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — STRUCTURATION</text>
+            <text x="550" y="115" text-anchor="middle" font-size="12" fill="#333">Décisions,</text>
+            <text x="550" y="131" text-anchor="middle" font-size="12" fill="#333">actions, owners,</text>
+            <text x="550" y="147" text-anchor="middle" font-size="12" fill="#333">échéances</text>
+            <rect x="680" y="60" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="770" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">4 — DIFFUSION</text>
+            <text x="770" y="115" text-anchor="middle" font-size="12" fill="#333">Mail / Slack /</text>
+            <text x="770" y="131" text-anchor="middle" font-size="12" fill="#333">Notion + relecture</text>
+            <text x="770" y="147" text-anchor="middle" font-size="12" fill="#333">humaine 2 min</text>
+            <line x1="200" y1="110" x2="238" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar3)"/>
+            <line x1="420" y1="110" x2="458" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar3)"/>
+            <line x1="640" y1="110" x2="678" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar3)"/>
+            <text x="440" y="200" text-anchor="middle" font-size="12" fill="#666" font-style="italic">De l'audio brut au CR diffusé en 5 minutes après la fin de la réunion</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Le pattern à 4 étapes : audio capté → transcription IA → structuration en CR → diffusion validée</p>
+      </section>
 
-    <h3>Confidentialité des contenus stratégiques</h3>
-    <p>
-      Une réunion de comité de direction contient typiquement des informations très sensibles (budget, RH, stratégie). <strong>Ne pas envoyer ces enregistrements à un service cloud non souverain</strong>. Privilégier Whisper local, Mistral EU, ou une intégration NIN-IA en environnement maîtrisé.
-    </p>
+      <!-- 4. OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Quels outils pour quels usages</h2>
+          </div>
+        </div>
 
-    <h3>Qualité audio et nombre de locuteurs</h3>
-    <p>
-      Les outils de transcription marchent bien sur 2-4 locuteurs avec un bon micro. En présentiel à 10+ personnes avec bruit ambiant et accents variés, la qualité chute. Tester sur quelques réunions avant de généraliser.
-    </p>
+        <h3>Outils dédiés transcription + CR (recommandés)</h3>
+        <p><strong>Otter.ai, Fireflies.ai, tl;dv</strong> — outils dédiés transcription + synthèse réunion, intégration native Zoom / Teams / Meet. Transcription en temps réel + résumé structuré (décisions, actions, sujets). Versions gratuites avec limites mensuelles, payantes à partir d'environ 10 €/mois.</p>
 
-    <h3>Hallucinations sur les décisions</h3>
-    <p>
-      L'IA peut « inventer » une décision qui n'a pas été prise, ou attribuer une action à la mauvaise personne. <strong>Toujours relire le CR avant diffusion</strong>, particulièrement pour les actions et engagements.
-    </p>
+        <h3>Pour les organisations souveraines</h3>
+        <p><strong>Whisper</strong> (OpenAI, modèle open source) en local ou via API privée. <strong>NotebookLM</strong> (Google) pour transformer une réunion enregistrée en synthèse interrogeable. Pour les organisations qui ne veulent pas envoyer d'enregistrements à des services cloud externes, des intégrations sur-mesure existent via Mistral EU ou des prestataires spécialisés.</p>
 
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-002-assistant-redactionnel.html">Module précédent — Assistant rédactionnel</a> : la base de la rédaction IA</li>
-      <li><a href="cu-008-knowledge-base-rag.html">Module — Knowledge base RAG</a> : centraliser les CR dans une base interrogeable</li>
-      <li><a href="cu-013-workflow-email-crm.html">Module — Workflow email-CRM</a> : pousser automatiquement les actions extraites du CR vers le CRM</li>
-    </ul>
+        <h3>Approche bricolée (gratuite)</h3>
+        <p>Enregistrer la réunion (avec accord des participants), uploader dans Claude ou ChatGPT en demandant un CR structuré. Marche bien pour des essais, moins adapté à un usage quotidien (manipulation manuelle, confidentialité).</p>
+      </section>
 
-  </article>
+      <!-- 5. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
 
-  <section class="quiz" id="quiz">
-    <h2>Quiz — 5 questions</h2>
+        <p>Tu vas suivre les 3 étapes ci-dessous sur ta prochaine réunion. Compte 10 minutes de configuration en amont, puis 5 minutes après la réunion pour valider le CR.</p>
 
-    <form id="quizForm">
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Ton <strong>comité hebdo</strong> est dans 30 minutes (1h, 6 personnes, sujets opérationnels). Habituellement, tu prends des notes manuellement et tu mets 30-45 minutes après la réunion pour formaliser le CR — souvent dans la soirée, parfois jamais. Aujourd'hui, tu vas tester l'auto-transcription avec restitution automatique.</p>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">1. Pour un dirigeant animant 5-10 réunions par semaine, le temps moyen consacré aux CR (rédaction et suivi) est de :</div>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> 1-2 heures</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> 5-7 heures</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> 10-15 heures</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="d"> Plus de 20 heures</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Configure l'outil avant la réunion</h4>
+            <p>Inscris-toi sur <a href="https://otter.ai" target="_blank" rel="noopener">otter.ai</a> ou <a href="https://fireflies.ai" target="_blank" rel="noopener">fireflies.ai</a> (versions gratuites disponibles). Connecte ton calendrier Google ou Outlook : l'outil détecte automatiquement tes prochaines réunions Zoom / Meet / Teams et propose de les rejoindre.</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;">Active la transcription pour ta réunion d'aujourd'hui. Active la fonction « Smart Summary » qui produira un CR structuré automatiquement à la fin.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>🛠️ Otter.ai ou Fireflies.ai (gratuit)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output attendu</div>Un bot de transcription rejoindra ta réunion en silence, transcrira en direct et produira le CR à la fin.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">2. Quels outils sont spécifiquement dédiés à la transcription + CR avec intégration Zoom/Teams/Meet ?</div>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT, Claude, Mistral</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Otter.ai, Fireflies.ai, tl;dv</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> Perplexity, Google Search, Bing</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="d"> Notion, Airtable, Trello</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Préviens les participants en début de réunion</h4>
+            <p>Obligation RGPD : tu dois <strong>informer les participants</strong> que la réunion est transcrite. Phrase type :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-style: italic; font-size: 0.9375rem;">« Pour mémoire, j'ai activé une transcription automatique aujourd'hui, qui produira un CR structuré qu'on partagera après. Si quelqu'un préfère qu'on désactive, on le fait sans problème. »</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Discipline</div>👤 30 secondes en début de réunion</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Pourquoi cette étape compte</div>L'information préalable est obligatoire RGPD. Sans elle, l'enregistrement n'est pas conforme. Et la transparence rassure les participants.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">3. Pour enregistrer une réunion, quelle obligation RGPD s'applique ?</div>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Aucune si la réunion est interne</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Information préalable des participants, idéalement avec accord explicite</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Demande à la CNIL avant chaque réunion</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="d"> Cryptage obligatoire de l'enregistrement</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Relis et corrige le CR avant diffusion</h4>
+            <p>À la fin de la réunion, l'outil te propose un CR structuré (résumé + décisions + actions + échéances). <strong>Relis-le en mode critique pendant 3-5 minutes</strong> :</p>
+            <ul style="margin-left: var(--space-5); margin-bottom: var(--space-3);">
+              <li>Vérifier que les décisions citées ont bien été prises (pas d'hallucination)</li>
+              <li>Vérifier que les actions sont attribuées aux bonnes personnes</li>
+              <li>Compléter les échéances manquantes</li>
+              <li>Supprimer les passages off-topic</li>
+            </ul>
+            <p>Diffuse ensuite par mail, Slack, ou copie dans ton outil de project management habituel.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>🛠️ Outil de transcription + 📧 Mail ou Slack</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Livrable produit</div>Un CR exploitable diffusé 10 minutes après la fin de la réunion, contre 30-45 minutes en rédaction manuelle. Sur 8 réunions par semaine, c'est 4-6 heures économisées.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">4. Pour une réunion de comité de direction très sensible, quel outil privilégier ?</div>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"> Otter.ai version gratuite</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="b"> Enregistrement uploadé dans ChatGPT</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="c"> Whisper local, Mistral EU, ou intégration sur-mesure (type NIN-IA)</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="d"> Google Meet enregistrement standard</label>
-      </div>
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu as transformé un coût hebdomadaire de 4-6 heures (rédaction CR) en un coût de 30 minutes (validation rapide). <strong>Reproduis le pattern sur toutes tes réunions structurées</strong> et conserve les transcriptions dans un système central — elles deviennent une mémoire d'organisation interrogeable plus tard (cf. module Knowledge base RAG).</p>
+        </div>
+      </section>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">5. Quel est le principal risque sur les CR générés par IA qu'il faut surveiller en relecture ?</div>
-        <label class="quiz-option"><input type="radio" name="q5" value="a"> Les fautes d'orthographe</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="b"> Les hallucinations (décisions inventées, mauvaise attribution d'actions)</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="c"> La longueur excessive du CR</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="d"> La traduction automatique non demandée</label>
-      </div>
+      <!-- 6. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
 
-      <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+        <h3>RGPD et information préalable</h3>
+        <p><strong>Toute réunion enregistrée doit faire l'objet d'une information préalable des participants</strong>, idéalement avec accord explicite. C'est une obligation RGPD. La pratique courante : annoncer en début de réunion que la session sera enregistrée pour produire un CR automatique, et donner la possibilité de refuser.</p>
 
-    </form>
+        <h3>Confidentialité des contenus stratégiques</h3>
+        <p>Une réunion de comité de direction contient typiquement des informations très sensibles (budget, RH, stratégie). <strong>Ne pas envoyer ces enregistrements à un service cloud non souverain</strong>. Privilégier Whisper local, Mistral EU, ou une intégration en environnement maîtrisé.</p>
 
-    <div class="quiz-result" id="quizResult"></div>
+        <h3>Qualité audio et nombre de locuteurs</h3>
+        <p>Les outils de transcription marchent bien sur 2-4 locuteurs avec un bon micro. En présentiel à 10+ personnes avec bruit ambiant et accents variés, la qualité chute. Tester sur quelques réunions avant de généraliser.</p>
 
-  </section>
+        <h3>Hallucinations sur les décisions</h3>
+        <p>L'IA peut « inventer » une décision qui n'a pas été prise, ou attribuer une action à la mauvaise personne. <strong>Toujours relire le CR avant diffusion</strong>, particulièrement pour les actions et engagements.</p>
+      </section>
+
+      <!-- 7. QUIZ -->
+      <section class="module-section" id="quiz">
+        <div class="module-section-header">
+          <div class="module-section-icon success">✅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Quiz — 5 questions</h2>
+          </div>
+        </div>
+
+        <div class="quiz-v3">
+          <form id="quizForm">
+            <div class="quiz-question">
+              <div class="quiz-question-title">1. Pour un dirigeant animant 5-10 réunions par semaine, le temps moyen consacré aux CR (rédaction et suivi) est de :</div>
+              <label class="quiz-option"><input type="radio" name="q1" value="a"> 1-2 heures</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="b"> 5-7 heures</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="c"> 10-15 heures</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="d"> Plus de 20 heures</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">2. Quels outils sont spécifiquement dédiés à la transcription + CR avec intégration Zoom/Teams/Meet ?</div>
+              <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT, Claude, Mistral</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="b"> Otter.ai, Fireflies.ai, tl;dv</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="c"> Perplexity, Google Search, Bing</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="d"> Notion, Airtable, Trello</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">3. Pour enregistrer une réunion, quelle obligation RGPD s'applique ?</div>
+              <label class="quiz-option"><input type="radio" name="q3" value="a"> Aucune si la réunion est interne</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="b"> Information préalable des participants, idéalement avec accord explicite</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="c"> Demande à la CNIL avant chaque réunion</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="d"> Cryptage obligatoire de l'enregistrement</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">4. Pour une réunion de comité de direction très sensible, quel outil privilégier ?</div>
+              <label class="quiz-option"><input type="radio" name="q4" value="a"> Otter.ai version gratuite</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="b"> Enregistrement uploadé dans ChatGPT</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="c"> Whisper local, Mistral EU, ou intégration souveraine sur-mesure</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="d"> Google Meet enregistrement standard</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">5. Quel est le principal risque sur les CR générés par IA qu'il faut surveiller en relecture ?</div>
+              <label class="quiz-option"><input type="radio" name="q5" value="a"> Les fautes d'orthographe</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="b"> Les hallucinations (décisions inventées, mauvaise attribution d'actions)</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="c"> La longueur excessive du CR</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="d"> La traduction automatique non demandée</label>
+            </div>
+            <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+          </form>
+          <div class="quiz-result" id="quizResult"></div>
+        </div>
+      </section>
+
+      <!-- 8. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.cnil.fr/fr/enregistrement-de-reunions-quelles-regles" target="_blank" rel="noopener">CNIL — Enregistrement de réunions : quelles règles ?</a><span class="resources-meta">CNIL, 2024 — guide officiel des obligations RGPD applicables</span></li>
+            <li><a href="https://hbr.org/2022/12/the-meeting-recording-revolution" target="_blank" rel="noopener">Harvard Business Review — The Meeting Recording Revolution</a><span class="resources-meta">HBR — analyse de l'impact organisationnel des CR automatisés</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=otter+ai+tutorial+2026" target="_blank" rel="noopener">Tutoriels Otter.ai</a><span class="resources-meta">YouTube — configuration calendrier, smart summary, intégrations</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=fireflies+ai+vs+otter+ai" target="_blank" rel="noopener">Comparatifs Fireflies vs Otter vs tl;dv</a><span class="resources-meta">YouTube — comparatifs pour choisir selon ton contexte</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://help.otter.ai" target="_blank" rel="noopener">Otter.ai — Help Center</a><span class="resources-meta">Documentation officielle pour la configuration et l'intégration</span></li>
+            <li><a href="https://github.com/openai/whisper" target="_blank" rel="noopener">OpenAI Whisper — GitHub</a><span class="resources-meta">Modèle open source pour transcription locale, alternative souveraine</span></li>
+            <li><a href="https://notebooklm.google.com" target="_blank" rel="noopener">Google NotebookLM</a><span class="resources-meta">Pour transformer un enregistrement en synthèse interrogeable</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/productivity" target="_blank" rel="noopener">r/productivity sur Reddit</a><span class="resources-meta">Discussions sur les workflows post-réunion et les outils de transcription</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="footer-logo">🧭</span>
-        <span class="footer-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
 
+  <script src="../js/module-v3.js"></script>
   <script>
     const correctAnswers = { q1: 'b', q2: 'b', q3: 'b', q4: 'c', q5: 'b' };
     const moduleId = 'cu-003';
-
     function validateQuiz() {
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
       let score = 0;
-
       for (const q in correctAnswers) {
         const selected = form.querySelector(`input[name="${q}"]:checked`);
         if (selected && selected.value === correctAnswers[q]) score++;
       }
-
       let message;
-      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Module suivant ?`;
+      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu peux passer au module suivant.`;
       else if (score >= 3) message = `✅ <strong>Score : ${score}/5</strong><br>Bonne maîtrise.`;
       else message = `📖 <strong>Score : ${score}/5</strong><br>Une relecture est conseillée.`;
-
       result.innerHTML = message;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true, score, total: 5, date: new Date().toISOString()
-      }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score, total: 5, date: new Date().toISOString() }));
     }
   </script>
 

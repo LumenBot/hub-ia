@@ -3,151 +3,1151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Optimisation production / nesting — Hub IA territorial</title>
+  <title>Optimisation production & nesting industriel — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    /* ROI box — spécifique CU-018 */
+    .roi-box { background: linear-gradient(135deg, #E8F4E0 0%, #D4F0C0 100%); border: 2px solid #5C8C5C; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .roi-box h3 { color: #2E5C2E; margin-top: 0; margin-bottom: var(--space-3); }
+    .roi-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
+    .roi-item { background: white; padding: var(--space-3); border-radius: var(--radius-md); text-align: center; }
+    .roi-num { font-size: 1.5rem; font-weight: 800; color: #2E5C2E; }
+    .roi-label { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: var(--space-1); }
+
+    /* Bloc 3 axes d'optimisation — spécifique CU-018 */
+    .axes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .axes-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+    .axes-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+    .axes-card-title { font-weight: 700; color: var(--color-primary); font-size: 1rem; margin-bottom: var(--space-2); }
+    .axes-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .axes-card-gain { font-size: 0.8125rem; color: #2E5C2E; font-weight: 600; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+
+    /* Bloc territorial — spécifique CU-018 */
+    .territorial-box { background: linear-gradient(135deg, #FDF4DC 0%, #F8E8B8 100%); border: 2px solid #B89030; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .territorial-box h3 { color: #7A5C20; margin-top: 0; margin-bottom: var(--space-3); }
+    .territorial-box p { margin-bottom: var(--space-3); font-size: 0.9375rem; line-height: 1.5; }
+    .territorial-box p:last-child { margin-bottom: 0; }
+    .territorial-box strong { color: #7A5C20; }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <a href="../index.html?axe=e#modules" class="card-badge axe-e">🏭 Industrie</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — étude de cas</span>
+        <a href="../index.html?axe=e#modules" class="card-badge axe-e">⚙️ Industrie</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
       </div>
-      <h1>⚙️ Optimisation de production et nesting industriel</h1>
+      <h1>📐 Optimisation production & nesting industriel</h1>
       <p class="module-subtitle">
-        IA + recherche opérationnelle pour optimiser placement de pièces (nesting), planning de production, paramètres machine. Gains typiques : -10 à -30 % de chutes matière, -10 à -20 % temps de production.
+        Coupler IA et recherche opérationnelle pour optimiser le placement des pièces sur la matière première (nesting), planifier les ordres de fabrication et ajuster les paramètres machine. Gains typiques : -10 à -30 % de chutes matière, -10 à -20 % de temps de production. Cas central pour les filières où la matière représente une part dominante du coût.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Le cas</h2>
-    <p>Cas d'usage industriel à fort levier : utiliser des algorithmes (souvent IA + recherche opérationnelle) pour optimiser le placement des pièces sur une matière première (nesting), planifier les ordres de fabrication, ajuster les paramètres machine en fonction des spécifications produit.</p>
-    <p>Pertinent pour les filières où la matière première représente une part dominante du coût : <strong>bois, textile, métal, papier, agroalimentaire</strong>. Pour les industriels vosgiens, c'est l'un des leviers de gain les plus directement chiffrables.</p>
+  <div class="module-layout">
 
-    <h2>L'architecture</h2>
-    <ol>
-      <li><strong>Numérisation des spécifications</strong> — pièces à produire, contraintes matière, machines disponibles</li>
-      <li><strong>Algorithme d'optimisation</strong> — IA + solveurs combinatoires (OR-Tools, CPLEX, Xpress)</li>
-      <li><strong>Génération du plan de coupe / ordonnancement</strong> — proposition optimale ou multi-critères</li>
-      <li><strong>Validation humaine</strong> — l'opérateur valide ou ajuste avant exécution</li>
-      <li><strong>Exécution machine</strong> — transmission au CN, MES, ERP</li>
-      <li><strong>Boucle apprentissage</strong> — historique des découpes réussies/échouées alimente l'optimisation</li>
-    </ol>
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Les 3 axes + territoire</a>
+        <a href="#section-3">3. Architecture</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack technique</a>
+        <a href="#section-6">6. Financements</a>
+        <a href="#section-7">7. Troubleshooting</a>
+        <a href="#section-8">8. Étude de cas BoisCo</a>
+        <a href="#section-9">9. Pièges à éviter</a>
+        <a href="#section-10">10. Checklist d'éligibilité</a>
+        <a href="#section-11">11. Pour aller plus loin</a>
+      </nav>
+    </aside>
 
-    <h2>Stack technique</h2>
-    <ul>
-      <li><strong>Nesting / placement</strong> : Cadwork (mécène Fondation Excellence Campus Bois — partenaire potentiel territoire), TopSolid, Hexagon, Lectra (textile)</li>
-      <li><strong>Ordonnancement IA</strong> : OpenSolver, IBM CPLEX, FICO Xpress, OR-Tools (open source)</li>
-      <li><strong>Generative Design</strong> : Autodesk Fusion</li>
-      <li><strong>Atsora Solutions</strong> (portefeuille QA) — supervision data process et IA industrielle</li>
-      <li><strong>Ressources scientifiques territoriales</strong> : LERMAB, ENSTIB, CRAN — Hind Bril El Haouzi (chercheure ENSTIB/CRAN) pivot industrie 4.0 × filière bois</li>
-    </ul>
+    <main class="module-main">
 
-    <h2>Indicateurs typiques</h2>
-    <ul>
-      <li><strong>Réduction chutes matière</strong> : -10 à -30 % selon process</li>
-      <li><strong>Temps de production</strong> : -10 à -20 % par optimisation ordonnancement</li>
-      <li><strong>Disponibilité machine</strong> : amélioration via meilleure planification</li>
-    </ul>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Pour beaucoup d'industriels, la matière première représente 40 à 70 % du coût de production. Coupler recherche opérationnelle (solveurs MILP, métaheuristiques) et IA (apprentissage des contraintes implicites, generative design) permet de gagner 10 à 30 points sur les chutes matière, 10 à 20 % sur le temps de production. Cas central pour les filières vosgiennes (bois, panneaux, textile, mécanique) avec un atout territorial majeur : l'écosystème scientifique ENSTIB / LERMAB / CRAN qui peut diviser par 2 le coût initial de modélisation.
+          </p>
 
-    <h2>Pertinence territoriale</h2>
-    <ul>
-      <li><strong>Filière bois / panneaux</strong> : optimisation de coupe sur grumes et panneaux. Cas central pour Egger Rambervillers, NS-Weisrock, scieries vosgiennes (Etablissements Gaiffe)</li>
-      <li><strong>Textile</strong> : optimisation placement sur rouleaux (Linvosges, Bleu Forêt, Garnier-Thiebaut)</li>
-      <li><strong>Industrie / mécanique</strong> : ordonnancement de lignes, optimisation outillages</li>
-      <li><strong>Levier institutionnel</strong> : Fondation Excellence Campus Bois (créée déc. 2025) avec mécène Cadwork — partenariat potentiel direct</li>
-    </ul>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🤝</div>
+              <div class="exec-takeaway-content">
+                <strong>RO + IA, pas RO seule.</strong> La recherche opérationnelle résout les problèmes combinatoires NP-difficiles. L'IA apporte les contraintes implicites (qualité matière, défauts, esthétique) et accélère les solveurs.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📐</div>
+              <div class="exec-takeaway-content">
+                <strong>Démarrer par le nesting.</strong> Pour la majorité des ETI bois/panneaux et textile, c'est l'axe au gain le plus mesurable et au périmètre de données le plus simple. Étendre ensuite vers ordonnancement et paramétrage.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔍</div>
+              <div class="exec-takeaway-content">
+                <strong>Caractérisation matière en amont obligatoire.</strong> Sans vision IA ou capteurs sur la matière première (cf. CU-017), l'optimisation reste théorique et ne se matérialise pas en gains.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🌲</div>
+              <div class="exec-takeaway-content">
+                <strong>Mobiliser l'écosystème scientifique territorial.</strong> ENSTIB / LERMAB / CRAN, Fondation Excellence Campus Bois, CIFRE. Peut diviser par 2 le coût initial de modélisation.
+              </div>
+            </div>
+          </div>
 
-    <h2>Limites et points de vigilance</h2>
-    <ul>
-      <li><strong>Données précises requises</strong> — caractéristiques matière (essence, densité, défauts) à instrumenter en amont</li>
-      <li><strong>Complexité d'intégration</strong> — couplage avec ERP, MES, systèmes de coupe automatique</li>
-      <li><strong>Maintenance et évolution</strong> — quand spécifications produit changent, modèle à réajuster</li>
-      <li><strong>AAP mobilisables</strong> : DECARB IND (efficacité énergétique et matière), Région Grand Est Compétitivité, AAP Climaxion EIT pour démarches d'écologie industrielle</li>
-    </ul>
-  </article>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">−10 à −30 %</div>
+              <div class="exec-stat-label">Chutes matière</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">−10 à −20 %</div>
+              <div class="exec-stat-label">Temps de production</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12-24 mois</div>
+              <div class="exec-stat-label">ROI ETI</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">45 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
 
-  <section class="case-study" id="case-study">
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
-      <p style="margin-bottom:0;">Conçu pour les industriels avec process matière dominant (bois, textile, métal, papier).</p>
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une scierie, un fabricant de panneaux bois, une industrie textile, mécanique ou agroalimentaire avec un coût matière ≥40 % du coût total ; tu as déjà ou peux installer une caractérisation matière (vision IA, capteurs) ; ton ERP/MES/CFAO est intégrable ; tu peux mobiliser une compétence en recherche opérationnelle (interne ou via partenariat académique ENSTIB / LERMAB / CRAN) ; tu acceptes une phase de modélisation longue (4-12 mois pour intégrer les contraintes implicites).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — RO et IA, complémentaires</h2>
+        </div>
+
+        <p>
+          Pour beaucoup d'industriels, <strong>la matière première représente 40 à 70 % du coût de production</strong> — particulièrement en filière bois (grumes, panneaux), textile (rouleaux), métal (tôles, profilés), papier-carton et agroalimentaire. Or les méthodes traditionnelles d'optimisation de placement et d'ordonnancement plafonnent rapidement : <strong>les opérateurs expérimentés font des choix proches de l'optimum local</strong>, mais incapables d'explorer la combinatoire complète de problèmes à 10⁶ ou 10¹² possibilités. Une chute de 5 à 10 points sur un coût matière de plusieurs millions d'euros par an est massive.
+        </p>
+        <p>
+          L'optimisation industrielle moderne combine deux mondes complémentaires. La <strong>recherche opérationnelle</strong> (RO) — solveurs MILP, programmation par contraintes, métaheuristiques — résout les problèmes combinatoires NP-difficiles avec des garanties d'optimalité. L'<strong>intelligence artificielle</strong> — deep learning, generative design, IA générative — apporte la capacité de prendre en compte des contraintes implicites (qualité matière variable, défauts, esthétique), d'apprendre les patterns récurrents, et d'accélérer les solveurs sur des problèmes répétitifs.
+        </p>
+
+        <div class="pull-quote">
+          Le cas n'est pas nouveau — l'optimisation combinatoire en industrie existe depuis 30 ans (TopSolid, Cadwork, Lectra). Ce qui change avec l'IA moderne, c'est <strong>la capacité à intégrer des variables nouvelles</strong> : caractérisation fine de la matière par vision IA, contraintes énergétiques temps réel, ordonnancement multi-objectifs incluant l'empreinte carbone.
+        </div>
+
+        <p>
+          C'est un cas particulièrement pivot pour le <strong>tissu industriel vosgien et grand-estois</strong>. Les filières bois et panneaux (Egger Rambervillers, NS-Weisrock, scieries vosgiennes), textile (Linvosges, Bleu Forêt, Garnier-Thiebaut) et industrie mécanique (Numalliance et autres) sont précisément les bénéficiaires naturels.
+        </p>
+
+        <div class="roi-box">
+          <h3>📊 Gains documentés sur les déploiements matures</h3>
+          <p style="margin: 0 0 var(--space-3);">Les industriels qui ont déployé l'optimisation IA + RO sur leurs processus critiques rapportent les gains suivants en régime stabilisé :</p>
+          <div class="roi-meta">
+            <div class="roi-item">
+              <div class="roi-num">−10 à −30 %</div>
+              <div class="roi-label">Chutes matière</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">−10 à −20 %</div>
+              <div class="roi-label">Temps de production</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">−5 à −15 %</div>
+              <div class="roi-label">Consommation énergie</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">12-24 mois</div>
+              <div class="roi-label">ROI ETI</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. LES 3 AXES + TERRITOIRE -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les 3 axes d'optimisation + atout territorial unique</h2>
+        </div>
+
+        <p>
+          Trois axes d'optimisation industrielle sont éligibles au pattern IA + RO. Pour la majorité des ETI vosgiennes, démarrer par le nesting (placement) est la voie la plus directe vers le gain mesurable.
+        </p>
+
+        <div class="axes-grid">
+          <div class="axes-card">
+            <div class="axes-card-icon">📐</div>
+            <div class="axes-card-title">Nesting / placement</div>
+            <div class="axes-card-desc">Placement optimal des pièces sur la matière première (panneaux bois, rouleaux textile, tôles métalliques) pour minimiser les chutes.</div>
+            <div class="axes-card-gain">Gain typique : -10 à -30 % de chutes matière</div>
+          </div>
+          <div class="axes-card">
+            <div class="axes-card-icon">⏱️</div>
+            <div class="axes-card-title">Ordonnancement</div>
+            <div class="axes-card-desc">Planification optimale des ordres de fabrication sur les machines, prise en compte des changements d'outils, des temps de setup, des contraintes de délai.</div>
+            <div class="axes-card-gain">Gain typique : -10 à -20 % de temps total</div>
+          </div>
+          <div class="axes-card">
+            <div class="axes-card-icon">⚡</div>
+            <div class="axes-card-title">Paramétrage machine</div>
+            <div class="axes-card-desc">Ajustement automatique des paramètres machine (vitesse, température, pression) en fonction des spécifications produit et de la qualité matière en entrée.</div>
+            <div class="axes-card-gain">Gain typique : -5 à -15 % énergie + qualité</div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Recommandation par défaut</strong> : démarrer sur l'axe où le gain attendu est le plus mesurable et le périmètre de données le plus simple — pour la filière bois/panneaux et textile, c'est presque toujours le nesting (placement). Étendre ensuite vers l'ordonnancement et le paramétrage machine quand la culture data est installée.
+        </p>
+
+        <div class="territorial-box">
+          <h3>🌲 Atout territorial unique — l'écosystème scientifique vosgien et grand-estois</h3>
+          <p>
+            Le territoire vosgien dispose d'<strong>un écosystème scientifique de premier plan sur l'optimisation industrielle filière bois</strong>, qui est rare en France et constitue un avantage compétitif structurant pour les industriels locaux.
+          </p>
+          <p>
+            L'<strong>ENSTIB</strong> (École Nationale Supérieure des Technologies et Industries du Bois) à Épinal forme les ingénieurs spécialistes de la filière. Le <strong>LERMAB</strong> (Laboratoire d'Études et de Recherche sur le Matériau Bois) couvre la science des matériaux. Le <strong>CRAN</strong> (Centre de Recherche en Automatique de Nancy) couvre l'automatique et l'industrie 4.0. Hind Bril El Haouzi, chercheure ENSTIB/CRAN, est une référence sur l'industrie 4.0 × filière bois.
+          </p>
+          <p>
+            Côté infrastructure : la <strong>Fondation Excellence Campus Bois</strong> (créée en décembre 2025 à l'ENSTIB) avec mécènes Piveteau, Poujoulat et <strong>Cadwork</strong> ouvre des opportunités directes de partenariat sur l'optimisation industrielle bois. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orienter et accompagner les projets.
+          </p>
+          <p>
+            Pour un industriel vosgien, mobiliser ces ressources territoriales (laboratoire académique partenaire pour la R&D, fondation pour le sourcing technologique, cluster pour l'orientation) <strong>peut typiquement diviser par 2 le coût initial de modélisation</strong> et accélérer le déploiement de 6 à 12 mois.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture de référence</h2>
+        </div>
+
+        <p>
+          Pipeline complet : données amont (ordres, matière caractérisée, machines, contraintes) → solveur hybride RO + IA → 3 sorties (nesting, ordonnancement, paramètres) → validation humaine → exécution avec boucle d'apprentissage continue.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar18" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar18green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+            </defs>
+
+            <!-- Données amont en colonne gauche -->
+            <rect x="20" y="40" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">📦 ORDRES FABRICATION</text>
+            <text x="110" y="82" text-anchor="middle" font-size="11" fill="#333">Quoi fabriquer</text>
+            <text x="110" y="95" text-anchor="middle" font-size="10" fill="#666" font-style="italic">depuis ERP / MES</text>
+
+            <rect x="20" y="115" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">🪵 MATIÈRE EN STOCK</text>
+            <text x="110" y="157" text-anchor="middle" font-size="11" fill="#333">Caractéristiques fines</text>
+            <text x="110" y="170" text-anchor="middle" font-size="10" fill="#666" font-style="italic">vision IA + capteurs</text>
+
+            <rect x="20" y="190" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">🛠️ ÉTAT MACHINES</text>
+            <text x="110" y="232" text-anchor="middle" font-size="11" fill="#333">Disponibilité, outillage</text>
+            <text x="110" y="245" text-anchor="middle" font-size="10" fill="#666" font-style="italic">depuis MES</text>
+
+            <rect x="20" y="265" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="290" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">📋 CONTRAINTES</text>
+            <text x="110" y="307" text-anchor="middle" font-size="11" fill="#333">Délais, qualité</text>
+            <text x="110" y="320" text-anchor="middle" font-size="10" fill="#666" font-style="italic">et coûts</text>
+
+            <!-- Solveur central -->
+            <rect x="280" y="80" width="200" height="220" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="3"/>
+            <text x="380" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#FFD600">🧠 SOLVEUR HYBRIDE</text>
+            <line x1="300" y1="135" x2="460" y2="135" stroke="#FFD600" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <text x="290" y="160" font-size="11" fill="white">RECHERCHE OP :</text>
+            <text x="290" y="178" font-size="11" fill="white">  • MILP / OR-Tools</text>
+            <text x="290" y="194" font-size="11" fill="white">  • Métaheuristiques</text>
+
+            <text x="290" y="220" font-size="11" fill="white">IA :</text>
+            <text x="290" y="238" font-size="11" fill="white">  • Apprentissage</text>
+            <text x="290" y="252" font-size="11" fill="white">    contraintes implicites</text>
+            <text x="290" y="268" font-size="11" fill="white">  • Generative design</text>
+
+            <text x="380" y="290" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Cadwork · TopSolid · Lectra</text>
+
+            <!-- Plan optimisé en sortie -->
+            <rect x="540" y="80" width="200" height="60" rx="10" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="640" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">📐 PLAN NESTING</text>
+            <text x="640" y="125" text-anchor="middle" font-size="11" fill="#333">Placement optimal pièces</text>
+
+            <rect x="540" y="155" width="200" height="60" rx="10" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="640" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">⏱️ ORDONNANCEMENT</text>
+            <text x="640" y="200" text-anchor="middle" font-size="11" fill="#333">Séquence optimale</text>
+
+            <rect x="540" y="230" width="200" height="60" rx="10" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="640" y="255" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">⚡ PARAMÈTRES MACHINE</text>
+            <text x="640" y="275" text-anchor="middle" font-size="11" fill="#333">Vitesses, températures</text>
+
+            <!-- Validation humaine -->
+            <rect x="780" y="120" width="120" height="120" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="3"/>
+            <text x="840" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#8C5410">👤 VALIDATION</text>
+            <text x="840" y="172" text-anchor="middle" font-size="11" fill="#333">Chef de</text>
+            <text x="840" y="186" text-anchor="middle" font-size="11" fill="#333">production</text>
+            <text x="840" y="208" text-anchor="middle" font-size="11" fill="#333">Ajustement</text>
+            <text x="840" y="222" text-anchor="middle" font-size="11" fill="#333">si besoin</text>
+
+            <!-- Boucle d'apprentissage -->
+            <rect x="100" y="370" width="720" height="60" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="395" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">🔄 BOUCLE D'APPRENTISSAGE</text>
+            <text x="460" y="415" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Résultats réels (rendement matière, temps effectif, qualité) → ré-entraînement modèles + ajustement contraintes</text>
+
+            <!-- Flèches données → solveur -->
+            <line x1="200" y1="70" x2="278" y2="120" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+            <line x1="200" y1="145" x2="278" y2="160" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+            <line x1="200" y1="220" x2="278" y2="220" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+            <line x1="200" y1="295" x2="278" y2="270" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+
+            <!-- Flèches solveur → 3 sorties -->
+            <line x1="480" y1="120" x2="538" y2="110" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar18)"/>
+            <line x1="480" y1="180" x2="538" y2="185" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar18)"/>
+            <line x1="480" y1="240" x2="538" y2="260" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar18)"/>
+
+            <!-- Flèches sorties → validation -->
+            <line x1="740" y1="110" x2="778" y2="160" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+            <line x1="740" y1="185" x2="778" y2="180" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+            <line x1="740" y1="260" x2="778" y2="200" stroke="#2E5395" stroke-width="2" marker-end="url(#ar18)"/>
+
+            <!-- Flèche validation → exécution (en bas, vers boucle) -->
+            <line x1="840" y1="240" x2="800" y2="368" stroke="#5C8C5C" stroke-width="2" marker-end="url(#ar18green)"/>
+
+            <!-- Boucle apprentissage retour -->
+            <line x1="120" y1="395" x2="100" y2="200" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar18)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline complet : données amont (ordres, matière caractérisée, machines, contraintes) → solveur hybride RO + IA → 3 sorties (nesting, ordonnancement, paramètres) → validation humaine → exécution avec boucle d'apprentissage continue.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Choisir l'axe d'optimisation prioritaire.</strong> Pour la majorité des ETI bois/panneaux et textile, le nesting (placement) est le point de départ naturel — gain mesurable rapidement, périmètre de données simple, intégration CFAO standard. Pour l'industrie mécanique avec gammes complexes, l'ordonnancement peut être plus rentable. Cartographier le coût matière et le coût opérationnel pour décider objectivement.</li>
+          <li><strong>Caractériser finement la matière première.</strong> Le talon d'Achille de l'optimisation industrielle : un système ne peut optimiser que ce qu'il connaît précisément. Pour le bois, caractérisation par <strong>vision IA</strong> des grumes et panneaux (essence, densité, défauts, géométrie). Pour le textile, mesure des largeurs réelles et défauts au déroulement. Sans cette caractérisation, l'optimisation reste théorique et ne se matérialise pas.</li>
+          <li><strong>Modéliser le problème en programme mathématique.</strong> Formulation MILP (Mixed Integer Linear Programming) ou programmation par contraintes pour la majorité des cas industriels. Variables de décision (placement, séquence), fonction objectif (minimisation chutes ou temps), contraintes (capacité machines, délais clients, compatibilité essences). Cette étape demande une compétence en recherche opérationnelle — où le partenariat avec ENSTIB / LERMAB / CRAN devient pertinent.</li>
+          <li><strong>Choisir le solveur adapté à la complexité.</strong> Pour les problèmes simples (quelques centaines de variables), <strong>OR-Tools</strong> de Google (open source) suffit. Pour les gros problèmes industriels, <strong>IBM CPLEX</strong> ou <strong>FICO Xpress</strong> (commerciaux, performants). Pour les solutions clés en main filières, <strong>Cadwork</strong> (bois, mécène ENSTIB), <strong>TopSolid</strong> (multi-filière), <strong>Lectra</strong> (textile) intègrent solveur + interface utilisateur + intégration CFAO.</li>
+          <li><strong>Coupler avec l'IA pour les contraintes implicites.</strong> Là où la pure RO atteint ses limites : qualité matière variable, défauts, esthétique, préférences opérateur. Un modèle IA (deep learning sur historique) apprend ces contraintes implicites et les injecte dans la fonction objectif du solveur. Generative design (Autodesk Fusion) pour les pièces complexes. Cette couche est ce qui fait la différence entre l'optimisation classique et l'optimisation IA moderne.</li>
+          <li><strong>Intégrer dans la chaîne de production existante.</strong> Couplage avec l'<strong>ERP</strong> (ordres de fabrication, stocks matière), le <strong>MES</strong> (état machines, suivi production), la <strong>CFAO</strong> (Conception et Fabrication Assistées par Ordinateur — output direct vers les machines de coupe). Sans cette intégration, le système produit un plan théorique mais non exécuté. Souvent le vrai coût technique du déploiement.</li>
+          <li><strong>Validation humaine avant lancement.</strong> Le chef de production valide le plan généré, peut ajuster sur des contraintes implicites non capturées, lance l'exécution. <strong>L'expérience opérateur reste précieuse</strong> sur les cas atypiques — le système ne remplace pas, il augmente.</li>
+          <li><strong>Boucle d'apprentissage sur les résultats réels.</strong> Comparaison entre plan optimisé et résultat réel (rendement matière effectif, temps réel, qualité produite). Ré-entraînement périodique des modèles IA, ajustement des contraintes RO, élargissement progressif du périmètre. C'est ce qui transforme un déploiement initial en système qui s'améliore dans le temps.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK TECHNIQUE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Couche données amont ─┐</strong>
+   ERP (SAP, Sage, Cegid) → ordres de fabrication
+   MES (industriels divers) → état machines, disponibilités
+   Vision IA (CU-017) → caractérisation matière fine
+   Capteurs IoT → données process temps réel
+
+<strong>┌─ Couche solveur hybride ─┐</strong>
+   Recherche Opérationnelle :
+   - OR-Tools (open source, Google)
+   - CPLEX, Xpress (commerciaux, gros problèmes)
+   - Solutions filières : Cadwork (bois), Lectra (textile)
+   IA :
+   - Deep learning pour contraintes implicites
+   - Generative design (Autodesk Fusion)
+   - Reinforcement Learning pour ordonnancement complexe
+
+<strong>┌─ Couche intégration aval ─┐</strong>
+   CFAO → output direct machines de coupe
+   MES → suivi exécution
+   Tableaux de bord supervision
+
+<strong>┌─ Couche apprentissage ─┐</strong>
+   Comparaison plan vs réel (matière, temps, qualité)
+   Re-calibration périodique des modèles
+   Élargissement progressif du périmètre
+        </div>
+
+        <h3>Solutions filières clés en main</h3>
+        <p>
+          <strong>Cadwork</strong> est la référence pour la filière bois et construction — utilisé largement par les industriels du panneau, mécène de la Fondation Excellence Campus Bois (ENSTIB). <strong>TopSolid</strong> couvre multi-filières (bois, métal) avec une approche CFAO intégrée. <strong>Lectra</strong> est la référence textile — placement sur rouleaux, optimisation matière. <strong>Hexagon</strong> propose des solutions enterprise sur la métrologie et l'optimisation industrielle.
+        </p>
+
+        <h3>Solveurs d'optimisation</h3>
+        <p>
+          <strong>OR-Tools</strong> (Google, open source) couvre 80 % des cas industriels classiques avec une qualité excellente — gratuit, bien documenté, intégrable en Python. Pour les problèmes très gros ou complexes, <strong>IBM CPLEX</strong> et <strong>FICO Xpress</strong> sont les solveurs commerciaux de référence (licences significatives mais performance imbattable). <strong>OpenSolver</strong> est une alternative légère pour les usages ponctuels.
+        </p>
+
+        <h3>IA et generative design</h3>
+        <p>
+          <strong>Autodesk Fusion Generative Design</strong> est la référence sur la conception générative (pièces complexes optimisées en topologie). Pour les modèles custom : <strong>PyTorch</strong> ou <strong>TensorFlow</strong> pour le deep learning, <strong>Stable-Baselines3</strong> pour le reinforcement learning sur l'ordonnancement complexe. <strong>Mistral Forge</strong> peut être pertinent pour fine-tuner un modèle sur des datasets propres avec garantie de souveraineté.
+        </p>
+
+        <h3>Partenaires d'intégration et écosystème territorial</h3>
+        <p>
+          Pour le tissu vosgien et grand-estois : <strong>Atsora Solutions</strong> (alumni QFC) couvre la dimension supervision data process et IA industrielle. Côté académique : <strong>ENSTIB</strong>, <strong>LERMAB</strong> et <strong>CRAN</strong> à Nancy sont des partenaires R&D de premier plan, particulièrement sur la filière bois. La <strong>Fondation Excellence Campus Bois</strong> (créée déc. 2025) avec mécènes Piveteau, Poujoulat et Cadwork est un levier institutionnel direct. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orientation et accompagnement.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Caractérisation fine de la matière première — souvent un préalable d'instrumentation (vision IA en amont, cf. CU-017). Compétence en recherche opérationnelle en interne ou via partenariat académique (ENSTIB, LERMAB, CRAN sont accessibles via la voie partenariat R&D). Intégration ERP + MES + CFAO maîtrisée. Budget initial significatif : 80 à 400 K€ pour un système robuste, intégré et calibré, accessible aux PME et ETI avec cofinancement public.
+        </p>
+      </section>
+
+      <!-- 6. FINANCEMENTS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">6</div>
+          <h2 class="module-section-title">Dispositifs de financement mobilisables</h2>
+        </div>
+
+        <div class="funding-box">
+          <h3>💰 Cofinancement public + R&D jusqu'à 60-75 %</h3>
+          <p style="margin: 0 0 var(--space-3);">L'optimisation production IA est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement attractifs pour les ETI vosgiennes :</p>
+          <ul>
+            <li><strong>DECARB IND (France 2030)</strong> — l'optimisation matière et énergie réduit directement l'empreinte carbone. Subvention jusqu'à 30 % HT, particulièrement adapté à ce type de déploiement.</li>
+            <li><strong>Climaxion EIT (Région Grand Est)</strong> — soutien spécifique à l'écologie industrielle et à l'efficacité matière. Pertinent quand la dimension environnementale est forte.</li>
+            <li><strong>Région Grand Est Compétitivité</strong> — soutien à la transformation digitale industrielle, taux de financement client final pouvant atteindre 70 %.</li>
+            <li><strong>Pionniers IA (Bpifrance)</strong> — bourse d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
+            <li><strong>CIR / CII</strong> — sur la partie R&D et innovation du déploiement (modélisation custom, partenariats académiques avec ENSTIB / LERMAB / CRAN).</li>
+            <li><strong>Partenariats R&D ENSTIB / LERMAB / CRAN</strong> — pour la filière bois, montage de projets en CIFRE ou conventions de recherche permet de mobiliser un doctorant ou un ingénieur de recherche pour la modélisation, à coût partagé. Peut diviser par 2 le coût initial de modélisation.</li>
+          </ul>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu vosgien filière bois, le cumul DECARB IND + Climaxion EIT + partenariat ENSTIB/LERMAB en CIFRE permet typiquement d'atteindre 60-75 % de financement public+R&D, avec une durée de modélisation accélérée de 6 à 12 mois grâce à la mobilisation académique.</em></p>
+        </div>
+      </section>
+
+      <!-- 7. TROUBLESHOOTING -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Plans optimisés théoriquement mais non exécutables en production</td>
+                <td>Contraintes implicites non capturées (qualité matière variable, préférences opérateur, contraintes machine non documentées)</td>
+                <td>Audit terrain avec le chef de production : quelles contraintes a-t-il en tête mais pas dans le système ? Ajout progressif de ces contraintes dans le modèle. C'est typiquement la phase la plus longue du déploiement.</td>
+              </tr>
+              <tr>
+                <td>Solveur qui ne converge pas dans le temps imparti</td>
+                <td>Problème mal formulé, trop de variables, contraintes redondantes</td>
+                <td>Re-formulation mathématique avec partenaire académique (ENSTIB, LERMAB, CRAN). Décomposition du problème en sous-problèmes. Passage à des métaheuristiques (recuit simulé, algorithmes génétiques) qui acceptent des solutions sous-optimales en temps borné.</td>
+              </tr>
+              <tr>
+                <td>Caractérisation matière insuffisante</td>
+                <td>Pas d'instrumentation amont (vision IA absente)</td>
+                <td>Investir d'abord dans la caractérisation matière (cf. CU-017 vision IA) avant de scaler l'optimisation. Sans données précises sur la matière, l'optimisation reste théorique.</td>
+              </tr>
+              <tr>
+                <td>Intégration CFAO échoue (plan non transmis aux machines de coupe)</td>
+                <td>Format de données incompatible ou protocole non standardisé</td>
+                <td>Standardiser sur les formats CFAO de la filière (DXF, STEP, formats propres Cadwork/TopSolid/Lectra). Tester l'intégration dès le début du projet, ne pas la reporter en fin de déploiement.</td>
+              </tr>
+              <tr>
+                <td>Drift après changement de gamme produit</td>
+                <td>Modèle entraîné sur ancienne gamme, contraintes nouvelles non capturées</td>
+                <td>Ré-entraînement systématique à chaque changement majeur de gamme. Monitoring du rendement matière par gamme pour détecter les dégradations rapidement.</td>
+              </tr>
+              <tr>
+                <td>Adoption résistante du chef de production</td>
+                <td>Système perçu comme remettant en cause son expertise terrain</td>
+                <td>Positionner le système comme « augmentation » de son expertise — il valide, il ajuste, il garde la main. Mettre en avant les cas où le système identifie des optima qu'il n'aurait pas trouvés (exploration combinatoire massive). Communiquer les premiers gains mesurables en interne.</td>
+              </tr>
+              <tr>
+                <td>Coûts de licence solveur qui dérapent</td>
+                <td>Licence CPLEX ou Xpress mal dimensionnée par rapport au volume réel</td>
+                <td>Démarrer avec OR-Tools (open source) pour les premiers déploiements et valider le modèle. Passer à CPLEX ou Xpress seulement si volume justifie. Pour les problèmes très ponctuels, possibilité de sous-traiter à un prestataire qui a la licence.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. ÉTUDE DE CAS -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">8</div>
+          <h2 class="module-section-title">Étude de cas — BoisCo, scierie 65 personnes</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste, inspirée du tissu scierie vosgien. 5 étapes décortiquées sur un déploiement de 16 mois en partenariat avec ENSTIB. Compte 75 minutes pour assimiler en profondeur, ou 25 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">BoisCo — scierie de 65 personnes basée dans les Vosges, spécialisée en bois techniques pour la construction. Production de ~25 000 m³/an de bois transformés à partir de grumes locales. Coût matière première : ~60 % du coût total. Optimisation actuelle du débit grume par opérateur expérimenté qui choisit le mode de débit visuellement — performance proche de l'optimum local mais sans exploration combinatoire complète. Ambition : déployer un système IA + RO pour optimiser le débit, en partenariat R&D avec l'ENSTIB.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>65 personnes</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Volume annuel</div>
+              <strong>25 000 m³</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Coût matière</div>
+              <strong>~60 % coût total</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cible gain matière</div>
+              <strong>+5-10 points</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cartographie + montage partenariat ENSTIB + dossier financement (mois 1-3)</h3>
+            <p>Le directeur de production de BoisCo prend contact avec l'ENSTIB via le réseau Quest for Change. Co-construction d'un projet R&D avec le LERMAB et le CRAN pour formaliser le problème de débit grume optimal en programme mathématique. <strong>Montage d'une CIFRE</strong> (Convention Industrielle de Formation par la Recherche) avec un doctorant en optimisation industrielle, encadré par Hind Bril El Haouzi. En parallèle, dossier de financement DECARB IND + Climaxion EIT + Région Grand Est Compétitivité monté avec un Startup Manager du réseau QFC. Sélection de Cadwork comme partenaire technique CFAO.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — partenariat académique CIFRE + dossiers financement + sélection partenaire technique
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              CIFRE actée avec un doctorant ENSTIB/CRAN sur 3 ans (coût partagé : ~30 K€/an pour BoisCo, le reste financé par l'ANRT et la Région). Cofinancement public 60 % obtenu sur le volet déploiement (DECARB IND 25 % + Climaxion 15 % + Région 20 %). Investissement net BoisCo : ~80 K€ sur 200 K€ total + ~90 K€ CIFRE 3 ans.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Caractériser finement les grumes par vision IA (mois 4-9)</h3>
+            <p>Installation par Atsora Solutions d'un système de caractérisation grume en entrée de scierie : 4 caméras industrielles + scanner 3D pour mesurer dimensions, défauts (nœuds, fissures), géométrie réelle. Modèle vision IA entraîné par le doctorant sur 8 000 grumes annotées par des opérateurs expérimentés. Sortie : pour chaque grume, un fichier de caractérisation détaillé exploitable par le solveur de débit. <strong>Phase critique : 6 mois de calibrage</strong> avant fiabilité suffisante.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              4× caméras industrielles Basler + scanner 3D Faro → modèle vision YOLO + segmentation custom → fichier de caractérisation grume au format standard Cadwork → ingestion solveur
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Caractérisation automatique de chaque grume en ~30 secondes (vs 2-3 min visuelle opérateur, et avec une précision supérieure sur les défauts internes). 8 000 grumes annotées dans la base d'apprentissage. Précision caractérisation : 91 % sur les défauts critiques après 6 mois de calibrage.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Modéliser le problème de débit en MILP avec ENSTIB (mois 7-12, en parallèle)</h3>
+            <p>Le doctorant CIFRE formalise le problème de débit grume optimal en programme MILP : variables de décision (mode de débit, séquences de coupe), fonction objectif (maximisation rendement matière + minimisation temps de débit), contraintes (capacité scie, demande clients, contraintes esthétiques produits). Implémentation dans <strong>OR-Tools</strong> en première version pour validation, basculement vers <strong>CPLEX</strong> pour les volumes industriels. Co-développement avec l'équipe production de BoisCo pour intégrer les contraintes implicites.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Modèle MILP formalisé par doctorant ENSTIB/CRAN → implémentation Python OR-Tools (V1) → migration CPLEX (V2 production) → intégration Cadwork via API
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Modèle MILP fonctionnel résolvant le débit grume optimal en ~30 secondes (acceptable pour le rythme scierie). Co-publication scientifique avec l'ENSTIB sur le modèle. Les contraintes implicites du chef de production progressivement intégrées (4 itérations sur 5 mois).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Déployer en mode augmenté avec validation humaine (mois 13-15)</h3>
+            <p>Passage en production avec mode augmenté : pour chaque grume entrante, le système propose un plan de débit optimal au chef d'atelier sur tablette, qui valide ou ajuste avant lancement de la coupe. Intégration au système Cadwork CFAO de la scierie pour transmission directe vers les machines de coupe automatisées. <strong>Le chef d'atelier garde la main</strong> et peut overrider sur les cas atypiques. Communication interne : les premiers gains documentés (« le système a identifié un mode de débit que je n'avais pas envisagé ») construisent la confiance.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Tablette opérateur en zone d'entrée scierie → suggestion plan de débit + visualisation 3D → validation/ajustement chef atelier → transmission Cadwork → machine de coupe automatisée
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Sur 3 mois de mode augmenté : <strong>+7 points de rendement matière</strong> par rapport à la baseline historique (vs +5-10 visés). Chef d'atelier override le système dans ~12 % des cas (cas atypiques où son expérience prime). Adoption réussie grâce au positionnement « augmentation, pas remplacement ».
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Régime stabilisé et bilan 16 mois (mois 16+)</h3>
+            <p>Le système entre en régime de croisière. Maintenance ~1 jour/mois pour le directeur de production (revue dashboard, analyse des cas où l'override a apporté un gain — pour enrichir le modèle). Le doctorant CIFRE continue ses travaux sur la prochaine extension : intégration des contraintes énergétiques temps réel (consommation des machines selon la séquence de coupe). <strong>Sur les 4 derniers mois en régime stabilisé</strong> : gain matière de +8.5 points stabilisé, gain temps de débit de +6 % (effet secondaire bénéfique non visé initialement).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Système stable → ré-entraînement trimestriel → reporting mensuel direction → travaux R&D ENSTIB extension contraintes énergétiques → publication scientifique 2 prévue
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              ROI sur 16 mois : ~600 K€ d'économies matière cumulées vs 80 K€ d'investissement net + 40 K€ CIFRE 1ère année. <strong>ROI atteint en 7 mois</strong> sur le périmètre instrumenté. Et le partenariat ENSTIB/CRAN crée un actif scientifique structurant (publications, formation continue d'apprentis).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 16 mois</div>
+          <p>
+            BoisCo a gagné 8.5 points de rendement matière, soit ~600 K€ d'économies cumulées sur 16 mois pour un investissement net de 80 K€ + 40 K€ CIFRE année 1. ROI atteint en 7 mois. <strong>Plus important encore : le partenariat ENSTIB/LERMAB/CRAN</strong> a créé un actif scientifique structurant — formation continue, publications, doctorant qui devient ingénieur recherche après thèse, accès privilégié à l'écosystème scientifique territorial. C'est un cas démonstratif que les industriels vosgiens peuvent mobiliser leur écosystème scientifique pour des projets IA industriels avec un ROI supérieur à un déploiement purement commercial.
+          </p>
+        </div>
+      </section>
+
+      <!-- 9. PIÈGES -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">9</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Sous-estimer les contraintes implicites</h3>
+        <p>
+          Le piège classique : modéliser le problème en RO pure et obtenir des plans théoriquement optimaux mais non exécutables en production. Le chef de production a en tête des dizaines de contraintes implicites (qualité matière variable selon zone, préférences opérateur sur certaines coupes, contraintes machine non documentées). <strong>Audit terrain systématique</strong> dès le début du projet, intégration progressive de ces contraintes — c'est typiquement la phase la plus longue du déploiement (mois 4 à 12 sur la majorité des cas).
+        </p>
+
+        <h3>Caractérisation matière insuffisante</h3>
+        <p>
+          Un système ne peut optimiser que ce qu'il connaît précisément. <strong>Sans caractérisation fine de la matière première</strong> (essence, densité, défauts pour le bois ; largeur réelle, défauts pour le textile), l'optimisation reste théorique et ne se matérialise pas en gains concrets. Investir d'abord dans la caractérisation amont (cf. CU-017 vision IA) avant de scaler l'optimisation. C'est la bonne séquence.
+        </p>
+
+        <h3>Complexité d'intégration ERP/MES/CFAO</h3>
+        <p>
+          Le système doit s'intégrer dans une chaîne existante : ERP pour les ordres, MES pour l'état machines, CFAO pour la transmission aux machines de coupe. <strong>Souvent le vrai coût technique du déploiement</strong>, sous-estimé en phase de chiffrage. Tester l'intégration dès le début du projet, ne pas la reporter en fin. Standardiser sur les formats de la filière (DXF, STEP, formats propres Cadwork/TopSolid/Lectra).
+        </p>
+
+        <h3>Maintenance et évolution dans le temps</h3>
+        <p>
+          Quand les spécifications produit changent (nouvelle gamme, nouvelle norme, nouveaux clients), le modèle doit être réajusté. <strong>Sans maintenance régulière</strong>, le système se dégrade silencieusement (rendement matière qui dérive, plans non optimaux qui passent inaperçus). Re-calibration trimestrielle ou semestrielle obligatoire, monitoring du rendement matière par gamme pour détecter les dégradations rapidement.
+        </p>
+
+        <h3>Adoption du chef de production</h3>
+        <p>
+          Un chef d'atelier ou un chef de production qui se sent dépossédé de son expertise rejette le système. <strong>Positionner explicitement le système comme augmentation, pas remplacement</strong> — il valide, il ajuste sur les cas atypiques, il garde la main. Communiquer les cas où le système identifie des optima qu'il n'aurait pas trouvés (exploration combinatoire massive). Intégrer ses retours dans le ré-entraînement du modèle pour qu'il voie son expertise capitalisée.
+        </p>
+
+        <h3>Sous-utilisation de l'écosystème territorial</h3>
+        <p>
+          Pour les industriels vosgiens et grand-estois, c'est l'un des cas où l'<strong>écosystème scientifique territorial</strong> peut diviser par 2 le coût initial de modélisation. ENSTIB, LERMAB, CRAN sont accessibles via partenariats R&D, CIFRE, conventions de recherche. La Fondation Excellence Campus Bois ouvre des opportunités directes. Le Cluster IA Grand Est ENACT propose un guichet PME. <strong>Ne pas mobiliser cet écosystème, c'est laisser sur la table une partie significative de la valeur</strong>.
+        </p>
+      </section>
+
+      <!-- 10. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">10</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité à déployer un système d'optimisation production IA + RO. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le déploiement est voué à l'échec) et <strong>critères de qualité</strong> (qui conditionnent le ROI). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Coût matière première dominant dans le coût total</strong>
+                  <small>≥40-50 % du coût total. En-dessous, le ROI sur la dimension matière reste marginal vs effort de déploiement.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Caractérisation matière en amont (vision IA ou capteurs)</strong>
+                  <small>Pour les cas bois/panneaux/textile/métal : caractérisation fine indispensable. Sans cela, optimisation théorique.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. ERP + MES + CFAO en place avec capacités d'intégration</strong>
+                  <small>Solution clé en main filière (Cadwork, TopSolid, Lectra) ou écosystème ERP/MES/CFAO compatible API.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Engagement du chef de production / d'atelier</strong>
+                  <small>Co-construction du modèle (contraintes implicites), mode augmenté avec sa validation. Sans son adhésion, échec garanti.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Compétence en recherche opérationnelle accessible</strong>
+                  <small>En interne, via prestataire spécialisé, ou via partenariat académique (ENSTIB, LERMAB, CRAN, autre université).</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la performance</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Budget initial mobilisable (80-400 K€)</strong>
+                  <small>Caractérisation amont + modélisation + intégration. Cofinancement public + partenariat académique peuvent réduire de 50-70 %.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Mobilisation possible de l'écosystème scientifique territorial</strong>
+                  <small>ENSTIB, LERMAB, CRAN pour la filière bois, ou autres labos selon filière. CIFRE, conventions de recherche envisageables.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Plan d'audit terrain pour les contraintes implicites</strong>
+                  <small>Atelier régulier (mensuel) avec chef de production pour ajouter les contraintes implicites au modèle. Phase typique 4-12 mois.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Plan de financement cofinancé monté</strong>
+                  <small>DECARB IND + Climaxion EIT + Région Grand Est + CIR/CII éventuel. Cofinancement typique 50-70 %.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Discipline de re-calibration trimestrielle / semestrielle</strong>
+                  <small>Sans maintenance régulière, le système se dégrade silencieusement à mesure que les gammes produit évoluent.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 11. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-11">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">11</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et références</h3>
+          <ul>
+            <li>
+              <a href="https://www.mckinsey.com/industries/advanced-electronics/our-insights" target="_blank" rel="noopener">McKinsey State of AI in Manufacturing 2025</a>
+              <span class="resources-meta">McKinsey — chiffres ROI optimisation production IA, retours sectoriels documentés</span>
+            </li>
+            <li>
+              <a href="https://www.industrie-techno.com" target="_blank" rel="noopener">L'Usine Nouvelle / Industrie & Technologies</a>
+              <span class="resources-meta">Presse française spécialisée — retours d'expérience industriels français sur l'optimisation</span>
+            </li>
+            <li>
+              <a href="https://hal.science" target="_blank" rel="noopener">HAL — archive ouverte recherche française</a>
+              <span class="resources-meta">Publications scientifiques sur l'industrie 4.0 et l'optimisation industrielle (LERMAB, CRAN, ENSTIB)</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/operations-management" target="_blank" rel="noopener">Harvard Business Review — Operations Management</a>
+              <span class="resources-meta">HBR — analyses managériales sur la transformation des opérations industrielles</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=google+OR-Tools+optimization+tutorial" target="_blank" rel="noopener">Google OR-Tools — optimisation</a>
+              <span class="resources-meta">YouTube — solveur open source de référence, tutoriels complets</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=cadwork+nesting+optimization+wood" target="_blank" rel="noopener">Cadwork — nesting filière bois</a>
+              <span class="resources-meta">YouTube — solution clé en main filière bois, démos d'usage</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=autodesk+fusion+generative+design+tutorial" target="_blank" rel="noopener">Autodesk Fusion Generative Design</a>
+              <span class="resources-meta">YouTube — generative design pour pièces complexes optimisées</span>
+            </li>
+            <li>
+              <a href="https://www.coursera.org/learn/operations-research-1" target="_blank" rel="noopener">Coursera — Operations Research</a>
+              <span class="resources-meta">MOOC fondamentaux recherche opérationnelle pour les profils techniques</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle et solutions</h3>
+          <ul>
+            <li>
+              <a href="https://developers.google.com/optimization" target="_blank" rel="noopener">Google OR-Tools Documentation</a>
+              <span class="resources-meta">Solveur open source de référence pour la recherche opérationnelle</span>
+            </li>
+            <li>
+              <a href="https://www.cadwork.com" target="_blank" rel="noopener">Cadwork — solution filière bois</a>
+              <span class="resources-meta">Référence CFAO et nesting pour la filière bois, mécène de l'ENSTIB</span>
+            </li>
+            <li>
+              <a href="https://www.lectra.com" target="_blank" rel="noopener">Lectra — solution textile</a>
+              <span class="resources-meta">Référence placement textile et optimisation matière</span>
+            </li>
+            <li>
+              <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" target="_blank" rel="noopener">IBM CPLEX Optimization Studio</a>
+              <span class="resources-meta">Solveur commercial enterprise pour les gros problèmes d'optimisation</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Écosystème territorial</h3>
+          <ul>
+            <li>
+              <a href="https://enstib.univ-lorraine.fr" target="_blank" rel="noopener">ENSTIB — École Nationale Supérieure des Technologies et Industries du Bois</a>
+              <span class="resources-meta">École de référence filière bois à Épinal, partenariats R&D possibles</span>
+            </li>
+            <li>
+              <a href="https://lermab.univ-lorraine.fr" target="_blank" rel="noopener">LERMAB — Laboratoire Bois</a>
+              <span class="resources-meta">Laboratoire de recherche sur le matériau bois, partenariats R&D possibles</span>
+            </li>
+            <li>
+              <a href="https://cran.univ-lorraine.fr" target="_blank" rel="noopener">CRAN — Centre de Recherche en Automatique de Nancy</a>
+              <span class="resources-meta">Recherche en automatique et industrie 4.0, partenariats CIFRE possibles</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/nos-actualites" target="_blank" rel="noopener">Bpifrance — Pionniers IA et France 2030</a>
+              <span class="resources-meta">Dispositifs nationaux mobilisables pour le cofinancement</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
+  </footer>
 
-    <div class="checklist">
-      <div class="checklist-section">
-        <h3>1. Prérequis process et données</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Matière première = part dominante du coût (>30 %)</div><div class="checklist-item-desc">Sinon le ROI sur l'optimisation matière est faible.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Spécifications matière numérisées</div><div class="checklist-item-desc">Essence, densité, défauts, dimensions — au moins en partie. Sinon phase préalable d'instrumentation.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Machines de coupe / production CN connectables</div><div class="checklist-item-desc">Pour transmission automatique des plans optimisés.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>2. SI et compétences</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">ERP / MES en place et exploité</div><div class="checklist-item-desc">L'optimisation production se greffe sur un système de pilotage existant. Sans ERP/MES, le ROI est plus difficile à capturer.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Partenaire identifié (Cadwork, Atsora, Lectra, ou intégrateur sectoriel)</div><div class="checklist-item-desc">Compétence rare en interne, prestataire spécialisé recommandé.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>3. Conditions financières</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Budget pluriannuel (50-300 K€) ou AAP candidat</div><div class="checklist-item-desc">DECARB IND, Région Compétitivité, Climaxion EIT.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Acceptation déploiement progressif (1 process pilote avant généralisation)</div><div class="checklist-item-desc">Validation des gains réels avant scaling.</div></div></label>
-      </div>
-
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
-      </div>
-    </div>
-
-    <div class="checklist-summary" id="caseSummary"></div>
-  </section>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-018';
-    function evaluateChecklist() {
-      const cb = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0, scored = 0;
-      cb.forEach(c => { const w = parseInt(c.dataset.weight, 10) || 1; total += w; if (c.checked) scored += w; });
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-      if (percent >= 75) { verdict = '✅ Éligibilité forte'; advice = 'Conditions réunies pour engager un projet structurant. Prochaine étape : sélectionner un partenaire d\'intégration sectoriel (Cadwork pour le bois, Lectra pour le textile, Atsora pour la supervision process), structurer un POC sur 1 process pilote, mobiliser un AAP (DECARB IND, Région Compétitivité).'; }
-      else if (percent >= 50) { verdict = '⚠️ Maturité partielle'; advice = 'Combler en priorité les manques sur la numérisation des spécifications matière et l\'intégration ERP/MES. Le Cluster IA Grand Est ENACT et les ressources ENSTIB / CRAN peuvent accompagner cette phase.'; }
-      else { verdict = '🔄 Prérequis à construire'; advice = 'Pas encore mature. Démarrer par la numérisation et la centralisation des données process avant tout projet IA. Sans cette base, l\'optimisation IA ne peut pas s\'appuyer sur des données fiables.'; }
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Coût matière première dominant dans le coût total" },
+        { id: 'b2', label: "Caractérisation matière en amont (vision IA ou capteurs)" },
+        { id: 'b3', label: "ERP + MES + CFAO en place avec capacités d'intégration" },
+        { id: 'b4', label: "Engagement du chef de production / d'atelier" },
+        { id: 'b5', label: "Compétence en recherche opérationnelle accessible" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Budget initial mobilisable (80-400 K€)" },
+        { id: 'q2', label: "Mobilisation possible de l'écosystème scientifique territorial" },
+        { id: 'q3', label: "Plan d'audit terrain pour les contraintes implicites" },
+        { id: 'q4', label: "Plan de financement cofinancé monté" },
+        { id: 'q5', label: "Discipline de re-calibration trimestrielle / semestrielle" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). L'optimisation production IA est complexe et nécessite des fondations solides : sans elles, projet voué à des plans non exécutables ou à un ROI marginal. Investir d'abord dans les prérequis bloquants (notamment caractérisation matière amont).`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Engager le projet avec partenariat académique ENSTIB / LERMAB / CRAN si filière bois, en démarrant par l'axe au gain le plus mesurable (typiquement nesting).";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote périmétré possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lancer un pilote sur 1 axe (nesting), avec mobilisation partielle de l'écosystème scientifique territorial, et consolider en parallèle les fondations (caractérisation matière, audit contraintes implicites).";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Optimisation production & nesting industriel\n\n`;
+        content += `*Évaluation Hub IA — Learning Center — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-018 du Hub IA — Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — OPTIMISATION PRODUCTION & NESTING\n`;
+        content += `Evaluation Hub IA — Learning Center — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-018 du Hub IA — Learning Center — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-optimisation-production.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
+
 </body>
 </html>

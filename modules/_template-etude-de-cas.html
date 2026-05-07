@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[TITRE MODULE] — Hub IA territorial</title>
+  <title>[TITRE MODULE] — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -35,8 +35,8 @@
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-brand">
-        <span class="nav-logo">🧭</span>
-        <span class="nav-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
@@ -52,9 +52,8 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <!-- Badge axe : remplacer la classe (axe-a/b/c/d/e/agentique) et le libellé -->
-        <a href="../index.html?axe=e#modules" class="card-badge axe-e">[🏭 Industrie]</a>
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">[AXE]</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
       </div>
       <h1>[EMOJI] [Titre du module]</h1>
@@ -185,8 +184,8 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="footer-logo">🧭</span>
-        <span class="footer-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
@@ -221,7 +220,7 @@
         advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Avant de lancer un POC, identifier et combler les 2-3 écarts les plus structurants. Un accompagnement (Cluster ENACT, EDIH, intégrateur territorial) peut accélérer la mise à niveau.';
       } else {
         verdict = '🔄 Maturité à construire';
-        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Cela ne veut pas dire « jamais » — cela veut dire « pas tout de suite ». Commencer par les modules de Fondamentaux et d\'Applications métier, puis réévaluer dans 6-12 mois.';
+        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Cela ne veut pas dire « jamais » — cela veut dire « pas tout de suite ». Commencer par les modules de niveau N1-N3 et N4-N6, puis réévaluer dans 6-12 mois.';
       }
 
       const summary = document.getElementById('caseSummary');

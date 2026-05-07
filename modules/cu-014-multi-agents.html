@@ -3,141 +3,1085 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multi-agents par fonction métier — Hub IA territorial</title>
+  <title>Multi-agents par fonction métier — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    /* Bloc agents par fonction — spécifique CU-014 */
+    .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .agent-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+    .agent-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+    .agent-card-title { font-weight: 700; color: var(--color-primary); font-size: 1rem; margin-bottom: var(--space-2); }
+    .agent-card-perim { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .agent-card-tools { font-size: 0.75rem; color: var(--color-text-soft); font-style: italic; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <a href="../index.html?axe=agentique#modules" class="card-badge axe-agentique">🔗 Architecture agentique</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">cas-école</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">50 min de lecture</span>
       </div>
       <h1>🤖 Multi-agents par fonction métier</h1>
       <p class="module-subtitle">
-        Pattern « un agent par fonction » avec orchestrateur central. Architecture qui simule une équipe étendue sous direction technique automatisée. Vision systémique de la transformation IA.
+        Le pattern d'organisation augmentée par agents spécialisés : un agent par fonction (Sales, Marketing, Writer, Developer), un orchestrateur central, un dashboard unifié. Cas-école d'architecture agentique pure — c'est ici qu'on apprend à faire collaborer plusieurs agents sur une mission cohérente.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Le cas</h2>
-    <p>Un membre du ZHC Institute a déployé un système de quatre agents IA spécialisés (Sales, Marketing, Writer, Developer), chacun installé dans son propre canal Discord et alimentant un dashboard unifié. Un agent orchestrateur gère le routage des demandes et les tâches récurrentes (cron jobs).</p>
-    <p>Le système simule la structuration d'une équipe métier sous une direction technique automatisée. C'est l'illustration aboutie d'un <strong>pattern de structuration d'organisation par agents par fonction</strong>, transposable aux startups en montée en charge et aux PME/ETI cherchant à augmenter leurs équipes existantes.</p>
-
-    <h2>L'architecture</h2>
-    <ol>
-      <li><strong>4 agents spécialisés</strong> : Sales (qualification, prospection, suivi pipeline), Marketing (production de contenus, analyse), Writer (rédaction longue, ton), Developer (code, automatisation, intégrations)</li>
-      <li><strong>1 canal Discord par agent</strong> — l'humain communique avec l'agent dédié sur son canal, traçabilité maintenue</li>
-      <li><strong>Dashboard unifié</strong> — agrège les tâches de tous les agents, donne la vision d'ensemble, permet pilotage humain</li>
-      <li><strong>Agent orchestrateur</strong> — route les demandes vers l'agent compétent et déclenche les tâches récurrentes</li>
-      <li><strong>Pattern « hardening »</strong> — un agent à qui on confie une tâche plusieurs fois la transforme en workflow réutilisable</li>
-    </ol>
-
-    <h2>Stack technique</h2>
-    <ul>
-      <li><strong>Framework agent</strong> : OpenClaw (cité massivement par ZHC), LangGraph, Dify, Flowise</li>
-      <li><strong>Modèles</strong> : Claude, GPT, Mistral, Kimi K2 selon la tâche</li>
-      <li><strong>Canal d'interaction</strong> : Discord (préféré pour multi-agents), Slack, Telegram</li>
-      <li><strong>Dashboard</strong> : custom ou Notion / Linear / ClickUp</li>
-      <li><strong>Orchestration transverse</strong> : n8n, Make, Zapier</li>
-      <li><strong>Mémoire partagée</strong> : vector store (RAG), base SQL</li>
-    </ul>
-
-    <h2>Indicateurs documentés</h2>
-    <p>Non chiffré formellement dans les sources publiques. Témoignages communauté ZHC : <strong>plusieurs heures de débogage initial</strong> pour stabiliser 5 agents, recommandation forte de <strong>commencer par un seul agent supplémentaire</strong> avant de multiplier.</p>
-
-    <h2>Limites et points de vigilance</h2>
-    <ul>
-      <li><strong>Complexité de déploiement</strong> : 1→5 agents multiplie les bugs (mémoire, conflits, perte de contexte)</li>
-      <li><strong>Périmètres flous</strong> : duplications ou oublis si responsabilités non délimitées strictement</li>
-      <li><strong>Coût d'inférence</strong> : multiplier agents = multiplier appels modèles</li>
-      <li><strong>Gouvernance et responsabilité</strong> : sujet AI Act et responsabilité contractuelle</li>
-      <li><strong>Humain dans la boucle</strong> obligatoire pour toute action engageante</li>
-    </ul>
-  </article>
-
-  <section class="case-study" id="case-study">
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
-      <p style="margin-bottom:0;">Évalue si ton organisation est prête à passer à une architecture multi-agents structurée.</p>
+  <!-- Bandeau d'alerte complexité, hors layout -->
+  <div class="alert-warning" style="max-width: 1200px; margin: var(--space-5) auto;">
+    <div class="alert-warning-icon">⚠️</div>
+    <div class="alert-warning-content">
+      <strong>Avertissement complexité.</strong> Ce module décrit un pattern à fort potentiel mais à <strong>complexité de déploiement élevée</strong>. Passer de 1 à 5 agents multiplie les bugs : mémoire partagée, conflits d'accès, perte de contexte au handoff. Plusieurs membres de la communauté ZHC Institute ont témoigné « avoir passé des heures à débugger » lors de la mise en place initiale. Le déploiement progressif (1 agent supplémentaire à la fois) est la voie raisonnable.
     </div>
+  </div>
 
-    <div class="checklist">
-      <div class="checklist-section">
-        <h3>1. Prérequis techniques et stack</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Au moins 1-2 agents IA déjà en production</div><div class="checklist-item-desc">Workflow email, qualification leads, ou équivalent. Démarrer multi-agents sans avoir maîtrisé le mono-agent est très risqué.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Compétence interne dev / orchestration</div><div class="checklist-item-desc">Ou partenaire d'intégration solide (NIN-IA, prestataire spécialisé OpenClaw).</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Infrastructure d'hébergement (cloud souverain ou on-premise)</div><div class="checklist-item-desc">Mistral EU, OVHcloud, ou serveur dédié. Pas de service cloud non souverain pour multi-agents avec données sensibles.</div></div></label>
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
       </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Les 4 agents canoniques</a>
+        <a href="#section-3">3. Architecture multi-agents</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack technique</a>
+        <a href="#section-6">6. Troubleshooting</a>
+        <a href="#section-7">7. Étude de cas SoloDevCo</a>
+        <a href="#section-8">8. Pièges à éviter</a>
+        <a href="#section-9">9. Checklist d'éligibilité</a>
+        <a href="#section-10">10. Pour aller plus loin</a>
+      </nav>
+    </aside>
 
-      <div class="checklist-section">
-        <h3>2. Maturité organisationnelle</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Périmètres fonctionnels clairement définis</div><div class="checklist-item-desc">Sans cela, les agents se chevauchent ou laissent des trous. Discipline d'écriture des prompts indispensable.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Politique de gouvernance IA documentée</div><div class="checklist-item-desc">Qui valide quoi, qui est responsable en cas d'erreur, audit régulier prévu.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Référent technique disponible 1-2 jours/semaine</div><div class="checklist-item-desc">Le débogage initial multi-agents est exigeant. Communauté ZHC : « plusieurs heures par agent ajouté ».</div></div></label>
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Sortir d'un usage erratique de ChatGPT pour structurer une organisation virtuelle d'agents spécialisés. Le pattern canonique : 1 humain + 1 orchestrateur central + N agents fonctionnels (Sales, Marketing, Writer, Developer) avec mémoire partagée et dashboard unifié. C'est le cas-école d'architecture agentique pure — complexe à déployer, mais transformateur dans la durée. Le pattern complémentaire du <em>hardening</em> (transformer chaque tâche récurrente en workflow réutilisable) est ce qui crée l'actif organisationnel sur 12+ mois.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🐢</div>
+              <div class="exec-takeaway-content">
+                <strong>Démarrer avec 1 SEUL agent.</strong> Pas 4 d'un coup. Valider 2-4 semaines, ajouter le 2e après stabilisation. Le passage 2→3 agents est la zone de turbulences typique (20-30h de débogage cumulées).
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Périmètres non chevauchants.</strong> Chaque agent : que fait-il ET que ne fait-il pas. Sans exclusions explicites dans les prompts, duplications et oublis garantis.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💎</div>
+              <div class="exec-takeaway-content">
+                <strong>Hardening dès le départ.</strong> Toute tâche faite 3+ fois → instruction de générer un workflow réutilisable. La bibliothèque de skills devient le vrai différenciateur dans la durée.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">✋</div>
+              <div class="exec-takeaway-content">
+                <strong>Humain dans la boucle sur actions externes.</strong> Envoi commercial, engagement, paiement, publication : jamais sans validation humaine. Liste explicite documentée par agent.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">4 + 1</div>
+              <div class="exec-stat-label">Agents canoniques + orchestrateur</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">2-4 sem.</div>
+              <div class="exec-stat-label">Stabilisation par agent ajouté</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">100-500€</div>
+              <div class="exec-stat-label">Inférence mensuelle</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">50 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu es un solopreneur ou une équipe restreinte saturée multi-casquettes ; tu veux structurer une organisation virtuelle qui scale ; tu disposes d'une compétence Python (CrewAI, LangGraph) ou d'un prestataire d'intégration ; tu acceptes 20-30h de débogage initial pour stabiliser le système ; tu vises un usage soutenu (pas ad-hoc, sinon rester sur du multi-prompt classique).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — sortir de l'usage erratique</h2>
+        </div>
+
+        <p>
+          L'enjeu adressé est central : <strong>sortir d'un usage individuel et erratique de l'IA</strong> — chacun bricole son prompt dans ChatGPT, copie-colle ses sorties dans son outil maison, puis recommence le lendemain — pour passer à une <strong>architecture d'agents spécialisés cohérents</strong>, où chaque fonction de l'organisation est augmentée par un agent dédié, et où l'ensemble est orchestré pour maintenir une vision systémique.
+        </p>
+        <p>
+          Le pattern transforme un solopreneur ou une équipe restreinte en organisation virtuelle multi-fonctions. Un agent Sales gère la qualification de prospects, un agent Marketing produit le contenu, un agent Writer assure la rédaction longue, un agent Developer génère le code et les automatisations. Chaque agent vit dans son propre canal de communication (Discord, Slack ou Telegram), avec son périmètre clair, sa mémoire, ses outils. Un orchestrateur central route les demandes et déclenche les tâches récurrentes (cron jobs).
+        </p>
+
+        <div class="pull-quote">
+          Ce n'est pas « j'utilise ChatGPT pour mes tâches ». C'est « je structure mon organisation virtuelle en fonctions augmentées qui collaborent ». La nuance fait toute la différence sur la cohérence, la traçabilité et la scalabilité.
+        </div>
+
+        <p>
+          Le pattern complémentaire observé dans les déploiements matures est celui du <strong>« hardening »</strong> : un agent à qui on confie une tâche plusieurs fois reçoit l'instruction de transformer cette tâche en workflow réutilisable. C'est la base d'une bibliothèque de skills internes qui s'enrichit avec l'usage — un actif organisationnel qui devient le vrai différenciateur dans la durée.
+        </p>
+      </section>
+
+      <!-- 2. AGENTS CANONIQUES -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les 4 agents canoniques + l'orchestrateur</h2>
+        </div>
+
+        <p>
+          Le quatuor canonique éprouvé pour les solopreneurs et équipes restreintes. Pour une PME plus structurée, démarrer plutôt sur 2-3 agents bien ciblés (par exemple : commercial entrant, administratif, communication).
+        </p>
+
+        <div class="agents-grid">
+          <div class="agent-card">
+            <div class="agent-card-icon">💼</div>
+            <div class="agent-card-title">Agent Sales</div>
+            <div class="agent-card-perim">Qualification de prospects, séquences de prospection, suivi pipeline, mise à jour CRM.</div>
+            <div class="agent-card-tools">Stack : LinkedIn / Apollo / HubSpot, prompts spécialisés BANT</div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-card-icon">📢</div>
+            <div class="agent-card-title">Agent Marketing</div>
+            <div class="agent-card-perim">Production de contenus, gestion calendrier éditorial, analyse performance, repurposing.</div>
+            <div class="agent-card-tools">Stack : Buffer / Typefully / Beehiiv, accès analytics</div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-card-icon">✍️</div>
+            <div class="agent-card-title">Agent Writer</div>
+            <div class="agent-card-perim">Rédaction longue, ré-écriture, ton et style, traduction. Prompts calibrés voix de marque.</div>
+            <div class="agent-card-tools">Stack : Claude (long-form) / Mistral / DeepL Pro</div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-card-icon">⚙️</div>
+            <div class="agent-card-title">Agent Developer</div>
+            <div class="agent-card-perim">Génération de code, automatisations, intégrations API, scripts maintenance, debug.</div>
+            <div class="agent-card-tools">Stack : Claude Code / Cursor / GitHub Copilot</div>
+          </div>
+          <div class="agent-card" style="border-top-color: #4A3A8C;">
+            <div class="agent-card-icon">🧭</div>
+            <div class="agent-card-title">Agent Orchestrateur</div>
+            <div class="agent-card-perim">Routage des demandes vers l'agent compétent, déclenchement cron jobs, escalade humain.</div>
+            <div class="agent-card-tools">Stack : LangGraph / OpenClaw / n8n custom</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture multi-agents</h2>
+        </div>
+
+        <p>
+          Pattern canonique : 1 humain pilote l'orchestrateur, l'orchestrateur route vers les agents fonctionnels, tous écrivent dans la mémoire partagée, le dashboard donne la vision unifiée.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar14" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar14purple" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#7A5CB8"/>
+              </marker>
+            </defs>
+
+            <!-- Humain en haut -->
+            <rect x="380" y="20" width="160" height="60" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="460" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">👤 HUMAIN</text>
+            <text x="460" y="65" text-anchor="middle" font-size="11" fill="#333">Pilotage stratégique</text>
+
+            <!-- Orchestrateur central -->
+            <rect x="320" y="120" width="280" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="3"/>
+            <text x="460" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#FFD600">🧭 ORCHESTRATEUR</text>
+            <text x="460" y="173" text-anchor="middle" font-size="12" fill="white">Routage des demandes · cron jobs</text>
+            <text x="460" y="190" text-anchor="middle" font-size="11" fill="#FFD600" font-style="italic">LangGraph · OpenClaw</text>
+
+            <!-- 4 agents fonctionnels -->
+            <rect x="20" y="240" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="110" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">💼 AGENT SALES</text>
+            <text x="110" y="293" text-anchor="middle" font-size="11" fill="#333">Qualification leads</text>
+            <text x="110" y="308" text-anchor="middle" font-size="11" fill="#333">Pipeline · CRM</text>
+            <text x="110" y="328" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Canal Discord dédié</text>
+
+            <rect x="220" y="240" width="180" height="100" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="310" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">📢 AGENT MARKETING</text>
+            <text x="310" y="293" text-anchor="middle" font-size="11" fill="#333">Calendrier éditorial</text>
+            <text x="310" y="308" text-anchor="middle" font-size="11" fill="#333">Performance · Repurposing</text>
+            <text x="310" y="328" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Canal Discord dédié</text>
+
+            <rect x="420" y="240" width="180" height="100" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="510" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">✍️ AGENT WRITER</text>
+            <text x="510" y="293" text-anchor="middle" font-size="11" fill="#333">Rédaction longue</text>
+            <text x="510" y="308" text-anchor="middle" font-size="11" fill="#333">Ton · style · trad</text>
+            <text x="510" y="328" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Canal Discord dédié</text>
+
+            <rect x="620" y="240" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="710" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">⚙️ AGENT DEVELOPER</text>
+            <text x="710" y="293" text-anchor="middle" font-size="11" fill="#333">Code · automation</text>
+            <text x="710" y="308" text-anchor="middle" font-size="11" fill="#333">Intégrations API</text>
+            <text x="710" y="328" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Canal Discord dédié</text>
+
+            <!-- Mémoire partagée -->
+            <rect x="100" y="380" width="720" height="60" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="405" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">🧠 MÉMOIRE PARTAGÉE — vector store + base SQL + bibliothèque de skills</text>
+            <text x="460" y="425" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Tous les agents lisent et écrivent — c'est ce qui permet l'apprentissage continu et le hardening</text>
+
+            <!-- Dashboard unifié à droite -->
+            <rect x="820" y="120" width="80" height="220" rx="10" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="860" y="160" text-anchor="middle" font-size="11" font-weight="700" fill="#2E5C2E">📊</text>
+            <text x="860" y="180" text-anchor="middle" font-size="10" font-weight="700" fill="#2E5C2E">DASH-</text>
+            <text x="860" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="#2E5C2E">BOARD</text>
+            <text x="860" y="220" text-anchor="middle" font-size="9" fill="#333">Tâches</text>
+            <text x="860" y="234" text-anchor="middle" font-size="9" fill="#333">par agent</text>
+            <text x="860" y="260" text-anchor="middle" font-size="9" fill="#333">Vision</text>
+            <text x="860" y="274" text-anchor="middle" font-size="9" fill="#333">unifiée</text>
+            <text x="860" y="300" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Notion</text>
+            <text x="860" y="314" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Linear</text>
+            <text x="860" y="328" text-anchor="middle" font-size="9" fill="#666" font-style="italic">ClickUp</text>
+
+            <!-- Flèches humain -> orchestrateur -->
+            <line x1="460" y1="80" x2="460" y2="118" stroke="#5C8C5C" stroke-width="3" marker-end="url(#ar14)"/>
+
+            <!-- Flèches orchestrateur -> 4 agents -->
+            <line x1="380" y1="200" x2="130" y2="238" stroke="#7A5CB8" stroke-width="2" marker-end="url(#ar14purple)"/>
+            <line x1="420" y1="200" x2="320" y2="238" stroke="#7A5CB8" stroke-width="2" marker-end="url(#ar14purple)"/>
+            <line x1="500" y1="200" x2="510" y2="238" stroke="#7A5CB8" stroke-width="2" marker-end="url(#ar14purple)"/>
+            <line x1="540" y1="200" x2="700" y2="238" stroke="#7A5CB8" stroke-width="2" marker-end="url(#ar14purple)"/>
+
+            <!-- Flèches agents -> mémoire partagée (pointillé) -->
+            <line x1="110" y1="340" x2="200" y2="378" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+            <line x1="310" y1="340" x2="380" y2="378" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+            <line x1="510" y1="340" x2="540" y2="378" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+            <line x1="710" y1="340" x2="720" y2="378" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+
+            <!-- Flèches orchestrateur -> dashboard (pointillé) -->
+            <line x1="600" y1="160" x2="818" y2="160" stroke="#5C8C5C" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+
+            <!-- Légende -->
+            <text x="460" y="465" text-anchor="middle" font-size="11" fill="#666" font-style="italic">L'humain pilote l'orchestrateur · l'orchestrateur route vers les agents · tous écrivent dans la mémoire partagée · le dashboard donne la vision unifiée</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Pattern canonique : 1 humain + 1 orchestrateur + N agents fonctionnels avec mémoire partagée et dashboard unifié. Ici 4 agents, mais le pattern est extensible.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Cartographier les fonctions à augmenter.</strong> Avant tout déploiement technique, identifier les 3 à 5 fonctions de l'organisation où un agent dédié apporterait de la valeur. Pour un solopreneur ou une équipe restreinte, le quatuor canonique Sales / Marketing / Writer / Developer est un point de départ éprouvé. Pour une PME plus structurée, il peut être plus pertinent de démarrer sur 2-3 agents bien ciblés (par exemple : agent commercial entrant, agent administratif, agent communication).</li>
+          <li><strong>Définir les périmètres non chevauchants.</strong> Chaque agent doit avoir des responsabilités strictement délimitées. Sinon on observe des duplications (deux agents font la même chose) ou des oublis (aucun ne s'en charge). Discipline d'écriture des prompts indispensable : prompt système qui définit explicitement « Tu es responsable de X et Y. Tu ne fais pas Z (c'est l'agent Marketing). Si une demande hors périmètre arrive, tu la rediriges vers l'orchestrateur. »</li>
+          <li><strong>Configurer le canal d'interaction par agent.</strong> Un canal Discord, Slack ou Telegram par agent. L'humain communique avec l'agent dédié sur son canal — ce qui maintient la traçabilité (historique structuré par fonction) et évite la confusion entre périmètres. Le canal devient aussi le journal des actions de l'agent, consultable a posteriori.</li>
+          <li><strong>Mettre en place la mémoire partagée.</strong> Vector store (Qdrant, Pinecone) ou base SQL (Postgres) accessible à tous les agents. C'est ce qui permet à l'agent Sales de savoir ce que l'agent Marketing a publié hier, à l'agent Writer d'utiliser les leads qualifiés du Sales pour rédiger une newsletter ciblée, à l'agent Developer de connaître les automatisations existantes. Sans mémoire partagée, chaque agent travaille en silo et le système ne capitalise pas.</li>
+          <li><strong>Déployer l'orchestrateur central.</strong> Un agent supplémentaire dont la mission est le routage et la gestion des cron jobs. Il reçoit les demandes humaines de haut niveau (« prépare-moi la stratégie de la semaine »), décompose en sous-tâches, route chaque sous-tâche vers l'agent compétent, agrège les résultats. Pour les tâches récurrentes (audit hebdomadaire de la pipeline commerciale, génération de la newsletter du lundi), il déclenche les cron jobs sans intervention humaine.</li>
+          <li><strong>Construire le dashboard unifié.</strong> Solution custom ou outil de project management standard (Notion, Linear, ClickUp). Le dashboard agrège les tâches de tous les agents, donne la vision d'ensemble, permet le pilotage humain. C'est le tableau de bord de l'organisation virtuelle.</li>
+          <li><strong>Activer le hardening progressif.</strong> Pour chaque tâche confiée à un agent plus de 3 fois, instruction explicite de transformer cette tâche en workflow réutilisable et de la documenter dans la bibliothèque interne. Au fil des mois, l'organisation accumule un actif de skills opérationnels qui devient le vrai différenciateur de la durée.</li>
+          <li><strong>Maintenir la gouvernance humain-dans-la-boucle.</strong> Pour toute action à conséquence externe (envoi commercial, engagement contractuel, opération financière, publication publique), ne jamais laisser un agent agir sans validation humaine. L'orchestrateur identifie ces actions sensibles et déclenche systématiquement une demande de validation.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK TECHNIQUE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Couche orchestration ─┐</strong>
+   Humain → Discord (channel #orchestrator)
+   → Agent orchestrateur (LangGraph / OpenClaw)
+   → Routage par périmètre + cron jobs
+   → Délégation à l'agent compétent
+
+<strong>┌─ Couche agents fonctionnels ─┐</strong>
+   Agent Sales      → channel #sales      → modèle + outils CRM
+   Agent Marketing  → channel #marketing  → modèle + outils contenu
+   Agent Writer     → channel #writer     → modèle long-form + RAG
+   Agent Developer  → channel #dev        → modèle code + outils dev
+
+<strong>┌─ Couche mémoire et apprentissage ─┐</strong>
+   Vector store (Qdrant) — embeddings de toutes les actions
+   + Base SQL (Postgres) — état structuré, historique, KPIs
+   + Bibliothèque de skills (workflows hardened)
+   → Tous les agents lisent et écrivent
+
+<strong>┌─ Couche pilotage humain ─┐</strong>
+   Dashboard unifié (Notion / Linear / ClickUp)
+   → Tâches en cours par agent
+   → Validations humaines en attente
+   → Métriques de chaque fonction
+        </div>
+
+        <h3>Frameworks d'orchestration multi-agents</h3>
+        <p>
+          <strong>LangGraph</strong> (extension de LangChain) est aujourd'hui la référence pour les architectures multi-agents avec mémoire partagée et handoff explicites entre agents. Maîtrise Python requise. <strong>OpenClaw</strong> est cité majoritairement par la communauté ZHC Institute — émergence récente, accessible, bien documentée pour les patterns canoniques. <strong>CrewAI</strong> est une alternative plus accessible, orientée « équipes d'agents », avec des abstractions plus haut niveau. <strong>Dify</strong> et <strong>Flowise</strong> sont des options no-code/low-code intéressantes pour démarrer sans dev complet.
+        </p>
+
+        <h3>Modèles par agent</h3>
+        <p>
+          Le bon choix dépend du périmètre de chaque agent. <strong>Claude</strong> excelle pour le long-form, la nuance, la rédaction (Agent Writer, parfois Marketing). <strong>GPT-4 / GPT-5</strong> reste robuste pour la majorité des fonctions, particulièrement quand des tools-use complexes sont nécessaires. <strong>Mistral</strong> est l'option à privilégier pour les agents qui traitent des données stratégiques (Sales sur les CRM clients, par exemple). <strong>Kimi K2</strong> est cité par la communauté pour les usages très techniques (agent Developer notamment). Combinaison habituelle : un modèle léger pour l'orchestrateur (classification rapide) + des modèles plus puissants pour les agents fonctionnels.
+        </p>
+
+        <h3>Canaux d'interaction</h3>
+        <p>
+          <strong>Discord</strong> est le standard de fait dans la communauté ZHC Institute pour ce pattern — un canal par agent, threading natif, intégrations bot mature. <strong>Slack</strong> est l'alternative pour les structures déjà sur Slack en interne. <strong>Telegram</strong> peut convenir pour les déploiements solopreneurs très légers.
+        </p>
+
+        <h3>Mémoire partagée</h3>
+        <p>
+          <strong>Qdrant</strong> ou <strong>Pinecone</strong> pour le vector store (recherche sémantique sur historique). <strong>Postgres</strong> avec extension pgvector pour une solution self-hosted intégrée. <strong>Notion DB</strong> ou <strong>Airtable</strong> pour des structures plus accessibles avec interface humaine — mais moins performant à grande échelle.
+        </p>
+
+        <h3>Dashboard unifié</h3>
+        <p>
+          <strong>Notion</strong> avec databases partagées (l'option la plus accessible pour démarrer). <strong>Linear</strong> ou <strong>ClickUp</strong> pour les structures qui veulent un vrai outil de project management. Solution custom (Streamlit, Retool) pour les déploiements très spécifiques.
+        </p>
+
+        <h3>Infrastructure</h3>
+        <p>
+          Cloud type <strong>Hostinger VPS</strong> (~10-30 €/mois) pour héberger l'ensemble — orchestrateur + agents + mémoire. Alternative : <strong>OVH</strong> ou <strong>Scaleway</strong> pour la souveraineté EU. Déploiement local possible mais moins recommandé (continuité de service plus complexe).
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Compétence dev Python intermédiaire (ou prestataire d'intégration mobilisable type NIN-IA, Spinalia). Capacité à définir clairement les périmètres de chaque agent — sans cela, double-emploi ou conflits permanents. Budget d'inférence anticipé (typiquement 100 à 500 €/mois selon volume). Discipline opérationnelle : le pattern n'est rentable qu'avec une utilisation soutenue dans le temps. Pour un usage ad-hoc, rester sur du multi-prompt ChatGPT/Claude classique.
+        </p>
+      </section>
+
+      <!-- 6. TROUBLESHOOTING -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">6</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Deux agents traitent la même demande (duplication)</td>
+                <td>Périmètres flous ou orchestrateur qui route en parallèle au lieu de séquentiellement</td>
+                <td>Réécrire les prompts système avec périmètres explicites et exclusions (« je ne fais pas X »). Verrouiller le routage de l'orchestrateur en mode séquentiel.</td>
+              </tr>
+              <tr>
+                <td>Aucun agent ne traite une demande (oubli)</td>
+                <td>Demande qui tombe entre les périmètres définis</td>
+                <td>L'orchestrateur doit avoir une règle de fallback : « si aucun agent n'a un périmètre clair pour cette demande, escalade humain ». Ne jamais laisser une demande non traitée silencieusement.</td>
+              </tr>
+              <tr>
+                <td>Perte de contexte au handoff entre agents</td>
+                <td>Le passage de relai ne transmet pas l'historique conversationnel</td>
+                <td>Standardiser le format de handoff : chaque transmission inclut un résumé contextuel, l'historique pertinent, les contraintes connues. LangGraph offre des abstractions pour cela.</td>
+              </tr>
+              <tr>
+                <td>Coût d'inférence qui dérape (×3 vs estimation)</td>
+                <td>Boucles entre agents (Sales → Writer → Sales), pas de cap sur le nombre d'itérations</td>
+                <td>Implémenter un compteur d'itérations dans l'orchestrateur (max 5 handoffs par demande). Au-delà, escalade humain. Logger systématiquement les coûts par demande.</td>
+              </tr>
+              <tr>
+                <td>Mémoire partagée corrompue (un agent écrit du JSON malformé qui casse les autres)</td>
+                <td>Pas de validation de schéma à l'écriture</td>
+                <td>Valider tous les écrits dans la mémoire avec un schéma JSON Schema ou Pydantic. Refuser les écritures non conformes. Versioning de la mémoire pour pouvoir rollback.</td>
+              </tr>
+              <tr>
+                <td>Hardening qui ne se fait pas (chaque tâche reste manuelle)</td>
+                <td>Pas de mécanisme automatique de détection des tâches récurrentes</td>
+                <td>L'orchestrateur tient un compteur d'occurrences par type de tâche. À 3 occurrences, instruction explicite à l'agent concerné de générer un workflow réutilisable et de l'ajouter à la bibliothèque.</td>
+              </tr>
+              <tr>
+                <td>Agent qui prend une action externe sans validation (envoi mail, post LinkedIn)</td>
+                <td>Garde-fous de validation humaine pas implémentés</td>
+                <td>Liste explicite d'actions « à validation obligatoire » dans la config de chaque agent. L'agent dépose en file d'attente, notification Discord, validation humaine requise avant exécution.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. ÉTUDE DE CAS -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">7</div>
+          <h2 class="module-section-title">Étude de cas — Solopreneur SaaS B2B en montée en charge</h2>
+        </div>
+
+        <p>
+          Inspiré du témoignage d'un membre du ZHC Institute. 5 étapes décortiquées sur un déploiement de 4 mois. Compte 70 minutes pour assimiler en profondeur, ou 25 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">SoloDevCo — solopreneur (1 personne) qui exploite un SaaS B2B avec ~50 clients payants. Activité éclatée : prospection commerciale, support client, production de contenu visibilité, développement produit, administration. Charge cognitive massive en mode multi-casquettes. Objectif : structurer une « organisation virtuelle » qui multiplie son débit sans recruter immédiatement, tout en posant les briques d'une scalabilité future.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>1 personne</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Clients</div>
+              <strong>~50 payants</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Casquettes</div>
+              <strong>5+</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cible déploiement</div>
+              <strong>4 agents + orchestrateur</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cartographier les fonctions et démarrer avec UN seul agent (mois 1)</h3>
+            <p>Décision contre-intuitive mais alignée avec les retours de la communauté ZHC : ne pas démarrer avec 4 agents en parallèle. Choisir la fonction où le ROI est le plus immédiat — ici l'agent Sales (qualification des leads entrants depuis le formulaire web et LinkedIn). Configurer en CrewAI (plus accessible que LangGraph), canal Discord dédié, modèle Claude pour la qualification. Test sur 2 semaines, calibrage des prompts, mesure du gain.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              CrewAI (Python) → Discord channel #sales → Claude API → HubSpot API pour CRM → mémoire JSON locale (pas encore vector store)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Gain immédiat de ~5h/semaine sur la qualification des leads. Validation que le pattern fonctionne. Apprentissages : prompts trop génériques au début, calibrage progressif sur 2 semaines pour atteindre 90 % de précision sur la qualification BANT.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Ajouter l'agent Writer et activer la mémoire partagée (mois 2)</h3>
+            <p>Deuxième agent ciblé : Writer pour la production de contenu LinkedIn et la rédaction de réponses commerciales personnalisées. Mise en place de la mémoire partagée (Qdrant en VPS) — c'est ici que le pattern devient vraiment puissant. L'agent Writer peut désormais lire ce que l'agent Sales a découvert sur les leads (besoins, contexte) pour produire des réponses ultra-personnalisées. Premier handoff explicite entre agents.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Ajout CrewAI Writer agent → Qdrant en VPS Hostinger → schéma de mémoire partagée (leads, contenus, contextes) → handoff Sales → Writer formalisé
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Production de contenu LinkedIn passée de 1 post / semaine à 3-4 / semaine. Réponses commerciales personnalisées en 5 minutes au lieu de 30. <strong>Premier bug de production</strong> : un handoff perd le contexte client, l'agent Writer rédige une réponse générique. Correction : standardisation du format de handoff avec résumé obligatoire.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Déployer l'orchestrateur et l'agent Marketing (mois 3)</h3>
+            <p>Le solopreneur ressent qu'il passe trop de temps à router lui-même les demandes entre Sales et Writer. Décision : déployer l'orchestrateur central pour automatiser le routage. Ajout simultané de l'agent Marketing pour la programmation des publications LinkedIn et l'analyse de performance. <strong>Phase la plus difficile</strong> : passer de 2 agents stables à 3 agents + orchestrateur déclenche une cascade de bugs (conflits sur la mémoire, périmètres flous entre Marketing et Writer, boucles d'inférence sur certaines demandes).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Migration CrewAI → LangGraph (besoin de plus de contrôle sur le routage) → orchestrateur agent → Marketing agent avec accès Buffer API → réécriture des prompts système avec périmètres explicites
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>20 heures de débogage cumulées sur 2 semaines</strong> — confirmation des retours de la communauté ZHC. Stabilisation atteinte après 4 itérations majeures sur les prompts et l'archi. Au final, gain net de ~12h/semaine sur le bloc Sales + Marketing + Writer.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Ajouter l'agent Developer et activer le hardening (mois 4)</h3>
+            <p>Quatrième agent : Developer pour l'automatisation des intégrations (webhooks, scripts maintenance, refactor de code) et le debug. Activation du mécanisme de hardening : pour chaque tâche confiée à un agent 3 fois, instruction explicite de générer un workflow réutilisable. La bibliothèque de skills passe de 0 à 23 workflows en 4 semaines. Mise en place du dashboard Notion partagé qui agrège les tâches en cours de tous les agents.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Agent Developer avec accès Claude Code + GitHub API → bibliothèque de skills documentée dans Notion → dashboard Notion avec databases partagées par agent → cron jobs orchestrateur sur tâches récurrentes (audit pipeline lundi 8h, génération newsletter vendredi 14h)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Système stabilisé avec 4 agents + orchestrateur. Gain cumulé : ~20h/semaine récupérées. Bibliothèque de 23 skills opérationnels documentés. <strong>Le système commence à apprendre tout seul</strong> — les workflows hardened s'enrichissent à chaque cycle.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Maintenance et expansion progressive (mois 5+)</h3>
+            <p>Le système entre en régime de croisière. Maintenance ~2h/semaine pour : revue des logs (détection dérives), ajout de nouveaux skills à la bibliothèque, ajustements ponctuels des prompts. À mesure que SoloDevCo grandit (passage de 1 à 3 personnes au mois 8), le système s'adapte : les nouveaux humains accèdent aux mêmes agents, le dashboard donne la vision unifiée. Réflexion en cours sur l'ajout d'un 5e agent (Support client, dédié au niveau 1 de tickets entrants).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Régime stabilisé → monitoring automatique des coûts d'inférence → graphe de connaissance auto-généré (pattern « knowledge graph live » de la communauté ZHC) → 116 nœuds représentant les skills, cron jobs, sources de données
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Coût d'inférence stabilisé à ~250 €/mois. Bibliothèque de skills à 47 workflows. ROI annualisé : ~1 000h récupérées/an pour ~3 000 € de coûts d'inférence. Et surtout, <strong>une organisation virtuelle qui scale</strong> : passage de 1 à 3 personnes sans dégradation des process.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 5 mois</div>
+          <p>
+            SoloDevCo est passé de 1 personne saturée multi-casquettes à une « organisation virtuelle » de 4 agents + orchestrateur, avec 47 skills capitalisés dans la bibliothèque interne. <strong>Le pattern n'a pas remplacé l'humain — il a augmenté son débit opérationnel par 2 à 3</strong>. Les leçons clés : démarrer petit (1 agent), valider chaque ajout sur 2-4 semaines, accepter le pic de complexité au passage 2→3 agents, investir dans le hardening dès le départ. Le coût en débogage initial (~30h cumulées sur 4 mois) est largement amorti par le gain récurrent.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. PIÈGES -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">8</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Le syndrome « 5 agents d'un coup »</h3>
+        <p>
+          La tentation est de configurer les 4 ou 5 agents canoniques en parallèle dès le départ. <strong>C'est l'erreur la plus coûteuse</strong> : chaque agent a ses propres bugs de calibrage, et leur interaction multiplie les modes de défaillance. Plusieurs membres de la communauté ZHC Institute témoignent avoir « passé des heures à débugger » lors d'un déploiement parallèle. <strong>Démarrer avec 1 agent, valider sur 2-4 semaines, ajouter le 2e seulement après stabilisation</strong>, et ainsi de suite. Le passage 2→3 agents est typiquement le plus difficile — anticipe une période de turbulences.
+        </p>
+
+        <h3>Périmètres flous</h3>
+        <p>
+          Si les responsabilités de chaque agent ne sont pas strictement délimitées, on observe des duplications (deux agents font la même chose, double coût d'inférence) ou des oublis (aucun agent ne s'en charge, demande perdue silencieusement). <strong>Discipline d'écriture des prompts indispensable</strong> : prompt système qui définit explicitement le périmètre ET les exclusions (« je ne fais pas X, c'est l'agent Marketing »). Audit des duplications/oublis sur les 4 premières semaines.
+        </p>
+
+        <h3>Coût d'inférence qui dérape</h3>
+        <p>
+          Multiplier les agents multiplie les appels modèles. Pire : les boucles entre agents (Sales → Writer → Sales) peuvent générer des coûts non maîtrisés. <strong>Implémenter un cap sur le nombre d'itérations par demande</strong> (typiquement 5 handoffs maximum, sinon escalade humain). Logger systématiquement les coûts par demande pour identifier les boucles.
+        </p>
+
+        <h3>Gouvernance et responsabilité</h3>
+        <p>
+          Quand un agent agit à la place de l'humain, qui est responsable en cas d'erreur ? La question n'est pas seulement éthique mais juridique — particulièrement dès que l'agent prend des actions externes (envoi d'emails, publication, opérations financières). <strong>Politique de gouvernance documentée avant déploiement</strong> : qui est responsable des actions de chaque agent, comment sont tracées les décisions, comment se fait l'audit en cas d'erreur. Sujet à porter à la direction et au conseil juridique pour les structures exposées.
+        </p>
+
+        <h3>Humain dans la boucle</h3>
+        <p>
+          Pour des tâches à conséquence (envoi externe, engagement contractuel, opération financière, publication publique), <strong>ne jamais laisser un agent agir sans validation humaine</strong>. La liste explicite des actions à validation obligatoire doit être documentée dans la config de chaque agent. L'agent dépose en file d'attente, notification au humain, validation requise avant exécution. C'est ce qui distingue un système agentique mature d'un système qui produit des incidents.
+        </p>
+
+        <h3>Conformité AI Act et transparence</h3>
+        <p>
+          Pour les actions externes générées par les agents (emails commerciaux, publications, propositions), la transparence sur l'usage d'IA peut devenir une obligation. <strong>Bonne pratique préventive : signature explicite « assisté par IA + validation humaine »</strong> sur les communications externes. Cette transparence n'érode pas la relation si elle est intégrée naturellement.
+        </p>
+      </section>
+
+      <!-- 9. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">9</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité réelle à déployer une architecture multi-agents par fonction. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le système se révèle ingérable) et <strong>critères de qualité</strong> (qui conditionnent la réussite dans la durée). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Compétence Python intermédiaire ou prestataire mobilisable</strong>
+                  <small>LangGraph et OpenClaw demandent du Python. CrewAI plus accessible mais reste technique. Sans compétence, prestataire d'intégration nécessaire.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Plan de déploiement progressif accepté (1 agent à la fois)</strong>
+                  <small>Démarrage avec 1 seul agent, validation 2-4 semaines, puis ajout du suivant. Refuser le « 4 agents d'un coup ».</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Périmètres d'agents définis avec exclusions explicites</strong>
+                  <small>Pour chaque agent : que fait-il ET que ne fait-il pas. Sans cela, duplications et oublis garantis.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Politique de validation humaine sur actions externes documentée</strong>
+                  <small>Liste explicite des actions à conséquence (envoi, publication, paiement) qui requièrent validation systématique</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Budget d'inférence anticipé (100-500 €/mois)</strong>
+                  <small>Multiplier les agents multiplie les appels modèles. Cap sur les itérations à implémenter pour éviter les boucles coûteuses.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la réussite dans la durée</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Volume de tâches récurrentes suffisant pour amortir le setup</strong>
+                  <small>Si l'usage est ad-hoc (quelques tâches par semaine), rester sur du multi-prompt classique. Le pattern n'est rentable qu'avec usage soutenu.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Mécanisme de hardening prévu dès le départ</strong>
+                  <small>Détection automatique des tâches récurrentes (3+ occurrences) et conversion en workflows réutilisables — c'est ce qui crée l'actif dans la durée.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Gouvernance documentée pour la responsabilité des actions agents</strong>
+                  <small>Qui est responsable, comment s'audite, comment se gère un incident. Sujet juridique à anticiper.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Schéma de mémoire partagée structuré (JSON Schema ou Pydantic)</strong>
+                  <small>Validation à l'écriture pour éviter qu'un agent corrompe la mémoire et casse les autres</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Capacité à investir 20-30h de débogage initial</strong>
+                  <small>La période de mise en place est chronophage. Témoignages communauté : 20-30h cumulées de debug pour atteindre la stabilité avec 4 agents.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 10. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">10</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et papers</h3>
+          <ul>
+            <li>
+              <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Agentic AI (Andrew Ng)</a>
+              <span class="resources-meta">Cours de référence sur les patterns multi-agents — incontournable pour ce module</span>
+            </li>
+            <li>
+              <a href="https://arxiv.org/abs/2308.08155" target="_blank" rel="noopener">AutoGen paper — Microsoft Research</a>
+              <span class="resources-meta">arXiv — papier fondateur sur les architectures multi-agents conversationnels</span>
+            </li>
+            <li>
+              <a href="https://www.anthropic.com/research" target="_blank" rel="noopener">Anthropic Research — Constitutional AI et agents</a>
+              <span class="resources-meta">Anthropic — recherche fondamentale sur la sécurité des systèmes agentiques</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/automation" target="_blank" rel="noopener">Harvard Business Review — Automation</a>
+              <span class="resources-meta">HBR — implications managériales de l'automatisation par IA</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=langgraph+multi+agent+complete+tutorial" target="_blank" rel="noopener">LangGraph — tutoriel multi-agents complet</a>
+              <span class="resources-meta">YouTube — pas-à-pas pour les architectures avancées en Python</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=crewai+complete+guide+agents" target="_blank" rel="noopener">CrewAI — guide complet</a>
+              <span class="resources-meta">YouTube — alternative LangGraph plus accessible</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=autogen+microsoft+multi+agent+tutorial" target="_blank" rel="noopener">AutoGen Microsoft — tutoriels</a>
+              <span class="resources-meta">YouTube — framework Microsoft pour multi-agents conversationnels</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">LangGraph Documentation</a>
+              <span class="resources-meta">Référence pour les architectures multi-agents avec mémoire et handoff</span>
+            </li>
+            <li>
+              <a href="https://docs.crewai.com" target="_blank" rel="noopener">CrewAI Documentation</a>
+              <span class="resources-meta">Alternative plus accessible pour les setups d'équipes d'agents</span>
+            </li>
+            <li>
+              <a href="https://microsoft.github.io/autogen/" target="_blank" rel="noopener">AutoGen Documentation — Microsoft</a>
+              <span class="resources-meta">Framework Microsoft pour multi-agents conversationnels</span>
+            </li>
+            <li>
+              <a href="https://qdrant.tech/documentation/" target="_blank" rel="noopener">Qdrant Documentation</a>
+              <span class="resources-meta">Vector store open source pour mémoire partagée d'agents</span>
+            </li>
+            <li>
+              <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use" target="_blank" rel="noopener">Claude Tool Use — Anthropic</a>
+              <span class="resources-meta">Documentation pour donner des outils aux agents Claude</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/AI_Agents" target="_blank" rel="noopener">r/AI_Agents sur Reddit</a>
+              <span class="resources-meta">Communauté spécialisée sur les systèmes agentiques en production</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/LangChain" target="_blank" rel="noopener">r/LangChain sur Reddit</a>
+              <span class="resources-meta">Communauté technique active sur les architectures LangChain et LangGraph</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">r/LocalLLaMA sur Reddit</a>
+              <span class="resources-meta">Communauté pour les déploiements multi-agents self-hosted</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
       </div>
-
-      <div class="checklist-section">
-        <h3>3. Conditions financières</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Budget mensuel récurrent (200-1500 €/mois selon volume)</div><div class="checklist-item-desc">Multiplier agents = multiplier coût d'inférence. À chiffrer avant déploiement.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Acceptation de 3-6 mois avant ROI mesurable</div><div class="checklist-item-desc">Pas de big bang, déploiement progressif. La valeur émerge à mesure que les agents stabilisent.</div></div></label>
-      </div>
-
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
+  </footer>
 
-    <div class="checklist-summary" id="caseSummary"></div>
-  </section>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-014';
-    function evaluateChecklist() {
-      const cb = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0, scored = 0;
-      cb.forEach(c => { const w = parseInt(c.dataset.weight, 10) || 1; total += w; if (c.checked) scored += w; });
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-      if (percent >= 75) { verdict = '✅ Éligibilité forte'; advice = 'Conditions favorables. Prochaine étape : sélectionner 2-3 fonctions à automatiser en priorité (souvent commercial + marketing) et structurer un POC progressif sur 3-4 mois. Démarrer par 1 agent, ajouter le second après stabilisation.'; }
-      else if (percent >= 50) { verdict = '⚠️ Éligibilité partielle'; advice = 'Manque souvent maturité organisationnelle ou infrastructure souveraine. Combler ces écarts avant de lancer le multi-agents. Le pattern à 1-2 agents est déjà très productif et beaucoup plus simple.'; }
-      else { verdict = '🔄 Prérequis à construire'; advice = 'Pas encore prêt pour une architecture multi-agents. Démarrer par 1 cas d\'usage agentique simple (workflow email-CRM par exemple), maîtriser pendant 6 mois, puis revenir à ce module.'; }
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Compétence Python intermédiaire ou prestataire mobilisable" },
+        { id: 'b2', label: "Plan de déploiement progressif accepté (1 agent à la fois)" },
+        { id: 'b3', label: "Périmètres d'agents définis avec exclusions explicites" },
+        { id: 'b4', label: "Politique de validation humaine sur actions externes documentée" },
+        { id: 'b5', label: "Budget d'inférence anticipé (100-500 €/mois)" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Volume de tâches récurrentes suffisant pour amortir le setup" },
+        { id: 'q2', label: "Mécanisme de hardening prévu dès le départ" },
+        { id: 'q3', label: "Gouvernance documentée pour la responsabilité des actions agents" },
+        { id: 'q4', label: "Schéma de mémoire partagée structuré (JSON Schema ou Pydantic)" },
+        { id: 'q5', label: "Capacité à investir 20-30h de débogage initial" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). L'architecture multi-agents est complexe à déployer et ingérable sans ces fondations. Traiter les gaps avant tout début, ou rester sur du multi-prompt classique (CU-001 à CU-011).`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement progressif possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Tu peux engager le projet en démarrant par 1 agent ciblé, puis ajouter progressivement.";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — démarrer avec 1 agent uniquement';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Démarre avec 1 seul agent (Sales ou Writer) pour 2-3 mois, consolide les fondations en parallèle, élargis ensuite si la valeur est démontrée.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Multi-agents par fonction métier\n\n`;
+        content += `*Évaluation Hub IA — Learning Center — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-014 du Hub IA — Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — MULTI-AGENTS PAR FONCTION METIER\n`;
+        content += `Evaluation Hub IA — Learning Center — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-014 du Hub IA — Learning Center — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-multi-agents.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
+
 </body>
 </html>
