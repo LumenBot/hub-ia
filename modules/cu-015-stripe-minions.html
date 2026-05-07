@@ -3,149 +3,1061 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agents codeurs internes (cas Stripe) — Hub IA territorial</title>
+  <title>Agents codeurs autonomes — cas Stripe Minions — Hub IA territorial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    /* Bloc Stripe stats — spécifique CU-015 */
+    .stripe-stats-box { background: linear-gradient(135deg, #F8F4FF 0%, #EAE0FF 100%); border: 2px solid #7A5CB8; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .stripe-stats-box h3 { color: #4A3A8C; margin-top: 0; margin-bottom: var(--space-3); }
+    .stripe-stats-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
+    .stripe-stats-item { background: white; padding: var(--space-3); border-radius: var(--radius-md); text-align: center; }
+    .stripe-stats-num { font-size: 1.5rem; font-weight: 800; color: #4A3A8C; }
+    .stripe-stats-label { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: var(--space-1); }
+
+    /* Pivot encadré asynchronicité — spécifique CU-015 */
+    .pivot-block { background: #FFF8F0; border: 2px solid #E8A55C; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .pivot-block h3 { color: #8C5410; margin-top: 0; margin-bottom: var(--space-3); }
+    .pivot-block p { margin-bottom: var(--space-3); }
+    .pivot-block p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <a href="../index.html?axe=agentique#modules" class="card-badge axe-agentique">🔗 Architecture agentique</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — étude de cas</span>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">cas-école</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">40 min de lecture</span>
       </div>
-      <h1>👨‍💻 Agents codeurs internes (cas Stripe « Minions »)</h1>
+      <h1>🛠️ Agents codeurs autonomes — cas Stripe Minions</h1>
       <p class="module-subtitle">
-        Cas Stripe documenté publiquement : 1 000+ pull requests par semaine produites par des agents IA, dispatchés depuis Slack par PMs, designers et support. Le passage de l'IA assistant à l'IA autonome sur cycle court.
+        Le pattern d'orchestration où l'agent IA exécute une tâche de bout en bout sur un cycle court (correctif, feature simple), pendant que l'humain bascule sur autre chose. Stripe a déployé ce pattern en interne sur le code et fusionne 1000+ pull requests par semaine. La vraie leçon : <strong>l'asynchronicité</strong> comme principe de pilotage transposable bien au-delà du dev.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Le cas</h2>
-    <p>Stripe a déployé en interne un système d'agents codeurs appelé « Minions », responsables de plus de 1 000 pull requests fusionnées chaque semaine. Les humains relisent le code, mais les agents l'écrivent intégralement, du début à la fin.</p>
-    <p>Le pattern, partagé sur le blog tech Stripe (https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents), illustre <strong>le passage de l'IA assistant développeur à l'IA autonome sur cycle court</strong>, accessible aux profils non-développeurs (PMs, designers, support) qui peuvent déclencher un agent depuis Slack pour un correctif ou une feature simple.</p>
+  <div class="module-layout">
 
-    <h2>L'architecture</h2>
-    <ol>
-      <li><strong>Trigger Slack</strong> — un humain (PM, designer, support) mention l'agent avec une description de la tâche</li>
-      <li><strong>Agent autonome</strong> — analyse le code source, planifie les modifications, écrit le code, ouvre une PR</li>
-      <li><strong>Asynchronicité</strong> — l'humain n'attend pas, peut lancer 10 sessions en parallèle, contrainte se déplace de « heures d'ingénieur » vers « capacité de revue »</li>
-      <li><strong>Validation humaine</strong> — l'ingénieur relit la PR avant merge</li>
-    </ol>
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Stripe + asynchronicité</a>
+        <a href="#section-3">3. Pattern one-shot</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack technique</a>
+        <a href="#section-6">6. Troubleshooting</a>
+        <a href="#section-7">7. Étude de cas DevTeam</a>
+        <a href="#section-8">8. Pièges à éviter</a>
+        <a href="#section-9">9. Checklist d'éligibilité</a>
+        <a href="#section-10">10. Pour aller plus loin</a>
+      </nav>
+    </aside>
 
-    <h2>Stack technique (équivalents publics)</h2>
-    <ul>
-      <li><strong>Claude Code</strong> (Anthropic) — référence publique pour le coding</li>
-      <li><strong>Cursor</strong> — IDE avec IA intégrée, devient agent</li>
-      <li><strong>Aider</strong> — agent CLI pour modifier des codebases</li>
-      <li><strong>Devin</strong> (Cognition) — agent autonome bout en bout</li>
-      <li><strong>GitHub Copilot Workspace</strong> — version Microsoft</li>
-    </ul>
+    <main class="module-main">
 
-    <h2>Pertinence pour notre cible</h2>
-    <ul>
-      <li><strong>Startups QA tech</strong> : pertinent pour startups SaaS avec équipe technique réduite voulant absorber un volume de petites tâches sans grossir l'équipe</li>
-      <li><strong>PME/ETI vosgiennes</strong> : peu pertinent en l'état (peu d'équipes dev internes), sauf cas spécifiques d'ESN locales (SAM Informatique, etc.)</li>
-      <li><strong>Pattern à retenir au-delà du dev</strong> : <em>l'asynchronicité comme principe de pilotage</em> — déléguer une tâche à un agent, recevoir le résultat plus tard, basculer la contrainte du « temps d'exécution » vers le « temps de relecture ». Généralisable à de nombreuses fonctions support.</li>
-    </ul>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Stripe a publié en 2025 un retour d'expérience sur ses agents codeurs internes (« Minions ») : 1000+ pull requests fusionnées par semaine, écrites de bout en bout par des agents, avec l'humain uniquement sur la relecture. Le pattern « one-shot, end-to-end » fait l'objet de dizaines d'analyses. La vraie leçon dépasse le code : l'asynchronicité comme principe de pilotage est transposable à de nombreuses fonctions support (admin, contenu, analyse, recherche).
+          </p>
 
-    <h2>Limites et points de vigilance</h2>
-    <ul>
-      <li><strong>Adapté aux tâches courtes et bien cadrées</strong> — bugs simples, features petites, migrations. Pas adapté aux refonte architecturales ou aux décisions de design</li>
-      <li><strong>Capacité de revue</strong> devient le goulot — il faut former les développeurs à relire vite et bien, sans laisser passer du code mauvais</li>
-      <li><strong>Sécurité</strong> — un agent qui écrit du code peut introduire des vulnérabilités. Audit automatisé indispensable</li>
-      <li><strong>Coût</strong> — au volume Stripe, l'addition est conséquente. À chiffrer avant déploiement à grande échelle</li>
-    </ul>
-  </article>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⚡</div>
+              <div class="exec-takeaway-content">
+                <strong>Asynchronicité comme principe.</strong> Tu déclenches, tu bascules ailleurs, tu reviens pour la relecture. La nouvelle contrainte n'est plus le temps machine, c'est ta capacité de revue.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Tâches éligibles : « one-shot, end-to-end ».</strong> Cadrées (objectif clair), réversibles, livrable mesurable. Correctifs, petites features, refactors ciblés. Pas les tâches floues ou ouvertes.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🧪</div>
+              <div class="exec-takeaway-content">
+                <strong>Tests solides comme prérequis non négociable.</strong> ≥75-80 % de couverture sur les modules critiques avant tout déploiement. Sans filet, l'agent introduit du risque silencieux en production.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🚫</div>
+              <div class="exec-takeaway-content">
+                <strong>Jamais d'accès production.</strong> Branches dédiées, sandbox isolé, code review humaine obligatoire avant merge. Pas d'auto-merge même sur PR agent.
+              </div>
+            </div>
+          </div>
 
-  <section class="case-study" id="case-study">
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
-      <p style="margin-bottom:0;">Évalue si ton organisation est prête à intégrer des agents codeurs autonomes dans son workflow.</p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">1000+</div>
+              <div class="exec-stat-label">PRs/semaine chez Stripe</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">3-5</div>
+              <div class="exec-stat-label">Sessions actives par humain (max)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">75 %+</div>
+              <div class="exec-stat-label">Couverture tests minimale</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">40 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une équipe tech avec un backlog de petites tâches qui s'accumule ; tu veux comprendre ce que Stripe a vraiment changé, au-delà du buzz Minions ; tu cherches à transposer le principe d'asynchronicité à des fonctions non-tech (admin, support, contenu) ; tu acceptes le prérequis tests solides et capacité de revue dimensionnée.
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — du « IA assistante » à « IA autonome cycle court »</h2>
+        </div>
+
+        <p>
+          Stripe — l'infrastructure de paiement utilisée par des centaines de milliers d'entreprises dans le monde — a publié en 2025 un retour d'expérience détaillé sur son système d'agents codeurs internes appelé <strong>Minions</strong>. Le chiffre marquant : <strong>plus de 1000 pull requests fusionnées par semaine</strong> sont écrites de bout en bout par des agents, l'humain restant uniquement sur la relecture. Le pattern est devenu une référence dans la communauté technique 2026, et fait l'objet de dizaines d'analyses.
+        </p>
+        <p>
+          Le retour de Stripe est important pour deux raisons. La première : <strong>il ne s'agit plus d'IA assistante</strong> (un développeur écrit, l'IA suggère) <strong>mais d'IA autonome sur cycle court</strong> (l'IA écrit du début à la fin, l'humain valide). La seconde, plus universelle : le pattern est <strong>déclenchable par des profils non-développeurs</strong> (PMs, designers, support), ce qui élargit massivement la base d'utilisateurs.
+        </p>
+
+        <div class="pull-quote">
+          Le shift n'est pas technique, il est managérial. La contrainte se déplace de « heures d'ingénieur disponibles » vers « capacité de revue ». Tu peux lancer 10 sessions agentiques en parallèle pendant que tu es en réunion. Au retour, tu as 10 PRs prêtes à relire — la nouvelle file d'attente, ce sont les humains, plus les machines.
+        </div>
+
+        <p>
+          <strong>La vraie leçon dépasse le code</strong>. Le pattern d'asynchronicité — déléguer une tâche cadrée à un agent, recevoir le résultat plus tard, basculer sa propre attention sur autre chose entre-temps — est généralisable à de très nombreuses fonctions support : analyse de documents administratifs, recherche structurée, rédaction de premières versions, retraitement de données. C'est ce qui rend ce module un <strong>cas-école</strong> au-delà de la sphère tech pure.
+        </p>
+      </section>
+
+      <!-- 2. STRIPE + ASYNCHRONICITÉ -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Stripe Minions et le concept d'asynchronicité</h2>
+        </div>
+
+        <p>
+          Le retour Stripe a marqué la communauté car il documente un pattern industrialisé sur un patrimoine logiciel critique. Mais l'enseignement le plus durable n'est pas la technologie utilisée — c'est le shift mental qu'il provoque.
+        </p>
+
+        <div class="stripe-stats-box">
+          <h3>📍 Les chiffres publiés par Stripe (2025)</h3>
+          <p style="margin: 0 0 var(--space-3);">Le système Minions est désormais central dans l'organisation tech de Stripe. Quelques indicateurs publiés sur leur blog technique :</p>
+          <div class="stripe-stats-meta">
+            <div class="stripe-stats-item">
+              <div class="stripe-stats-num">1000+</div>
+              <div class="stripe-stats-label">PRs fusionnées par semaine</div>
+            </div>
+            <div class="stripe-stats-item">
+              <div class="stripe-stats-num">10x</div>
+              <div class="stripe-stats-label">Sessions parallèles possibles</div>
+            </div>
+            <div class="stripe-stats-item">
+              <div class="stripe-stats-num">async</div>
+              <div class="stripe-stats-label">Mode par défaut</div>
+            </div>
+            <div class="stripe-stats-item">
+              <div class="stripe-stats-num">non-dev</div>
+              <div class="stripe-stats-label">Triggers possibles</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pivot-block">
+          <h3>🎯 Le vrai concept à retenir : l'asynchronicité comme principe</h3>
+          <p>
+            Au-delà du contexte spécifique du dev chez Stripe, retiens un principe universel : <strong>tu peux déléguer une tâche cadrée à un agent en parallèle de ton travail principal</strong>. Cette idée s'applique à beaucoup d'usages du quotidien que tu sous-utilises probablement aujourd'hui :
+          </p>
+          <p>
+            « Pendant que je suis en réunion, lance la rédaction de la première version du compte-rendu mensuel. » « Pendant que je prépare mon prochain RDV, fais la recherche structurée sur cet AAP. » « Pendant que je relis cette proposition, traite ces 20 CV pour me sortir une short-list. »
+          </p>
+          <p>
+            Le shift mental clé : <strong>arrêter de penser ses tâches en mode séquentiel</strong> (je fais X, puis Y, puis Z) et commencer à penser en mode parallèle (je délègue X et Z en arrière-plan, je traite Y en attendant). C'est ce qui change l'expérience utilisateur dans la durée et fait la différence entre une utilisation occasionnelle et une vraie augmentation cognitive.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. PATTERN ONE-SHOT -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Pattern « one-shot, end-to-end »</h2>
+        </div>
+
+        <p>
+          L'humain déclenche puis bascule ailleurs — l'agent exécute de bout en bout — l'humain revient pour la relecture. C'est l'asynchronicité qui permet 10 sessions en parallèle.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar15" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar15purple" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#7A5CB8"/>
+              </marker>
+            </defs>
+
+            <!-- Humain qui déclenche -->
+            <rect x="20" y="40" width="180" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="110" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">👤 HUMAIN — DÉCLENCHE</text>
+            <text x="110" y="88" text-anchor="middle" font-size="11" fill="#333">Mention dans Slack</text>
+            <text x="110" y="103" text-anchor="middle" font-size="11" fill="#333">ou interface dédiée</text>
+
+            <!-- Bloc « pendant ce temps » humain -->
+            <rect x="20" y="180" width="180" height="120" rx="12" fill="#F0F4FA" stroke="#2E5395" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="110" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">⏰ HUMAIN — AILLEURS</text>
+            <text x="110" y="233" text-anchor="middle" font-size="11" fill="#333">Réunion · autre tâche</text>
+            <text x="110" y="248" text-anchor="middle" font-size="11" fill="#333">Pause · 2e session lancée</text>
+            <text x="110" y="270" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Bascule contrainte :</text>
+            <text x="110" y="285" text-anchor="middle" font-size="10" fill="#666" font-style="italic">temps exec → temps revue</text>
+
+            <!-- Agent autonome au centre -->
+            <rect x="280" y="60" width="360" height="220" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="3"/>
+            <text x="460" y="95" text-anchor="middle" font-size="14" font-weight="700" fill="#FFD600">🛠️ AGENT AUTONOME — END-TO-END</text>
+            <line x1="300" y1="115" x2="620" y2="115" stroke="#FFD600" stroke-width="1" stroke-dasharray="3,2"/>
+
+            <text x="310" y="140" font-size="11" fill="white">1.  Comprend l'intention</text>
+            <text x="310" y="160" font-size="11" fill="white">2.  Explore le code / contexte</text>
+            <text x="310" y="180" font-size="11" fill="white">3.  Écrit la solution</text>
+            <text x="310" y="200" font-size="11" fill="white">4.  Lance les tests</text>
+            <text x="310" y="220" font-size="11" fill="white">5.  Itère si tests rouges</text>
+            <text x="310" y="240" font-size="11" fill="white">6.  Commit + ouvre PR</text>
+            <text x="310" y="260" font-size="11" fill="white">7.  Notifie l'humain</text>
+
+            <text x="460" y="280" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Claude Code · Devin · Cursor Composer · Aider</text>
+
+            <!-- Pull Request livrée -->
+            <rect x="720" y="60" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="810" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">📦 LIVRABLE</text>
+            <text x="810" y="113" text-anchor="middle" font-size="11" fill="#333">Pull Request prête</text>
+            <text x="810" y="128" text-anchor="middle" font-size="11" fill="#333">Tests verts</text>
+            <text x="810" y="143" text-anchor="middle" font-size="11" fill="#333">Description rédigée</text>
+
+            <!-- Humain relit -->
+            <rect x="720" y="180" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="810" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">👁️ HUMAIN — RELIT</text>
+            <text x="810" y="233" text-anchor="middle" font-size="11" fill="#333">Code review</text>
+            <text x="810" y="248" text-anchor="middle" font-size="11" fill="#333">Validation business</text>
+            <text x="810" y="263" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Merge ou demande retouche</text>
+
+            <!-- Bloc parallélisme en bas -->
+            <rect x="100" y="340" width="720" height="80" rx="10" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="365" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">⚡ ASYNCHRONICITÉ — 10 sessions en parallèle possible</text>
+            <text x="460" y="385" text-anchor="middle" font-size="11" fill="#333">L'humain n'attend plus → la nouvelle contrainte est sa capacité de revue, pas le temps d'exécution machine</text>
+            <text x="460" y="403" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Ce principe se transpose à beaucoup d'usages au-delà du code</text>
+
+            <!-- Flèche humain → agent -->
+            <line x1="200" y1="80" x2="278" y2="100" stroke="#5C8C5C" stroke-width="3" marker-end="url(#ar15)"/>
+            <!-- Agent → livrable -->
+            <line x1="640" y1="110" x2="718" y2="110" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar15)"/>
+            <!-- Livrable → humain relit -->
+            <line x1="810" y1="160" x2="810" y2="178" stroke="#5C8C5C" stroke-width="3" marker-end="url(#ar15)"/>
+            <!-- Humain ailleurs (pointillé décoratif) -->
+            <line x1="200" y1="200" x2="278" y2="170" stroke="#7A5CB8" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <text x="240" y="195" font-size="10" fill="#4A3A8C" font-style="italic">en parallèle</text>
+          </svg>
+        </div>
+        <p class="schema-caption">L'humain déclenche puis bascule ailleurs — l'agent exécute de bout en bout — l'humain revient pour la relecture. C'est l'asynchronicité qui permet 10 sessions en parallèle.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Identifier les tâches éligibles « one-shot, end-to-end ».</strong> Critères : tâche cadrée (objectif clair, périmètre identifié), réversible (peut être annulée si erreur), avec un livrable mesurable (PR de code, document, données structurées). Exemples typiques côté dev : correctif d'un bug isolé, ajout d'une endpoint API, refactor d'un module spécifique. Exemples élargis : rédaction d'un premier brouillon de CR, analyse comparative de 5 documents, requalification d'une base de leads. <strong>Ne pas tenter</strong> sur les tâches floues, ouvertes, ou à conséquence irréversible.</li>
+          <li><strong>Préparer un brief clair en 3 lignes.</strong> Plus le brief est précis, plus l'agent produit un livrable utilisable. Format type : « Objectif : [résultat attendu en 1 phrase]. Contexte : [info clé que l'agent doit connaître]. Contraintes : [ce qu'il ne doit PAS faire, exemples : ne pas modifier X, respecter Y]. » Pour le dev, ajouter le périmètre fichiers concernés.</li>
+          <li><strong>Déclencher la session asynchrone.</strong> Pour les équipes tech : Claude Code via terminal, Devin via interface web, Cursor Composer dans l'IDE, ou GitHub Copilot Workspace. Pour les usages génériques : Claude Projects ou ChatGPT Tasks avec scheduling. L'agent confirme la prise en compte et démarre. <strong>L'humain part faire autre chose</strong>.</li>
+          <li><strong>Surveiller (légèrement) les sessions actives.</strong> Pas besoin d'être collé à l'écran. Une notification arrive quand l'agent a terminé ou s'il bloque. Pour les sessions parallèles (3-10 simultanées), un dashboard de suivi est utile — Stripe a développé son interface interne, mais Notion ou Linear avec une discipline de naming (« [AGENT] Refactor module X — En cours ») suffit pour démarrer.</li>
+          <li><strong>Recevoir le livrable et passer en revue.</strong> Quand l'agent notifie la fin de tâche, l'humain bascule en mode revue : code review classique pour les PRs, relecture critique pour les livrables texte, audit factuel pour les analyses. <strong>La discipline de revue est non négociable</strong> — un agent peut halluciner, dévier de l'intention, casser quelque chose. Le merge ou la validation reste humain.</li>
+          <li><strong>Itérer si besoin.</strong> Si la revue identifie des problèmes : commentaire structuré renvoyé à l'agent (« le test X échoue, voici le contexte additionnel »), l'agent corrige, re-soumet. La boucle d'itération doit être rapide (quelques minutes). Si l'agent ne résout pas après 2-3 itérations, basculer en humain — c'est probablement que la tâche n'était pas vraiment éligible au pattern.</li>
+          <li><strong>Capitaliser via la convention de naming et la documentation.</strong> Pour chaque session lancée, garder une trace : quel type de tâche, quel agent utilisé, quelle qualité du livrable, quelles itérations nécessaires. Au bout de 4-8 semaines, tu identifies tes propres « patterns dorés » — les types de tâches où l'agent excelle vs. ceux où il échoue systématiquement. Tu calibres ton portefeuille de délégation en conséquence.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK TECHNIQUE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Couche déclenchement (humain) ─┐</strong>
+   Slack mention / Terminal / IDE / Web interface
+   → Brief structuré (objectif / contexte / contraintes)
+   → Session agentique lancée
+
+<strong>┌─ Couche exécution (agent autonome) ─┐</strong>
+   Comprend l'intention → explore le contexte
+   → écrit la solution → lance les tests
+   → itère si rouge → commit + ouvre PR
+   → notifie l'humain
+
+<strong>┌─ Couche revue (humain à nouveau) ─┐</strong>
+   Notification → bascule en mode revue
+   → code review / audit factuel
+   → merge ou retour à l'agent pour itération
+
+<strong>┌─ Couche capitalisation (au fil du temps) ─┐</strong>
+   Logs des sessions → patterns identifiés
+   → calibrage du portefeuille de délégation
+        </div>
+
+        <h3>Agents codeurs autonomes</h3>
+        <p>
+          <strong>Claude Code</strong> (Anthropic) est aujourd'hui largement reconnu pour sa qualité sur le code, particulièrement les tâches end-to-end avec exploration et tests. Lancement via terminal CLI, mode autonome ou supervision. <strong>Devin</strong> (Cognition) est le pionnier du concept « agent IA développeur autonome » avec interface web dédiée, pertinent pour les structures qui veulent un produit fini sans setup. <strong>Cursor Composer</strong> est intégré à l'IDE Cursor, idéal pour les développeurs qui restent dans leur flow de travail. <strong>Aider</strong> est l'option open source légère, déployable en local. <strong>GitHub Copilot Workspace</strong> est l'offre Microsoft/GitHub, intégrée nativement à GitHub.
+        </p>
+
+        <h3>Stack pour les usages non-dev</h3>
+        <p>
+          Pour appliquer le pattern d'asynchronicité hors du code : <strong>Claude Projects</strong> avec instructions persistantes pour les tâches récurrentes, <strong>ChatGPT Tasks</strong> avec scheduling pour les tâches programmées, <strong>n8n</strong> avec workflows déclenchables manuellement pour les tâches semi-automatisées. Le concept est identique : un brief, un livrable attendu, une notification.
+        </p>
+
+        <h3>Garde-fous de sécurité (côté dev)</h3>
+        <p>
+          Pour les agents qui touchent au code : environnement de sandbox isolé (l'agent ne touche pas la production directement), branche dédiée par session, tests obligatoires verts avant ouverture de PR, code review humaine obligatoire avant merge. Pour les structures avec patrimoine logiciel sensible : déploiement on-premise (Aider local) ou via solution gouvernée. <strong>Ne jamais donner à un agent un accès direct à la production</strong>, même temporairement.
+        </p>
+
+        <h3>Infrastructure et monitoring</h3>
+        <p>
+          Pour des déploiements légers : usage standard via API publiques. Pour des volumes importants (Stripe = 1000 PRs/semaine) : infrastructure dédiée avec logging des coûts par session, monitoring des tokens consommés, alertes en cas de boucle anormale. Stripe a investi des mois d'ingénierie pour stabiliser son système — pour une PME ou startup, le ratio investissement/valeur n'est intéressant qu'au-delà de 30-50 sessions par semaine.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Compétence technique pour la mise en place initiale (Claude Code et Cursor demandent au moins une compréhension de Git et de l'environnement dev). Capacité de revue dimensionnée — c'est la nouvelle contrainte limitante, pas la production. Discipline de brief structuré (sans cela, les sessions partent dans les choux). Garde-fous de sécurité documentés avant tout déploiement sur du code en production. Budget d'inférence anticipé : 50-200 €/mois pour un usage individuel intensif, plusieurs milliers d'euros pour un déploiement équipe (les sessions agentiques consomment beaucoup de tokens).
+        </p>
+      </section>
+
+      <!-- 6. TROUBLESHOOTING -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">6</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Agent qui dévie de l'intention initiale (refactor large alors qu'on demandait un fix ciblé)</td>
+                <td>Brief trop ouvert, périmètre non délimité explicitement</td>
+                <td>Format de brief structuré (objectif / contexte / contraintes) avec mention explicite « ne pas modifier les fichiers en dehors de [périmètre] ». Auditer les premiers résultats pour calibrer le brief idéal.</td>
+              </tr>
+              <tr>
+                <td>Session qui boucle (l'agent itère sans converger)</td>
+                <td>Tâche probablement pas éligible au pattern « one-shot » — trop floue ou ouverte</td>
+                <td>Cap sur le nombre d'itérations (max 5 cycles), au-delà escalade humain. Reprendre la tâche en mode interactif (l'agent assistant plutôt qu'autonome).</td>
+              </tr>
+              <tr>
+                <td>Coût d'inférence qui dérape sur certaines sessions</td>
+                <td>Sessions trop ambitieuses qui explorent excessivement la base de code</td>
+                <td>Logger les coûts par session, identifier les sessions au-delà de 2x la médiane, documenter pourquoi elles ont coûté plus cher. Ajuster le scope initial des tâches similaires.</td>
+              </tr>
+              <tr>
+                <td>Capacité de revue saturée (les humains croulent sous les PRs à relire)</td>
+                <td>Trop de sessions lancées en parallèle, déséquilibre nouveau pattern</td>
+                <td>Limiter le nombre de sessions actives par humain (3-5 max). Calibrer le rythme de production agent au rythme de revue humain. Ne pas confondre « capacité machine » et « capacité organisationnelle ».</td>
+              </tr>
+              <tr>
+                <td>Agent qui modifie quelque chose qu'il n'aurait pas dû (régression non détectée)</td>
+                <td>Tests insuffisants ou couverture limitée du module touché</td>
+                <td>Investir d'abord dans la couverture de tests avant de scaler les agents. Sans tests, le pattern produit du risque. C'est aussi pourquoi Stripe a investi des mois dans son infrastructure de tests avant de scaler Minions.</td>
+              </tr>
+              <tr>
+                <td>Description de PR par l'agent insuffisante pour la relecture</td>
+                <td>Pas d'instruction explicite sur le format attendu de la description</td>
+                <td>Standardiser un template de PR : Quoi / Pourquoi / Comment tester / Risques connus. Demander à l'agent d'utiliser ce template à chaque ouverture de PR.</td>
+              </tr>
+              <tr>
+                <td>Crédits API épuisés en milieu de session (interruption brutale)</td>
+                <td>Pas de monitoring proactif des consommations</td>
+                <td>Alertes à 80 % et 95 % du budget mensuel. Cap automatique sur le nombre de sessions parallèles si approche du plafond.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. ÉTUDE DE CAS -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">7</div>
+          <h2 class="module-section-title">Étude de cas — DevTeam, équipe tech 8 personnes</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste. 5 étapes décortiquées sur un déploiement de 3 mois. Compte 60 minutes pour assimiler en profondeur, ou 20 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">DevTeam — équipe tech de 8 développeurs dans une startup SaaS B2B de 30 personnes basée à Strasbourg. Plateforme web + mobile, ~50 000 lignes de code en production. 30-40 PRs par semaine en mode classique (1 dev = 1 PR), backlog de tâches mineures (correctifs, petites features) qui s'accumule faute de bande passante. Pas de système agentique en place. CTO ouvert à l'expérimentation, équipe globalement curieuse mais prudente.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif tech</div>
+              <strong>8 devs</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">PRs/semaine</div>
+              <strong>30-40</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">LOC</div>
+              <strong>~50 000</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Couverture tests</div>
+              <strong>~65 %</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Audit des fondations et préparation (semaine 1-2)</h3>
+            <p>Avant tout déploiement agentique, le CTO et le tech lead auditent les fondations : couverture de tests (65 %, jugée insuffisante pour scaler en confiance), CI/CD (en place mais avec des gaps sur les tests d'intégration), conventions de code (documentées partiellement). <strong>Décision : investir 2 semaines pour pousser la couverture tests à 80 %+</strong> avant d'ouvrir la porte aux agents. Les tests sont le seul filet de sécurité contre les régressions agent.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Audit Codecov / SonarQube → ajout de tests unitaires sur les modules critiques → renforcement CI avec tests d'intégration → documentation des conventions
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Couverture tests passée de 65 % à 82 %. Conventions code documentées dans un CONTRIBUTING.md détaillé. Investissement 2 semaines × 2 devs, mais condition préalable indispensable. Sans cette base, le pattern produit du risque au lieu de la valeur.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Pilote sur 1 développeur volontaire avec Claude Code (semaine 3-4)</h3>
+            <p>Le tech lead se porte volontaire pour le pilote. Setup Claude Code en CLI dans son environnement, accès lecture/écriture sur une branche dédiée avec workflow merge classique. Pendant 2 semaines, il délègue à l'agent les tâches qui correspondent au profil « one-shot, end-to-end » : correctifs de bugs isolés signalés en backlog, ajouts d'endpoints API simples, refactors de modules ciblés. Brief structuré obligatoire pour chaque session. Mesure : nombre de sessions lancées, taux de succès au premier essai, taux de succès après itération, temps de revue par PR.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Claude Code CLI → branches feature/agent-* dédiées → CI obligatoire avant merge → log Notion partagé : type tâche / brief / résultat / temps revue
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              18 sessions lancées sur 2 semaines. 11 réussies au premier essai (61 %), 5 réussies après 1-2 itérations (28 %), 2 abandonnées (11 % — tâches mal cadrées). Temps de revue moyen : 8 minutes par PR vs ~20 minutes pour une PR humaine équivalente (les PRs agent sont mieux décrites). Tech lead enthousiaste, équipe curieuse.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Extension à 4 développeurs avec garde-fous (semaine 5-8)</h3>
+            <p>Sur la base du pilote validé, extension à 4 développeurs sur 8 (les volontaires + les profils seniors qui peuvent calibrer leurs briefs efficacement). Garde-fous renforcés : limite de 3 sessions parallèles par dev (pour éviter saturation revue), code review obligatoire par un autre humain avant merge (pas d'auto-merge même sur PR agent), monitoring des coûts d'inférence par dev. Premier rituel d'équipe instauré : rétrospective bi-mensuelle sur les sessions agent (ce qui a marché, ce qui a échoué, calibrage du portefeuille de délégation).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Claude Code multi-utilisateurs → tableau de bord Notion centralisé → quotas d'inférence par dev → rétrospective bi-mensuelle (1h)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Volume de PRs hebdo passé de 30-40 à 50-65 (×1,7). Backlog de petites tâches enfin résorbé après 6 semaines. Les devs rapportent qualitativement plus de temps pour les tâches complexes (architecture, design, négociation). 0 régression critique en production sur la période — le filet de tests joue son rôle.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Ouverture aux profils non-dev (semaine 9-12)</h3>
+            <p>Phase d'expérimentation la plus intéressante : ouverture du pattern aux profils non-tech via une interface intermédiaire. Le PM peut demander un correctif via Slack à un canal dédié #agent-requests, le tech lead valide la demande (« est-ce vraiment one-shot ? »), une session est lancée. Le designer peut faire ajuster un composant UI mineur via le même canal. Le support peut faire générer un script d'export de données client. <strong>L'agent devient une ressource d'équipe, pas seulement de l'équipe tech</strong>.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Bot Slack #agent-requests → workflow d'approbation tech lead → lancement session Claude Code automatique → notification résultat dans le canal
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              12 sessions hebdo en moyenne déclenchées par non-devs. Le PM gagne 2-3 jours par mois sur les correctifs mineurs qu'il devait sinon prioriser dans le backlog dev. Tension nouvelle à gérer : le tech lead est devenu goulot sur la validation des demandes. Solution en cours : matrice des types de demandes auto-validables vs nécessitant validation tech.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Industrialisation et bilan 3 mois (mois 3+)</h3>
+            <p>Le système entre en régime de croisière. Maintenance ~3h/semaine partagée entre le CTO et le tech lead : revue des coûts d'inférence (stabilisés à 800 €/mois), affinage des briefs types (bibliothèque interne de 15 templates de briefs validés), ouverture progressive de l'auto-validation pour certains types de demandes simples. <strong>L'asynchronicité change la culture</strong> : les devs apprennent à penser leurs tâches en mode « brief + délégation + relecture » plutôt qu'en mode « focus + production ». Sujet de discussion équipe : faut-il une ligne budgétaire dédiée à l'inférence agent ?</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Bibliothèque de briefs templates (Notion) → matrice de validation auto-vs-tech → monitoring des coûts mensuel → reporting mensuel à la direction
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Volume PRs stabilisé à 60-75/semaine (×1,8 vs baseline). Coût d'inférence : ~800 €/mois pour ~60 sessions hebdo, soit ~3 €/session — extrêmement rentable face au temps dev libéré. <strong>Plus important : changement de culture sur la délégation</strong>. L'équipe pense désormais en mode « parallèle asynchrone » et utilise ce mode aussi sur des tâches non-dev (CR, recherche, analyse).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 3 mois</div>
+          <p>
+            DevTeam est passée de 30-40 PRs/semaine à 60-75 (×1,8) sans recruter, avec une qualité préservée (0 régression critique en production), un coût d'inférence de 800 €/mois (vs. ~6 000 €/mois pour 1 ETP dev équivalent), et — leçon la plus importante — une <strong>culture de la délégation asynchrone qui a essaimé bien au-delà du dev</strong>. Le PM, le designer, le support utilisent désormais le pattern. La vraie valeur n'est pas le gain de productivité technique, c'est le shift mental qui rend l'organisation plus mature face à la nouvelle génération d'outils IA.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. PIÈGES -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">8</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Déployer sans fondations de tests solides</h3>
+        <p>
+          Le pattern agentique n'est rentable que si les régressions sont détectables automatiquement. <strong>Sans une couverture de tests d'au moins 75-80 % sur les modules critiques</strong>, l'agent introduit du risque silencieux qui se révèle en production semaines plus tard. Stripe a investi massivement dans son infrastructure de tests avant de scaler Minions — c'est un prérequis, pas un détail.
+        </p>
+
+        <h3>La capacité de revue est la nouvelle contrainte</h3>
+        <p>
+          Une fois le pattern lancé, la machine peut produire 10x plus que l'humain ne peut relire. <strong>Limiter le nombre de sessions actives par humain (3-5 max)</strong> pour ne pas saturer la capacité de revue. Sinon : soit l'humain abdique sa relecture (et le pattern devient dangereux), soit les PRs s'empilent en « limbo » (et le pattern ne livre plus). Calibrer le débit de production au débit de revue.
+        </p>
+
+        <h3>Les tâches floues ne sont pas éligibles</h3>
+        <p>
+          Le pattern « one-shot, end-to-end » fonctionne sur les tâches cadrées (objectif clair, périmètre fini, livrable mesurable). Sur les tâches floues, ouvertes, ou nécessitant exploration et créativité, l'agent boucle ou produit du sous-qualitatif. <strong>Apprendre à reconnaître les tâches éligibles est une compétence</strong>. Les premières semaines de pilote servent justement à calibrer cette compétence par essai-erreur.
+        </p>
+
+        <h3>Sécurité et accès à la production</h3>
+        <p>
+          <strong>Ne jamais donner à un agent un accès direct à la production</strong>, même temporairement, même « pour un correctif urgent ». L'agent travaille toujours sur une branche dédiée, en sandbox, avec tests obligatoires verts et code review humaine avant merge. Pour les structures avec patrimoine logiciel sensible, déploiement on-premise ou solution gouvernée à privilégier.
+        </p>
+
+        <h3>Coût d'inférence sous-estimé</h3>
+        <p>
+          Les sessions agentiques consomment beaucoup de tokens (exploration de la base de code, plusieurs itérations, génération longue). <strong>Anticiper un budget significatif</strong> : 50-200 €/mois pour un usage individuel, plusieurs milliers d'euros par mois pour une équipe en régime stabilisé. Logger les coûts par session pour identifier les sessions « gourmandes » et calibrer.
+        </p>
+
+        <h3>Le piège de l'addiction à la production</h3>
+        <p>
+          Pouvoir lancer 10 sessions en parallèle peut conduire à <strong>produire trop, pas mieux</strong>. La nouvelle valeur ajoutée humaine est sur l'arbitrage (qu'est-ce qui vaut la peine d'être fait), pas sur l'exécution. Si l'équipe utilise le pattern pour livrer 2x plus de fonctionnalités sans se demander si elles sont stratégiquement utiles, le gain net pour l'organisation peut être nul ou négatif. <strong>Discipline de priorisation conservée</strong>.
+        </p>
+      </section>
+
+      <!-- 9. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">9</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité à déployer le pattern « agent autonome one-shot ». La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le pattern produit du risque) et <strong>critères de qualité</strong> (qui conditionnent le ROI). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Couverture de tests automatiques solide (≥75 %)</strong>
+                  <small>Le filet de sécurité indispensable pour détecter les régressions agent. Sans cela, risque silencieux en production.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. CI/CD en place avec tests obligatoires avant merge</strong>
+                  <small>Build vert obligatoire, code review humaine avant merge — pas d'auto-merge même sur PR agent</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Politique de sandbox claire (pas d'accès production)</strong>
+                  <small>L'agent travaille sur branches dédiées, en environnement isolé. Pas d'accès direct à la prod, jamais.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Capacité de revue dimensionnée</strong>
+                  <small>3-5 sessions actives max par humain. Sans cela, soit relecture abdiquée, soit PRs en limbo.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Volume de tâches éligibles « one-shot » identifié</strong>
+                  <small>Backlog de correctifs, petites features, refactors ciblés. Si le travail est uniquement architectural ou créatif, le pattern n'est pas adapté.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent le ROI dans la durée</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Conventions de code documentées (CONTRIBUTING.md)</strong>
+                  <small>Patterns de code, normes de nommage, structure des PRs — pour que l'agent produise du code conforme dès le départ</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Discipline de brief structuré (objectif/contexte/contraintes)</strong>
+                  <small>Format obligatoire pour chaque session. Plus le brief est précis, plus le livrable est utilisable.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Budget d'inférence anticipé et monitoring actif</strong>
+                  <small>50-200 €/mois individuel, plusieurs milliers en équipe. Alertes à 80 % et 95 % du budget mensuel.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Rituel d'équipe pour calibrer le portefeuille de délégation</strong>
+                  <small>Rétrospective bi-mensuelle sur les sessions agent (succès / échecs / patterns dorés)</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Discipline de priorisation conservée (pas d'addiction à la production)</strong>
+                  <small>L'humain reste responsable de l'arbitrage stratégique : qu'est-ce qui mérite d'être fait, pas seulement qu'est-ce qu'on peut faire</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 10. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">10</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et références</h3>
+          <ul>
+            <li>
+              <a href="https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents" target="_blank" rel="noopener">Stripe — « Minions: Stripe's one-shot, end-to-end coding agents »</a>
+              <span class="resources-meta">Stripe Engineering Blog — l'article fondateur du pattern, source primaire de référence</span>
+            </li>
+            <li>
+              <a href="https://www.anthropic.com/research" target="_blank" rel="noopener">Anthropic Research — agents et code</a>
+              <span class="resources-meta">Anthropic — recherche fondamentale sur les agents codeurs autonomes</span>
+            </li>
+            <li>
+              <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Agentic AI (Andrew Ng)</a>
+              <span class="resources-meta">Cours de référence sur les patterns d'agents autonomes</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/innovation" target="_blank" rel="noopener">Harvard Business Review — Innovation</a>
+              <span class="resources-meta">HBR — implications managériales de l'IA autonome dans les organisations</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=claude+code+autonomous+agent+tutorial" target="_blank" rel="noopener">Claude Code — tutoriels mode autonome</a>
+              <span class="resources-meta">YouTube — démonstrations du mode end-to-end</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=cursor+composer+agent+full+task" target="_blank" rel="noopener">Cursor Composer — agent autonome</a>
+              <span class="resources-meta">YouTube — démos d'usage en IDE</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=devin+ai+software+engineer+demo" target="_blank" rel="noopener">Devin (Cognition) — démos</a>
+              <span class="resources-meta">YouTube — pionnier du concept agent IA développeur autonome</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=aider+ai+coding+autonomous+tutorial" target="_blank" rel="noopener">Aider — agent codeur open source</a>
+              <span class="resources-meta">YouTube — alternative open source déployable en local</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code — documentation Anthropic</a>
+              <span class="resources-meta">CLI agent codeur autonome, référence Anthropic</span>
+            </li>
+            <li>
+              <a href="https://docs.cursor.com" target="_blank" rel="noopener">Cursor Documentation</a>
+              <span class="resources-meta">IDE avec mode Composer agent autonome intégré</span>
+            </li>
+            <li>
+              <a href="https://devin.ai" target="_blank" rel="noopener">Devin — Cognition AI</a>
+              <span class="resources-meta">Agent IA développeur autonome via interface web dédiée</span>
+            </li>
+            <li>
+              <a href="https://aider.chat" target="_blank" rel="noopener">Aider Documentation</a>
+              <span class="resources-meta">Agent codeur open source en CLI, déployable en local</span>
+            </li>
+            <li>
+              <a href="https://github.blog/news-insights/copilot-workspace/" target="_blank" rel="noopener">GitHub Copilot Workspace</a>
+              <span class="resources-meta">Offre Microsoft/GitHub d'agent codeur intégré à GitHub</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/ClaudeAI" target="_blank" rel="noopener">r/ClaudeAI sur Reddit</a>
+              <span class="resources-meta">Communauté active sur Claude et Claude Code</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/cursor" target="_blank" rel="noopener">r/cursor sur Reddit</a>
+              <span class="resources-meta">Communauté Cursor, discussions sur le mode Composer agent</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/AI_Agents" target="_blank" rel="noopener">r/AI_Agents sur Reddit</a>
+              <span class="resources-meta">Communauté spécialisée sur les systèmes agentiques en production</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
+  </footer>
 
-    <div class="checklist">
-      <div class="checklist-section">
-        <h3>1. Prérequis tech et codebase</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Codebase active avec PRs fréquentes</div><div class="checklist-item-desc">Au moins 5-10 PRs par semaine de la part de l'équipe humaine, sinon le ROI est limité.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Tests automatisés en place</div><div class="checklist-item-desc">CI/CD, couverture de tests significative. Sans cela, les PRs auto sont risquées.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Documentation technique à jour</div><div class="checklist-item-desc">L'agent a besoin de contexte. Code mal documenté = agent peu efficace.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>2. Équipe et culture</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Équipe dev acceptant le pattern code review intensif</div><div class="checklist-item-desc">Le rôle des dev se déplace de « écrire du code » vers « relire du code ». Changement culturel fort.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Profils non-tech impliqués (PM, designer, support)</div><div class="checklist-item-desc">Sinon le levier d'asynchronicité multi-déclencheurs n'est pas exploité.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>3. Conditions financières et sécurité</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Budget IA significatif accepté (500-5000 €/mois)</div><div class="checklist-item-desc">Selon volume. Au-delà, abonnement Pro ou enterprise.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Politique de sécurité du code applicable aux PRs auto</div><div class="checklist-item-desc">Audit, revue obligatoire, scan de vulnérabilités. Pas de merge automatique.</div></div></label>
-      </div>
-
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
-      </div>
-    </div>
-
-    <div class="checklist-summary" id="caseSummary"></div>
-  </section>
-
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li>Article original Stripe : https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents</li>
-      <li><a href="cu-014-multi-agents.html">Module connexe — Multi-agents par fonction métier</a></li>
-    </ul>
-  </article>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-015';
-    function evaluateChecklist() {
-      const cb = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0, scored = 0;
-      cb.forEach(c => { const w = parseInt(c.dataset.weight, 10) || 1; total += w; if (c.checked) scored += w; });
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-      if (percent >= 75) { verdict = '✅ Éligibilité forte'; advice = 'Tu disposes des prérequis pour une intégration sérieuse. Démarrer par Claude Code ou Cursor sur ton dépôt principal, mesurer la qualité des PRs auto sur 4-6 semaines, puis étendre.'; }
-      else if (percent >= 50) { verdict = '⚠️ Éligibilité partielle'; advice = 'Renforcer prioritairement la couverture de tests et la documentation technique. Sans ces fondamentaux, les agents codeurs créent plus de problèmes qu\'ils n\'en résolvent.'; }
-      else { verdict = '🔄 Prérequis à construire'; advice = 'Pas le bon moment. Investir d\'abord dans la qualité de la codebase (tests, doc, CI/CD) avant d\'envisager des agents autonomes. Démarrer par l\'usage Claude Code en mode « copilote » plutôt qu\'en mode autonome.'; }
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Couverture de tests automatiques solide (≥75 %)" },
+        { id: 'b2', label: "CI/CD en place avec tests obligatoires avant merge" },
+        { id: 'b3', label: "Politique de sandbox claire (pas d'accès production)" },
+        { id: 'b4', label: "Capacité de revue dimensionnée" },
+        { id: 'b5', label: "Volume de tâches éligibles « one-shot » identifié" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Conventions de code documentées (CONTRIBUTING.md)" },
+        { id: 'q2', label: "Discipline de brief structuré (objectif/contexte/contraintes)" },
+        { id: 'q3', label: "Budget d'inférence anticipé et monitoring actif" },
+        { id: 'q4', label: "Rituel d'équipe pour calibrer le portefeuille de délégation" },
+        { id: 'q5', label: "Discipline de priorisation conservée (pas d'addiction à la production)" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Le pattern « agent autonome » introduit du risque silencieux sans ces fondations. Investir d'abord dans les tests et la CI/CD avant tout déploiement.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement progressif possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Tu peux engager le projet en pilote sur 1 dev volontaire, puis étendre progressivement.";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote individuel possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lance un pilote en solo sur 2-4 semaines, consolide les fondations en parallèle, étends ensuite si la valeur est démontrée.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Agents codeurs autonomes (cas Stripe Minions)\n\n`;
+        content += `*Évaluation Hub IA territorial — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-015 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — AGENTS CODEURS AUTONOMES (CAS STRIPE MINIONS)\n`;
+        content += `Evaluation Hub IA territorial — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-015 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-stripe-minions.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
+
 </body>
 </html>

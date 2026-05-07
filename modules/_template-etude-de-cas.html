@@ -52,9 +52,8 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <!-- Badge axe : remplacer la classe (axe-a/b/c/d/e/agentique) et le libellé -->
-        <a href="../index.html?axe=e#modules" class="card-badge axe-e">[🏭 Industrie]</a>
+        <span class="card-badge n3">🔴 Industrialisation</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">[AXE]</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
       </div>
       <h1>[EMOJI] [Titre du module]</h1>
@@ -221,7 +220,7 @@
         advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Avant de lancer un POC, identifier et combler les 2-3 écarts les plus structurants. Un accompagnement (Cluster ENACT, EDIH, intégrateur territorial) peut accélérer la mise à niveau.';
       } else {
         verdict = '🔄 Maturité à construire';
-        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Cela ne veut pas dire « jamais » — cela veut dire « pas tout de suite ». Commencer par les modules de Fondamentaux et d\'Applications métier, puis réévaluer dans 6-12 mois.';
+        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Cela ne veut pas dire « jamais » — cela veut dire « pas tout de suite ». Commencer par les modules de niveau N1-N3 et N4-N6, puis réévaluer dans 6-12 mois.';
       }
 
       const summary = document.getElementById('caseSummary');

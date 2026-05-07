@@ -9,27 +9,196 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    /* ========================================
+       V3 — Layout 2 colonnes + sticky TOC
+       ======================================== */
+
+    /* Barre de progression de lecture */
+    .reading-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(0,0,0,0.05); z-index: 1000; }
+    .reading-progress-bar { height: 100%; background: linear-gradient(90deg, var(--color-primary) 0%, #FFD600 100%); width: 0%; transition: width 0.1s ease; }
+
+    /* Layout principal 2 colonnes */
+    .module-layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-8); max-width: 1200px; margin: 0 auto; padding: var(--space-6) var(--space-5); }
+
+    /* Sidebar TOC */
+    .module-toc { position: sticky; top: 90px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; padding-right: var(--space-3); }
+    .module-toc-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-soft); margin-bottom: var(--space-3); padding-left: var(--space-3); }
+    .module-toc-list { list-style: none; padding: 0; margin: 0; }
+    .module-toc-list li { margin: 0; }
+    .module-toc-list a { display: block; padding: var(--space-2) var(--space-3); font-size: 0.875rem; color: var(--color-text-soft); border-left: 3px solid transparent; transition: all 0.15s ease; line-height: 1.4; text-decoration: none; }
+    .module-toc-list a:hover { color: var(--color-primary); background: var(--color-bg); }
+    .module-toc-list a.active { color: var(--color-primary); border-left-color: var(--color-primary); background: var(--color-bg); font-weight: 600; }
+    .module-toc-list .toc-icon { display: inline-block; width: 18px; margin-right: var(--space-2); }
+    .module-toc-mobile-toggle { display: none; }
+
+    /* Contenu principal */
+    .module-main { min-width: 0; max-width: 760px; }
+    .module-section { padding: var(--space-7) 0; border-bottom: 1px solid var(--color-border); scroll-margin-top: 80px; }
+    .module-section:first-child { padding-top: var(--space-5); }
+    .module-section:last-child { border-bottom: none; }
+    .module-section-header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-5); }
+    .module-section-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; flex-shrink: 0; background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%); border: 1px solid var(--color-border); }
+    .module-section-icon.primary { background: linear-gradient(135deg, #E8F0FE 0%, #DCE6F2 100%); border-color: #2E5395; }
+    .module-section-icon.success { background: linear-gradient(135deg, #E8F4E0 0%, #D4F0C0 100%); border-color: #5C8C5C; }
+    .module-section-icon.warning { background: linear-gradient(135deg, #FFF8F0 0%, #FFEFD5 100%); border-color: #E8A55C; }
+    .module-section-icon.danger { background: linear-gradient(135deg, #FFF1F1 0%, #FFE0E0 100%); border-color: #C82A2A; }
+    .module-section-icon.purple { background: linear-gradient(135deg, #F8F4FF 0%, #EAE0FF 100%); border-color: #7A5CB8; }
+    .module-section-title { flex: 1; }
+    .module-section-title h2 { margin: 0; color: var(--color-primary); font-size: 1.5rem; }
+    .module-section-title .section-number { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-soft); margin-bottom: 4px; }
+
+    /* Executive summary — bloc page 1 */
+    .exec-summary { background: linear-gradient(135deg, #1F3864 0%, #2E5395 100%); color: white; padding: var(--space-7) var(--space-7); border-radius: var(--radius-md); margin-bottom: var(--space-6); }
+    .exec-summary-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #FFD600; margin-bottom: var(--space-3); }
+    .exec-summary h2 { color: white; margin: 0 0 var(--space-5); font-size: 1.5rem; }
+    .exec-takeaways { display: grid; gap: var(--space-3); margin-bottom: var(--space-6); }
+    .exec-takeaway { display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3); padding: var(--space-3); background: rgba(255,255,255,0.08); border-radius: var(--radius-sm); border-left: 3px solid #FFD600; }
+    .exec-takeaway-num { background: #FFD600; color: #1F3864; width: 28px; height: 28px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.875rem; }
+    .exec-takeaway p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+    .exec-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-3); padding: var(--space-5); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: var(--space-5); }
+    .exec-stat { text-align: center; }
+    .exec-stat-num { font-size: 1.5rem; font-weight: 800; color: #FFD600; line-height: 1; margin-bottom: 4px; }
+    .exec-stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.05em; }
+    .exec-when { background: rgba(255,255,255,0.05); padding: var(--space-4) var(--space-5); border-radius: var(--radius-md); }
+    .exec-when h3 { color: #FFD600; margin: 0 0 var(--space-3); font-size: 1rem; }
+    .exec-when ul { margin: 0; padding-left: var(--space-5); list-style: none; }
+    .exec-when li { padding: 4px 0; padding-left: var(--space-5); position: relative; font-size: 0.9375rem; line-height: 1.5; }
+    .exec-when li::before { content: "✓"; position: absolute; left: 0; color: #FFD600; font-weight: 700; }
+
+    /* Aération générale */
+    .module-main p { line-height: 1.7; margin-bottom: var(--space-4); }
+    .module-main p:last-child { margin-bottom: 0; }
+    .module-main h3 { margin-top: var(--space-6); margin-bottom: var(--space-3); color: var(--color-primary); font-size: 1.1875rem; }
+    .module-main h3:first-child { margin-top: 0; }
+    .module-main blockquote { background: var(--color-bg); border-left: 4px solid var(--color-primary); padding: var(--space-4) var(--space-5); margin: var(--space-5) 0; font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--color-text); }
+    .module-main ol { padding-left: var(--space-6); }
+    .module-main ol li { margin-bottom: var(--space-3); line-height: 1.6; }
+    .module-main ol li strong { color: var(--color-primary); }
+
+    /* Composants existants conservés et harmonisés */
+    .what-youll-do { background: linear-gradient(135deg, #F4FAF4 0%, #E8F4E0 100%); border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); border-left: 4px solid var(--color-success); margin-bottom: var(--space-5); }
+    .what-youll-do h3 { color: var(--color-text); margin: 0 0 var(--space-3); font-size: 1.0625rem; }
+    .what-youll-do ul { margin: 0; padding: 0; list-style: none; }
+    .what-youll-do li { padding: var(--space-2) 0; padding-left: var(--space-6); position: relative; line-height: 1.5; font-size: 0.9375rem; }
+    .what-youll-do li::before { content: "✓"; position: absolute; left: 0; color: var(--color-success); font-weight: 700; font-size: 1.125rem; }
+
+    .schema-svg-wrap { background: white; border-radius: var(--radius-md); padding: var(--space-5); box-shadow: var(--shadow-sm); margin: var(--space-5) 0; }
+    .schema-svg { width: 100%; height: auto; display: block; }
+    .schema-caption { text-align: center; color: var(--color-text-soft); font-size: 0.875rem; font-style: italic; margin-top: var(--space-3); margin-bottom: 0; }
+
+    .case-deep { background: white; border: 2px solid var(--color-primary); border-radius: var(--radius-md); overflow: hidden; margin: var(--space-5) 0; }
+    .case-deep-actor { background: var(--color-n1-bg-subtle); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-5); border-left: 4px solid var(--color-success); border-radius: var(--radius-md); }
+    .case-deep-actor-label { font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--color-success); margin-bottom: var(--space-2); }
+    .case-deep-actor-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-2); margin-top: var(--space-3); font-size: 0.875rem; }
+    .case-deep-actor-meta-item { background: white; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
+    .case-deep-actor-meta-label { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+    .case-deep-step { display: grid; grid-template-columns: 60px 1fr; gap: var(--space-4); margin-bottom: var(--space-5); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
+    .case-deep-step:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .case-deep-step-num { background: var(--color-primary); color: white; width: 48px; height: 48px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; }
+    .case-deep-step h4 { color: var(--color-primary); margin: 0 0 var(--space-2); font-size: 1.0625rem; }
+    .case-deep-tech { background: #F0F4FA; border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); margin: var(--space-3) 0; font-size: 0.875rem; border-left: 3px solid var(--color-primary); }
+    .case-deep-tech-label { font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: var(--space-2); }
+    .case-deep-result { background: linear-gradient(135deg, var(--color-n1-bg) 0%, white 100%); border: 2px solid var(--color-success); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-top: var(--space-3); font-size: 0.9375rem; }
+    .case-deep-result-label { font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; color: var(--color-success); margin-bottom: var(--space-2); }
+    .case-deep-final { background: linear-gradient(135deg, #1F3864 0%, #2E5395 100%); color: white; padding: var(--space-5) var(--space-6); border-radius: var(--radius-md); margin-top: var(--space-5); }
+    .case-deep-final-label { font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: #FFD600; margin-bottom: var(--space-3); }
+    .case-deep-final p { margin: 0; }
+    .case-deep-final strong { color: #FFD600; }
+
+    /* Eligibility checklist (inchangé) */
+    .eligibility { background: linear-gradient(135deg, #F0F4FA 0%, #DCE6F2 100%); border: 2px solid #2E5395; border-radius: var(--radius-md); padding: var(--space-6); margin: var(--space-5) 0; }
+    .eligibility-section { background: white; padding: var(--space-5); border-radius: var(--radius-md); margin-bottom: var(--space-3); }
+    .eligibility-section-title { font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-3); font-size: 1rem; padding-bottom: var(--space-2); border-bottom: 2px solid var(--color-primary); }
+    .eligibility-section-title.bloquant { color: #C82A2A; border-color: #C82A2A; }
+    .eligibility-item { display: grid; grid-template-columns: 1fr auto; gap: var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border); align-items: center; }
+    .eligibility-item:last-child { border-bottom: none; }
+    .eligibility-item-label { font-size: 0.9375rem; line-height: 1.4; }
+    .eligibility-item-label strong { color: var(--color-primary); }
+    .eligibility-item-label small { display: block; color: var(--color-text-soft); font-size: 0.8125rem; margin-top: 2px; }
+    .eligibility-item-radios { display: flex; gap: var(--space-2); }
+    .eligibility-radio { display: inline-flex; align-items: center; padding: 4px 10px; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.8125rem; font-weight: 600; transition: all 0.15s ease; }
+    .eligibility-radio:hover { border-color: var(--color-primary); }
+    .eligibility-radio input { margin-right: 4px; }
+    .eligibility-radio.oui input:checked ~ span { color: #2E5C2E; }
+    .eligibility-radio.partiel input:checked ~ span { color: #B86E1A; }
+    .eligibility-radio.non input:checked ~ span { color: #C82A2A; }
+    .eligibility-submit { background: var(--color-primary); color: white; border: none; padding: var(--space-3) var(--space-6); border-radius: var(--radius-md); font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: var(--space-4); transition: background 0.15s ease; width: 100%; }
+    .eligibility-submit:hover { background: var(--color-primary-light); }
+    .eligibility-result { background: white; border: 2px solid var(--color-primary); border-radius: var(--radius-md); padding: var(--space-6); margin-top: var(--space-5); display: none; }
+    .eligibility-result.show { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .verdict-box { padding: var(--space-5); border-radius: var(--radius-md); margin-bottom: var(--space-5); text-align: center; }
+    .verdict-box.go { background: linear-gradient(135deg, #E8F4E0 0%, #D4F0C0 100%); border: 2px solid #5C8C5C; }
+    .verdict-box.no-go { background: linear-gradient(135deg, #FFF1F1 0%, #FFE0E0 100%); border: 2px solid #C82A2A; }
+    .verdict-box.warmup { background: linear-gradient(135deg, #FFF8F0 0%, #FFEFD5 100%); border: 2px solid #E8A55C; }
+    .verdict-title { font-size: 1.5rem; font-weight: 800; margin-bottom: var(--space-2); }
+    .verdict-box.go .verdict-title { color: #2E5C2E; }
+    .verdict-box.no-go .verdict-title { color: #8C1A1A; }
+    .verdict-box.warmup .verdict-title { color: #B86E1A; }
+    .gap-list { background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-4); border-left: 4px solid #C82A2A; }
+    .gap-list h4 { color: #8C1A1A; margin: 0 0 var(--space-3); font-size: 1rem; }
+    .gap-list ul { list-style: none; padding: 0; margin: 0; }
+    .gap-list li { padding: var(--space-2) 0; padding-left: var(--space-5); position: relative; font-size: 0.9375rem; line-height: 1.4; }
+    .gap-list li::before { content: "❌"; position: absolute; left: 0; }
+    .gap-list li.partiel::before { content: "⚠️"; }
+    .eligibility-export { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    .eligibility-export-btn { flex: 1; background: var(--color-primary); color: white; border: none; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: background 0.15s ease; min-width: 180px; }
+    .eligibility-export-btn:hover { background: var(--color-primary-light); }
+    .eligibility-export-btn.secondary { background: white; color: var(--color-primary); border: 2px solid var(--color-primary); }
+
+    /* Resources section */
+    .resources-cat { margin-bottom: var(--space-5); }
+    .resources-cat h4 { color: var(--color-primary); margin: 0 0 var(--space-3); font-size: 1rem; display: flex; align-items: center; gap: var(--space-2); }
+    .resources-cat ul { list-style: none; padding: 0; margin: 0; }
+    .resources-cat li { padding: var(--space-3); background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); transition: border-color 0.15s ease; }
+    .resources-cat li:hover { border-color: var(--color-primary-light); }
+    .resources-cat li a { color: var(--color-primary); font-weight: 600; }
+    .resources-cat li a:hover { color: var(--color-primary-light); }
+    .resources-meta { display: block; font-size: 0.875rem; color: var(--color-text-soft); margin-top: var(--space-1); }
+
+    /* Archi block et tables */
+    .archi-block { background: #1F3864; color: white; padding: var(--space-5) var(--space-6); border-radius: var(--radius-md); margin: var(--space-4) 0; font-family: 'Courier New', monospace; font-size: 0.875rem; line-height: 1.6; overflow-x: auto; }
+    .archi-block strong { color: #FFD600; }
+
+    .trouble-table, .compare-table { background: white; border-radius: var(--radius-md); overflow: hidden; margin: var(--space-4) 0; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+    .trouble-table table, .compare-table table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .trouble-table th { background: #C82A2A; color: white; padding: var(--space-3) var(--space-4); text-align: left; font-weight: 700; }
+    .compare-table th { background: var(--color-primary); color: white; padding: var(--space-3) var(--space-4); text-align: left; font-weight: 700; }
+    .trouble-table td, .compare-table td { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); vertical-align: top; }
+    .trouble-table td:first-child { font-weight: 600; color: #8C1A1A; width: 30%; }
+    .compare-table td:first-child { font-weight: 600; color: var(--color-text); width: 25%; }
+    .trouble-table tr:nth-child(even) td, .compare-table tr:nth-child(even) td { background: var(--color-bg); }
+
+    /* Pull-quote (citation marquante visuelle) */
+    .pull-quote { background: linear-gradient(135deg, #FFF8E8 0%, #FFEFC8 100%); border-left: 5px solid #FFD600; padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; border-radius: var(--radius-md); position: relative; }
+    .pull-quote::before { content: "\201C"; position: absolute; top: -20px; left: 12px; font-size: 5rem; color: #FFD600; font-family: Georgia, serif; line-height: 1; }
+    .pull-quote p { margin: 0; padding-left: var(--space-5); font-size: 1.0625rem; line-height: 1.5; color: var(--color-text); font-style: italic; font-weight: 500; }
+
+    /* Funding box */
+    .funding-box { background: linear-gradient(135deg, #F0F4FA 0%, #DCE6F2 100%); border: 2px solid #2E5395; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-4) 0; }
+    .funding-box h3 { color: #1F3864; margin: 0 0 var(--space-3); font-size: 1.0625rem; }
+    .funding-box ul { margin: 0; padding-left: var(--space-5); }
+    .funding-box li { margin-bottom: var(--space-2); font-size: 0.9375rem; line-height: 1.5; }
+    .funding-box li strong { color: var(--color-primary); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .module-layout { grid-template-columns: 1fr; gap: var(--space-5); padding: var(--space-4); }
+      .module-toc { position: static; max-height: none; padding: var(--space-4); background: var(--color-bg); border-radius: var(--radius-md); margin-bottom: var(--space-4); }
+      .module-toc-mobile-toggle { display: block; width: 100%; padding: var(--space-3); background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; text-align: left; font-size: 0.9375rem; }
+      .module-toc-mobile-toggle::after { content: "▾"; float: right; }
+      .module-toc-list { display: none; margin-top: var(--space-3); }
+      .module-toc-list.open { display: block; }
+      .module-section-icon { width: 44px; height: 44px; font-size: 1.375rem; }
+      .module-section-title h2 { font-size: 1.25rem; }
+      .case-deep-step { grid-template-columns: 44px 1fr; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Barre de progression de lecture -->
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
@@ -39,6 +208,7 @@
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
     </div>
@@ -51,253 +221,756 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <a href="../index.html?axe=e#modules" class="card-badge axe-e">🏭 Industrie</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+        <a href="../index.html?axe=e#modules" class="card-badge axe-e">⚙️ Industrie</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
       </div>
       <h1>🔧 Maintenance prédictive industrielle</h1>
       <p class="module-subtitle">
-        Cas d'usage industriel mature : 15 à 30 % de réduction des coûts de maintenance, 20 à 50 % de baisse des arrêts non planifiés. Cas pivot pour les filières papetiers, équipementiers, transformateurs.
+        Exploiter les données capteurs (vibrations, température, courant) et l'historique de maintenance pour prédire les défaillances avant qu'elles ne surviennent. Passer d'une maintenance préventive systématique à une maintenance conditionnelle, alignée sur l'état réel des équipements.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
+  <!-- Layout 2 colonnes : sidebar TOC + contenu -->
+  <div class="module-layout">
 
-    <h2>Le cas</h2>
-    <p>
-      Pour une ETI industrielle, l'arrêt non programmé d'une ligne de production coûte typiquement entre 5 000 et 50 000 € par heure (selon le secteur et la criticité). La maintenance préventive systématique — changement de pièces à intervalles fixes — génère des arrêts inutiles (équipement en bon état changé prématurément), des défaillances non anticipées (équipement qui casse entre deux interventions), des stocks de pièces de rechange surdimensionnés.
-    </p>
-    <p>
-      La maintenance prédictive aligne l'intervention sur l'<strong>état réel</strong> de l'équipement. Les données issues des capteurs (vibrations, température, courant moteur, débit) et l'historique de pannes nourrissent un modèle qui détecte les <strong>patterns précurseurs</strong> de défaillance.
-    </p>
-    <p>
-      Sur le territoire vosgien, <strong>Atsora Solutions</strong> (portefeuille QA) opère précisément sur ce segment — supervision data process et IA industrielle. Cas-école territorial à mettre en avant.
-    </p>
+    <!-- Sidebar TOC -->
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#modes"><span class="toc-icon">⚖️</span>Les 3 modes de maintenance</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Architecture de référence</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#stack"><span class="toc-icon">⚙️</span>Stack technique</a></li>
+        <li><a href="#financements"><span class="toc-icon">💰</span>Financements territoriaux</a></li>
+        <li><a href="#troubleshooting"><span class="toc-icon">🔍</span>Troubleshooting</a></li>
+        <li><a href="#etude-cas"><span class="toc-icon">📍</span>Étude de cas — PaperCo</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#eligibility"><span class="toc-icon">✅</span>Checklist d'éligibilité</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h2>L'architecture</h2>
+    <!-- Contenu principal -->
+    <main class="module-main">
 
-    <ol>
-      <li><strong>Instrumentation</strong> : capteurs sur les équipements critiques (vibration, température, courant moteur, débit, pression). Souvent déjà en place dans une optique GMAO basique.</li>
-      <li><strong>Acquisition et stockage</strong> : remontée des données vers un système central (cloud souverain ou serveur sur site).</li>
-      <li><strong>Modélisation</strong> : entraînement de modèles ML/IA sur l'historique de pannes et les signaux capteurs pour identifier les patterns précurseurs de défaillance.</li>
-      <li><strong>Détection en temps réel</strong> : monitoring continu, alerte quand un pattern précurseur est détecté.</li>
-      <li><strong>Recommandation d'action</strong> : ordre de mission GMAO, priorisation, échéance estimée avant casse.</li>
-      <li><strong>Boucle d'amélioration</strong> : les pannes effectives et les fausses alertes alimentent l'apprentissage.</li>
-    </ol>
+      <!-- 1. EXECUTIVE SUMMARY (page 1) -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Pourquoi ce module mérite ton attention</h2>
 
-    <h2>Stack technique</h2>
-
-    <h3>Solutions du marché</h3>
-    <ul>
-      <li><strong>Atsora Solutions</strong> (portefeuille QA) — supervision data process et IA industrielle. Partenaire territorial naturel pour démos et déploiements.</li>
-      <li>SAP Predictive Maintenance, GE Digital Predix, Siemens MindSphere, Microsoft Azure IoT — solutions globales pour ETI / grands groupes.</li>
-      <li>Senseye, Augury, MaintainX — solutions plus accessibles aux PME.</li>
-    </ul>
-
-    <h3>Frameworks open source</h3>
-    <p>TensorFlow, PyTorch + bibliothèques dédiées (PyOD, sktime). Pour les organisations avec compétences data internes.</p>
-
-    <h3>Plateforme intégrée</h3>
-    <p><strong>Mistral Forge</strong> — pour fine-tuner un modèle sur les datasets propres à l'industriel. Souveraineté EU.</p>
-
-    <h3>Infrastructure</h3>
-    <p>Souvent <strong>on-premise pour la latence</strong> — un cloud distant ne convient pas à une analyse temps réel critique. Edge computing recommandé.</p>
-
-    <h2>Indicateurs documentés</h2>
-
-    <p>Sources : McKinsey State of AI in Manufacturing 2025, retours pilotes Bpifrance Industrie 4.0.</p>
-
-    <ul>
-      <li><strong>Réduction coûts maintenance</strong> : 15-30 %</li>
-      <li><strong>Arrêts non planifiés</strong> : -20 à -50 %</li>
-      <li><strong>Durée de vie équipement</strong> : +20 à +40 %</li>
-      <li><strong>Amortissement</strong> : 12-24 mois pour un ETI sur lignes critiques</li>
-    </ul>
-
-    <h2>Levier financier territorial</h2>
-
-    <ul>
-      <li><strong>DECARB IND 25</strong> (ADEME × France 2030) — efficacité énergétique et matière, jusqu'à 30 M€</li>
-      <li><strong>Région Grand Est Compétitivité</strong> — le client peut financer jusqu'à 70 % du déploiement</li>
-      <li><strong>Première Usine France 2030</strong> (Bpifrance) — pour startups en industrialisation</li>
-      <li><strong>AAP Pionniers de l'IA</strong> (Bpifrance/DGE) — startups IA industrielle</li>
-      <li><strong>Aide primo-utilisateurs IA Région Grand Est</strong> — 40 %, plafond 20 K€</li>
-    </ul>
-
-    <h2>Limites et points de vigilance</h2>
-
-    <h3>Volume de données nécessaire</h3>
-    <p>
-      Démarrer sans historique est très difficile. Compter <strong>1-3 ans de données capteurs + log de pannes</strong> pour entraîner correctement. Investissement préalable en capteurs et collecte avant exploitation.
-    </p>
-
-    <h3>Faux positifs et faux négatifs</h3>
-    <p>
-      Un modèle imparfait génère des alertes qui ne se vérifient pas (perte de confiance des opérateurs) ou rate des défaillances. <strong>Calibrage fin et amélioration continue indispensables</strong>.
-    </p>
-
-    <h3>Compétences internes</h3>
-    <p>
-      Le déploiement initial nécessite une équipe data dédiée ou un prestataire compétent. Les ETI vosgiennes ne disposent souvent pas de cette compétence en interne. <strong>Atsora Solutions, NIN-IA, Cluster ENACT</strong> sont les partenaires territoriaux à mobiliser.
-    </p>
-
-    <h3>Souveraineté</h3>
-    <p>
-      Données opérationnelles sensibles. Privilégier solutions on-premise ou cloud souverain (Mistral EU, OVHcloud SecNumCloud).
-    </p>
-
-  </article>
-
-  <!-- ÉTUDE DE CAS — Checklist d'éligibilité -->
-  <section class="case-study" id="case-study">
-
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité industrielle</div>
-      <p style="margin-bottom:0;">
-        Coche ce qui correspond à ta situation industrielle. Le score donne une indication de maturité — pas un verdict définitif. Conçu pour des ETI ou grands sites de production.
-      </p>
-    </div>
-
-    <div class="checklist">
-
-      <div class="checklist-section">
-        <h3>1. Prérequis matériels et données</h3>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Équipements critiques déjà instrumentés (capteurs)</div>
-            <div class="checklist-item-desc">Vibration, température, courant moteur, débit. Sans capteurs, démarrer par cette étape avant tout projet IA.</div>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Pour une ETI industrielle, <strong>1 heure d'arrêt non programmé coûte entre 5 000 et 50 000 €</strong>. La maintenance prédictive aligne l'intervention sur l'état réel des équipements — fini les arrêts inutiles ET les casses entre cycles.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>Le pattern existe depuis 15 ans en industrie lourde. <strong>Ce qui change en 2025-2026 : l'IA et l'IoT abaissent la barrière d'entrée pour les ETI</strong> grâce à des solutions modernes (Atsora, Senseye, Augury) — accessibles là où SAP Predictive Maintenance ou GE Predix restaient hors de portée.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Cofinancement public possible jusqu'à <strong>50-70 %</strong> via DECARB IND, France 2030, Région Grand Est Compétitivité, Pionniers IA Bpifrance. ROI net atteint en 12-24 mois sur lignes critiques d'une ETI.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>Cas pivot pour les <strong>filières industrielles vosgiennes</strong> : papier (Norske Skog, Lucart, Pavafrance), équipementiers (Trane, Numalliance), textile mécanisé, transformation alimentaire. Atsora Solutions, alumni QFC, opère nativement sur ce segment.</p>
+            </div>
           </div>
-        </label>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Historique de pannes documenté (1-3 ans minimum)</div>
-            <div class="checklist-item-desc">GMAO renseignée, dates et causes des défaillances passées exploitables pour entraînement.</div>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">−15 à −30 %</div>
+              <div class="exec-stat-label">Coûts maintenance</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">−20 à −50 %</div>
+              <div class="exec-stat-label">Arrêts non planifiés</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">+20 à +40 %</div>
+              <div class="exec-stat-label">Durée vie équipements</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12-24 mois</div>
+              <div class="exec-stat-label">ROI ETI</div>
+            </div>
           </div>
-        </label>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Système de remontée des données vers un central</div>
-            <div class="checklist-item-desc">PLC, SCADA, MES, ou même Excel partagé — peu importe le niveau, mais centralisation effective.</div>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu pilotes une ETI industrielle avec <strong>3 à 8 équipements pivots</strong> où une heure d'arrêt coûte au moins 5 000 €</li>
+              <li>Tu disposes d'un <strong>historique de pannes documenté sur 1-3 ans</strong> via une GMAO existante (SAP PM, Maximo, etc.)</li>
+              <li>Tu peux mobiliser un <strong>budget initial de 100-400 K€</strong> (avec cofinancement public 50-70 % possible)</li>
+              <li>Tu acceptes une <strong>phase de shadow mode de 2-3 mois</strong> avant passage en production effective</li>
+            </ul>
           </div>
-        </label>
+        </div>
+      </section>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Lignes de production avec arrêt non planifié coûteux (> 1000 €/h)</div>
-            <div class="checklist-item-desc">Sinon le ROI est plus difficile à atteindre rapidement.</div>
+      <!-- 2. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
           </div>
-        </label>
-      </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Distinguer les 3 modes de maintenance (corrective, préventive, prédictive) et identifier les équipements éligibles à un déploiement prédictif sur ton site</li>
+            <li>Construire l'architecture d'un système de maintenance prédictive : capteurs, acquisition, modèles ML, alerte GMAO, boucle d'amélioration</li>
+            <li>Évaluer le ROI attendu (-15 à -30 % coûts, -20 à -50 % arrêts non planifiés, ROI 12-24 mois) sur tes équipements critiques</li>
+            <li>Mobiliser les dispositifs de financement territoriaux (DECARB IND, Région Grand Est, Pionniers IA) pour cofinancer le déploiement</li>
+          </ul>
+        </div>
+      </section>
 
-      <div class="checklist-section">
-        <h3>2. Compétences mobilisables</h3>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Responsable maintenance ou production référent du projet</div>
-            <div class="checklist-item-desc">Disponible 4-6h/semaine pendant la phase POC pour calibrer les alertes et valider les modèles.</div>
+      <!-- 3. LE CAS ET LE CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
           </div>
-        </label>
+        </div>
+        <p>
+          Pour une ETI industrielle, l'arrêt non programmé d'une ligne de production coûte typiquement <strong>entre 5 000 et 50 000 € par heure</strong>, selon le secteur et la criticité du process. La maintenance préventive systématique — changement de pièces à intervalles fixes indépendamment de l'état réel — est aujourd'hui le standard mais elle génère trois inefficiences structurelles : des arrêts inutiles (équipement en bon état changé prématurément), des défaillances non anticipées (équipement qui casse entre deux interventions préventives), et des stocks de pièces de rechange surdimensionnés.
+        </p>
+        <p>
+          La maintenance prédictive optimise ces trois dimensions en alignant l'intervention sur l'<strong>état réel</strong> de l'équipement. Concrètement : des capteurs sur les équipements critiques, une remontée de données vers un système central, des modèles ML/IA qui identifient les patterns précurseurs de défaillance, et une alerte qui déclenche une intervention au bon moment — ni trop tôt (gaspillage), ni trop tard (casse).
+        </p>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Partenaire d'intégration identifié</div>
-            <div class="checklist-item-desc">Atsora Solutions (portefeuille QA), NIN-IA (alumni QFC), ou intégrateur industriel spécialisé.</div>
+        <div class="pull-quote">
+          <p>Le pattern n'est pas neuf — il existe depuis 15 ans dans l'industrie lourde. Ce qui change avec l'IA générative et le coût décroissant des capteurs IoT, c'est que le pattern devient accessible aux ETI et aux PME qui n'avaient ni le budget ni les compétences data pour le déployer.</p>
+        </div>
+
+        <p>
+          C'est un cas pivot pour les <strong>filières industrielles vosgiennes</strong> : papetiers (Norske Skog, Lucart, Pavafrance), équipementiers (Trane, Numalliance), textile mécanisé, transformation alimentaire. Les ETI avec lignes de production critiques sont précisément la cible — ROI mesurable sur 12-24 mois, gains sur la disponibilité machine, le coût de maintenance et la durée de vie des équipements.
+        </p>
+      </section>
+
+      <!-- 4. LES 3 MODES DE MAINTENANCE -->
+      <section class="module-section" id="modes">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚖️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Les 3 modes de maintenance — quand passer au prédictif</h2>
           </div>
-        </label>
+        </div>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Capacité d'expertise data interne ou via labo (CRAN, ENSTIB)</div>
-            <div class="checklist-item-desc">Pour la phase de modélisation. Le Cluster IA Grand Est ENACT propose un guichet PME R&D dédié.</div>
+        <div class="compare-table">
+          <table>
+            <thead>
+              <tr><th>Mode</th><th>Logique</th><th>Forces</th><th>Limites</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Corrective</td>
+                <td>On répare quand ça casse</td>
+                <td>Coût zéro avant casse</td>
+                <td>Arrêts non planifiés, casse en pleine production, coût ×3-5 vs préventif</td>
+              </tr>
+              <tr>
+                <td>Préventive systématique</td>
+                <td>Changement à intervalles fixes</td>
+                <td>Standard industriel, planification possible</td>
+                <td>Arrêts inutiles, surstocks, défaillances entre cycles</td>
+              </tr>
+              <tr>
+                <td><strong>Prédictive</strong></td>
+                <td>Intervention sur état réel via IA + capteurs</td>
+                <td>Réduction 15-30 % coûts, +20-40 % durée de vie</td>
+                <td>Investissement capteurs + data + modèles, complexité initiale</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Recommandation par défaut</strong> : démarrer en prédictif sur les équipements les plus critiques (3 à 8 équipements pivots où une heure d'arrêt coûte le plus), garder du préventif sur le reste, et basculer progressivement vers le prédictif à mesure que la couverture capteurs et la maturité data progressent.
+        </p>
+      </section>
+
+      <!-- 5. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Architecture de référence</h2>
           </div>
-        </label>
-      </div>
+        </div>
 
-      <div class="checklist-section">
-        <h3>3. Conditions financières et organisationnelles</h3>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar14" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+              <marker id="ar14green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/></marker>
+            </defs>
+            <rect x="20" y="40" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — ÉQUIPEMENT</text>
+            <text x="110" y="93" text-anchor="middle" font-size="11" fill="#333">Rouleaux · sécheurs</text>
+            <text x="110" y="108" text-anchor="middle" font-size="11" fill="#333">Moteurs · pompes</text>
+            <text x="110" y="123" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Capteurs en place</text>
+            <rect x="220" y="40" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="310" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">2 — CAPTEURS</text>
+            <text x="310" y="93" text-anchor="middle" font-size="11" fill="#333">Vibration · température</text>
+            <text x="310" y="108" text-anchor="middle" font-size="11" fill="#333">Courant · pression · débit</text>
+            <text x="310" y="123" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Acquisition haute fréquence</text>
+            <rect x="420" y="40" width="180" height="100" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="510" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">3 — ACQUISITION</text>
+            <text x="510" y="93" text-anchor="middle" font-size="11" fill="#333">Edge gateway IoT</text>
+            <text x="510" y="108" text-anchor="middle" font-size="11" fill="#333">Stockage time-series DB</text>
+            <text x="510" y="123" text-anchor="middle" font-size="10" fill="#666" font-style="italic">On-premise ou cloud souverain</text>
+            <rect x="620" y="40" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="710" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">4 — MODÈLES ML</text>
+            <text x="710" y="93" text-anchor="middle" font-size="11" fill="white">Détection anomalies</text>
+            <text x="710" y="108" text-anchor="middle" font-size="11" fill="white">Patterns précurseurs</text>
+            <text x="710" y="123" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Time-series ML + LLM</text>
+            <rect x="220" y="200" width="180" height="100" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="310" y="230" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">5 — DÉTECTION</text>
+            <text x="310" y="253" text-anchor="middle" font-size="11" fill="#333">Score d'anomalie temps réel</text>
+            <text x="310" y="268" text-anchor="middle" font-size="11" fill="#333">Alerte si seuil dépassé</text>
+            <text x="310" y="283" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Estimation jours avant casse</text>
+            <rect x="420" y="200" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="510" y="230" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">6 — RECOMMANDATION</text>
+            <text x="510" y="253" text-anchor="middle" font-size="11" fill="#333">Ordre mission GMAO</text>
+            <text x="510" y="268" text-anchor="middle" font-size="11" fill="#333">Priorisation · échéance</text>
+            <text x="510" y="283" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Validation chef de maintenance</text>
+            <rect x="620" y="200" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="710" y="230" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">7 — INTERVENTION</text>
+            <text x="710" y="253" text-anchor="middle" font-size="11" fill="#333">Action humaine</text>
+            <text x="710" y="268" text-anchor="middle" font-size="11" fill="#333">Pendant arrêt programmé</text>
+            <text x="710" y="288" text-anchor="middle" font-size="10" fill="#2E5C2E" font-weight="600">Décision finale humaine</text>
+            <rect x="100" y="360" width="720" height="70" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="385" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">🧠 BOUCLE D'AMÉLIORATION CONTINUE</text>
+            <text x="460" y="405" text-anchor="middle" font-size="11" fill="#333">Pannes effectives · fausses alertes · interventions inutiles → réajustement seuils + ré-entraînement modèles</text>
+            <text x="460" y="421" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Sans cette boucle, le système plafonne à sa configuration initiale</text>
+            <line x1="200" y1="90" x2="218" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar14)"/>
+            <line x1="400" y1="90" x2="418" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar14)"/>
+            <line x1="600" y1="90" x2="618" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar14)"/>
+            <line x1="710" y1="140" x2="400" y2="198" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar14)"/>
+            <line x1="400" y1="250" x2="418" y2="250" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar14)"/>
+            <line x1="600" y1="250" x2="618" y2="250" stroke="#5C8C5C" stroke-width="2.5" marker-end="url(#ar14green)"/>
+            <line x1="710" y1="300" x2="710" y2="358" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+            <line x1="200" y1="395" x2="100" y2="120" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar14)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline complet : équipement instrumenté → acquisition → modèles ML → détection temps réel → recommandation GMAO → intervention humaine pendant arrêt programmé. Boucle d'apprentissage continue.</p>
+      </section>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Budget pluriannuel (>50 K€) prévu ou candidat à un AAP</div>
-            <div class="checklist-item-desc">DECARB IND, Région Grand Est Compétitivité, Première Usine, AAP Pionniers de l'IA.</div>
+      <!-- 6. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Les étapes en détail</h2>
           </div>
-        </label>
+        </div>
+        <ol>
+          <li><strong>Identifier les équipements critiques.</strong> Cartographier les 3 à 8 équipements pivots où une heure d'arrêt coûte le plus (lignes principales, équipements à long délai de remplacement, équipements avec historique de pannes coûteuses). C'est sur ce périmètre restreint que le déploiement prédictif est rentable.</li>
+          <li><strong>Instrumenter avec les bons capteurs.</strong> Pour chaque équipement, choisir les grandeurs physiques qui sont les meilleurs précurseurs de défaillance : <strong>vibrations</strong> (rotatifs, paliers), <strong>température</strong> (moteurs, bobinages), <strong>courant moteur</strong> (mécanique, mauvais alignement), <strong>pression et débit</strong> (hydraulique). Capteurs IoT industriels (10-100 €/capteur), gateway edge pour collecte locale.</li>
+          <li><strong>Mettre en place l'acquisition haute fréquence.</strong> Les patterns précurseurs sont souvent dans les hautes fréquences (vibrations à 10 kHz pour détecter une dégradation de roulement). Edge gateway IoT pour collecter et pré-traiter en local, base de données time-series (InfluxDB, TimescaleDB) pour stockage.</li>
+          <li><strong>Constituer le dataset historique.</strong> Le modèle prédictif a besoin de connaître à la fois les signaux des équipements et l'historique des pannes effectives. <strong>1 à 3 ans de données minimum</strong> pour un entraînement correct. Pour les industriels qui démarrent sans historique : phase de collecte de 12-18 mois en mode préventif classique avant de pouvoir entraîner un modèle utilisable.</li>
+          <li><strong>Entraîner et valider les modèles.</strong> Pour la maintenance prédictive industrielle, ce ne sont pas des LLM mais des <strong>modèles ML classiques</strong> : détection d'anomalies (autoencoders, Isolation Forest), classification (Random Forest, gradient boosting), régression sur durée de vie restante.</li>
+          <li><strong>Déployer la détection temps réel.</strong> Le modèle tourne en continu sur les nouveaux signaux et produit un score d'anomalie. Au-dessus d'un seuil calibré, alerte avec une estimation du temps avant défaillance probable.</li>
+          <li><strong>Intégrer à la GMAO existante.</strong> L'alerte ne doit pas vivre dans un outil isolé. Création automatique d'un ordre de mission dans la GMAO (SAP PM, IBM Maximo, ou équivalent), priorisation, planification pendant un arrêt programmé. <strong>La décision finale d'intervention reste humaine</strong>.</li>
+          <li><strong>Activer la boucle d'amélioration.</strong> Pour chaque alerte : la panne s'est-elle confirmée ? Combien de jours d'avance ? Y a-t-il eu de fausses alertes ? Quelles pannes ont échappé au modèle ? Réajustement des seuils, ré-entraînement périodique avec les nouvelles données.</li>
+        </ol>
+      </section>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Acceptation d'un déploiement progressif (POC sur 1-2 lignes critiques avant scale)</div>
-            <div class="checklist-item-desc">Pas de big bang. Itération sur 12-18 mois minimum.</div>
+      <!-- 7. STACK TECHNIQUE -->
+      <section class="module-section" id="stack">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Stack technique</h2>
           </div>
-        </label>
+        </div>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Direction engagée comme sponsor du projet</div>
-            <div class="checklist-item-desc">Le passage à l'échelle nécessite un appui hiérarchique fort, pas seulement le service maintenance.</div>
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Couche terrain ─┐</strong>
+   Équipements critiques (3-8) instrumentés avec capteurs IoT
+   Vibrations 10kHz · Temp · Courant moteur · Pression
+   → Edge gateway industriel (Siemens, B&amp;R, IXON)
+
+<strong>┌─ Couche acquisition / stockage ─┐</strong>
+   Time-series DB (InfluxDB, TimescaleDB)
+   On-premise pour latence + souveraineté
+   1-3 ans d'historique conservés
+
+<strong>┌─ Couche modèles ML ─┐</strong>
+   Modèles classiques (PAS des LLM) :
+   - Autoencoder pour détection anomalies
+   - Random Forest / XGBoost pour classification
+   - Régression pour durée de vie restante
+   Frameworks : scikit-learn, TensorFlow, PyTorch
+
+<strong>┌─ Couche détection / alerte ─┐</strong>
+   Inference temps réel sur nouveaux signaux
+   Score anomalie > seuil → alerte + estimation TTF
+   Création automatique ordre GMAO (SAP PM, Maximo)
+
+<strong>┌─ Couche intervention ─┐</strong>
+   Chef maintenance valide → planification
+   Intervention pendant arrêt programmé
+   Documentation résultat → boucle apprentissage
+        </div>
+
+        <h3>Solutions du marché — éditeurs spécialisés</h3>
+        <p>
+          <strong>Atsora Solutions</strong> (alumni QFC) opère précisément sur ce segment — supervision data process et IA industrielle, particulièrement pertinent pour les industriels du tissu vosgien. <strong>Senseye</strong> (récemment acquis par Siemens) est l'une des références internationales sur la maintenance prédictive avec déploiement rapide. <strong>Augury</strong> propose une approche orientée vibrations sur équipements rotatifs. <strong>MaintainX</strong> est plus accessible aux PME, avec une approche GMAO + analytics légère.
+        </p>
+
+        <h3>Plateformes industrielles intégrées</h3>
+        <p>
+          <strong>SAP Predictive Maintenance</strong> est l'option naturelle pour les industriels déjà sur SAP. <strong>GE Digital Predix</strong> et <strong>Siemens MindSphere</strong> sont les références enterprise pour les gros déploiements multi-sites. <strong>Microsoft Azure IoT</strong> propose une stack cloud complète. Toutes ces plateformes demandent un investissement significatif et sont plutôt adaptées aux ETI à partir de 200 personnes.
+        </p>
+
+        <h3>Stack open source pour les déploiements souverains</h3>
+        <p>
+          Pour les ETI qui veulent garder la maîtrise totale : <strong>InfluxDB</strong> ou <strong>TimescaleDB</strong> pour les time-series, <strong>scikit-learn</strong> ou <strong>PyTorch</strong> pour les modèles, <strong>Grafana</strong> pour la visualisation, <strong>n8n</strong> pour l'orchestration des alertes. Coût matériel et logiciel maîtrisé, mais demande compétences data internes ou prestataire.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Données historiques minimum : <strong>1 à 3 ans</strong> de signaux capteurs + log de pannes pour entraîner correctement. Compétences data science en interne ou prestataire dédié. Investissement initial significatif (capteurs 10-50 K€, infrastructure 20-100 K€, modélisation 30-150 K€) compensé par le ROI sur 12-24 mois.
+        </p>
+      </section>
+
+      <!-- 8. FINANCEMENTS TERRITORIAUX -->
+      <section class="module-section" id="financements">
+        <div class="module-section-header">
+          <div class="module-section-icon success">💰</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Dispositifs de financement mobilisables</h2>
           </div>
-        </label>
+        </div>
+        <div class="funding-box">
+          <p style="margin: 0 0 var(--space-3);">La maintenance prédictive est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement intéressants pour les ETI vosgiennes :</p>
+          <ul>
+            <li><strong>DECARB IND (France 2030)</strong> — soutien à la décarbonation industrielle, la maintenance prédictive contribue indirectement (équipement plus fiable = moins de gaspillage énergétique). Subvention jusqu'à 30 % HT.</li>
+            <li><strong>Première Usine (France 2030)</strong> — pour les nouveaux sites industriels qui intègrent l'IA dès la conception. Cofinancement jusqu'à 40 % HT.</li>
+            <li><strong>Région Grand Est Compétitivité</strong> — soutien à la transformation digitale des ETI, projet typique cofinancé à 50-70 % selon montant et impact.</li>
+            <li><strong>Pionniers IA (Bpifrance)</strong> — bourse d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
+            <li><strong>CIR / CII</strong> — sur la partie R&D et innovation du déploiement (modélisation, capteurs spécifiques).</li>
+          </ul>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu vosgien, mobiliser un Startup Manager du réseau Quest for Change ou un consultant spécialisé en ingénierie financière permet typiquement de cumuler 2-3 dispositifs et d'atteindre 50-70 % de cofinancement public.</em></p>
+        </div>
+      </section>
 
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">Politique de souveraineté des données opérationnelles définie</div>
-            <div class="checklist-item-desc">Cloud souverain, on-premise, hybride. Choix à arbitrer avant le déploiement.</div>
+      <!-- 9. TROUBLESHOOTING -->
+      <section class="module-section" id="troubleshooting">
+        <div class="module-section-header">
+          <div class="module-section-icon danger">🔍</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Troubleshooting — pannes et dérives fréquentes</h2>
           </div>
-        </label>
-      </div>
+        </div>
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Trop de fausses alertes (perte de confiance opérateurs)</td>
+                <td>Seuils trop sensibles ou modèle mal calibré</td>
+                <td>Ajuster les seuils via la matrice de confusion (privilégier précision vs rappel selon l'enjeu de l'équipement). Ré-entraîner le modèle avec les fausses alertes labellisées comme telles.</td>
+              </tr>
+              <tr>
+                <td>Pannes ratées (faux négatifs critiques)</td>
+                <td>Variables d'entrée insuffisantes ou patterns précurseurs hors capteurs</td>
+                <td>Audit avec le chef de maintenance : quelle aurait été la signature de la panne ? Ajouter capteurs si manquants (analyse vibratoire complémentaire, thermographie, ultrasons).</td>
+              </tr>
+              <tr>
+                <td>Modèle qui se dégrade après 6-12 mois</td>
+                <td>Drift des conditions de production (matières premières, vitesse, qualité)</td>
+                <td>Ré-entraînement périodique trimestriel ou semestriel sur les nouvelles données. Monitoring du drift des distributions des features. Si dérive forte, repartir d'un dataset frais.</td>
+              </tr>
+              <tr>
+                <td>Latence trop élevée pour la réactivité visée</td>
+                <td>Inférence en cloud distant pour des signaux haute fréquence</td>
+                <td>Basculer en edge computing : inférence sur la gateway locale, le cloud ne reçoit que les alertes et les agrégats. Réduit la latence de plusieurs secondes à quelques millisecondes.</td>
+              </tr>
+              <tr>
+                <td>Coûts de stockage qui dérapent (To/jour de données capteurs)</td>
+                <td>Acquisition haute fréquence sur 100 % de la durée, pas de filtrage</td>
+                <td>Stratégie de downsampling : haute fréquence ponctuelle (lors d'alertes), basse fréquence en routine. Conservation différenciée : 7 jours haute fréquence + 1 an basse fréquence.</td>
+              </tr>
+              <tr>
+                <td>Intégration GMAO échoue (alertes ignorées)</td>
+                <td>Système isolé non intégré au workflow existant</td>
+                <td>Création automatique d'ordres de mission dans la GMAO existante (SAP PM, Maximo) avec priorisation et échéance. L'alerte doit suivre le workflow habituel des techniciens, pas un canal parallèle.</td>
+              </tr>
+              <tr>
+                <td>Adoption résistante par les opérateurs ("c'est juste un gadget")</td>
+                <td>Pas de co-construction avec les équipes maintenance, déploiement top-down</td>
+                <td>Impliquer le chef de maintenance et les techniciens dès la cartographie des équipements critiques. Leur expertise terrain est cruciale pour le calibrage. Communiquer les premiers succès en interne pour construire la confiance.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité industrielle</button>
-      </div>
+      <!-- 10. ÉTUDE DE CAS APPROFONDIE -->
+      <section class="module-section" id="etude-cas">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📍</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Étude de cas — PaperCo, ETI papetière 280 personnes</h2>
+          </div>
+        </div>
 
-    </div>
+        <p>Une société fictive mais réaliste, inspirée du tissu papetier vosgien. 5 étapes décortiquées sur un déploiement de 18 mois. Compte 70 minutes pour assimiler en profondeur, ou 25 minutes en survol.</p>
 
-    <div class="checklist-summary" id="caseSummary"></div>
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">PaperCo — ETI papetière de 280 personnes, 2 lignes de production en continu (24/7), spécialisée en papiers techniques. Coût d'une heure d'arrêt non programmé : ~25 K€ (production manquée + redémarrage + gaspillage matière). Maintenance préventive systématique en place via SAP PM, environ 3-4 arrêts non planifiés par an avec un coût cumulé estimé à ~600 K€/an. Ambition : passer en mode prédictif sur les équipements pivots des 2 lignes.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item"><div class="case-deep-actor-meta-label">Effectif</div><strong>280 personnes</strong></div>
+            <div class="case-deep-actor-meta-item"><div class="case-deep-actor-meta-label">Coût heure arrêt</div><strong>~25 K€</strong></div>
+            <div class="case-deep-actor-meta-item"><div class="case-deep-actor-meta-label">Arrêts non planifiés/an</div><strong>3-4</strong></div>
+            <div class="case-deep-actor-meta-item"><div class="case-deep-actor-meta-label">Coût annuel</div><strong>~600 K€</strong></div>
+          </div>
+        </div>
 
-  </section>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Cartographier les équipements pivots et monter le dossier de financement (mois 1-3)</h4>
+            <p>Le directeur opérations et le chef de maintenance identifient ensemble les 6 équipements pivots des 2 lignes : 3 sécheurs (paliers et moteurs principaux), 2 rouleaux de presse, 1 calandre. Pour chacun, historique des pannes des 5 dernières années consolidé via SAP PM. En parallèle, montage d'un dossier France 2030 DECARB IND + Région Grand Est Compétitivité avec un Startup Manager du réseau QFC. Sélection d'Atsora Solutions comme partenaire technique après benchmark de 3 prestataires.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — cartographie manuelle équipements + extraction historique SAP PM + dossiers de financement
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              6 équipements pivots cartographiés, historique 5 ans consolidé. Cofinancement public obtenu : 55 % du déploiement total (DECARB IND 25 % + Région Grand Est 30 %). Investissement net pour PaperCo : ~150 K€ sur 350 K€ total.
+            </div>
+          </div>
+        </div>
 
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-017-controle-qualite-vision.html">Module connexe — Contrôle qualité par vision IA</a> : autre brique d'industrie 4.0</li>
-      <li><a href="cu-018-optimisation-production.html">Module connexe — Optimisation production / nesting</a> : optimisation matière et ordonnancement</li>
-    </ul>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Instrumenter et collecter (mois 4-9)</h4>
+            <p>Installation des capteurs IoT sur les 6 équipements pivots : 24 accéléromètres pour la mesure vibratoire haute fréquence, 18 sondes de température, 12 capteurs de courant moteur, 6 capteurs de pression hydraulique. Edge gateway Siemens IOT2050 par ligne, time-series database InfluxDB on-premise, dashboard Grafana pour la visualisation des opérateurs. <strong>Phase critique : 6 mois de collecte continue</strong> avant de pouvoir entraîner les modèles, en parallèle du fonctionnement préventif classique.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Capteurs IoT industriels (Brüel & Kjær pour vibrations) → Edge gateway Siemens IOT2050 → InfluxDB on-premise → Grafana → SAP PM intégré pour les pannes effectives
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              6 mois de données capteurs collectés en continu. 1 panne majeure intervenue durant cette période, parfaitement documentée avec signaux capteurs en amont. Premier dataset de référence pour l'entraînement initial. Coût : 70 K€ matériel + 25 K€ installation + 30 K€ infrastructure logicielle.
+            </div>
+          </div>
+        </div>
 
-    <h3>Acteurs territoriaux à contacter</h3>
-    <ul>
-      <li><strong>Atsora Solutions</strong> (portefeuille QA) — IA industrielle, supervision data process</li>
-      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — agents IA et formation</li>
-      <li><strong>Cluster IA Grand Est ENACT</strong> — guichet PME R&D IA dédié</li>
-      <li><strong>Hind Bril El Haouzi</strong> (chercheure ENSTIB / CRAN) — pivot industrie 4.0 × filière bois</li>
-      <li><strong>CRITT Bois, ENSTIB, LERMAB</strong> — recherche appliquée filière bois</li>
-    </ul>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Entraîner les modèles et déployer en shadow mode (mois 10-12)</h4>
+            <p>Atsora Solutions entraîne les modèles ML sur les 6 mois de données + l'historique 5 ans des pannes. Approche par équipement : autoencoder pour détection d'anomalies génériques + Random Forest spécialisé par type de défaillance attendu (palier, désalignement, usure roulement). Déploiement en <strong>« shadow mode » pendant 3 mois</strong> : le modèle produit des alertes mais elles ne déclenchent pas d'intervention — elles sont confrontées aux observations terrain pour valider la pertinence.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              scikit-learn + PyTorch pour les modèles → autoencoder (variante PyOD) pour anomalies → Random Forest classification par type panne → inférence temps réel sur Edge gateway → log alertes dans dashboard Grafana
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Sur les 3 mois de shadow mode : 12 alertes émises, dont 2 confirmées par le chef de maintenance comme dégradations réelles (sans encore de panne effective). Précision estimée à ~70 % au démarrage. Taux de faux positifs trop élevé pour passage en production immédiate.
+            </div>
+          </div>
+        </div>
 
-    <h3>Acteurs territoriaux candidats au déploiement</h3>
-    <p>Filière papier-bois : Norske Skog Golbey, Lucart, Pavafrance, Egger Rambervillers, Clairefontaine. Industrie : Trane, Numalliance, Alfa Laval Golbey, Michelin. Textile : Innothera, Linvosges (process textile mécanisé).</p>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Calibrer et passer en production (mois 13-15)</h4>
+            <p>Après 3 mois de shadow mode, ré-entraînement des modèles avec les retours du chef de maintenance comme labels. Ajustement des seuils par équipement (priorité différenciée selon criticité). <strong>Passage en production avec workflow GMAO</strong> : les alertes du modèle créent automatiquement des ordres de mission dans SAP PM, le chef de maintenance valide ou rejette, et planifie l'intervention pendant un arrêt programmé. Communication interne pour construire la confiance des équipes maintenance.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Modèles ré-entraînés avec retours terrain comme labels → seuils différenciés par équipement → intégration SAP PM pour création automatique ordres mission → notification mobile pour chef maintenance
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Précision en production : 84 % de vrais positifs sur le trimestre. Première intervention prédictive réussie : remplacement préventif d'un palier de sécheur 12 jours avant la casse probable, pendant un arrêt programmé. Estimé : <strong>40-60 K€ d'économie évitée</strong> sur cette seule intervention.
+            </div>
+          </div>
+        </div>
 
-    <h3>Dispositifs de financement applicables</h3>
-    <ul>
-      <li><strong>DECARB IND 25</strong> (ADEME × France 2030) — efficacité énergétique et matière</li>
-      <li><strong>Région Grand Est Compétitivité</strong> — jusqu'à 70 % du déploiement client final</li>
-      <li><strong>AAP Pionniers de l'IA</strong> — startups IA industrielle</li>
-      <li><strong>Première Usine France 2030</strong> — industrialisation</li>
-    </ul>
-  </article>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div>
+            <h4>Régime stabilisé et bilan 18 mois (mois 16-18)</h4>
+            <p>Le système entre en régime de croisière. Maintenance ~1 jour/mois pour le chef de maintenance et ~2 jours/trimestre pour Atsora Solutions (revue de modèle, ajustements, ré-entraînement périodique). Sur les 6 derniers mois : <strong>0 arrêt non planifié</strong> sur les équipements instrumentés (vs 2-3 estimés en mode classique), 8 interventions prédictives effectuées pendant arrêts programmés, dont 5 avec preuve de matérialisation de la panne sur la pièce remplacée.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Système en production stable → ré-entraînement trimestriel sur nouvelles données → revue annuelle architecture → réflexion en cours sur extension à 4 équipements supplémentaires
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              ROI sur 18 mois : ~350 K€ d'économies (arrêts évités + interventions optimisées) vs 150 K€ d'investissement net (après cofinancement public). Précision en régime stabilisé : 91 % de vrais positifs. Décision de la direction : extension du dispositif à 4 équipements supplémentaires sur les lignes secondaires.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 18 mois</div>
+          <p>
+            PaperCo est passée de 3-4 arrêts non planifiés par an sur les équipements pivots à 0 sur les 6 derniers mois, pour un investissement net de 150 K€ après cofinancement public à 55 %. ROI atteint en 12 mois sur le périmètre instrumenté. <strong>Plus important : un changement de culture maintenance</strong> — passage du « on attend que ça casse ou on remplace par cycle » au « on intervient au bon moment grâce aux données ». La validation humaine systématique du chef de maintenance reste au cœur du dispositif.
+          </p>
+        </div>
+      </section>
+
+      <!-- 11. PIÈGES À ÉVITER -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 10</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <h3>Démarrer sans historique de données</h3>
+        <p>Le modèle prédictif a besoin de connaître à la fois les signaux des équipements et les pannes effectives. <strong>Sans 1 à 3 ans d'historique de données capteurs + log de pannes corrélés</strong>, l'entraînement initial est très difficile. Pour les industriels qui démarrent à zéro, prévoir une phase de collecte de 12-18 mois en mode préventif classique avant exploitation prédictive. Acceptation explicite de ce délai dans le plan.</p>
+
+        <h3>Sous-estimer le calibrage initial</h3>
+        <p>Les premiers mois en production produisent typiquement des faux positifs et faux négatifs qui érodent la confiance des opérateurs. <strong>Phase obligatoire de shadow mode de 2-3 mois</strong> avant passage en production effective : le modèle alerte mais ne déclenche pas d'intervention, ses sorties sont confrontées au terrain pour calibrage. Sauter cette phase compromet l'adoption.</p>
+
+        <h3>Souveraineté des données opérationnelles</h3>
+        <p>Les données capteurs et l'historique de pannes sont stratégiques — ils révèlent la performance réelle des équipements, les choix industriels, les vulnérabilités. <strong>Privilégier impérativement des solutions on-premise ou cloud souverain</strong>. Pour les structures sur des secteurs sensibles (défense, énergie), déploiement on-premise complet sans connectivité cloud.</p>
+
+        <h3>Adoption par les équipes terrain</h3>
+        <p>Un système prédictif déployé top-down sans co-construction avec les techniciens de maintenance est presque toujours rejeté. <strong>Impliquer le chef de maintenance et les opérateurs dès la cartographie des équipements critiques</strong>. Leur expertise terrain est cruciale pour identifier les bons capteurs, les bons seuils, les bonnes priorités. Communiquer les premiers succès en interne pour construire la confiance.</p>
+
+        <h3>Drift et dégradation du modèle</h3>
+        <p>Les conditions de production évoluent (matières premières, vitesse, qualité produit). Un modèle entraîné en 2025 peut se dégrader en 2026 si le contexte change. <strong>Ré-entraînement périodique trimestriel ou semestriel</strong>, monitoring du drift des distributions des features. Sans cette discipline, le système plafonne ou régresse.</p>
+
+        <h3>Coûts cachés d'infrastructure</h3>
+        <p>L'investissement initial (capteurs 50-100 K€, infrastructure 30-100 K€, modélisation 30-150 K€) est souvent visible. Les coûts récurrents (maintenance des capteurs, ré-entraînement, support éditeur, infrastructure cloud/on-premise) sont fréquemment sous-estimés. <strong>Budget annuel récurrent typique : 15-30 % de l'investissement initial</strong>.</p>
+      </section>
+
+      <!-- 12. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="eligibility">
+        <div class="module-section-header">
+          <div class="module-section-icon success">✅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 11</div>
+            <h2>Checklist d'éligibilité au déploiement</h2>
+          </div>
+        </div>
+
+        <p>Évalue ta capacité à déployer un système de maintenance prédictive industrielle. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le déploiement est voué à l'échec) et <strong>critères de qualité</strong> (qui conditionnent le ROI). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+
+        <div class="eligibility">
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Équipements pivots à fort coût d'arrêt identifiés</strong>
+                  <small>3 à 8 équipements où une heure d'arrêt coûte ≥5 000 €. Sans ce périmètre cadré, le ROI ne se matérialise pas.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Historique de pannes documenté sur 1-3 ans</strong>
+                  <small>Log de pannes effectives via GMAO existante (SAP PM, Maximo). Sans cet historique, entraînement impossible.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Budget initial mobilisable (100-400 K€)</strong>
+                  <small>Capteurs + infrastructure + modélisation. Cofinancement public possible (DECARB IND, Région) jusqu'à 50-70 %.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Engagement direction et équipes maintenance</strong>
+                  <small>Co-construction avec le chef de maintenance + sponsorship direction. Sans cela, adoption compromise.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Souveraineté des données opérationnelles assurée</strong>
+                  <small>On-premise ou cloud souverain EU. Données capteurs + pannes sont stratégiques.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la performance</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. GMAO en place avec API exploitable</strong>
+                  <small>SAP PM, IBM Maximo, ou équivalent. Pour intégration des alertes en ordres de mission natifs.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Phase de shadow mode acceptée (2-3 mois)</strong>
+                  <small>Période obligatoire avant passage en production effective. Modèle alerte sans déclencher intervention.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Compétences data ou prestataire spécialisé identifié</strong>
+                  <small>Atsora Solutions, Senseye, Augury, ou data scientist en interne. Pas de DIY pour ce niveau de complexité.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Plan de financement cofinancé monté avec un expert</strong>
+                  <small>Mobilisation DECARB IND + Région Grand Est + Pionniers IA, idéalement avec accompagnement Startup Manager / consultant ingénierie financière</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Budget récurrent annuel anticipé (15-30 % de l'invest initial)</strong>
+                  <small>Maintenance capteurs, ré-entraînement, support éditeur, infrastructure. Coûts cachés à ne pas sous-estimer.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 13. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 12</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond et études</h4>
+          <ul>
+            <li><a href="https://www.mckinsey.com/industries/advanced-electronics/our-insights" target="_blank" rel="noopener">McKinsey State of AI in Manufacturing 2025</a><span class="resources-meta">McKinsey — chiffres ROI maintenance prédictive industrielle (-15 à -30 % coûts maintenance, -20 à -50 % arrêts non planifiés)</span></li>
+            <li><a href="https://www.bcg.com/industries/industrial-goods" target="_blank" rel="noopener">BCG — Industrial Goods insights</a><span class="resources-meta">BCG — analyses sur industrie 4.0 et transformation des opérations industrielles</span></li>
+            <li><a href="https://www.industrie-techno.com" target="_blank" rel="noopener">L'Usine Nouvelle / Industrie & Technologies</a><span class="resources-meta">Presse française spécialisée — retours d'expérience industriels français</span></li>
+            <li><a href="https://hbr.org/topic/subject/operations-management" target="_blank" rel="noopener">Harvard Business Review — Operations Management</a><span class="resources-meta">HBR — analyses managériales sur la transformation des opérations industrielles</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos techniques</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=predictive+maintenance+vibration+analysis+tutorial" target="_blank" rel="noopener">Maintenance prédictive — analyse vibratoire</a><span class="resources-meta">YouTube — fondamentaux de l'analyse vibratoire et signatures de défaillances</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=time+series+anomaly+detection+industrial+iot" target="_blank" rel="noopener">Détection d'anomalies sur séries temporelles industrielles</a><span class="resources-meta">YouTube — méthodologies ML pour la détection d'anomalies sur capteurs IoT</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=siemens+mindsphere+predictive+maintenance" target="_blank" rel="noopener">Siemens MindSphere — démos prédictif</a><span class="resources-meta">YouTube — plateforme industrielle Siemens, retours de déploiement</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle et standards</h4>
+          <ul>
+            <li><a href="https://www.influxdata.com/time-series-database/" target="_blank" rel="noopener">InfluxDB — time-series database</a><span class="resources-meta">Documentation référence pour le stockage time-series industriel</span></li>
+            <li><a href="https://www.timescale.com" target="_blank" rel="noopener">TimescaleDB Documentation</a><span class="resources-meta">Alternative open source basée sur PostgreSQL pour time-series</span></li>
+            <li><a href="https://scikit-learn.org/stable/modules/outlier_detection.html" target="_blank" rel="noopener">scikit-learn — Outlier and Novelty Detection</a><span class="resources-meta">Documentation modèles de détection d'anomalies — fondamentaux ML</span></li>
+            <li><a href="https://pyod.readthedocs.io" target="_blank" rel="noopener">PyOD Documentation</a><span class="resources-meta">Bibliothèque Python de référence pour la détection d'outliers en production</span></li>
+            <li><a href="https://www.iso.org/standard/82394.html" target="_blank" rel="noopener">ISO 17359:2018 — Surveillance des machines</a><span class="resources-meta">Standard international sur la surveillance d'état des machines (condition monitoring)</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/maintenance" target="_blank" rel="noopener">r/maintenance sur Reddit</a><span class="resources-meta">Communauté techniciens et ingénieurs maintenance — retours terrain</span></li>
+            <li><a href="https://www.reddit.com/r/PLC" target="_blank" rel="noopener">r/PLC sur Reddit</a><span class="resources-meta">Communauté automatisation industrielle — discussions edge computing et IoT</span></li>
+            <li><a href="https://www.reddit.com/r/MachineLearning" target="_blank" rel="noopener">r/MachineLearning sur Reddit</a><span class="resources-meta">Communauté ML — discussions sur les modèles time-series et anomaly detection</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
@@ -308,52 +981,226 @@
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
 
   <script>
+    // ========================================
+    // V3 — Scroll-spy + progress bar + TOC mobile
+    // ========================================
+
+    // Barre de progression de lecture
+    function updateProgress() {
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('readingProgress').style.width = Math.min(scrolled, 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // Scroll-spy : highlight de la section active dans le TOC
+    const tocSections = document.querySelectorAll('.module-section[id]');
+    const tocLinks = document.querySelectorAll('.module-toc-list a');
+
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    tocSections.forEach(section => tocObserver.observe(section));
+
+    // Smooth scroll sur les liens TOC
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Fermer le TOC mobile après clic
+          const list = document.getElementById('tocList');
+          if (window.innerWidth <= 900) list.classList.remove('open');
+        }
+      });
+    });
+
+    // Toggle TOC mobile
+    function toggleToc() {
+      const list = document.getElementById('tocList');
+      list.classList.toggle('open');
+    }
+
+    // ========================================
+    // Checklist d'éligibilité (existant)
+    // ========================================
+
     const moduleId = 'cu-016';
 
-    function evaluateChecklist() {
-      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0;
-      let scored = 0;
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
 
-      checkboxes.forEach(cb => {
-        const weight = parseInt(cb.dataset.weight, 10) || 1;
-        total += weight;
-        if (cb.checked) scored += weight;
+      const blockersData = [
+        { id: 'b1', label: "Équipements pivots à fort coût d'arrêt identifiés" },
+        { id: 'b2', label: "Historique de pannes documenté sur 1-3 ans" },
+        { id: 'b3', label: "Budget initial mobilisable (100-400 K€)" },
+        { id: 'b4', label: "Engagement direction et équipes maintenance" },
+        { id: 'b5', label: "Souveraineté des données opérationnelles assurée" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "GMAO en place avec API exploitable" },
+        { id: 'q2', label: "Phase de shadow mode acceptée (2-3 mois)" },
+        { id: 'q3', label: "Compétences data ou prestataire spécialisé identifié" },
+        { id: 'q4', label: "Plan de financement cofinancé monté avec un expert" },
+        { id: 'q5', label: "Budget récurrent annuel anticipé (15-30 % de l'invest initial)" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
       });
 
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-
-      if (percent >= 75) {
-        verdict = '✅ Éligibilité forte — projet structurant possible';
-        advice = 'Les conditions sont réunies pour engager un projet structurant. Prochaine étape : prendre contact avec Atsora Solutions ou un intégrateur industriel pour cadrer un POC sur 1-2 lignes critiques. Mobiliser en parallèle un AAP (DECARB IND, Région Compétitivité, Pionniers IA) pour le cofinancement.';
-      } else if (percent >= 50) {
-        verdict = '⚠️ Maturité partielle — à consolider';
-        advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Le plus fréquent : historique de données insuffisant ou capteurs incomplets. Avant de lancer un projet IA, investir 6-12 mois dans la collecte structurée. Le Cluster IA Grand Est ENACT et NIN-IA peuvent accompagner cette phase préparatoire.';
-      } else {
-        verdict = '🔄 Prérequis à construire';
-        advice = 'Les conditions pour un déploiement direct ne sont pas réunies. Cela ne signifie pas « jamais » — cela signifie « pas encore ». Les étapes recommandées : (1) instrumenter les équipements critiques, (2) structurer la GMAO et l\'historique de pannes, (3) revenir sur ce module dans 12-18 mois.';
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
 
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `
-        <h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3>
-        <p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p>
-        <div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div>
-        <p>${advice}</p>
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Sans ces fondations, le déploiement produit des coûts sans bénéfice. Traiter les gaps avant tout début, en mobilisant éventuellement un Startup Manager du réseau Quest for Change pour le montage du dossier.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Tu peux engager le projet : cartographie équipements pivots, montage cofinancement, sélection prestataire, déploiement progressif sur 12-18 mois.";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote ciblé possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Tu peux lancer un pilote sur 1-2 équipements pivots tout en consolidant en parallèle les zones de fragilité. Mobiliser un consultant en ingénierie financière pour optimiser le cofinancement.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
       `;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
       localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true, score: scored, total, percent, date: new Date().toISOString()
+        completed: true, verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
       }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+      let content = '';
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Maintenance prédictive industrielle\n\n*Évaluation Hub IA territorial — ${data.date}*\n\n## Verdict : ${data.verdictTitle}\n\n${data.verdictSubtitle}\n\n**Scores :**  \n- Prérequis bloquants : ${data.blockerScore}/10  \n- Critères de qualité : ${data.qualityScore}/10  \n- Total : ${data.totalScore}/20\n\n---\n\n`;
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`);
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`);
+          content += `\n`;
+        }
+        content += `---\n\n*Rapport généré par le module CU-016 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — MAINTENANCE PREDICTIVE INDUSTRIELLE\nEvaluation Hub IA territorial — ${data.date}\n\n=========================================\nVERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n=========================================\n\n${data.verdictSubtitle}\n\nScores :\n  Prerequis bloquants : ${data.blockerScore}/10\n  Criteres de qualite : ${data.qualityScore}/10\n  Total : ${data.totalScore}/20\n\n`;
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`);
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`);
+          content += `\n`;
+        }
+        content += `=========================================\nRapport genere par le module CU-016 du Hub IA territorial — questforchange.eu\n`;
+      }
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-maintenance-predictive.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
 

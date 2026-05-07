@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traduction et adaptation multi-langues — Hub IA territorial</title>
+  <title>Traduction & adaptation multi-langues — Hub IA territorial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
 </head>
 <body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
@@ -19,6 +22,7 @@
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
     </div>
@@ -31,149 +35,381 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
         <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">12 min de lecture</span>
       </div>
       <h1>🌍 Traduction et adaptation multi-langues</h1>
       <p class="module-subtitle">
-        Au-delà de la traduction littérale : adaptation culturelle, terminologie sectorielle, niveau de formalité. Levier d'export et d'internationalisation immédiat pour les startups et les industriels exportateurs.
+        Au-delà de la traduction littérale : adaptation culturelle, terminologie sectorielle, niveau de formalité. Levier d'export et d'internationalisation immédiat pour toute organisation.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
+  <div class="module-layout">
 
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Ce qui distingue la traduction IA moderne de la traduction Google de 2015</li>
-      <li>Quels outils choisir selon le type de contenu (mail, fiche technique, site web, contrat)</li>
-      <li>Comment garantir la cohérence terminologique sur des contenus métier spécialisés</li>
-      <li>Les limites où la relecture humaine native reste indispensable</li>
-    </ul>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Quels outils, quels usages</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#quiz"><span class="toc-icon">✅</span>Quiz 5 questions</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h2>Le contexte</h2>
-    <p>
-      La traduction est l'un des cas d'usage IA les plus matures et les plus accessibles. Pour les startups en go-to-market international, c'est un facteur d'accélération direct. Pour les industriels vosgiens exportateurs (textile, papier, mécanique), c'est un levier de productivité sur la maintenance des fiches techniques, des catalogues, des contrats.
-    </p>
-    <p>
-      <strong>Ce qui a changé en 2024-2026</strong> : on est passé de la « traduction littérale » à l'<strong>adaptation contextuelle</strong>. Les modèles modernes savent ajuster le ton, la terminologie sectorielle, le niveau de formalité — pas juste remplacer les mots.
-    </p>
+    <main class="module-main">
 
-    <h2>Quels outils pour quels usages</h2>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 60 secondes</div>
+          <h2>Diviser par 50 le coût d'un catalogue produit multilingue</h2>
 
-    <h3>Pour la traduction professionnelle volumineuse</h3>
-    <p>
-      <strong>DeepL Pro</strong> reste la référence sur les langues européennes. API disponible pour intégration dans des workflows. ~30 €/mois en pro. Particulièrement bon sur le couple FR-EN, FR-DE, FR-ES.
-    </p>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Maintenir un catalogue produit dans 7 langues coûtait <strong>5 000 à 15 000 €</strong> par mise à jour avec agence. Aujourd'hui : <strong>50-200 € de coût d'inférence + 1-2h de relecture native</strong> sur les langues clés. Levier d'export immédiat.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>La grande évolution 2024-2026 : passage de la <strong>traduction littérale</strong> à l'<strong>adaptation contextuelle</strong>. Les modèles modernes ajustent le ton, la terminologie sectorielle, le niveau de formalité — pas juste les mots.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Pour les industries de niche (chimie, mécanique, médical), <strong>glossaire métier obligatoire</strong> (5-50 termes validés fournis dans le prompt). Sans cela, contresens techniques garantis.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>Documents légaux et contrats : la traduction IA est <strong>un premier jet, pas un livrable signable</strong>. Relecture par traducteur juridique natif obligatoire avant signature. Le risque juridique d'une traduction approximative dépasse l'économie réalisée.</p>
+            </div>
+          </div>
 
-    <h3>Pour la traduction contextuelle complexe</h3>
-    <p>
-      <strong>Claude</strong> et <strong>GPT-4</strong> permettent de demander une traduction qui conserve le ton, ajuste à un public cible (clients industriels allemands vs distributeurs italiens), respecte un glossaire métier que tu fournis dans le prompt.
-    </p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">/50</div>
+              <div class="exec-stat-label">Coût catalogue 7 langues</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">30 €</div>
+              <div class="exec-stat-label">/mois DeepL Pro</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">5-10</div>
+              <div class="exec-stat-label">Termes glossaire de départ</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12 min</div>
+              <div class="exec-stat-label">De lecture</div>
+            </div>
+          </div>
 
-    <h3>Pour la souveraineté</h3>
-    <p>
-      <strong>Mistral</strong> (souveraineté EU) — pertinent pour les contenus stratégiques (contrats, propositions confidentielles, documents internes RH). Hébergement français, ISO 27001.
-    </p>
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu fais ou prépares du <strong>go-to-market international</strong> — export, expansion européenne</li>
+              <li>Tu maintiens des contenus dans <strong>3 langues ou plus</strong> (fiches produits, site, contrats, documentation)</li>
+              <li>Tu n'as <strong>jamais utilisé un glossaire métier</strong> dans un prompt de traduction</li>
+              <li>Tu veux <strong>20 minutes</strong> pour traduire un pitch deck dans le ton attendu d'un public ciblé</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <h3>Pour la cohérence terminologique</h3>
-    <p>
-      <strong>NotebookLM</strong> + glossaire métier — tu uploades ton glossaire (5-50 termes traduits validés) et l'IA garantit l'usage cohérent. Bon pour les industries de niche (chimie, mécanique, textile technique) où une mauvaise traduction crée des contresens.
-    </p>
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Choisir l'outil de traduction adapté selon le type de contenu (mail, site web, contrat, fiche technique)</li>
+            <li>Garantir la cohérence terminologique sur des contenus métier spécialisés grâce à un glossaire</li>
+            <li>Identifier les contenus pour lesquels la relecture humaine native reste indispensable</li>
+            <li>Industrialiser la traduction d'un catalogue produit dans 5-10 langues sans agence externe</li>
+          </ul>
+        </div>
+      </section>
 
-    <h2>Cas d'usage typiques</h2>
-    <ul>
-      <li><strong>Pitch deck startup en plusieurs langues</strong> : production rapide pour roadshow international</li>
-      <li><strong>Fiches techniques produit</strong> : maintenance d'un catalogue dans 5-10 langues sans agence externe</li>
-      <li><strong>Site web et SEO multi-pays</strong> : adaptation au-delà de la traduction littérale (mots-clés locaux)</li>
-      <li><strong>Communication interne pour équipes multinationales</strong> : note de direction adaptée au ton de chaque pays</li>
-      <li><strong>Réponse à un appel d'offres international</strong> : adaptation rapide sur des dossiers de 20-50 pages</li>
-    </ul>
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>
+          La traduction est l'un des cas d'usage IA les plus matures et les plus accessibles. Pour les entreprises en go-to-market international, c'est un facteur d'accélération direct. Pour les industriels exportateurs, c'est un levier de productivité sur la maintenance des fiches techniques, des catalogues, des contrats et des échanges clients.
+        </p>
+        <p>
+          <strong>Ce qui a changé en 2024-2026</strong> : on est passé de la « traduction littérale » à l'<strong>adaptation contextuelle</strong>. Les modèles modernes savent ajuster le ton, la terminologie sectorielle, le niveau de formalité — pas juste remplacer les mots.
+        </p>
+        <div class="pull-quote">
+          <p>Maintenir un catalogue produit dans 7 langues coûtait typiquement 5 000 à 15 000 € par mise à jour majeure avec une agence externe. Aujourd'hui : 50-200 € de coût d'inférence + 1-2 heures de relecture native sur les langues clés.</p>
+        </div>
+      </section>
 
-    <h2>Les pièges à éviter</h2>
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar4" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+            </defs>
+            <rect x="20" y="60" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — SOURCE</text>
+            <text x="110" y="115" text-anchor="middle" font-size="12" fill="#333">Texte FR</text>
+            <text x="110" y="131" text-anchor="middle" font-size="12" fill="#333">+ glossaire</text>
+            <text x="110" y="147" text-anchor="middle" font-size="12" fill="#333">métier</text>
+            <rect x="240" y="60" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="330" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — OUTIL</text>
+            <text x="330" y="115" text-anchor="middle" font-size="12" fill="white">DeepL Pro,</text>
+            <text x="330" y="131" text-anchor="middle" font-size="12" fill="white">Claude, GPT-4,</text>
+            <text x="330" y="147" text-anchor="middle" font-size="12" fill="white">Mistral</text>
+            <rect x="460" y="60" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="550" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — ADAPTATION</text>
+            <text x="550" y="115" text-anchor="middle" font-size="12" fill="#333">Ton, formalité,</text>
+            <text x="550" y="131" text-anchor="middle" font-size="12" fill="#333">terminologie</text>
+            <text x="550" y="147" text-anchor="middle" font-size="12" fill="#333">contextuelle</text>
+            <rect x="680" y="60" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="770" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">4 — VALIDATION</text>
+            <text x="770" y="115" text-anchor="middle" font-size="12" fill="#333">Relecture native</text>
+            <text x="770" y="131" text-anchor="middle" font-size="12" fill="#333">sur enjeux</text>
+            <text x="770" y="147" text-anchor="middle" font-size="12" fill="#333">clés uniquement</text>
+            <line x1="200" y1="110" x2="238" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar4)"/>
+            <line x1="420" y1="110" x2="458" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar4)"/>
+            <line x1="640" y1="110" x2="678" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar4)"/>
+            <text x="440" y="200" text-anchor="middle" font-size="12" fill="#666" font-style="italic">De la traduction littérale à l'adaptation contextuelle, avec relecture humaine ciblée</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Le pattern à 4 étapes : source enrichie d'un glossaire → outil → adaptation contextuelle → validation native sur enjeux clés</p>
+      </section>
 
-    <h3>Documents légaux ou contractuels</h3>
-    <p>
-      <strong>Pour tout contrat, CGU, mentions légales, conformité réglementaire</strong> : la traduction IA est un premier jet, pas un livrable signable. Une relecture par un traducteur juridique natif reste obligatoire pour engagement. Le risque juridique d'une traduction approximative dépasse largement l'économie réalisée.
-    </p>
+      <!-- 4. OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Quels outils pour quels usages</h2>
+          </div>
+        </div>
 
-    <h3>Terminologie sectorielle de niche</h3>
-    <p>
-      Sur des industries spécialisées (chimie spécifique, normes industrielles, médical), la traduction nécessite un glossaire dédié. Sans cela, l'IA peut produire des contresens techniques (un terme métier traduit comme un mot courant). Investissement initial en glossaire = clé de réussite.
-    </p>
+        <h3>Pour la traduction professionnelle volumineuse</h3>
+        <p><strong>DeepL Pro</strong> reste la référence sur les langues européennes. API disponible pour intégration dans des workflows. Environ 30 €/mois en pro. Particulièrement bon sur le couple FR-EN, FR-DE, FR-ES, FR-IT.</p>
 
-    <h3>Ton de marque pour les marchés clés</h3>
-    <p>
-      Pour les contenus marketing à fort enjeu commercial, prévoir une <strong>relecture humaine native</strong> sur les marchés clés. L'IA traduit bien, mais le ton de marque local (humour, registre, références culturelles) demande encore une intervention humaine.
-    </p>
+        <h3>Pour la traduction contextuelle complexe</h3>
+        <p><strong>Claude</strong> et <strong>GPT-4</strong> permettent de demander une traduction qui conserve le ton, ajuste à un public cible (clients industriels allemands vs distributeurs italiens), respecte un glossaire métier que tu fournis dans le prompt.</p>
 
-    <h3>Confidentialité</h3>
-    <p>
-      Pour des contenus stratégiques (négociation contrat, proposition commerciale grande comptes), privilégier Mistral EU ou solution gouvernée. Ne pas coller des contenus stratégiques dans un service cloud non souverain.
-    </p>
+        <h3>Pour la souveraineté</h3>
+        <p><strong>Mistral</strong> (souveraineté EU) — pertinent pour les contenus stratégiques (contrats, propositions confidentielles, documents internes RH). Hébergement français, ISO 27001.</p>
 
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-002-assistant-redactionnel.html">Module connexe — Assistant rédactionnel</a></li>
-      <li><a href="cu-008-knowledge-base-rag.html">Module — Knowledge base RAG</a> : maintenir un glossaire métier interrogeable</li>
-      <li><a href="cu-009-content-repurposing.html">Module — Content repurposing</a> : combiner traduction et déclinaison multi-canal</li>
-    </ul>
+        <h3>Pour la cohérence terminologique</h3>
+        <p><strong>NotebookLM</strong> + glossaire métier — tu uploades ton glossaire (5-50 termes traduits validés) et l'IA garantit l'usage cohérent. Bon pour les industries de niche (chimie, mécanique, textile technique) où une mauvaise traduction crée des contresens.</p>
+      </section>
 
-  </article>
+      <!-- 5. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
 
-  <section class="quiz" id="quiz">
-    <h2>Quiz — 5 questions</h2>
+        <p>Tu vas suivre les 3 étapes ci-dessous sur un contenu réel. Compte 20 minutes pour le faire en parallèle de la lecture.</p>
 
-    <form id="quizForm">
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu prépares <strong>un roadshow demain à Munich</strong> avec ton pitch deck (10 slides, écrites en français). Tu as besoin d'une version allemande qui sonne professionnelle et qui adopte le ton attendu d'investisseurs allemands : factuel, direct, sobre. Pas le temps ni le budget pour une agence de traduction.</p>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">1. Quelle est la grande évolution de la traduction IA moderne par rapport à Google Translate de 2015 ?</div>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> Plus rapide à exécuter</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Adaptation contextuelle (ton, terminologie sectorielle, formalité), pas juste remplacement de mots</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Couvre plus de langues</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="d"> Gratuite désormais</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Prépare un mini-glossaire métier</h4>
+            <p>Avant la traduction, identifie les <strong>5-10 termes spécifiques</strong> à ton secteur ou à ton produit qui doivent être traduits de manière cohérente partout. Liste-les dans un tableau simple :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">FR : « solution agentique » → DE : « agentenbasierte Lösung »<br>FR : « marché adressable » → DE : « adressierbarer Markt »<br>FR : « accompagnement personnalisé » → DE : « individuelle Betreuung »</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>📝 Tableur ou document texte</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output attendu</div>Un glossaire de 5-10 termes que tu fourniras à l'outil pour garantir la cohérence terminologique.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">2. Pour la traduction professionnelle volumineuse sur les langues européennes, quel outil est plébiscité ?</div>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> Google Translate</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> Bing Translator</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> DeepL Pro</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="d"> Yandex Translate</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Demande une traduction contextuelle à Claude ou GPT-4</h4>
+            <p>Ouvre <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> ou <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>. Colle ton pitch deck en français suivi du prompt :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">Traduis ce pitch deck du français vers l'allemand pour un public d'investisseurs en capital-risque allemands. Adopte un ton factuel, direct, sobre — éviter les superlatifs marketing à la française. Respecte le glossaire suivant : [colle ton glossaire]. Conserve la structure des slides.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>🛠️ Claude ou GPT-4</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output attendu</div>Un pitch deck en allemand qui respecte ta structure, ton glossaire, et le ton attendu d'investisseurs allemands.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">3. Pour traduire un contrat ou des CGU avec valeur juridique, que faut-il faire ?</div>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> Utiliser DeepL Pro et signer directement</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> Traduction IA acceptable comme premier jet, mais relecture par traducteur juridique natif obligatoire avant signature</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> Toujours réécrire à la main de A à Z</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="d"> Traduction IA suffisante pour tout document</label>
-      </div>
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Valide les slides à enjeu fort par un natif</h4>
+            <p>Ne fais <strong>pas relire les 10 slides</strong> par un traducteur natif — c'est inutile et coûteux. Identifie les <strong>2-3 slides à enjeu fort</strong> :</p>
+            <ul style="margin-left: var(--space-5); margin-bottom: var(--space-3);">
+              <li>Slide « Problème / Solution » (positionnement-clé)</li>
+              <li>Slide « Demande / Use of funds » (chiffres et engagement)</li>
+              <li>Slide de clôture (call to action)</li>
+            </ul>
+            <p>Fais relire ces 3 slides par un contact germanophone natif (LinkedIn, réseau, ou prestataire ponctuel à 50-100 €). Les autres slides sont assez tolérantes à un ton « presque parfait ».</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Discipline</div>👤 Natif allemand</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Livrable produit</div>Pitch deck en allemand prêt pour Munich, avec les passages stratégiques validés natif. Coût total : 50-100 € versus 1500-3000 € en agence.</div>
+          </div>
+        </div>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">4. Pour garantir la cohérence terminologique sur un secteur de niche (chimie, mécanique de précision), quelle approche fonctionne le mieux ?</div>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"> Augmenter le coût d'abonnement DeepL</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="b"> Utiliser un glossaire métier (5-50 termes validés) fourni à l'IA</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="c"> Traduire mot à mot</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="d"> Demander à l'IA d'éviter le vocabulaire technique</label>
-      </div>
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu viens de produire un pitch deck en allemand qualitatif en moins de 2 heures, avec une dépense de 50-100 € pour la relecture native ciblée. <strong>Reproduis le pattern pour ton site web, tes fiches produits et tes propositions commerciales</strong> en concentrant la relecture humaine sur les seuls passages à enjeu critique.</p>
+        </div>
+      </section>
 
-      <div class="quiz-question">
-        <div class="quiz-question-title">5. Pour traduire des contenus stratégiques internes (proposition commerciale grands comptes, négociation), quel choix d'outil privilégier ?</div>
-        <label class="quiz-option"><input type="radio" name="q5" value="a"> ChatGPT version gratuite</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="b"> Mistral (souveraineté EU) ou solution gouvernée</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="c"> Google Translate web</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="d"> Tout outil convient indifféremment</label>
-      </div>
+      <!-- 6. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
 
-      <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+        <h3>Documents légaux ou contractuels</h3>
+        <p><strong>Pour tout contrat, CGU, mentions légales, conformité réglementaire</strong> : la traduction IA est un premier jet, pas un livrable signable. Une relecture par un traducteur juridique natif reste obligatoire pour engagement. Le risque juridique d'une traduction approximative dépasse largement l'économie réalisée.</p>
 
-    </form>
+        <h3>Terminologie sectorielle de niche</h3>
+        <p>Sur des industries spécialisées (chimie spécifique, normes industrielles, médical), la traduction nécessite un glossaire dédié. Sans cela, l'IA peut produire des contresens techniques (un terme métier traduit comme un mot courant). Investissement initial en glossaire = clé de réussite.</p>
 
-    <div class="quiz-result" id="quizResult"></div>
+        <h3>Ton de marque pour les marchés clés</h3>
+        <p>Pour les contenus marketing à fort enjeu commercial, prévoir une <strong>relecture humaine native</strong> sur les marchés clés. L'IA traduit bien, mais le ton de marque local (humour, registre, références culturelles) demande encore une intervention humaine.</p>
 
-  </section>
+        <h3>Confidentialité</h3>
+        <p>Pour des contenus stratégiques (négociation contrat, proposition commerciale grands comptes), privilégier Mistral EU ou solution gouvernée. Ne pas coller des contenus stratégiques dans un service cloud non souverain.</p>
+      </section>
+
+      <!-- 7. QUIZ -->
+      <section class="module-section" id="quiz">
+        <div class="module-section-header">
+          <div class="module-section-icon success">✅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Quiz — 5 questions</h2>
+          </div>
+        </div>
+
+        <div class="quiz-v3">
+          <form id="quizForm">
+            <div class="quiz-question">
+              <div class="quiz-question-title">1. Quelle est la grande évolution de la traduction IA moderne par rapport à Google Translate de 2015 ?</div>
+              <label class="quiz-option"><input type="radio" name="q1" value="a"> Plus rapide à exécuter</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="b"> Adaptation contextuelle (ton, terminologie sectorielle, formalité), pas juste remplacement de mots</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="c"> Couvre plus de langues</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="d"> Gratuite désormais</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">2. Pour la traduction professionnelle volumineuse sur les langues européennes, quel outil est plébiscité ?</div>
+              <label class="quiz-option"><input type="radio" name="q2" value="a"> Google Translate</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="b"> Bing Translator</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="c"> DeepL Pro</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="d"> Yandex Translate</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">3. Pour traduire un contrat ou des CGU avec valeur juridique, que faut-il faire ?</div>
+              <label class="quiz-option"><input type="radio" name="q3" value="a"> Utiliser DeepL Pro et signer directement</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="b"> Traduction IA acceptable comme premier jet, mais relecture par traducteur juridique natif obligatoire avant signature</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="c"> Toujours réécrire à la main de A à Z</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="d"> Traduction IA suffisante pour tout document</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">4. Pour garantir la cohérence terminologique sur un secteur de niche (chimie, mécanique de précision), quelle approche fonctionne le mieux ?</div>
+              <label class="quiz-option"><input type="radio" name="q4" value="a"> Augmenter le coût d'abonnement DeepL</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="b"> Utiliser un glossaire métier (5-50 termes validés) fourni à l'IA</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="c"> Traduire mot à mot</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="d"> Demander à l'IA d'éviter le vocabulaire technique</label>
+            </div>
+            <div class="quiz-question">
+              <div class="quiz-question-title">5. Pour traduire des contenus stratégiques internes (proposition commerciale grands comptes, négociation), quel choix d'outil privilégier ?</div>
+              <label class="quiz-option"><input type="radio" name="q5" value="a"> ChatGPT version gratuite</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="b"> Mistral (souveraineté EU) ou solution gouvernée</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="c"> Google Translate web</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="d"> Tout outil convient indifféremment</label>
+            </div>
+            <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+          </form>
+          <div class="quiz-result" id="quizResult"></div>
+        </div>
+      </section>
+
+      <!-- 8. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.deepl.com/blog/ai-translation-quality" target="_blank" rel="noopener">DeepL Blog — AI Translation Quality</a><span class="resources-meta">DeepL — analyses techniques sur la qualité comparée des modèles de traduction</span></li>
+            <li><a href="https://hbr.org/topic/subject/business-communication" target="_blank" rel="noopener">HBR — Business Communication</a><span class="resources-meta">HBR — comprendre les codes culturels selon les marchés cibles</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=deepl+pro+tutorial+2026" target="_blank" rel="noopener">Tutoriels DeepL Pro</a><span class="resources-meta">YouTube — utiliser les glossaires personnalisés et l'API</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=claude+translation+context+2026" target="_blank" rel="noopener">Claude pour la traduction contextuelle</a><span class="resources-meta">YouTube — démos d'adaptation contextuelle avec ton ciblé</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://www.deepl.com/docs-api" target="_blank" rel="noopener">DeepL — API Documentation</a><span class="resources-meta">Pour intégrer la traduction dans tes workflows automatisés</span></li>
+            <li><a href="https://docs.anthropic.com" target="_blank" rel="noopener">Anthropic — Claude Documentation</a><span class="resources-meta">Capacités multilingues et techniques de prompting pour la traduction</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/translator" target="_blank" rel="noopener">r/translator sur Reddit</a><span class="resources-meta">Discussions entre traducteurs sur l'usage IA en pratique professionnelle</span></li>
+            <li><a href="https://www.proz.com" target="_blank" rel="noopener">ProZ — communauté de traducteurs</a><span class="resources-meta">Référence pour trouver un relecteur natif ponctuel sur des marchés clés</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
@@ -184,37 +420,33 @@
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
 
+  <script src="../js/module-v3.js"></script>
   <script>
     const correctAnswers = { q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'b' };
     const moduleId = 'cu-004';
-
     function validateQuiz() {
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
       let score = 0;
-
       for (const q in correctAnswers) {
         const selected = form.querySelector(`input[name="${q}"]:checked`);
         if (selected && selected.value === correctAnswers[q]) score++;
       }
-
       let message;
-      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Module suivant ?`;
+      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu peux passer au module suivant.`;
       else if (score >= 3) message = `✅ <strong>Score : ${score}/5</strong><br>Bonne maîtrise.`;
       else message = `📖 <strong>Score : ${score}/5</strong><br>Une relecture est conseillée.`;
-
       result.innerHTML = message;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true, score, total: 5, date: new Date().toISOString()
-      }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score, total: 5, date: new Date().toISOString() }));
     }
   </script>
 

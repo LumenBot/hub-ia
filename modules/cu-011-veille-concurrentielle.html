@@ -8,193 +8,864 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
-    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
-    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
-    .diag-question:last-of-type { border-bottom: none; }
-    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
-    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
-    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
-    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
-    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
-    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
-    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
-    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
-    .diag-result.show { display: block; }
-    .diag-result-section { margin-bottom: var(--space-4); }
-    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
-    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
-    .diag-export-btn:hover { background: var(--color-primary); color: white; }
+    /* Bloc signaux types — spécifique CU-011 */
+    .signals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .signal-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-left: 4px solid var(--color-primary); }
+    .signal-card-icon { font-size: 1.5rem; margin-bottom: var(--space-2); }
+    .signal-card-title { font-weight: 700; color: var(--color-primary); font-size: 0.9375rem; margin-bottom: var(--space-2); }
+    .signal-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .signal-card-source { font-size: 0.75rem; color: var(--color-text-soft); font-style: italic; }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
         <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
-        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🎯 Décision</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
-      <h1>🔭 Veille concurrentielle et marché continue</h1>
+      <h1>🔭 Veille concurrentielle continue</h1>
       <p class="module-subtitle">
-        Système de veille permanente qui scrute un panel ciblé (sites, communications, brevets, recrutements, levées) et alerte sur les évolutions significatives. Plus jamais « j'ai appris que X a sorti Y il y a 3 mois ».
+        Un système qui scrute en continu un panel de concurrents (sites, communications, brevets, recrutements, levées) et alerte sur les évolutions significatives. Fini le « j'ai appris que X a sorti Y il y a 3 mois » : tu restes à jour sans dédier 5 heures par semaine à la lecture.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Comment passer d'une veille manuelle ponctuelle à une surveillance continue ciblée</li>
-      <li>Les outils du marché (Perplexity Spaces, Crayon, Klue, custom n8n)</li>
-      <li>Comment éviter le bruit et garder un signal exploitable</li>
-      <li>Les limites du scraping public (informations vraiment stratégiques restent informelles)</li>
-    </ul>
+  <div class="module-layout">
 
-    <h2>Le contexte</h2>
-    <p>Pour beaucoup de PME et de startups, la veille concurrentielle se fait par à-coups : une revue de presse une fois par trimestre, une visite de salon une fois par an, des bribes d'info via le réseau. Conséquence : les évolutions importantes sont identifiées avec 2-6 mois de retard.</p>
-    <p>Une veille IA continue change la donne : surveillance permanente d'un panel restreint mais ciblé, alertes hebdomadaires sur les vrais signaux, dans 5-10 % du temps qu'une veille manuelle équivalente demanderait.</p>
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Les signaux qui comptent</a>
+        <a href="#section-3">3. Comment ça fonctionne</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Outils par usage</a>
+        <a href="#section-6">6. Cas d'étude guidé</a>
+        <a href="#section-7">7. Pièges à éviter</a>
+        <a href="#section-8">8. Auto-diagnostic</a>
+        <a href="#section-9">9. Pour aller plus loin</a>
+      </nav>
+    </aside>
 
-    <h2>Architecture type</h2>
-    <ol>
-      <li><strong>Définition du panel</strong> — 5-15 concurrents directs ou acteurs marché (sites web, blogs, comptes sociaux, brevets)</li>
-      <li><strong>Sources structurées</strong> — feeds RSS, APIs publiques, scrape custom (Scrapling)</li>
-      <li><strong>Agents de veille</strong> — détection des nouveautés, classement (produit, communication, RH, financier)</li>
-      <li><strong>Filtrage signal/bruit</strong> — modèle de classification des évolutions significatives</li>
-      <li><strong>Restitution</strong> — alerte Slack/email pour signaux forts, digest hebdomadaire pour le reste</li>
-    </ol>
+    <main class="module-main">
 
-    <h2>Stack et outils</h2>
-    <ul>
-      <li><strong>Veille publique</strong> : Perplexity Spaces, Feedly avec IA, Brand24 (mentions sociales)</li>
-      <li><strong>Solutions structurées B2B</strong> : Crayon, Klue (commercial — surtout B2B SaaS)</li>
-      <li><strong>Veille brevets</strong> : PatSnap, Questel (sectoriel)</li>
-      <li><strong>Custom</strong> : n8n + scrape concurrents + Claude/GPT pour résumé + alerte Slack</li>
-      <li><strong>Scraping résilient</strong> : Scrapling (cité ZHC pour sites résistants)</li>
-    </ul>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 90 secondes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            La veille concurrentielle, dans la plupart des PME et ETI, est soit négligée, soit caricaturale (alertes Google ignorées), soit déléguée à un junior qui résume sans hiérarchiser. Conséquence : on apprend les mouvements concurrents avec 2 à 4 mois de retard. L'IA générative résout ce problème — encore faut-il calibrer le système pour qu'il filtre signal vs bruit, plutôt que d'amplifier le bruit.
+          </p>
 
-    <h2>Les pièges à éviter</h2>
-    <ul>
-      <li><strong>Bruit / signal</strong> : sans calibrage, alertes deviennent du bruit qu'on ignore. Démarrer sur 5-10 concurrents max</li>
-      <li><strong>Fausses informations</strong> : hallucinations sur les chiffres précis. Vérifier avant action</li>
-      <li><strong>Sources publiques uniquement</strong> : la vraie info reste informelle (réseau, conférences, salons). La veille IA complète, ne remplace pas</li>
-      <li><strong>Conformité scraping</strong> : robots.txt, CGU des sites, RGPD si profilage de personnes</li>
-    </ul>
-  </article>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Panel restreint d'abord.</strong> 5 à 10 concurrents prioritaires, pas 30. Mieux vaut surveiller correctement 5 acteurs que mal surveiller un panel large.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔍</div>
+              <div class="exec-takeaway-content">
+                <strong>4 à 6 types de signaux qui comptent.</strong> Lancements produit, prix, RH stratégiques, partenariats, levées, brevets. Le reste est du bruit communicationnel.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🧪</div>
+              <div class="exec-takeaway-content">
+                <strong>Calibrage 4 semaines obligatoire.</strong> Sans itération sur les faux positifs et les ratés, le système devient du bruit ignoré dès le 2<sup>e</sup> mois.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📨</div>
+              <div class="exec-takeaway-content">
+                <strong>Synthèse hebdo de 1 page max.</strong> 3 à 5 signaux clés, chacun avec un « so what ». Diffusion lundi matin à un destinataire identifié.
+              </div>
+            </div>
+          </div>
 
-  <section class="diagnostic" id="diagnostic">
-    <h2>Auto-diagnostic & plan d'action</h2>
-    <p class="diagnostic-intro">Identifie ton panel et ton premier pas.</p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">5-10</div>
+              <div class="exec-stat-label">Concurrents prioritaires (pas plus)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">3-5</div>
+              <div class="exec-stat-label">Signaux par synthèse hebdo</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">4 sem.</div>
+              <div class="exec-stat-label">Calibrage initial obligatoire</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">25 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
 
-    <form id="diagForm">
-      <div class="diag-question">
-        <div class="diag-question-title">1. Quelle est ta pratique actuelle de veille concurrentielle ?</div>
-        <div class="diag-scale">
-          <label><input type="radio" name="pratique" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Aucune</span></label>
-          <label><input type="radio" name="pratique" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">Ponctuelle</span></label>
-          <label><input type="radio" name="pratique" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">Trimestrielle</span></label>
-          <label><input type="radio" name="pratique" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">Mensuelle structurée</span></label>
-          <label><input type="radio" name="pratique" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Continue & systématisée</span></label>
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu apprends régulièrement les mouvements concurrents avec retard ; tu reçois aujourd'hui 50 alertes/semaine que tu ne lis plus ; tu veux structurer une veille exploitable sans dédier 5 heures hebdo à la lecture ; tu pilotes une activité avec 8-12 concurrents directs identifiés et un commercial qui remonte des surprises clients.
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="diag-question">
-        <div class="diag-question-title">2. Combien de concurrents directs / acteurs à surveiller as-tu identifiés ?</div>
-        <div class="diag-scale" style="grid-template-columns: repeat(4, 1fr);">
-          <label><input type="radio" name="panel" value="0"><span class="diag-scale-text">Aucun listé</span></label>
-          <label><input type="radio" name="panel" value="3"><span class="diag-scale-text">3-5</span></label>
-          <label><input type="radio" name="panel" value="10"><span class="diag-scale-text">5-15</span></label>
-          <label><input type="radio" name="panel" value="20"><span class="diag-scale-text">Plus de 15</span></label>
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — pourquoi la veille IA change la donne</h2>
         </div>
+
+        <p>
+          La veille concurrentielle est un sujet classique, mais sa mise en œuvre dans les PME, ETI et startups est souvent défaillante. Soit elle est <strong>négligée</strong> (« je n'ai pas le temps »), soit elle est <strong>caricaturale</strong> (alertes Google qui produisent du bruit qu'on n'écoute plus), soit elle est <strong>déléguée à un junior</strong> qui résume sans hiérarchiser. Conséquence : les dirigeants apprennent souvent les mouvements concurrentiels par retour client ou par hasard, plusieurs mois après le fait.
+        </p>
+        <p>
+          L'IA générative change la donne sur trois dimensions. D'abord, <strong>elle digère le volume</strong> — un système IA peut lire 50 sites de concurrents par jour sans fatigue. Ensuite, <strong>elle hiérarchise</strong> — calibrée correctement, elle distingue le mouvement stratégique du communiqué de routine. Enfin, <strong>elle alerte de manière exploitable</strong> — un résumé d'une page chaque semaine avec les 3 à 5 signaux qui méritent ton attention, plutôt qu'un flux RSS de 200 articles.
+        </p>
+
+        <div class="pull-quote">
+          Le bon système de veille n'est pas celui qui capte le plus. C'est celui qui écarte le plus de bruit. Démarrer sur 5-10 concurrents prioritaires et 4-5 types de signaux est plus efficace qu'un dispositif tentaculaire qui finit par être ignoré.
+        </div>
+
+        <p>
+          Pour les <strong>startups en marché concurrentiel actif</strong>, c'est un actif stratégique au même titre que le CRM. Pour les <strong>PME et ETI vosgiennes</strong> en concurrence internationale (papier, textile, mécanique), c'est un moyen pragmatique de surveiller les acteurs allemands, italiens ou asiatiques sans présence dédiée sur place.
+        </p>
+      </section>
+
+      <!-- 2. SIGNAUX QUI COMPTENT -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les signaux qui comptent vraiment</h2>
+        </div>
+
+        <p>
+          Tous les mouvements concurrents ne se valent pas. Concentrer la veille sur 4 à 6 types de signaux à fort potentiel d'action est la première discipline. Tout le reste est du bruit communicationnel à écarter.
+        </p>
+
+        <div class="signals-grid">
+          <div class="signal-card">
+            <div class="signal-card-icon">🚀</div>
+            <div class="signal-card-title">Lancements produit</div>
+            <div class="signal-card-desc">Nouvelle offre, refonte gamme, extension géographique, partenariat distribution.</div>
+            <div class="signal-card-source">Sources : sites concurrents, communiqués, LinkedIn corporate</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-card-icon">💰</div>
+            <div class="signal-card-title">Mouvements tarifaires</div>
+            <div class="signal-card-desc">Changement de prix, nouvelle offre d'entrée, packaging, conditions commerciales.</div>
+            <div class="signal-card-source">Sources : pages tarifs, blogs concurrents</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-card-icon">👤</div>
+            <div class="signal-card-title">RH stratégiques</div>
+            <div class="signal-card-desc">Arrivée d'un dirigeant, recrutement massif d'une fonction, ouverture d'un nouveau site.</div>
+            <div class="signal-card-source">Sources : LinkedIn, sites carrière, Welcome to the Jungle</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-card-icon">🤝</div>
+            <div class="signal-card-title">Partenariats</div>
+            <div class="signal-card-desc">Annonce d'alliance, intégration technologique, co-développement.</div>
+            <div class="signal-card-source">Sources : communiqués, presse spécialisée</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-card-icon">📊</div>
+            <div class="signal-card-title">Levées et financements</div>
+            <div class="signal-card-desc">Levées de fonds, subventions structurantes, prêts innovation, sortie en bourse.</div>
+            <div class="signal-card-source">Sources : Sifted, Maddyness, BFM Business</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-card-icon">📜</div>
+            <div class="signal-card-title">Brevets et IP</div>
+            <div class="signal-card-desc">Dépôts de brevets, normes nouvelles, certifications obtenues.</div>
+            <div class="signal-card-source">Sources : INPI, EPO, PatSnap, Questel</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Comment ça fonctionne — l'architecture</h2>
+        </div>
+
+        <p>
+          Le pipeline standard suit 4 étapes : sources multiples → collecte automatique → filtrage IA signal/bruit → synthèse actionnable. La discipline clé : un panel ciblé en entrée, et un calibrage continu sur l'étape de filtrage.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar11" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+            </defs>
+
+            <!-- Sources multiples (3 boîtes empilées) -->
+            <rect x="20" y="40" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">SITES CONCURRENTS</text>
+            <text x="110" y="82" text-anchor="middle" font-size="11" fill="#333">Pages produit, blog, prix</text>
+
+            <rect x="20" y="115" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">RÉSEAUX SOCIAUX</text>
+            <text x="110" y="157" text-anchor="middle" font-size="11" fill="#333">LinkedIn, X, presse spé</text>
+
+            <rect x="20" y="190" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">SOURCES SPÉCIALISÉES</text>
+            <text x="110" y="232" text-anchor="middle" font-size="11" fill="#333">Brevets, levées, RH</text>
+
+            <!-- Étape 2 — Collecte -->
+            <rect x="240" y="115" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="330" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">2 — COLLECTE</text>
+            <text x="330" y="168" text-anchor="middle" font-size="12" fill="#333">Scrape, RSS, API</text>
+            <text x="330" y="185" text-anchor="middle" font-size="12" fill="#333">Périodicité quotidienne</text>
+            <text x="330" y="202" text-anchor="middle" font-size="11" fill="#666" font-style="italic">n8n · Feedly · Brand24</text>
+
+            <!-- Étape 3 — Filtrage IA -->
+            <rect x="460" y="115" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="550" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">3 — FILTRAGE IA</text>
+            <text x="550" y="168" text-anchor="middle" font-size="12" fill="white">Tri signal vs bruit</text>
+            <text x="550" y="185" text-anchor="middle" font-size="12" fill="white">Résumé contextualisé</text>
+            <text x="550" y="202" text-anchor="middle" font-size="11" fill="#FFD600" font-style="italic">Claude · GPT · Mistral</text>
+
+            <!-- Étape 4 — Synthèse hebdo -->
+            <rect x="680" y="115" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="770" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">4 — ALERTE</text>
+            <text x="770" y="168" text-anchor="middle" font-size="12" fill="#333">Email ou Slack</text>
+            <text x="770" y="185" text-anchor="middle" font-size="12" fill="#333">3-5 signaux par semaine</text>
+            <text x="770" y="202" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Synthèse 1 page max</text>
+
+            <!-- Flèches sources → collecte -->
+            <line x1="200" y1="70" x2="238" y2="135" stroke="#2E5395" stroke-width="2" marker-end="url(#ar11)"/>
+            <line x1="200" y1="145" x2="238" y2="155" stroke="#2E5395" stroke-width="2" marker-end="url(#ar11)"/>
+            <line x1="200" y1="220" x2="238" y2="180" stroke="#2E5395" stroke-width="2" marker-end="url(#ar11)"/>
+
+            <!-- Flèches en chaîne -->
+            <line x1="420" y1="165" x2="458" y2="165" stroke="#2E5395" stroke-width="3" marker-end="url(#ar11)"/>
+            <line x1="640" y1="165" x2="678" y2="165" stroke="#2E5395" stroke-width="3" marker-end="url(#ar11)"/>
+
+            <!-- Légende panel -->
+            <text x="110" y="290" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">PANEL CIBLÉ</text>
+            <text x="110" y="310" text-anchor="middle" font-size="11" fill="#666" font-style="italic">5-10 concurrents prioritaires</text>
+
+            <text x="550" y="290" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">CALIBRAGE</text>
+            <text x="550" y="310" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Itérer chaque semaine pour réduire le bruit</text>
+
+            <text x="770" y="290" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">ACTIONNABLE</text>
+            <text x="770" y="310" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Lecture en 5 min, suite immédiate</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Sources multiples → collecte automatique → filtrage IA signal/bruit → synthèse actionnable hebdomadaire de 3-5 signaux clés.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Définir ton panel.</strong> 5 à 10 concurrents prioritaires maximum pour démarrer. Mieux vaut surveiller correctement 5 acteurs que mal surveiller 30. Inclure des concurrents directs, mais aussi 1 à 2 acteurs adjacents qui pourraient se positionner sur ton marché.</li>
+          <li><strong>Cartographier les sources.</strong> Pour chaque concurrent, identifier 3 à 5 sources de surveillance : site corporate (pages produit, blog, tarifs), LinkedIn, presse spécialisée du secteur, base brevets si pertinent. Récupérer les URL ou flux RSS.</li>
+          <li><strong>Configurer la collecte automatique.</strong> Selon ta maturité technique : Feedly avec IA (le plus simple, payant, ~10 €/mois), n8n self-hosted avec scraping (open source, demande config), Brand24 pour les mentions sociales, ou outil dédié type Crayon / Klue pour les structures B2B SaaS.</li>
+          <li><strong>Configurer le filtrage IA.</strong> Un prompt système clair pour Claude, GPT ou Mistral : « Tu es un analyste de veille concurrentielle. Pour chaque article entrant, classe-le en 4 catégories : signal stratégique (lancement, prix, RH stratégique, partenariat, levée) / signal mineur / bruit communicationnel / non pertinent. Ne retiens que les 2 premières catégories. »</li>
+          <li><strong>Mettre en forme la synthèse hebdomadaire.</strong> Une page maximum, structurée par concurrent ou par type de signal, avec pour chaque entrée : (1) un résumé en 2 lignes, (2) la source, (3) un avis « so what » (qu'est-ce que ça change pour nous ?). Diffusion email ou Slack le lundi matin.</li>
+          <li><strong>Itérer sur le calibrage.</strong> Sur les 4 premières semaines, ajuster le prompt pour réduire les faux positifs et les faux négatifs. Demander à l'équipe de remonter les signaux importants ratés et les bruits passés. Le système se calibre en 4-6 itérations.</li>
+        </ol>
+      </section>
+
+      <!-- 5. OUTILS PAR USAGE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Quels outils pour quels usages</h2>
+        </div>
+
+        <h3>Veille publique généraliste</h3>
+        <p>
+          <strong>Perplexity Spaces</strong> permet de créer un espace dédié à un sujet ou un concurrent et de poser des questions périodiques. <strong>Feedly</strong> avec sa couche IA Leo agrège des flux RSS et marque automatiquement les articles à fort potentiel. <strong>Brand24</strong> surveille spécifiquement les mentions sociales et les forums.
+        </p>
+
+        <h3>Outils dédiés veille concurrentielle structurée</h3>
+        <p>
+          <strong>Crayon</strong> et <strong>Klue</strong> sont les références commerciales en B2B SaaS — connecteurs natifs, base de connaissance partagée, alertes et battlecards intégrées. Coût élevé (à partir de plusieurs centaines d'euros par mois), pertinent pour les startups et ETI en marché concurrentiel intense.
+        </p>
+
+        <h3>Veille brevets et IP</h3>
+        <p>
+          <strong>PatSnap</strong> et <strong>Questel</strong> couvrent la veille brevets et innovation. <strong>INPI</strong> (national) et <strong>EPO Espacenet</strong> (européen) proposent des accès gratuits aux bases publiques, exploitables manuellement ou via API pour automatisation.
+        </p>
+
+        <h3>Custom — l'option n8n + scrape + IA</h3>
+        <p>
+          Pour la souveraineté et la flexibilité maximale : <strong>n8n</strong> en self-hosted, qui scrape les sources (avec <strong>Scrapling</strong> pour les sites résistants, cité par la communauté ZHC), envoie le contenu à <strong>Claude</strong> ou <strong>Mistral</strong> pour résumé et classification, et pousse une alerte Slack ou email via <strong>Composio</strong>. 1 à 2 jours de configuration initiale, puis quasi-zéro maintenance.
+        </p>
+
+        <h3>Synthèse et exploitation</h3>
+        <p>
+          <strong>NotebookLM</strong> est utile pour ingérer plusieurs rapports concurrents et comparer les positionnements ou les messages. <strong>Notion</strong> ou <strong>Coda</strong> permettent de structurer une base de connaissance concurrence partagée par l'équipe.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Une définition claire de ce qu'est un concurrent prioritaire pour toi (le piège classique : surveiller des acteurs qui ne sont pas réellement en compétition). 5 à 10 concurrents identifiés, pas plus pour démarrer. Une discipline d'itération sur le calibrage les 4 premières semaines (sans cela, le bruit s'installe et le système est ignoré). Un destinataire clair de la synthèse — typiquement direction générale + commercial + R&D selon le type de signal.
+        </p>
+      </section>
+
+      <!-- 6. CAS D'ÉTUDE GUIDÉ -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">6</div>
+          <h2 class="module-section-title">Cas d'étude guidé — Mise en situation</h2>
+        </div>
+
+        <p>
+          Tu vas suivre les 4 étapes ci-dessous pour construire un système de veille minimal viable. Compte 90 minutes pour le faire complètement, ou 15 minutes en lecture seule.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">Contexte</div>
+          <p style="margin: 0;">Tu pilotes <strong>une activité avec 8 à 12 concurrents directs identifiés</strong>, dont tu suis aujourd'hui les mouvements de manière sporadique (LinkedIn personnel, retours commerciaux, conférences). Tu rates régulièrement des annonces importantes et tu apprends souvent les mouvements concurrentiels avec 2 à 4 mois de retard. Objectif : un système qui te livre une synthèse de 1 page chaque lundi matin avec les 3-5 signaux qui comptent vraiment.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Construire ton panel et cartographier tes sources</h3>
+            <p>Sélectionne 5 à 8 concurrents prioritaires (pas 12 — la règle d'or est de surveiller correctement 5 acteurs plutôt que mal surveiller 30). Pour chacun, identifie 3 à 5 sources : site corporate (URL des pages produit / prix / blog), page LinkedIn corporate, presse spécialisée pertinente, base brevets si applicable. Range tout dans un Google Sheet ou Notion structuré.</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;">
+              <strong>Template de cartographie :</strong> Concurrent | URL site | URL blog | LinkedIn corp | Presse spé | Type de veille (produit/prix/RH/IP)
+            </p>
+            <span class="case-deep-tech">📋 Google Sheet ou Notion</span>
+            <span class="case-deep-tech">🛠️ Pas d'outil IA à cette étape</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une cartographie de 5-8 concurrents × 3-5 sources, soit 20 à 40 sources à surveiller.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Configurer une collecte semi-automatique avec Feedly + Perplexity Spaces</h3>
+            <p>Crée un compte <a href="https://feedly.com" target="_blank" rel="noopener">Feedly</a> (gratuit ou Pro à ~10 €/mois). Ajoute les flux RSS des blogs concurrents et de la presse spé. Active la couche IA Leo pour qu'elle marque automatiquement les articles à fort potentiel selon tes mots-clés. En parallèle, crée un Space sur <a href="https://www.perplexity.ai" target="_blank" rel="noopener">Perplexity</a> par concurrent prioritaire pour des recherches périodiques structurées.</p>
+            <span class="case-deep-tech">🛠️ Feedly + Leo</span>
+            <span class="case-deep-tech">🛠️ Perplexity Spaces</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> un flux automatique d'articles classés par concurrent, et 5-8 espaces Perplexity prêts à être interrogés.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Mettre en place la synthèse hebdomadaire avec Claude</h3>
+            <p>Chaque vendredi (ou dimanche), copie-colle dans <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> les articles marqués par Feedly + les réponses des Perplexity Spaces de la semaine. Utilise ce prompt :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.875rem;">Tu es un analyste de veille concurrentielle. Pour chaque article ci-dessous, classe-le en 4 catégories : (1) signal stratégique (lancement produit, mouvement tarifaire, RH stratégique, partenariat, levée), (2) signal mineur (refonte mineure, communiqué de routine), (3) bruit communicationnel, (4) non pertinent. Pour les signaux stratégiques uniquement, produis : un résumé de 2 lignes, la source, et un « so what » d'1 ligne (qu'est-ce que ça change pour nous ?). Mets en forme une synthèse hebdomadaire d'1 page max, structurée par concurrent.</p>
+            <span class="case-deep-tech">🛠️ Claude</span>
+            <span class="case-deep-tech">📝 Synthèse hebdo 1 page</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une synthèse de 3 à 5 signaux clés, prête à diffuser le lundi matin par email ou Slack à ton COMEX.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Calibrer sur 4 semaines et passer en n8n si pertinent</h3>
+            <p>Sur les 4 premières semaines, demande à ton équipe de remonter : (1) les signaux importants que la veille a ratés, (2) les bruits qui sont passés en faux positifs. Ajuste le prompt et la liste des sources en conséquence. Quand le système produit des synthèses utiles 3 semaines de suite, automatise complètement avec <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> : scraping périodique → Claude pour le filtrage → Slack ou email automatique chaque lundi 8h.</p>
+            <span class="case-deep-tech">📊 Boucle de calibrage 4 semaines</span>
+            <span class="case-deep-tech">🛠️ n8n self-hosted (avancé)</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> un système de veille calibré qui produit une synthèse exploitable chaque semaine, sans intervention humaine en routine.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p style="margin: 0;">
+            Tu as transformé une veille sporadique et réactive en système structuré, avec un livrable hebdomadaire actionnable de 1 page. Au lieu d'apprendre les mouvements concurrents avec 2 à 4 mois de retard, <strong>tu détectes les signaux stratégiques avec 1 à 2 semaines de décalage maximum</strong>. Pour le coût d'un abonnement Feedly Pro et de quelques heures de configuration initiale, tu as récupéré un avantage informationnel mesurable.
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Le bruit qui devient ignoré</h3>
+        <p>
+          Sans calibrage fin, les alertes deviennent du bruit qu'on n'écoute plus. C'est le scénario d'échec classique : on configure 30 sources, on reçoit 50 alertes par semaine, on arrête de les lire au bout d'un mois. <strong>La discipline de calibrage les 4 premières semaines est non négociable</strong> — sans elle, le dispositif est un gâchis. Démarre petit et ajuste plutôt que de viser large dès le départ.
+        </p>
+
+        <h3>Sources publiques uniquement</h3>
+        <p>
+          La veille IA ne capte que ce qui est public. La vraie information concurrentielle reste souvent informelle — réseau, conférences, retours clients, salons professionnels. <strong>Le système ne remplace pas la présence sur le terrain</strong>, il complète et libère du temps pour les interactions humaines à plus forte valeur. C'est l'erreur de débutant que de croire qu'un système IA suffit à connaître son marché.
+        </p>
+
+        <h3>Conformité du scraping</h3>
+        <p>
+          Avant tout scraping automatique : vérifier le fichier <code>robots.txt</code> du site, respecter les CGU, ne pas surcharger les serveurs (cadencer les requêtes). Pour les données personnelles présentes sur les sites (employés sur LinkedIn par exemple), <strong>respecter le RGPD</strong> — pas de profilage massif sans base légale. Pour la veille en France et en Europe, ces points sont juridiquement structurants.
+        </p>
+
+        <h3>Hallucinations sur les chiffres</h3>
+        <p>
+          L'IA peut inventer des chiffres précis qui ne sont pas dans les sources d'origine — un montant de levée, un effectif, une part de marché. <strong>Toujours vérifier les chiffres précis avant de les diffuser dans une synthèse</strong>. Garde-fou efficace : interdire dans le prompt l'invention de chiffres (« si une donnée chiffrée n'est pas explicitement présente dans la source citée, ne pas la mentionner »).
+        </p>
+
+        <h3>La sur-réaction aux signaux faibles</h3>
+        <p>
+          Capter un signal n'oblige pas à réagir. La tentation managériale est de créer une réunion stratégique pour chaque mouvement concurrent — c'est l'inverse de l'objectif. <strong>La synthèse doit aider à décider quand réagir, pas systématiquement provoquer la réaction</strong>. Documenter dans la charte d'usage que la majorité des signaux n'appelle qu'une mise en mémoire collective, pas une réponse opérationnelle.
+        </p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">8</div>
+          <h2 class="module-section-title">Auto-diagnostic — Es-tu prêt à structurer ta veille ?</h2>
+        </div>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <p class="diagnostic-intro">Réponds aux 6 questions suivantes pour évaluer ton point de départ et générer un plan d'action priorisé exportable.</p>
+          </div>
+
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Combien de concurrents directs as-tu identifiés sur ton marché ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Pas clair / non identifiés</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>3 à 5 identifiés</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>5 à 12 identifiés</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Plus de 12 identifiés</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Comment fais-tu ta veille concurrentielle aujourd'hui ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Quasi rien / au hasard</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>LinkedIn perso, sporadique</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>Outils basiques (Google Alertes)</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Outils dédiés (Feedly, Crayon)</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. À quelle fréquence apprends-tu un mouvement concurrent avec retard significatif (>2 mois) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Plusieurs fois par mois</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>Quelques fois par trimestre</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>Rarement</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Jamais</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Disposes-tu d'un destinataire clair pour la synthèse de veille ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Non, c'est moi tout seul</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Implicite, dans la tête</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Identifié (COMEX, commercial)</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Identifié et impliqué dans le calibrage</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. As-tu une compétence de configuration d'outils no-code (n8n, Make, Zapier) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Aucune</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Notion vague</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Bases utilisables</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Maîtrise opérationnelle</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Quel budget mensuel peux-tu allouer aux outils de veille ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>0 € (gratuits uniquement)</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>10 à 50 €</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>50 à 300 €</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>Plus de 300 € (Crayon, Klue)</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">9</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond</h3>
+          <ul>
+            <li>
+              <a href="https://www.bcg.com/capabilities/strategy" target="_blank" rel="noopener">BCG — Strategy insights</a>
+              <span class="resources-meta">BCG — analyses sur la veille stratégique et les signaux faibles</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/competitive-strategy" target="_blank" rel="noopener">Harvard Business Review — Competitive Strategy</a>
+              <span class="resources-meta">HBR — articles sur l'intelligence concurrentielle et l'analyse de marché</span>
+            </li>
+            <li>
+              <a href="https://www.crayon.co/blog" target="_blank" rel="noopener">Crayon Blog — Competitive Intelligence</a>
+              <span class="resources-meta">Crayon — best practices de veille concurrentielle B2B</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Conformité scraping et données</a>
+              <span class="resources-meta">CNIL — recommandations sur le scraping et la protection des données</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=feedly+leo+ai+competitive+intelligence" target="_blank" rel="noopener">Feedly Leo — veille IA</a>
+              <span class="resources-meta">YouTube — démonstrations d'usage Feedly + couche IA</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=n8n+web+scraping+competitive+monitoring" target="_blank" rel="noopener">n8n — workflows de veille concurrentielle</a>
+              <span class="resources-meta">YouTube — pipelines complets de surveillance</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=perplexity+spaces+research+tutorial" target="_blank" rel="noopener">Perplexity Spaces — recherches structurées</a>
+              <span class="resources-meta">YouTube — démos d'usage en veille</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://feedly.com/i/welcome" target="_blank" rel="noopener">Feedly — accès et documentation</a>
+              <span class="resources-meta">Feedly — agrégateur RSS avec couche IA Leo</span>
+            </li>
+            <li>
+              <a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a>
+              <span class="resources-meta">Plateforme d'orchestration self-hosted, recommandée pour la souveraineté</span>
+            </li>
+            <li>
+              <a href="https://docs.perplexity.ai" target="_blank" rel="noopener">Perplexity API Documentation</a>
+              <span class="resources-meta">Pour intégration de la recherche dans des workflows custom</span>
+            </li>
+            <li>
+              <a href="https://worldwide.espacenet.com" target="_blank" rel="noopener">EPO Espacenet — base brevets européenne</a>
+              <span class="resources-meta">Office européen des brevets — accès gratuit aux bases publiques</span>
+            </li>
+            <li>
+              <a href="https://www.inpi.fr/services-et-prestations/services-en-ligne" target="_blank" rel="noopener">INPI — Bases brevets françaises</a>
+              <span class="resources-meta">Institut national de la propriété industrielle — services en ligne</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/CompetitiveIntelligence" target="_blank" rel="noopener">r/CompetitiveIntelligence sur Reddit</a>
+              <span class="resources-meta">Communauté pratique sur la veille concurrentielle B2B</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a>
+              <span class="resources-meta">Communauté n8n, partage de workflows incluant des pipelines de veille</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
       </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">3. Quels signaux te seraient les plus utiles à détecter ?</div>
-        <textarea class="diag-textarea" name="signaux" placeholder="Ex. : nouveaux produits sortis, levées de fonds, recrutement de profils stratégiques, partenariats annoncés, changements tarifaires…"></textarea>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
+    </div>
+  </footer>
 
-      <div class="diag-question">
-        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
-        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : identifier 8 concurrents prioritaires, configurer Perplexity Spaces avec leurs URLs, paramétrer une alerte hebdo Slack…"></textarea>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">5. Comment mesureras-tu le succès dans 3 mois ?</div>
-        <textarea class="diag-textarea" name="indicateur" placeholder="Ex. : passer de 3 mois à 7 jours de délai entre événement concurrent et son intégration dans la stratégie commerciale…"></textarea>
-      </div>
-
-      <div class="diag-actions">
-        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
-        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
-      </div>
-    </form>
-
-    <div class="diag-result" id="diagResult"></div>
-  </section>
-
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-001-recherche-veille.html">Module connexe — Recherche & veille augmentée</a></li>
-      <li><a href="cu-008-knowledge-base-rag.html">Module connexe — Knowledge base RAG</a></li>
-    </ul>
-  </article>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-011';
-    const moduleName = 'Veille concurrentielle continue';
 
     function generatePlan() {
       const form = document.getElementById('diagForm');
-      const data = new FormData(form);
-      const pratique = data.get('pratique') || '—';
-      const panel = data.get('panel') || '—';
-      const signaux = data.get('signaux') || '—';
-      const premierPas = data.get('premier-pas') || '—';
-      const indicateur = data.get('indicateur') || '—';
-
-      let priority;
-      if (panel === '0') priority = 'Aucun panel identifié : étape préalable = lister 5-10 concurrents et acteurs marché à surveiller. Sans cette liste, l\'outil le plus performant ne sert à rien.';
-      else if (parseInt(panel) >= 20) priority = '⚠️ Panel trop large : risque de submersion d\'alertes. Prioriser 8-12 acteurs réellement structurants pour démarrer. Élargir progressivement.';
-      else priority = 'Panel exploitable : démarrer par Perplexity Spaces (gratuit) ou un workflow n8n simple sur 5-8 concurrents pour valider avant industrialisation.';
-
       const result = document.getElementById('diagResult');
-      result.innerHTML = `<h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
-        <div class="diag-result-section"><div class="diag-result-label">Pratique actuelle</div><div>Niveau ${pratique}/5</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Taille du panel</div><div>${panel} acteurs identifiés</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Signaux recherchés</div><div>${signaux}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Indicateur de succès (3 mois)</div><div>${indicateur}</div></div>`;
+      const answers = {};
+      let allAnswered = true;
+
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+
+      const actions = [];
+
+      // Identification des concurrents
+      if (answers.d1 == 0) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Cartographier ton marché concurrentiel avant tout outil',
+          desc: 'Sans concurrents identifiés, aucune veille IA ne fonctionne. Première étape : 1 demi-journée pour lister 5 à 10 concurrents directs et adjacents, valider avec ton équipe commerciale et tes meilleurs clients. C\'est un travail stratégique, pas technique.'
+        });
+      } else if (answers.d1 >= 3) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Réduire ton panel à 5-8 concurrents prioritaires',
+          desc: 'Tu as identifié plus de 12 concurrents : surveiller correctement 5 acteurs prioritaires est plus efficace que mal surveiller 30. Identifie les 5-8 qui pèsent vraiment dans tes deals (interroge ton commercial), et démarre uniquement sur ce panel. Tu pourras élargir dans 6 mois.'
+        });
+      }
+
+      // Veille actuelle
+      if (answers.d2 <= 1) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Démarrer un pilote Feedly + Perplexity sous 1 semaine',
+          desc: 'Ton dispositif actuel est insuffisant. Démarre sur Feedly (gratuit ou Pro 10 €/mois) avec les flux RSS de tes 5-8 concurrents prioritaires, et un Perplexity Space par concurrent. Coût : 0-10 €/mois, mise en place 2-3 heures. Premier livrable utile en 1 semaine.'
+        });
+      } else if (answers.d2 == 2) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Ajouter une couche de filtrage IA hebdomadaire',
+          desc: 'Tu utilises déjà Google Alertes ou équivalent. Étape suivante : ajouter une couche IA qui filtre signal/bruit chaque semaine. Démarre avec Claude (gratuit jusqu\'à un volume) ou Feedly Leo (~10 €/mois). Permet de passer de 50 alertes/semaine ignorées à 3-5 signaux exploitables.'
+        });
+      }
+
+      // Retard de détection
+      if (answers.d3 >= 2) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Mesurer le coût du retard avant d\'investir',
+          desc: 'Tu apprends régulièrement les mouvements concurrents avec retard. Avant tout investissement, formalise sur 3 cas récents : qu\'est-ce que ce retard t\'a coûté (deal raté, positionnement à reprendre, surprise client) ? Cette mesure cadre le ROI attendu et oriente le bon niveau d\'investissement.'
+        });
+      }
+
+      // Destinataire de la synthèse
+      if (answers.d4 <= 1) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Identifier explicitement le destinataire de la synthèse',
+          desc: 'Sans destinataire clair (COMEX, commercial, R&D), la synthèse atterrit dans le vide. Désigne 2 à 3 personnes qui reçoivent la synthèse hebdomadaire et qui ont un mandat de remontée d\'observations pour calibrer le système. Sans cette boucle, le dispositif s\'érode en 2-3 mois.'
+        });
+      }
+
+      // Compétence no-code
+      if (answers.d5 <= 1) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Démarrer en mode semi-manuel sans n8n',
+          desc: 'Sans compétence n8n, ne pas viser un pipeline complet d\'emblée. Démarre semi-manuel : Feedly + Perplexity Spaces alimentent une session Claude hebdomadaire (15-20 min de travail pour produire la synthèse). Tu pourras automatiser dans 3-6 mois si la valeur est démontrée.'
+        });
+      } else if (answers.d5 >= 2) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Configurer un pipeline n8n complet en 1-2 jours',
+          desc: 'Avec ta compétence no-code, tu peux viser le pipeline automatisé : scraping périodique des sources → Claude pour le filtrage → email ou Slack chaque lundi 8h. Compte 1 à 2 jours pour la configuration initiale, puis quasi-zéro maintenance.'
+        });
+      }
+
+      // Budget
+      if (answers.d6 == 0) {
+        actions.push({
+          prio: 'basse',
+          titre: 'Démarrer 100 % gratuit',
+          desc: 'Budget zéro : flux RSS natifs + Perplexity gratuit + Claude gratuit (jusqu\'à un volume) + Espacenet pour les brevets si pertinent. Pipeline fonctionnel mais demande plus de manipulation manuelle. Bascule vers Feedly Pro (~10 €/mois) dès que la valeur est démontrée.'
+        });
+      } else if (answers.d6 >= 2) {
+        actions.push({
+          prio: 'basse',
+          titre: 'Évaluer Crayon ou Klue selon ton secteur',
+          desc: 'Budget significatif : pour un B2B SaaS en marché concurrentiel intense, Crayon ou Klue (à partir de 500 €/mois) apportent battlecards, base partagée, alertes structurées. Pour les autres secteurs, le combo Feedly Pro + n8n + Claude est plus économique et flexible.'
+        });
+      }
+
+      // Toujours : calibrage 4 semaines
+      actions.push({
+        prio: 'haute',
+        titre: 'Discipline de calibrage les 4 premières semaines',
+        desc: 'Sans calibrage fin, le système produit du bruit ignoré dès le 2e mois. Sur les 4 premières semaines : revue hebdomadaire avec le destinataire, remontée des signaux ratés et des bruits passés, ajustement du prompt et des sources. C\'est ce qui distingue un système qui dure d\'un gadget abandonné.'
+      });
+
+      // Toujours : sources off-line
+      actions.push({
+        prio: 'moyenne',
+        titre: 'Compléter par les sources informelles (terrain, salons, retours clients)',
+        desc: 'La veille IA ne capte que ce qui est public. Les vrais signaux concurrentiels passent souvent par les salons, les retours commerciaux, les retours d\'experts. Documente parallèlement ces sources dans ta synthèse hebdomadaire (rubrique « observations terrain »). Le système ne remplace pas la présence, il la complète.'
+      });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — pipeline structuré pertinent';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — démarrage Feedly + Perplexity recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="diag-score-box">
+          <div class="diag-score-num">${maturite}%</div>
+          <div class="diag-score-label">${scoreLabel}</div>
+        </div>
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>
+      `;
+
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+
+      actions.forEach((a, i) => {
+        html += `
+          <div class="diag-action">
+            <span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span>
+            <h4>${i+1}. ${a.titre}</h4>
+            <p>${a.desc}</p>
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="diag-export">
+          <button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button>
+          <button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      document.getElementById('exportBtn').style.display = 'inline-flex';
 
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, pratique, panel, signaux, priority, premierPas, indicateur, date: new Date().toISOString() }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        maturite,
+        actions: actions.map(a => ({ prio: a.prio, titre: a.titre })),
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
     }
 
-    function exportPlan() {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
-      if (!data) return;
-      const txt = `Plan d'action — ${moduleName}\nDate : ${new Date(data.date).toLocaleDateString('fr-FR')}\n\nPratique actuelle : ${data.pratique}/5\nPanel : ${data.panel} acteurs\n\nSignaux :\n${data.signaux}\n\nRecommandation :\n${data.priority}\n\nPremier pas :\n${data.premierPas}\n\nIndicateur :\n${data.indicateur}\n\n— Hub IA territorial · ${moduleId}\n`;
-      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Plan d'action — Veille concurrentielle continue\n\n`;
+        content += `*Auto-diagnostic Hub IA territorial — ${plan.date}*\n\n`;
+        content += `**Maturité du dispositif actuel : ${plan.maturite}%**  \n`;
+        content += `*${plan.scoreLabel}*\n\n`;
+        content += `---\n\n`;
+        content += `## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `### ${i+1}. ${a.titre}\n`;
+          content += `**Priorité : ${a.prio}**\n\n`;
+          content += `${a.desc}\n\n`;
+        });
+        content += `---\n\n`;
+        content += `*Plan généré par le module CU-011 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — VEILLE CONCURRENTIELLE CONTINUE\n`;
+        content += `Auto-diagnostic Hub IA territorial — ${plan.date}\n\n`;
+        content += `Maturite du dispositif actuel : ${plan.maturite}%\n`;
+        content += `${plan.scoreLabel}\n\n`;
+        content += `=========================================\n\n`;
+        content += `ACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `${i+1}. ${a.titre.toUpperCase()}\n`;
+          content += `   Priorite : ${a.prio}\n\n`;
+          content += `   ${a.desc}\n\n`;
+        });
+        content += `=========================================\n`;
+        content += `Plan genere par le module CU-011 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `plan-${moduleId}.txt`; a.click();
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-action-veille-concurrentielle.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
-      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
-    });
   </script>
+
 </body>
 </html>

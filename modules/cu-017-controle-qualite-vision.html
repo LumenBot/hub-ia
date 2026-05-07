@@ -8,143 +8,1122 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
+    /* ROI box — spécifique CU-017 */
+    .roi-box { background: linear-gradient(135deg, #E8F4E0 0%, #D4F0C0 100%); border: 2px solid #5C8C5C; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .roi-box h3 { color: #2E5C2E; margin-top: 0; margin-bottom: var(--space-3); }
+    .roi-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
+    .roi-item { background: white; padding: var(--space-3); border-radius: var(--radius-md); text-align: center; }
+    .roi-num { font-size: 1.5rem; font-weight: 800; color: #2E5C2E; }
+    .roi-label { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: var(--space-1); }
+
+    /* Bloc filières applicables — spécifique CU-017 */
+    .filieres-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .filiere-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+    .filiere-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+    .filiere-card-title { font-weight: 700; color: var(--color-primary); font-size: 1rem; margin-bottom: var(--space-2); }
+    .filiere-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .filiere-card-examples { font-size: 0.75rem; color: var(--color-text-soft); font-style: italic; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
   </style>
 </head>
 <body>
-  <nav class="nav scrolled" id="nav"><div class="nav-inner"><a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a><div class="nav-links"><a href="../index.html#modules" class="nav-link">Modules</a>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
 
   <header class="module-hero">
     <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg> Retour aux modules</a>
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n3#modules" class="card-badge n3">🔴 Industrialisation</a>
-        <a href="../index.html?axe=e#modules" class="card-badge axe-e">🏭 Industrie</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
+        <a href="../index.html?axe=e#modules" class="card-badge axe-e">⚙️ Industrie</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
       </div>
       <h1>👁️ Contrôle qualité par vision IA</h1>
       <p class="module-subtitle">
-        Détection automatique de défauts à cadence industrielle : papier, panneaux bois, textile, agroalimentaire. Taux de détection 95-99 %, ROI 12-18 mois pour un ETI sur ligne moyenne.
+        Remplacer ou augmenter le contrôle qualité visuel humain par des systèmes de caméras + IA capables de détecter défauts, anomalies, déviations dimensionnelles ou contaminations à des cadences impossibles pour un opérateur, et avec une régularité supérieure. Pertinent pour toutes les filières industrielles : papier, bois, textile, plasturgie, agroalimentaire.
       </p>
     </div>
   </header>
 
-  <article class="module-content">
-    <h2>Le cas</h2>
-    <p>Le contrôle qualité humain a quatre limites structurelles : vitesse de cadence, fatigue, subjectivité, coût. Le contrôle par vision IA adresse ces quatre limites simultanément. Il <strong>augmente</strong> typiquement le contrôle humain en première ligne, plutôt que de le remplacer totalement, sauf sur des process de très grande série.</p>
-    <p>Sur le territoire vosgien, les filières concernées sont multiples : papier (Norske Skog, Lucart, Clairefontaine), panneaux bois (Egger, NS-Weisrock), textile (Innothera, Bleu Forêt), plasturgie (Reborn, PTP Industry), agroalimentaire (Ermitage, Lactalis Marcillat).</p>
+  <div class="module-layout">
 
-    <h2>L'architecture</h2>
-    <ol>
-      <li><strong>Caméras industrielles</strong> placées en ligne ou hors ligne. Choix selon défaut : caméra couleur standard, hyperspectrale, caméra ligne (flux continus type bobines)</li>
-      <li><strong>Modèle de vision IA</strong> entraîné sur images de pièces conformes + images de défauts (toutes catégories)</li>
-      <li><strong>Inférence en ligne</strong> — chaque pièce analysée en temps réel. Verdict : OK / NOK + catégorie de défaut</li>
-      <li><strong>Action automatique</strong> — éjection, marquage, alerte opérateur, ralentissement ligne</li>
-      <li><strong>Boucle d'amélioration</strong> — pièces ambiguës validées par opérateur, enrichissement du dataset</li>
-    </ol>
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Filières applicables</a>
+        <a href="#section-3">3. Architecture</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack technique</a>
+        <a href="#section-6">6. Financements</a>
+        <a href="#section-7">7. Troubleshooting</a>
+        <a href="#section-8">8. Étude de cas PanneauxCo</a>
+        <a href="#section-9">9. Pièges à éviter</a>
+        <a href="#section-10">10. Checklist d'éligibilité</a>
+        <a href="#section-11">11. Pour aller plus loin</a>
+      </nav>
+    </aside>
 
-    <h2>Stack technique</h2>
-    <ul>
-      <li><strong>Solutions du marché</strong> : Cognex VisionPro, Keyence, Landing AI, Neurala</li>
-      <li><strong>Solutions françaises</strong> : Pollen Robotics, Wisecode</li>
-      <li><strong>Cloud / pre-built</strong> : AWS Rekognition, Azure Computer Vision, Google Vision (cas génériques)</li>
-      <li><strong>Custom open source</strong> : YOLO, MMDetection, PyTorch / TensorFlow (équipe data interne)</li>
-      <li><strong>Hardware</strong> : caméras industrielles (Basler, IDS), éclairage technique, edge computing (NVIDIA Jetson)</li>
-      <li><strong>Mistral Forge</strong> pour fine-tuner sur datasets propres à l'industriel</li>
-    </ul>
+    <main class="module-main">
 
-    <h2>Indicateurs documentés</h2>
-    <ul>
-      <li><strong>Taux de détection</strong> : 95-99 % typique pour des cas matures</li>
-      <li><strong>Faux rejets</strong> : <1 % pour les systèmes bien calibrés</li>
-      <li><strong>Cadence</strong> : 100 à 1 000 pièces/seconde possible</li>
-      <li><strong>ROI</strong> : 12-18 mois pour un ETI sur ligne moyenne, 6-12 mois pour très grandes séries</li>
-      <li><strong>Réduction du coût qualité</strong> : 30-50 % typique</li>
-    </ul>
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Le contrôle qualité humain a 4 limites structurelles : vitesse de cadence, fatigue, subjectivité, coût. Le contrôle par vision IA (caméras + deep learning + edge computing + intégration PLC) y répond avec un taux de détection 95-99 %, &lt;1 % de faux rejets et un ROI de 12-18 mois sur ligne moyenne ETI. Pour le tissu industriel vosgien (bois, papier, textile, plasturgie, agroalimentaire), c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie, avec des dispositifs publics qui cofinancent jusqu'à 60-70 %.
+          </p>
 
-    <h2>Limites et points de vigilance</h2>
-    <ul>
-      <li><strong>Volume initial d'images annotées</strong> — démarrer sans dataset est très difficile. Pour défauts rares, plusieurs mois de collecte initiale</li>
-      <li><strong>Drift du process</strong> — quand le process évolue (matière, paramètres), modèle peut perdre en performance. Re-calibration nécessaire</li>
-      <li><strong>Coût de mise en place</strong> — 30 à 200 K€ pour un système robuste, intégré et calibré</li>
-      <li><strong>Compétences internes</strong> — partenaires territoriaux : Atsora Solutions, NIN-IA, intégrateurs spécialisés</li>
-      <li><strong>AAP mobilisables</strong> : DECARB IND, Région Grand Est Compétitivité (jusqu'à 70 %), Pionniers IA</li>
-    </ul>
-  </article>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🤝</div>
+              <div class="exec-takeaway-content">
+                <strong>Augmentation, pas remplacement total.</strong> Vision IA en première ligne capte 95-99 % des cas, opérateur tranche les ~1 % d'ambigus. Le contrôle augmenté bat à la fois le tout-humain et le tout-IA.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📸</div>
+              <div class="exec-takeaway-content">
+                <strong>Dataset = talon d'Achille.</strong> Plusieurs milliers d'images annotées par catégorie de défaut. Pour défauts rares : génération synthétique ou production volontaire de pièces défectueuses.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💡</div>
+              <div class="exec-takeaway-content">
+                <strong>L'éclairage compte autant que la caméra.</strong> Éclairage technique fixe et fermé, zone isolée des perturbations. Sous-estimer cet aspect dégrade massivement la performance en exploitation.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💰</div>
+              <div class="exec-takeaway-content">
+                <strong>Cofinancement public 50-70 %.</strong> Région Grand Est Compétitivité + DECARB IND + Pionniers IA. Investissement net pour une ETI : 30-80 K€ sur 100-200 K€ total.
+              </div>
+            </div>
+          </div>
 
-  <section class="case-study" id="case-study">
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité industrielle</div>
-      <p style="margin-bottom:0;">Conçu pour les ETI ou grands sites de production. Coche ce qui correspond à ta situation industrielle.</p>
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">95-99 %</div>
+              <div class="exec-stat-label">Taux de détection</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">−30 à −50 %</div>
+              <div class="exec-stat-label">Coût qualité</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">12-18 mois</div>
+              <div class="exec-stat-label">ROI ETI ligne moyenne</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">45 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une production en série continue (papier, bois, textile, plasturgie, agroalimentaire) à 10+ pièces/min ; ton coût qualité est significatif (3+ ETP de contrôle, rebuts non maîtrisés) ; tu as un PLC en place avec OPC UA ou équivalent ; tu peux mobiliser 50-200 K€ d'investissement avec cofinancement public ; tu acceptes une phase de constitution dataset et shadow mode (4-8 semaines minimum).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — 4 limites structurelles du contrôle humain</h2>
+        </div>
+
+        <p>
+          Le contrôle qualité humain a quatre limites structurelles qui s'imposent à toute industrie de production en série. <strong>La vitesse de cadence</strong> : un opérateur ne tient pas le rythme d'une ligne moderne au-delà de quelques secondes par pièce — au-delà, c'est la qualité du contrôle qui s'effondre, pas la vitesse de la ligne. <strong>La fatigue</strong> : les études ergonomiques convergent — la qualité du contrôle visuel se dégrade significativement en fin de poste, particulièrement sur les défauts mineurs ou rares. <strong>La subjectivité</strong> : deux opérateurs notent différemment les mêmes pièces selon leur expérience, leur formation, leur état du moment. <strong>Le coût</strong> : un poste de contrôle qualité à plein temps = 35 à 60 K€ par an, multipliés par le nombre de lignes et de postes.
+        </p>
+        <p>
+          Le contrôle par vision IA adresse ces quatre limites simultanément. Cadences de 100 à 1000 pièces/seconde possibles selon le process, régularité 24/7 sans dégradation, objectivité absolue (le modèle note toujours pareil), réduction du coût qualité de 30 à 50 % en régime stabilisé. <strong>L'approche pragmatique n'est pas le remplacement total mais l'augmentation</strong> : la vision IA en première ligne capte 95-99 % des cas, et un opérateur tranche sur les ~1 % de cas ambigus signalés par le modèle. Sauf sur les très grandes séries où le full-auto se justifie économiquement.
+        </p>
+
+        <div class="pull-quote">
+          Le contrôle qualité par vision IA n'est pas un sujet technologique nouveau — il existe depuis 20 ans dans l'industrie lourde via des systèmes Cognex ou Keyence. Ce qui change avec l'IA générative et les modèles de vision moderne (deep learning), c'est que <strong>le pattern devient accessible aux PME et ETI</strong> sur des défauts complexes auparavant difficiles à automatiser.
+        </div>
+
+        <p>
+          C'est un cas pivot pour l'ensemble du tissu industriel vosgien. Avec un ROI typique en 12-18 mois pour les ETI, c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie.
+        </p>
+
+        <div class="roi-box">
+          <h3>📊 ROI documenté (industrie 4.0, retours sectoriels 2025)</h3>
+          <p style="margin: 0 0 var(--space-3);">Les organisations industrielles qui ont déployé la vision IA sur leurs lignes critiques rapportent les gains suivants en régime stabilisé :</p>
+          <div class="roi-meta">
+            <div class="roi-item">
+              <div class="roi-num">95-99 %</div>
+              <div class="roi-label">Taux de détection</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">&lt; 1 %</div>
+              <div class="roi-label">Faux rejets</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">−30 à −50 %</div>
+              <div class="roi-label">Coût qualité</div>
+            </div>
+            <div class="roi-item">
+              <div class="roi-num">12-18 mois</div>
+              <div class="roi-label">ROI ETI ligne moyenne</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. FILIÈRES APPLICABLES -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Toutes les filières industrielles vosgiennes y trouvent un usage</h2>
+        </div>
+
+        <p>
+          Le pattern est largement transposable. Toutes les filières industrielles du tissu vosgien peuvent y trouver un usage rentable dès lors que la production est en série et que la qualité visuelle est un enjeu :
+        </p>
+
+        <div class="filieres-grid">
+          <div class="filiere-card">
+            <div class="filiere-card-icon">📜</div>
+            <div class="filiere-card-title">Papier & cartonnage</div>
+            <div class="filiere-card-desc">Détection défauts sur bobines : déchirures, taches, plis, déviations colorimétriques, à 30-50 m/min.</div>
+            <div class="filiere-card-examples">Caméra ligne haute fréquence + éclairage UV ou IR pour défauts non visibles</div>
+          </div>
+          <div class="filiere-card">
+            <div class="filiere-card-icon">🪵</div>
+            <div class="filiere-card-title">Bois & panneaux</div>
+            <div class="filiere-card-desc">Contrôle de surface, détection de nœuds, fissures, déformations, classement qualité.</div>
+            <div class="filiere-card-examples">Caméra couleur + IR pour détection humidité, modèles deep learning sur essences</div>
+          </div>
+          <div class="filiere-card">
+            <div class="filiere-card-icon">🧵</div>
+            <div class="filiere-card-title">Textile</div>
+            <div class="filiere-card-desc">Détection défauts de tissage, contamination fibres, déviations colorimétriques, contrôle motif.</div>
+            <div class="filiere-card-examples">Caméra haute résolution + éclairage rasant pour mettre en évidence les défauts de surface</div>
+          </div>
+          <div class="filiere-card">
+            <div class="filiere-card-icon">🥐</div>
+            <div class="filiere-card-title">Agroalimentaire</div>
+            <div class="filiere-card-desc">Tri optique (calibre, couleur), détection corps étrangers, contrôle conditionnement.</div>
+            <div class="filiere-card-examples">Caméra hyperspectrale pour détection composition, vision 3D pour calibrage</div>
+          </div>
+          <div class="filiere-card">
+            <div class="filiere-card-icon">🛠️</div>
+            <div class="filiere-card-title">Plasturgie</div>
+            <div class="filiere-card-desc">Contrôle dimensionnel, détection bavures, rebut, défauts de moulage.</div>
+            <div class="filiere-card-examples">Vision 3D + mesure laser pour précision dimensionnelle micro</div>
+          </div>
+          <div class="filiere-card">
+            <div class="filiere-card-icon">🌾</div>
+            <div class="filiere-card-title">Agriculture (variante)</div>
+            <div class="filiere-card-desc">Drones avec caméra IA : repérage parcelles, détection maladies, comptage cultures.</div>
+            <div class="filiere-card-examples">Drone DJI + Pix4D + modèles vision custom — agriculture de précision</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture de référence</h2>
+        </div>
+
+        <p>
+          Pipeline temps réel : pièce sur ligne → capture caméra → inférence vision IA → verdict tranché en 3 issues (OK/NOK/AMBIGU). Intégration PLC/MES pour pilotage automatique. Boucle d'apprentissage continue sur les cas ambigus.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar17" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar17green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+              <marker id="ar17red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#C82A2A"/>
+              </marker>
+            </defs>
+
+            <!-- Pièce sur ligne -->
+            <rect x="20" y="40" width="160" height="80" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="100" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — PIÈCE</text>
+            <text x="100" y="85" text-anchor="middle" font-size="11" fill="#333">Sur ligne / convoyeur</text>
+            <text x="100" y="100" text-anchor="middle" font-size="11" fill="#333">Cadence : 100-1000/sec</text>
+
+            <!-- Capture image -->
+            <rect x="200" y="40" width="160" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="280" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">2 — CAPTURE</text>
+            <text x="280" y="85" text-anchor="middle" font-size="11" fill="#333">Caméra industrielle</text>
+            <text x="280" y="100" text-anchor="middle" font-size="11" fill="#333">+ éclairage maîtrisé</text>
+
+            <!-- Inférence IA -->
+            <rect x="380" y="40" width="160" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="460" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">3 — INFÉRENCE</text>
+            <text x="460" y="85" text-anchor="middle" font-size="11" fill="white">Modèle vision deep</text>
+            <text x="460" y="100" text-anchor="middle" font-size="11" fill="white">Edge computing</text>
+
+            <!-- Verdict -->
+            <rect x="560" y="40" width="160" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="3"/>
+            <text x="640" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">4 — VERDICT</text>
+            <text x="640" y="85" text-anchor="middle" font-size="11" fill="#333">OK / NOK / AMBIGU</text>
+            <text x="640" y="100" text-anchor="middle" font-size="11" fill="#333">+ catégorie défaut</text>
+
+            <!-- 3 issues -->
+            <rect x="20" y="180" width="220" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="130" y="205" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">A — PIÈCE OK</text>
+            <text x="130" y="228" text-anchor="middle" font-size="11" fill="#333">Continue sur la ligne</text>
+            <text x="130" y="245" text-anchor="middle" font-size="11" fill="#333">~95-99 % du flux</text>
+
+            <rect x="270" y="180" width="220" height="80" rx="12" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="380" y="205" text-anchor="middle" font-size="13" font-weight="700" fill="#8C1A1A">B — PIÈCE NOK</text>
+            <text x="380" y="228" text-anchor="middle" font-size="11" fill="#333">Éjection automatique</text>
+            <text x="380" y="245" text-anchor="middle" font-size="11" fill="#333">+ marquage / alerte</text>
+
+            <rect x="520" y="180" width="220" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="630" y="205" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">C — AMBIGU</text>
+            <text x="630" y="228" text-anchor="middle" font-size="11" fill="#333">Validation opérateur</text>
+            <text x="630" y="245" text-anchor="middle" font-size="11" fill="#333">~1 % du flux</text>
+
+            <!-- PLC/MES -->
+            <rect x="100" y="320" width="500" height="60" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="350" y="345" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">INTÉGRATION PLC / MES</text>
+            <text x="350" y="365" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Synchronisation avec automate ligne et système exécution production</text>
+
+            <!-- Boucle apprentissage -->
+            <rect x="660" y="320" width="240" height="60" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="780" y="345" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">BOUCLE APPRENTISSAGE</text>
+            <text x="780" y="365" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Cas ambigus → enrichissement dataset</text>
+
+            <!-- Flèches -->
+            <line x1="180" y1="80" x2="198" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar17)"/>
+            <line x1="360" y1="80" x2="378" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar17)"/>
+            <line x1="540" y1="80" x2="558" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar17)"/>
+
+            <line x1="640" y1="120" x2="200" y2="178" stroke="#5C8C5C" stroke-width="2" marker-end="url(#ar17green)"/>
+            <line x1="640" y1="120" x2="380" y2="178" stroke="#C82A2A" stroke-width="2" marker-end="url(#ar17red)"/>
+            <line x1="640" y1="120" x2="630" y2="178" stroke="#B86E1A" stroke-width="2" marker-end="url(#ar17)"/>
+
+            <line x1="130" y1="260" x2="200" y2="318" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar17)"/>
+            <line x1="380" y1="260" x2="380" y2="318" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar17)"/>
+            <line x1="630" y1="260" x2="700" y2="318" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar17)"/>
+
+            <text x="450" y="430" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Pipeline temps réel : capture → inférence → verdict avec 3 issues, intégration PLC/MES pour pilotage ligne, boucle apprentissage continue</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline complet : pièce sur ligne → capture caméra → inférence vision IA → verdict tranché en 3 issues (OK/NOK/AMBIGU). Intégration PLC/MES pour pilotage automatique. Boucle apprentissage sur les cas ambigus.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Choisir la ligne et les types de défauts à détecter.</strong> Cartographier les défauts qualité actuels et leur fréquence : quels défauts coûtent le plus (en rebut, en retours clients, en réputation), lesquels sont les plus difficiles à détecter par l'humain. Démarrer sur 1 ligne pivot et 5 à 10 catégories de défauts max — ne pas viser l'exhaustivité au démarrage.</li>
+          <li><strong>Sélectionner les capteurs et l'éclairage.</strong> Choix critique car il conditionne la qualité du dataset. <strong>Caméra couleur standard</strong> pour défauts visibles classiques (taches, déchirures), <strong>caméra hyperspectrale</strong> pour défauts non visibles (composition, humidité, températures), <strong>caméra ligne haute fréquence</strong> pour les flux continus (bobines, panneaux), <strong>vision 3D</strong> pour les contrôles dimensionnels précis. L'éclairage est aussi important que la caméra : éclairage rasant pour les défauts de surface, éclairage diffus pour minimiser les ombres, UV/IR pour défauts non visibles à l'œil.</li>
+          <li><strong>Constituer le dataset d'entraînement.</strong> Le talon d'Achille du déploiement. Pour chaque catégorie de défaut, viser <strong>plusieurs centaines à plusieurs milliers d'images annotées</strong>. Pour les défauts rares (1 sur 10 000 pièces), trois approches : collecte longue durée (plusieurs mois), génération synthétique par augmentation de données, génération de défauts artificiels en conditions contrôlées (production volontaire de pièces défectueuses pour la base d'apprentissage).</li>
+          <li><strong>Entraîner et valider les modèles.</strong> Pour la vision industrielle, modèles deep learning de référence : <strong>YOLO</strong> pour la détection multi-classes en temps réel, <strong>Mask R-CNN</strong> pour la segmentation précise des défauts, <strong>EfficientNet</strong> ou <strong>Vision Transformers</strong> pour la classification fine. Pour les ETI sans équipe data, les solutions du marché (Cognex VisionPro Deep Learning, Landing AI) proposent des modèles pré-entraînés à fine-tuner sur le dataset de l'industriel.</li>
+          <li><strong>Déployer en edge computing.</strong> L'inférence doit être ultra-rapide (millisecondes) pour suivre la cadence de ligne. Calculateur edge type <strong>NVIDIA Jetson</strong> ou GPU serveur on-site pour latence minimale. Cloud distant exclu pour les analyses temps réel critiques. Le modèle tourne en local, l'envoi cloud ne concerne que les données agrégées et le ré-entraînement périodique.</li>
+          <li><strong>Intégrer au flux de production.</strong> Connexion au PLC (automate programmable industriel) via protocoles OPC UA, Modbus ou Profinet pour déclencher les actions automatiques : éjection mécanique de la pièce NOK, marquage des cas AMBIGU, alerte à l'opérateur, ralentissement de ligne si taux de défauts dérive. Connexion au MES (Manufacturing Execution System) pour traçabilité et reporting qualité.</li>
+          <li><strong>Calibrer en shadow mode puis production progressive.</strong> 4-8 semaines de shadow mode obligatoires : le modèle alerte mais ne déclenche pas l'éjection automatique — ses sorties sont confrontées au contrôle humain pour calibrer la précision. Une fois la précision validée (&gt;95 % sur les défauts critiques), basculement en mode production avec garde-fous sur le taux de rejet (alerte si dépassement de seuil anormal).</li>
+          <li><strong>Activer la boucle d'amélioration continue.</strong> Les pièces classées AMBIGU sont validées par un opérateur, ce qui enrichit le dataset d'entraînement. Les nouveaux types de défauts détectés au fil du temps sont ajoutés. Re-calibration trimestrielle ou semestrielle pour maintenir la performance face au drift du process.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK TECHNIQUE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Couche capture ─┐</strong>
+   Caméras industrielles (Basler, IDS, Cognex)
+   Selon défaut : couleur · hyperspectrale · ligne · 3D
+   + Éclairage technique maîtrisé (rasant, diffus, UV/IR)
+
+<strong>┌─ Couche inférence ─┐</strong>
+   Edge computing (NVIDIA Jetson, GPU serveur on-site)
+   Latence millisecondes pour suivre cadence ligne
+   Modèles deep learning : YOLO, Mask R-CNN, ViT
+
+<strong>┌─ Couche décision ─┐</strong>
+   Verdict OK / NOK / AMBIGU + catégorie défaut
+   Seuils différenciés par criticité défaut
+   Logging traçabilité MES + dashboard supervision
+
+<strong>┌─ Couche intégration ligne ─┐</strong>
+   PLC (Siemens, Schneider, Rockwell) via OPC UA / Modbus / Profinet
+   Action automatique : éjection · marquage · alerte · ralentissement
+   MES intégré pour reporting qualité
+
+<strong>┌─ Couche apprentissage continu ─┐</strong>
+   Cas ambigus → annotation opérateur → enrichissement dataset
+   Re-calibration trimestrielle / semestrielle
+   Monitoring drift performance modèle
+        </div>
+
+        <h3>Solutions commerciales spécialisées</h3>
+        <p>
+          <strong>Cognex VisionPro Deep Learning</strong> et <strong>Keyence</strong> sont les références historiques sur le marché industriel — solutions complètes (caméras + logiciel + intégration), bien maîtrisées par les intégrateurs locaux. <strong>Landing AI</strong> (fondé par Andrew Ng) et <strong>Neurala</strong> proposent des plateformes IA modernes orientées entraînement rapide sur datasets propres à l'industriel. Côté français : <strong>Pollen Robotics</strong> et <strong>Wisecode</strong> proposent des alternatives nationales avec une bonne couverture du marché ETI.
+        </p>
+
+        <h3>Cloud pre-built (cas génériques)</h3>
+        <p>
+          <strong>AWS Rekognition</strong>, <strong>Azure Computer Vision</strong> et <strong>Google Vision</strong> sont des options pour des cas génériques (reconnaissance d'objets standards, classification simple). Moins adaptés aux défauts industriels spécifiques qui demandent un fine-tuning sur dataset propre. À utiliser pour les usages adjacents (sécurité, comptage, identification produits) plutôt que pour le contrôle qualité ligne pur.
+        </p>
+
+        <h3>Custom open source pour les déploiements souverains</h3>
+        <p>
+          Pour les ETI qui veulent garder la maîtrise totale ou qui ont des cas très spécifiques : <strong>YOLO</strong> (You Only Look Once) pour la détection en temps réel, <strong>MMDetection</strong> pour les frameworks de détection avancés, <strong>PyTorch</strong> ou <strong>TensorFlow</strong> pour les modèles custom. Demande équipe data ou prestataire spécialisé. <strong>Mistral Forge</strong> peut être pertinent pour fine-tuner un modèle sur un dataset propre avec garantie de souveraineté.
+        </p>
+
+        <h3>Hardware industriel</h3>
+        <p>
+          Caméras : <strong>Basler</strong> et <strong>IDS</strong> sont les références industrielles, avec gamme couvrant tous les besoins (couleur, monochrome, ligne, 3D, hyperspectrale). Calculateurs edge : <strong>NVIDIA Jetson</strong> (Xavier, Orin) pour les déploiements compacts, GPU serveur on-site pour les volumes importants. Éclairage technique : fournisseurs spécialisés (CCS, Smart Vision Lights, Effilux pour le marché français).
+        </p>
+
+        <h3>Partenaires d'intégration sur le territoire</h3>
+        <p>
+          Pour les industriels vosgiens : <strong>NIN-IA</strong> (alumni QFC) accompagne les déploiements accessibles, <strong>Atsora Solutions</strong> (alumni QFC) couvre les cas plus complexes orientés supervision process. Centres techniques locaux : <strong>CRITT Bois</strong>, <strong>IUT Hubert Curien</strong>, <strong>ENSTIB</strong> peuvent accompagner sur la R&D filière bois. <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orienter et accompagner les projets.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Dataset d'images annotées (typiquement plusieurs milliers d'images par catégorie de défaut). Conditions d'éclairage et de positionnement maîtrisées (la qualité du dataset dépend totalement de cette maîtrise). Intégration au flux de production existant (PLC, MES) — pas un système isolé. Investissement matériel significatif : 30 à 200 K€ pour un système robuste et calibré, hors d'atteinte des TPE, accessible aux PME et ETI avec cofinancement public.
+        </p>
+      </section>
+
+      <!-- 6. FINANCEMENTS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">6</div>
+          <h2 class="module-section-title">Dispositifs de financement mobilisables</h2>
+        </div>
+
+        <div class="funding-box">
+          <h3>💰 Cofinancement public jusqu'à 50-70 %</h3>
+          <p style="margin: 0 0 var(--space-3);">La vision IA en contrôle qualité est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement attractifs pour les ETI vosgiennes :</p>
+          <ul>
+            <li><strong>Région Grand Est Compétitivité</strong> — soutien à la transformation digitale industrielle, taux de financement client final pouvant atteindre 70 % selon montant et impact territorial.</li>
+            <li><strong>DECARB IND (France 2030)</strong> — la vision IA réduit indirectement l'empreinte carbone via réduction des rebuts et amélioration du rendement matière. Subvention jusqu'à 30 % HT.</li>
+            <li><strong>Première Usine (France 2030)</strong> — pour les nouveaux sites industriels intégrant l'IA dès la conception. Cofinancement jusqu'à 40 % HT.</li>
+            <li><strong>Pionniers IA (Bpifrance)</strong> — bourse d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
+            <li><strong>CIR / CII</strong> — sur la partie R&D et innovation du déploiement (modélisation custom, capteurs spécifiques, intégration avancée).</li>
+          </ul>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu vosgien, le cumul Région Grand Est Compétitivité + DECARB IND + Pionniers IA permet typiquement d'atteindre 60-70 % de cofinancement public, avec accompagnement possible par un Startup Manager du réseau Quest for Change ou un consultant en ingénierie financière.</em></p>
+        </div>
+      </section>
+
+      <!-- 7. TROUBLESHOOTING -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Performance modèle qui s'effondre quand l'éclairage change</td>
+                <td>Conditions de capture instables (lumière naturelle, vibration, poussière sur optique)</td>
+                <td>Investir dans un éclairage technique fixe et fermé, isoler la zone de capture des perturbations extérieures, planifier nettoyage régulier des optiques. La qualité du dataset = qualité de la capture.</td>
+              </tr>
+              <tr>
+                <td>Trop de faux rejets (pièces conformes classées défectueuses)</td>
+                <td>Seuils trop sensibles ou dataset déséquilibré (sur-représentation des défauts)</td>
+                <td>Rééquilibrer le dataset (ratio cohérent OK / NOK), ajuster les seuils par catégorie de défaut selon la criticité. Mesurer la matrice de confusion par classe pour cibler les ajustements.</td>
+              </tr>
+              <tr>
+                <td>Défauts rares non détectés (faux négatifs critiques)</td>
+                <td>Dataset insuffisant sur ces catégories, sous-représentation</td>
+                <td>Génération synthétique de défauts (augmentation de données, génération artificielle en conditions contrôlées), collecte ciblée sur les défauts manquants. Pour 1 sur 10 000 pièces, générer artificiellement 200-500 exemples.</td>
+              </tr>
+              <tr>
+                <td>Modèle qui se dégrade après 6-12 mois</td>
+                <td>Drift du process (nouvelle matière première, changement de paramètres, nouvelle gamme produit)</td>
+                <td>Re-calibration trimestrielle obligatoire, ré-entraînement avec données fraîches, monitoring du drift des features. Si dérive forte, repartir d'un dataset frais sur le nouveau process.</td>
+              </tr>
+              <tr>
+                <td>Latence trop élevée pour la cadence de ligne</td>
+                <td>Inférence en cloud distant ou modèle trop lourd pour edge</td>
+                <td>Basculer impérativement en edge computing (NVIDIA Jetson on-site). Optimiser le modèle (quantization, pruning, distillation) pour atteindre les performances temps réel exigées.</td>
+              </tr>
+              <tr>
+                <td>Intégration PLC échoue (verdict ne déclenche pas action)</td>
+                <td>Protocole communication mal configuré ou timing incompatible</td>
+                <td>Standardiser sur OPC UA pour les protocoles modernes, tester la communication avec un automaticien dès le début du projet. Un défaut de communication PLC peut bloquer toute la valeur du système.</td>
+              </tr>
+              <tr>
+                <td>Adoption résistante par les opérateurs ("on contrôlait mieux avant")</td>
+                <td>Pas de co-construction avec les équipes ligne, déploiement top-down</td>
+                <td>Impliquer les opérateurs qualité dès la cartographie des défauts (leur expertise terrain est cruciale). Communiquer les premiers succès (défauts détectés que l'humain aurait raté). Garder l'opérateur valorisé sur les cas AMBIGU et le pilotage qualité global.</td>
+              </tr>
+              <tr>
+                <td>Coût de stockage qui dérape (To/jour d'images haute résolution)</td>
+                <td>Conservation systématique de toutes les images sans politique de rétention</td>
+                <td>Stratégie de rétention différenciée : conservation longue des images NOK et AMBIGU (utiles pour ré-entraînement), suppression rapide des OK (sauf échantillons pour traçabilité). Ratio typique : conserver 10-20 % du flux, supprimer le reste.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. ÉTUDE DE CAS -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">8</div>
+          <h2 class="module-section-title">Étude de cas — PanneauxCo, fabricant panneaux bois 180 personnes</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste, inspirée du tissu industriel bois vosgien. 5 étapes décortiquées sur un déploiement de 14 mois. Compte 70 minutes pour assimiler en profondeur, ou 25 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">PanneauxCo — fabricant de panneaux bois techniques de 180 personnes, 1 ligne de production en continu. Cadence de 30-40 panneaux/min, contrôle qualité en sortie de ligne par 3 opérateurs en équipe (3×8). Défauts récurrents : nœuds mal positionnés, fissures, déformations, défauts colorimétriques. Coût qualité actuel : 3 ETP qualité + ~450 K€/an de rebuts et retours clients liés à des défauts non détectés. Ambition : passer en contrôle qualité augmenté par vision IA pour récupérer 70 % du coût qualité.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>180 personnes</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cadence ligne</div>
+              <strong>30-40/min</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Coût qualité actuel</div>
+              <strong>~600 K€/an</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cible récupération</div>
+              <strong>70 %</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cartographier les défauts et monter le dossier de financement (mois 1-2)</h3>
+            <p>Le directeur de production, le responsable qualité et le chef de ligne identifient ensemble 8 catégories de défauts critiques : nœuds mal positionnés (40 % des cas), fissures de surface (25 %), déformations (15 %), défauts colorimétriques (10 %), 4 catégories rares (10 % cumul). Pour chaque catégorie, historique des 3 dernières années consolidé via leur GPAO. En parallèle, montage d'un dossier de cofinancement Région Grand Est Compétitivité + Pionniers IA + DECARB IND avec un consultant. Sélection de NIN-IA comme partenaire d'intégration après benchmark de 4 prestataires (avec étape démo sur quelques échantillons).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — atelier équipe + extraction GPAO + dossiers financement
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              8 catégories de défauts cartographiées avec fréquence et coût associé. Cofinancement public obtenu : 65 % du déploiement total (Région Grand Est 50 % + Pionniers IA 15 %). Investissement net pour PanneauxCo : ~50 K€ sur 145 K€ total.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Installer le matériel et collecter le dataset (mois 3-7)</h3>
+            <p>Installation par NIN-IA d'un système vision en sortie de ligne : 2 caméras Basler haute résolution couleur (face supérieure et inférieure), 1 caméra hyperspectrale pour défauts de composition non visibles, éclairage rasant fixe pour mettre en évidence les défauts de surface. Calculateur edge NVIDIA Jetson Orin pour inférence temps réel. <strong>Phase critique : 5 mois de collecte du dataset</strong> — annotation par les 3 opérateurs qualité de 12 000 panneaux passés sur la ligne, pour constituer une base d'entraînement représentative.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              2× Basler ace 5MP + 1× hyperspectrale Specim + éclairage Effilux + NVIDIA Jetson Orin → outil d'annotation custom NIN-IA → dataset 12 000 images annotées par catégorie
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Dataset constitué : 12 000 panneaux annotés, dont 8 500 OK et 3 500 NOK répartis sur les 8 catégories. Pour les 4 catégories rares, génération synthétique d'augmentation de données pour atteindre 200-500 exemples chacune. Coût matériel + installation : 75 K€.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Entraîner les modèles et déployer en shadow mode (mois 8-10)</h3>
+            <p>NIN-IA entraîne deux modèles complémentaires : YOLO v9 pour la détection multi-classes en temps réel (latence cible &lt;100 ms), et un modèle EfficientNet pour la classification fine sur les cas ambigus identifiés par YOLO. Approche cascade : YOLO trie 95 % du flux en quelques ms, EfficientNet tranche les 5 % d'ambigus en 50 ms. Déploiement en <strong>shadow mode pendant 6 semaines</strong> : le système alerte mais aucune éjection automatique — confrontation systématique aux verdicts des opérateurs qualité.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              YOLO v9 fine-tuné sur dataset PanneauxCo + EfficientNet pour classification fine → cascade décisionnelle → logging temps réel → dashboard supervision Grafana
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Sur 6 semaines de shadow mode : ~85 000 panneaux analysés, taux de détection global 93 % (au-dessus du seuil 90 % visé pour shadow mode), faux rejets 1.8 %. Calibrage des seuils par catégorie de défaut. Re-entraînement avec les corrections opérateurs.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Passer en production augmentée (mois 11-13)</h3>
+            <p>Après validation shadow mode, passage en production avec mode augmenté : verdict OK envoie le panneau sur la ligne suivante automatiquement, verdict NOK déclenche éjection automatique, verdict AMBIGU déclenche alerte à l'opérateur qualité (sur tablette tactile en bord de ligne) qui tranche en quelques secondes. Intégration au PLC Siemens via OPC UA, intégration MES pour traçabilité. <strong>Réduction progressive des effectifs qualité</strong> : passage de 3 ETP à 1.5 ETP (1 opérateur en équipe sur les cas AMBIGU + supervision dashboard), les 1.5 ETP libérés repositionnés sur des activités à plus forte valeur (R&D produit, amélioration continue).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Production stable → intégration PLC Siemens via OPC UA → MES connecté → tablette opérateur en bord de ligne pour cas AMBIGU → dashboard supervision direction
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Précision en production : 96.5 % de détection sur 3 mois, 0.8 % de faux rejets. Coût qualité passé de ~600 K€/an à ~280 K€/an (1.5 ETP + maintenance modèle + rebuts résiduels). <strong>Économie nette : ~320 K€/an</strong>. Adoption opérateurs réussie grâce à l'implication dès le mois 1 et au repositionnement valorisant des ETP libérés.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Régime stabilisé et bilan 14 mois (mois 14+)</h3>
+            <p>Le système entre en régime de croisière. Maintenance ~2 jours/mois pour le responsable qualité (revue dashboard, retraitement cas ambigus, reporting direction) et ~3 jours/trimestre pour NIN-IA (re-calibration, ajout nouveaux types de défauts, optimisation modèle). Sur les 4 derniers mois : retours clients liés aux défauts qualité <strong>divisés par 4</strong>, taux de rebut interne <strong>divisé par 3</strong>. Décision direction : extension du dispositif à une 2e ligne en planification pour 2027, et étude pour une variante R&D sur un nouveau type de panneau composite.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Système stable → re-calibration trimestrielle → reporting mensuel direction → réflexion extension 2e ligne 2027
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              ROI sur 14 mois : ~370 K€ d'économies cumulées vs 50 K€ d'investissement net. ROI atteint en 8 mois (vs 12-18 visés). Précision en régime stabilisé : 97.5 %. Décision : extension à 2e ligne en 2027 + nouveau cas R&D composite.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 14 mois</div>
+          <p>
+            PanneauxCo est passée d'un coût qualité de ~600 K€/an à ~280 K€/an, pour un investissement net de 50 K€ après cofinancement public à 65 %. ROI atteint en 8 mois sur le périmètre instrumenté. <strong>Plus important : un changement de positionnement des ressources humaines qualité</strong> — passage du « contrôle visuel répétitif » à « pilotage qualité stratégique + R&D ». Le contrôle augmenté (vision IA + opérateur sur cas AMBIGU) s'est révélé plus performant que le tout-humain (97.5 % vs ~92 % précision opérateur en moyenne) et que le tout-IA (perte de qualité sur les cas ambigus ou les nouveaux types de défauts).
+          </p>
+        </div>
+      </section>
+
+      <!-- 9. PIÈGES -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">9</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Démarrer sans dataset suffisant</h3>
+        <p>
+          Le talon d'Achille du déploiement : entraîner un modèle sur un dataset insuffisant produit un système qui rate les défauts critiques en production. <strong>Pour chaque catégorie de défaut, viser plusieurs centaines à plusieurs milliers d'images annotées</strong>. Pour les défauts rares (1 sur 10 000 pièces), prévoir explicitement une stratégie : collecte longue durée (mois), génération synthétique, ou production volontaire de pièces défectueuses pour la base d'apprentissage. Sauter cette étape compromet tout le reste.
+        </p>
+
+        <h3>Sous-estimer la maîtrise de l'éclairage</h3>
+        <p>
+          L'éclairage est aussi important que la caméra. Un éclairage instable (lumière naturelle, vibrations, poussière sur optique) dégrade massivement la performance du modèle. <strong>Investir dans un éclairage technique fixe et fermé, isoler la zone de capture des perturbations extérieures</strong>. Les industriels qui négligent cet aspect voient leurs performances chuter en exploitation, sans comprendre pourquoi. Souvent, refaire l'installation lumière coûte plus cher après coup que de bien la concevoir au départ.
+        </p>
+
+        <h3>Drift et dégradation du modèle</h3>
+        <p>
+          Quand le process évolue (nouvelle matière première, changement de paramètres machine, nouvelle gamme produit), le modèle peut perdre en performance silencieusement — sans erreur visible, mais avec un taux de détection qui dérive. <strong>Re-calibration trimestrielle obligatoire</strong>, monitoring du drift des distributions des features, ré-entraînement périodique avec données fraîches. Si dérive forte (changement majeur de produit ou process), repartir d'un dataset frais.
+        </p>
+
+        <h3>L'intégration PLC, point bloquant fréquent</h3>
+        <p>
+          Le système peut produire les meilleurs verdicts du monde — s'il ne pilote pas effectivement la ligne (éjection, marquage, alerte), il ne crée aucune valeur. <strong>Standardiser sur OPC UA pour les protocoles modernes</strong>, tester la communication avec un automaticien dès le début du projet, ne pas reporter cette intégration en fin de déploiement. Les industriels qui découvrent l'incompatibilité PLC/vision IA en fin de projet ont des semaines voire des mois de retard.
+        </p>
+
+        <h3>Adoption opérateurs résistante</h3>
+        <p>
+          Un système déployé top-down sans co-construction est presque toujours rejeté ou contourné. <strong>Impliquer les opérateurs qualité et chefs de ligne dès la cartographie des défauts</strong> — leur expertise terrain est cruciale pour identifier les vrais défauts critiques, les bons éclairages, les bons seuils. Communiquer les premiers succès en interne (« le système a détecté ce défaut que personne n'aurait vu »). Penser le repositionnement des ETP libérés sur des activités valorisantes (R&D produit, amélioration continue, supervision qualité globale) plutôt que sur la suppression sèche.
+        </p>
+
+        <h3>Coûts cachés d'infrastructure</h3>
+        <p>
+          L'investissement initial visible (caméras 20-50 K€, calculateur 5-15 K€, intégration 10-50 K€, modélisation 30-100 K€). Les coûts récurrents souvent sous-estimés : maintenance hardware (caméras, éclairage), re-calibration périodique, support intégrateur, infrastructure cloud pour stockage et ré-entraînement. <strong>Budget annuel récurrent typique : 15-25 % de l'investissement initial</strong>. À anticiper dans le business case et dans les conditions du contrat avec l'intégrateur.
+        </p>
+      </section>
+
+      <!-- 10. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">10</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité à déployer un système de contrôle qualité par vision IA. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le déploiement est voué à l'échec) et <strong>critères de qualité</strong> (qui conditionnent le ROI). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Volume de production suffisant pour amortir le setup</strong>
+                  <small>Minimum ~500 000 pièces/an ou cadence ≥10 pièces/min en production continue. En-dessous, ROI difficile à atteindre.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Capacité à constituer un dataset annoté significatif</strong>
+                  <small>Plusieurs milliers d'images par catégorie de défaut. Pour défauts rares : génération synthétique ou production volontaire de pièces défectueuses.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Conditions d'éclairage et positionnement maîtrisables</strong>
+                  <small>Zone de capture isolable des perturbations extérieures, éclairage technique fixe possible. La qualité du dataset = qualité de la capture.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. PLC en place avec capacités d'intégration (OPC UA, Modbus, Profinet)</strong>
+                  <small>Communication ligne pour déclencher actions automatiques (éjection, marquage, alerte). Sans intégration PLC, la valeur ne se matérialise pas.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Engagement direction et co-construction avec opérateurs qualité</strong>
+                  <small>Sans implication des chefs de ligne et opérateurs qualité dès le départ, adoption compromise.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la performance</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Budget initial mobilisable (50-200 K€)</strong>
+                  <small>Caméras + éclairage + calculateur edge + modélisation + intégration. Cofinancement public possible jusqu'à 50-70 %.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Phase de shadow mode acceptée (4-8 semaines)</strong>
+                  <small>Période obligatoire avant passage en production effective. Modèle alerte sans déclencher action.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Intégrateur spécialisé identifié</strong>
+                  <small>NIN-IA, Atsora Solutions, Cognex, Keyence, Landing AI. Pas de DIY pour ce niveau de complexité industrielle.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Plan de financement cofinancé monté</strong>
+                  <small>Mobilisation Région Grand Est Compétitivité + DECARB IND + Pionniers IA. Cofinancement typique 50-70 %.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Plan de repositionnement des ETP libérés (pas suppression sèche)</strong>
+                  <small>Reposition sur R&D produit, amélioration continue, supervision qualité — adoption sociale et performance globale.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 11. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-11">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">11</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et études</h3>
+          <ul>
+            <li>
+              <a href="https://www.mckinsey.com/industries/advanced-electronics/our-insights" target="_blank" rel="noopener">McKinsey State of AI in Manufacturing 2025</a>
+              <span class="resources-meta">McKinsey — chiffres ROI vision IA industrielle, retours sectoriels documentés</span>
+            </li>
+            <li>
+              <a href="https://www.cognex.com/library" target="_blank" rel="noopener">Cognex Library — vision industrielle</a>
+              <span class="resources-meta">Cognex — référence historique, ressources techniques sur la vision industrielle</span>
+            </li>
+            <li>
+              <a href="https://www.industrie-techno.com" target="_blank" rel="noopener">L'Usine Nouvelle / Industrie & Technologies</a>
+              <span class="resources-meta">Presse française spécialisée — retours d'expérience industriels français</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/manufacturing" target="_blank" rel="noopener">Harvard Business Review — Manufacturing</a>
+              <span class="resources-meta">HBR — implications managériales de la transformation industrielle par l'IA</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=YOLO+industrial+defect+detection+tutorial" target="_blank" rel="noopener">YOLO — détection défauts industriels</a>
+              <span class="resources-meta">YouTube — tutoriels deep learning pour la vision industrielle</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=cognex+visionpro+deep+learning+demo" target="_blank" rel="noopener">Cognex VisionPro Deep Learning — démos</a>
+              <span class="resources-meta">YouTube — solution commerciale référence, retours de déploiement</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=landing+AI+computer+vision+manufacturing" target="_blank" rel="noopener">Landing AI — vision pour manufacturing</a>
+              <span class="resources-meta">YouTube — plateforme moderne d'Andrew Ng, démos sur cas industriels</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle et standards</h3>
+          <ul>
+            <li>
+              <a href="https://docs.ultralytics.com" target="_blank" rel="noopener">YOLO Documentation (Ultralytics)</a>
+              <span class="resources-meta">Documentation référence pour YOLO, modèle de détection en temps réel</span>
+            </li>
+            <li>
+              <a href="https://opencv.org/courses/" target="_blank" rel="noopener">OpenCV — formations vision computer</a>
+              <span class="resources-meta">Bibliothèque référence pour le traitement d'image industriel</span>
+            </li>
+            <li>
+              <a href="https://docs.nvidia.com/jetson/" target="_blank" rel="noopener">NVIDIA Jetson Documentation</a>
+              <span class="resources-meta">Calculateurs edge pour inférence IA temps réel sur ligne industrielle</span>
+            </li>
+            <li>
+              <a href="https://www.basler.com/en/products/" target="_blank" rel="noopener">Basler — caméras industrielles</a>
+              <span class="resources-meta">Référence hardware capteurs industriels</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés et acteurs locaux</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/computervision" target="_blank" rel="noopener">r/computervision sur Reddit</a>
+              <span class="resources-meta">Communauté technique vision computer</span>
+            </li>
+            <li>
+              <a href="https://www.grandest.fr/competitivite-numerique/" target="_blank" rel="noopener">Région Grand Est — Compétitivité</a>
+              <span class="resources-meta">Dispositifs régionaux pour la transformation digitale industrielle</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/nos-actualites" target="_blank" rel="noopener">Bpifrance — Pionniers IA et France 2030</a>
+              <span class="resources-meta">Dispositifs nationaux mobilisables pour le cofinancement</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
+  </footer>
 
-    <div class="checklist">
-      <div class="checklist-section">
-        <h3>1. Prérequis matériels et données</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Lignes de production avec contrôle qualité existant (humain ou basique)</div><div class="checklist-item-desc">Sans contrôle qualité dans le process actuel, l'IA ne peut pas être greffée — elle remplace ou augmente, jamais ne crée le besoin.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Volume de production justifiant l'investissement (>500 K€ annuel produit)</div><div class="checklist-item-desc">ROI 12-18 mois exige un volume minimum.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Conditions d'éclairage et positionnement maîtrisables</div><div class="checklist-item-desc">Si la pièce bouge dans tous les sens sous éclairage variable, la vision IA est plus difficile à fiabiliser.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Capacité à constituer un dataset d'images défauts</div><div class="checklist-item-desc">Plusieurs milliers d'images par catégorie de défaut. Pour défauts rares, accepter une phase de collecte préalable de 6-12 mois.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>2. Compétences et partenaires</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Référent qualité ou production identifié</div><div class="checklist-item-desc">Disponible 4-6h/semaine pour calibrer alertes et valider modèles.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Partenaire d'intégration identifié</div><div class="checklist-item-desc">Atsora Solutions (portefeuille QA), NIN-IA (alumni QFC), ou intégrateur spécialisé Cognex/Keyence.</div></div></label>
-      </div>
-
-      <div class="checklist-section">
-        <h3>3. Conditions financières</h3>
-        <label class="checklist-item"><input type="checkbox" data-weight="2"><div class="checklist-item-content"><div class="checklist-item-title">Budget pluriannuel (50-200 K€) prévu ou candidat à un AAP</div><div class="checklist-item-desc">DECARB IND, Région Grand Est Compétitivité (jusqu'à 70 %), Pionniers IA.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Direction engagée comme sponsor</div><div class="checklist-item-desc">Le passage à l'échelle nécessite un appui hiérarchique fort.</div></div></label>
-        <label class="checklist-item"><input type="checkbox" data-weight="1"><div class="checklist-item-content"><div class="checklist-item-title">Acceptation déploiement progressif (POC sur 1 ligne avant scale)</div><div class="checklist-item-desc">Pas de big bang. Itération sur 12-18 mois minimum.</div></div></label>
-      </div>
-
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité industrielle</button>
-      </div>
-    </div>
-
-    <div class="checklist-summary" id="caseSummary"></div>
-  </section>
-
-  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div><p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p><div class="footer-links"><a href="../index.html#a-propos">À propos</a><a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a></div></div></footer>
-
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-017';
-    function evaluateChecklist() {
-      const cb = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0, scored = 0;
-      cb.forEach(c => { const w = parseInt(c.dataset.weight, 10) || 1; total += w; if (c.checked) scored += w; });
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-      if (percent >= 75) { verdict = '✅ Éligibilité forte — projet structurant possible'; advice = 'Conditions réunies. Prochaine étape : prendre contact avec Atsora Solutions ou un intégrateur spécialisé pour cadrer un POC sur 1 ligne critique. Mobiliser en parallèle un AAP (DECARB IND, Région Compétitivité, Pionniers IA) pour le cofinancement.'; }
-      else if (percent >= 50) { verdict = '⚠️ Maturité partielle — à consolider'; advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Le plus fréquent : dataset d\'images insuffisant ou conditions d\'éclairage instables. Investir 3-6 mois dans la collecte d\'images structurée avant de lancer le projet IA. Le Cluster IA Grand Est ENACT et NIN-IA peuvent accompagner.'; }
-      else { verdict = '🔄 Prérequis à construire'; advice = 'Conditions pour un déploiement direct non réunies. Cela ne signifie pas « jamais » — cela signifie « pas encore ». Étapes : (1) standardiser le contrôle qualité actuel, (2) collecter le dataset images défauts pendant 6-12 mois, (3) revenir à ce module dans 12-18 mois.'; }
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `<h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3><p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p><div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div><p>${advice}</p>`;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, score: scored, total, percent, date: new Date().toISOString() }));
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Volume de production suffisant pour amortir le setup" },
+        { id: 'b2', label: "Capacité à constituer un dataset annoté significatif" },
+        { id: 'b3', label: "Conditions d'éclairage et positionnement maîtrisables" },
+        { id: 'b4', label: "PLC en place avec capacités d'intégration (OPC UA, Modbus, Profinet)" },
+        { id: 'b5', label: "Engagement direction et co-construction avec opérateurs qualité" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Budget initial mobilisable (50-200 K€)" },
+        { id: 'q2', label: "Phase de shadow mode acceptée (4-8 semaines)" },
+        { id: 'q3', label: "Intégrateur spécialisé identifié" },
+        { id: 'q4', label: "Plan de financement cofinancé monté" },
+        { id: 'q5', label: "Plan de repositionnement des ETP libérés (pas suppression sèche)" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Le déploiement vision IA est complexe et coûteux : sans ces fondations, projet voué à l'échec ou à des résultats très en-deçà des attentes. Traiter les gaps avant tout début.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Engager le projet avec un intégrateur reconnu, sur 1 ligne pivot, avec dossier de financement public mobilisé.";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote périmétré possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lancer un pilote très ciblé sur 1-2 catégories de défauts critiques, consolider les fondations en parallèle, élargir ensuite si la valeur est démontrée.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Contrôle qualité par vision IA\n\n`;
+        content += `*Évaluation Hub IA territorial — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-017 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — CONTROLE QUALITE PAR VISION IA\n`;
+        content += `Evaluation Hub IA territorial — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-017 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-controle-qualite-vision.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
+
 </body>
 </html>

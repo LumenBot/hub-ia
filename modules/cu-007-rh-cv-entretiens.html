@@ -3,45 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IA en RH : CV et entretiens — Hub IA territorial</title>
+  <title>CV & entretiens RH — Hub IA territorial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .diagnostic { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .diagnostic h2 { color: var(--color-primary); margin-bottom: var(--space-2); }
-    .diagnostic-intro { color: var(--color-text-soft); margin-bottom: var(--space-5); }
-    .diag-question { margin-bottom: var(--space-6); padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border); }
-    .diag-question:last-of-type { border-bottom: none; }
-    .diag-question-title { font-weight: 600; margin-bottom: var(--space-3); font-size: 1.0625rem; }
-    .diag-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin-bottom: var(--space-2); }
-    .diag-scale label { display: flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); text-align: center; }
-    .diag-scale label:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .diag-scale-num { font-size: 0.75rem; color: var(--color-text-mute); margin-bottom: var(--space-1); }
-    .diag-scale-text { font-size: 0.8125rem; line-height: 1.3; }
-    .diag-textarea { width: 100%; padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-base); font-size: 0.9375rem; resize: vertical; min-height: 80px; }
-    .diag-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
-    .diag-result { margin-top: var(--space-5); padding: var(--space-5); border-radius: var(--radius-md); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-primary-light); display: none; }
-    .diag-result.show { display: block; }
-    .diag-result-section { margin-bottom: var(--space-4); }
-    .diag-result-label { font-weight: 600; color: var(--color-primary-light); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
-    .diag-export-btn { background: white; border: 1px solid var(--color-primary); color: var(--color-primary); }
-    .diag-export-btn:hover { background: var(--color-primary); color: white; }
-    .warning-banner { background: #FFF7E0; border-left: 4px solid var(--color-warning); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: var(--space-5) auto; max-width: var(--max-width-narrow); }
-    .warning-banner-title { font-weight: 700; color: #7A5C20; margin-bottom: var(--space-2); }
+    /* Encarts conformité spécifiques CU-007 */
+    .conformity-block { background: #FFF1F1; border-left: 4px solid #C82A2A; padding: var(--space-4) var(--space-5); border-radius: var(--radius-md); margin: var(--space-4) 0; }
+    .conformity-block h3 { color: #8C1A1A !important; margin-top: 0 !important; }
+    .conformity-block p { margin-bottom: 0; }
   </style>
 </head>
 <body>
 
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <span class="nav-logo">🧭</span>
-        <span class="nav-title">Hub IA territorial</span>
-      </a>
+      <a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
     </div>
@@ -54,250 +38,544 @@
         Retour aux modules
       </a>
       <div class="module-badges">
-        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
         <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
-        <span class="card-badge" style="background:var(--color-warning); color:white;">⚠️ AI Act risque élevé</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min — auto-diagnostic</span>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:#FFE0E0; color:#8C1A1A; border:1px solid #C82A2A; font-weight:700;">⚠️ AI Act risque élevé</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">30 min de lecture</span>
       </div>
-      <h1>👥 IA en RH : CV et entretiens</h1>
+      <h1>👥 CV & entretiens RH</h1>
       <p class="module-subtitle">
-        Industrialiser le screening de CV, la préparation d'entretiens, la rédaction de fiches de poste. Cas d'usage à haut potentiel ROI mais classé <strong>« risque élevé » au sens AI Act</strong> — gouvernance prioritaire.
+        Industrialiser la rédaction des fiches de poste, le tri des CV et la préparation des grilles d'entretien. Cas d'usage à fort gain de temps RH, mais sensible : le règlement européen IA classe l'usage en RH comme « risque élevé » et impose un cadre de gouvernance strict.
       </p>
     </div>
   </header>
 
-  <div class="warning-banner">
-    <div class="warning-banner-title">⚠️ Attention — AI Act risque élevé</div>
-    <p style="margin:0;">
-      Tout usage IA dans les processus de décision RH (recrutement, promotion, sanction, formation imposée) tombe en <strong>« risque élevé »</strong> au sens de l'AI Act européen. Cela implique : documentation rigoureuse, transparence vis-à-vis des candidats, droit à l'explication, recours humain garanti, audit régulier. Ce module est à aborder avec un cadre de gouvernance avant tout déploiement.
-    </p>
-  </div>
-
-  <article class="module-content">
-
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>Quels usages RH sont accessibles immédiatement (génération fiches de poste) versus à risque élevé (screening, scoring)</li>
-      <li>Les obligations AI Act et RGPD applicables</li>
-      <li>Le risque de biais algorithmique et comment l'auditer</li>
-      <li>Les outils gouvernance qui rendent ces usages conformes (EthiqAIS notamment)</li>
-    </ul>
-
-    <h2>Les usages RH IA en 3 niveaux de risque</h2>
-
-    <h3>Niveau 1 — Faible risque (déployable immédiatement)</h3>
-    <ul>
-      <li><strong>Génération de fiches de poste</strong> à partir de descriptions courtes</li>
-      <li><strong>Réécriture d'annonces</strong> pour optimisation lisibilité, inclusivité, attractivité</li>
-      <li><strong>Synthèse d'entretien</strong> à partir de notes prises</li>
-      <li><strong>Préparation de questions d'entretien</strong> adaptées au poste et au candidat</li>
-    </ul>
-
-    <h3>Niveau 2 — Risque modéré (cadre nécessaire)</h3>
-    <ul>
-      <li><strong>Pré-tri de CV</strong> sur des critères objectifs (compétences, expérience, formation) avec validation humaine systématique</li>
-      <li><strong>Suggestion de candidats à recontacter</strong> dans le vivier interne</li>
-      <li><strong>Aide à la rédaction de retours</strong> aux candidats non retenus</li>
-    </ul>
-
-    <h3>Niveau 3 — Risque élevé (AI Act — gouvernance lourde requise)</h3>
-    <ul>
-      <li><strong>Scoring automatique de candidats</strong> avec ordre de classement</li>
-      <li><strong>Analyse de vidéo d'entretien</strong> (HireVue, BrightHire) — particulièrement sensible</li>
-      <li><strong>Décision automatique de rejet ou de promotion</strong></li>
-      <li><strong>Évaluation des compétences</strong> via tests automatisés à enjeu d'embauche</li>
-    </ul>
-
-    <h2>Stack et outils</h2>
-
-    <h3>Plateformes ATS avec IA intégrée</h3>
-    <p>Greenhouse, Lever, Workday avec modules IA. Les modules à risque élevé sont à activer avec discernement.</p>
-
-    <h3>Custom (plus de contrôle)</h3>
-    <p>Claude / GPT-4 + RAG sur descriptifs internes (fiches de poste, valeurs entreprise, grille d'évaluation). Permet de calibrer finement et de garder la main sur la conformité.</p>
-
-    <h3>Gouvernance (cas d'usage critique)</h3>
-    <p><strong>EthiqAIS</strong> (alumni QFC) couvre exactement ce cas — modules Spotlight (évaluation des outils utilisés), TrustOps (documentation et audit), Safeguard (gouvernance usage quotidien). Conformité AI Act, RGPD, ISO/IEC 42001.</p>
-
-    <h2>Les pièges à éviter</h2>
-
-    <h3>Biais algorithmique</h3>
-    <p>Risque documenté dans la littérature : les modèles entraînés sur des données historiques reproduisent les biais de recrutement passés (genre, origine, parcours). Cas connu : un système Amazon abandonné en 2018 parce qu'il pénalisait systématiquement les CV féminins. <strong>Audit régulier indispensable.</strong></p>
-
-    <h3>RGPD</h3>
-    <p>Les CV sont des données personnelles. Base légale (intérêt légitime de l'employeur, consentement candidat), durée de conservation, sécurisation. Information préalable du candidat sur l'usage IA est devenue une bonne pratique.</p>
-
-    <h3>Décision finale humaine</h3>
-    <p>L'IA produit un classement / une analyse, <strong>jamais une décision d'embauche</strong>. Le DRH/dirigeant tranche. Cette règle est non négociable au sens AI Act.</p>
-
-    <h3>Effet négatif sur le candidat</h3>
-    <p>Un candidat qui se sait évalué par IA peut perdre confiance dans le processus. Communication transparente sur l'usage IA et limitation aux étapes pertinentes (présélection, pas évaluation finale).</p>
-
-  </article>
-
-  <section class="diagnostic" id="diagnostic">
-    <h2>Auto-diagnostic & plan d'action</h2>
-    <p class="diagnostic-intro">
-      Vu la sensibilité du sujet (AI Act risque élevé), ce diagnostic t'aide à identifier <strong>quels usages tu peux activer immédiatement</strong> et quels usages exigent un cadre de gouvernance préalable.
-    </p>
-
-    <form id="diagForm">
-
-      <div class="diag-question">
-        <div class="diag-question-title">1. Combien de recrutements ton organisation effectue-t-elle par an ?</div>
-        <div class="diag-scale">
-          <label><input type="radio" name="volume" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Moins de 5</span></label>
-          <label><input type="radio" name="volume" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">5 à 15</span></label>
-          <label><input type="radio" name="volume" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">15 à 50</span></label>
-          <label><input type="radio" name="volume" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">50 à 200</span></label>
-          <label><input type="radio" name="volume" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">Plus de 200</span></label>
-        </div>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">2. As-tu une politique IA et un cadre RGPD à jour applicable au RH ?</div>
-        <div class="diag-scale">
-          <label><input type="radio" name="cadre" value="1"><span class="diag-scale-num">1</span><span class="diag-scale-text">Aucun cadre</span></label>
-          <label><input type="radio" name="cadre" value="2"><span class="diag-scale-num">2</span><span class="diag-scale-text">RGPD basique</span></label>
-          <label><input type="radio" name="cadre" value="3"><span class="diag-scale-num">3</span><span class="diag-scale-text">RGPD complet</span></label>
-          <label><input type="radio" name="cadre" value="4"><span class="diag-scale-num">4</span><span class="diag-scale-text">RGPD + politique IA</span></label>
-          <label><input type="radio" name="cadre" value="5"><span class="diag-scale-num">5</span><span class="diag-scale-text">+ audit AI Act</span></label>
-        </div>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">3. Quel est l'usage RH IA que tu envisages en priorité ?</div>
-        <textarea class="diag-textarea" name="usage" placeholder="Ex. : génération de fiches de poste, ou pré-tri de CV pour les profils techniques, ou aide à la préparation d'entretiens managers…"></textarea>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">4. Quel premier pas peux-tu faire dans les 4 semaines ?</div>
-        <textarea class="diag-textarea" name="premier-pas" placeholder="Ex. : commencer par les usages faible risque (génération fiches, synthèse entretiens) en attendant de cadrer la gouvernance pour le screening de CV…"></textarea>
-      </div>
-
-      <div class="diag-question">
-        <div class="diag-question-title">5. Qui pilote la gouvernance IA RH dans ton organisation ?</div>
-        <textarea class="diag-textarea" name="gouvernance" placeholder="Ex. : DRH + DPO + direction. Ou : à arbitrer — on n'a pas encore de référent identifié…"></textarea>
-      </div>
-
-      <div class="diag-actions">
-        <button type="button" class="quiz-submit" onclick="generatePlan()">Générer mon plan d'action</button>
-        <button type="button" class="quiz-submit diag-export-btn" onclick="exportPlan()" id="exportBtn" style="display:none;">📥 Exporter en .txt</button>
-      </div>
-
-    </form>
-
-    <div class="diag-result" id="diagResult"></div>
-
+  <!-- Bandeau alerte AI Act (toujours visible avant le layout 2 colonnes) -->
+  <section class="alert-ai-act" style="max-width: 1200px; margin: var(--space-6) auto;">
+    <div class="alert-ai-act-icon">⚠️</div>
+    <div class="alert-ai-act-content">
+      <h3>Avant de commencer — usage classé risque élevé par l'AI Act</h3>
+      <p>L'usage de l'IA en recrutement (tri de CV, scoring de candidat, analyse d'entretien) est explicitement classé <strong>« risque élevé »</strong> par le règlement européen sur l'IA. Cela impose : <strong>documentation rigoureuse de la chaîne de décision, transparence vis-à-vis des candidats, droit à l'explication, recours humain garanti, audit régulier des biais</strong>. Ce module t'aide à industrialiser sans franchir les lignes rouges. Lis intégralement la section conformité avant tout déploiement.</p>
+    </div>
   </section>
 
-  <article class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="../06-points-de-vigilance/conformite-aiact-rgpd.md">Vigilance — AI Act et RGPD</a> : le cadre conformité applicable</li>
-      <li><a href="cu-002-assistant-redactionnel.html">Module connexe — Assistant rédactionnel</a> : pour les usages non sensibles (fiches de poste, communication interne)</li>
-    </ul>
+  <div class="module-layout">
 
-    <h3>Acteurs territoriaux à contacter</h3>
-    <ul>
-      <li><strong>EthiqAIS</strong> (alumni QFC) — gouvernance IA conformité AI Act et RGPD</li>
-      <li><strong>NIN-IA</strong> (Vincent Loreaux, Xertigny — alumni QFC) — intégration sur-mesure</li>
-    </ul>
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Stack et outils</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#diagnostic"><span class="toc-icon">🔎</span>Auto-diagnostic conformité</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
 
-    <h3>Dispositifs de financement applicables</h3>
-    <ul>
-      <li><strong>Aide aux primo-utilisateurs IA Région Grand Est</strong> — 40 %, plafond 20 K€</li>
-    </ul>
-  </article>
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Industrialiser sans franchir les lignes rouges</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Cas <strong>unique de cette série</strong> : l'usage de l'IA en RH est classé <strong>« risque élevé » par l'AI Act</strong>. Cela impose documentation rigoureuse, transparence candidats, droit à l'explication, recours humain garanti, audit régulier des biais. Ce module t'aide à industrialiser sans franchir les lignes rouges.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>La distinction juridique critique : <strong>« assistant qui prépare la matière » (légitime) vs « système qui décide » (à proscrire)</strong>. L'IA produit fiches de poste, synthèses CV descriptives, grilles d'entretien. Elle ne classe jamais, ne note jamais, ne décide jamais.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Gain de productivité réel sur 4 tâches : <strong>fiche de poste 1h → 10 min</strong>, <strong>tri 25 CV 4h → 1h</strong>, <strong>grilles d'entretien à la volée</strong>, <strong>CR structurés</strong>. Mais c'est le dispositif complet (politique IA-RH + audit + traçabilité) qui rend l'usage légitime, pas l'outil seul.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>Auto-diagnostic dédié avec <strong>score conformité distinct</strong> (4 questions sur 6, sur 12). Si ≤ 3/12, le plan d'action commence par <strong>« STOP — ne pas déployer avant mise en conformité »</strong>. Le risque juridique d'un déploiement précipité dépasse largement le gain de productivité.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">1h → 10 min</div><div class="exec-stat-label">Par fiche de poste</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">4h → 1h</div><div class="exec-stat-label">Pour 25 CV synthétisés</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">6 mois</div><div class="exec-stat-label">Audit biais minimum</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">30 min</div><div class="exec-stat-label">De lecture</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu pilotes une <strong>fonction RH</strong> avec 6+ recrutements/an et tu veux gagner du temps sur la préparation</li>
+              <li>Tu n'as <strong>pas encore de politique IA-RH documentée</strong> définissant ce qui est acceptable et proscrit</li>
+              <li>Tu veux <strong>comprendre les lignes rouges AI Act</strong> avant tout déploiement (lignes rouges = scoring auto, classement, analyse vidéo)</li>
+              <li>Tu acceptes <strong>l'investissement en gouvernance</strong> (politique, audit, traçabilité) comme prix d'un usage légitime</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Distinguer les usages IA RH acceptables (préparation, génération de matière brute) des usages à proscrire (décision automatisée d'embauche)</li>
+            <li>Configurer un assistant qui aide à rédiger fiches de poste, grilles d'entretien et synthèses de CV — sans déléguer le jugement final</li>
+            <li>Mettre en place les garde-fous AI Act et RGPD obligatoires : information candidat, audit de biais, recours humain, traçabilité de la décision</li>
+            <li>Évaluer la maturité de ta gouvernance RH-IA et identifier les chantiers de mise en conformité avant déploiement</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>Le recrutement est l'une des activités RH les plus chronophages. Rédiger une fiche de poste cohérente, trier 30 ou 50 CV pour un poste, préparer des grilles d'entretien adaptées à chaque candidat, debriefer un entretien : ce sont des heures de travail qualifié qui se cumulent vite, particulièrement dans les structures qui recrutent activement (startups en croissance, ETI avec turnover, services en tension).</p>
+        <p>L'IA générative apporte un gain de productivité réel sur ces tâches : une fiche de poste est rédigée en 10 minutes au lieu d'une heure, une synthèse de CV adapté à un job description est produite en quelques secondes, une grille d'entretien personnalisée est générée à la volée. <strong>Mais ce cas d'usage est unique dans cette série</strong> : il porte sur des décisions qui affectent durablement les personnes, et le législateur européen l'a explicitement encadré.</p>
+        <div class="pull-quote">
+          <p>L'IA ne remplace pas le jugement RH. Elle industrialise les étapes les plus chronophages — préparation, structuration, formulation — pour que le temps RH se concentre sur ce qui compte : la rencontre humaine, le jugement, la décision.</p>
+        </div>
+        <p>Le piège classique est de confondre <em>« assistant qui prépare la matière »</em> et <em>« système qui décide »</em>. Le premier est un usage légitime et utile. Le second est un usage à risque élevé qui doit, soit être encadré strictement, soit être tout simplement abandonné au profit d'un humain qui tranche.</p>
+      </section>
+
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar4" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+              <marker id="ar4red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#C82A2A"/></marker>
+            </defs>
+            <rect x="20" y="100" width="170" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — FICHE POSTE</text>
+            <text x="105" y="153" text-anchor="middle" font-size="12" fill="#333">Brief manager</text>
+            <text x="105" y="170" text-anchor="middle" font-size="12" fill="#333">→ JD structurée</text>
+            <text x="105" y="187" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Assistant IA</text>
+            <rect x="210" y="100" width="170" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="295" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — SYNTHÈSE CV</text>
+            <text x="295" y="153" text-anchor="middle" font-size="12" fill="white">Mise en regard</text>
+            <text x="295" y="170" text-anchor="middle" font-size="12" fill="white">CV / fiche poste</text>
+            <text x="295" y="187" text-anchor="middle" font-size="11" fill="#FFD600" font-style="italic">Pas de scoring auto</text>
+            <rect x="400" y="100" width="170" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="485" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — GRILLE ENTRETIEN</text>
+            <text x="485" y="153" text-anchor="middle" font-size="12" fill="#333">Questions adaptées</text>
+            <text x="485" y="170" text-anchor="middle" font-size="12" fill="#333">au profil</text>
+            <text x="485" y="187" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Critères explicites</text>
+            <rect x="600" y="80" width="280" height="140" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="740" y="115" text-anchor="middle" font-size="14" font-weight="700" fill="#2E5C2E">4 — DÉCISION HUMAINE</text>
+            <text x="740" y="140" text-anchor="middle" font-size="12" fill="#333">Rencontre · jugement</text>
+            <text x="740" y="158" text-anchor="middle" font-size="12" fill="#333">Décision d'embauche</text>
+            <text x="740" y="180" text-anchor="middle" font-size="12" fill="#2E5C2E" font-weight="700">L'IA n'embauche jamais</text>
+            <text x="740" y="200" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Recours et droit à l'explication garantis</text>
+            <line x1="190" y1="150" x2="208" y2="150" stroke="#2E5395" stroke-width="3" marker-end="url(#ar4)"/>
+            <line x1="380" y1="150" x2="398" y2="150" stroke="#2E5395" stroke-width="3" marker-end="url(#ar4)"/>
+            <line x1="570" y1="150" x2="598" y2="150" stroke="#5C8C5C" stroke-width="4" marker-end="url(#ar4)"/>
+            <rect x="20" y="260" width="860" height="60" rx="8" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="450" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="#8C1A1A">GOUVERNANCE AI ACT — risque élevé</text>
+            <text x="450" y="305" text-anchor="middle" font-size="11" fill="#333" font-style="italic">Information candidat · Audit biais · Documentation décision · Droit à l'explication · Recours humain garanti</text>
+          </svg>
+        </div>
+        <p class="schema-caption">L'IA prépare la matière brute (fiche, synthèse, grille). La décision humaine reste seule légitime, encadrée par la gouvernance AI Act.</p>
+      </section>
+
+      <!-- 4. ÉTAPES -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les étapes en détail</h2>
+          </div>
+        </div>
+        <ol>
+          <li><strong>Génération ou révision de la fiche de poste.</strong> Le manager dicte un brief en 5-10 lignes (mission, contexte, profil souhaité). L'IA produit une fiche structurée : intitulé, contexte société, missions, profil recherché, conditions. Le manager relit, ajuste, valide. Gain typique : 1h → 10 min.</li>
+          <li><strong>Synthèse de CV en regard de la fiche de poste.</strong> Pour chaque CV reçu, l'IA produit une synthèse de 5-10 lignes qui met en regard les éléments du CV avec les critères de la fiche : « expérience X correspond au critère Y », « formation Z correspond au critère W ». <strong>Pas de scoring numérique automatique</strong>, pas de classement comparatif fait par l'IA. La RH lit les synthèses, croise avec les CV bruts, sélectionne.</li>
+          <li><strong>Génération de grille d'entretien personnalisée.</strong> À partir de la fiche de poste et des éléments saillants du CV, l'IA propose une grille de 6-10 questions adaptées : techniques métier, motivations, expériences à creuser, points à clarifier. La RH valide, retire les questions inappropriées, ajoute ce qui manque.</li>
+          <li><strong>Compte-rendu d'entretien structuré.</strong> Après l'entretien, la RH dicte ses observations. L'IA produit un CR structuré selon une grille prédéfinie : compétences, motivation, alignement valeurs, points d'alerte. <strong>L'évaluation reste humaine</strong>, l'IA structure la matière.</li>
+          <li><strong>Décision finale humaine.</strong> Aucune décision d'embauche, de présélection éliminatoire, de scoring décisif n'est déléguée à l'IA. Le décideur (DRH, dirigeant, manager) tranche, documente sa décision, garantit le droit à l'explication au candidat.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK ET OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Stack et outils</h2>
+          </div>
+        </div>
+
+        <h3>Assistants généralistes pour les tâches de rédaction</h3>
+        <p><strong>Claude</strong> est particulièrement adapté à la rédaction nuancée (fiches de poste, grilles d'entretien). <strong>GPT-4 / GPT-5</strong> reste robuste et largement adopté. <strong>Mistral</strong> est l'option à privilégier dès qu'il y a sensibilité (données personnelles candidates, secteurs régulés) — souveraineté EU et conformité ISO 27001.</p>
+
+        <h3>ATS avec modules IA intégrés</h3>
+        <p><strong>Greenhouse</strong>, <strong>Lever</strong> et <strong>Workday</strong> proposent des modules IA pour la lecture de CV et la pré-organisation des candidatures. À utiliser en mode <em>aide à la lecture</em> (synthèse, surlignage de correspondances) et <strong>jamais en mode scoring décisif automatisé</strong>.</p>
+
+        <h3>Outils dédiés analyse vidéo — usage très sensible</h3>
+        <p><strong>HireVue</strong>, <strong>BrightHire</strong> proposent l'analyse d'entretiens vidéo. Ces outils sont au cœur des préoccupations AI Act : analyse comportementale, scoring émotionnel, classement comparatif. <strong>Usage à proscrire ou à entourer d'un cadre extrêmement strict</strong>. Recommandation par défaut : <em>ne pas déployer</em> sans audit juridique préalable et sans avis explicite du DPO.</p>
+
+        <h3>Gouvernance dédiée RH-IA</h3>
+        <p>Des plateformes spécialisées comme <strong>EthiqAIS</strong> (alumni QFC) ou <strong>NIN-IA</strong> couvrent précisément les enjeux de gouvernance AI Act sur les usages RH : modules d'audit de biais, traçabilité de la décision, documentation conforme. Pertinent pour les structures qui industrialisent fortement le recrutement.</p>
+
+        <h3>Prérequis</h3>
+        <p>Une politique RH-IA documentée avant tout déploiement, le DPO et la direction RH alignés, un cadre clair sur ce que l'IA fait (préparation, structuration) et ce qu'elle ne fait jamais (décision, scoring décisif), et une procédure d'information du candidat. Sans ces prérequis, ne pas déployer.</p>
+      </section>
+
+      <!-- 6. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
+
+        <p>Tu vas suivre les 4 étapes ci-dessous pour outiller ton processus de recrutement sans franchir les lignes rouges. Compte 45 minutes.</p>
+
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu es <strong>responsable RH ou dirigeant</strong> d'une structure qui recrute 6 à 10 profils par an. Pour le poste en cours (par exemple « chargé(e) de mission »), tu as reçu 25 CV. La rédaction de la fiche de poste t'a pris une heure, le tri des CV te prend habituellement 2 heures, et la préparation des grilles d'entretien encore 1 heure pour les 6 candidats retenus en short-list. Objectif : diviser ce temps par 3 sans dégrader la qualité ni franchir les obligations AI Act.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Cadrer la politique RH-IA en interne</h4>
+            <p>Avant tout outil, écris une note d'1 à 2 pages qui répond à 4 questions : (1) quels usages IA sont acceptés (rédaction, synthèse, structuration), (2) quels usages sont proscrits (scoring automatisé, décision d'embauche, analyse comportementale vidéo), (3) comment les candidats sont informés (mention dans l'offre, dans les emails de réponse), (4) qui valide les sorties IA. Fais valider par la direction et le DPO si applicable.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>📝 Note politique 1-2 pages · ✅ Validation direction + DPO</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Une politique RH-IA explicite qui fixe les lignes rouges et facilite l'audit ultérieur.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Configurer un assistant pour la fiche de poste et la synthèse CV</h4>
+            <p>Crée un projet dédié dans <strong>Le Chat Pro de Mistral</strong> (souveraineté EU recommandée pour les données personnelles candidates) ou dans <strong>Claude Projects</strong>. Charge ton template de fiche de poste type, ta charte employeur, tes critères d'évaluation génériques. Configure le prompt système :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.875rem;">Tu es un assistant RH. Tu produis : fiches de poste structurées, synthèses CV en regard d'une fiche de poste, grilles d'entretien personnalisées. Tu ne produis JAMAIS : scoring numérique de candidat, classement comparatif, recommandation d'embauche. Si on te demande l'un de ces usages interdits, tu refuses et expliques pourquoi.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Le Chat Pro / Claude Projects · 📋 Prompt système avec garde-fous</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un assistant configuré avec les garde-fous explicitement intégrés au prompt.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Tester sur un poste réel — fiche, synthèse, grille</h4>
+            <p>Prends le poste en cours. Demande à l'assistant de générer la fiche à partir d'un brief de 5 lignes. Pour chaque CV (25 dossiers), fournis le CV anonymisé et la fiche de poste, demande une synthèse de 5-7 lignes qui met en regard les éléments. <strong>Tu lis ensuite chaque CV brut</strong> en parallèle de la synthèse, tu fais ta short-list humaine. Demande enfin à l'assistant une grille d'entretien personnalisée pour chacun des 6 candidats retenus.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Assistant configuré · 📁 CV anonymisés (RGPD)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>1 fiche de poste, 25 synthèses CV, 6 grilles d'entretien personnalisées. Temps total visé : 1h au lieu de 4h.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Documenter et auditer le processus</h4>
+            <p>Pour chaque recrutement où tu utilises l'assistant, documente : la fiche de poste générée, les synthèses produites, les grilles d'entretien, les écarts entre la sortie IA et ta décision finale (le manager a-t-il revu certaines synthèses ? a-t-il modifié des grilles ?). Tous les 6 mois, fais un mini-audit : <strong>les profils sélectionnés montrent-ils une diversité comparable à ce que tu obtenais avant l'IA ?</strong> Si un biais s'installe, ajuste le prompt et la politique.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Discipline</div>📋 Registre des recrutements outillés · 🔍 Audit biais semestriel</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Une traçabilité complète du processus, documentation conforme AI Act, capacité à expliquer une décision a posteriori si demandée.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu as outillé ton processus de recrutement de manière efficace ET conforme. La fiche de poste est rédigée en 10 minutes, les CV synthétisés en 30 minutes au lieu de 2 heures, les grilles d'entretien personnalisées prêtes en 15 minutes. <strong>Mais surtout, tu as conservé le jugement humain au centre</strong>, documenté chaque étape, et mis en place un audit régulier. C'est ce dispositif complet — pas juste l'outil — qui rend l'usage légitime au sens AI Act.</p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon danger">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <div class="conformity-block">
+          <h3>⚠️ Le scoring automatisé déguisé</h3>
+          <p>Demander à l'IA de « classer les CV du meilleur au moins bon » ou « attribuer une note sur 10 à chaque candidat » est un scoring automatisé qui tombe en risque élevé AI Act. <strong>Ne pas le faire</strong>. L'IA produit des synthèses descriptives, le RH lit, compare humainement, sélectionne. La distinction est essentielle juridiquement.</p>
+        </div>
+
+        <div class="conformity-block">
+          <h3>⚠️ Le biais algorithmique reproduit</h3>
+          <p>Les modèles entraînés sur des données historiques de recrutement reproduisent les biais passés (genre, origine, parcours universitaire prestigieux, etc.). <strong>Audit régulier obligatoire</strong>. Comparer la diversité des profils sélectionnés avant et après outillage IA. En cas de dérive, ajuster le prompt, retravailler les critères, et — si la dérive persiste — désactiver l'usage IA sur cette étape.</p>
+        </div>
+
+        <div class="conformity-block">
+          <h3>⚠️ L'analyse vidéo / scoring émotionnel</h3>
+          <p>Les outils qui analysent la vidéo, la voix, les émotions d'un candidat (HireVue, certains modules tiers) posent des problèmes très lourds : biais culturels, impossibilité d'audit par le candidat, atteinte à la dignité. <strong>Recommandation par défaut : ne pas déployer</strong>. Si déploiement envisagé, audit juridique préalable obligatoire et avis explicite du DPO.</p>
+        </div>
+
+        <h3>L'information candidat</h3>
+        <p>Le candidat doit être informé que l'IA est utilisée dans le processus, à quelles étapes, pour quelles tâches, et qu'il dispose d'un <strong>droit à l'explication</strong> de la décision finale. Mention claire dans l'offre d'emploi, dans les emails de réponse, et dans la politique RH publique.</p>
+
+        <h3>RGPD et anonymisation</h3>
+        <p>Les CV sont des données personnelles. Avant tout traitement par un assistant IA grand public, <strong>anonymisation des données les plus sensibles</strong> (nom, email, adresse, photo). Privilégier les solutions à souveraineté EU pour les CV non anonymisés. Durée de conservation à définir et respecter.</p>
+
+        <h3>Recours humain garanti</h3>
+        <p>À tout moment, un candidat peut demander à ce que sa candidature soit revue manuellement, hors processus IA. <strong>Ce recours doit être documenté et accessible</strong>. C'est une obligation AI Act, pas une option de confort.</p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="diagnostic">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🔎</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Auto-diagnostic — Es-tu prêt à industrialiser ton recrutement avec l'IA ?</h2>
+          </div>
+        </div>
+
+        <p>Réponds aux 6 questions suivantes pour évaluer ta maturité, identifier les chantiers prioritaires de mise en conformité et générer un plan d'action exportable. <strong>Ce diagnostic intègre une dimension gouvernance plus exigeante que les autres modules : c'est le prix à payer pour un usage légitime.</strong></p>
+
+        <div class="diagnostic">
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Combien de recrutements ton organisation lance-t-elle par an ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Moins de 3</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>3 à 8</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>8 à 20</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Plus de 20</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. As-tu une politique IA documentée (qui définit les usages acceptables et proscrits) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Pas du tout</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>Implicite, dans la tête</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>Esquissée, à finaliser</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Documentée et validée</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Tes pratiques RH sont-elles documentées (fiche de poste type, grille d'évaluation, critères) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Pas du tout</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>Templates épars</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>Documentation partielle</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Documentation complète</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Maturité RGPD de ton processus de recrutement (information candidat, conservation données) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Aucune politique formalisée</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Mentions basiques sur l'offre</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Politique RGPD à jour</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>RGPD + DPO impliqué</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Disposes-tu d'un référent identifié pour valider les sorties IA et arbitrer les cas limites ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Aucun référent</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Implicite (le DRH)</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Identifié, peu formé</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Identifié et formé AI Act</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Quelle est ta connaissance actuelle des obligations AI Act sur les usages RH ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>Aucune connaissance</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>Notion vague</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>Bases connues, à approfondir</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>Maîtrise opérationnelle</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond et textes officiels</h4>
+          <ul>
+            <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a><span class="resources-meta">Commission européenne — règlement sur l'IA, focus annexe III sur les systèmes à risque élevé incluant l'emploi et les ressources humaines</span></li>
+            <li><a href="https://www.cnil.fr/fr/recrutement-et-intelligence-artificielle" target="_blank" rel="noopener">CNIL — Recrutement et intelligence artificielle</a><span class="resources-meta">CNIL — recommandations officielles pour l'usage IA dans le recrutement, dossier dédié</span></li>
+            <li><a href="https://www.defenseurdesdroits.fr" target="_blank" rel="noopener">Défenseur des droits — Algorithmes et discriminations</a><span class="resources-meta">Défenseur des droits — ressources sur les biais algorithmiques en recrutement</span></li>
+            <li><a href="https://hbr.org/topic/subject/hiring-and-recruitment" target="_blank" rel="noopener">Harvard Business Review — Hiring and Recruitment</a><span class="resources-meta">HBR — articles sur l'IA en recrutement, gains et limites</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=AI+Act+high+risk+HR+recruitment+compliance" target="_blank" rel="noopener">AI Act et conformité RH</a><span class="resources-meta">YouTube — webinars juridiques sur les obligations AI Act en RH</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=claude+projects+HR+job+description+tutorial" target="_blank" rel="noopener">Claude Projects — usage RH</a><span class="resources-meta">YouTube — démonstrations de configuration d'assistant RH</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=algorithmic+bias+recruitment+audit" target="_blank" rel="noopener">Audit de biais en recrutement IA</a><span class="resources-meta">YouTube — méthodologies d'audit pratiques</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/projects" target="_blank" rel="noopener">Claude Projects — documentation Anthropic</a><span class="resources-meta">Configuration d'assistants spécialisés avec contexte personnalisé</span></li>
+            <li><a href="https://docs.mistral.ai" target="_blank" rel="noopener">Mistral AI Documentation</a><span class="resources-meta">Pour les déploiements à souveraineté EU sur les données personnelles</span></li>
+            <li><a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Intelligence artificielle</a><span class="resources-meta">Espace dédié de la CNIL sur les obligations RGPD et IA</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/humanresources" target="_blank" rel="noopener">r/humanresources sur Reddit</a><span class="resources-meta">Communauté RH internationale, discussions sur l'usage IA en recrutement</span></li>
+            <li><a href="https://www.reddit.com/r/recruiting" target="_blank" rel="noopener">r/recruiting sur Reddit</a><span class="resources-meta">Retours d'expérience sur l'industrialisation des processus de recrutement</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <span class="footer-logo">🧭</span>
-        <span class="footer-title">Hub IA territorial</span>
-      </div>
+      <div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </footer>
 
+  <script src="../js/module-v3.js"></script>
   <script>
     const moduleId = 'cu-007';
-    const moduleName = 'IA en RH : CV et entretiens';
 
     function generatePlan() {
       const form = document.getElementById('diagForm');
-      const data = new FormData(form);
-      const volume = data.get('volume') || '—';
-      const cadre = data.get('cadre') || '—';
-      const usage = data.get('usage') || '—';
-      const premierPas = data.get('premier-pas') || '—';
-      const gouvernance = data.get('gouvernance') || '—';
-
-      let priority;
-      if (parseInt(cadre) <= 2) priority = '⚠️ Cadre RGPD/AI Act insuffisant pour les usages risque élevé. Démarrer uniquement par les usages faible risque (génération fiches de poste, synthèse entretiens). Investir en parallèle dans la mise à niveau de la gouvernance avant tout déploiement screening/scoring.';
-      else if (parseInt(volume) <= 1) priority = 'Volume de recrutement faible : le ROI d\'un déploiement RH IA est limité. Privilégier les usages quotidiens de productivité (fiches de poste, communication interne) plutôt qu\'un système structurant.';
-      else if (parseInt(cadre) >= 4 && parseInt(volume) >= 3) priority = 'Conditions favorables. Lancer un POC avec EthiqAIS (alumni QFC) pour structurer la gouvernance dès le départ et avancer sur les usages risque modéré (pré-tri CV avec validation humaine) en parallèle des usages faible risque.';
-      else priority = 'Conditions partielles. Identifier les 2-3 usages les plus directement déployables (faible risque) et avancer dessus pendant la mise à niveau de la gouvernance.';
-
       const result = document.getElementById('diagResult');
-      result.innerHTML = `
-        <h3 style="color:var(--color-primary); margin-bottom:var(--space-3);">📋 Ton plan d'action — ${moduleName}</h3>
-        <div class="diag-result-section"><div class="diag-result-label">Volume recrutement</div><div>Niveau ${volume}/5</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Maturité cadre RGPD/AI Act</div><div>Niveau ${cadre}/5</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Usage envisagé</div><div>${usage}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">⚡ Recommandation prioritaire</div><div style="font-weight:600;">${priority}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Premier pas (4 semaines)</div><div>${premierPas}</div></div>
-        <div class="diag-result-section"><div class="diag-result-label">Pilote gouvernance</div><div>${gouvernance}</div></div>
-      `;
+      const answers = {};
+      let allAnswered = true;
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const conformite = answers.d2 + answers.d4 + answers.d5 + answers.d6;
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+
+      if (conformite <= 3) actions.push({ prio: 'haute', titre: 'STOP — ne pas déployer avant mise en conformité', desc: 'Ta maturité de conformité est insuffisante pour un usage IA en RH au sens AI Act (risque élevé). Avant tout pilote, traite impérativement les 3 chantiers prioritaires ci-dessous : politique IA, RGPD, référent formé. Un déploiement précipité expose à un risque juridique et de réputation disproportionné par rapport au gain de productivité.' });
+      if (answers.d2 <= 1) actions.push({ prio: 'haute', titre: 'Rédiger une politique IA-RH explicite (prérequis absolu)', desc: 'Note de 1 à 2 pages qui définit : usages acceptables (rédaction, synthèse, structuration), usages proscrits (scoring, classement, décision automatisée), procédure d\'information candidat, référent décisionnaire, modalités d\'audit. Sans ce document, l\'usage est non-conforme.' });
+      if (answers.d4 <= 1) actions.push({ prio: 'haute', titre: 'Mettre à niveau le RGPD recrutement avant tout outil IA', desc: 'Information candidat dans l\'offre d\'emploi (mention du potentiel usage IA dans le tri), base légale documentée, durée de conservation des CV définie, accès aux données candidat possible. Le RGPD est un prérequis du déploiement IA, pas une formalité postérieure.' });
+      if (answers.d5 <= 1 || answers.d6 <= 1) actions.push({ prio: 'haute', titre: 'Identifier et former un référent AI Act / RH', desc: 'Une personne dans l\'organisation doit avoir une compréhension opérationnelle des obligations AI Act sur les usages RH. C\'est elle qui valide les sorties IA, arbitre les cas limites, et défend les décisions auprès des candidats si questionnées. Formation 1 à 2 jours minimum, ressources CNIL et Commission européenne disponibles gratuitement.' });
+
+      const opportunite = answers.d1 + answers.d3;
+      if (opportunite >= 4 && conformite >= 4) actions.push({ prio: 'moyenne', titre: 'Lancer un pilote sur 1 recrutement avec assistant configuré', desc: 'Volume suffisant et bases de conformité posées : tu peux lancer un pilote sur un recrutement complet (1 fiche, 25 CV, 6 grilles) avec un assistant Le Chat Pro ou Claude Projects, prompt système verrouillé, traçabilité complète. Mesure le gain de temps et documente les écarts entre la sortie IA et tes décisions.' });
+      else if (opportunite >= 2 && conformite >= 4) actions.push({ prio: 'moyenne', titre: 'Tester sur la rédaction de fiche de poste uniquement', desc: 'Pour démarrer en zone de moindre risque, limite l\'usage à la rédaction de fiches de poste (impact direct candidat = nul). Mesure le gain, prends confiance, étends ensuite au tri et aux grilles d\'entretien après validation politique.' });
+      else if (opportunite < 2) actions.push({ prio: 'basse', titre: 'Évaluer si l\'investissement est justifié', desc: 'Volume de recrutements faible et documentation RH limitée : le ROI d\'un déploiement structuré reste modeste face au coût de mise en conformité. Limite l\'usage à un appui ad-hoc sur la rédaction de fiches de poste, sans déploiement structuré.' });
+
+      actions.push({ prio: 'haute', titre: 'Programmer un audit de biais semestriel', desc: 'Comparer la diversité des profils sélectionnés avant et après outillage IA (genre, âge, parcours, origine géographique). Une dérive doit déclencher un ajustement du prompt ou un retrait temporaire de l\'usage IA. C\'est l\'audit qui protège, pas la confiance dans l\'outil.' });
+      actions.push({ prio: 'haute', titre: 'Documenter l\'information candidat et le recours humain', desc: 'Mention claire dans l\'offre d\'emploi (« Cette offre peut faire l\'objet d\'un traitement assisté par IA pour la pré-organisation des candidatures. Vous pouvez demander à tout moment un examen entièrement humain de votre dossier. »). Procédure de recours documentée et accessible.' });
+      actions.push({ prio: 'moyenne', titre: 'Proscrire l\'analyse vidéo / scoring émotionnel', desc: 'Bannir explicitement les outils d\'analyse vidéo, voix, émotions des candidats (HireVue et équivalents). Si une équipe interne propose ce type d\'outil, exiger un audit juridique préalable et un avis explicite du DPO. Recommandation par défaut : ne pas déployer.' });
+
+      let scoreLabel = '';
+      if (conformite <= 3) scoreLabel = '⚠️ Conformité insuffisante — chantier amont obligatoire';
+      else if (maturite >= 70) scoreLabel = 'Maturité élevée — déploiement structuré possible';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — pilote ciblé après mise en conformité';
+      else scoreLabel = 'Maturité faible — chantier conformité prioritaire';
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      let html = `<div class="diag-score-box"><div class="diag-score-num">${maturite}%</div><div class="diag-score-label">${scoreLabel}</div><div style="margin-top: var(--space-3); font-size: 0.875rem; color: var(--color-text-soft);">Score conformité : <strong style="color:#8C1A1A;">${conformite}/12</strong></div></div><h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>`;
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+      actions.forEach((a, i) => html += `<div class="diag-action"><span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span><h4>${i+1}. ${a.titre}</h4><p>${a.desc}</p></div>`);
+      html += `<div class="diag-export"><button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button><button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button></div>`;
+      result.innerHTML = html;
       result.classList.add('show');
       result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      document.getElementById('exportBtn').style.display = 'inline-flex';
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true, volume, cadre, usage, priority, premierPas, gouvernance, date: new Date().toISOString()
-      }));
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, maturite, conformite, actions: actions.map(a => ({ prio: a.prio, titre: a.titre })), date: new Date().toISOString() }));
+      window._hubiaPlan = { maturite, conformite, scoreLabel, actions, date };
     }
 
-    function exportPlan() {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId));
-      if (!data) return;
-      const txt = `Plan d'action — ${moduleName}
-Date : ${new Date(data.date).toLocaleDateString('fr-FR')}
-
-Volume recrutement : ${data.volume}/5
-Maturité cadre RGPD/AI Act : ${data.cadre}/5
-
-Usage envisagé :
-${data.usage}
-
-Recommandation prioritaire :
-${data.priority}
-
-Premier pas (4 semaines) :
-${data.premierPas}
-
-Pilote gouvernance :
-${data.gouvernance}
-
-— Hub IA territorial · ${moduleId}
-`;
-      const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+      if (format === 'md') {
+        content += `# Plan d'action — CV & entretiens RH\n\n*Auto-diagnostic Hub IA territorial — ${plan.date}*\n\n**Maturité globale : ${plan.maturite}%**  \n**Score conformité AI Act : ${plan.conformite}/12**  \n*${plan.scoreLabel}*\n\n---\n\n> ⚠️ Rappel : l'usage de l'IA en RH est classé risque élevé par l'AI Act. Documentation, transparence et recours humain sont obligatoires.\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`);
+        content += `---\n\n*Plan généré par le module CU-007 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — CV & ENTRETIENS RH\nAuto-diagnostic Hub IA territorial — ${plan.date}\n\nMaturite globale : ${plan.maturite}%\nScore conformite AI Act : ${plan.conformite}/12\n${plan.scoreLabel}\n\n=========================================\nRAPPEL : l'usage de l'IA en RH est classe risque eleve par l'AI Act.\nDocumentation, transparence et recours humain sont obligatoires.\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`);
+        content += `=========================================\nPlan genere par le module CU-007 du Hub IA territorial — questforchange.eu\n`;
+      }
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `plan-${moduleId}.txt`;
-      a.click();
+      a.href = url; a.download = `plan-action-rh-cv-entretiens.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const data = JSON.parse(localStorage.getItem('hubia_' + moduleId) || 'null');
-      if (data && data.completed) document.getElementById('exportBtn').style.display = 'inline-flex';
-    });
   </script>
 
 </body>
