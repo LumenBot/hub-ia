@@ -500,33 +500,50 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche terrain ─┐</strong>
-   Équipements critiques (3-8) instrumentés avec capteurs IoT
-   Vibrations 10kHz · Temp · Courant moteur · Pression
-   → Edge gateway industriel (Siemens, B&amp;R, IXON)
-
-<strong>┌─ Couche acquisition / stockage ─┐</strong>
-   Time-series DB (InfluxDB, TimescaleDB)
-   On-premise pour latence + souveraineté
-   1-3 ans d'historique conservés
-
-<strong>┌─ Couche modèles ML ─┐</strong>
-   Modèles classiques (PAS des LLM) :
-   - Autoencoder pour détection anomalies
-   - Random Forest / XGBoost pour classification
-   - Régression pour durée de vie restante
-   Frameworks : scikit-learn, TensorFlow, PyTorch
-
-<strong>┌─ Couche détection / alerte ─┐</strong>
-   Inference temps réel sur nouveaux signaux
-   Score anomalie > seuil → alerte + estimation TTF
-   Création automatique ordre GMAO (SAP PM, Maximo)
-
-<strong>┌─ Couche intervention ─┐</strong>
-   Chef maintenance valide → planification
-   Intervention pendant arrêt programmé
-   Documentation résultat → boucle apprentissage
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🏭 Couche terrain — instrumentation</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step"><div class="archi-step-icon">⚙️</div><div class="archi-step-content"><strong>Équipements critiques (3-8) instrumentés</strong><small>Capteurs IoT : vibrations 10kHz · température · courant moteur · pression</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-trigger"><div class="archi-step-icon">📡</div><div class="archi-step-content"><strong>Edge gateway industriel</strong><small>Siemens · B&amp;R · IXON</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">💾 Couche acquisition / stockage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-store"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>Time-series DB</strong><small>InfluxDB · TimescaleDB · on-premise pour latence + souveraineté · 1-3 ans d'historique</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🧮 Couche modèles ML — classiques (pas des LLM)</div>
+            <div class="archi-branches" style="padding-left:0;">
+              <div class="archi-branch"><div class="archi-branch-icon">🔍</div><div><strong>Autoencoder</strong><small>Détection d'anomalies</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🌳</div><div><strong>Random Forest / XGBoost</strong><small>Classification</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">📉</div><div><strong>Régression</strong><small>Durée de vie restante (TTF)</small></div></div>
+            </div>
+            <p style="margin-top:var(--space-2); font-size:0.8125rem; color:var(--color-text-soft);"><em>Frameworks : scikit-learn · TensorFlow · PyTorch</em></p>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🚨 Couche détection / alerte</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-agent"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Inférence temps réel</strong><small>Sur les nouveaux signaux capteurs</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-decision"><div class="archi-step-icon">📊</div><div class="archi-step-content"><strong>Score anomalie &gt; seuil</strong><small>Alerte + estimation TTF (Time To Failure)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">📝</div><div class="archi-step-content"><strong>Création automatique ordre GMAO</strong><small>SAP PM · Maximo · IBM Maximo Asset Management</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔧 Couche intervention</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">👷</div><div class="archi-step-content"><strong>Chef maintenance valide</strong><small>Planification de l'intervention</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">🛠️</div><div class="archi-step-content"><strong>Intervention pendant arrêt programmé</strong><small>Pas d'arrêt subi, fenêtre de maintenance optimisée</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">🔄</div><div class="archi-step-content"><strong>Documentation du résultat</strong><small>Alimente la boucle d'apprentissage et affine les modèles</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Solutions du marché — éditeurs spécialisés</h3>

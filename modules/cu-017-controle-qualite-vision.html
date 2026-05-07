@@ -367,31 +367,51 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche capture ─┐</strong>
-   Caméras industrielles (Basler, IDS, Cognex)
-   Selon défaut : couleur · hyperspectrale · ligne · 3D
-   + Éclairage technique maîtrisé (rasant, diffus, UV/IR)
-
-<strong>┌─ Couche inférence ─┐</strong>
-   Edge computing (NVIDIA Jetson, GPU serveur on-site)
-   Latence millisecondes pour suivre cadence ligne
-   Modèles deep learning : YOLO, Mask R-CNN, ViT
-
-<strong>┌─ Couche décision ─┐</strong>
-   Verdict OK / NOK / AMBIGU + catégorie défaut
-   Seuils différenciés par criticité défaut
-   Logging traçabilité MES + dashboard supervision
-
-<strong>┌─ Couche intégration ligne ─┐</strong>
-   PLC (Siemens, Schneider, Rockwell) via OPC UA / Modbus / Profinet
-   Action automatique : éjection · marquage · alerte · ralentissement
-   MES intégré pour reporting qualité
-
-<strong>┌─ Couche apprentissage continu ─┐</strong>
-   Cas ambigus → annotation opérateur → enrichissement dataset
-   Re-calibration trimestrielle / semestrielle
-   Monitoring drift performance modèle
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📷 Couche capture — caméras + éclairage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step"><div class="archi-step-icon">📷</div><div class="archi-step-content"><strong>Caméras industrielles</strong><small>Basler · IDS · Cognex — selon défaut : couleur · hyperspectrale · ligne · 3D</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step"><div class="archi-step-icon">💡</div><div class="archi-step-content"><strong>Éclairage technique maîtrisé</strong><small>Rasant · diffus · UV / IR selon le type de défaut à révéler</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🧠 Couche inférence — edge computing</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-agent"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Edge computing</strong><small>NVIDIA Jetson · GPU serveur on-site · latence millisecondes pour suivre la cadence ligne</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Modèles deep learning</strong><small>YOLO · Mask R-CNN · ViT (Vision Transformer)</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">⚖️ Couche décision</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-decision"><div class="archi-step-icon">✅</div><div class="archi-step-content"><strong>Verdict OK / NOK / AMBIGU</strong><small>+ catégorie de défaut · seuils différenciés par criticité</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📊</div><div class="archi-step-content"><strong>Logging + traçabilité MES</strong><small>Dashboard supervision pour les équipes qualité</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔌 Couche intégration ligne</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-trigger"><div class="archi-step-icon">🏭</div><div class="archi-step-content"><strong>PLC industriel</strong><small>Siemens · Schneider · Rockwell — via OPC UA / Modbus / Profinet</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Action automatique sur ligne</strong><small>Éjection · marquage · alerte · ralentissement (selon décision modèle)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>MES intégré</strong><small>Reporting qualité, indicateurs de production</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔄 Couche apprentissage continu</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-decision"><div class="archi-step-icon">❓</div><div class="archi-step-content"><strong>Cas ambigus identifiés</strong><small>Score de confiance bas → besoin d'avis opérateur</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">✏️</div><div class="archi-step-content"><strong>Annotation opérateur</strong><small>Verdict humain → enrichissement du dataset</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Re-calibration trimestrielle / semestrielle</strong><small>Monitoring drift de performance modèle, ré-entraînement périodique</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Solutions commerciales spécialisées</h3>

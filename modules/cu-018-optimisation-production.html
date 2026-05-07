@@ -393,32 +393,49 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche données amont ─┐</strong>
-   ERP (SAP, Sage, Cegid) → ordres de fabrication
-   MES (industriels divers) → état machines, disponibilités
-   Vision IA (CU-017) → caractérisation matière fine
-   Capteurs IoT → données process temps réel
-
-<strong>┌─ Couche solveur hybride ─┐</strong>
-   Recherche Opérationnelle :
-   - OR-Tools (open source, Google)
-   - CPLEX, Xpress (commerciaux, gros problèmes)
-   - Solutions filières : Cadwork (bois), Lectra (textile)
-   IA :
-   - Deep learning pour contraintes implicites
-   - Generative design (Autodesk Fusion)
-   - Reinforcement Learning pour ordonnancement complexe
-
-<strong>┌─ Couche intégration aval ─┐</strong>
-   CFAO → output direct machines de coupe
-   MES → suivi exécution
-   Tableaux de bord supervision
-
-<strong>┌─ Couche apprentissage ─┐</strong>
-   Comparaison plan vs réel (matière, temps, qualité)
-   Re-calibration périodique des modèles
-   Élargissement progressif du périmètre
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📥 Couche données amont</div>
+            <div class="archi-branches" style="padding-left:0;">
+              <div class="archi-branch"><div class="archi-branch-icon">📊</div><div><strong>ERP</strong><small>SAP · Sage · Cegid → ordres de fabrication</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🏭</div><div><strong>MES</strong><small>État machines, disponibilités, historique</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">👁️</div><div><strong>Vision IA</strong><small>Caractérisation matière fine (cf. <a href="cu-017-controle-qualite-vision.html">contrôle qualité par vision</a>)</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">📡</div><div><strong>Capteurs IoT</strong><small>Données process temps réel</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🧮 Couche solveur hybride — RO + IA</div>
+            <p style="margin:0 0 var(--space-3); font-size:0.8125rem; font-weight:700; color:var(--color-primary);">RECHERCHE OPÉRATIONNELLE</p>
+            <div class="archi-branches" style="padding-left:0; margin-bottom:var(--space-3);">
+              <div class="archi-branch"><div class="archi-branch-icon">🛠️</div><div><strong><a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a></strong><small>Google, open-source</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">💼</div><div><strong><a href="../ressources.html#cplex" class="tool-link">CPLEX</a> · <a href="../ressources.html#xpress" class="tool-link">Xpress</a></strong><small>Commerciaux, gros problèmes</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🪵</div><div><strong>Solutions filières</strong><small><a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> (bois) · <a href="../ressources.html#lectra" class="tool-link">Lectra</a> (textile)</small></div></div>
+            </div>
+            <p style="margin:0 0 var(--space-3); font-size:0.8125rem; font-weight:700; color:var(--color-primary);">INTELLIGENCE ARTIFICIELLE</p>
+            <div class="archi-branches" style="padding-left:0;">
+              <div class="archi-branch"><div class="archi-branch-icon">🧠</div><div><strong>Deep learning</strong><small>Contraintes implicites apprises</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🎨</div><div><strong>Generative design</strong><small>Autodesk Fusion, exploration de formes</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🎯</div><div><strong>Reinforcement Learning</strong><small>Ordonnancement complexe multi-machines</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📤 Couche intégration aval</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-output"><div class="archi-step-icon">⚙️</div><div class="archi-step-content"><strong>CFAO</strong><small>Output direct machines de coupe (CNC, laser)</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📊</div><div class="archi-step-content"><strong>MES</strong><small>Suivi de l'exécution réelle</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>Tableaux de bord supervision</strong><small>Pilotage temps réel par les chefs d'atelier</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔄 Couche apprentissage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-decision"><div class="archi-step-icon">⚖️</div><div class="archi-step-content"><strong>Comparaison plan vs réel</strong><small>Matière consommée · temps réel · qualité produite</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Re-calibration périodique</strong><small>Affine les modèles avec les données terrain</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>Élargissement progressif du périmètre</strong><small>Du nesting simple aux problèmes plus complexes (ordonnancement, supply chain)</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Solutions filières clés en main</h3>

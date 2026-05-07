@@ -294,23 +294,43 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Pipeline de détection (asynchrone, périodique) ─┐</strong>
-   Sources publiques (RSS, scrape, API) → Agent 1 (veille)
-   → Base AAP structurée (Postgres ou Notion DB)
-   → Agent 2 (matching) avec embeddings sur profil entreprise
-   → Short-list priorisée → <strong>Validation humaine n°1</strong>
-
-<strong>┌─ Pipeline de drafting (à la demande, par AAP) ─┐</strong>
-   AAP retenu + dossier référence (RAG sur Qdrant/Pinecone)
-   → Agent 3 (drafting) avec prompts spécialisés par section
-   → Draft à 70 % → marqueurs sections à compléter
-   → Agent 4 (submission helper) → compilation et pré-remplissage
-   → <strong>Validation humaine n°2 + signature</strong> → soumission effective
-
-<strong>┌─ Mémoire partagée ─┐</strong>
-   Vector store des AAP gagnés/perdus + métadonnées
-   → Affine Agent 2 (matching) et Agent 3 (drafting) au fil du temps
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔍 Pipeline de détection — asynchrone, périodique</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step"><div class="archi-step-icon">🌐</div><div class="archi-step-content"><strong>Sources publiques</strong><small>RSS, scrape, API (Aides-Territoires, Bpifrance, etc.)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Agent 1 — veille</strong><small>Identification continue des nouveaux dispositifs publiés</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">🗂️</div><div class="archi-step-content"><strong>Base AAP structurée</strong><small>Postgres ou Notion DB — référentiel central</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Agent 2 — matching</strong><small>Embeddings sur profil entreprise, scoring de pertinence</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">👤</div><div class="archi-step-content"><strong>Validation humaine n°1</strong><small>Short-list priorisée → décision Go / No-go par AAP</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">✍️ Pipeline de drafting — à la demande, par AAP retenu</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>AAP retenu + dossier référence</strong><small>RAG sur Qdrant / Pinecone des dossiers passés</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">📝</div><div class="archi-step-content"><strong>Agent 3 — drafting</strong><small>Prompts spécialisés par section (synopsis, méthodo, planning, budget)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">📄</div><div class="archi-step-content"><strong>Draft à 70 %</strong><small>Marqueurs sur les sections à compléter manuellement</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">📦</div><div class="archi-step-content"><strong>Agent 4 — submission helper</strong><small>Compilation des pièces, pré-remplissage des formulaires</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">✅</div><div class="archi-step-content"><strong>Validation humaine n°2 + signature</strong><small>Soumission effective sur le portail</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🧠 Mémoire partagée et apprentissage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-store"><div class="archi-step-icon">🧬</div><div class="archi-step-content"><strong>Vector store des AAP gagnés / perdus</strong><small>Avec métadonnées (montant, sections fortes, retours évaluateurs)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>Affinage continu</strong><small>Agent 2 (matching) et Agent 3 (drafting) gagnent en pertinence avec le temps</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Veille et collecte (Agent 1)</h3>

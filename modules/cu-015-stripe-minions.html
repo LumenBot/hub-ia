@@ -329,26 +329,49 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche déclenchement (humain) ─┐</strong>
-   Slack mention / Terminal / IDE / Web interface
-   → Brief structuré (objectif / contexte / contraintes)
-   → Session agentique lancée
-
-<strong>┌─ Couche exécution (agent autonome) ─┐</strong>
-   Comprend l'intention → explore le contexte
-   → écrit la solution → lance les tests
-   → itère si rouge → commit + ouvre PR
-   → notifie l'humain
-
-<strong>┌─ Couche revue (humain à nouveau) ─┐</strong>
-   Notification → bascule en mode revue
-   → code review / audit factuel
-   → merge ou retour à l'agent pour itération
-
-<strong>┌─ Couche capitalisation (au fil du temps) ─┐</strong>
-   Logs des sessions → patterns identifiés
-   → calibrage du portefeuille de délégation
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🚀 Couche déclenchement — humain</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">💬</div><div class="archi-step-content"><strong>Slack mention / Terminal / IDE / Web</strong><small>Le humain initie la délégation</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">📋</div><div class="archi-step-content"><strong>Brief structuré</strong><small>Objectif · contexte · contraintes</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-trigger"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Session agentique lancée</strong><small>L'agent prend la main, plus d'intervention humaine jusqu'à la PR</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🤖 Couche exécution — agent autonome</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-agent"><div class="archi-step-icon">🧠</div><div class="archi-step-content"><strong>Comprend l'intention</strong><small>Parse le brief, clarifie si ambigu</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🔍</div><div class="archi-step-content"><strong>Explore le contexte</strong><small>Lit le code, les tests, la doc, les issues liés</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">✍️</div><div class="archi-step-content"><strong>Écrit la solution</strong><small>Implémentation pas à pas avec contexte projet</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🧪</div><div class="archi-step-content"><strong>Lance les tests</strong><small>Boucle automatique : itère si rouge, jusqu'au vert</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">📤</div><div class="archi-step-content"><strong>Commit + ouvre PR</strong><small>Notifie l'humain (Slack, email)</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">👤 Couche revue — humain à nouveau</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">🔔</div><div class="archi-step-content"><strong>Notification reçue</strong><small>L'humain bascule en mode revue</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">🔎</div><div class="archi-step-content"><strong>Code review / audit factuel</strong><small>Vérification qualité, sécurité, alignement intention</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-decision"><div class="archi-step-icon">⚖️</div><div class="archi-step-content"><strong>Merge ou itération</strong><small>OK → merge · KO → retour à l'agent avec feedback</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📊 Couche capitalisation — sur la durée</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>Logs des sessions</strong><small>Toutes les délégations archivées avec leur résultat</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Patterns identifiés</strong><small>Quelles tâches l'agent fait bien / mal → calibrage du portefeuille de délégation</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Agents codeurs autonomes</h3>
