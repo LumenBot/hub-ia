@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow email → CRM agentique — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Matrice règles — spécifique CU-013 */
+    .rules-matrix { background: white; border-radius: var(--radius-md); overflow: hidden; margin: var(--space-5) 0; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+    .rules-matrix table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .rules-matrix th { background: var(--color-primary); color: white; padding: var(--space-3) var(--space-4); text-align: left; font-weight: 700; }
+    .rules-matrix td { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); vertical-align: top; }
+    .rules-matrix tr:nth-child(even) td { background: var(--color-bg); }
+    .rules-matrix .auto { color: #2E5C2E; font-weight: 600; }
+    .rules-matrix .draft { color: #B86E1A; font-weight: 600; }
+    .rules-matrix .humain { color: #C82A2A; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d">📈 Croissance</a>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">40 min de lecture</span>
+      </div>
+      <h1>📨 Workflow email → CRM agentique</h1>
+      <p class="module-subtitle">
+        Un agent IA qui lit les emails entrants, classifie, extrait l'information, met à jour le CRM et rédige une réponse contextualisée. Le pattern de référence pour franchir le pas de l'IA agentique sur un cas d'usage à ROI mesurable en 1 à 3 mois.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Matrice de règles</a>
+        <a href="#section-3">3. Architecture du workflow</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack technique</a>
+        <a href="#section-6">6. Troubleshooting</a>
+        <a href="#section-7">7. Étude de cas ServicesCo</a>
+        <a href="#section-8">8. Pièges à éviter</a>
+        <a href="#section-9">9. Checklist d'éligibilité</a>
+        <a href="#section-10">10. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            L'email reste le canal n°1 des PME et ETI. Il consomme 30 à 60 min/jour par collaborateur en tri manuel (McKinsey 2025), la mise à jour CRM est oubliée dans 70 % des cas, et les réponses récurrentes absorbent des heures sans valeur stratégique. Un workflow agentique à 5 étapes (classification → extraction → CRM → routage → réponse) avec 3 modes (AUTO / DRAFT humain / HUMAIN direct) résout ces 4 verrous simultanément. ROI atteint en 1 à 3 mois sur les déploiements documentés.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📋</div>
+              <div class="exec-takeaway-content">
+                <strong>Matrice de règles AUTO / DRAFT / HUMAIN.</strong> La discipline structurante n'est pas technique mais éditoriale : décider explicitement quels types d'emails partent en auto, en draft, ou en escalade humaine.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⏱️</div>
+              <div class="exec-takeaway-content">
+                <strong>30 à 60 min/jour récupérées.</strong> Par collaborateur impacté. Logging CRM passé de 30-50 % à 90-95 % des emails. Temps de réponse FAQ divisé par 3 à 10.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🇪🇺</div>
+              <div class="exec-takeaway-content">
+                <strong>Souveraineté EU obligatoire.</strong> Mistral ou solution gouvernée pour le contenu de réponse, particulièrement sur les données clients. RGPD documenté avant tout déploiement.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🐢</div>
+              <div class="exec-takeaway-content">
+                <strong>Démarrage prudent obligatoire.</strong> Plus de DRAFT que d'AUTO les 4-6 premières semaines. Bascule progressive après précision classification ≥ 95 % validée. Un faux positif AUTO peut coûter un client.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">5</div>
+              <div class="exec-stat-label">Étapes en chaîne</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">3</div>
+              <div class="exec-stat-label">Modes (AUTO/DRAFT/HUMAIN)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">1-3 mois</div>
+              <div class="exec-stat-label">Time-to-ROI</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">40 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu as une boîte avec 50+ emails/jour ; ton CRM (HubSpot, Pipedrive, Salesforce) a une API exploitable et est sous-utilisé pour le logging ; tu veux franchir le pas de l'IA agentique sur un cas concret à ROI mesurable ; tu acceptes une discipline éditoriale (matrice de règles + démarrage prudent + audit hebdo des classifications les premières semaines).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — 4 verrous simultanés</h2>
+        </div>
+
+        <p>
+          L'email reste le canal numéro 1 des PME et ETI françaises pour la relation prospects et clients. Mais c'est aussi un goulot d'étranglement majeur. Le tri manuel des emails consomme 30 à 60 minutes par jour par collaborateur impacté (chiffre McKinsey 2025). La qualification (pertinent / spam / urgent / nature de la demande) est répétitive et chronophage. La mise à jour CRM post-email est <strong>oubliée dans 70 % des cas</strong> selon les benchmarks sectoriels — autant d'interactions invisibles dans le pilotage commercial. Et la rédaction de réponses sur des sujets récurrents (FAQ commerciales, support de niveau 1, accusés de réception, demandes d'infos) absorbe des heures qui n'apportent aucune valeur stratégique.
+        </p>
+        <p>
+          Le pattern « workflow email-CRM agentique » adresse ces quatre verrous simultanément en orchestrant une chaîne d'actions à partir de chaque email entrant : classification, extraction d'information utile, mise à jour de la fiche CRM, et génération d'une réponse contextualisée. <strong>L'humain intervient désormais sur les emails à enjeu (commerce, négociation, escalade) plutôt que sur le tri mécanique de 200 messages quotidiens</strong>.
+        </p>
+
+        <div class="pull-quote">
+          Le pattern n'est pas « l'IA répond à votre place ». C'est « l'IA fait le tri et la pré-rédaction, tu décides ce qui sort, tu signes ce qui engage ». La validation humaine est conservée sur tout ce qui a une portée commerciale, juridique ou relationnelle.
+        </div>
+
+        <p>
+          Le ROI typique mesuré sur les déploiements documentés : <strong>30 à 60 minutes par jour récupérées par collaborateur</strong>, passage de 30-50 % d'emails loggés au CRM à 90-95 %, division par 3 à 10 du temps de réponse sur les demandes standardisées. ROI atteint en 1 à 3 mois selon les volumes traités.
+        </p>
+      </section>
+
+      <!-- 2. MATRICE DE RÈGLES -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">La matrice de règles — ce qui décide tout</h2>
+        </div>
+
+        <p>
+          La discipline structurante du pattern n'est pas technique mais éditoriale : <strong>définir explicitement quels types d'emails reçoivent une réponse automatique, lesquels génèrent un draft pour validation humaine, et lesquels escaladent immédiatement</strong>. Sans cette matrice, le système produit du risque relationnel et juridique disproportionné. Avec, il libère un temps mesurable sans dégrader la qualité.
+        </p>
+
+        <div class="rules-matrix">
+          <table>
+            <thead>
+              <tr><th>Type d'email entrant</th><th>Mode</th><th>Justification</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Spam, prospection commerciale entrante</td>
+                <td class="auto">AUTO archivage</td>
+                <td>Aucun risque relationnel, gain de temps net</td>
+              </tr>
+              <tr>
+                <td>Accusé de réception standard</td>
+                <td class="auto">AUTO envoi</td>
+                <td>Contenu standardisé, pas d'engagement</td>
+              </tr>
+              <tr>
+                <td>Demande d'informations basique (horaires, tarifs publics, FAQ)</td>
+                <td class="auto">AUTO envoi</td>
+                <td>Contenu stable et public, gain de temps majeur</td>
+              </tr>
+              <tr>
+                <td>Demande commerciale qualifiée (lead, demande de RDV)</td>
+                <td class="draft">DRAFT humain</td>
+                <td>Personnalisation requise, opportunité commerciale</td>
+              </tr>
+              <tr>
+                <td>Question support technique (niveau 1)</td>
+                <td class="draft">DRAFT humain</td>
+                <td>Ton et exactitude vérifiés avant envoi</td>
+              </tr>
+              <tr>
+                <td>Réclamation client</td>
+                <td class="humain">HUMAIN direct</td>
+                <td>Enjeu relationnel critique, jamais d'auto</td>
+              </tr>
+              <tr>
+                <td>Négociation tarifaire ou contractuelle</td>
+                <td class="humain">HUMAIN direct</td>
+                <td>Engagement commercial et juridique</td>
+              </tr>
+              <tr>
+                <td>Email avec mots-clés sensibles (urgence, legal, presse)</td>
+                <td class="humain">HUMAIN direct</td>
+                <td>Détection par règles → escalade immédiate</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Cette matrice se calibre dans le temps. <strong>Démarrer en mode prudent (plus de DRAFT humain que d'AUTO) puis basculer progressivement</strong> vers plus d'automatisation au fil de l'expérience. Un faux positif sur AUTO peut coûter un client ; un faux positif sur DRAFT n'a pas de coût.
+        </p>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture du workflow agentique</h2>
+        </div>
+
+        <p>
+          Le pipeline traite chaque email en 5 étapes en chaîne (classification → extraction → CRM → routage → réponse) avec 3 issues possibles selon la matrice de règles. Une boucle d'apprentissage continu calibre le système sur les corrections humaines.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar13" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar13green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+              <marker id="ar13red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#C82A2A"/>
+              </marker>
+            </defs>
+
+            <!-- Email entrant -->
+            <rect x="20" y="40" width="160" height="80" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="100" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">EMAIL ENTRANT</text>
+            <text x="100" y="85" text-anchor="middle" font-size="11" fill="#333">Gmail · Outlook</text>
+            <text x="100" y="100" text-anchor="middle" font-size="11" fill="#333">Mailbox métier</text>
+            <text x="100" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Webhook · polling</text>
+
+            <!-- Étape 1 — Classification -->
+            <rect x="210" y="40" width="160" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="290" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#FFD600">1 — CLASSIFICATION</text>
+            <text x="290" y="85" text-anchor="middle" font-size="11" fill="white">Spam · commercial</text>
+            <text x="290" y="100" text-anchor="middle" font-size="11" fill="white">Support · urgent</text>
+            <text x="290" y="115" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Claude · Mistral</text>
+
+            <!-- Étape 2 — Extraction -->
+            <rect x="400" y="40" width="160" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="480" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">2 — EXTRACTION</text>
+            <text x="480" y="85" text-anchor="middle" font-size="11" fill="#333">Nom, entreprise</text>
+            <text x="480" y="100" text-anchor="middle" font-size="11" fill="#333">Demande, contexte</text>
+            <text x="480" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Output structuré JSON</text>
+
+            <!-- Étape 3 — Update CRM -->
+            <rect x="590" y="40" width="160" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="670" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#4A3A8C">3 — UPDATE CRM</text>
+            <text x="670" y="85" text-anchor="middle" font-size="11" fill="#333">Création / enrichissement</text>
+            <text x="670" y="100" text-anchor="middle" font-size="11" fill="#333">Log + scoring lead</text>
+            <text x="670" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">HubSpot · Pipedrive</text>
+
+            <!-- Étape 4 — Routage -->
+            <rect x="780" y="40" width="120" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="3"/>
+            <text x="840" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#8C5410">4 — ROUTAGE</text>
+            <text x="840" y="85" text-anchor="middle" font-size="11" fill="#333">Application</text>
+            <text x="840" y="100" text-anchor="middle" font-size="11" fill="#333">de la matrice</text>
+            <text x="840" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">de règles</text>
+
+            <!-- Issue A : AUTO -->
+            <rect x="20" y="200" width="240" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="140" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">A — RÉPONSE AUTO</text>
+            <text x="140" y="248" text-anchor="middle" font-size="11" fill="#333">Spam archivé / accusé réception</text>
+            <text x="140" y="265" text-anchor="middle" font-size="11" fill="#333">FAQ tarif public, horaires</text>
+
+            <!-- Issue B : DRAFT humain -->
+            <rect x="290" y="200" width="240" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="410" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">B — DRAFT HUMAIN</text>
+            <text x="410" y="248" text-anchor="middle" font-size="11" fill="#333">Demande commerciale, support</text>
+            <text x="410" y="265" text-anchor="middle" font-size="11" fill="#333">Validation 30 sec → envoi</text>
+
+            <!-- Issue C : HUMAIN direct -->
+            <rect x="560" y="200" width="240" height="80" rx="12" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="680" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#8C1A1A">C — HUMAIN DIRECT</text>
+            <text x="680" y="248" text-anchor="middle" font-size="11" fill="#333">Réclamation, négociation</text>
+            <text x="680" y="265" text-anchor="middle" font-size="11" fill="#333">Mots-clés sensibles → escalade</text>
+
+            <!-- Boucle d'apprentissage -->
+            <rect x="80" y="340" width="760" height="60" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="460" y="365" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">BOUCLE D'APPRENTISSAGE — corrections humaines des drafts → ajustement prompts</text>
+            <text x="460" y="385" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Chaque correction sur un draft alimente le calibrage du système dans le temps</text>
+
+            <!-- Flèches en chaîne -->
+            <line x1="180" y1="80" x2="208" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar13)"/>
+            <line x1="370" y1="80" x2="398" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar13)"/>
+            <line x1="560" y1="80" x2="588" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar13)"/>
+            <line x1="750" y1="80" x2="778" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar13)"/>
+
+            <!-- Routage vers 3 issues -->
+            <line x1="800" y1="120" x2="200" y2="198" stroke="#5C8C5C" stroke-width="2" marker-end="url(#ar13green)"/>
+            <line x1="800" y1="120" x2="450" y2="198" stroke="#B86E1A" stroke-width="2" marker-end="url(#ar13)"/>
+            <line x1="800" y1="120" x2="700" y2="198" stroke="#C82A2A" stroke-width="2" marker-end="url(#ar13red)"/>
+
+            <!-- Boucle d'apprentissage -->
+            <line x1="410" y1="280" x2="410" y2="338" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar13)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">5 étapes en chaîne (classification → extraction → CRM → routage) puis 3 issues (AUTO / DRAFT humain / HUMAIN direct) avec boucle d'apprentissage continu sur les corrections humaines.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Trigger sur email entrant.</strong> Connexion à Gmail (API native ou OAuth via Google Workspace), Outlook (Microsoft Graph API), ou mailbox métier (IMAP/POP3 standard). Trois modes : <em>webhook</em> en temps réel (le plus réactif, nécessite API), <em>polling</em> périodique (toutes les 5 min, plus simple à mettre en place), ou <em>intégration native</em> via plateforme tierce (AgentMail, Composio).</li>
+          <li><strong>Classification par l'agent IA.</strong> Un modèle (Claude, GPT, Mistral) reçoit le contenu de l'email et le classifie selon ta typologie : spam, prospection commerciale, demande client, support, urgent, etc. Sortie structurée en JSON pour exploitation aval. Précision attendue : 95 %+ sur les types courants après calibrage de 2 à 4 semaines.</li>
+          <li><strong>Extraction d'information.</strong> Pour les emails à conserver (non spam), un second appel modèle extrait les éléments structurés : nom, entreprise, fonction, demande exacte, budget mentionné, calendrier évoqué, contexte business. Sortie JSON structuré directement utilisable par le CRM.</li>
+          <li><strong>Mise à jour CRM.</strong> Via l'API native du CRM (HubSpot, Salesforce, Pipedrive, Monday.com), création ou enrichissement de la fiche prospect/client : log de l'email avec résumé, mise à jour des champs (statut, score lead, dernière interaction), déclenchement éventuel d'automations CRM existantes (séquences nurturing, alertes commercial).</li>
+          <li><strong>Routage selon la matrice de règles.</strong> Application de ta matrice (cf. section précédente) pour décider du mode de réponse : AUTO envoi (FAQ, accusés), DRAFT humain (demandes qualifiées), HUMAIN direct (réclamations, négociations). Détection des mots-clés sensibles (urgence, legal, presse, juridique) qui forcent l'escalade humaine quel que soit le contenu.</li>
+          <li><strong>Génération de réponse.</strong> Pour les modes AUTO et DRAFT, l'agent rédige une réponse contextualisée : utilisation du nom du destinataire, référence à l'email reçu, ton calibré sur la voix de marque, signature. Pour AUTO : envoi immédiat. Pour DRAFT : message déposé en brouillon Gmail/Outlook avec notification, validation humaine en 30 secondes, envoi.</li>
+          <li><strong>Boucle d'apprentissage.</strong> Chaque correction humaine sur un draft (ajustement de ton, ajout d'information, correction d'erreur) alimente une mémoire d'exemples qui ré-injecte le contexte dans les prompts futurs. Le système se calibre progressivement — typiquement, 80 % des drafts sortent sans correction substantielle après 6 à 8 semaines de calibrage.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK TECHNIQUE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Pipeline de traitement (par email entrant) ─┐</strong>
+   Email entrant (Gmail / Outlook / IMAP)
+   → Trigger n8n (webhook ou polling 5 min)
+   → <strong>Agent classification</strong> (Claude / Mistral) → JSON typé
+   → <strong>Agent extraction</strong> (Claude) → JSON structuré
+   → <strong>Update CRM</strong> via API native (HubSpot / Pipedrive)
+   → <strong>Routage</strong> selon matrice de règles
+       ├─ AUTO  → envoi immédiat (Gmail / Outlook API)
+       ├─ DRAFT → brouillon + notification → validation humaine
+       └─ HUMAIN → escalade directe (no draft)
+
+<strong>┌─ Boucle d'apprentissage ─┐</strong>
+   Corrections humaines sur drafts
+   → Mémoire d'exemples (vector store ou few-shot context)
+   → Ré-injection dans prompts classification + rédaction
+   → Système qui s'auto-calibre dans le temps
+        </div>
+
+        <h3>Plateformes email pour agents</h3>
+        <p>
+          <strong>AgentMail</strong> est citée par la communauté ZHC Institute comme la référence pour donner à un agent une infrastructure email autonome — création de comptes à la volée, gestion native des réponses, suivi de threads. Particulièrement adaptée aux agents qui gèrent plusieurs identités email pour différents projets. <strong>Composio</strong> propose un connecteur Gmail + Outlook avec 3 000+ apps, plus généraliste mais très large. <strong>Gmail API</strong> ou <strong>Microsoft Graph API</strong> en direct, pour les setups custom avec plus de contrôle.
+        </p>
+
+        <h3>Modèles de classification et rédaction</h3>
+        <p>
+          <strong>Claude</strong> est apprécié pour le ton naturel des réponses générées et la précision de la classification. <strong>GPT-4 / GPT-5</strong> reste robuste pour les volumes industriels. <strong>Mistral</strong> est l'option à privilégier dès qu'il y a sensibilité — données clients, secteurs régulés, contenu commercial stratégique. Pour la classification pure (rapide, peu coûteuse), des modèles plus légers (Mistral Small, GPT-4o mini, Claude Haiku) suffisent et réduisent significativement le coût d'inférence.
+        </p>
+
+        <h3>Orchestration end-to-end</h3>
+        <p>
+          <strong>n8n</strong> en self-hosted reste la solution recommandée — souveraineté des données client, coût zéro, flexibilité totale. <strong>Make</strong> (ex-Integromat) et <strong>Zapier</strong> sont des alternatives no-code sans serveur, plus rapides à mettre en place mais avec un coût mensuel qui croît avec le volume d'emails traités.
+        </p>
+
+        <h3>Intégration CRM</h3>
+        <p>
+          <strong>HubSpot</strong> propose une API très complète et un Free Tier généreux. <strong>Salesforce</strong> reste la référence enterprise. <strong>Pipedrive</strong> est apprécié pour les PME en go-to-market actif. <strong>Monday.com</strong> est une alternative pour les structures qui utilisent déjà Monday pour la gestion de projet. Vérifier dans tous les cas que ton CRM expose une API qui permet de créer/enrichir des contacts et de logger des interactions email.
+        </p>
+
+        <h3>Gouvernance et audit</h3>
+        <p>
+          Pour les structures qui veulent une couche de pilotage centralisée et des audits réguliers, <strong>Goodweek</strong> (alumni QFC) propose une fédération multi-LLM avec gouvernance. Particulièrement pertinent quand le workflow email est l'un de plusieurs cas d'usage IA déployés en parallèle dans la structure.
+        </p>
+
+        <h3>Prérequis techniques et organisationnels</h3>
+        <p>
+          Une mailbox dédiée à l'agent ou compte avec adresse explicite (transparence vis-à-vis des destinataires). Un CRM en place avec API exploitable. Une matrice de règles documentée avant tout déploiement (sans elle, le système produit du risque). Une compétence n8n niveau intermédiaire ou un prestataire d'intégration mobilisable. Un référent identifié pour la validation des drafts et la calibration des prompts. Un budget d'inférence anticipé (typiquement 30 à 200 €/mois selon volume d'emails traités).
+        </p>
+      </section>
+
+      <!-- 6. TROUBLESHOOTING -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">6</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Emails commerciaux classés en spam (faux négatifs critiques)</td>
+                <td>Prompt de classification trop strict ou typologie incomplète</td>
+                <td>Élargir la définition « commercial » dans le prompt, ajouter des exemples de prospects légitimes en few-shot. Auditer les classifications les 4 premières semaines.</td>
+              </tr>
+              <tr>
+                <td>Réponses AUTO trop génériques, plaintes clients</td>
+                <td>Voix de marque insuffisamment calibrée ou trop d'emails routés en AUTO</td>
+                <td>Restreindre la matrice (passer plus d'emails en DRAFT), enrichir le corpus de réponses validées historiques pour le calibrage de voix.</td>
+              </tr>
+              <tr>
+                <td>CRM saturé de fiches en doublon</td>
+                <td>Pas de logique de matching avant création (email + nom)</td>
+                <td>Avant création, requête API CRM sur l'email du destinataire. Si fiche existante → enrichissement. Sinon → création.</td>
+              </tr>
+              <tr>
+                <td>Hallucinations sur engagements (« notre tarif est de 99 € » non vérifié)</td>
+                <td>L'agent rédige des éléments factuels non présents dans la base de connaissance</td>
+                <td>Interdire dans le prompt la mention de chiffres ou conditions non explicitement présents dans le contexte. Marquer [À VÉRIFIER] sinon.</td>
+              </tr>
+              <tr>
+                <td>Latence trop forte (réponse AUTO en 2 min)</td>
+                <td>Classification + extraction + génération en chaîne sans cache</td>
+                <td>Pour les types récurrents (FAQ), pré-générer les templates et les injecter en cache. Utiliser un modèle léger (Haiku, GPT-4o mini) pour la classification.</td>
+              </tr>
+              <tr>
+                <td>Mots-clés sensibles non détectés (legal, presse passés en DRAFT)</td>
+                <td>Liste de mots-clés sensibles trop courte ou pattern matching insuffisant</td>
+                <td>Étoffer la liste : « avocat », « huissier », « presse », « journaliste », « urgent », « réclamation », « insatisfait », « remboursement », « annulation contrat ». Combiner détection par mots-clés ET par sentiment.</td>
+              </tr>
+              <tr>
+                <td>Détection IA par destinataires (emails ressentis comme robotiques)</td>
+                <td>Manque de personnalisation humaine sur les drafts</td>
+                <td>Discipline éditoriale : 30 secondes minimum de relecture humaine sur les drafts. Ajouter dans le prompt des consignes de naturalité (« ton conversationnel, formules d'ouverture variées »).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. ÉTUDE DE CAS -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">7</div>
+          <h2 class="module-section-title">Étude de cas — ServicesCo, ESN B2B 35 personnes</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste. 5 étapes décortiquées sur un déploiement de 3 mois. Compte 60 minutes pour assimiler en profondeur, ou 20 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">ServicesCo — ESN B2B de 35 personnes basée à Strasbourg, spécialisée en intégration logicielle pour les ETI industrielles. 4 commerciaux, 1 chargée de support, 1 dirigeant qui supervise. Volume d'environ 180 emails entrants par jour répartis : 30 % spam/prospection, 40 % demandes commerciales (leads), 20 % support clients existants, 10 % opérationnel interne. CRM HubSpot en place, peu utilisé pour le logging des emails.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>35 personnes</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Emails / jour</div>
+              <strong>~180</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">CRM en place</div>
+              <strong>HubSpot</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Logging actuel</div>
+              <strong>~35 % emails</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Définir la matrice de règles (semaine 1)</h3>
+            <p>Le dirigeant et la chargée de support tiennent un atelier de 2h pour définir explicitement la matrice. Décisions : spam et accusés de réception en AUTO, FAQ tarifs publics et horaires en AUTO, leads commerciaux en DRAFT (validation par le commercial concerné en 30 sec), support de niveau 1 en DRAFT (validation par la chargée de support), réclamations et négociations en HUMAIN direct (escalade dirigeant ou commercial senior). Liste de 15 mots-clés sensibles établie pour forcer l'escalade.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — atelier humain de 2h, document Notion partagé pour la matrice
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Une matrice documentée de 8 lignes (types d'emails) × 3 modes (AUTO / DRAFT / HUMAIN), validée par toute l'équipe. C'est la fondation éditoriale du déploiement.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Configurer n8n + Mistral + HubSpot (semaine 2-3)</h3>
+            <p>Configuration n8n self-hosted en Docker. Trigger Gmail via OAuth. Workflow à 5 nœuds : (1) trigger → (2) classification Mistral Small (rapide et peu coûteux pour cette tâche) → (3) extraction Claude (plus précis sur le contenu structuré) → (4) update HubSpot via API native (création/enrichissement contact + log email) → (5) routage AUTO/DRAFT/HUMAIN selon matrice. Mistral Large pour la rédaction des drafts (souveraineté EU sur les données clients). Tests préliminaires sur 50 emails historiques de l'archive.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              n8n (Docker) → Gmail OAuth → Mistral Small (classification) → Claude (extraction structurée) → HubSpot API (logging) → Mistral Large (rédaction drafts) → Gmail API (envoi AUTO ou brouillon)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Workflow opérationnel sur 100 % du flux d'emails entrants. Tests préliminaires : classification correcte sur 91 % des 50 emails historiques (4 faux positifs commerciaux classés support, 1 faux positif support classé spam). Calibrage du prompt classification immédiat.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Démarrage en mode prudent (semaine 4-6)</h3>
+            <p>Pendant le mois de calibrage, restriction temporaire : seuls les emails de type spam et accusés de réception sont en AUTO. Tous les autres types (y compris FAQ) passent en DRAFT humain pour permettre à l'équipe d'auditer les sorties IA. Audit hebdomadaire de classification (1 fois par semaine, 30 min) : revue de 30 emails échantillonnés, identification des erreurs, ajustement du prompt. La chargée de support remonte les corrections récurrentes au dirigeant.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              n8n → mode DRAFT élargi temporairement → audit Notion partagé pour les corrections → ajustements de prompts via versioning Git
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Précision classification passée de 91 % à 96 % en 3 semaines. CRM logging passé de 35 % à 82 % des emails entrants. Temps de tri commercial réduit de ~50 min/jour à ~20 min/jour par commercial (gain de 30 min × 4 commerciaux = 2h/jour récupérées sur l'équipe).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Bascule progressive vers AUTO (semaine 7-10)</h3>
+            <p>Une fois la précision classification stabilisée à 96 %+, bascule progressive : FAQ tarifs publics passent en AUTO, accusés de réception standardisés passent en AUTO. Les demandes commerciales et support restent en DRAFT (la valeur de la voix humaine sur ces canaux est trop critique pour automatiser). La boucle d'apprentissage continue : chaque correction humaine sur un draft alimente la mémoire d'exemples ré-injectée dans les prompts futurs.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Mode AUTO étendu sur 2 types supplémentaires → vector store (Qdrant) pour mémoire des corrections → ré-injection contexte dans prompts via RAG léger
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              ~40 % des emails entrants traités en mode AUTO sans intervention humaine, ~50 % en DRAFT validé en 30 sec, ~10 % en HUMAIN direct. Temps total commercial sur tri/réponses divisé par 2,5 (de 12 h/jour cumulées à 5 h/jour cumulées sur l'équipe).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Mesure et industrialisation (mois 3+)</h3>
+            <p>Mesure 4 KPIs sur 3 mois : (1) précision classification, (2) % emails en CRM, (3) temps de tri par commercial, (4) taux de plaintes/insatisfaction client lié aux réponses AUTO. KPI 4 reste à 0 sur 3 mois, signe que le calibrage prudent et la matrice respectée tiennent. Au mois 4, ServicesCo étend le pattern : déploiement sur les boîtes commerciales individuelles (en plus de la boîte générale), ajout d'un mode SLACK (notifications Slack pour les drafts au lieu d'emails), réflexion sur l'extension WhatsApp Business pour le support client.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Tableaux de bord Notion partagés → audit hebdo automatisé → extension multi-canal (Slack via webhook, WhatsApp Business à l'étude)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Système stabilisé avec maintenance légère (1h/mois de revue + ajustements). ROI estimé : 2h/jour × 4 commerciaux × 220 jours = 1 760h/an récupérées, soit l'équivalent d'1 ETP. Pour un coût d'inférence d'environ 800 €/an. Ratio investissement/valeur exceptionnel sur ce cas d'usage.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 3 mois</div>
+          <p>
+            ServicesCo est passée de 35 % à 95 % de logging CRM, de 50 min à 20 min de tri quotidien par commercial, et a gagné l'équivalent d'1 ETP commercial en bande passante redéployable sur des activités à plus forte valeur. <strong>Le pattern n'a pas remplacé les commerciaux — il les a libérés du tri mécanique pour qu'ils s'investissent sur la relation</strong>. La validation humaine systématique sur les drafts (50 % du flux) reste au cœur du dispositif et conditionne sa légitimité commerciale. Aucune plainte client liée à une réponse AUTO en 3 mois — la matrice prudente fait son travail.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. PIÈGES -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">8</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Les erreurs de classification critiques</h3>
+        <p>
+          Un email commercial mis en spam est une opportunité perdue. Un email de réclamation mis en accusé de réception AUTO est une crise client. <strong>Auditer la classification les 4 à 6 premières semaines</strong> est obligatoire — revue hebdomadaire d'un échantillon de 30-50 emails, identification des erreurs, ajustement des prompts. La précision classification doit atteindre 95 %+ avant tout passage en mode AUTO sur les types sensibles.
+        </p>
+
+        <h3>Les réponses automatiques mal calibrées</h3>
+        <p>
+          Une réponse AUTO « robotique » ou impersonnelle dégrade la relation client. <strong>Démarrer en mode prudent : restreindre AUTO aux types les plus standardisés et sans enjeu relationnel</strong> (spam, accusés, FAQ pures). Étendre seulement après plusieurs semaines de calibrage validé. Pour les réponses AUTO, valider que le ton reflète bien la voix de marque sur 50-100 exemples avant déploiement.
+        </p>
+
+        <h3>Transparence AI Act</h3>
+        <p>
+          Le règlement européen pousse vers une obligation de transparence sur les contenus générés par IA. <strong>Bonne pratique : signature « répondu avec assistance IA » sur les emails AUTO</strong>, ou « équipe ServicesCo (assistance IA + relecture humaine) » pour les drafts validés. Cette transparence n'érode pas la relation si elle est intégrée naturellement — elle peut même devenir un signal de maturité.
+        </p>
+
+        <h3>RGPD et confidentialité</h3>
+        <p>
+          L'agent traite des données personnelles entrantes (nom, email, parfois données sensibles dans le contenu de l'email). <strong>Documentation RGPD obligatoire</strong> : registre des traitements à jour, base légale documentée (intérêt légitime ou consentement selon le cas), durée de rétention des emails en cache, sécurité des transmissions. <strong>Privilégier impérativement les modèles à souveraineté EU</strong> (Mistral) pour le contenu de réponse, particulièrement sur les données clients sensibles.
+        </p>
+
+        <h3>Hallucinations sur engagements</h3>
+        <p>
+          Un agent qui rédige une réponse engageante peut promettre ce que l'entreprise ne peut pas tenir : tarifs incorrects, délais irréalistes, conditions hors politique commerciale. <strong>Garde-fou strict dans le prompt</strong> : interdire la mention de chiffres précis (tarifs, délais, conditions) qui ne sont pas explicitement présents dans la base de connaissance. Marquer [À VÉRIFIER] ou rediriger en HUMAIN direct quand l'agent identifie un besoin de précision factuelle.
+        </p>
+
+        <h3>L'enfermement dans l'automation</h3>
+        <p>
+          La tentation est de pousser progressivement plus d'emails en AUTO pour maximiser le gain de temps. <strong>Résister à cette dérive</strong> sur les types relationnels (commercial qualifié, support, négociation). Le ratio cible n'est pas 100 % AUTO — c'est typiquement 30-50 % AUTO + 40-60 % DRAFT humain + 5-10 % HUMAIN direct. Tout déplacement vers plus d'AUTO doit être validé par l'absence de plaintes client sur 8-12 semaines.
+        </p>
+      </section>
+
+      <!-- 9. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">9</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité réelle à déployer ce workflow agentique. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le système produit du risque) et <strong>critères de qualité</strong> (qui conditionnent la performance dans la durée). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Volume d'emails entrants suffisant pour amortir le setup</strong>
+                  <small>Cible minimale : 50 emails/jour par boîte traitée (en-dessous, ROI marginal vs effort de setup)</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. CRM en place avec API exploitable</strong>
+                  <small>HubSpot, Salesforce, Pipedrive, Monday.com — création et enrichissement de contacts, logging d'interactions</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Matrice de règles AUTO/DRAFT/HUMAIN documentée</strong>
+                  <small>Décision explicite par type d'email avant tout déploiement technique — fondation éditoriale</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Référent identifié pour validation des drafts et calibrage</strong>
+                  <small>Validation des drafts en mode prudent + audit hebdomadaire des classifications les 4-6 premières semaines</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Souveraineté EU sur les modèles de rédaction</strong>
+                  <small>Mistral ou solution gouvernée pour les drafts qui contiennent du contenu commercial / client sensible</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la performance</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Compétence n8n / orchestration disponible</strong>
+                  <small>Niveau intermédiaire en interne, ou prestataire d'intégration mobilisable (NIN-IA, Spinalia, autre)</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Boîte email dédiée à l'agent ou adresse explicite</strong>
+                  <small>Transparence vis-à-vis des destinataires (mention « assistance IA » dans signature)</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Corpus de réponses historiques exploitable pour calibrage de voix</strong>
+                  <small>50-100 emails de réponses validées des 6 derniers mois, anonymisables et utilisables en few-shot</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Conformité RGPD documentée pour le traitement des emails</strong>
+                  <small>Registre des traitements à jour, base légale, durée de rétention, sécurité des transmissions</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Plan de calibrage progressif (mode prudent → AUTO étendu)</strong>
+                  <small>Démarrage en mode majoritairement DRAFT, bascule progressive vers AUTO après 4-6 semaines de validation</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 10. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">10</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et textes officiels</h3>
+          <ul>
+            <li>
+              <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey State of AI 2025</a>
+              <span class="resources-meta">McKinsey — chiffres sur le temps perdu en gestion email et l'impact des automatisations IA</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Intelligence artificielle et données personnelles</a>
+              <span class="resources-meta">CNIL — recommandations RGPD pour le traitement automatisé d'emails</span>
+            </li>
+            <li>
+              <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a>
+              <span class="resources-meta">Commission européenne — obligations de transparence sur les réponses générées par IA</span>
+            </li>
+            <li>
+              <a href="https://hbr.org/topic/subject/customer-relationship-management" target="_blank" rel="noopener">Harvard Business Review — CRM</a>
+              <span class="resources-meta">HBR — analyses managériales sur la transformation des fonctions commerciales avec l'IA</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=n8n+gmail+ai+agent+automation" target="_blank" rel="noopener">n8n + Gmail + IA — workflows complets</a>
+              <span class="resources-meta">YouTube — pas-à-pas pour des setups email-CRM agentiques</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=hubspot+api+n8n+integration+tutorial" target="_blank" rel="noopener">HubSpot API + n8n — intégration</a>
+              <span class="resources-meta">YouTube — déploiements HubSpot avec orchestration n8n</span>
+            </li>
+            <li>
+              <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Agentic AI (Andrew Ng)</a>
+              <span class="resources-meta">Cours de référence sur les patterns d'agents en chaîne</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a>
+              <span class="resources-meta">Plateforme d'orchestration self-hosted recommandée pour la souveraineté</span>
+            </li>
+            <li>
+              <a href="https://developers.hubspot.com/docs/api/overview" target="_blank" rel="noopener">HubSpot API Documentation</a>
+              <span class="resources-meta">API native pour création et enrichissement de contacts</span>
+            </li>
+            <li>
+              <a href="https://docs.composio.dev" target="_blank" rel="noopener">Composio Documentation</a>
+              <span class="resources-meta">Plateforme avec 3 000+ apps connectées dont Gmail, Outlook, CRM</span>
+            </li>
+            <li>
+              <a href="https://docs.mistral.ai" target="_blank" rel="noopener">Mistral AI Documentation</a>
+              <span class="resources-meta">API et déploiements souverains EU pour données clients sensibles</span>
+            </li>
+            <li>
+              <a href="https://docs.anthropic.com/en/docs/build-with-claude" target="_blank" rel="noopener">Claude Documentation — Anthropic</a>
+              <span class="resources-meta">API Claude, prompt engineering, structured outputs</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a>
+              <span class="resources-meta">Communauté n8n — partage de workflows email-CRM agentiques</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/AI_Agents" target="_blank" rel="noopener">r/AI_Agents sur Reddit</a>
+              <span class="resources-meta">Communauté spécialisée sur les systèmes agentiques en production</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/SaaS" target="_blank" rel="noopener">r/SaaS sur Reddit</a>
+              <span class="resources-meta">Retours d'expérience B2B sur les workflows email-CRM</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-013';
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Volume d'emails entrants suffisant pour amortir le setup" },
+        { id: 'b2', label: "CRM en place avec API exploitable" },
+        { id: 'b3', label: "Matrice de règles AUTO/DRAFT/HUMAIN documentée" },
+        { id: 'b4', label: "Référent identifié pour validation des drafts et calibrage" },
+        { id: 'b5', label: "Souveraineté EU sur les modèles de rédaction" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Compétence n8n / orchestration disponible" },
+        { id: 'q2', label: "Boîte email dédiée à l'agent ou adresse explicite" },
+        { id: 'q3', label: "Corpus de réponses historiques exploitable pour calibrage de voix" },
+        { id: 'q4', label: "Conformité RGPD documentée pour le traitement des emails" },
+        { id: 'q5', label: "Plan de calibrage progressif (mode prudent → AUTO étendu)" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item,
+        partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item,
+        partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Traiter ces gaps avant tout déploiement, sous peine de produire un système qui dégrade la qualité au lieu de l'améliorer.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = 'Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Tu peux engager le projet avec confiance.';
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote limité possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Tu peux lancer un pilote limité (1 boîte email) tout en consolidant en parallèle les zones de fragilité.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore,
+        qualityScore,
+        totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Workflow email → CRM agentique\n\n`;
+        content += `*Évaluation Hub IA territorial — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-013 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — WORKFLOW EMAIL CRM AGENTIQUE\n`;
+        content += `Evaluation Hub IA territorial — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-013 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-workflow-email-crm.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

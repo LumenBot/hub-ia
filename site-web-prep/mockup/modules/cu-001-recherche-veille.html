@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recherche & veille augmentée — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <!-- Barre de progression de lecture -->
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
+        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+      </div>
+      <h1>📚 Recherche & veille augmentée</h1>
+      <p class="module-subtitle">
+        Remplacer Google par des outils IA capables de produire des synthèses sourcées en quelques minutes. Le réflexe le plus rentable à acquérir, applicable dès aujourd'hui sans aucune compétence technique.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <!-- Sidebar TOC -->
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Quels outils pour quels usages</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#quiz"><span class="toc-icon">✅</span>Quiz 5 questions</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- 1. EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 60 secondes</div>
+          <h2>Pourquoi c'est le réflexe le plus rentable à acquérir</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>La recherche augmentée est <strong>le premier réflexe IA à installer</strong> dans toute organisation : gain immédiat de 3 à 5 heures par semaine sur la préparation de réunions, comparaisons fournisseurs, veille réglementaire. Aucune compétence technique requise, aucun budget à mobiliser pour démarrer.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>3 outils pour 3 usages différents</strong> : Perplexity pour les recherches web sourcées (référence du marché), Le Chat Pro pour les sujets sensibles avec souveraineté EU, NotebookLM pour interroger un corpus que tu fournis toi-même (PDF, rapports, archives).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>3 vigilances structurantes : <strong>hallucinations</strong> (vérifier au moins une source citée pour chaque affirmation engageante), <strong>confidentialité</strong> (jamais de données stratégiques dans les chatbots grand public), <strong>paresse intellectuelle</strong> (challenger les conclusions, ne pas prendre la synthèse pour parole d'évangile).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>C'est <strong>la porte d'entrée la plus accessible</strong> à l'IA en organisation. Selon Bpifrance 2025, 67 % des dirigeants PME/TPE ne savent pas par où commencer. La recherche augmentée donne un retour mesurable dès la première utilisation.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">67 %</div>
+              <div class="exec-stat-label">Dirigeants PME/TPE qui n'ont pas commencé</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">5 min</div>
+              <div class="exec-stat-label">Vs 30 min en recherche manuelle</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">0 €</div>
+              <div class="exec-stat-label">Coût d'entrée (versions gratuites)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">15 min</div>
+              <div class="exec-stat-label">Pour la 1re mise en pratique</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu passes <strong>plusieurs heures par semaine</strong> à chercher de l'information (préparation réunions, comparaisons, veille)</li>
+              <li>Tu veux <strong>installer un premier réflexe IA</strong> dans ton organisation sans investissement technique</li>
+              <li>Tu n'as <strong>jamais utilisé</strong> Perplexity, NotebookLM ou Le Chat Pro de manière structurée</li>
+              <li>Tu veux <strong>15 minutes</strong> pour une mise en pratique immédiate sur un cas concret</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Choisir le bon outil de recherche augmentée selon le type de question (Perplexity, Le Chat Pro, NotebookLM)</li>
+            <li>Formuler une requête structurée qui produit une synthèse sourcée exploitable en 5 minutes</li>
+            <li>Identifier et écarter les hallucinations IA avant d'agir sur l'information</li>
+            <li>Mettre en place un réflexe de recherche augmentée sans risquer de fuite de données confidentielles</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3. LE CAS ET LE CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>
+          Selon Bpifrance (2025), <strong>67 % des dirigeants de PME et TPE ne savent pas par où commencer avec l'IA</strong>. La recherche augmentée est la porte d'entrée la plus accessible : elle ne demande aucune compétence technique, donne un retour mesurable dès la première utilisation, et installe un réflexe utile à toutes les fonctions de l'organisation.
+        </p>
+        <p>
+          Le rapport MIT sur l'état de l'IA en entreprise 2025 souligne que <em>les organisations qui captent le plus de valeur avec l'IA ne sont pas celles qui déploient le plus d'outils, mais celles qui adoptent en premier les usages basiques avec rigueur</em>. La recherche augmentée fait partie de ces usages.
+        </p>
+        <div class="pull-quote">
+          <p>Ne plus passer 30 minutes à éplucher 15 onglets pour comparer 5 fournisseurs ou comprendre une réglementation : 5 minutes suffisent avec le bon outil, et la matière obtenue est sourcée.</p>
+        </div>
+      </section>
+
+      <!-- 4. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar1" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+            </defs>
+            <rect x="20" y="60" width="180" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — TA QUESTION</text>
+            <text x="110" y="115" text-anchor="middle" font-size="12" fill="#333">Question concrète</text>
+            <text x="110" y="132" text-anchor="middle" font-size="12" fill="#333">en langage naturel</text>
+            <text x="110" y="150" text-anchor="middle" font-size="11" fill="#666" font-style="italic">« Compare A et B »</text>
+            <rect x="240" y="60" width="180" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="330" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — OUTIL IA</text>
+            <text x="330" y="115" text-anchor="middle" font-size="12" fill="white">Perplexity</text>
+            <text x="330" y="131" text-anchor="middle" font-size="12" fill="white">Le Chat Pro</text>
+            <text x="330" y="147" text-anchor="middle" font-size="12" fill="white">NotebookLM</text>
+            <rect x="460" y="60" width="180" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="550" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — RECHERCHE</text>
+            <text x="550" y="115" text-anchor="middle" font-size="12" fill="#333">Sources web</text>
+            <text x="550" y="131" text-anchor="middle" font-size="12" fill="#333">vérifiées et</text>
+            <text x="550" y="147" text-anchor="middle" font-size="12" fill="#333">croisées</text>
+            <rect x="680" y="60" width="180" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="770" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">4 — SYNTHÈSE</text>
+            <text x="770" y="115" text-anchor="middle" font-size="12" fill="#333">Réponse claire</text>
+            <text x="770" y="131" text-anchor="middle" font-size="12" fill="#333">avec citations</text>
+            <text x="770" y="147" text-anchor="middle" font-size="12" fill="#333">cliquables</text>
+            <line x1="200" y1="110" x2="238" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar1)"/>
+            <line x1="420" y1="110" x2="458" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar1)"/>
+            <line x1="640" y1="110" x2="678" y2="110" stroke="#2E5395" stroke-width="3" marker-end="url(#ar1)"/>
+            <text x="440" y="200" text-anchor="middle" font-size="12" fill="#666" font-style="italic">5 minutes du réflexe humain à la matière exploitable, avec sources vérifiables</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Le pattern à 4 étapes : ta question → l'outil → la recherche web sourcée → la synthèse exploitable</p>
+      </section>
+
+      <!-- 5. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les étapes en détail</h2>
+          </div>
+        </div>
+        <ol>
+          <li><strong>Formuler une question structurée</strong> en langage naturel. Plus la question est précise, plus la réponse l'est : « Compare les certifications ISO 27001 et SOC 2 pour un usage SaaS B2B en Europe » fonctionne mieux que « Sécurité SaaS ».</li>
+          <li><strong>Choisir l'outil adapté</strong> selon le type de question (cf. section ci-dessous).</li>
+          <li><strong>Lire la synthèse en mode critique</strong> : les chiffres et les sources sont à vérifier au moins partiellement. Cliquer sur une ou deux sources citées pour valider.</li>
+          <li><strong>Itérer si besoin</strong> : si la première réponse n'est pas suffisamment précise, reformuler avec un angle différent ou demander une comparaison.</li>
+        </ol>
+      </section>
+
+      <!-- 6. OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Quels outils pour quels usages</h2>
+          </div>
+        </div>
+
+        <h3>Perplexity</h3>
+        <p>
+          <strong>Référence sur le marché.</strong> Possède son propre index du web (donc indépendant de Google). Renvoie une synthèse claire avec citations cliquables. Idéal pour les recherches concurrentielles, réglementaires, sectorielles. Versions Pro à environ 20 €/mois pour les usages professionnels intensifs.
+        </p>
+
+        <h3>Le Chat Pro (Mistral)</h3>
+        <p>
+          <strong>Alternative française avec souveraineté EU.</strong> Hébergement européen, certifications ISO 27001 et SOC 2. Pertinent pour les recherches qui touchent à des données stratégiques de l'entreprise.
+        </p>
+
+        <h3>NotebookLM (Google)</h3>
+        <p>
+          <strong>Pour interroger un corpus que tu fournis toi-même.</strong> Tu uploades 10-50 documents (PDF, sites, notes), et tu poses des questions en langage naturel. Idéal pour analyser un rapport long, comparer plusieurs sources, préparer une réunion stratégique sur un sujet précis.
+        </p>
+      </section>
+
+      <!-- 7. CAS D'ÉTUDE GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
+
+        <p>Tu vas suivre les 3 étapes ci-dessous avec un outil de ton choix. Compte 15 minutes pour le faire en parallèle de la lecture.</p>
+
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu prépares <strong>une réunion stratégique demain matin</strong> sur le sujet « IA et financement ». Tu as 30 minutes pour comprendre les principaux dispositifs publics d'aide à l'adoption de l'IA en France : qui peut en bénéficier, montants, calendrier. Pas le temps d'éplucher 15 onglets et 4 PDFs administratifs.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Ouvre Perplexity et formule la requête</h4>
+            <p>Ouvre <a href="https://www.perplexity.ai" target="_blank" rel="noopener">perplexity.ai</a> (gratuit pour cette requête). Saisis exactement :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">Quels sont les principaux dispositifs publics français d'aide à l'adoption de l'IA pour les entreprises en 2026 ? Liste les 3 à 5 dispositifs majeurs avec : qui peut en bénéficier, montants, plafonds, calendrier. Réponds en français avec sources officielles.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Outil</div>
+              🛠️ Perplexity (gratuit)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Output attendu</div>
+              Une synthèse en 3-5 dispositifs avec citations cliquables vers les sites officiels (Bpifrance, Aides-Territoires, ministères, régions).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Vérifie une source citée</h4>
+            <p>Dans la synthèse, clique sur une source qui semble officielle (Bpifrance, Aides-Territoires, ministère). Vérifie que la page existe et que les chiffres clés (taux d'aide, plafond) y figurent bien.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Outil</div>
+              🌐 Lien externe à valider
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Pourquoi cette étape compte</div>
+              Les outils IA peuvent halluciner des sources. La vérification rapide (1 minute) protège contre l'erreur grossière.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Demande une mise en forme exploitable</h4>
+            <p>Reformule ta requête à Perplexity :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.9375rem;">Reformule la réponse précédente en 5 points-clés exploitables pour une réunion de 10 minutes : (1) panorama des dispositifs (2) lequel choisir selon le profil de l'entreprise (3) montants et plafonds clés (4) un exemple chiffré sur un projet IA de 30 K€ (5) prochaines étapes concrètes.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Outil</div>
+              🛠️ Perplexity
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Livrable produit</div>
+              5 points-clés copier-collables dans une slide « Dispositifs IA » de ta présentation. Temps total : 5-10 minutes versus 30-45 minutes en recherche manuelle.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>
+            Tu as transformé une question floue (« comprendre l'aide IA Région ») en livrable exploitable (5 points-clés sourcés) en moins de 15 minutes, sans ouvrir 12 onglets ni lire 4 PDFs. <strong>Reproduis ce pattern à chaque préparation de réunion stratégique</strong> : tu gagneras typiquement 3 à 5 heures par semaine.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <h3>Les hallucinations</h3>
+        <p>
+          Une <em>hallucination</em> est une affirmation fausse présentée avec assurance par le modèle. Particulièrement fréquente sur les chiffres précis, les dates, les sources citées. <strong>Toujours vérifier les éléments factuels critiques</strong> avant action — ne pas prendre une synthèse pour parole d'évangile.
+        </p>
+
+        <h3>La confidentialité</h3>
+        <p>
+          Les chatbots grand public envoient tes requêtes à leurs serveurs et peuvent les utiliser pour entraîner leurs modèles. <strong>Ne jamais coller des données personnelles, des contrats clients, des comptes annuels ou tout élément confidentiel</strong> dans Perplexity, ChatGPT ou Gemini grand public. Pour ces usages, utiliser une version professionnelle ou Mistral Le Chat Pro (souveraineté EU).
+        </p>
+
+        <h3>La paresse intellectuelle</h3>
+        <p>
+          L'outil va vite. Trop vite. La tentation est de prendre la synthèse pour acquise sans la critiquer. La discipline reste : lire au moins une source citée pour chaque affirmation engageante, et challenger les conclusions de l'outil sur les sujets stratégiques.
+        </p>
+      </section>
+
+      <!-- 9. QUIZ -->
+      <section class="module-section" id="quiz">
+        <div class="module-section-header">
+          <div class="module-section-icon success">✅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Quiz — 5 questions</h2>
+          </div>
+        </div>
+
+        <div class="quiz-v3">
+          <form id="quizForm">
+            <div class="quiz-question">
+              <div class="quiz-question-title">1. Selon Bpifrance (2025), quelle proportion de dirigeants de PME/TPE ne sait pas par où commencer avec l'IA ?</div>
+              <label class="quiz-option"><input type="radio" name="q1" value="a"> 30 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="b"> 50 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="c"> 67 %</label>
+              <label class="quiz-option"><input type="radio" name="q1" value="d"> 85 %</label>
+            </div>
+
+            <div class="quiz-question">
+              <div class="quiz-question-title">2. Lequel de ces outils possède son propre index du web indépendant de Google ?</div>
+              <label class="quiz-option"><input type="radio" name="q2" value="a"> ChatGPT</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="b"> Perplexity</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="c"> Claude</label>
+              <label class="quiz-option"><input type="radio" name="q2" value="d"> Gemini</label>
+            </div>
+
+            <div class="quiz-question">
+              <div class="quiz-question-title">3. Pour interroger un corpus de documents que tu uploads toi-même, quel outil est le plus adapté ?</div>
+              <label class="quiz-option"><input type="radio" name="q3" value="a"> Le Chat Pro</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="b"> ChatGPT standard</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="c"> NotebookLM</label>
+              <label class="quiz-option"><input type="radio" name="q3" value="d"> Bing Search</label>
+            </div>
+
+            <div class="quiz-question">
+              <div class="quiz-question-title">4. Qu'est-ce qu'une « hallucination » dans le contexte des modèles IA ?</div>
+              <label class="quiz-option"><input type="radio" name="q4" value="a"> Une réponse sans aucun sens, immédiatement détectable</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="b"> Une affirmation fausse présentée avec assurance par le modèle</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="c"> Un bug technique du serveur</label>
+              <label class="quiz-option"><input type="radio" name="q4" value="d"> Une réponse trop courte</label>
+            </div>
+
+            <div class="quiz-question">
+              <div class="quiz-question-title">5. Pour les recherches sur des données confidentielles d'entreprise, quel outil privilégier ?</div>
+              <label class="quiz-option"><input type="radio" name="q5" value="a"> ChatGPT grand public</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="b"> Perplexity standard</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="c"> Mistral / Le Chat Pro (souveraineté EU)</label>
+              <label class="quiz-option"><input type="radio" name="q5" value="d"> Gemini grand public</label>
+            </div>
+
+            <button type="button" class="quiz-submit" onclick="validateQuiz()">Valider mon quiz</button>
+          </form>
+          <div class="quiz-result" id="quizResult"></div>
+        </div>
+      </section>
+
+      <!-- 10. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.bpifrance-lelab.fr/etudes-et-rapports" target="_blank" rel="noopener">Études Bpifrance Le Lab — IA & PME 2025</a><span class="resources-meta">Bpifrance Le Lab, 2025 — chiffres adoption IA chez les dirigeants français</span></li>
+            <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey State of AI 2025</a><span class="resources-meta">McKinsey, 2025 — benchmarks par fonction et chapitre dédié au knowledge management</span></li>
+            <li><a href="https://hbr.org/topic/subject/artificial-intelligence" target="_blank" rel="noopener">Harvard Business Review — Artificial Intelligence topic</a><span class="resources-meta">HBR, mise à jour continue — analyses managériales sur l'usage IA en entreprise</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=perplexity+pro+tutorial+2026" target="_blank" rel="noopener">Tutoriels Perplexity Pro</a><span class="resources-meta">YouTube — playlists pour maîtriser les Spaces, les requêtes structurées et les sources</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=NotebookLM+tutorial" target="_blank" rel="noopener">NotebookLM — tutoriels d'usage</a><span class="resources-meta">YouTube — démos d'analyse de corpus de documents</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://docs.perplexity.ai" target="_blank" rel="noopener">Perplexity API Documentation</a><span class="resources-meta">Pour l'intégration de la recherche augmentée dans tes propres outils</span></li>
+            <li><a href="https://docs.mistral.ai" target="_blank" rel="noopener">Mistral AI Documentation</a><span class="resources-meta">Pour comprendre les modèles, l'API et les options de souveraineté</span></li>
+            <li><a href="https://notebooklm.google.com" target="_blank" rel="noopener">Google NotebookLM</a><span class="resources-meta">Accès direct — gratuit avec un compte Google</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/perplexity_ai" target="_blank" rel="noopener">r/perplexity_ai sur Reddit</a><span class="resources-meta">Communauté pratique avec partage de techniques de prompting</span></li>
+            <li><a href="https://www.reddit.com/r/NotebookLM" target="_blank" rel="noopener">r/NotebookLM sur Reddit</a><span class="resources-meta">Cas d'usage et astuces pour exploiter NotebookLM sur des corpus métier</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const correctAnswers = { q1: 'c', q2: 'b', q3: 'c', q4: 'b', q5: 'c' };
+    const moduleId = 'cu-001';
+
+    function validateQuiz() {
+      const form = document.getElementById('quizForm');
+      const result = document.getElementById('quizResult');
+      let score = 0;
+      for (const q in correctAnswers) {
+        const selected = form.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === correctAnswers[q]) score++;
+      }
+      let message;
+      if (score === 5) message = `🎉 <strong>Score parfait : ${score}/5</strong><br>Tu maîtrises le réflexe de recherche augmentée. Module suivant ?`;
+      else if (score >= 3) message = `✅ <strong>Score : ${score}/5</strong><br>Bonne maîtrise. Revois les questions ratées si tu veux consolider.`;
+      else message = `📖 <strong>Score : ${score}/5</strong><br>Une relecture est conseillée avant de passer au suivant.`;
+      result.innerHTML = message;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, score, total: 5, date: new Date().toISOString()
+      }));
+    }
+  </script>
+
+</body>
+</html>

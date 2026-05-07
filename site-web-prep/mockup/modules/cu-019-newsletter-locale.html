@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter locale automatisée — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Bloc cas Barcelona Brief — spécifique CU-019 */
+    .case-study-box { background: linear-gradient(135deg, #F8F4FF 0%, #EAE0FF 100%); border: 2px solid #7A5CB8; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) 0; }
+    .case-study-box h3 { color: #4A3A8C; margin-top: 0; margin-bottom: var(--space-3); }
+    .case-study-box .case-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
+    .case-study-box .case-meta-item { background: white; padding: var(--space-3); border-radius: var(--radius-md); text-align: center; }
+    .case-study-box .case-meta-num { font-size: 1.5rem; font-weight: 800; color: #4A3A8C; }
+    .case-study-box .case-meta-label { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-top: var(--space-1); }
+  </style>
+</head>
+<body>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=c#modules" class="card-badge axe-c">🎨 Création</a>
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d" style="opacity:0.7;">+ 📈 Croissance</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">30 min de lecture</span>
+      </div>
+      <h1>📰 Newsletter locale automatisée</h1>
+      <p class="module-subtitle">
+        Une chaîne d'agents IA qui scrute le web sur tes thématiques territoriales, dédoublonne, résume et propose un draft, suivi d'une curation humaine avant publication. Lancement à 11 USD de domaine, hébergement gratuit jusqu'à 2 500 abonnés. Le format de visibilité le plus rentable de 2026.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Cas Barcelona Brief</a>
+        <a href="#section-3">3. Architecture 5 agents</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Outils par usage</a>
+        <a href="#section-6">6. Cas d'étude guidé</a>
+        <a href="#section-7">7. Pièges à éviter</a>
+        <a href="#section-8">8. Auto-diagnostic</a>
+        <a href="#section-9">9. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 90 secondes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Les newsletters locales et sectorielles sont en pleine croissance, mais leur production manuelle est chronophage (8 à 12 heures par édition). L'IA agentique permet de découper la chaîne en 5 sub-agents (scrape, dédoublon, résumé, angle, assemblage) avec une étape de curation humaine obligatoire. Résultat : 1 à 2 heures hebdo pour produire un média de référence, lancé à 11 USD de domaine et 0 € d'hébergement jusqu'à 2 500 abonnés.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🤖</div>
+              <div class="exec-takeaway-content">
+                <strong>Pattern à 5 sub-agents.</strong> Scrape → dédoublon → résumé → angle → assemblage. Chaque agent a une responsabilité unique et est calibrable indépendamment.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">✋</div>
+              <div class="exec-takeaway-content">
+                <strong>Curation humaine non automatisable.</strong> 1-2h hebdo pour ajuster la voix, sélectionner, ajouter un édito personnel. Sans elle, la newsletter devient générique en 4-6 semaines.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💸</div>
+              <div class="exec-takeaway-content">
+                <strong>Coût ultra-bas.</strong> 11 USD de domaine, Beehiiv gratuit jusqu'à 2 500 abonnés, quelques dizaines d'euros d'inférence par mois. Ratio investissement / valeur exceptionnel.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Niche défendable obligatoire.</strong> Le marché des newsletters locales est saturé. 1 000 lecteurs engagés sur niche étroite valent mieux que 5 000 inscrits inactifs.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">5</div>
+              <div class="exec-stat-label">Sub-agents en chaîne</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">1-2h</div>
+              <div class="exec-stat-label">Curation humaine hebdo</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">11 $</div>
+              <div class="exec-stat-label">Coût domaine annuel</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">2 500</div>
+              <div class="exec-stat-label">Abonnés gratuits Beehiiv</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu veux affirmer un positionnement de référence sur un territoire ou une filière (Vosges, Grand Est, bioéconomie, industrie 4.0) ; tu pilotes une startup B2B et cherches un actif lead-gen / intelligence marché ; tu es une structure publique ou un incubateur sans budget marketing dédié ; tu garantis 1 à 2 heures hebdo pour la curation dans la durée.
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — pourquoi automatiser maintenant</h2>
+        </div>
+
+        <p>
+          Les newsletters locales et sectorielles sont un format en pleine croissance — Substack, Beehiiv, Buttondown, MailerLite. Mais leur production hebdomadaire à la main est extrêmement chronophage : veille de 5 à 15 sources, sélection éditoriale, rédaction, mise en forme. Un freelance ou solopreneur n'a pas la bande passante pour tenir le rythme seul, et un employé dédié coûte au moins 30 à 40 K€ par an.
+        </p>
+        <p>
+          L'IA agentique permet de découper la production en tâches spécialisées exécutées en parallèle, en gardant l'humain comme curateur final. Le pattern documenté combine 5 sub-agents — scraping des sources, dédoublonnage, résumé, angle éditorial, assemblage — avec une étape humaine de validation et d'ajustement de voix avant publication. Le résultat : <strong>une newsletter hebdomadaire produite en 1 à 2 heures de curation au lieu de 8 à 12 heures de production manuelle</strong>.
+        </p>
+
+        <div class="pull-quote">
+          Le différenciateur n'est pas la chaîne IA. C'est la curation humaine. Une newsletter sans voix reconnaissable se noie dans la masse en croissance des newsletters locales. La discipline de curation hebdomadaire — angle, ton, ajustements personnels — est ce qui transforme un flux automatisé en média de référence.
+        </div>
+
+        <p>
+          Pour les <strong>startups B2B en go-to-market</strong>, c'est un actif de visibilité commerciale et d'intelligence marché qui se construit en quelques semaines. Pour les <strong>PME et ETI</strong> avec dimension communicationnelle, c'est un format de leadership thought sans embaucher de community manager dédié. Pour les <strong>structures publiques et incubateurs</strong>, c'est un moyen de s'affirmer comme acteur de référence sur un territoire ou une filière.
+        </p>
+      </section>
+
+      <!-- 2. CAS BARCELONA BRIEF -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">2</div>
+          <h2 class="module-section-title">Le cas Barcelona Brief — référence du pattern</h2>
+        </div>
+
+        <p>
+          Le pattern à 5 sub-agents est documenté publiquement par un membre de la communauté ZHC Institute, dont l'opérateur partage régulièrement ses indicateurs et son architecture technique sur les réseaux. C'est aujourd'hui la référence opérationnelle la plus citée pour ce type de format.
+        </p>
+
+        <div class="case-study-box">
+          <h3>📍 Barcelona Brief — indicateurs publiés (mars 2026)</h3>
+          <p style="margin: 0 0 var(--space-3);">Newsletter locale construite sur 5 sub-agents Minimax avec curation humaine et publication via Beehiiv. Modèle économique : sponsoring local quand l'audience grandit. Indicateurs de lancement publiquement partagés :</p>
+          <div class="case-meta">
+            <div class="case-meta-item">
+              <div class="case-meta-num">11 $</div>
+              <div class="case-meta-label">Coût domaine</div>
+            </div>
+            <div class="case-meta-item">
+              <div class="case-meta-num">0 €</div>
+              <div class="case-meta-label">Hébergement Beehiiv ≤ 2500 abos</div>
+            </div>
+            <div class="case-meta-item">
+              <div class="case-meta-num">1-2h</div>
+              <div class="case-meta-label">Curation hebdo humaine</div>
+            </div>
+            <div class="case-meta-item">
+              <div class="case-meta-num">6-18 mois</div>
+              <div class="case-meta-label">Time-to-monétisation</div>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Le pattern est <strong>directement transposable</strong> à des projets territoriaux ou sectoriels : « VosgesBrief », « Innovation Grand Est », « Bioéconomie Brief », « Industrie 4.0 Vosges ». Pour les structures publiques et les incubateurs, c'est aussi un cas-école parfait à démontrer en interne avant de le pousser aux participants des ateliers.
+        </p>
+      </section>
+
+      <!-- 3. ARCHITECTURE 5 AGENTS -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Comment ça fonctionne — 5 sub-agents + curation humaine</h2>
+        </div>
+
+        <p>
+          La chaîne suit un pattern séquentiel à 5 étapes IA, suivies d'une curation humaine obligatoire avant publication. Chaque agent a une responsabilité unique et est calibrable indépendamment.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar19" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar19green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+            </defs>
+
+            <!-- 5 sub-agents en chaîne -->
+            <rect x="20" y="60" width="160" height="90" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="100" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">AGENT 1 — SCRAPE</text>
+            <text x="100" y="108" text-anchor="middle" font-size="11" fill="#333">Médias locaux,</text>
+            <text x="100" y="123" text-anchor="middle" font-size="11" fill="#333">blogs, institutionnels</text>
+            <text x="100" y="140" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Scrapling · RSS</text>
+
+            <rect x="200" y="60" width="160" height="90" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="280" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">AGENT 2 — DÉDOUBLON</text>
+            <text x="280" y="108" text-anchor="middle" font-size="11" fill="#333">Vector store</text>
+            <text x="280" y="123" text-anchor="middle" font-size="11" fill="#333">Vérif unicité</text>
+            <text x="280" y="140" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Pinecone · Qdrant</text>
+
+            <rect x="380" y="60" width="160" height="90" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="460" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#FFD600">AGENT 3 — RÉSUMÉ</text>
+            <text x="460" y="108" text-anchor="middle" font-size="11" fill="white">Synthèse</text>
+            <text x="460" y="123" text-anchor="middle" font-size="11" fill="white">par article</text>
+            <text x="460" y="140" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Claude · Mistral</text>
+
+            <rect x="560" y="60" width="160" height="90" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="640" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#4A3A8C">AGENT 4 — ANGLE</text>
+            <text x="640" y="108" text-anchor="middle" font-size="11" fill="#333">Mise en perspective</text>
+            <text x="640" y="123" text-anchor="middle" font-size="11" fill="#333">éditoriale</text>
+            <text x="640" y="140" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Claude</text>
+
+            <rect x="740" y="60" width="160" height="90" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="820" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#8C5410">AGENT 5 — ASSEMBLAGE</text>
+            <text x="820" y="108" text-anchor="middle" font-size="11" fill="#333">Format newsletter</text>
+            <text x="820" y="123" text-anchor="middle" font-size="11" fill="#333">Draft complet</text>
+            <text x="820" y="140" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Output texte</text>
+
+            <!-- Flèches en chaîne haut -->
+            <line x1="180" y1="105" x2="198" y2="105" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar19)"/>
+            <line x1="360" y1="105" x2="378" y2="105" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar19)"/>
+            <line x1="540" y1="105" x2="558" y2="105" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar19)"/>
+            <line x1="720" y1="105" x2="738" y2="105" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar19)"/>
+
+            <!-- Curation humaine au centre -->
+            <rect x="280" y="220" width="360" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="460" y="248" text-anchor="middle" font-size="14" font-weight="700" fill="#2E5C2E">CURATION HUMAINE</text>
+            <text x="460" y="270" text-anchor="middle" font-size="12" fill="#333">Sélection · ajustement de la voix · ajout perspective personnelle</text>
+            <text x="460" y="288" text-anchor="middle" font-size="11" fill="#2E5C2E" font-weight="600">Le différenciateur qualité — non automatisable</text>
+
+            <!-- Flèche descendante d'Agent 5 vers Curation -->
+            <line x1="820" y1="150" x2="640" y2="218" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar19)"/>
+
+            <!-- Publication -->
+            <rect x="280" y="320" width="360" height="50" rx="8" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="460" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">PUBLICATION VIA BEEHIIV / SUBSTACK / BUTTONDOWN</text>
+            <text x="460" y="360" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Email aux abonnés + version web</text>
+
+            <!-- Flèche de curation vers publication -->
+            <line x1="460" y1="300" x2="460" y2="318" stroke="#5C8C5C" stroke-width="3" marker-end="url(#ar19green)"/>
+          </svg>
+        </div>
+        <p class="schema-caption">5 sub-agents en chaîne (scrape → dédoublon → résumé → angle → assemblage) + curation humaine obligatoire avant publication via plateforme newsletter.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Définir la cible et la voix.</strong> Public visé (territoire, secteur, profils), sources de référence (5 à 15 médias et sites prioritaires), ton (formel, direct, humour, technique), format (3 sections type, longueur cible). C'est le brief stratégique qui conditionne tout le reste.</li>
+          <li><strong>Constituer la base anti-doublons.</strong> Chaque article ingéré est indexé dans un vector store léger (Pinecone, Qdrant ou Postgres avec embeddings). Évite de re-publier le même contenu et permet à l'agent dédoublonnage de filtrer en temps réel.</li>
+          <li><strong>Configurer les 5 sub-agents.</strong> Agent 1 scrape les sources (Scrapling pour les sites résistants, RSS pour les sources accommodantes, API publiques quand disponibles). Agent 2 vérifie l'unicité contre la base. Agent 3 produit un résumé de chaque article retenu. Agent 4 propose un angle éditorial cohérent avec la ligne définie. Agent 5 assemble le draft final dans le format newsletter.</li>
+          <li><strong>Curation humaine.</strong> <strong>Étape obligatoire — non automatisable</strong>. L'humain valide la sélection, ajuste le ton, ajoute la voix personnelle, supprime les sections faibles, ajoute parfois un édito d'introduction. Compte 1 à 2 heures par newsletter. C'est le différenciateur qualité.</li>
+          <li><strong>Publication via Beehiiv.</strong> Beehiiv est gratuit jusqu'à 2 500 abonnés et propose une API pour automatiser la publication. Substack et Buttondown sont des alternatives selon ton positionnement (Substack pour le grand public, Buttondown pour la souveraineté).</li>
+          <li><strong>Mesure et itération.</strong> Taux d'ouverture, taux de clic, désinscriptions, croissance organique. Sur les 4 à 8 premières éditions, ajuster sources, ton et format en fonction des retours.</li>
+        </ol>
+      </section>
+
+      <!-- 5. OUTILS -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Quels outils pour quels usages</h2>
+        </div>
+
+        <h3>Modèles génératifs (Agents 3-4-5)</h3>
+        <p>
+          <strong>Claude</strong> est apprécié pour la rédaction nuancée — angle éditorial, ton éditorial, style cohérent. <strong>GPT-4 / GPT-5</strong> reste robuste. <strong>Mistral</strong> est pertinent pour la souveraineté EU, particulièrement si la newsletter touche à des sujets sensibles ou réglementés. <strong>Minimax</strong> (cité dans le cas Barcelona Brief) est une alternative chinoise — à évaluer selon ta sensibilité aux origines des modèles.
+        </p>
+
+        <h3>Orchestration des 5 agents</h3>
+        <p>
+          <strong>n8n</strong> en self-hosted reste la solution la plus pragmatique pour orchestrer la chaîne — souveraineté, coût zéro, flexibilité totale. <strong>OpenClaw</strong> ou des frameworks custom (LangChain, LangGraph) sont des alternatives pour les setups très spécifiques. <strong>Make</strong> (ex-Integromat) est une option no-code avec un coût mensuel mais une mise en place plus rapide.
+        </p>
+
+        <h3>Scraping et collecte de sources (Agent 1)</h3>
+        <p>
+          <strong>Scrapling</strong> (cité dans la communauté ZHC) est performant sur les sites qui résistent aux scrapers classiques. <strong>Apify</strong> propose des connecteurs prêts à l'emploi pour les principales plateformes. Les <strong>flux RSS natifs</strong> et les <strong>API publiques</strong> restent à privilégier quand disponibles — plus stables et plus respectueux des CGU des sites sources.
+        </p>
+
+        <h3>Base anti-doublons (Agent 2)</h3>
+        <p>
+          <strong>Pinecone</strong> ou <strong>Qdrant</strong> pour un vector store managé. <strong>Postgres</strong> avec extension pgvector pour une solution self-hosted sur infrastructure existante. <strong>ChromaDB</strong> pour un démarrage rapide en local.
+        </p>
+
+        <h3>Plateforme newsletter</h3>
+        <p>
+          <strong>Beehiiv</strong> est la plateforme recommandée par la communauté — gratuite jusqu'à 2 500 abonnés, API solide, monétisation native par sponsoring intégrée. <strong>Substack</strong> est l'alternative grand public, plus connue mais avec une commission sur les abonnements payants. <strong>Buttondown</strong> est l'alternative open source et souveraine, idéale pour les structures publiques. <strong>MailerLite</strong> reste pertinent pour des usages plus généralistes avec des automations marketing.
+        </p>
+
+        <h3>Domaine et hébergement</h3>
+        <p>
+          Un domaine standard via OVH, Gandi ou Namecheap (~10-15 € par an). Beehiiv héberge gratuitement la version web et envoie les emails sans coût additionnel jusqu'à 2 500 abonnés.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Une définition claire de la ligne éditoriale (sans cela, la newsletter devient générique et son taux d'ouverture chute en 4-6 semaines). 1 à 2 heures par semaine de curation humaine garanties — c'est le coût récurrent non négociable. Une compétence basique d'orchestration n8n, ou un prestataire d'intégration capable de monter le setup en 2 à 4 jours. Un budget initial très faible (11 USD de domaine + frais d'inférence quelques dizaines d'euros par mois selon volume).
+        </p>
+      </section>
+
+      <!-- 6. CAS D'ÉTUDE GUIDÉ -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">6</div>
+          <h2 class="module-section-title">Cas d'étude guidé — Mise en situation</h2>
+        </div>
+
+        <p>
+          Tu vas suivre les 4 étapes ci-dessous pour lancer une newsletter locale ou sectorielle minimale viable. Compte 1 journée pour faire le setup complet, ou 20 minutes en lecture seule.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">Contexte</div>
+          <p style="margin: 0;">Tu veux lancer <strong>une newsletter hebdomadaire</strong> sur une thématique territoriale ou sectorielle (par exemple « Innovation Grand Est », « Bioéconomie Vosges », « Industrie 4.0 Lorraine »). Objectif : une première édition publiée en 2 semaines, 500 abonnés sur 6 mois, 2 500 abonnés sur 12-18 mois pour atteindre la zone de monétisation par sponsoring local.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cadrer la ligne éditoriale et acquérir le domaine</h3>
+            <p>Réponds en 1 page à 5 questions : (1) Quel public ? (territoire, secteur, profils), (2) Quelles 5-15 sources de référence ? (médias locaux, blogs spé, institutionnels), (3) Quel ton ? (direct, technique, humour, formel), (4) Quel format type ? (intro 3 lignes, 5 actualités résumées, 1 angle, 1 outil, 1 agenda), (5) Quelle promesse au lecteur ? Achète ensuite ton domaine sur OVH ou Gandi (10-15 € par an).</p>
+            <span class="case-deep-tech">📝 Ligne éditoriale 1 page</span>
+            <span class="case-deep-tech">🌐 OVH / Gandi (~12 €/an)</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une ligne éditoriale claire et un domaine actif. Coût total : ~12 € pour un an.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Configurer Beehiiv et l'identité visuelle</h3>
+            <p>Crée ton compte sur <a href="https://www.beehiiv.com" target="_blank" rel="noopener">Beehiiv</a> (gratuit jusqu'à 2 500 abonnés). Connecte ton domaine. Configure le template visuel : logo, couleurs, sections types. Rédige une page d'accueil pour la collecte d'abonnés. Active la collecte RGPD compliant (opt-in double obligatoire, mention politique de confidentialité).</p>
+            <span class="case-deep-tech">🛠️ Beehiiv (gratuit ≤ 2500 abos)</span>
+            <span class="case-deep-tech">🎨 Template visuel + logo</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une plateforme newsletter prête à publier, avec identité visuelle cohérente et collecte d'abonnés conforme.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Configurer les 5 sub-agents avec n8n + Claude</h3>
+            <p>Configure un workflow <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> en self-hosted (ou en mode no-code dans Make si plus rapide à mettre en place). Architecture :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;">
+              <strong>Agent 1 (scrape)</strong> : lit tes 5-15 sources via RSS et Scrapling chaque jour.<br>
+              <strong>Agent 2 (dédoublon)</strong> : compare aux articles déjà ingérés via vector store (Qdrant ou Pinecone).<br>
+              <strong>Agent 3 (résumé)</strong> : Claude résume chaque nouvel article en 4-6 lignes.<br>
+              <strong>Agent 4 (angle)</strong> : Claude propose une mise en perspective éditoriale.<br>
+              <strong>Agent 5 (assemblage)</strong> : Claude met en forme le draft complet selon ton template.
+            </p>
+            <span class="case-deep-tech">🛠️ n8n self-hosted</span>
+            <span class="case-deep-tech">🛠️ Claude / Mistral</span>
+            <span class="case-deep-tech">🛠️ Qdrant (vector store)</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une chaîne automatique qui produit chaque vendredi un draft complet de newsletter, prêt pour la curation humaine.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Curer humainement et publier la première édition</h3>
+            <p>Chaque vendredi (ou samedi matin), prends 1 à 2 heures pour : (1) relire le draft généré, (2) trier les actualités vraiment marquantes (garder 5-7 max), (3) ajuster le ton et reformuler les passages génériques, (4) ajouter un édito personnel d'introduction (4-8 lignes), (5) vérifier les chiffres précis cités, (6) valider et programmer la publication pour le lundi 8h via Beehiiv. Diffuse à un noyau de 30-50 contacts personnels pour les premières éditions, demande des retours, itère.</p>
+            <span class="case-deep-tech">⏱️ 1-2h curation</span>
+            <span class="case-deep-tech">📨 Beehiiv programmation</span>
+            <span class="case-deep-tech">🔁 Boucle de retours noyau</span>
+            <div class="case-deep-result">
+              <strong>Output :</strong> une newsletter publiée chaque lundi matin, calibrée par 4-8 itérations sur les premières éditions. Croissance organique attendue : 50 à 200 abonnés par mois si le contenu trouve sa cible.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p style="margin: 0;">
+            Tu as lancé une newsletter sectorielle ou territoriale pour <strong>environ 12 € de domaine et 0 € d'hébergement</strong>, avec un coût d'inférence mensuel de quelques dizaines d'euros, et une charge humaine de 1 à 2 heures par semaine. C'est l'un des actifs de visibilité au meilleur ratio investissement / valeur potentielle de 2026 — particulièrement pertinent pour les startups B2B, les structures publiques ou les incubateurs qui veulent affirmer leur positionnement sans budget marketing significatif.
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>L'authenticité de la voix</h3>
+        <p>
+          La curation humaine est essentielle pour garder une voix reconnaissable. Sans elle, la newsletter devient un agrégat générique et son taux d'ouverture chute en 4 à 6 semaines. <strong>Les 1 à 2 heures de curation hebdomadaire ne sont pas optionnelles</strong> — c'est le coût récurrent qui transforme un flux automatisé en média de référence. Si tu n'as pas ce temps garanti dans la durée, n'industrialise pas.
+        </p>
+
+        <h3>Vérification des sources et hallucinations</h3>
+        <p>
+          Les agents peuvent halluciner ou citer des sources inexistantes, particulièrement les chiffres précis. <strong>Audit hebdomadaire obligatoire</strong> sur les chiffres cités, les noms d'organisations, les dates. Garde-fou efficace : interdire dans le prompt de citer des chiffres ou des sources non explicitement présents dans le matériau ingéré.
+        </p>
+
+        <h3>Conformité RGPD</h3>
+        <p>
+          La collecte d'abonnés est encadrée — opt-in double obligatoire, mention politique de confidentialité, droit de désinscription accessible à chaque envoi. <strong>Beehiiv et Substack gèrent ces éléments nativement</strong>, mais la responsabilité éditoriale reste à l'auteur. Politique de confidentialité à publier sur le site, registre des traitements à tenir si tu enrichis les profils des abonnés.
+        </p>
+
+        <h3>Transparence AI Act</h3>
+        <p>
+          Pour les contenus substantiellement assistés par IA, le règlement européen IA pousse vers une obligation de transparence. <strong>Mention « cette newsletter est rédigée avec assistance IA et curation humaine »</strong> dans le pied de page ou la page « à propos » est une bonne pratique préventive — sans dégrader la confiance si elle est intégrée naturellement.
+        </p>
+
+        <h3>Saturation du marché et différenciation</h3>
+        <p>
+          Les newsletters locales et sectorielles se multiplient. La différenciation est indispensable : angle éditorial unique, fréquence cohérente, ton reconnaissable, niche thématique défendable. <strong>Ne pas lancer une nième newsletter « Tech & Startups Région X »</strong> sans avoir identifié ce qui te distingue. Mieux vaut une niche étroite avec 1 000 lecteurs très engagés qu'une ambition large avec 3 000 inscrits inactifs.
+        </p>
+
+        <h3>Modèle économique non garanti</h3>
+        <p>
+          Le sponsoring local fonctionne sur des audiences ciblées et engagées, pas sur des compteurs d'inscrits. <strong>Une newsletter à 5 000 inscrits inactifs vaut moins qu'une à 1 000 lecteurs avec 40 % de taux d'ouverture</strong>. Time-to-rentabilité typique : 6 à 18 mois sur un format hebdomadaire avec une niche bien défendue. Anticipe ce délai dans ton plan.
+        </p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">8</div>
+          <h2 class="module-section-title">Auto-diagnostic — Es-tu prêt à lancer ?</h2>
+        </div>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <p class="diagnostic-intro">Réponds aux 6 questions suivantes pour évaluer ton point de départ et générer un plan d'action priorisé exportable.</p>
+          </div>
+
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. As-tu identifié une niche éditoriale claire et défendable ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Pas vraiment</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>Idée vague</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>Niche identifiée</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Niche identifiée et différenciée</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. As-tu identifié les 5-15 sources de référence sur ta thématique ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Aucune</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>2-4 sources</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>5-10 sources</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Plus de 10 sources</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Combien de temps peux-tu garantir chaque semaine pour la curation humaine ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Moins de 30 min</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>30 min à 1h</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>1 à 2h</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Plus de 2h</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. As-tu une compétence de configuration d'outils no-code (n8n, Make, Zapier) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Aucune</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Notion vague</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Bases utilisables</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Maîtrise opérationnelle</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Disposes-tu d'un noyau initial de contacts (30-50 personnes) à mobiliser pour les premières éditions ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Moins de 10</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>10 à 30</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>30 à 100</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Plus de 100</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Quel objectif vises-tu sur 12-18 mois ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>Visibilité personnelle pure</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>Lead generation B2B</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>Asset éditorial monétisable</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>Média de référence sectoriel</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">9</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond</h3>
+          <ul>
+            <li>
+              <a href="https://www.beehiiv.com/blog" target="_blank" rel="noopener">Beehiiv Blog — newsletter operators</a>
+              <span class="resources-meta">Beehiiv — best practices et études de cas de newsletter operators</span>
+            </li>
+            <li>
+              <a href="https://every.to" target="_blank" rel="noopener">Every — réflexions sur l'écosystème newsletter</a>
+              <span class="resources-meta">Every.to — analyses de fond sur la stratégie newsletter</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/fr/prospection-commerciale-par-courrier-electronique" target="_blank" rel="noopener">CNIL — Prospection par email</a>
+              <span class="resources-meta">CNIL — cadre RGPD de la collecte d'abonnés et de la prospection email</span>
+            </li>
+            <li>
+              <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a>
+              <span class="resources-meta">Commission européenne — obligations de transparence sur les contenus générés par IA</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=beehiiv+newsletter+launch+tutorial" target="_blank" rel="noopener">Beehiiv — lancement de newsletter</a>
+              <span class="resources-meta">YouTube — pas-à-pas de configuration et de lancement</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=n8n+newsletter+automation+claude" target="_blank" rel="noopener">n8n + Claude — automatisation newsletter</a>
+              <span class="resources-meta">YouTube — workflows complets de production newsletter automatisée</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=newsletter+monetization+sponsoring+strategies" target="_blank" rel="noopener">Stratégies de monétisation par sponsoring</a>
+              <span class="resources-meta">YouTube — retours d'opérateurs sur la monétisation locale</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://www.beehiiv.com" target="_blank" rel="noopener">Beehiiv — plateforme newsletter</a>
+              <span class="resources-meta">Plateforme recommandée — gratuite jusqu'à 2 500 abonnés</span>
+            </li>
+            <li>
+              <a href="https://buttondown.com" target="_blank" rel="noopener">Buttondown — alternative open source</a>
+              <span class="resources-meta">Plateforme open source, intéressante pour la souveraineté</span>
+            </li>
+            <li>
+              <a href="https://substack.com" target="_blank" rel="noopener">Substack — alternative grand public</a>
+              <span class="resources-meta">Plateforme grand public la plus connue, commission sur abonnements payants</span>
+            </li>
+            <li>
+              <a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a>
+              <span class="resources-meta">Plateforme d'orchestration self-hosted, recommandée pour les 5 sub-agents</span>
+            </li>
+            <li>
+              <a href="https://qdrant.tech/documentation/" target="_blank" rel="noopener">Qdrant Documentation</a>
+              <span class="resources-meta">Base vectorielle open source — anti-doublons</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/Newsletters" target="_blank" rel="noopener">r/Newsletters sur Reddit</a>
+              <span class="resources-meta">Communauté newsletter operators — partage de tactiques et d'expériences</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a>
+              <span class="resources-meta">Communauté n8n — workflows incluant des pipelines de newsletter</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-019';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const answers = {};
+      let allAnswered = true;
+
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+
+      const actions = [];
+
+      // STOP si curation insuffisante
+      if (answers.d3 == 0) {
+        actions.push({
+          prio: 'haute',
+          titre: 'STOP — pas de lancement sans 1h hebdo garantie',
+          desc: 'Sans curation humaine garantie chaque semaine, la newsletter devient générique en 4-6 semaines et son taux d\'ouverture chute. Avant tout lancement, sécurise un créneau hebdomadaire de 1 à 2h, soit pour toi, soit pour un référent identifié. Sans cette garantie, le projet est voué à l\'échec.'
+        });
+      }
+
+      // Niche éditoriale
+      if (answers.d1 <= 1) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Cadrer la niche éditoriale en 1 page avant tout outil',
+          desc: 'Le marché des newsletters locales est saturé. Sans niche défendable, la croissance s\'éteint. Réponds en 1 page à : (1) public visé précis, (2) ce qui te différencie de l\'existant, (3) promesse au lecteur en 1 phrase. Si tu ne peux pas répondre à (2) en 30 secondes, ne lance pas.'
+        });
+      }
+
+      // Sources
+      if (answers.d2 <= 1) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Cartographier 5 à 10 sources de référence',
+          desc: 'Le système ne peut produire de la valeur que si les sources sont bien identifiées. Avant tout setup technique : liste 5 à 10 médias, blogs, sites institutionnels qui couvrent ta thématique. Vérifie que chacun publie au moins une fois par semaine. Sans ce socle, l\'agent scrape produit du vide.'
+        });
+      }
+
+      // Compétence no-code
+      if (answers.d4 <= 1) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Démarrer en mode semi-manuel sans n8n',
+          desc: 'Sans compétence n8n, ne pas viser le pipeline complet à 5 agents d\'emblée. Démarre semi-manuel : Feedly + Perplexity Spaces alimentent une session Claude hebdomadaire qui produit le draft. 2 à 3 heures de mise en place initiale, puis 1-2h hebdo de production. Tu pourras automatiser dans 3-6 mois si la valeur est démontrée.'
+        });
+      } else if (answers.d4 >= 2) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Configurer le pipeline complet n8n en 2-4 jours',
+          desc: 'Avec ta compétence no-code, vise le pipeline à 5 sub-agents en n8n self-hosted. Compte 2 à 4 jours de configuration initiale (n8n + Qdrant + agents Claude + intégration Beehiiv), puis 1-2h hebdo de curation et de maintenance. Setup une fois, valeur récurrente sur 12+ mois.'
+        });
+      }
+
+      // Noyau initial
+      if (answers.d5 <= 1) {
+        actions.push({
+          prio: 'haute',
+          titre: 'Constituer un noyau initial de 30-50 contacts',
+          desc: 'Sans noyau initial pour les premières éditions, pas de feedback exploitable, pas de bouche-à-oreille démarré. Mobilise 30 à 50 contacts personnels (clients, prospects, partenaires, contacts pro) à inscrire avant la 1re édition. C\'est ton accélérateur de croissance organique pour les 3 premiers mois.'
+        });
+      }
+
+      // Objectif
+      if (answers.d6 == 0) {
+        actions.push({
+          prio: 'basse',
+          titre: 'Évaluer si le format newsletter est le bon canal',
+          desc: 'Pour de la visibilité personnelle pure, LinkedIn est plus efficace pour démarrer (audience captive, viralité native). La newsletter est un asset plus long terme avec un ratio investissement / valeur attractif quand l\'audience devient un actif réel (lead gen, monétisation, intelligence marché). Réfléchis à ton vrai objectif avant d\'investir 2-4 jours de setup.'
+        });
+      } else if (answers.d6 >= 2) {
+        actions.push({
+          prio: 'moyenne',
+          titre: 'Cibler la zone de monétisation à 12-18 mois',
+          desc: 'Objectif asset monétisable : vise 2 500 à 5 000 abonnés engagés sur 12-18 mois pour atteindre la zone de sponsoring local. Anticipe le modèle dès le lancement : positionnement éditorial cohérent avec une cible publicitaire, taux d\'engagement élevé (>30 % d\'ouverture), niche défendable. Une newsletter à 5 000 inscrits inactifs vaut moins qu\'une à 1 000 lecteurs engagés.'
+        });
+      }
+
+      // Toujours : conformité
+      actions.push({
+        prio: 'haute',
+        titre: 'Sécuriser RGPD et transparence AI Act dès le lancement',
+        desc: 'Opt-in double obligatoire à l\'inscription (Beehiiv le gère nativement), politique de confidentialité publiée sur le site, mention « rédigée avec assistance IA et curation humaine » dans le pied de page ou la page À propos. Réglé en quelques heures au lancement, ingérable à régulariser après plusieurs mois.'
+      });
+
+      // Toujours : audit hallucinations
+      actions.push({
+        prio: 'haute',
+        titre: 'Audit hebdomadaire des chiffres et sources cités',
+        desc: 'Les agents peuvent halluciner sur les chiffres précis. Discipline non négociable : pendant la curation hebdomadaire, vérifier chaque chiffre cité contre la source originale. Garde-fou efficace dans le prompt des agents : interdire la citation de chiffres non explicitement présents dans le matériau ingéré.'
+      });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — lancement structuré possible';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — démarrage semi-manuel recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="diag-score-box">
+          <div class="diag-score-num">${maturite}%</div>
+          <div class="diag-score-label">${scoreLabel}</div>
+        </div>
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>
+      `;
+
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+
+      actions.forEach((a, i) => {
+        html += `
+          <div class="diag-action">
+            <span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span>
+            <h4>${i+1}. ${a.titre}</h4>
+            <p>${a.desc}</p>
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="diag-export">
+          <button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button>
+          <button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        maturite,
+        actions: actions.map(a => ({ prio: a.prio, titre: a.titre })),
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
+    }
+
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Plan d'action — Newsletter locale automatisée\n\n`;
+        content += `*Auto-diagnostic Hub IA territorial — ${plan.date}*\n\n`;
+        content += `**Maturité éditoriale : ${plan.maturite}%**  \n`;
+        content += `*${plan.scoreLabel}*\n\n`;
+        content += `---\n\n`;
+        content += `## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `### ${i+1}. ${a.titre}\n`;
+          content += `**Priorité : ${a.prio}**\n\n`;
+          content += `${a.desc}\n\n`;
+        });
+        content += `---\n\n`;
+        content += `*Plan généré par le module CU-019 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — NEWSLETTER LOCALE AUTOMATISEE\n`;
+        content += `Auto-diagnostic Hub IA territorial — ${plan.date}\n\n`;
+        content += `Maturite editoriale : ${plan.maturite}%\n`;
+        content += `${plan.scoreLabel}\n\n`;
+        content += `=========================================\n\n`;
+        content += `ACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `${i+1}. ${a.titre.toUpperCase()}\n`;
+          content += `   Priorite : ${a.prio}\n\n`;
+          content += `   ${a.desc}\n\n`;
+        });
+        content += `=========================================\n`;
+        content += `Plan genere par le module CU-019 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `plan-action-newsletter-locale.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

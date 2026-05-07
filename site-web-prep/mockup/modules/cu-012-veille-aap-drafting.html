@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veille AAP & drafting agentique — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA territorial</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
+      </div>
+      <h1>🎯 Veille AAP & drafting de candidatures agentique</h1>
+      <p class="module-subtitle">
+        Un système agentique qui découvre les nouveaux appels à projets, les rapproche de ton profil d'entreprise, génère un draft de candidature et le pousse vers ton circuit de validation. Le pattern qui transforme un poste chronophage de plusieurs jours par dossier en quelques heures de relecture stratégique.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. Architecture multi-agents</a>
+        <a href="#section-3">3. Étapes en détail</a>
+        <a href="#section-4">4. Stack technique</a>
+        <a href="#section-5">5. Troubleshooting</a>
+        <a href="#section-6">6. Étude de cas DeepTechCo</a>
+        <a href="#section-7">7. Pièges à éviter</a>
+        <a href="#section-8">8. Checklist d'éligibilité</a>
+        <a href="#section-9">9. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            L'écosystème AAP français est dense et mouvant (Bpifrance, France 2030, Région Grand Est, ADEME, FEDER, ANR, AAP de filière). Une PME de 15 personnes capte 30 à 50 % des dispositifs auxquels elle pourrait prétendre, faute de bande passante. Un système agentique à 4 agents (veille, matching, drafting, submission helper) avec 2 validations humaines en cascade peut faire passer une structure de 6 à 12 candidatures instruites par an, pour un coût d'inférence de 50 à 300 €/mois.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔀</div>
+              <div class="exec-takeaway-content">
+                <strong>4 agents + 2 validations humaines.</strong> Veille → Matching → ✋ Choix stratégique → Drafting → Submission helper → ✋ Signature dirigeant. Les validations humaines ne sont pas négociables.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📁</div>
+              <div class="exec-takeaway-content">
+                <strong>Dossier de référence d'entreprise consolidé.</strong> Le vrai chantier amont (1-3 semaines) : BP, deck, plan trésorerie 24 mois, CVs équipe, projets R&D, comptes, PI. Sans ce socle, aucun agent de drafting ne fonctionne.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🇪🇺</div>
+              <div class="exec-takeaway-content">
+                <strong>Souveraineté EU obligatoire sur dossiers stratégiques.</strong> Mistral EU ou solution gouvernée (EthiqAIS, Goodweek) pour BP, plan financier, IP. Pas de cloud non souverain sur des données aussi sensibles.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📝</div>
+              <div class="exec-takeaway-content">
+                <strong>Détection IA par les financeurs.</strong> Bpifrance et la Région Grand Est évaluent désormais la part IA. 30 min minimum de relecture humaine substantielle par dossier — anecdotes terrain, vision dirigeant, données exclusives.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">4</div>
+              <div class="exec-stat-label">Agents en chaîne</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">2</div>
+              <div class="exec-stat-label">Validations humaines</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">×1,8</div>
+              <div class="exec-stat-label">Volume candidatures (cas DeepTechCo)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">45 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une startup deeptech, biotech ou industrielle avec 6+ candidatures/an cible ; tu accompagnes un portefeuille incubateur et veux outiller la veille AAP collective ; tu veux passer d'un mode artisanal (3-5 jours par dossier) à un mode industrialisé sans dégrader la qualité ; tu as les ressources pour un setup de 2-4 semaines avec compétence n8n ou framework Python multi-agents.
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — pourquoi automatiser maintenant</h2>
+        </div>
+
+        <p>
+          L'écosystème français des appels à projets (AAP) et dispositifs de financement est dense et mouvant : Bpifrance (Prêts Innovation, Diag IA, AAP thématiques), France 2030, Région Grand Est (Bourse Startup, Aide au premier développement), ADEME, FEDER, ANR, AAP de filière. Les calendriers d'ouverture, les critères d'éligibilité et les montants varient en permanence, et de nouveaux dispositifs sont annoncés chaque trimestre. <strong>Pour un dirigeant de startup, identifier le bon AAP au bon moment, comprendre l'éligibilité, et produire un dossier convaincant demande typiquement 2 à 5 jours d'effort par candidature</strong>.
+        </p>
+        <p>
+          Conséquence : beaucoup de structures passent à côté de financements pour lesquels elles seraient éligibles, faute de capacité à monitorer en continu et à structurer rapidement un dossier. Une PME de 15 personnes capte typiquement 30 à 50 % des dispositifs auxquels elle pourrait prétendre, et une startup en levée encore moins faute de bande passante.
+        </p>
+        <p>
+          Le pattern agentique adresse ces deux verrous simultanément. Une chaîne d'agents IA spécialisés assure la veille en continu, le matching avec le profil de l'entreprise, le drafting des sections récurrentes, et la mise en circuit de validation humaine pour les choix critiques. <strong>Le dirigeant ou le SUM intervient désormais sur les arbitrages stratégiques (postuler ou non, ajuster la position, négocier les éléments différenciants) plutôt que sur la production mécanique du dossier</strong>.
+        </p>
+
+        <div class="pull-quote">
+          Le pattern n'est pas « l'IA postule à votre place ». C'est « l'IA réduit le coût marginal d'instruction d'une candidature, ce qui te permet de postuler à 5 dispositifs là où tu en faisais 1 ». La discipline éditoriale et la signature humaine restent au cœur du dispositif.
+        </div>
+
+        <p>
+          Le pattern technique est <strong>directement transposable</strong> au quotidien d'un Startup Manager d'incubateur : surveillance des AAP, alerte ciblée par projet incubé, pré-rédaction des éléments standardisés transversaux. Une instance interne au réseau pourrait servir l'ensemble du portefeuille et démontrer en pratique le pattern « IA + curation humaine » comme cas-école pour les ateliers Hub IA.
+        </p>
+      </section>
+
+      <!-- 2. ARCHITECTURE -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">2</div>
+          <h2 class="module-section-title">Architecture multi-agents</h2>
+        </div>
+
+        <p>
+          Le système se compose de <strong>2 pipelines distincts</strong> : un pipeline amont (détection et matching, asynchrone et périodique) et un pipeline aval (drafting et soumission, à la demande, par AAP retenu). Entre les deux, une validation humaine stratégique. Au bout de la chaîne, une seconde validation humaine avec signature dirigeant.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar12" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar12green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+            </defs>
+
+            <!-- Sources externes -->
+            <rect x="20" y="20" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="110" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">SOURCES AAP</text>
+            <text x="110" y="62" text-anchor="middle" font-size="11" fill="#333">Bpifrance · France 2030</text>
+            <text x="110" y="76" text-anchor="middle" font-size="11" fill="#333">Région · ADEME · ANR</text>
+
+            <!-- Base entreprise -->
+            <rect x="20" y="220" width="180" height="80" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="110" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">DOSSIER ENTREPRISE</text>
+            <text x="110" y="266" text-anchor="middle" font-size="11" fill="#333">BP · Deck · CVs équipe</text>
+            <text x="110" y="280" text-anchor="middle" font-size="11" fill="#333">Trésorerie · Projets R&amp;D</text>
+            <text x="110" y="294" text-anchor="middle" font-size="11" fill="#333">Comptes annuels</text>
+
+            <!-- Agent 1 — Veille -->
+            <rect x="240" y="40" width="170" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="325" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">AGENT 1 — VEILLE</text>
+            <text x="325" y="83" text-anchor="middle" font-size="11" fill="#333">Scrape sources</text>
+            <text x="325" y="98" text-anchor="middle" font-size="11" fill="#333">Base AAP structurée</text>
+            <text x="325" y="113" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Perplexity · Scrapling</text>
+
+            <!-- Agent 2 — Matching -->
+            <rect x="450" y="40" width="170" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="535" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#FFD600">AGENT 2 — MATCHING</text>
+            <text x="535" y="83" text-anchor="middle" font-size="11" fill="white">AAP × profil</text>
+            <text x="535" y="98" text-anchor="middle" font-size="11" fill="white">Short-list priorisée</text>
+            <text x="535" y="113" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Claude · Mistral</text>
+
+            <!-- Validation humaine n°1 -->
+            <rect x="660" y="40" width="220" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="770" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">✋ VALIDATION HUMAINE N°1</text>
+            <text x="770" y="85" text-anchor="middle" font-size="11" fill="#333">Choix des AAP à instruire</text>
+            <text x="770" y="100" text-anchor="middle" font-size="11" fill="#333">Arbitrage stratégique</text>
+            <text x="770" y="114" text-anchor="middle" font-size="10" fill="#2E5C2E" font-weight="600">Décision dirigeant</text>
+
+            <!-- Agent 3 — Drafting -->
+            <rect x="240" y="180" width="170" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="325" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#4A3A8C">AGENT 3 — DRAFTING</text>
+            <text x="325" y="223" text-anchor="middle" font-size="11" fill="#333">Sections récurrentes</text>
+            <text x="325" y="238" text-anchor="middle" font-size="11" fill="#333">RAG sur dossier entreprise</text>
+            <text x="325" y="253" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Claude (long form)</text>
+
+            <!-- Agent 4 — Submission helper -->
+            <rect x="450" y="180" width="170" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="535" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#8C5410">AGENT 4 — SUBMISSION</text>
+            <text x="535" y="223" text-anchor="middle" font-size="11" fill="#333">Dossier compilé</text>
+            <text x="535" y="238" text-anchor="middle" font-size="11" fill="#333">Pré-remplissage portail</text>
+            <text x="535" y="253" text-anchor="middle" font-size="10" fill="#666" font-style="italic">AgentMail · Composio</text>
+
+            <!-- Validation humaine n°2 -->
+            <rect x="660" y="180" width="220" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="770" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">✋ VALIDATION HUMAINE N°2</text>
+            <text x="770" y="225" text-anchor="middle" font-size="11" fill="#333">Relecture, ajustement</text>
+            <text x="770" y="240" text-anchor="middle" font-size="11" fill="#333">Signature dirigeant</text>
+            <text x="770" y="254" text-anchor="middle" font-size="10" fill="#2E5C2E" font-weight="600">Soumission effective</text>
+
+            <!-- Mémoire / boucle -->
+            <rect x="240" y="320" width="640" height="60" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="560" y="345" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">MÉMOIRE PARTAGÉE — apprentissage continu</text>
+            <text x="560" y="365" text-anchor="middle" font-size="11" fill="#666" font-style="italic">AAP gagnés / perdus · formats qui fonctionnent · critères décisifs</text>
+
+            <!-- Flèches sources -> agents -->
+            <line x1="200" y1="50" x2="238" y2="60" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar12)"/>
+            <line x1="200" y1="260" x2="238" y2="220" stroke="#2E5395" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#ar12)"/>
+
+            <!-- Flèches haut entre agents -->
+            <line x1="410" y1="80" x2="448" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar12)"/>
+            <line x1="620" y1="80" x2="658" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar12)"/>
+
+            <!-- Flèche descente humaine 1 -> Agent 3 -->
+            <line x1="770" y1="120" x2="325" y2="178" stroke="#5C8C5C" stroke-width="2" marker-end="url(#ar12green)"/>
+
+            <!-- Flèches bas entre agents -->
+            <line x1="410" y1="220" x2="448" y2="220" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar12)"/>
+            <line x1="620" y1="220" x2="658" y2="220" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar12)"/>
+
+            <!-- Flèches mémoire -->
+            <line x1="325" y1="260" x2="325" y2="318" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar12)"/>
+            <line x1="535" y1="260" x2="535" y2="318" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar12)"/>
+            <line x1="770" y1="260" x2="770" y2="318" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar12)"/>
+
+            <!-- Légendes pipelines -->
+            <text x="450" y="430" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">⬆ PIPELINE AMONT — DÉTECTION & MATCHING (asynchrone, périodique)</text>
+            <text x="450" y="448" text-anchor="middle" font-size="11" fill="#666" font-style="italic">⬇ PIPELINE AVAL — DRAFTING & SOUMISSION (à la demande, par AAP retenu)</text>
+          </svg>
+        </div>
+        <p class="schema-caption">2 pipelines (détection/matching en continu, drafting/soumission à la demande) avec 4 agents et 2 points de validation humaine — l'un stratégique (choix des AAP), l'autre opérationnel (signature).</p>
+      </section>
+
+      <!-- 3. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">3</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Constitution du dossier de référence d'entreprise.</strong> Avant tout déploiement agentique, consolider dans un référentiel unique : business plan à jour, deck investisseur, CVs détaillés de l'équipe fondatrice, plan de trésorerie sur 24 mois, descriptifs des projets R&D en cours, comptes annuels des 2 derniers exercices, propriété intellectuelle, parc client si pertinent. C'est la matière première sur laquelle l'Agent de drafting s'appuie via RAG.</li>
+          <li><strong>Configuration de l'Agent 1 — Veille.</strong> Identifier les portails de référence (Bpifrance, France 2030, Aides-Territoires, Région Grand Est, ANR, ADEME, FEDER, AAP de filière selon le secteur). Configurer le scraping périodique (quotidien ou hebdomadaire selon densité), l'indexation dans une base structurée des AAP avec métadonnées (date d'ouverture, deadline, montants, secteur, stade, conditions d'éligibilité, géographie).</li>
+          <li><strong>Configuration de l'Agent 2 — Matching.</strong> Un modèle à raisonnement (Claude, GPT-4 / GPT-5) qui rapproche chaque nouvel AAP du profil de l'entreprise (secteur, stade, taille, intensité R&D, géographie, projets en cours). Sortie : une short-list priorisée avec un score de pertinence et les conditions d'éligibilité préqualifiées.</li>
+          <li><strong>Validation humaine n°1 — Choix stratégique.</strong> Le dirigeant ou le SUM examine la short-list hebdomadaire (ou bi-mensuelle). Décision « postuler / ne pas postuler / suivre pour plus tard » par dispositif. <strong>C'est le moment d'arbitrage stratégique le plus important</strong> — éviter le piège de la candidature mécanique sur tout ce qui matche.</li>
+          <li><strong>Configuration de l'Agent 3 — Drafting.</strong> Pour les AAP retenus, un assistant configuré sur le dossier de référence (RAG) produit les sections récurrentes du dossier : présentation société, équipe, contexte projet, objectifs, livrables, plan de financement, références. Sortie : un draft à 70 % rédigé, avec marqueurs explicites des sections nécessitant une rédaction humaine spécifique (différenciation, alignement avec critères pointus du dispositif).</li>
+          <li><strong>Configuration de l'Agent 4 — Submission helper.</strong> Pour les AAP avec API ou portail standardisé, l'agent compile le dossier final, peut pré-remplir les formulaires en ligne, et organise l'envoi des pièces jointes via AgentMail ou Composio. <strong>Ne jamais soumettre sans validation humaine n°2</strong>.</li>
+          <li><strong>Validation humaine n°2 — Relecture et signature.</strong> Le dirigeant relit, ajuste, ajoute la voix personnelle (notamment sur les sections d'argumentation différenciante), valide les chiffres, signe le dossier. Soumission effective.</li>
+          <li><strong>Boucle d'apprentissage.</strong> Les AAP gagnés ou perdus alimentent une mémoire partagée entre les agents : quels formats ont fonctionné, quels critères ont été décisifs, quels arguments ont fait la différence. Le système se calibre au fil du temps.</li>
+        </ol>
+      </section>
+
+      <!-- 4. STACK TECHNIQUE -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">4</div>
+          <h2 class="module-section-title">Stack technique</h2>
+        </div>
+
+        <h3>Architecture de référence</h3>
+        <div class="archi-block">
+<strong>┌─ Pipeline de détection (asynchrone, périodique) ─┐</strong>
+   Sources publiques (RSS, scrape, API) → Agent 1 (veille)
+   → Base AAP structurée (Postgres ou Notion DB)
+   → Agent 2 (matching) avec embeddings sur profil entreprise
+   → Short-list priorisée → <strong>Validation humaine n°1</strong>
+
+<strong>┌─ Pipeline de drafting (à la demande, par AAP) ─┐</strong>
+   AAP retenu + dossier référence (RAG sur Qdrant/Pinecone)
+   → Agent 3 (drafting) avec prompts spécialisés par section
+   → Draft à 70 % → marqueurs sections à compléter
+   → Agent 4 (submission helper) → compilation et pré-remplissage
+   → <strong>Validation humaine n°2 + signature</strong> → soumission effective
+
+<strong>┌─ Mémoire partagée ─┐</strong>
+   Vector store des AAP gagnés/perdus + métadonnées
+   → Affine Agent 2 (matching) et Agent 3 (drafting) au fil du temps
+        </div>
+
+        <h3>Veille et collecte (Agent 1)</h3>
+        <p>
+          <strong>Perplexity</strong> pour la recherche augmentée sur les sources moins structurées. <strong>Scrapling</strong> (cité par la communauté ZHC) pour scraper les portails résistants. <strong>Aides-Territoires</strong> propose une API officielle accessible et structurée pour les dispositifs publics français — à privilégier dès que possible. <strong>NotebookLM</strong> pour ingérer ponctuellement des rapports d'opérateurs (Bpifrance Le Lab) ou structurer des jeux de critères complexes.
+        </p>
+
+        <h3>Matching et drafting (Agents 2-3)</h3>
+        <p>
+          <strong>Claude</strong> est largement plébiscité par la communauté ZHC pour la rédaction longue de candidatures — capacité à maintenir la cohérence sur des dossiers de 20-40 pages, ton professionnel adaptable. <strong>GPT-4 / GPT-5</strong> reste robuste pour le matching et la qualification d'éligibilité. <strong>Mistral Large</strong> est l'option à privilégier dès qu'il y a sensibilité — souveraineté EU, données stratégiques (BP, plan financier, IP). Pour les startups en levée ou les ETI sur dossiers Plan DeepTech, Mistral est souvent le choix par défaut.
+        </p>
+
+        <h3>RAG sur dossier entreprise</h3>
+        <p>
+          <strong>Pinecone</strong> ou <strong>Qdrant</strong> en cloud souverain pour le vector store. <strong>NotebookLM</strong> pour un démarrage léger sur un volume limité. <strong>Dify</strong> ou <strong>Flowise</strong> pour les déploiements structurés avec interface utilisateur. Le RAG doit pouvoir filtrer par type de document (BP vs deck vs CV vs comptes annuels) selon la section à drafter.
+        </p>
+
+        <h3>Submission et email autonome (Agent 4)</h3>
+        <p>
+          <strong>AgentMail</strong> est cité par la communauté ZHC comme la référence pour donner à un agent une infrastructure email autonome (compte dédié, gestion réponses, suivi). <strong>Composio</strong> propose plus de 3 000 apps connectées dont Gmail, idéal pour les workflows multi-outils. Pour les portails AAP avec API officielle (rares mais en croissance), des connecteurs custom n8n peuvent automatiser le pré-remplissage.
+        </p>
+
+        <h3>Orchestration end-to-end</h3>
+        <p>
+          <strong>n8n</strong> en self-hosted reste la solution recommandée pour la souveraineté et le coût — particulièrement pertinent ici où le contenu manipulé est stratégique. <strong>LangGraph</strong> ou <strong>CrewAI</strong> sont des frameworks Python plus puissants pour les setups multi-agents complexes, mais demandent une compétence dev. <strong>OpenClaw</strong> est une option intermédiaire en émergence.
+        </p>
+
+        <h3>Prérequis techniques et organisationnels</h3>
+        <p>
+          Un dossier de référence d'entreprise consolidé (le vrai chantier amont — typiquement 1 à 3 semaines de travail interne). Une compétence d'orchestration multi-agents (n8n niveau avancé ou framework Python). Un budget d'inférence anticipé (50 à 300 €/mois selon volume). Un référent identifié pour la validation humaine n°1 (choix stratégique) et n°2 (signature). Un cadre de confidentialité documenté pour l'usage de modèles cloud sur les dossiers sensibles.
+        </p>
+      </section>
+
+      <!-- 5. TROUBLESHOOTING -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">5</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Trop de faux positifs en matching (AAP non éligibles dans la short-list)</td>
+                <td>Profil entreprise insuffisamment précis dans le contexte de l'Agent 2</td>
+                <td>Enrichir le dossier de référence avec critères explicites (CA, effectif, intensité R&D, géographie). Ajouter un prompt « rejette toute correspondance ambiguë ».</td>
+              </tr>
+              <tr>
+                <td>Drafts génériques, voix d'entreprise absente</td>
+                <td>RAG insuffisamment alimenté ou prompt système trop générique</td>
+                <td>Ajouter au corpus 3-5 dossiers historiques gagnés. Spécifier dans le prompt « Reproduis le style et la structure des candidatures précédentes ».</td>
+              </tr>
+              <tr>
+                <td>Hallucinations sur chiffres ou dates</td>
+                <td>L'agent a inventé des éléments factuels non présents dans le dossier de référence</td>
+                <td>Ajouter dans le prompt système : « Si une donnée chiffrée n'est pas explicitement présente dans le dossier de référence, ne pas l'inventer. Marquer [À COMPLÉTER PAR LE DIRIGEANT] ».</td>
+              </tr>
+              <tr>
+                <td>Soumission ratée par dépassement de quotas API</td>
+                <td>Agent 4 a tenté trop de soumissions consécutives sans rate limiting</td>
+                <td>Implémenter un rate limiting explicite (1 soumission par 5 min minimum), monitorer les quotas via Composio ou logs n8n.</td>
+              </tr>
+              <tr>
+                <td>Détection IA par le financeur (formulations trop génériques)</td>
+                <td>Manque de personnalisation humaine en validation n°2</td>
+                <td>Discipline éditoriale : 30 minutes minimum de relecture humaine par dossier, ajout d'éléments narratifs spécifiques (anecdote terrain, donnée exclusive, vision dirigeant).</td>
+              </tr>
+              <tr>
+                <td>Mémoire partagée non exploitée (les agents ne s'améliorent pas)</td>
+                <td>La boucle de retour n'est pas alimentée (résultats AAP non documentés)</td>
+                <td>Discipline post-publication : pour chaque AAP, documenter dans la mémoire l'issue (gagné / perdu / abandonné) et les éléments qui ont été décisifs (selon retours financeur si disponibles).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. ÉTUDE DE CAS APPROFONDIE -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">6</div>
+          <h2 class="module-section-title">Étude de cas — DeepTechCo, startup industrielle Grand Est</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste. 5 étapes décortiquées sur un cycle complet de candidature. Compte 60 minutes pour assimiler en profondeur, ou 20 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">DeepTechCo — startup industrielle de 12 personnes basée à Nancy, fondée en 2024, développant une solution de monitoring industriel par vision IA. R&D intensive, 6 candidatures réussies en 2 ans (CIR, Bourse Région, Prêt Innovation Bpifrance), ambition de postuler France 2030 Plan DeepTech sur 12 mois.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>12 personnes</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Intensité R&D</div>
+              <strong>40 % du budget</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Candidatures/an cible</div>
+              <strong>6 → 12</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Temps actuel/dossier</div>
+              <strong>3 à 5 jours</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Consolider le dossier de référence (semaine 1-2)</h3>
+            <p>L'équipe consolide en 2 semaines le dossier de référence d'entreprise dans un dossier Drive structuré : business plan détaillé (2025-2027), deck investisseur, plan de trésorerie 24 mois, CVs détaillés de l'équipe (5 fondateurs + 7 collaborateurs), descriptifs des 3 projets R&D en cours, comptes annuels 2024-2025, dossiers PI (3 brevets déposés). Tout est anonymisé pour les éléments confidentiels et structuré avec des métadonnées explicites.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Drive structuré → ingestion Qdrant via embedding Mistral Embed → RAG sur 47 documents → métadonnées par type (BP / financier / RH / R&D / PI / commercial)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Une base RAG opérationnelle qui alimentera tous les drafts futurs. Investissement initial : 2 semaines × 1 personne, soit ~6 K€ de coût interne. Amorti dès la 2e candidature instruite.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Configurer la veille et le matching (semaine 3-4)</h3>
+            <p>Configuration n8n self-hosted : 8 sources de veille (Bpifrance, France 2030, Aides-Territoires, Région Grand Est, ADEME, ANR, FEDER, AAP filière industrie 4.0). Scraping quotidien à 6h. Agent 2 (matching) configuré sur Mistral Large (souveraineté EU) avec un prompt système structuré : profil DeepTechCo en contexte, critères d'éligibilité préqualifiés. Sortie : une short-list hebdomadaire envoyée par email tous les vendredis matin.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              n8n self-hosted (Docker) → Scrapling pour 3 sources résistantes → Aides-Territoires API officielle → Postgres pour la base AAP → Mistral Large via API EU → email Slack hebdo
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              10 AAP détectés en 4 semaines, dont 4 vraiment pertinents pour DeepTechCo après filtrage humain. La couverture territoriale et thématique est exhaustive là où l'équipe captait précédemment ~50 % des dispositifs éligibles.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Premier cycle de drafting — France 2030 Plan DeepTech (semaine 5-6)</h3>
+            <p>Le dirigeant retient l'AAP France 2030 Plan DeepTech sur la short-list. L'Agent 3 (drafting) est lancé avec un prompt spécialisé pour ce dispositif : sections récurrentes (présentation société, équipe, contexte, objectifs, plan financier) drafted automatiquement, sections différenciantes (innovation, impact, marché, équipe-projet) marquées [À COMPLÉTER]. Sortie : un draft de 28 pages dont 70 % rédigé, à compléter par l'équipe sur les angles différenciants.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Claude Projects (long-form) → RAG ciblé sur sections pertinentes du dossier référence → prompt spécialisé Plan DeepTech avec template structuré → output Markdown structuré → conversion Word via pandoc
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Draft initial produit en 2h (vs 2 jours en mode manuel). Sections [À COMPLÉTER] traitées par l'équipe en 1 journée focus. Total : 1,5 jour pour un dossier qui prenait précédemment 4 jours pleins. Gain : 60 % du temps de production sur ce premier cycle.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Validation humaine et soumission (semaine 7)</h3>
+            <p>Relecture par le dirigeant et le DAF en 2 sessions de 2h. Ajustements sur le ton, vérification des chiffres, ajout d'éléments narratifs spécifiques (anecdotes terrain, vision marché, différenciation technologique). Audit anti-hallucinations : 3 chiffres précis vérifiés contre les sources internes. Signature électronique. Soumission via portail France 2030 (manuelle, pas d'API à ce stade).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — disciplines humaines et signature dirigeant uniquement
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Dossier finalisé et soumis dans les délais. Time-to-soumission total : 7 jours calendaires (vs 14-21 jours en mode classique). Crédibilité maintenue — le dossier conserve la voix DeepTechCo et passe le filtre éditorial sans difficulté.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Boucle d'apprentissage et amélioration continue (mois 3-12)</h3>
+            <p>Sur 12 mois, DeepTechCo instruit 11 candidatures vs 6 en année précédente. 4 sont gagnées (dont le Plan DeepTech), 5 perdues, 2 en attente. Pour chaque résultat, documentation dans la mémoire partagée : quels arguments ont été décisifs, quels critères ont fait basculer (selon retours financeurs), quels formats fonctionnent. Le système se calibre — Agent 2 (matching) devient plus précis sur les vrais positifs, Agent 3 (drafting) reproduit mieux les structures des dossiers gagnés.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Vector store dédié aux résultats (Qdrant) → embeddings des dossiers gagnés/perdus + métadonnées d'issue → ré-injection dans contexte des Agents 2 et 3
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Taux de succès amélioré de 30 % à 36 % grâce au calibrage progressif et au volume traité. ROI cumulé : ~280 K€ de financements obtenus en plus sur l'année (4 dossiers gagnés vs 2 dans l'historique), pour un coût d'inférence annuel de ~2 K€.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 12 mois</div>
+          <p>
+            DeepTechCo est passée de 6 à 11 candidatures instruites par an (×1,8), de 2 à 4 succès (×2), pour un coût d'inférence annuel équivalent à 0,7 % des financements obtenus. <strong>Le pattern n'a pas remplacé le jugement stratégique du dirigeant — il a libéré son temps</strong> pour qu'il s'investisse sur les sections différenciantes et les arbitrages décisifs, au lieu de la production mécanique. La validation humaine en cascade (choix stratégique + signature) reste au cœur du dispositif et conditionne sa légitimité.
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>La candidature mécanique sur tout</h3>
+        <p>
+          La facilité à produire un dossier mécaniquement peut conduire à postuler sur tout et n'importe quoi. Conséquence : <strong>dégradation de la crédibilité auprès des financeurs</strong>, perte de temps des instructeurs, dilution de l'attention sur les vrais dossiers stratégiques. Discipline éditoriale obligatoire au point de validation humaine n°1 : ne retenir que les AAP où la pertinence stratégique est réelle, pas seulement où le matching technique est bon.
+        </p>
+
+        <h3>Confidentialité des dossiers stratégiques</h3>
+        <p>
+          Les éléments mobilisés sont stratégiques : business plan, plan de trésorerie, équipe, marché, propriété intellectuelle. <strong>L'usage de modèles cloud non souverains pose une vraie question</strong>. Privilégier <strong>Mistral EU</strong> ou un modèle on-premise pour la rédaction sur dossiers sensibles. Pour les structures particulièrement exposées (deeptech, défense, santé), envisager un déploiement on-premise complet ou une solution gouvernée type EthiqAIS ou Goodweek.
+        </p>
+
+        <h3>Détection IA par les financeurs</h3>
+        <p>
+          Certains financeurs, notamment Bpifrance et la Région Grand Est, évaluent désormais la part de génération IA dans les dossiers via des outils de détection. <strong>Le résultat doit garder une voix humaine et une expertise terrain non substituable</strong>. La validation humaine n°2 (relecture + signature) doit ajouter explicitement des éléments narratifs spécifiques — anecdotes terrain, vision dirigeant, données exclusives — qui sortent du registre génératif. Compter 30 minutes minimum de relecture humaine substantielle par dossier.
+        </p>
+
+        <h3>Signature et engagement contractuel</h3>
+        <p>
+          Pour la soumission effective, <strong>la signature reste de la responsabilité du dirigeant, jamais d'un agent</strong>. Le système doit s'arrêter à un dossier prêt à signer, jamais pousser la soumission sans validation humaine n°2. Ce n'est pas qu'une discipline opérationnelle — c'est aussi un point juridique structurant : seul un humain peut engager juridiquement la société sur les déclarations d'un dossier de financement.
+        </p>
+
+        <h3>Faux positifs en matching</h3>
+        <p>
+          Les critères d'éligibilité des AAP sont souvent flous, soumis à interprétation, et leur lecture par un agent peut produire des erreurs. <strong>L'Agent 2 produit une short-list, pas une décision</strong>. Le tri humain reste indispensable. Calibrer le prompt pour qu'il privilégie le rejet en cas de doute (« si l'éligibilité n'est pas clairement établie, marquer comme à clarifier plutôt que comme éligible »).
+        </p>
+
+        <h3>Mémoire partagée non alimentée</h3>
+        <p>
+          Le pattern n'apprend que si la boucle de retour est alimentée. <strong>Documenter systématiquement les issues</strong> : gagné, perdu, abandonné, retours financeur quand disponibles. Sans cette discipline, le système plafonne à sa configuration initiale et ne s'améliore pas dans le temps. Inscrire la documentation des retours dans le processus post-soumission, pas dans une intention diffuse.
+        </p>
+
+        <h3>Conformité AI Act et transparence</h3>
+        <p>
+          Pour les dossiers où la part rédigée par IA est substantielle, anticiper l'évolution réglementaire : la transparence sur l'usage d'IA dans les candidatures publiques pourrait devenir une obligation à moyen terme. <strong>Bonne pratique préventive : mention dans la lettre de soumission</strong> du caractère « assisté par IA et validé par la direction ». Ce n'est pas un aveu de faiblesse — c'est un signe de maturité opérationnelle qui peut, à terme, devenir un critère discriminant positif.
+        </p>
+      </section>
+
+      <!-- 8. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">8</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité réelle à déployer ce système agentique. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le système ne fonctionne pas, voire produit du risque) et <strong>critères de qualité</strong> (qui conditionnent la performance dans la durée). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport en Markdown ou texte.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Dossier de référence d'entreprise consolidé</strong>
+                  <small>Business plan à jour, plan de trésorerie 24 mois, CVs équipe, projets R&D, comptes annuels, propriété intellectuelle</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Compétence d'orchestration multi-agents disponible</strong>
+                  <small>n8n niveau avancé, ou framework Python (LangGraph, CrewAI), ou prestataire d'intégration mobilisable</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. Référent décisionnaire identifié pour les 2 validations humaines</strong>
+                  <small>Validation n°1 (choix stratégique des AAP) et validation n°2 (signature finale du dossier)</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Choix d'hébergement souverain pour les données stratégiques</strong>
+                  <small>Mistral EU, infrastructure on-premise, ou solution gouvernée (EthiqAIS, Goodweek) pour BP, finance, IP</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Volume de candidatures suffisant pour amortir le setup</strong>
+                  <small>Cible minimale : 6 à 8 candidatures par an pour amortir 2-3 semaines de setup initial</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la performance</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Corpus de candidatures historiques exploitable</strong>
+                  <small>3 à 5 dossiers gagnés des 2 dernières années, anonymisables et utilisables en RAG pour calibrer le drafting</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Discipline de relecture humaine substantielle (≥30 min/dossier)</strong>
+                  <small>Pour ajouter voix, anecdotes terrain, données exclusives — éviter détection IA par financeurs</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Budget d'inférence anticipé (50-300 €/mois)</strong>
+                  <small>Coût Mistral Large + RAG + scraping, à arbitrer en fonction du volume cible de candidatures</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Discipline d'alimentation de la mémoire partagée</strong>
+                  <small>Pour chaque AAP, documenter l'issue (gagné/perdu/abandonné) et les arguments décisifs</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Clarté sur les sections différenciantes à conserver humaines</strong>
+                  <small>Innovation, impact, marché, équipe-projet : sections qui ne doivent pas être draftées par IA</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">9</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et textes officiels</h3>
+          <ul>
+            <li>
+              <a href="https://www.bpifrance.fr/nos-actualites" target="_blank" rel="noopener">Bpifrance — actualités dispositifs et AAP</a>
+              <span class="resources-meta">Bpifrance — source officielle des dispositifs nationaux français</span>
+            </li>
+            <li>
+              <a href="https://www.gouvernement.fr/france-2030" target="_blank" rel="noopener">France 2030 — portail officiel</a>
+              <span class="resources-meta">Plan France 2030 — vagues d'AAP en continu sur les filières stratégiques</span>
+            </li>
+            <li>
+              <a href="https://aides-territoires.beta.gouv.fr" target="_blank" rel="noopener">Aides-Territoires</a>
+              <span class="resources-meta">État français — comparateur officiel d'aides aux entreprises avec API publique accessible</span>
+            </li>
+            <li>
+              <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a>
+              <span class="resources-meta">Commission européenne — obligations de transparence sur les contenus générés par IA</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=langgraph+multi+agent+system+tutorial" target="_blank" rel="noopener">LangGraph — systèmes multi-agents</a>
+              <span class="resources-meta">YouTube — pas-à-pas pour les setups multi-agents avancés en Python</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=crewai+tutorial+agents+collaboration" target="_blank" rel="noopener">CrewAI — collaboration d'agents</a>
+              <span class="resources-meta">YouTube — alternative LangGraph plus accessible</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=n8n+ai+agents+workflow+rag" target="_blank" rel="noopener">n8n + agents IA + RAG</a>
+              <span class="resources-meta">YouTube — orchestration no-code avec RAG</span>
+            </li>
+            <li>
+              <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Agentic AI (Andrew Ng)</a>
+              <span class="resources-meta">Cours de référence sur les patterns multi-agents</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://aides-territoires.beta.gouv.fr/api/" target="_blank" rel="noopener">Aides-Territoires API</a>
+              <span class="resources-meta">API publique pour accès programmatique aux dispositifs</span>
+            </li>
+            <li>
+              <a href="https://docs.mistral.ai" target="_blank" rel="noopener">Mistral AI Documentation</a>
+              <span class="resources-meta">API et déploiements souverains EU pour données stratégiques</span>
+            </li>
+            <li>
+              <a href="https://docs.anthropic.com/en/docs/build-with-claude/projects" target="_blank" rel="noopener">Claude Projects — Anthropic</a>
+              <span class="resources-meta">Configuration d'assistants long-form pour rédaction de candidatures</span>
+            </li>
+            <li>
+              <a href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">LangGraph Documentation</a>
+              <span class="resources-meta">Framework Python pour systèmes multi-agents avec mémoire partagée</span>
+            </li>
+            <li>
+              <a href="https://docs.crewai.com" target="_blank" rel="noopener">CrewAI Documentation</a>
+              <span class="resources-meta">Alternative plus accessible à LangGraph pour les setups d'équipes d'agents</span>
+            </li>
+            <li>
+              <a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a>
+              <span class="resources-meta">Plateforme d'orchestration self-hosted recommandée pour la souveraineté</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/LangChain" target="_blank" rel="noopener">r/LangChain sur Reddit</a>
+              <span class="resources-meta">Communauté technique active sur les architectures multi-agents</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/AI_Agents" target="_blank" rel="noopener">r/AI_Agents sur Reddit</a>
+              <span class="resources-meta">Communauté spécialisée sur les systèmes agentiques en production</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a>
+              <span class="resources-meta">Partage de workflows multi-agents en n8n</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA territorial</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-012';
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Dossier de référence d'entreprise consolidé" },
+        { id: 'b2', label: "Compétence d'orchestration multi-agents disponible" },
+        { id: 'b3', label: "Référent décisionnaire identifié pour les 2 validations humaines" },
+        { id: 'b4', label: "Choix d'hébergement souverain pour les données stratégiques" },
+        { id: 'b5', label: "Volume de candidatures suffisant pour amortir le setup" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Corpus de candidatures historiques exploitable" },
+        { id: 'q2', label: "Discipline de relecture humaine substantielle (≥30 min/dossier)" },
+        { id: 'q3', label: "Budget d'inférence anticipé (50-300 €/mois)" },
+        { id: 'q4', label: "Discipline d'alimentation de la mémoire partagée" },
+        { id: 'q5', label: "Clarté sur les sections différenciantes à conserver humaines" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item,
+        partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item,
+        partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Traiter ces gaps avant tout déploiement, sous peine de produire un système qui dégrade la qualité au lieu de l'améliorer.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = 'Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Tu peux engager le projet avec confiance.';
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote limité possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Tu peux lancer un pilote limité (1-2 candidatures) tout en consolidant en parallèle les zones de fragilité.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore,
+        qualityScore,
+        totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Veille AAP & drafting agentique\n\n`;
+        content += `*Évaluation Hub IA territorial — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-012 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — VEILLE AAP & DRAFTING AGENTIQUE\n`;
+        content += `Evaluation Hub IA territorial — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-012 du Hub IA territorial — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-veille-aap-drafting.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

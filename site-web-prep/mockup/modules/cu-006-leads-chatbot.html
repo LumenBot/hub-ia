@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qualification de leads par chatbot — Hub IA territorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Mockup conversation chatbot — spécifique CU-006 */
+    .chat-mockup { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); margin: var(--space-4) 0; }
+    .chat-bubble { padding: var(--space-3) var(--space-4); border-radius: 18px; margin-bottom: var(--space-2); max-width: 80%; font-size: 0.9375rem; line-height: 1.4; }
+    .chat-bot { background: #F0F4FA; color: var(--color-text); border-bottom-left-radius: 4px; }
+    .chat-user { background: var(--color-primary); color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+    .chat-meta { font-size: 0.75rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-1); }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d">📈 Croissance</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+      </div>
+      <h1>💬 Qualification de leads par chatbot</h1>
+      <p class="module-subtitle">
+        Un chatbot installé sur ton site qui interroge les visiteurs entrants, qualifie leur besoin selon tes critères, et prend rendez-vous directement dans l'agenda commercial. Couverture 24/7, filtrage automatique, aucune perte de lead chaud.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
+        <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
+        <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
+        <li><a href="#outils"><span class="toc-icon">⚙️</span>Stack et outils</a></li>
+        <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#pieges"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#diagnostic"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Capter les leads chauds 24/7 sans recruter</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p>Le chatbot conversationnel adresse <strong>3 verrous structurels</strong> : commercial qui perd du temps avec des leads non qualifiés, leads chauds en soirée/week-end qui repartent sans engagement, qualification téléphonique de 5-15 minutes par lead. Couverture 24/7 sans coût marginal.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p>Le bon chatbot ne parle pas, il pose les <strong>4-5 bonnes questions</strong> (BANT ou variante métier). Le vrai chantier est en amont : critères de qualification clairs, parcours utilisateur pensé, intégration CRM propre. Sans ça, le chatbot devient un gadget qui dégrade l'expérience.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p>Le branchement programmé tranche en 3 issues : <strong>RDV qualifié</strong> → injection Calendly/HubSpot Meetings, <strong>non qualifié</strong> → ressources + nurturing email, <strong>à clarifier</strong> → escalade vers commercial. Synchronisation CRM systématique.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p>2 obligations non négociables : <strong>AI Act</strong> (mention de transparence en première bulle « Bonjour, je suis l'assistant virtuel de... »), <strong>RGPD</strong> (information préalable, base légale, durée de rétention). Escalade humaine accessible à tout moment.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">+30-50 %</div><div class="exec-stat-label">Leads qualifiés vs formulaire</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">/10-100</div><div class="exec-stat-label">Délai de réponse</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">24/7</div><div class="exec-stat-label">Couverture sans coût marginal</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">25 min</div><div class="exec-stat-label">De lecture</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu reçois <strong>5 à 50 demandes web par mois</strong> dont une part significative est hors cible</li>
+              <li>Tes commerciaux passent du temps en <strong>qualification téléphonique répétitive</strong></li>
+              <li>Tu n'as <strong>jamais formalisé</strong> tes critères BANT (Budget / Authority / Need / Timeframe)</li>
+              <li>Tu veux <strong>45 minutes</strong> pour configurer un chatbot gratuit + définir 4 KPIs de pilotage</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CE QUE TU VAS POUVOIR FAIRE -->
+      <section class="module-section" id="what-youll-do">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Ce que tu sauras faire après ce module</h2>
+          </div>
+        </div>
+        <div class="what-youll-do">
+          <h3>4 capacités opérationnelles à acquérir</h3>
+          <ul>
+            <li>Évaluer si ton parcours web actuel se prête à une qualification automatisée par chatbot, et avec quelle priorité</li>
+            <li>Définir tes critères de qualification (BANT ou variante métier) et les motifs de disqualification avant tout déploiement technique</li>
+            <li>Configurer un chatbot connecté à ton agenda et à ton CRM, avec des garde-fous RGPD et une obligation de transparence AI Act</li>
+            <li>Mesurer le gain réel (taux de qualification, taux de booking, délai de réponse) pour comparer à ton parcours actuel</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. CONTEXTE -->
+      <section class="module-section" id="contexte">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le cas et le contexte</h2>
+          </div>
+        </div>
+        <p>Pour beaucoup de PME, ETI et startups B2B, le passage du visiteur web au RDV commercial est un goulot massif. Le commercial perd du temps avec des leads non qualifiés, les leads chauds qui arrivent en soirée ou en week-end repartent sans engagement, et la qualification téléphonique demande 5 à 15 minutes par lead — un coût direct sur la productivité commerciale.</p>
+        <p>Le chatbot conversationnel adresse ces trois verrous simultanément en automatisant la qualification initiale et le booking. Les études B2B 2025 documentent typiquement <strong>+30 à +50 % de leads qualifiés</strong> versus formulaire classique, une couverture 24/7 sans coût marginal, et un délai de réponse divisé par 10 à 100 — de plusieurs heures à quelques secondes.</p>
+        <div class="pull-quote">
+          <p>Le bon chatbot n'est pas celui qui parle le plus. C'est celui qui pose les 4 ou 5 bonnes questions, route correctement les leads chauds vers l'agenda, et laisse les autres en nurturing sans perte de matière commerciale.</p>
+        </div>
+        <p>Le vrai chantier est en amont : avoir des critères de qualification clairs (qu'est-ce qu'un bon lead pour toi ?), un parcours utilisateur pensé, et une intégration CRM propre. Sans ça, le chatbot devient un gadget qui dégrade l'expérience.</p>
+      </section>
+
+      <!-- 3. SCHÉMA -->
+      <section class="module-section" id="schema">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Comment ça fonctionne</h2>
+          </div>
+        </div>
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar3" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker>
+              <marker id="ar3green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/></marker>
+              <marker id="ar3red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#B86E1A"/></marker>
+            </defs>
+            <rect x="20" y="140" width="170" height="90" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — VISITEUR</text>
+            <text x="105" y="193" text-anchor="middle" font-size="12" fill="#333">Page offre, prix,</text>
+            <text x="105" y="210" text-anchor="middle" font-size="12" fill="#333">démo, contact</text>
+            <rect x="220" y="140" width="170" height="90" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="305" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — CHATBOT</text>
+            <text x="305" y="193" text-anchor="middle" font-size="12" fill="white">Qualification</text>
+            <text x="305" y="210" text-anchor="middle" font-size="12" fill="white">4-6 questions</text>
+            <rect x="420" y="140" width="170" height="90" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="505" y="170" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">3 — BRANCHEMENT</text>
+            <text x="505" y="193" text-anchor="middle" font-size="12" fill="#333">Routage selon</text>
+            <text x="505" y="210" text-anchor="middle" font-size="12" fill="#333">la qualification</text>
+            <rect x="630" y="40" width="220" height="70" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="740" y="68" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">A — LEAD QUALIFIÉ</text>
+            <text x="740" y="89" text-anchor="middle" font-size="12" fill="#333">RDV dans l'agenda commercial</text>
+            <text x="740" y="105" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Calendly · Cal.com · HubSpot</text>
+            <rect x="630" y="140" width="220" height="70" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="740" y="168" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">B — NON QUALIFIÉ</text>
+            <text x="740" y="189" text-anchor="middle" font-size="12" fill="#333">Documentation, ressources</text>
+            <text x="740" y="205" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Nurturing email automatique</text>
+            <rect x="630" y="240" width="220" height="70" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="740" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">C — À CLARIFIER</text>
+            <text x="740" y="289" text-anchor="middle" font-size="12" fill="#333">Escalade vers commercial</text>
+            <text x="740" y="305" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Mode chat humain</text>
+            <line x1="190" y1="185" x2="218" y2="185" stroke="#2E5395" stroke-width="3" marker-end="url(#ar3)"/>
+            <line x1="390" y1="185" x2="418" y2="185" stroke="#2E5395" stroke-width="3" marker-end="url(#ar3)"/>
+            <line x1="590" y1="170" x2="628" y2="90" stroke="#5C8C5C" stroke-width="2.5" marker-end="url(#ar3green)"/>
+            <line x1="590" y1="185" x2="628" y2="170" stroke="#B86E1A" stroke-width="2.5" marker-end="url(#ar3red)"/>
+            <line x1="590" y1="200" x2="628" y2="270" stroke="#7A5CB8" stroke-width="2.5" marker-end="url(#ar3)"/>
+            <rect x="220" y="310" width="370" height="40" rx="8" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="405" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">SYNCHRONISATION CRM — résumé conversation poussé en fiche prospect</text>
+            <line x1="305" y1="230" x2="305" y2="308" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+          </svg>
+        </div>
+        <p class="schema-caption">Visiteur → chatbot → branchement à 3 issues (RDV, nurturing, escalade humaine), avec synchronisation CRM systématique</p>
+      </section>
+
+      <!-- 4. ÉTAPES -->
+      <section class="module-section" id="etapes">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📋</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les étapes en détail</h2>
+          </div>
+        </div>
+        <ol>
+          <li><strong>Déclenchement contextuel.</strong> Le chatbot ne s'ouvre pas partout : il se déclenche sur les pages clés (offre, prix, démo, contact) après quelques secondes de présence ou un signal d'intérêt (scroll important, hover sur un CTA).</li>
+          <li><strong>Engagement personnalisé.</strong> Première question liée au contenu consulté : « Vous regardez notre offre X — quel est votre projet ? » fonctionne mieux qu'un « Bonjour, comment puis-je vous aider ? » générique.</li>
+          <li><strong>Qualification progressive.</strong> 4 à 6 questions formulées en langage naturel, qui couvrent les critères clés : Budget, Authority (qui décide), Need (besoin précis), Timeframe (échéance). Adaptation du ton selon les réponses précédentes.</li>
+          <li><strong>Branchement selon le score de qualification.</strong> Lead qualifié → proposition immédiate de créneaux dans l'agenda. Lead non qualifié → ressources + nurturing email. Lead à clarifier → escalade vers commercial humain (pendant les heures ouvrées) ou rappel programmé.</li>
+          <li><strong>Synchronisation CRM.</strong> La conversation complète est résumée et insérée dans la fiche du prospect. Le commercial qui prend le RDV arrive avec un brief clair, sans repartir de zéro.</li>
+          <li><strong>Boucle d'amélioration.</strong> Analyse mensuelle des conversations qui ont raté la qualification : c'est là que tu affines tes questions et tes critères de scoring.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK ET OUTILS -->
+      <section class="module-section" id="outils">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚙️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Stack et outils</h2>
+          </div>
+        </div>
+
+        <h3>Plateformes chatbot prêtes à l'emploi</h3>
+        <p><strong>Intercom Fin AI Agent</strong> est aujourd'hui la référence pour les déploiements rapides et structurés (qualification, escalade, intégration CRM native). <strong>HubSpot Chatbot</strong> est pertinent si tu utilises déjà l'écosystème HubSpot. <strong>Drift</strong> et <strong>Tidio</strong> proposent des alternatives avec des positionnements distincts (Drift sur l'enterprise, Tidio sur le mid-market). Pour des budgets serrés, <strong>Cal.com</strong> peut servir de socle de booking simple à connecter à un chatbot léger.</p>
+
+        <h3>Setup custom pour les configurations sur-mesure</h3>
+        <p>Combinaison <strong>Claude</strong> ou <strong>GPT-4 / GPT-5</strong> + <strong>n8n</strong> + interface web légère. Permet un calibrage métier fin (notamment pour des secteurs comme l'industrie B2B où les questions standards BANT ne suffisent pas). Plus de travail de config initiale, plus de contrôle ensuite.</p>
+
+        <h3>Booking et intégration agenda</h3>
+        <p><strong>Calendly</strong>, <strong>Cal.com</strong> (open source, alternative souveraine), <strong>HubSpot Meetings</strong>. Tous proposent des liens dynamiques que le chatbot peut injecter à la fin de la conversation, avec gestion des disponibilités et des fuseaux.</p>
+
+        <h3>CRM et follow-up</h3>
+        <p><strong>HubSpot</strong>, <strong>Salesforce</strong>, <strong>Pipedrive</strong> pour la synchronisation. <strong>AgentMail</strong> ou <strong>Composio</strong> pour automatiser les follow-ups email post-conversation, surtout sur les leads non qualifiés en mode nurturing.</p>
+
+        <h3>Prérequis</h3>
+        <p>Critères de qualification clairement définis avant tout choix d'outil. Un parcours utilisateur pensé (qu'est-ce qu'un « bon » lead, quels sont les motifs de disqualification). Un mandatory CRM en place pour ne pas perdre la matière conversationnelle. Une mention de transparence (« Vous discutez avec un assistant IA ») pour respecter l'AI Act.</p>
+      </section>
+
+      <!-- 6. CAS GUIDÉ -->
+      <section class="module-section" id="cas-pratique">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🎯</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Cas d'étude guidé — Mise en situation</h2>
+          </div>
+        </div>
+
+        <p>Tu vas suivre les 4 étapes ci-dessous. Compte 45 minutes pour faire l'exercice complet sur un compte gratuit, ou 10 minutes en lecture seule.</p>
+
+        <div class="case-deep-actor" style="background: #FDF4DC; border-left-color: #B89030;">
+          <div class="case-deep-actor-label" style="color: #7A5C20;">Contexte</div>
+          <p style="margin: 0;">Tu pilotes <strong>une activité B2B avec environ 80 visiteurs uniques par jour sur ton site</strong>, dont 5 à 10 demandes de contact mensuelles via formulaire. Ton commercial principal passe 2 à 3 heures par semaine à qualifier ces demandes par téléphone, dont la moitié sont hors cible (mauvais profil, pas de budget, projet à 18 mois). Objectif : un chatbot qui pré-qualifie pour ne te laisser que les leads vraiment chauds.</p>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Définir tes critères de qualification</h4>
+            <p>Avant tout outil, écris noir sur blanc ce qui fait un bon lead pour toi. Adapte la grille BANT à ton métier :</p>
+            <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;">
+              <strong>Budget :</strong> seuil minimum de projet (ex : « > 10 K€ »)<br>
+              <strong>Authority :</strong> profil décisionnaire ciblé (DG, DRH, DSI…)<br>
+              <strong>Need :</strong> 2-3 motifs de besoin que tu adresses bien<br>
+              <strong>Timeframe :</strong> échéance utile (« décision dans les 6 mois »)
+            </p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outil</div>📝 Document interne · 🛠️ Pas d'outil IA à cette étape</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Une grille à 4 critères avec seuils explicites. C'est le brief que tu vas donner à ton chatbot.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Configurer un chatbot avec HubSpot Chatbot ou Tidio (gratuits)</h4>
+            <p>Crée un compte gratuit chez <a href="https://www.hubspot.com" target="_blank" rel="noopener">HubSpot</a> ou <a href="https://www.tidio.com" target="_blank" rel="noopener">Tidio</a>. Configure un flow de conversation à partir de ta grille. Ajoute systématiquement une mention de transparence en première bulle : <em>« Bonjour, je suis l'assistant virtuel de [société]. Je peux orienter votre demande en quelques questions. »</em></p>
+            <div class="chat-mockup">
+              <div class="chat-meta">Aperçu mockup conversation</div>
+              <div class="chat-bubble chat-bot">Bonjour 👋 Je suis l'assistant virtuel de [société]. Vous regardez notre offre Service X — quel est votre projet ?</div>
+              <div class="chat-bubble chat-user">Je cherche à automatiser notre processus commercial.</div>
+              <div class="chat-bubble chat-bot">Très bien. Quelle est la taille de votre équipe commerciale aujourd'hui ?</div>
+              <div class="chat-bubble chat-user">5 personnes</div>
+              <div class="chat-bubble chat-bot">Parfait. Avez-vous une échéance pour le projet ?</div>
+            </div>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ HubSpot Chatbot (gratuit) · 🛠️ Tidio (gratuit)</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un chatbot fonctionnel sur ta page démo ou contact, avec 4-5 questions de qualification basées sur ta grille.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Connecter Calendly et le CRM</h4>
+            <p>Crée un type d'événement dans <a href="https://calendly.com" target="_blank" rel="noopener">Calendly</a> ou <a href="https://cal.com" target="_blank" rel="noopener">Cal.com</a> (« Découverte 30 min »). Récupère le lien dynamique. Configure la fin du parcours chatbot : si lead qualifié → injecte le lien Calendly. Si non qualifié → propose une ressource (livre blanc, ressource gratuite). Active la synchronisation CRM pour que la conversation soit automatiquement insérée dans la fiche prospect.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Calendly / Cal.com · 🛠️ Intégration CRM</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un parcours complet du visiteur au RDV booké, avec un commercial briefé sur le besoin avant l'appel.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Mesurer 4 indicateurs sur 3 semaines</h4>
+            <p>Suis 4 KPIs sur 3 semaines de pilote : (1) <strong>nombre de conversations engagées</strong>, (2) <strong>taux de qualification</strong> (% de conversations qui aboutissent à un RDV), (3) <strong>taux de show</strong> (% de RDV bookés effectivement honorés), (4) <strong>temps commercial économisé</strong> sur la qualification. Itère sur les questions qui produisent trop de faux positifs ou trop de faux négatifs.</p>
+            <div class="case-deep-tech"><div class="case-deep-tech-label">Discipline</div>📊 Tableau de bord 4 KPIs · 📋 Revue hebdo des conversations</div>
+            <div class="case-deep-result"><div class="case-deep-result-label">Output</div>Un mini rapport de 3 semaines qui te dit si le chatbot mérite un déploiement large ou s'il faut affiner les critères avant de continuer.</div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Tu viens de faire quoi ?</div>
+          <p>Tu as transformé un parcours commercial dispersé (formulaire → email → rappel téléphonique → qualification) en parcours intégré (chatbot → RDV booké → CRM à jour). Les premiers déploiements documentés rapportent <strong>+30 à +50 % de leads qualifiés</strong> et un délai de réponse divisé par 10. Surtout, tu as récupéré 2 à 3 heures hebdomadaires de temps commercial pour les conversations à valeur ajoutée.</p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="pieges">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les pièges à éviter</h2>
+          </div>
+        </div>
+
+        <h3>Le chatbot intrusif</h3>
+        <p>Un mauvais calibrage produit un chatbot qui s'ouvre trop tôt, parle trop, et dégrade l'expérience utilisateur au lieu de l'améliorer. <strong>Activer le déclenchement avec parcimonie</strong> : pages clés uniquement, délai de 5 à 10 secondes après l'arrivée, et possibilité de fermeture explicite. Un visiteur qui a fermé le chatbot ne doit pas être relancé sur la même session.</p>
+
+        <h3>Faux positifs et faux négatifs de qualification</h3>
+        <p>L'IA peut mal classer un lead. Un dirigeant qui répond rapidement par approximation peut être disqualifié à tort, ou un curieux peut être qualifié à tort. <strong>Toujours laisser la possibilité d'escalade humaine</strong>, et permettre au commercial de « rouvrir » manuellement une conversation depuis le CRM si une opportunité a été ratée.</p>
+
+        <h3>Conformité RGPD</h3>
+        <p>La conversation collecte des données personnelles (nom, email, projet, parfois budget). <strong>Information préalable obligatoire</strong> via un message d'accueil clair, base légale documentée (intérêt légitime ou consentement selon le cas), durée de rétention définie, mention dans la politique de confidentialité du site. Le chatbot doit aussi proposer une option « parler à un humain » à tout moment.</p>
+
+        <h3>Obligation de transparence AI Act</h3>
+        <p>Le règlement européen IA impose qu'un système d'IA conversationnel signale explicitement à l'utilisateur qu'il est une IA. <strong>Première bulle du chatbot : mention obligatoire</strong>. Pas de tentative de faire passer le chatbot pour un humain, même par convivialité.</p>
+
+        <h3>Tone et marque</h3>
+        <p>Un chatbot qui parle « hors voix » abîme la marque plus qu'il ne capte de leads. Investir 1 à 2 jours sur le calibrage des prompts, le ton, le vocabulaire. Tester avec 5 à 10 collègues avant déploiement public, ajuster, redéployer.</p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="diagnostic">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🔎</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Auto-diagnostic — Où en es-tu sur ce parcours ?</h2>
+          </div>
+        </div>
+
+        <p>Réponds aux 6 questions suivantes pour générer un plan d'action priorisé adapté à ton contexte. Tu pourras exporter le résultat en Markdown ou en texte simple.</p>
+
+        <div class="diagnostic">
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Quel est le volume mensuel de demandes entrantes via ton site ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Moins de 5</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>5 à 15</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>15 à 50</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Plus de 50</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Quelle proportion de tes demandes entrantes est aujourd'hui hors cible (mauvais profil, pas de budget, hors timing) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Moins de 20 %</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>20 à 40 %</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>40 à 60 %</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Plus de 60 %</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. As-tu déjà formalisé tes critères de qualification d'un « bon » lead (BANT ou autre) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Pas du tout</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>Implicite, dans la tête</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>Esquissé sur un doc</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Formalisé et partagé</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Disposes-tu d'un CRM en place pour récupérer les conversations ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Pas de CRM</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Excel ou outil maison</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>CRM en place, peu utilisé</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>CRM bien adopté</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Combien de temps tes commerciaux passent-ils par semaine en qualification téléphonique ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Moins d'1 heure</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>1 à 3 heures</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>3 à 6 heures</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Plus de 6 heures</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Maturité RGPD / conformité de ton site web ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>Aucune politique formalisée</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>Mentions légales basiques</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>Politique RGPD à jour</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>RGPD + AI Act anticipé</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 9</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📖 Articles de fond</h4>
+          <ul>
+            <li><a href="https://www.hubspot.com/state-of-marketing" target="_blank" rel="noopener">HubSpot State of Marketing AI 2025</a><span class="resources-meta">HubSpot, 2025 — benchmarks adoption IA dans la qualification commerciale</span></li>
+            <li><a href="https://www.intercom.com/learning-center" target="_blank" rel="noopener">Intercom Learning Center — chatbots et qualification</a><span class="resources-meta">Intercom — guides d'implémentation et best practices documentées</span></li>
+            <li><a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Intelligence artificielle et données personnelles</a><span class="resources-meta">CNIL — recommandations officielles pour la conformité RGPD des chatbots</span></li>
+            <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a><span class="resources-meta">Commission européenne — obligations de transparence pour les systèmes IA conversationnels</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎥 Tutoriels et démos</h4>
+          <ul>
+            <li><a href="https://www.youtube.com/results?search_query=hubspot+chatbot+lead+qualification+tutorial" target="_blank" rel="noopener">HubSpot Chatbot — qualification de leads</a><span class="resources-meta">YouTube — pas-à-pas d'implémentation</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=intercom+fin+ai+agent+demo" target="_blank" rel="noopener">Intercom Fin AI Agent — démos</a><span class="resources-meta">YouTube — cas d'usage et configurations</span></li>
+            <li><a href="https://www.youtube.com/results?search_query=n8n+chatbot+claude+qualification" target="_blank" rel="noopener">n8n + Claude — chatbot custom</a><span class="resources-meta">YouTube — setup d'un chatbot sur-mesure avec n8n</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle</h4>
+          <ul>
+            <li><a href="https://developers.hubspot.com/docs/api/conversations/chatbot" target="_blank" rel="noopener">HubSpot Chatbot — documentation API</a><span class="resources-meta">Documentation officielle pour les intégrations avancées</span></li>
+            <li><a href="https://developers.intercom.com/docs/fin-ai-agent" target="_blank" rel="noopener">Intercom Fin AI Agent — documentation</a><span class="resources-meta">Documentation pour la configuration et le déploiement</span></li>
+            <li><a href="https://cal.com/docs" target="_blank" rel="noopener">Cal.com Documentation</a><span class="resources-meta">Documentation de l'alternative open source à Calendly</span></li>
+            <li><a href="https://docs.n8n.io" target="_blank" rel="noopener">n8n Documentation</a><span class="resources-meta">Plateforme d'orchestration pour les setups custom</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>💬 Communautés</h4>
+          <ul>
+            <li><a href="https://www.reddit.com/r/SaaS" target="_blank" rel="noopener">r/SaaS sur Reddit</a><span class="resources-meta">Retours d'expérience sur les chatbots de qualification en SaaS B2B</span></li>
+            <li><a href="https://www.reddit.com/r/sales" target="_blank" rel="noopener">r/sales sur Reddit</a><span class="resources-meta">Discussions sur l'industrialisation des parcours commerciaux</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-006';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const answers = {};
+      let allAnswered = true;
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+      const opportunite = answers.d1 + answers.d2;
+      if (opportunite >= 4) actions.push({ prio: 'haute', titre: 'Lancer un pilote chatbot sous 3 semaines', desc: 'Volume entrant et taux hors cible élevés : c\'est exactement la situation où un chatbot de qualification produit un ROI rapide. Cible un déploiement sur 1 ou 2 pages clés (offre, contact) avec un suivi de 4 KPIs sur 3 semaines.' });
+      else if (opportunite >= 2) actions.push({ prio: 'moyenne', titre: 'Tester sur une page unique avant de généraliser', desc: 'Volume modéré ou taux hors cible moyen : commence par un déploiement sur une seule page clé pour mesurer le gain. Vise un pilote de 6 semaines pour avoir une statistique exploitable.' });
+      else actions.push({ prio: 'basse', titre: 'Évaluer si l\'investissement est justifié', desc: 'Volume entrant faible et leads bien qualifiés en amont : le ROI d\'un chatbot dédié reste modeste. Privilégie un formulaire enrichi (avec qualification implicite via 4-5 champs ciblés) avant d\'investir dans un chatbot conversationnel.' });
+      if (answers.d3 <= 1) actions.push({ prio: 'haute', titre: 'Formaliser tes critères de qualification (1 page max)', desc: 'Prérequis absolu. Avant tout outil, écris noir sur blanc ce qui fait un bon lead pour toi : seuils budget, profils décisionnaires ciblés, motifs de besoin adressés, échéances utiles. Sans cette grille, le chatbot produira des qualifications incohérentes.' });
+      if (answers.d4 <= 1) actions.push({ prio: 'haute', titre: 'Mettre en place un CRM léger en parallèle', desc: 'Sans CRM, la matière conversationnelle générée par le chatbot se perd. Démarre sur HubSpot Free, Pipedrive ou Notion structuré avant de déployer le chatbot. Le couple chatbot + CRM est indissociable.' });
+      if (answers.d5 >= 2) actions.push({ prio: 'haute', titre: 'Cibler un gain mesurable sur le temps commercial', desc: 'Le temps consacré à la qualification téléphonique est ton vrai indicateur de ROI. Vise une réduction de 50 à 70 % en régime stabilisé. Documente le temps actuel (semaine type) pour avoir une base de comparaison nette après pilote.' });
+      if (answers.d6 <= 1) actions.push({ prio: 'haute', titre: 'Mettre à jour ta politique RGPD avant déploiement', desc: 'Un chatbot collecte des données personnelles. Mention de transparence obligatoire (AI Act) en première bulle, base légale documentée, durée de rétention définie, intégration dans la politique de confidentialité du site. À régler avant le pilote, pas après.' });
+      else if (answers.d6 == 2) actions.push({ prio: 'moyenne', titre: 'Compléter la conformité avec une mention AI Act', desc: 'Ta politique RGPD est en place. Ajoute spécifiquement une mention de transparence sur l\'usage d\'un assistant IA (« Vous discutez avec un assistant virtuel ») et documente les flux de données entre le chatbot et le CRM.' });
+      actions.push({ prio: 'haute', titre: 'Garantir une escalade humaine à tout moment', desc: 'Aucun chatbot ne doit enfermer un visiteur dans un parcours sans issue. Bouton « parler à un humain » accessible en permanence, escalade automatique si la conversation patine. C\'est aussi un indicateur de qualité du chatbot : moins d\'escalades = meilleur calibrage.' });
+      actions.push({ prio: 'moyenne', titre: 'Suivre 4 KPIs sur les 3 premières semaines', desc: 'Conversations engagées, taux de qualification, taux de show RDV, temps commercial économisé. Sans ces 4 KPIs, impossible de savoir si le chatbot crée vraiment de la valeur ou s\'il dégrade l\'expérience.' });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — déploiement structuré possible';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — pilote ciblé recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      let html = `<div class="diag-score-box"><div class="diag-score-num">${maturite}%</div><div class="diag-score-label">${scoreLabel}</div></div><h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>`;
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+      actions.forEach((a, i) => html += `<div class="diag-action"><span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span><h4>${i+1}. ${a.titre}</h4><p>${a.desc}</p></div>`);
+      html += `<div class="diag-export"><button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button><button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button></div>`;
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({ completed: true, maturite, actions: actions.map(a => ({ prio: a.prio, titre: a.titre })), date: new Date().toISOString() }));
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
+    }
+
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+      if (format === 'md') {
+        content += `# Plan d'action — Qualification de leads par chatbot\n\n*Auto-diagnostic Hub IA territorial — ${plan.date}*\n\n**Maturité du parcours actuel : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`);
+        content += `---\n\n*Plan généré par le module CU-006 du Hub IA territorial — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — QUALIFICATION DE LEADS PAR CHATBOT\nAuto-diagnostic Hub IA territorial — ${plan.date}\n\nMaturite du parcours actuel : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`);
+        content += `=========================================\nPlan genere par le module CU-006 du Hub IA territorial — questforchange.eu\n`;
+      }
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-action-leads-chatbot.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
