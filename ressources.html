@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ressources &amp; outils IA — Hub IA — Learning Center</title>
-  <meta name="description" content="Wiki des outils IA mentionnés dans les modules : 51 fiches deep-dive (LLM, orchestration, multi-agents, RAG, vision, CRM, optimisation, intelligence concurrentielle, souverains français) + index par catégorie. Programme du réseau Quest for Change.">
+  <meta name="description" content="Wiki des outils IA mentionnés dans les modules : 63 fiches deep-dive (LLM, orchestration, multi-agents, RAG, vision, CRM, optimisation, intelligence concurrentielle, ML frameworks, souverains français) + index par catégorie. Programme du réseau Quest for Change.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -43,12 +43,12 @@
       </a>
       <div class="module-badges">
         <span class="card-badge" style="background:#F0F4FA; color:#1F3864; border:1px solid #2E5395;">📚 Ressources</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">V2.5 · 51 outils essentiels</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">V3.0 · 63 outils essentiels</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">Mise à jour continue</span>
       </div>
       <h1>📚 Ressources &amp; outils IA</h1>
       <p class="module-subtitle">
-        Le wiki des outils mentionnés dans les modules : <strong>51 fiches deep-dive</strong> couvrant LLM, orchestration, multi-agents, RAG, vision industrielle, CRM, optimisation, intelligence concurrentielle, productivité, souverains français — plus un <strong>index par catégorie</strong>. Pas de hiérarchie commerciale — uniquement de la doc opérationnelle.
+        Le wiki des outils mentionnés dans les modules : <strong>63 fiches deep-dive</strong> couvrant LLM, orchestration, multi-agents, RAG, vision industrielle, CRM, optimisation, intelligence concurrentielle, ML frameworks, productivité, souverains français — plus un <strong>index par catégorie</strong>. Pas de hiérarchie commerciale — uniquement de la doc opérationnelle.
       </p>
     </div>
   </header>
@@ -114,6 +114,18 @@
         <li style="padding-left:18px;"><a href="#keyence"><span class="toc-icon">🎌</span>Keyence</a></li>
         <li style="padding-left:18px;"><a href="#landing-ai"><span class="toc-icon">✈️</span>Landing AI</a></li>
         <li style="padding-left:18px;"><a href="#cadwork"><span class="toc-icon">🪵</span>Cadwork</a></li>
+        <li style="padding-left:18px;"><a href="#kimi"><span class="toc-icon">🌙</span>Kimi K2</a></li>
+        <li style="padding-left:18px;"><a href="#tldv"><span class="toc-icon">📹</span>tl;dv</a></li>
+        <li style="padding-left:18px;"><a href="#roboflow"><span class="toc-icon">🦾</span>Roboflow</a></li>
+        <li style="padding-left:18px;"><a href="#mask-rcnn"><span class="toc-icon">🎭</span>Mask R-CNN</a></li>
+        <li style="padding-left:18px;"><a href="#topsolid"><span class="toc-icon">🔩</span>TopSolid</a></li>
+        <li style="padding-left:18px;"><a href="#lectra"><span class="toc-icon">🧵</span>Lectra</a></li>
+        <li style="padding-left:18px;"><a href="#gurobi"><span class="toc-icon">📐</span>Gurobi</a></li>
+        <li style="padding-left:18px;"><a href="#xpress"><span class="toc-icon">⚡</span>FICO Xpress</a></li>
+        <li style="padding-left:18px;"><a href="#dynamics"><span class="toc-icon">🪟</span>Microsoft Dynamics 365</a></li>
+        <li style="padding-left:18px;"><a href="#zoho"><span class="toc-icon">🏢</span>Zoho CRM</a></li>
+        <li style="padding-left:18px;"><a href="#klue"><span class="toc-icon">🔮</span>Klue</a></li>
+        <li style="padding-left:18px;"><a href="#pytorch"><span class="toc-icon">🔥</span>PyTorch</a></li>
         <li><a href="#index"><span class="toc-icon">📚</span>Index par catégorie</a></li>
       </ul>
     </aside>
@@ -142,13 +154,13 @@
             <div class="exec-takeaway"><div class="exec-takeaway-num">1</div><p><strong>Pas de hiérarchie commerciale.</strong> Les outils sont triés par usage, pas par sponsor. SaaS et open-source coexistent.</p></div>
             <div class="exec-takeaway"><div class="exec-takeaway-num">2</div><p><strong>Contexte avant fonctionnalités.</strong> Chaque fiche répond d'abord à « quand l'utiliser et quand ne pas », avant les détails techniques.</p></div>
             <div class="exec-takeaway"><div class="exec-takeaway-num">3</div><p><strong>Liens vers les modules.</strong> Chaque fiche pointe vers les cas d'usage concrets où l'outil intervient — pas de théorie isolée.</p></div>
-            <div class="exec-takeaway"><div class="exec-takeaway-num">4</div><p><strong>V2.5 enrichie.</strong> 51 outils en deep-dive aujourd'hui (V1 = 15, Lot 3 = +12, Lot 4 = +12, Lot 5 = +12), extension continue par lots selon les retours utilisateurs.</p></div>
+            <div class="exec-takeaway"><div class="exec-takeaway-num">4</div><p><strong>V3.0 — couverture quasi-complète.</strong> 63 outils en deep-dive aujourd'hui (V1 = 15, Lots 3+4+5+6 = +48). Couvre toutes les catégories d'outils mentionnées dans les modules. Mise à jour continue selon retours utilisateurs.</p></div>
           </div>
 
           <div class="exec-stats">
-            <div class="exec-stat"><div class="exec-stat-num">51</div><div class="exec-stat-label">Deep-dives</div></div>
-            <div class="exec-stat"><div class="exec-stat-num">80+</div><div class="exec-stat-label">Outils indexés</div></div>
-            <div class="exec-stat"><div class="exec-stat-num">14</div><div class="exec-stat-label">Catégories</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">63</div><div class="exec-stat-label">Deep-dives</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">90+</div><div class="exec-stat-label">Outils indexés</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">15</div><div class="exec-stat-label">Catégories</div></div>
             <div class="exec-stat"><div class="exec-stat-num">∞</div><div class="exec-stat-label">Mise à jour continue</div></div>
           </div>
 
@@ -170,7 +182,7 @@
           <div class="module-section-icon purple">🛠</div>
           <div class="module-section-title">
             <div class="section-number">Section 2</div>
-            <h2>Les 51 outils essentiels</h2>
+            <h2>Les 63 outils essentiels</h2>
           </div>
         </div>
 
@@ -2746,6 +2758,308 @@
           </div>
         </article>
 
+        <!-- 52. KIMI K2 -->
+        <article class="tool-card" id="kimi">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#1F2937,#4B5563);color:#FBBF24;">🌙</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge open">Open-weight</span><span class="tool-badge cat">LLM long context</span><span class="tool-badge maturity">Émergent · 2024</span></div>
+              <h3>Kimi K2 <span class="tool-vendor">par Moonshot AI</span></h3>
+              <p class="tool-tagline">LLM open-weight chinois avec spécialité « long context » exceptionnel (jusqu'à 2M tokens). Référence pour le RAG sur très gros corpus ou l'analyse de bases documentaires longues.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Kimi K2 a poussé la barre du long context au-delà des leaders : jusqu'à 2M tokens en contexte (vs 200k Claude, 1M Gemini). Pour analyser un livre entier, un repo de code complet, ou un corpus juridique sans découper, c'est l'option canonique. Open-weight (modèle disponible sur HuggingFace) — possibilité de self-hosting. Communauté builders agentiques l'évoque régulièrement comme alternative émergente.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Analyse de très gros corpus (livre, repo, dossier juridique)</li><li>Long context sans chunking RAG</li><li>R&amp;D / benchmarking modèles long context</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Souveraineté EU stricte (Moonshot = Chine)</li><li>Cas standards → Claude / GPT plus matures côté écosystème</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Modèle open-weight gratuit · API à l'usage via Moonshot ou Together AI / Fireworks.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative long context</li><li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Gemini 1.5/2 (1-2M tokens) · Claude (200k-1M) · Llama (128k).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.moonshot.cn" target="_blank" rel="noopener">moonshot.cn</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 53. TL;DV -->
+        <article class="tool-card" id="tldv">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FEF3C7,#F59E0B);color:#78350F;">📹</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">Replay réunion AI</span><span class="tool-badge maturity">Établi · 2020</span></div>
+              <h3>tl;dv</h3>
+              <p class="tool-tagline">Plateforme de replay et résumé de réunions Zoom/Meet/Teams. Approche « Loom-style » : revisionner les moments clés en quelques minutes plutôt que tout relire. Adapté aux équipes qui veulent partager efficacement les insights.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> tl;dv mise sur la consommation visuelle : tu ne lis pas un CR de réunion, tu visionnes les moments clés (chapitré automatiquement par l'IA). Bien adapté pour partager les insights d'un call client à des collègues qui n'y étaient pas — au lieu d'un texte de 3 pages, ils regardent 5 minutes de moments-clés. Free tier généreux.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Sharing replay async d'une réunion à des collègues</li><li>Recherche dans une base de meetings (par moment, pas par mot)</li><li>Onboarding nouveaux arrivants (replay des kickoffs)</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Recherche analytics commerciale → Fireflies</li><li>CR texte structuré → Otter</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier généreux (transcription + résumé illimités) · Pro 18-29$/utilisateur/mois pour features avancées.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-003-cr-reunion.html">CU-003 — Comptes-rendus de réunion</a> · option replay</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Otter.ai (transcription) · Fireflies (analytics) · Loom (manuel non-IA).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://tldv.io" target="_blank" rel="noopener">tldv.io</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 54. ROBOFLOW -->
+        <article class="tool-card" id="roboflow">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#F3E8FF,#9333EA);color:white;">🦾</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">SaaS + open-source</span><span class="tool-badge cat">Annotation + training vision</span><span class="tool-badge maturity">Référence · 2019</span></div>
+              <h3>Roboflow</h3>
+              <p class="tool-tagline">La plateforme dataset + training pour vision IA. Annotation collaborative, augmentation, training automatisé YOLO/Mask R-CNN, déploiement edge. Le compagnon naturel de YOLO + OpenCV pour les équipes qui construisent leurs propres modèles.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Roboflow couvre tout le cycle vision IA hors prod : ingestion des images, annotation (collaboration équipe), augmentation, training, export du modèle (ONNX, TFLite, etc.). Marketplace de datasets publics (200k+ datasets Roboflow Universe). Pour les équipes ML internes qui veulent monter un pipeline vision custom sans réinventer la roue, c'est la stack par défaut.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Construction de dataset custom + annotation équipe</li><li>Training YOLO / Mask R-CNN avec augmentation auto</li><li>Déploiement edge (export ONNX, TFLite)</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Vision clé-en-main → Cognex / Keyence</li><li>No-code total → Landing AI</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier (1000 images, 3 utilisateurs) · Starter 49$/mois · Growth 249$/mois · Enterprise sur devis.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · cas pivot pour équipes ML</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>CVAT (open-source) · Labelbox · Supervisely · annotation custom + training direct.</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://roboflow.com" target="_blank" rel="noopener">roboflow.com</a> · <a href="https://universe.roboflow.com" target="_blank" rel="noopener">Roboflow Universe</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 55. MASK R-CNN -->
+        <article class="tool-card" id="mask-rcnn">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FEE2E2,#DC2626);color:white;">🎭</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge open">Open-source</span><span class="tool-badge cat">Segmentation pixel</span><span class="tool-badge maturity">Référence · 2017</span></div>
+              <h3>Mask R-CNN</h3>
+              <p class="tool-tagline">Algorithme de référence pour la segmentation d'instance pixel-level. Plus précis que YOLO (qui détecte des bounding boxes) — il identifie la forme exacte d'un objet ou d'un défaut. Adapté aux cas où la forme compte.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> YOLO te dit « il y a un défaut dans cette zone » avec un cadre rectangle. Mask R-CNN te dit « voilà la forme exacte du défaut au pixel près ». Crucial pour les cas où la forme compte : analyse de tumeurs en imagerie médicale, contrôle de fissures sur béton, mesure d'aire de défaut sur panneau bois. Plus lourd à entraîner et inférer que YOLO, mais l'option canonique quand la précision pixel est non-négociable.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Segmentation précise (pas juste détection)</li><li>Mesure d'aire / forme de défaut</li><li>Imagerie médicale, analyse fissures, papier</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Détection rapide en temps réel → YOLO</li><li>Cas où une bounding box suffit</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Stack &amp; intégrations</div><p>PyTorch (Detectron2 de Meta) ou TensorFlow · Roboflow pour le training · ONNX pour le déploiement.</p></div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p><strong>Gratuit</strong> (open-source). Coûts : annotation pixel (chronophage) + training GPU.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · pour défauts de forme complexe</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>YOLO (bounding boxes) · SAM 2 (Segment Anything Model, plus moderne) · U-Net (medical imaging spécialisé).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://github.com/facebookresearch/detectron2" target="_blank" rel="noopener">Detectron2 (Meta)</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 56. TOPSOLID -->
+        <article class="tool-card" id="topsolid">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#1F2937,#374151);color:#34D399;">🔩</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO/CAM généraliste</span><span class="tool-badge maturity">Référence · 1984</span></div>
+              <h3>TopSolid <span class="tool-vendor">par Missler</span></h3>
+              <p class="tool-tagline">Logiciel CAO/CAM français généraliste : métal, bois, composites, tôlerie. Couvre tout le cycle conception → usinage. Inclut un module nesting/optimisation matière pour la découpe automatisée.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> TopSolid est l'un des rares acteurs français du CAO/CAM intégré. Un seul logiciel pour la modélisation 3D, l'usinage CN, le nesting, la simulation. Adapté aux PME industrielles qui veulent éviter la complexité d'une stack multi-outils (Solidworks + EsKO + nesting tiers). Concurrent direct de Cadwork sur le bois, mais aussi présent sur métal et tôlerie.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>PME industrielle multi-matériaux</li><li>Stack CAO française souhaitée</li><li>Workflow conception → CN intégré</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Filière bois pure → Cadwork plus spécialisé</li><li>Filière textile → Lectra</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences logiciel sur devis (Missler Software, France).</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Cadwork (bois) · Lectra (textile) · SolidWorks + nesting tiers · Cadence Cyclone (métal).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.topsolid.com" target="_blank" rel="noopener">topsolid.com</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 57. LECTRA -->
+        <article class="tool-card" id="lectra">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FCE7F3,#DB2777);color:white;">🧵</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO + nesting textile</span><span class="tool-badge maturity">Référence · 1973</span></div>
+              <h3>Lectra</h3>
+              <p class="tool-tagline">Acteur français leader mondial pour la filière textile / cuir / mode : CAO patronnage, nesting de pièces sur tissu, automatisation de découpe. Ecosystème intégré du design jusqu'à la production.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Pour les industriels du textile (mode, ameublement, automobile), Lectra est un quasi-standard mondial. Sa stack couvre tout le cycle : Modaris (patronnage), Diamino (nesting/placement), Vector (machines de découpe). L'optimisation matière est cruciale dans le textile (chutes coûteuses) et Lectra le fait depuis 50 ans avec des algorithmes mûrs. Pour le territoire vosgien (textile historique), c'est un partenaire à connaître.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Industrie textile, mode, cuir, ameublement</li><li>Optimisation chutes matière critique</li><li>Stack intégrée patronnage → découpe</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Hors filière textile</li><li>PME très petite avec usage occasionnel → solutions tierces moins chères</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences logiciel + matériel découpe sur devis (acteur français leader mondial).</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · filière textile</li><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · vision intégrée Lectra</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Gerber (concurrent direct) · Optitex · TopSolid (généraliste).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.lectra.com" target="_blank" rel="noopener">lectra.com</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 58. GUROBI -->
+        <article class="tool-card" id="gurobi">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FEE2E2,#DC2626);color:white;">📐</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">Commercial</span><span class="tool-badge cat">Solveur d'optimisation premium</span><span class="tool-badge maturity">Référence · 2008</span></div>
+              <h3>Gurobi</h3>
+              <p class="tool-tagline">Solveur commercial premium pour l'optimisation linéaire mixte (MIP). Souvent considéré comme le plus rapide du marché sur les benchmarks récents. Concurrent direct de CPLEX et Xpress.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Sur les benchmarks d'optimisation MIP les plus récents, Gurobi domine régulièrement en performance brute. Conçu par d'anciens devs CPLEX. API moderne, support Python natif, intégration cloud (AWS, Azure). Adopté massivement par les grandes industries depuis ~2015. Cher mais souvent justifié par les gains de temps de résolution sur les très gros problèmes.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Très gros problèmes MIP avec contrainte temps</li><li>Benchmarks performance critique</li><li>Stack moderne (Python, cloud)</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME avec problèmes modérés → OR-Tools</li><li>Budget contraint → CPLEX (souvent négocié) ou OR-Tools</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis. Licence académique gratuite (large). Cloud à l'usage disponible.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · alternative haute perf</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>IBM CPLEX (établi) · FICO Xpress · OR-Tools (gratuit, problèmes modérés).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.gurobi.com" target="_blank" rel="noopener">gurobi.com</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 59. FICO XPRESS -->
+        <article class="tool-card" id="xpress">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);color:white;">⚡</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">Commercial</span><span class="tool-badge cat">Solveur d'optimisation</span><span class="tool-badge maturity">Référence · 1983</span></div>
+              <h3>FICO Xpress</h3>
+              <p class="tool-tagline">Concurrent commercial direct de CPLEX et Gurobi. Stack mature avec Mosel (langage de modélisation) et bibliothèques Python/C++. Adopté notamment dans le secteur banque/finance et la chaîne d'approvisionnement.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> FICO Xpress complète le triangle CPLEX-Gurobi-Xpress des solveurs commerciaux premium. Force historique : la finance, le scoring de crédit, la chaîne d'approvisionnement. Mosel = un langage de modélisation déclaratif populaire dans la communauté OR. Si l'organisation est déjà sous contrat FICO (très présent en banque), Xpress vient naturellement.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Banque / finance / supply chain (FICO ecosystem)</li><li>Modélisation Mosel</li><li>Très gros problèmes industriels</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Pas dans l'écosystème FICO → Gurobi ou CPLEX plus universels</li><li>Budget contraint → OR-Tools</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences commerciales sur devis FICO. Edition Community gratuite (limitée).</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>IBM CPLEX · Gurobi · OR-Tools.</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.fico.com/en/products/fico-xpress-optimization" target="_blank" rel="noopener">fico.com/xpress</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 60. MICROSOFT DYNAMICS 365 -->
+        <article class="tool-card" id="dynamics">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#DBEAFE,#0078D4);color:white;">🪟</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">CRM + ERP entreprise</span><span class="tool-badge maturity">Référence · 2016</span></div>
+              <h3>Microsoft Dynamics 365</h3>
+              <p class="tool-tagline">Stack CRM + ERP de Microsoft, alternative à Salesforce. Très intégrée à l'écosystème Microsoft (Teams, Outlook, Excel, Power Platform, Azure). Avec Copilot Studio, devient une plateforme agentique native.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Pour les organisations déjà engagées dans l'écosystème Microsoft (M365, Teams, Azure), Dynamics 365 est l'alternative naturelle à Salesforce. Stack modulaire : Sales, Customer Service, Marketing, Field Service, Finance, Supply Chain. Intégration native avec Copilot et Power Platform — un agent qu'on bâtit dans Copilot Studio peut accéder à Dynamics directement.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Organisation déjà sur stack Microsoft (Teams, Azure)</li><li>Besoin CRM + ERP intégrés</li><li>Workflow agentique via Copilot Studio</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Stack Google / AWS pure → Salesforce ou HubSpot mieux adaptés</li><li>PME / startup légère → HubSpot plus rapide à déployer</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>À partir de 65$/utilisateur/mois (Sales Professional) jusqu'à plusieurs centaines pour les modules complets.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · stack Microsoft</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Salesforce (concurrent direct) · HubSpot · SAP CRM · Oracle CX.</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.microsoft.com/dynamics365" target="_blank" rel="noopener">microsoft.com/dynamics365</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 61. ZOHO CRM -->
+        <article class="tool-card" id="zoho">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FEE2E2,#DC2626);color:white;">🏢</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">CRM low-cost stack</span><span class="tool-badge maturity">Référence · 2005</span></div>
+              <h3>Zoho CRM</h3>
+              <p class="tool-tagline">Alternative low-cost crédible à HubSpot et Salesforce. Stack « one-platform » avec 40+ apps métier (CRM + projet + RH + comptabilité). Pricing très compétitif. Adapté aux PME qui veulent un combo économique multi-fonctions.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Zoho a construit une stack CRM-first qui s'étend en plateforme business complète : Zoho One (toutes les apps en bundle 37$/utilisateur/mois) inclut CRM, projet, comptabilité, RH, marketing, helpdesk. Pour une PME 10-50 personnes qui veut éviter de jongler avec 5 SaaS différents et garder le budget bas, c'est une option crédible. UX moins léchée que HubSpot mais largement suffisante.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>PME avec budget contraint</li><li>Besoin multi-apps (CRM + projet + RH)</li><li>Marché émergent ou international (forte présence Asie)</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>UX premium attendue → HubSpot</li><li>Très grande organisation → Salesforce</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Standard 14$/utilisateur/mois · Pro 23$ · Enterprise 40$ · Ultimate 52$ · Zoho One bundle 37$/mois (toutes les apps).</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · alternative low-cost</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>HubSpot · Pipedrive · Bitrix24 (autre stack one-platform).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.zoho.com/crm/" target="_blank" rel="noopener">zoho.com/crm</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 62. KLUE -->
+        <article class="tool-card" id="klue">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#E0F2FE,#0EA5E9);color:#0C4A6E;">🔮</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">Competitive intelligence</span><span class="tool-badge maturity">Établi · 2015</span></div>
+              <h3>Klue</h3>
+              <p class="tool-tagline">Concurrent direct de Crayon en competitive intelligence. Force particulière sur les battlecards interactives partagées avec l'équipe Sales. Adopté massivement par les Product Marketing Managers (PMMs) en B2B SaaS.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Klue se positionne sur le segment Product Marketing : son flagship feature est le « battlecard » dynamique — un mémo concurrent qui se met à jour automatiquement avec les insights collectés (changements produit, prix, annonces). Connecté à Salesforce / Slack / HubSpot pour pousser l'info aux commerciaux au moment où ils en ont besoin.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Équipes Product Marketing avec battlecards à maintenir</li><li>Push d'insights automatisé vers Sales</li><li>Concurrence très dynamique (SaaS B2B mature)</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME sans équipe PMM dédiée → Crayon plus accessible</li><li>Veille marque grand public → Brand24</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis (typiquement 1-3k$/mois selon nombre de concurrents et utilisateurs).</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Crayon (concurrent direct) · Kompyte · Brand24.</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://klue.com" target="_blank" rel="noopener">klue.com</a></p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 63. PYTORCH -->
+        <article class="tool-card" id="pytorch">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FFEDD5,#EA580C);color:white;">🔥</div>
+            <div class="tool-meta">
+              <div class="tool-badges"><span class="tool-badge open">Open-source</span><span class="tool-badge cat">ML framework</span><span class="tool-badge maturity">Référence · 2016</span></div>
+              <h3>PyTorch <span class="tool-vendor">par Meta</span></h3>
+              <p class="tool-tagline">Le framework ML de référence en 2026. Domine la recherche académique et la production. Tous les modèles modernes (Llama, Mistral, Stable Diffusion, YOLO récents) sont entraînés en PyTorch. La couche fondamentale derrière la stack vision et NLP.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Pour 95% des projets ML modernes (vision, NLP, RL, audio), PyTorch est devenu le standard de fait. Successeur de TensorFlow comme framework dominant grâce à son API plus pythonique, son écosystème (HuggingFace Transformers, Lightning, Detectron2, etc.) et l'adoption massive en recherche. Les équipes ML internes en construisent leurs modèles vision custom (YOLO custom, Mask R-CNN), fine-tunent des LLM open-weight, etc. À connaître dès qu'on aborde les sujets d'entraînement / fine-tuning.</p>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Quand l'utiliser</div><ul><li>Construction de modèles vision custom</li><li>Fine-tuning de LLM open-weight (Llama, Mistral)</li><li>R&amp;D ML interne</li></ul></div>
+              <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Pas d'expertise ML interne → API / no-code</li><li>Production scaled massive → optimisations TensorRT, ONNX</li></ul></div>
+            </div>
+            <div class="tool-block"><div class="tool-block-label">Stack &amp; intégrations</div><p>Python · CUDA (NVIDIA GPU) · TorchScript / TorchServe pour la prod · Compatible avec HuggingFace, Lightning, Detectron2, Ultralytics (YOLO).</p></div>
+            <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p><strong>Gratuit</strong> (BSD License). Coûts réels : infra GPU + ingénierie ML.</p></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · framework vision</li><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · modèles ML</li><li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · fine-tuning embeddings</li></ul></div>
+            <div class="tool-grid">
+              <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>TensorFlow (Google, déclin relatif) · JAX (Google, recherche) · MXNet (legacy).</p></div>
+              <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://pytorch.org" target="_blank" rel="noopener">pytorch.org</a> · <a href="https://huggingface.co" target="_blank" rel="noopener">HuggingFace (écosystème)</a></p></div>
+            </div>
+          </div>
+        </article>
+
       </section>
 
       <!-- INDEX PAR CATÉGORIE -->
@@ -2773,7 +3087,7 @@
               <li><strong>Le Chat</strong> (Mistral) — interface chat type ChatGPT, hébergement EU. Le Chat Pro 14,99€/mois inclut Le Web (recherche augmentée souveraine).</li>
               <li><strong><a href="#llama">Llama</a></strong> (Meta) — fiche détaillée → open-weight référence.</li>
               <li><strong><a href="#mixtral">Mixtral</a></strong> (Mistral) — fiche détaillée → MoE open-weight.</li>
-              <li><strong>Kimi K2</strong> (Moonshot AI) — LLM chinois open, fort sur long context. Niche communauté builders agentiques.</li>
+              <li><strong><a href="#kimi">Kimi K2</a></strong> (Moonshot AI) — fiche détaillée → LLM long context (jusqu'à 2M tokens).</li>
               <li><strong><a href="#qwen">Qwen</a></strong> (Alibaba) — fiche détaillée → LLM open multilingue.</li>
             </ul>
           </div>
@@ -2840,11 +3154,11 @@
             <h3>👁️ Vision industrielle</h3>
             <ul class="tool-index-list">
               <li><strong><a href="#yolo-opencv">YOLO + OpenCV</a></strong> — fiche détaillée → standard open-source.</li>
-              <li><strong>Mask R-CNN</strong> — segmentation pixel-level, plus précis que YOLO mais plus lourd. Adapté quand tu dois identifier la forme exacte d'un défaut.</li>
+              <li><strong><a href="#mask-rcnn">Mask R-CNN</a></strong> — fiche détaillée → segmentation pixel-level.</li>
               <li><strong><a href="#cognex">Cognex</a></strong> — fiche détaillée → vision industrielle clé en main.</li>
               <li><strong><a href="#keyence">Keyence</a></strong> — fiche détaillée → vision industrielle japonaise.</li>
               <li><strong><a href="#landing-ai">Landing AI</a></strong> (Andrew Ng) — fiche détaillée → no-code vision IA.</li>
-              <li><strong>PyTorch</strong> / <strong>TensorFlow</strong> — frameworks ML pour entraîner des modèles vision custom.</li>
+              <li><strong><a href="#roboflow">Roboflow</a></strong> — fiche détaillée → annotation + training dataset (compagnon de YOLO/Mask R-CNN).</li>
               <li><strong>Stable-Baselines3</strong> — frameworks RL (reinforcement learning), utile pour les optimisations de production.</li>
             </ul>
           </div>
@@ -2855,9 +3169,9 @@
             <ul class="tool-index-list">
               <li><strong><a href="#or-tools">OR-Tools</a></strong> (Google) — fiche détaillée → solveur d.optimisation combinatoire.</li>
               <li><strong><a href="#cplex">IBM CPLEX</a></strong> — fiche détaillée → solveur commercial leader.</li>
-              <li><strong>FICO Xpress</strong> — concurrent direct de CPLEX.</li>
+              <li><strong><a href="#xpress">FICO Xpress</a></strong> — fiche détaillée → solveur banque/finance · <strong><a href="#gurobi">Gurobi</a></strong> — fiche détaillée → solveur premium haute perf.</li>
               <li><strong>OpenSolver</strong> — gratuit pour Excel, suffisant pour les petits cas d'optimisation.</li>
-              <li><strong><a href="#cadwork">Cadwork</a></strong> — fiche détaillée → CAO bois · <strong>TopSolid</strong> (métal généraliste) · <strong>Lectra</strong> (textile).</li>
+              <li><strong><a href="#cadwork">Cadwork</a></strong> — fiche détaillée → CAO bois · <strong><a href="#topsolid">TopSolid</a></strong> — fiche détaillée → CAO/CAM généraliste · <strong><a href="#lectra">Lectra</a></strong> — fiche détaillée → textile.</li>
             </ul>
           </div>
 
@@ -2868,7 +3182,7 @@
               <li><strong><a href="#perplexity">Perplexity</a></strong> — fiche détaillée → recherche augmentée.</li>
               <li><strong><a href="#notebooklm">NotebookLM</a></strong> (Google) — fiche détaillée → corpus interrogeable.</li>
               <li><strong><a href="#otter">Otter.ai</a></strong> — fiche détaillée → transcription B2B.</li>
-              <li><strong><a href="#fireflies">Fireflies.ai</a></strong> — fiche détaillée → conversation intelligence + analytics · <strong>tl;dv</strong> (alternative).</li>
+              <li><strong><a href="#fireflies">Fireflies.ai</a></strong> — fiche détaillée → conversation intelligence + analytics · <strong><a href="#tldv">tl;dv</a></strong> — fiche détaillée → replay réunion AI.</li>
               <li><strong><a href="#whisper">Whisper</a></strong> (OpenAI) — fiche détaillée → speech-to-text open.</li>
               <li><strong><a href="#deepl">DeepL Pro</a></strong> — fiche détaillée → traduction pro EU.</li>
               <li><strong>Claude Projects</strong> — espaces persistants dans Claude.ai avec corpus uploadé. Light-RAG sans setup.</li>
@@ -2920,9 +3234,24 @@
               <li><strong><a href="#hubspot">HubSpot</a></strong> — fiche détaillée → CRM B2B référence pour PME.</li>
               <li><strong><a href="#pipedrive">Pipedrive</a></strong> — fiche détaillée → CRM pipeline-first.</li>
               <li><strong><a href="#salesforce">Salesforce</a></strong> — fiche détaillée → CRM entreprise leader.</li>
+              <li><strong><a href="#dynamics">Microsoft Dynamics 365</a></strong> — fiche détaillée → CRM + ERP intégré stack Microsoft (Copilot Studio).</li>
               <li><strong>Monday.com</strong> — work-OS qui inclut un CRM. Bon si tu cherches un combo gestion projet + CRM unifié.</li>
-              <li><strong>Zoho CRM</strong> — alternative low-cost crédible avec stack étendue (one-platform).</li>
+              <li><strong><a href="#zoho">Zoho CRM</a></strong> — fiche détaillée → CRM low-cost stack (Zoho One).</li>
               <li><strong><a href="#attio">Attio</a></strong> — fiche détaillée → CRM next-gen pour startups.</li>
+            </ul>
+          </div>
+
+          <!-- ML FRAMEWORKS -->
+          <div class="tool-index-cat">
+            <h3>🛠️ ML frameworks &amp; training</h3>
+            <ul class="tool-index-list">
+              <li><strong><a href="#pytorch">PyTorch</a></strong> (Meta) — fiche détaillée → framework ML de référence (vision, NLP, RL).</li>
+              <li><strong>TensorFlow</strong> (Google) — concurrent historique, en déclin relatif côté recherche mais fort en production avec TFLite et TensorFlow Serving.</li>
+              <li><strong>JAX</strong> (Google) — alternative montante en recherche, basée sur la composition de fonctions pures et l'autodifférenciation.</li>
+              <li><strong>HuggingFace Transformers</strong> — surcouche PyTorch avec modèles pré-entraînés, tokenizers, datasets prêts à l'emploi.</li>
+              <li><strong>PyTorch Lightning</strong> — boilerplate orchestration training (logging, distribution multi-GPU, checkpointing).</li>
+              <li><strong>Stable-Baselines3</strong> — librairie reinforcement learning Python (PPO, A2C, SAC, etc.).</li>
+              <li><strong><a href="#roboflow">Roboflow</a></strong> — fiche détaillée → annotation + training pipeline pour vision.</li>
             </ul>
           </div>
 
@@ -2932,7 +3261,7 @@
             <ul class="tool-index-list">
               <li><strong><a href="#brand24">Brand24</a></strong> — fiche détaillée → social listening accessible.</li>
               <li><strong><a href="#crayon">Crayon</a></strong> — fiche détaillée → competitive intelligence (battlecards).</li>
-              <li><strong>Klue</strong> — concurrent direct de Crayon, focus battlecards et market intelligence pour les Sales et Product Marketing.</li>
+              <li><strong><a href="#klue">Klue</a></strong> — fiche détaillée → battlecards interactives PMM.</li>
               <li><strong>Kompyte</strong> — competitive intelligence avec accent sur le tracking automatique des sites web concurrents (changements pricing, features, contenus).</li>
               <li><strong>Mention</strong> — alternative légère à Brand24, focus sur les mentions web et réseaux sociaux.</li>
               <li><strong>Talkwalker</strong> — solution enterprise plus complète (analyse multimédia, image, vidéo).</li>
@@ -2946,8 +3275,8 @@
         <div class="alert-warning" style="margin-top:var(--space-7);">
           <div class="alert-warning-icon">📍</div>
           <div class="alert-warning-content">
-            <strong>État V2.5 — extension continue.</strong>
-            Cette page contient 51 deep-dives (V1 = 15 + Lot 3 = +12 + Lot 4 = +12 + Lot 5 = +12) et 80+ outils en index, structurés en 14 catégories (la catégorie « Compétitive intelligence » a rejoint l'index avec ce lot). Les lots suivants continueront à enrichir selon les retours utilisateurs. Pour suggérer un outil ou signaler une imprécision : <a href="mailto:blaise.cavalli@questforchange.eu">blaise.cavalli@questforchange.eu</a>
+            <strong>État V3.0 — couverture complète des outils mentionnés.</strong>
+            63 deep-dives (V1 = 15 + Lots 3+4+5+6 = +48) et 90+ outils en index, structurés en 15 catégories. Cette V3.0 couvre l'ensemble des outils cités dans les modules pédagogiques. Les itérations futures concerneront principalement la <strong>mise à jour</strong> des fiches (évolutions des outils, tarifs, alternatives émergentes) et l'<strong>ajout ponctuel</strong> d'outils signalés par les retours utilisateurs. Pour suggérer un outil, signaler une imprécision ou contribuer une mise à jour : <a href="mailto:blaise.cavalli@questforchange.eu">blaise.cavalli@questforchange.eu</a>
           </div>
         </div>
 
