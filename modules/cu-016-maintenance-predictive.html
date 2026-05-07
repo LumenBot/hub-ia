@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maintenance prédictive industrielle — Hub IA territorial</title>
+  <title>Maintenance prédictive industrielle — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -203,12 +203,11 @@
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-brand">
-        <span class="nav-logo">🧭</span>
-        <span class="nav-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
+        <span class="nav-title">Hub IA — Learning Center</span>
       </a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
-        <a href="../axes.html" class="nav-link">Axes</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
     </div>
@@ -975,14 +974,13 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="footer-logo">🧭</span>
-        <span class="footer-title">Hub IA territorial</span>
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
       </div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
-        <a href="../axes.html">Axes</a>
-        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
@@ -1166,7 +1164,7 @@
       if (!data) return;
       let content = '';
       if (format === 'md') {
-        content += `# Rapport d'éligibilité — Maintenance prédictive industrielle\n\n*Évaluation Hub IA territorial — ${data.date}*\n\n## Verdict : ${data.verdictTitle}\n\n${data.verdictSubtitle}\n\n**Scores :**  \n- Prérequis bloquants : ${data.blockerScore}/10  \n- Critères de qualité : ${data.qualityScore}/10  \n- Total : ${data.totalScore}/20\n\n---\n\n`;
+        content += `# Rapport d'éligibilité — Maintenance prédictive industrielle\n\n*Évaluation Hub IA — Learning Center — ${data.date}*\n\n## Verdict : ${data.verdictTitle}\n\n${data.verdictSubtitle}\n\n**Scores :**  \n- Prérequis bloquants : ${data.blockerScore}/10  \n- Critères de qualité : ${data.qualityScore}/10  \n- Total : ${data.totalScore}/20\n\n---\n\n`;
         if (data.blockerGaps.length > 0) {
           content += `## Gaps sur les prérequis bloquants\n\n`;
           data.blockerGaps.forEach(g => content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`);
@@ -1177,9 +1175,9 @@
           data.qualityGaps.forEach(g => content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`);
           content += `\n`;
         }
-        content += `---\n\n*Rapport généré par le module CU-016 du Hub IA territorial — questforchange.eu*\n`;
+        content += `---\n\n*Rapport généré par le module CU-016 du Hub IA — Learning Center — questforchange.eu*\n`;
       } else {
-        content += `RAPPORT D'ELIGIBILITE — MAINTENANCE PREDICTIVE INDUSTRIELLE\nEvaluation Hub IA territorial — ${data.date}\n\n=========================================\nVERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n=========================================\n\n${data.verdictSubtitle}\n\nScores :\n  Prerequis bloquants : ${data.blockerScore}/10\n  Criteres de qualite : ${data.qualityScore}/10\n  Total : ${data.totalScore}/20\n\n`;
+        content += `RAPPORT D'ELIGIBILITE — MAINTENANCE PREDICTIVE INDUSTRIELLE\nEvaluation Hub IA — Learning Center — ${data.date}\n\n=========================================\nVERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n=========================================\n\n${data.verdictSubtitle}\n\nScores :\n  Prerequis bloquants : ${data.blockerScore}/10\n  Criteres de qualite : ${data.qualityScore}/10\n  Total : ${data.totalScore}/20\n\n`;
         if (data.blockerGaps.length > 0) {
           content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
           data.blockerGaps.forEach(g => content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`);
@@ -1190,7 +1188,7 @@
           data.qualityGaps.forEach(g => content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`);
           content += `\n`;
         }
-        content += `=========================================\nRapport genere par le module CU-016 du Hub IA territorial — questforchange.eu\n`;
+        content += `=========================================\nRapport genere par le module CU-016 du Hub IA — Learning Center — questforchange.eu\n`;
       }
       const ext = format === 'md' ? 'md' : 'txt';
       const mime = format === 'md' ? 'text/markdown' : 'text/plain';

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Qualification de leads par chatbot — Hub IA territorial</title>
+  <title>Qualification de leads par chatbot — Hub IA — Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,10 +24,9 @@
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand"><span class="nav-logo">🧭</span><span class="nav-title">Hub IA territorial</span></a>
+      <a href="../index.html" class="nav-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo"><span class="nav-title">Hub IA — Learning Center</span></a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
-        <a href="../axes.html" class="nav-link">Axes</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
     </div>
@@ -490,12 +489,11 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-brand"><span class="footer-logo">🧭</span><span class="footer-title">Hub IA territorial</span></div>
+      <div class="footer-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo"><span class="footer-title">Hub IA — Learning Center</span></div>
       <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
       <div class="footer-links">
         <a href="../index.html#a-propos">À propos</a>
-        <a href="../axes.html">Axes</a>
-        <a href="mailto:contact@questforchange.eu">Contact</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
         <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
@@ -558,13 +556,13 @@
       if (!plan) return;
       let content = '';
       if (format === 'md') {
-        content += `# Plan d'action — Qualification de leads par chatbot\n\n*Auto-diagnostic Hub IA territorial — ${plan.date}*\n\n**Maturité du parcours actuel : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        content += `# Plan d'action — Qualification de leads par chatbot\n\n*Auto-diagnostic Hub IA — Learning Center — ${plan.date}*\n\n**Maturité du parcours actuel : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
         plan.actions.forEach((a, i) => content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`);
-        content += `---\n\n*Plan généré par le module CU-006 du Hub IA territorial — questforchange.eu*\n`;
+        content += `---\n\n*Plan généré par le module CU-006 du Hub IA — Learning Center — questforchange.eu*\n`;
       } else {
-        content += `PLAN D'ACTION — QUALIFICATION DE LEADS PAR CHATBOT\nAuto-diagnostic Hub IA territorial — ${plan.date}\n\nMaturite du parcours actuel : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        content += `PLAN D'ACTION — QUALIFICATION DE LEADS PAR CHATBOT\nAuto-diagnostic Hub IA — Learning Center — ${plan.date}\n\nMaturite du parcours actuel : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
         plan.actions.forEach((a, i) => content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`);
-        content += `=========================================\nPlan genere par le module CU-006 du Hub IA territorial — questforchange.eu\n`;
+        content += `=========================================\nPlan genere par le module CU-006 du Hub IA — Learning Center — questforchange.eu\n`;
       }
       const ext = format === 'md' ? 'md' : 'txt';
       const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
