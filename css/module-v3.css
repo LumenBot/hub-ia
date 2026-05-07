@@ -21,6 +21,17 @@
 .module-toc-list .toc-icon { display: inline-block; width: 18px; margin-right: var(--space-2); }
 .module-toc-mobile-toggle { display: none; }
 
+/* TOC — variante structure module-toc-header / module-toc-nav (8 modules : CU-011, 012, 013, 014, 015, 017, 018, 019) */
+.module-toc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3); padding-left: var(--space-3); padding-right: var(--space-2); }
+.module-toc-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-soft); }
+.module-toc-toggle { background: none; border: 1px solid var(--color-border); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.9375rem; line-height: 1; color: var(--color-text-soft); padding: 4px 10px; transition: all 0.15s ease; }
+.module-toc-toggle:hover { color: var(--color-primary); border-color: var(--color-primary-light); background: var(--color-bg); }
+.module-toc-nav { display: flex; flex-direction: column; }
+.module-toc-nav.collapsed { display: none; }
+.module-toc-nav a { display: block; padding: var(--space-2) var(--space-3); font-size: 0.875rem; color: var(--color-text-soft); border-left: 3px solid transparent; transition: all 0.15s ease; line-height: 1.4; text-decoration: none; }
+.module-toc-nav a:hover { color: var(--color-primary); background: var(--color-bg); }
+.module-toc-nav a.active { color: var(--color-primary); border-left-color: var(--color-primary); background: var(--color-bg); font-weight: 600; }
+
 /* Contenu principal */
 .module-main { min-width: 0; max-width: 760px; }
 .module-section { padding: var(--space-7) 0; border-bottom: 1px solid var(--color-border); scroll-margin-top: 80px; }
