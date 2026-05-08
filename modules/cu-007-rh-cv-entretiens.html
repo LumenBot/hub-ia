@@ -27,6 +27,7 @@
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
@@ -82,6 +83,24 @@
 
     <main class="module-main">
 
+      <!-- TAG ARCHITECTURES -->
+      <div class="callout callout-warn" style="margin: var(--space-4) 0;">
+        <p>
+          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : <strong>A2 minimum</strong> (cloud privé / data residency EU), <strong>A3 ou A4 préférable</strong> pour les sous-cas de scoring / évaluation. <strong>A1 (SaaS propriétaire en cloud public) déconseillé</strong> sur les flux candidats — usage haut risque AI Act, exposition RGPD forte. Voir <a href="../architectures.html" class="tool-link">Architectures</a> pour le détail des patterns.
+        </p>
+      </div>
+
+      <!-- ANTI-PATTERN RH IA — DISTINCTION CRITIQUE -->
+      <div class="alert-ai-act">
+        <div class="alert-ai-act-icon">⚠️</div>
+        <div class="alert-ai-act-content">
+          <h3>Anti-pattern RH IA — distinction critique</h3>
+          <p><strong>Acceptable</strong> : usages d'aide à la rédaction, reformulation, synthèse factuelle, traduction multilingue (descriptif de poste, mail candidat, compte-rendu d'entretien).</p>
+          <p style="margin-top: var(--space-2);"><strong>INTERDIT ou très encadré</strong> : évaluation de candidat, scoring, classement, prédiction sur les personnes — ces usages relèvent du <strong>haut risque AI Act</strong> et sont également exposés à un risque RGPD fort + risque de discrimination algorithmique. Ils nécessitent un dispositif lourd (AIPD renforcée, contrôle humain documenté, transparence vis-à-vis des candidats, architecture A2/A3/A4 obligatoire — cf. <a href="../architectures.html" class="tool-link">Architectures</a>).</p>
+          <p style="margin-top: var(--space-2);">Pour ces usages haut risque, ne jamais utiliser un SaaS propriétaire (A1) en cloud public sans garanties contractuelles spécifiques. Privilégier <strong>Mistral en cloud souverain EU</strong>, <strong>Pleias-RAG</strong>, ou solution on-premise selon sensibilité. Voir aussi les préalables <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA &amp; risques opérationnels</a> et <a href="../prealables/pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>.</p>
+        </div>
+      </div>
+
       <!-- EXECUTIVE SUMMARY -->
       <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
         <div class="exec-summary">
@@ -112,6 +131,12 @@
             <div class="exec-stat"><div class="exec-stat-num">4h → 1h</div><div class="exec-stat-label">Pour 25 CV synthétisés</div></div>
             <div class="exec-stat"><div class="exec-stat-num">6 mois</div><div class="exec-stat-label">Audit biais minimum</div></div>
             <div class="exec-stat"><div class="exec-stat-num">30 min</div><div class="exec-stat-label">De lecture</div></div>
+          </div>
+
+          <div class="callout callout-info" style="margin: var(--space-4) 0;">
+            <p style="margin: 0;">
+              <strong>📊 Chiffres clés 2026.</strong> <strong>70 % des professionnels RH</strong> utilisent déjà une IA générative (ParlonsRH 2024). <strong>80 % des collaborateurs</strong> voient l'IA RH comme un levier d'évolution professionnelle (Liaisons Sociales 2024). Bénéfices documentés sur la fonction RH : <strong>−30 % de coûts de recrutement</strong>, <strong>+25 % de satisfaction employés</strong>, <strong>+30-40 % de productivité</strong> sur la fonction (Neobrain via Liaisons Sociales / Culture RH 2024). Cas PwC US/Mexique avec Neobrain + Microsoft Copilot : passage de <strong>2 % à 15 % de profils atypiques</strong> dans la talent marketplace grâce à la combinaison IA matching + IA générative. RetEx ETI BTP Occitanie 300p : pré-sélection CV par IA → <strong>−60 % temps lecture CV</strong> + meilleure diversité des profils (Bpifrance Big Media).
+            </p>
           </div>
 
           <div class="exec-when">

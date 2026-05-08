@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PR-02 Préalables data & SI — Hub IA Learning Center</title>
+  <title>Préalables data &amp; SI — Hub IA Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
       </a>
       <div class="nav-links">
         <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
@@ -36,7 +37,7 @@
         Retour aux préalables
       </a>
       <div class="module-badges">
-        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-02</span>
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Cadrage</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
       </div>
       <h1>💾 Préalables data &amp; SI</h1>
@@ -115,6 +116,12 @@
           <h2 class="module-section-title">Pourquoi la data est le 1er sujet (avant l'IA)</h2>
         </div>
 
+        <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+          <p style="margin: 0;">
+            <strong>📊 Le constat France.</strong> <strong>76 % des PME et ETI françaises ont engagé leur transformation digitale en 2024</strong> (Bpifrance Le Lab juin 2025), contre 72 % en 2017 — soit un rythme de digitalisation de <strong>+1 % par an seulement</strong>. <strong>43 % n'analysent toujours pas leurs données</strong> pour piloter leur activité. Une entreprise qui analyse ses données est <strong>2,5× plus susceptible</strong> d'utiliser une IA. Une entreprise qui a engagé sa transformation digitale est <strong>5× plus susceptible</strong> d'utiliser une IA. <strong>La data est le préalable à l'IA.</strong>
+          </p>
+        </div>
+
         <p>
           Le réflexe spontané face à un projet IA est de regarder les modèles, les outils, les frameworks. C'est l'erreur n°1. <strong>L'IA ne crée de valeur qu'en s'appuyant sur des données qualifiées et accessibles</strong>. Sans données structurées, le LLM n'a rien de pertinent à dire sur ton activité — il reste générique.
         </p>
@@ -164,7 +171,7 @@
 
         <h3>Pilier 4 — Sécurité &amp; gouvernance</h3>
         <p>
-          Connecter un LLM aux données internes ouvre des risques nouveaux (fuites, prompt injection, exfiltration). Sans logs, contrôles d'accès, sandbox d'exécution, le projet IA crée plus de risque qu'il n'apporte de valeur. C'est aussi le préalable à la conformité <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">RGPD &amp; AI Act</a> et à la sécurité opérationnelle (cf. <a href="pr-05-securite-ia.html" class="tool-link">PR-05 Sécurité IA</a>).
+          Connecter un LLM aux données internes ouvre des risques nouveaux (fuites, prompt injection, exfiltration). Sans logs, contrôles d'accès, sandbox d'exécution, le projet IA crée plus de risque qu'il n'apporte de valeur. C'est aussi le préalable à la conformité <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">RGPD &amp; AI Act</a> et à la sécurité opérationnelle (cf. <a href="pr-05-securite-ia.html" class="tool-link">Sécurité IA &amp; risques opérationnels</a>).
         </p>
         <p>
           <strong>Exigence minimale</strong> : authentification SSO sur les outils internes, logs d'accès aux données sensibles, sandbox d'exécution pour les agents avec actions externes, registre des accès IA aux bases métier.
@@ -375,6 +382,12 @@
         <p>
           Refondre tout le SI en 18 mois pour préparer l'arrivée de l'IA = piège classique. <strong>Refonte ciblée + déploiement progressif</strong> est plus court et plus sûr. Le SI parfait est un horizon, pas un préalable. La majorité des PME / ETI peuvent démarrer un cas d'usage IA opérationnel en 6-12 semaines même avec un SI imparfait, à condition de bien choisir le cas d'usage et de cadrer le périmètre data.
         </p>
+
+        <div class="callout callout-info" style="margin-top: var(--space-5);">
+          <p style="margin: 0;">
+            <strong>🏗️ Tu as cadré ta data ?</strong> L'étape suivante est de choisir <strong>comment</strong> tu déploies. Quatre patterns canoniques (SaaS propriétaire, propriétaire managé, open-source cloud souverain, open-source on-premise) + l'option hybride conditionnent la faisabilité juridique, économique et technique de ton cas d'usage. Va voir les <a href="../architectures.html" class="tool-link">4 patterns d'architecture</a> pour choisir ton mode de déploiement.
+          </p>
+        </div>
       </section>
 
       <section class="module-section" id="section-5">
@@ -405,11 +418,11 @@
           <h3>🔗 Préalables et modules associés</h3>
           <ul>
             <li>
-              <a href="pr-01-maturite-organisationnelle.html">PR-01 Maturité organisationnelle</a>
+              <a href="pr-01-maturite-organisationnelle.html">Maturité organisationnelle</a>
               <span class="resources-meta">Le préalable organisationnel qui complète l'audit technique</span>
             </li>
             <li>
-              <a href="pr-05-securite-ia.html">PR-05 Sécurité IA &amp; risques opérationnels</a>
+              <a href="pr-05-securite-ia.html">Sécurité IA &amp; risques opérationnels</a>
               <span class="resources-meta">Approfondissement sécurité opérationnelle</span>
             </li>
             <li>
@@ -481,7 +494,7 @@
         msg = `${blockerNon} critères bloquants non satisfaits. Lancer un projet IA significatif sans ces fondations = échec quasi garanti. Plan recommandé : audit complet DSI + plan remédiation 3-6 mois (migration legacy, ouverture APIs, nettoyage données), puis projet IA cadré. En attendant : démarrer par des cas d'usage légers et périphériques (CU-001 à CU-004).`;
       } else if (oui >= 8) {
         verdict = '✅ GO — SI prêt pour un projet IA structurant';
-        msg = 'Tu peux lancer immédiatement un cas d\'usage IA significatif (CU-008, CU-013, CU-014 ou autre selon ton angle métier). Stratégie greenfield IA-first applicable. Mandat exécutif (PR-01) + plan déploiement 6-12 semaines.';
+        msg = 'Tu peux lancer immédiatement un cas d\'usage IA significatif (CU-008, CU-013, CU-014 ou autre selon ton angle métier). Stratégie greenfield IA-first applicable. Mandat exécutif (cf. Maturité organisationnelle) + plan déploiement 6-12 semaines.';
       } else {
         verdict = '⚠️ À MÛRIR — pilote ciblé possible avec remédiations parallèles';
         msg = 'Les bloquants sont couverts mais la maturité globale reste perfectible. Lancer un pilote sur 1 cas d\'usage périphérique (faible dépendance SI) tout en sécurisant les critères qualité (Q1-Q6). Étendre ensuite une fois les remédiations effectuées.';
