@@ -356,6 +356,9 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
 .tool-badge.open { background: #DCF0DF; color: #1F5132; }
 .tool-badge.cat { background: #F0F0F4; color: #555555; }
 .tool-badge.maturity { background: #FFF8E0; color: #7A5C20; }
+.tool-badge.sovereign { background: linear-gradient(135deg, #E8F4FD, #DCE7F3); color: #1F3864; border: 1px solid #2E5395; }
+.tool-badge.hybrid { background: linear-gradient(135deg, #DCE7F3, #DCF0DF); color: #1B3B66; }
+.tool-badge.openweight { background: #FEF3C7; color: #78350F; }
 
 .tool-card-header h3 {
   margin: 0 0 var(--space-1);
