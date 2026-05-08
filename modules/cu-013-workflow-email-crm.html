@@ -28,10 +28,8 @@
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
-        <span class="nav-title">Hub IA — Learning Center</span>
-      </a>
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
@@ -361,23 +359,40 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Pipeline de traitement (par email entrant) ─┐</strong>
-   Email entrant (Gmail / Outlook / IMAP)
-   → Trigger n8n (webhook ou polling 5 min)
-   → <strong>Agent classification</strong> (Claude / Mistral) → JSON typé
-   → <strong>Agent extraction</strong> (Claude) → JSON structuré
-   → <strong>Update CRM</strong> via API native (HubSpot / Pipedrive)
-   → <strong>Routage</strong> selon matrice de règles
-       ├─ AUTO  → envoi immédiat (Gmail / Outlook API)
-       ├─ DRAFT → brouillon + notification → validation humaine
-       └─ HUMAIN → escalade directe (no draft)
-
-<strong>┌─ Boucle d'apprentissage ─┐</strong>
-   Corrections humaines sur drafts
-   → Mémoire d'exemples (vector store ou few-shot context)
-   → Ré-injection dans prompts classification + rédaction
-   → Système qui s'auto-calibre dans le temps
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📥 Pipeline de traitement — par email entrant</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step"><div class="archi-step-icon">📧</div><div class="archi-step-content"><strong>Email entrant</strong><small>Gmail / Outlook / IMAP</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-trigger"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Trigger n8n</strong><small>Webhook ou polling 5 min</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Agent classification</strong><small>Claude / Mistral → JSON typé (catégorie + priorité + intention)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Agent extraction</strong><small>Claude → JSON structuré (entités, demandes, contexte)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">💾</div><div class="archi-step-content"><strong>Update CRM</strong><small>API native HubSpot / Pipedrive / Salesforce</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-decision"><div class="archi-step-icon">🔀</div><div class="archi-step-content"><strong>Routage selon matrice de règles</strong><small>Décision automatique selon catégorie, expéditeur, intention</small></div></div>
+              <div class="archi-branches">
+                <div class="archi-branch auto"><div class="archi-branch-icon">✅</div><div><strong>AUTO</strong><small>Envoi immédiat via Gmail / Outlook API</small></div></div>
+                <div class="archi-branch draft"><div class="archi-branch-icon">📝</div><div><strong>DRAFT</strong><small>Brouillon + notification → validation humaine</small></div></div>
+                <div class="archi-branch human"><div class="archi-branch-icon">👤</div><div><strong>HUMAIN</strong><small>Escalade directe (pas de draft)</small></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔄 Boucle d'apprentissage continue</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">✏️</div><div class="archi-step-content"><strong>Corrections humaines sur drafts</strong><small>Reformulations, ajustements de ton, ajouts d'info</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>Mémoire d'exemples</strong><small>Vector store (Qdrant, Pinecone) ou few-shot context</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Ré-injection dans les prompts</strong><small>Classification + rédaction enrichies par les exemples passés</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>Système auto-calibré</strong><small>Le ton et la précision s'améliorent avec l'usage</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Plateformes email pour agents</h3>
@@ -781,6 +796,10 @@
         <div class="module-section-header">
           <div class="module-section-icon icon-resources">10</div>
           <h2 class="module-section-title">Pour aller plus loin</h2>
+
+          <div class="callout callout-info" style="margin: var(--space-4) 0;">
+            <p style="margin:0;">📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études Bpifrance, AI Act, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce module.</p>
+          </div>
         </div>
 
         <div class="resources-cat">

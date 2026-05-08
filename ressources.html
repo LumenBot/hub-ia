@@ -19,10 +19,8 @@
   <!-- NAVBAR -->
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
-        <span class="nav-title">Hub IA — Learning Center</span>
-      </a>
+      <a href="index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
       <div class="nav-links">
         <a href="index.html#modules" class="nav-link">Modules</a>
         <a href="ressources.html" class="nav-link nav-link-active">Ressources</a>
@@ -62,71 +60,104 @@
       <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la page</button>
       <ul class="module-toc-list" id="tocList">
         <li><a href="#synthese"><span class="toc-icon">📋</span>Synthèse</a></li>
-        <li><a href="#essentiels"><span class="toc-icon">🛠</span>15 outils essentiels</a></li>
-        <li style="padding-left:18px;"><a href="#claude"><span class="toc-icon">🤖</span>Claude</a></li>
-        <li style="padding-left:18px;"><a href="#gpt"><span class="toc-icon">💬</span>GPT-4 / GPT-5</a></li>
-        <li style="padding-left:18px;"><a href="#mistral"><span class="toc-icon">🇪🇺</span>Mistral</a></li>
-        <li style="padding-left:18px;"><a href="#n8n"><span class="toc-icon">🔧</span>n8n</a></li>
-        <li style="padding-left:18px;"><a href="#make"><span class="toc-icon">⚡</span>Make</a></li>
-        <li style="padding-left:18px;"><a href="#cursor"><span class="toc-icon">💻</span>Cursor</a></li>
-        <li style="padding-left:18px;"><a href="#claude-code"><span class="toc-icon">⌨️</span>Claude Code</a></li>
-        <li style="padding-left:18px;"><a href="#openclaw"><span class="toc-icon">🦾</span>OpenClaw</a></li>
-        <li style="padding-left:18px;"><a href="#langgraph"><span class="toc-icon">🕸️</span>LangGraph</a></li>
-        <li style="padding-left:18px;"><a href="#crewai"><span class="toc-icon">👥</span>CrewAI</a></li>
-        <li style="padding-left:18px;"><a href="#qdrant"><span class="toc-icon">💾</span>Qdrant</a></li>
-        <li style="padding-left:18px;"><a href="#beehiiv"><span class="toc-icon">📰</span>Beehiiv</a></li>
-        <li style="padding-left:18px;"><a href="#perplexity"><span class="toc-icon">🔭</span>Perplexity</a></li>
-        <li style="padding-left:18px;"><a href="#agentmail"><span class="toc-icon">📨</span>AgentMail</a></li>
-        <li style="padding-left:18px;"><a href="#yolo-opencv"><span class="toc-icon">👁️</span>YOLO + OpenCV</a></li>
-        <li style="padding-left:18px;"><a href="#notebooklm"><span class="toc-icon">📔</span>NotebookLM</a></li>
-        <li style="padding-left:18px;"><a href="#llama"><span class="toc-icon">🦙</span>Llama</a></li>
-        <li style="padding-left:18px;"><a href="#dify"><span class="toc-icon">🧱</span>Dify</a></li>
-        <li style="padding-left:18px;"><a href="#flowise"><span class="toc-icon">🌊</span>Flowise</a></li>
-        <li style="padding-left:18px;"><a href="#composio"><span class="toc-icon">🔌</span>Composio</a></li>
-        <li style="padding-left:18px;"><a href="#autogen"><span class="toc-icon">🎭</span>AutoGen</a></li>
-        <li style="padding-left:18px;"><a href="#aider"><span class="toc-icon">🤝</span>Aider</a></li>
-        <li style="padding-left:18px;"><a href="#pinecone"><span class="toc-icon">🌲</span>Pinecone</a></li>
-        <li style="padding-left:18px;"><a href="#chromadb"><span class="toc-icon">🎨</span>ChromaDB</a></li>
-        <li style="padding-left:18px;"><a href="#whisper"><span class="toc-icon">🎙️</span>Whisper</a></li>
-        <li style="padding-left:18px;"><a href="#goodweek"><span class="toc-icon">🛡️</span>Goodweek</a></li>
-        <li style="padding-left:18px;"><a href="#or-tools"><span class="toc-icon">🧮</span>OR-Tools</a></li>
-        <li style="padding-left:18px;"><a href="#mixtral"><span class="toc-icon">🧬</span>Mixtral</a></li>
-        <li style="padding-left:18px;"><a href="#pgvector"><span class="toc-icon">🐘</span>Postgres pgvector</a></li>
-        <li style="padding-left:18px;"><a href="#otter"><span class="toc-icon">🎧</span>Otter.ai</a></li>
-        <li style="padding-left:18px;"><a href="#deepl"><span class="toc-icon">🌐</span>DeepL Pro</a></li>
-        <li style="padding-left:18px;"><a href="#mistral-forge"><span class="toc-icon">🏰</span>Mistral Forge</a></li>
-        <li style="padding-left:18px;"><a href="#devin"><span class="toc-icon">🤖</span>Devin</a></li>
-        <li style="padding-left:18px;"><a href="#ethiqais"><span class="toc-icon">⚖️</span>EthiqAIS</a></li>
-        <li style="padding-left:18px;"><a href="#nin-ia"><span class="toc-icon">🤝</span>NIN-IA</a></li>
-        <li style="padding-left:18px;"><a href="#cognex"><span class="toc-icon">📷</span>Cognex</a></li>
-        <li style="padding-left:18px;"><a href="#hubspot"><span class="toc-icon">🧲</span>HubSpot</a></li>
-        <li style="padding-left:18px;"><a href="#apify"><span class="toc-icon">🕷️</span>Apify</a></li>
-        <li style="padding-left:18px;"><a href="#cplex"><span class="toc-icon">🎯</span>IBM CPLEX</a></li>
-        <li style="padding-left:18px;"><a href="#qwen"><span class="toc-icon">🐉</span>Qwen</a></li>
-        <li style="padding-left:18px;"><a href="#fireflies"><span class="toc-icon">🪰</span>Fireflies.ai</a></li>
-        <li style="padding-left:18px;"><a href="#copilot-workspace"><span class="toc-icon">🚁</span>GitHub Copilot Workspace</a></li>
-        <li style="padding-left:18px;"><a href="#spinalia"><span class="toc-icon">🧬</span>Spinalia</a></li>
-        <li style="padding-left:18px;"><a href="#pipedrive"><span class="toc-icon">🛤️</span>Pipedrive</a></li>
-        <li style="padding-left:18px;"><a href="#salesforce"><span class="toc-icon">☁️</span>Salesforce</a></li>
-        <li style="padding-left:18px;"><a href="#attio"><span class="toc-icon">💎</span>Attio</a></li>
-        <li style="padding-left:18px;"><a href="#brand24"><span class="toc-icon">📡</span>Brand24</a></li>
-        <li style="padding-left:18px;"><a href="#crayon"><span class="toc-icon">🖍️</span>Crayon</a></li>
-        <li style="padding-left:18px;"><a href="#keyence"><span class="toc-icon">🎌</span>Keyence</a></li>
-        <li style="padding-left:18px;"><a href="#landing-ai"><span class="toc-icon">✈️</span>Landing AI</a></li>
-        <li style="padding-left:18px;"><a href="#cadwork"><span class="toc-icon">🪵</span>Cadwork</a></li>
-        <li style="padding-left:18px;"><a href="#kimi"><span class="toc-icon">🌙</span>Kimi K2</a></li>
-        <li style="padding-left:18px;"><a href="#tldv"><span class="toc-icon">📹</span>tl;dv</a></li>
-        <li style="padding-left:18px;"><a href="#roboflow"><span class="toc-icon">🦾</span>Roboflow</a></li>
-        <li style="padding-left:18px;"><a href="#mask-rcnn"><span class="toc-icon">🎭</span>Mask R-CNN</a></li>
-        <li style="padding-left:18px;"><a href="#topsolid"><span class="toc-icon">🔩</span>TopSolid</a></li>
-        <li style="padding-left:18px;"><a href="#lectra"><span class="toc-icon">🧵</span>Lectra</a></li>
-        <li style="padding-left:18px;"><a href="#gurobi"><span class="toc-icon">📐</span>Gurobi</a></li>
-        <li style="padding-left:18px;"><a href="#xpress"><span class="toc-icon">⚡</span>FICO Xpress</a></li>
-        <li style="padding-left:18px;"><a href="#dynamics"><span class="toc-icon">🪟</span>Microsoft Dynamics 365</a></li>
-        <li style="padding-left:18px;"><a href="#zoho"><span class="toc-icon">🏢</span>Zoho CRM</a></li>
-        <li style="padding-left:18px;"><a href="#klue"><span class="toc-icon">🔮</span>Klue</a></li>
-        <li style="padding-left:18px;"><a href="#pytorch"><span class="toc-icon">🔥</span>PyTorch</a></li>
-        <li><a href="#index"><span class="toc-icon">📚</span>Index par catégorie</a></li>
+        <li><a href="#legende"><span class="toc-icon">🔖</span>Légende des badges</a></li>
+        <li><a href="#essentiels"><span class="toc-icon">🛠</span>63 outils essentiels</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🧠</span>LLM &amp; modèles</li>
+        <li style="padding-left:28px;"><a href="#claude">Claude</a></li>
+        <li style="padding-left:28px;"><a href="#gpt">GPT-4 / GPT-5</a></li>
+        <li style="padding-left:28px;"><a href="#mistral">Mistral 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#mixtral">Mixtral 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#llama">Llama</a></li>
+        <li style="padding-left:28px;"><a href="#qwen">Qwen</a></li>
+        <li style="padding-left:28px;"><a href="#kimi">Kimi K2</a></li>
+        <li style="padding-left:28px;"><a href="#notebooklm">NotebookLM</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🛠</span>Orchestration / no-code</li>
+        <li style="padding-left:28px;"><a href="#n8n">n8n</a></li>
+        <li style="padding-left:28px;"><a href="#make">Make</a></li>
+        <li style="padding-left:28px;"><a href="#dify">Dify</a></li>
+        <li style="padding-left:28px;"><a href="#flowise">Flowise</a></li>
+        <li style="padding-left:28px;"><a href="#composio">Composio</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🤖</span>Multi-agents</li>
+        <li style="padding-left:28px;"><a href="#openclaw">OpenClaw</a></li>
+        <li style="padding-left:28px;"><a href="#langgraph">LangGraph</a></li>
+        <li style="padding-left:28px;"><a href="#crewai">CrewAI</a></li>
+        <li style="padding-left:28px;"><a href="#autogen">AutoGen</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">💻</span>IDE &amp; agents codeurs</li>
+        <li style="padding-left:28px;"><a href="#cursor">Cursor</a></li>
+        <li style="padding-left:28px;"><a href="#claude-code">Claude Code</a></li>
+        <li style="padding-left:28px;"><a href="#aider">Aider</a></li>
+        <li style="padding-left:28px;"><a href="#devin">Devin</a></li>
+        <li style="padding-left:28px;"><a href="#copilot-workspace">Copilot Workspace</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">💾</span>Vector stores</li>
+        <li style="padding-left:28px;"><a href="#qdrant">Qdrant 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#pinecone">Pinecone</a></li>
+        <li style="padding-left:28px;"><a href="#chromadb">ChromaDB</a></li>
+        <li style="padding-left:28px;"><a href="#pgvector">Postgres pgvector</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">📨</span>Email &amp; scraping</li>
+        <li style="padding-left:28px;"><a href="#agentmail">AgentMail</a></li>
+        <li style="padding-left:28px;"><a href="#apify">Apify</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🔍</span>Compétitive intelligence</li>
+        <li style="padding-left:28px;"><a href="#brand24">Brand24</a></li>
+        <li style="padding-left:28px;"><a href="#crayon">Crayon</a></li>
+        <li style="padding-left:28px;"><a href="#klue">Klue</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">📊</span>Productivité &amp; recherche</li>
+        <li style="padding-left:28px;"><a href="#perplexity">Perplexity</a></li>
+        <li style="padding-left:28px;"><a href="#whisper">Whisper</a></li>
+        <li style="padding-left:28px;"><a href="#otter">Otter.ai</a></li>
+        <li style="padding-left:28px;"><a href="#fireflies">Fireflies.ai</a></li>
+        <li style="padding-left:28px;"><a href="#tldv">tl;dv 🇪🇺</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">📰</span>Contenu &amp; traduction</li>
+        <li style="padding-left:28px;"><a href="#beehiiv">Beehiiv</a></li>
+        <li style="padding-left:28px;"><a href="#deepl">DeepL Pro 🇪🇺</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">📈</span>CRM</li>
+        <li style="padding-left:28px;"><a href="#hubspot">HubSpot</a></li>
+        <li style="padding-left:28px;"><a href="#pipedrive">Pipedrive</a></li>
+        <li style="padding-left:28px;"><a href="#salesforce">Salesforce</a></li>
+        <li style="padding-left:28px;"><a href="#attio">Attio</a></li>
+        <li style="padding-left:28px;"><a href="#dynamics">Dynamics 365</a></li>
+        <li style="padding-left:28px;"><a href="#zoho">Zoho CRM</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">👁️</span>Vision industrielle</li>
+        <li style="padding-left:28px;"><a href="#yolo-opencv">YOLO + OpenCV</a></li>
+        <li style="padding-left:28px;"><a href="#cognex">Cognex</a></li>
+        <li style="padding-left:28px;"><a href="#keyence">Keyence</a></li>
+        <li style="padding-left:28px;"><a href="#landing-ai">Landing AI</a></li>
+        <li style="padding-left:28px;"><a href="#roboflow">Roboflow</a></li>
+        <li style="padding-left:28px;"><a href="#mask-rcnn">Mask R-CNN</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🧮</span>Optimisation / OR</li>
+        <li style="padding-left:28px;"><a href="#or-tools">OR-Tools</a></li>
+        <li style="padding-left:28px;"><a href="#cplex">IBM CPLEX</a></li>
+        <li style="padding-left:28px;"><a href="#gurobi">Gurobi</a></li>
+        <li style="padding-left:28px;"><a href="#xpress">FICO Xpress</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🪵</span>Métier industriel</li>
+        <li style="padding-left:28px;"><a href="#cadwork">Cadwork 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#topsolid">TopSolid 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#lectra">Lectra 🇪🇺</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🛠️</span>ML frameworks</li>
+        <li style="padding-left:28px;"><a href="#pytorch">PyTorch</a></li>
+
+        <li style="padding-left:14px; font-weight:600; margin-top:8px;"><span class="toc-icon">🇪🇺</span>Souverains &amp; spécialisés</li>
+        <li style="padding-left:28px;"><a href="#mistral-forge">Mistral Forge 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#goodweek">Goodweek 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#ethiqais">EthiqAIS 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#nin-ia">NIN-IA 🇪🇺</a></li>
+        <li style="padding-left:28px;"><a href="#spinalia">Spinalia 🇪🇺</a></li>
+
+        <li style="margin-top:12px;"><a href="#bibliographie"><span class="toc-icon">📚</span>Bibliographie transverse</a></li>
+        <li><a href="#index"><span class="toc-icon">🗂️</span>Index par catégorie</a></li>
       </ul>
     </aside>
 
@@ -176,12 +207,70 @@
         </div>
       </section>
 
-      <!-- 15 OUTILS ESSENTIELS -->
+      <!-- LÉGENDE DES BADGES -->
+      <section class="module-section" id="legende">
+        <div class="module-section-header">
+          <div class="module-section-icon">🔖</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Légende des badges</h2>
+          </div>
+        </div>
+
+        <p>Chaque fiche outil affiche 2 à 4 badges qui synthétisent les informations clés. Voici comment les lire&nbsp;:</p>
+
+        <div class="legend-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); margin-top: var(--space-4);">
+
+          <div class="legend-block" style="background: var(--color-bg-subtle); border-radius: var(--radius-md); padding: var(--space-4);">
+            <h3 style="margin-top:0; font-size:1rem;">Type / modèle économique</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+              <div><span class="tool-badge saas">SaaS</span> &nbsp;Service hébergé, abonnement.</div>
+              <div><span class="tool-badge open">Open-source</span> &nbsp;Self-hostable, code libre.</div>
+              <div><span class="tool-badge openweight">Open-weight</span> &nbsp;Modèle pré-entraîné publié, code parfois fermé.</div>
+              <div><span class="tool-badge hybrid">Hybride</span> &nbsp;Cloud SaaS + option self-hosted.</div>
+            </div>
+          </div>
+
+          <div class="legend-block" style="background: var(--color-bg-subtle); border-radius: var(--radius-md); padding: var(--space-4);">
+            <h3 style="margin-top:0; font-size:1rem;">Catégorie d'usage</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+              <div><span class="tool-badge cat">LLM</span> &nbsp;<span class="tool-badge cat">Orchestration</span></div>
+              <div><span class="tool-badge cat">Multi-agents</span> &nbsp;<span class="tool-badge cat">IDE</span></div>
+              <div><span class="tool-badge cat">Vector store</span> &nbsp;<span class="tool-badge cat">CRM</span></div>
+              <div><span class="tool-badge cat">Vision</span> &nbsp;<span class="tool-badge cat">Optimisation</span> &nbsp;…</div>
+            </div>
+          </div>
+
+          <div class="legend-block" style="background: var(--color-bg-subtle); border-radius: var(--radius-md); padding: var(--space-4);">
+            <h3 style="margin-top:0; font-size:1rem;">Maturité opérationnelle</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+              <div><span class="tool-badge maturity">N1-N3 quiz</span> &nbsp;Sensibilisation, test isolé.</div>
+              <div><span class="tool-badge maturity">N4-N6 pilote</span> &nbsp;Mis en prod sur un cas d'usage.</div>
+              <div><span class="tool-badge maturity">N7-N8 mise à l'échelle</span> &nbsp;Déployé multi-équipes.</div>
+            </div>
+          </div>
+
+          <div class="legend-block" style="background: var(--color-bg-subtle); border-radius: var(--radius-md); padding: var(--space-4);">
+            <h3 style="margin-top:0; font-size:1rem;">Souveraineté 🇪🇺</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+              <div><span class="tool-badge sovereign">🇪🇺 Souverain</span> &nbsp;Éditeur basé en UE / France, hébergement UE possible.</div>
+              <div style="font-size:0.875rem; color:var(--color-text-secondary);">Pertinent pour les usages avec données sensibles, RGPD strict, ou exigence d'autonomie technologique.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <p style="margin-top: var(--space-4); font-size:0.9375rem; color:var(--color-text-secondary);">
+          ℹ️ Ces classifications sont indicatives et reflètent l'état du marché début 2026. Un outil peut combiner plusieurs caractéristiques (ex&nbsp;: Mistral est à la fois <em>open-weight</em> et 🇪🇺 souverain).
+        </p>
+      </section>
+
+      <!-- 63 OUTILS ESSENTIELS -->
       <section class="module-section" id="essentiels">
         <div class="module-section-header">
           <div class="module-section-icon purple">🛠</div>
           <div class="module-section-title">
-            <div class="section-number">Section 2</div>
+            <div class="section-number">Section 3</div>
             <h2>Les 63 outils essentiels</h2>
           </div>
         </div>
@@ -233,11 +322,11 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-001-recherche-veille.html">CU-001 — Recherche &amp; veille augmentée</a> · synthèses sourcées</li>
-                <li><a href="modules/cu-002-assistant-redactionnel.html">CU-002 — Assistant rédactionnel</a> · usage de référence</li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · interrogation de corpus</li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · ton et réponses</li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a> · agents par fonction</li>
+                <li><a href="modules/cu-001-recherche-veille.html">Recherche &amp; veille augmentée</a> · synthèses sourcées</li>
+                <li><a href="modules/cu-002-assistant-redactionnel.html">Assistant rédactionnel</a> · usage de référence</li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · interrogation de corpus</li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · ton et réponses</li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a> · agents par fonction</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -298,10 +387,10 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a></li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -325,6 +414,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">SaaS + Open-weight</span>
                 <span class="tool-badge cat">LLM souverain</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Établi · 2023</span>
               </div>
               <h3>Mistral <span class="tool-vendor">par Mistral AI</span></h3>
@@ -362,10 +452,10 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-001-recherche-veille.html">CU-001 — Recherche &amp; veille</a> · alternative souveraine à Perplexity</li>
-                <li><a href="modules/cu-002-assistant-redactionnel.html">CU-002 — Assistant rédactionnel</a></li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · embeddings souverains</li>
-                <li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 — RH CV entretiens</a> · données sensibles</li>
+                <li><a href="modules/cu-001-recherche-veille.html">Recherche &amp; veille</a> · alternative souveraine à Perplexity</li>
+                <li><a href="modules/cu-002-assistant-redactionnel.html">Assistant rédactionnel</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · embeddings souverains</li>
+                <li><a href="modules/cu-007-rh-cv-entretiens.html">RH CV entretiens</a> · données sensibles</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -426,10 +516,10 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · cas pivot</li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a></li>
-                <li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · cas pivot</li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
                 <li>+ 6 autres modules</li>
               </ul>
             </div>
@@ -486,9 +576,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · alternative cloud à n8n</li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · alternative cloud à n8n</li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -543,8 +633,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes (cas Stripe)</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes (cas Stripe)</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents par fonction</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -596,8 +686,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes (cas Stripe)</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes (cas Stripe)</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -648,9 +738,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -706,9 +796,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -760,8 +850,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -785,6 +875,7 @@
               <div class="tool-badges">
                 <span class="tool-badge open">Open-source + Cloud</span>
                 <span class="tool-badge cat">Vector store</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Établi · 2021</span>
               </div>
               <h3>Qdrant</h3>
@@ -818,9 +909,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · cas-école</li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · cas-école</li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -875,8 +966,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale automatisée</a> · cas-école</li>
-                <li><a href="modules/cu-010-pipeline-contenu-social.html">CU-010 — Pipeline contenu social</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale automatisée</a> · cas-école</li>
+                <li><a href="modules/cu-010-pipeline-contenu-social.html">Pipeline contenu social</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -931,9 +1022,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-001-recherche-veille.html">CU-001 — Recherche &amp; veille augmentée</a> · référence principale</li>
-                <li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-001-recherche-veille.html">Recherche &amp; veille augmentée</a> · référence principale</li>
+                <li><a href="modules/cu-011-veille-concurrentielle.html">Veille concurrentielle continue</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -984,9 +1075,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · cas pivot</li>
-                <li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · cas pivot</li>
+                <li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1046,8 +1137,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · cas-école</li>
-                <li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li>
+                <li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · cas-école</li>
+                <li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1104,9 +1195,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-001-recherche-veille.html">CU-001 — Recherche &amp; veille augmentée</a> · cas pivot pour interroger un corpus</li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative no-setup</li>
-                <li><a href="modules/cu-002-assistant-redactionnel.html">CU-002 — Assistant rédactionnel</a></li>
+                <li><a href="modules/cu-001-recherche-veille.html">Recherche &amp; veille augmentée</a> · cas pivot pour interroger un corpus</li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative no-setup</li>
+                <li><a href="modules/cu-002-assistant-redactionnel.html">Assistant rédactionnel</a></li>
                 <li>+ 7 autres modules (le plus mentionné après les LLM majeurs)</li>
               </ul>
             </div>
@@ -1169,8 +1260,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative open pour le RAG souverain</li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a> · auto-hébergement de la stack</li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative open pour le RAG souverain</li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a> · auto-hébergement de la stack</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1226,9 +1317,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a></li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
+                <li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1284,9 +1375,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1342,9 +1433,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
-                <li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
+                <li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1396,8 +1487,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a></li>
-                <li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1454,8 +1545,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes (cas Stripe)</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes (cas Stripe)</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1512,9 +1603,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative SaaS à Qdrant</li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative SaaS à Qdrant</li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1570,8 +1661,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative POC à Qdrant</li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative POC à Qdrant</li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1632,8 +1723,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-003-cr-reunion.html">CU-003 — Comptes-rendus de réunion</a> · cas pivot</li>
-                <li><a href="modules/cu-004-traduction.html">CU-004 — Traduction multi-langues</a></li>
+                <li><a href="modules/cu-003-cr-reunion.html">Comptes-rendus de réunion</a> · cas pivot</li>
+                <li><a href="modules/cu-004-traduction.html">Traduction multi-langues</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1657,6 +1748,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">SaaS</span>
                 <span class="tool-badge cat">Multi-LLM gouverné</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Émergent · 2024</span>
               </div>
               <h3>Goodweek <span class="tool-vendor">— alumni QFC</span></h3>
@@ -1690,9 +1782,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-002-assistant-redactionnel.html">CU-002 — Assistant rédactionnel</a> · gouvernance shadow IA</li>
-                <li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li>
-                <li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 — RH CV entretiens</a> · données sensibles + AI Act</li>
+                <li><a href="modules/cu-002-assistant-redactionnel.html">Assistant rédactionnel</a> · gouvernance shadow IA</li>
+                <li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li>
+                <li><a href="modules/cu-007-rh-cv-entretiens.html">RH CV entretiens</a> · données sensibles + AI Act</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1753,8 +1845,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production / nesting</a> · cas-école</li>
-                <li><a href="modules/cu-016-maintenance-predictive.html">CU-016 — Maintenance prédictive</a> · scheduling interventions</li>
+                <li><a href="modules/cu-018-optimisation-production.html">Optimisation production / nesting</a> · cas-école</li>
+                <li><a href="modules/cu-016-maintenance-predictive.html">Maintenance prédictive</a> · scheduling interventions</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1778,6 +1870,7 @@
               <div class="tool-badges">
                 <span class="tool-badge open">Open-weight</span>
                 <span class="tool-badge cat">LLM MoE</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Établi · 2023</span>
               </div>
               <h3>Mixtral <span class="tool-vendor">par Mistral</span></h3>
@@ -1810,8 +1903,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · auto-hébergement souverain</li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · auto-hébergement souverain</li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1868,8 +1961,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative pragmatique à Qdrant</li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative pragmatique à Qdrant</li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1925,7 +2018,7 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-003-cr-reunion.html">CU-003 — Comptes-rendus de réunion</a> · cas pivot</li>
+                <li><a href="modules/cu-003-cr-reunion.html">Comptes-rendus de réunion</a> · cas pivot</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -1949,6 +2042,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">SaaS</span>
                 <span class="tool-badge cat">Traduction professionnelle</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Établi · 2017</span>
               </div>
               <h3>DeepL Pro <span class="tool-vendor">par DeepL (allemand)</span></h3>
@@ -1981,7 +2075,7 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-004-traduction.html">CU-004 — Traduction et adaptation multi-langues</a> · cas pivot</li>
+                <li><a href="modules/cu-004-traduction.html">Traduction et adaptation multi-langues</a> · cas pivot</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2005,6 +2099,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">On-premise</span>
                 <span class="tool-badge cat">LLM souverain on-prem</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Émergent · 2026</span>
               </div>
               <h3>Mistral Forge <span class="tool-vendor">par Mistral AI</span></h3>
@@ -2037,8 +2132,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 — RH CV entretiens</a> · données RH ultra-sensibles</li>
-                <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · corpus interne stratégique</li>
+                <li><a href="modules/cu-007-rh-cv-entretiens.html">RH CV entretiens</a> · données RH ultra-sensibles</li>
+                <li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · corpus interne stratégique</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2094,7 +2189,7 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes (cas Stripe)</a> · cas-école</li>
+                <li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes (cas Stripe)</a> · cas-école</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2118,6 +2213,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">Conseil + outil</span>
                 <span class="tool-badge cat">Conformité AI Act / RGPD</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Émergent · 2024</span>
               </div>
               <h3>EthiqAIS <span class="tool-vendor">— alumni QFC</span></h3>
@@ -2149,8 +2245,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 — RH CV entretiens</a> · cas à risque élevé AI Act</li>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · transparence + RGPD</li>
+                <li><a href="modules/cu-007-rh-cv-entretiens.html">RH CV entretiens</a> · cas à risque élevé AI Act</li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · transparence + RGPD</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2174,6 +2270,7 @@
               <div class="tool-badges">
                 <span class="tool-badge saas">Intégrateur</span>
                 <span class="tool-badge cat">Agents IA sur-mesure PME</span>
+                <span class="tool-badge sovereign">🇪🇺 Souverain</span>
                 <span class="tool-badge maturity">Émergent · 2024</span>
               </div>
               <h3>NIN-IA <span class="tool-vendor">— Vincent Loreaux, Xertigny (alumni QFC)</span></h3>
@@ -2206,9 +2303,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · cas pivot d'intégration</li>
-                <li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li>
-                <li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · cas pivot d'intégration</li>
+                <li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li>
+                <li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2265,8 +2362,8 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a></li>
-                <li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li>
+                <li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a></li>
+                <li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2322,9 +2419,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · cas pivot d'intégration agent IA</li>
-                <li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li>
-                <li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li>
+                <li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · cas pivot d'intégration agent IA</li>
+                <li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li>
+                <li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2380,9 +2477,9 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li>
-                <li><a href="modules/cu-012-veille-aap-drafting.html">CU-012 — Veille AAP + drafting</a></li>
-                <li><a href="modules/cu-019-newsletter-locale.html">CU-019 — Newsletter locale</a> · sourcing automatique</li>
+                <li><a href="modules/cu-011-veille-concurrentielle.html">Veille concurrentielle continue</a></li>
+                <li><a href="modules/cu-012-veille-aap-drafting.html">Veille AAP + drafting</a></li>
+                <li><a href="modules/cu-019-newsletter-locale.html">Newsletter locale</a> · sourcing automatique</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2438,7 +2535,7 @@
             <div class="tool-block tool-block-modules">
               <div class="tool-block-label">Cas d'usage dans nos modules</div>
               <ul>
-                <li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production / nesting</a> · grandes industries</li>
+                <li><a href="modules/cu-018-optimisation-production.html">Optimisation production / nesting</a> · grandes industries</li>
               </ul>
             </div>
             <div class="tool-grid">
@@ -2475,7 +2572,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Souveraineté EU stricte (Alibaba = Chine)</li><li>Stack standard EN/FR → Llama ou Mistral plus simples</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Open-weight (Apache 2.0 ou Tongyi License) <strong>gratuit</strong>. API DashScope Alibaba à l'usage.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-004-traduction.html">CU-004 — Traduction multi-langues</a> · forte couverture langues asiatiques</li><li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-004-traduction.html">Traduction multi-langues</a> · forte couverture langues asiatiques</li><li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Llama (Meta) · Mixtral (Mistral) · Kimi K2 (long context).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://qwenlm.github.io" target="_blank" rel="noopener">qwenlm.github.io</a></p></div>
@@ -2500,7 +2597,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Réunions internes / techniques → Otter.ai suffira</li><li>Souveraineté EU stricte (SaaS US)</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier limité · Pro 18$/utilisateur/mois · Business 29$/mois · Enterprise sur devis.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-003-cr-reunion.html">CU-003 — Comptes-rendus de réunion</a></li><li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a> · analyse appels</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-003-cr-reunion.html">Comptes-rendus de réunion</a></li><li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a> · analyse appels</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Otter.ai · Gong (premium) · Avoma · tl;dv.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://fireflies.ai" target="_blank" rel="noopener">fireflies.ai</a></p></div>
@@ -2525,7 +2622,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Pair programming visuel → Cursor</li><li>Workflow non-GitHub (GitLab, Bitbucket) → Cursor / Aider</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Inclus dans GitHub Copilot Pro+ (39$/mois) ou Business (39$/utilisateur/mois) avec quotas Workspace.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-015-stripe-minions.html">CU-015 — Agents codeurs internes</a></li><li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-015-stripe-minions.html">Agents codeurs internes</a></li><li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Cursor · Claude Code · Devin · Aider.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://github.com/features/copilot" target="_blank" rel="noopener">github.com/features/copilot</a></p></div>
@@ -2538,7 +2635,7 @@
           <header class="tool-card-header">
             <div class="tool-logo" style="background:linear-gradient(135deg,#DCF0DF,#16A34A);color:#14532D;">🧬</div>
             <div class="tool-meta">
-              <div class="tool-badges"><span class="tool-badge saas">Conseil</span><span class="tool-badge cat">Diagnostic IA territorial</span><span class="tool-badge maturity">Émergent · 2024</span></div>
+              <div class="tool-badges"><span class="tool-badge saas">Conseil</span><span class="tool-badge cat">Diagnostic IA territorial</span><span class="tool-badge sovereign">🇪🇺 Souverain</span><span class="tool-badge maturity">Émergent · 2024</span></div>
               <h3>Spinalia <span class="tool-vendor">— Marjory Canonne, Épinal</span></h3>
               <p class="tool-tagline">Cabinet de conseil et diagnostic IA pour les PME territoriales du Grand Est. Spécialisé dans le cadrage opérationnel : identification des cas d'usage à fort ROI, plan d'action, accompagnement à la mise en œuvre.</p>
             </div>
@@ -2550,7 +2647,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Cas d'usage déjà cadré → directement intégrateur (NIN-IA)</li><li>Hors région Grand Est</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Mission de diagnostic / accompagnement sur devis. Diagnostic initial possible via le réseau QFC.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a> · cadrage</li><li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 — RH CV entretiens</a> · diagnostic AI Act</li><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a> · cadrage</li><li><a href="modules/cu-007-rh-cv-entretiens.html">RH CV entretiens</a> · diagnostic AI Act</li><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>NIN-IA (intégrateur) · EthiqAIS (conformité) · EDIH Grand Est · Cluster ENACT.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p>Contact direct via le réseau QFC.</p></div>
@@ -2575,7 +2672,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Stack tout-en-un souhaitée → HubSpot</li><li>Très grande organisation → Salesforce</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Essential 14$/utilisateur/mois · Advanced 34$ · Professional 49$ · Power 64$ · Enterprise 99$.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-005-devis-propositions.html">CU-005 — Devis et propositions</a></li><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-005-devis-propositions.html">Devis et propositions</a></li><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>HubSpot · Salesforce · Attio · Zoho.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://developers.pipedrive.com" target="_blank" rel="noopener">developers.pipedrive.com</a></p></div>
@@ -2600,7 +2697,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME / startup → HubSpot ou Pipedrive plus rapides</li><li>Budget licences contraint</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sales Cloud Starter 25$/mois · Pro Suite 100$/mois · Enterprise 165$/mois · Unlimited 330$/mois (par utilisateur).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · target enterprise</li><li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a> · Agentforce</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · target enterprise</li><li><a href="modules/cu-014-multi-agents.html">Multi-agents</a> · Agentforce</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>HubSpot · Microsoft Dynamics 365 · Oracle CX · SAP CRM.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://developer.salesforce.com" target="_blank" rel="noopener">developer.salesforce.com</a> · Trailhead pour la formation gratuite.</p></div>
@@ -2625,7 +2722,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Profils non-tech, équipes sans devops</li><li>Besoin de marketing automation tout-fait</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier (2 utilisateurs) · Plus 29$/mois/utilisateur · Pro 59$/mois · Enterprise sur devis.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · pour startups dev-friendly</li><li><a href="modules/cu-006-leads-chatbot.html">CU-006 — Qualification leads chatbot</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · pour startups dev-friendly</li><li><a href="modules/cu-006-leads-chatbot.html">Qualification leads chatbot</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>HubSpot · Pipedrive · Folk · Salesforce.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://attio.com" target="_blank" rel="noopener">attio.com</a> · <a href="https://developers.attio.com" target="_blank" rel="noopener">developers.attio.com</a></p></div>
@@ -2650,7 +2747,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Social listening enterprise → Cision, Meltwater</li><li>Veille technique sur forums spécialisés → scraping custom</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Individual 79$/mois · Team 149$/mois · Pro 199$/mois · Enterprise 399$/mois.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li><li><a href="modules/cu-010-pipeline-contenu-social.html">CU-010 — Pipeline contenu social</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">Veille concurrentielle continue</a></li><li><a href="modules/cu-010-pipeline-contenu-social.html">Pipeline contenu social</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Mention · Talkwalker · Meltwater (enterprise) · Hootsuite Insights.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://brand24.com" target="_blank" rel="noopener">brand24.com</a></p></div>
@@ -2675,7 +2772,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME sans concurrence directe identifiée</li><li>Budget contraint → veille manuelle + Brand24 suffisent</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis selon nombre de concurrents trackés et utilisateurs (typiquement 1-3k$/mois).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li><li><a href="modules/cu-010-pipeline-contenu-social.html">CU-010 — Pipeline contenu social</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">Veille concurrentielle continue</a></li><li><a href="modules/cu-010-pipeline-contenu-social.html">Pipeline contenu social</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Klue (concurrent direct) · Kompyte · Brand24 · scraping custom + LLM analysis.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.crayon.co" target="_blank" rel="noopener">crayon.co</a></p></div>
@@ -2700,7 +2797,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Équipe ML interne capable → custom YOLO + OpenCV</li><li>Cas no-code IA → Landing AI</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Hardware (caméras CV-X, IV3) + software intégré sur devis.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a></li><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a></li><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Cognex (concurrent direct) · Landing AI (no-code) · YOLO + OpenCV custom.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.keyence.com/fr-fr/" target="_blank" rel="noopener">keyence.com/fr-fr</a></p></div>
@@ -2725,7 +2822,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Cas ultra-standard → Cognex/Keyence plus simples</li><li>Équipe ML interne capable → YOLO custom moins coûteux</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis selon nombre de modèles déployés et volumes d'inférence.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · option no-code</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · option no-code</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Cognex / Keyence (intégrés) · YOLO + Roboflow (custom) · Google Vertex AI Vision.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://landing.ai" target="_blank" rel="noopener">landing.ai</a> · <a href="https://www.deeplearning.ai" target="_blank" rel="noopener">DeepLearning.AI</a></p></div>
@@ -2738,7 +2835,7 @@
           <header class="tool-card-header">
             <div class="tool-logo" style="background:linear-gradient(135deg,#FFEDD5,#A16207);color:white;">🪵</div>
             <div class="tool-meta">
-              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO + nesting bois</span><span class="tool-badge maturity">Référence · 1989</span></div>
+              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO + nesting bois</span><span class="tool-badge sovereign">🇪🇺 Souverain</span><span class="tool-badge maturity">Référence · 1989</span></div>
               <h3>Cadwork</h3>
               <p class="tool-tagline">Logiciel CAO/CAM de référence pour la filière bois (charpente, menuiserie, construction bois). Inclut un module nesting/optimisation matière qui s'inscrit naturellement dans les workflows IA d'optimisation de production.</p>
             </div>
@@ -2750,7 +2847,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Hors filière bois → TopSolid / Lectra</li><li>Cas optimisation pure sans CAO → OR-Tools / CPLEX</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences logiciel sur devis (acteur Suisse). Plusieurs modules selon les usages (charpente, ossature, menuiserie).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · stack métier filière bois</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a> · stack métier filière bois</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>TopSolid (généraliste métal/bois) · Lectra (textile) · OR-Tools custom.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.cadwork.com" target="_blank" rel="noopener">cadwork.com</a></p></div>
@@ -2775,7 +2872,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Souveraineté EU stricte (Moonshot = Chine)</li><li>Cas standards → Claude / GPT plus matures côté écosystème</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Modèle open-weight gratuit · API à l'usage via Moonshot ou Together AI / Fireworks.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · alternative long context</li><li><a href="modules/cu-014-multi-agents.html">CU-014 — Multi-agents</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · alternative long context</li><li><a href="modules/cu-014-multi-agents.html">Multi-agents</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Gemini 1.5/2 (1-2M tokens) · Claude (200k-1M) · Llama (128k).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.moonshot.cn" target="_blank" rel="noopener">moonshot.cn</a></p></div>
@@ -2788,7 +2885,7 @@
           <header class="tool-card-header">
             <div class="tool-logo" style="background:linear-gradient(135deg,#FEF3C7,#F59E0B);color:#78350F;">📹</div>
             <div class="tool-meta">
-              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">Replay réunion AI</span><span class="tool-badge maturity">Établi · 2020</span></div>
+              <div class="tool-badges"><span class="tool-badge saas">SaaS</span><span class="tool-badge cat">Replay réunion AI</span><span class="tool-badge sovereign">🇪🇺 Souverain</span><span class="tool-badge maturity">Établi · 2020</span></div>
               <h3>tl;dv</h3>
               <p class="tool-tagline">Plateforme de replay et résumé de réunions Zoom/Meet/Teams. Approche « Loom-style » : revisionner les moments clés en quelques minutes plutôt que tout relire. Adapté aux équipes qui veulent partager efficacement les insights.</p>
             </div>
@@ -2800,7 +2897,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Recherche analytics commerciale → Fireflies</li><li>CR texte structuré → Otter</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier généreux (transcription + résumé illimités) · Pro 18-29$/utilisateur/mois pour features avancées.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-003-cr-reunion.html">CU-003 — Comptes-rendus de réunion</a> · option replay</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-003-cr-reunion.html">Comptes-rendus de réunion</a> · option replay</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Otter.ai (transcription) · Fireflies (analytics) · Loom (manuel non-IA).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://tldv.io" target="_blank" rel="noopener">tldv.io</a></p></div>
@@ -2825,7 +2922,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Vision clé-en-main → Cognex / Keyence</li><li>No-code total → Landing AI</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Free tier (1000 images, 3 utilisateurs) · Starter 49$/mois · Growth 249$/mois · Enterprise sur devis.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · cas pivot pour équipes ML</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · cas pivot pour équipes ML</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>CVAT (open-source) · Labelbox · Supervisely · annotation custom + training direct.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://roboflow.com" target="_blank" rel="noopener">roboflow.com</a> · <a href="https://universe.roboflow.com" target="_blank" rel="noopener">Roboflow Universe</a></p></div>
@@ -2851,7 +2948,7 @@
             </div>
             <div class="tool-block"><div class="tool-block-label">Stack &amp; intégrations</div><p>PyTorch (Detectron2 de Meta) ou TensorFlow · Roboflow pour le training · ONNX pour le déploiement.</p></div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p><strong>Gratuit</strong> (open-source). Coûts : annotation pixel (chronophage) + training GPU.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · pour défauts de forme complexe</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · pour défauts de forme complexe</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>YOLO (bounding boxes) · SAM 2 (Segment Anything Model, plus moderne) · U-Net (medical imaging spécialisé).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://github.com/facebookresearch/detectron2" target="_blank" rel="noopener">Detectron2 (Meta)</a></p></div>
@@ -2864,7 +2961,7 @@
           <header class="tool-card-header">
             <div class="tool-logo" style="background:linear-gradient(135deg,#1F2937,#374151);color:#34D399;">🔩</div>
             <div class="tool-meta">
-              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO/CAM généraliste</span><span class="tool-badge maturity">Référence · 1984</span></div>
+              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO/CAM généraliste</span><span class="tool-badge sovereign">🇪🇺 Souverain</span><span class="tool-badge maturity">Référence · 1984</span></div>
               <h3>TopSolid <span class="tool-vendor">par Missler</span></h3>
               <p class="tool-tagline">Logiciel CAO/CAM français généraliste : métal, bois, composites, tôlerie. Couvre tout le cycle conception → usinage. Inclut un module nesting/optimisation matière pour la découpe automatisée.</p>
             </div>
@@ -2876,7 +2973,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Filière bois pure → Cadwork plus spécialisé</li><li>Filière textile → Lectra</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences logiciel sur devis (Missler Software, France).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Cadwork (bois) · Lectra (textile) · SolidWorks + nesting tiers · Cadence Cyclone (métal).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.topsolid.com" target="_blank" rel="noopener">topsolid.com</a></p></div>
@@ -2889,7 +2986,7 @@
           <header class="tool-card-header">
             <div class="tool-logo" style="background:linear-gradient(135deg,#FCE7F3,#DB2777);color:white;">🧵</div>
             <div class="tool-meta">
-              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO + nesting textile</span><span class="tool-badge maturity">Référence · 1973</span></div>
+              <div class="tool-badges"><span class="tool-badge saas">Logiciel métier</span><span class="tool-badge cat">CAO + nesting textile</span><span class="tool-badge sovereign">🇪🇺 Souverain</span><span class="tool-badge maturity">Référence · 1973</span></div>
               <h3>Lectra</h3>
               <p class="tool-tagline">Acteur français leader mondial pour la filière textile / cuir / mode : CAO patronnage, nesting de pièces sur tissu, automatisation de découpe. Ecosystème intégré du design jusqu'à la production.</p>
             </div>
@@ -2901,7 +2998,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Hors filière textile</li><li>PME très petite avec usage occasionnel → solutions tierces moins chères</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences logiciel + matériel découpe sur devis (acteur français leader mondial).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · filière textile</li><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · vision intégrée Lectra</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a> · filière textile</li><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · vision intégrée Lectra</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Gerber (concurrent direct) · Optitex · TopSolid (généraliste).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.lectra.com" target="_blank" rel="noopener">lectra.com</a></p></div>
@@ -2926,7 +3023,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME avec problèmes modérés → OR-Tools</li><li>Budget contraint → CPLEX (souvent négocié) ou OR-Tools</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis. Licence académique gratuite (large). Cloud à l'usage disponible.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · alternative haute perf</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a> · alternative haute perf</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>IBM CPLEX (établi) · FICO Xpress · OR-Tools (gratuit, problèmes modérés).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.gurobi.com" target="_blank" rel="noopener">gurobi.com</a></p></div>
@@ -2951,7 +3048,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Pas dans l'écosystème FICO → Gurobi ou CPLEX plus universels</li><li>Budget contraint → OR-Tools</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Licences commerciales sur devis FICO. Edition Community gratuite (limitée).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>IBM CPLEX · Gurobi · OR-Tools.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.fico.com/en/products/fico-xpress-optimization" target="_blank" rel="noopener">fico.com/xpress</a></p></div>
@@ -2976,7 +3073,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>Stack Google / AWS pure → Salesforce ou HubSpot mieux adaptés</li><li>PME / startup légère → HubSpot plus rapide à déployer</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>À partir de 65$/utilisateur/mois (Sales Professional) jusqu'à plusieurs centaines pour les modules complets.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · stack Microsoft</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · stack Microsoft</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Salesforce (concurrent direct) · HubSpot · SAP CRM · Oracle CX.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.microsoft.com/dynamics365" target="_blank" rel="noopener">microsoft.com/dynamics365</a></p></div>
@@ -3001,7 +3098,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>UX premium attendue → HubSpot</li><li>Très grande organisation → Salesforce</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Standard 14$/utilisateur/mois · Pro 23$ · Enterprise 40$ · Ultimate 52$ · Zoho One bundle 37$/mois (toutes les apps).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">CU-013 — Workflow email-CRM</a> · alternative low-cost</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-013-workflow-email-crm.html">Workflow email-CRM</a> · alternative low-cost</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>HubSpot · Pipedrive · Bitrix24 (autre stack one-platform).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://www.zoho.com/crm/" target="_blank" rel="noopener">zoho.com/crm</a></p></div>
@@ -3026,7 +3123,7 @@
               <div class="tool-block"><div class="tool-block-label">Quand ne pas</div><ul><li>PME sans équipe PMM dédiée → Crayon plus accessible</li><li>Veille marque grand public → Brand24</li></ul></div>
             </div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p>Sur devis (typiquement 1-3k$/mois selon nombre de concurrents et utilisateurs).</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">CU-011 — Veille concurrentielle continue</a></li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-011-veille-concurrentielle.html">Veille concurrentielle continue</a></li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>Crayon (concurrent direct) · Kompyte · Brand24.</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://klue.com" target="_blank" rel="noopener">klue.com</a></p></div>
@@ -3052,7 +3149,7 @@
             </div>
             <div class="tool-block"><div class="tool-block-label">Stack &amp; intégrations</div><p>Python · CUDA (NVIDIA GPU) · TorchScript / TorchServe pour la prod · Compatible avec HuggingFace, Lightning, Detectron2, Ultralytics (YOLO).</p></div>
             <div class="tool-block"><div class="tool-block-label">Modèle économique</div><p><strong>Gratuit</strong> (BSD License). Coûts réels : infra GPU + ingénierie ML.</p></div>
-            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">CU-017 — Contrôle qualité par vision IA</a> · framework vision</li><li><a href="modules/cu-018-optimisation-production.html">CU-018 — Optimisation production</a> · modèles ML</li><li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> · fine-tuning embeddings</li></ul></div>
+            <div class="tool-block tool-block-modules"><div class="tool-block-label">Cas d'usage dans nos modules</div><ul><li><a href="modules/cu-017-controle-qualite-vision.html">Contrôle qualité par vision IA</a> · framework vision</li><li><a href="modules/cu-018-optimisation-production.html">Optimisation production</a> · modèles ML</li><li><a href="modules/cu-008-knowledge-base-rag.html">Knowledge base RAG</a> · fine-tuning embeddings</li></ul></div>
             <div class="tool-grid">
               <div class="tool-block"><div class="tool-block-label">Alternatives</div><p>TensorFlow (Google, déclin relatif) · JAX (Google, recherche) · MXNet (legacy).</p></div>
               <div class="tool-block"><div class="tool-block-label">Pour aller plus loin</div><p><a href="https://pytorch.org" target="_blank" rel="noopener">pytorch.org</a> · <a href="https://huggingface.co" target="_blank" rel="noopener">HuggingFace (écosystème)</a></p></div>
@@ -3062,12 +3159,115 @@
 
       </section>
 
+      <!-- BIBLIOGRAPHIE TRANSVERSE -->
+      <section class="module-section" id="bibliographie">
+        <div class="module-section-header">
+          <div class="module-section-icon">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Bibliographie transverse</h2>
+          </div>
+        </div>
+
+        <p>Les ressources qui sortent du cadre d'un module précis : études de fond, communautés, newsletters, livres et tutoriels qui aident à <strong>se former en continu</strong>. Centralisées ici pour éviter les doublons dans chaque fiche module.</p>
+
+        <div class="tool-index">
+
+          <!-- ÉTUDES & RAPPORTS -->
+          <div class="tool-index-cat">
+            <h3>📊 Études &amp; rapports</h3>
+            <ul class="tool-index-list">
+              <li><strong>AI Index Report</strong> (Stanford HAI) — rapport annuel de référence sur l'état de l'IA : capacités, économie, géopolitique, éthique. <a href="https://aiindex.stanford.edu/report/" target="_blank" rel="noopener">aiindex.stanford.edu</a></li>
+              <li><strong>State of AI Report</strong> (Nathan Benaich) — analyse annuelle synthétique très lue par les praticiens. <a href="https://www.stateof.ai" target="_blank" rel="noopener">stateof.ai</a></li>
+              <li><strong>Bpifrance Le Lab</strong> — études sur la transformation numérique des PME/ETI, dont plusieurs spécifiquement IA. <a href="https://lelab.bpifrance.fr" target="_blank" rel="noopener">lelab.bpifrance.fr</a></li>
+              <li><strong>France Num</strong> — guides pratiques IA &amp; numérique pour les TPE/PME, avec aides régionales. <a href="https://www.francenum.gouv.fr" target="_blank" rel="noopener">francenum.gouv.fr</a></li>
+              <li><strong>CNIL — IA &amp; RGPD</strong> — recommandations officielles sur les usages IA conformes RGPD. <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">cnil.fr/intelligence-artificielle</a></li>
+              <li><strong>EU AI Act — texte officiel</strong> — règlement (UE) 2024/1689 entré en vigueur progressivement 2024-2026. <a href="https://artificialintelligenceact.eu" target="_blank" rel="noopener">artificialintelligenceact.eu</a></li>
+              <li><strong>OECD AI Policy Observatory</strong> — comparaison internationale des politiques publiques IA. <a href="https://oecd.ai" target="_blank" rel="noopener">oecd.ai</a></li>
+              <li><strong>McKinsey — The State of AI</strong> — étude annuelle des usages IA en entreprise (adoption, ROI, gouvernance). <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights" target="_blank" rel="noopener">mckinsey.com/quantumblack</a></li>
+            </ul>
+          </div>
+
+          <!-- COMMUNAUTÉS -->
+          <div class="tool-index-cat">
+            <h3>💬 Communautés</h3>
+            <ul class="tool-index-list">
+              <li><strong>Hugging Face Hub</strong> — la place de marché des modèles open-source, datasets et démos. Indispensable pour rester à jour sur les modèles. <a href="https://huggingface.co" target="_blank" rel="noopener">huggingface.co</a></li>
+              <li><strong>r/LocalLLaMA</strong> (Reddit) — communauté très active autour des LLM open-weight, benchmarks, optimisation. <a href="https://reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">reddit.com/r/LocalLLaMA</a></li>
+              <li><strong>LangChain Discord</strong> — entraide pour l'orchestration d'agents et le RAG. <a href="https://discord.gg/langchain" target="_blank" rel="noopener">discord.gg/langchain</a></li>
+              <li><strong>n8n Community</strong> — forum officiel pour partager des workflows et intégrations. <a href="https://community.n8n.io" target="_blank" rel="noopener">community.n8n.io</a></li>
+              <li><strong>Quest for Change — réseau alumni</strong> — incubés/alumni des structures QFC du Grand Est. Échange de pratiques IA territoriales. <a href="https://questforchange.fr" target="_blank" rel="noopener">questforchange.fr</a></li>
+              <li><strong>Hub France IA</strong> — association nationale fédérant l'écosystème IA français (entreprises, recherche, public). <a href="https://www.hub-franceia.fr" target="_blank" rel="noopener">hub-franceia.fr</a></li>
+              <li><strong>French Tech</strong> — réseau startups françaises avec des verticales IA actives. <a href="https://lafrenchtech.com" target="_blank" rel="noopener">lafrenchtech.com</a></li>
+            </ul>
+          </div>
+
+          <!-- NEWSLETTERS -->
+          <div class="tool-index-cat">
+            <h3>📰 Newsletters</h3>
+            <ul class="tool-index-list">
+              <li><strong>Import AI</strong> (Jack Clark, ex-OpenAI) — recap hebdo recherche + politique. Excellent pour le contexte. <a href="https://importai.substack.com" target="_blank" rel="noopener">importai.substack.com</a></li>
+              <li><strong>The Batch</strong> (Andrew Ng / DeepLearning.AI) — newsletter pédagogique IA, cible praticiens. <a href="https://www.deeplearning.ai/the-batch/" target="_blank" rel="noopener">deeplearning.ai/the-batch</a></li>
+              <li><strong>Ben's Bites</strong> — actualité IA quotidienne, format court orienté business. <a href="https://www.bensbites.com" target="_blank" rel="noopener">bensbites.com</a></li>
+              <li><strong>Latent Space</strong> (swyx) — newsletter + podcast pour ingénieurs IA, deep tech. <a href="https://www.latent.space" target="_blank" rel="noopener">latent.space</a></li>
+              <li><strong>Génération IA</strong> — newsletter francophone hebdomadaire sur l'IA appliquée. <a href="https://www.generation-ia.fr" target="_blank" rel="noopener">generation-ia.fr</a></li>
+              <li><strong>Goodweek Newsletter</strong> — focus IA gouvernée et conformité, contexte EU/français. <a href="https://goodweek.ai" target="_blank" rel="noopener">goodweek.ai</a></li>
+            </ul>
+          </div>
+
+          <!-- TUTORIELS & FORMATIONS -->
+          <div class="tool-index-cat">
+            <h3>🎥 Tutoriels &amp; formations</h3>
+            <ul class="tool-index-list">
+              <li><strong>DeepLearning.AI</strong> (Andrew Ng) — cours courts gratuits sur LangChain, RAG, agents, fine-tuning. <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">deeplearning.ai/short-courses</a></li>
+              <li><strong>Hugging Face Course</strong> — formation NLP + LLM, gratuite, pratique. <a href="https://huggingface.co/learn" target="_blank" rel="noopener">huggingface.co/learn</a></li>
+              <li><strong>Anthropic — Build with Claude</strong> — guides officiels prompt engineering, tool use, multi-agents. <a href="https://docs.anthropic.com" target="_blank" rel="noopener">docs.anthropic.com</a></li>
+              <li><strong>OpenAI Cookbook</strong> — recettes Python pour les usages courants (RAG, fonctions, embeddings). <a href="https://cookbook.openai.com" target="_blank" rel="noopener">cookbook.openai.com</a></li>
+              <li><strong>3Blue1Brown — Neural Networks</strong> — série pédagogique YouTube sur les fondamentaux. <a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3blue1brown.com/topics/neural-networks</a></li>
+              <li><strong>Andrej Karpathy — Zero to Hero</strong> — série YouTube qui construit un LLM de zéro. <a href="https://www.youtube.com/@AndrejKarpathy" target="_blank" rel="noopener">youtube.com/@AndrejKarpathy</a></li>
+              <li><strong>OpenClassrooms — Parcours IA</strong> — formations diplômantes en français, certifiées RNCP. <a href="https://openclassrooms.com" target="_blank" rel="noopener">openclassrooms.com</a></li>
+            </ul>
+          </div>
+
+          <!-- LIVRES -->
+          <div class="tool-index-cat">
+            <h3>📖 Livres</h3>
+            <ul class="tool-index-list">
+              <li><strong>Designing Machine Learning Systems</strong> (Chip Huyen, 2022) — référence pour la mise en production ML/IA. O'Reilly.</li>
+              <li><strong>Building LLM Applications for Production</strong> (Chip Huyen, à paraître 2025) — suite logique, focus LLM/RAG/agents.</li>
+              <li><strong>The Hundred-Page Machine Learning Book</strong> (Andriy Burkov) — synthèse condensée des fondamentaux ML, lu en un week-end.</li>
+              <li><strong>L'IA en entreprise</strong> (Luc Julia, 2023) — perspective française pragmatique sur les usages IA en PME/ETI.</li>
+              <li><strong>Quand la machine apprend</strong> (Yann Le Cun, 2019) — référence francophone sur l'apprentissage profond et ses enjeux.</li>
+              <li><strong>Human Compatible</strong> (Stuart Russell, 2019) — réflexion structurée sur la sécurité IA, accessible aux décideurs.</li>
+            </ul>
+          </div>
+
+          <!-- BLOGS DE RÉFÉRENCE -->
+          <div class="tool-index-cat">
+            <h3>✍️ Blogs &amp; veille technique</h3>
+            <ul class="tool-index-list">
+              <li><strong>Anthropic Research Blog</strong> — articles fondateurs sur Claude, alignement, mécanistique. <a href="https://www.anthropic.com/research" target="_blank" rel="noopener">anthropic.com/research</a></li>
+              <li><strong>OpenAI Blog</strong> — annonces produits + papiers de recherche. <a href="https://openai.com/blog" target="_blank" rel="noopener">openai.com/blog</a></li>
+              <li><strong>Google DeepMind Blog</strong> — recherche fondamentale (AlphaFold, Gemini, robotique). <a href="https://deepmind.google/discover/blog" target="_blank" rel="noopener">deepmind.google/discover/blog</a></li>
+              <li><strong>Mistral AI Blog</strong> — annonces modèles + architecture, contexte EU. <a href="https://mistral.ai/news" target="_blank" rel="noopener">mistral.ai/news</a></li>
+              <li><strong>Simon Willison's Weblog</strong> — veille technique IA quotidienne, très pratique pour les praticiens. <a href="https://simonwillison.net" target="_blank" rel="noopener">simonwillison.net</a></li>
+              <li><strong>Sebastian Raschka — Ahead of AI</strong> — synthèses techniques sur l'évolution des modèles. <a href="https://magazine.sebastianraschka.com" target="_blank" rel="noopener">magazine.sebastianraschka.com</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p style="margin-top: var(--space-5); padding: var(--space-4); background: var(--color-bg-subtle); border-radius: var(--radius-md); font-size: 0.9375rem;">
+          💡 <strong>Astuce.</strong> Plutôt que de t'abonner à tout, choisis 1 newsletter (ex&nbsp;: Import AI ou Génération IA) + 1 communauté active (ex&nbsp;: r/LocalLLaMA ou un Discord pertinent) + 1 source produit (Anthropic ou OpenAI selon ta stack). Tu auras 90&nbsp;% du signal utile sans submersion.
+        </p>
+      </section>
+
       <!-- INDEX PAR CATÉGORIE -->
       <section class="module-section" id="index">
         <div class="module-section-header">
-          <div class="module-section-icon success">📚</div>
+          <div class="module-section-icon success">🗂️</div>
           <div class="module-section-title">
-            <div class="section-number">Section 3</div>
+            <div class="section-number">Section 5</div>
             <h2>Index complet par catégorie</h2>
           </div>
         </div>

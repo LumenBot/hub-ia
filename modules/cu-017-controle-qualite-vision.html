@@ -34,10 +34,8 @@
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
-        <span class="nav-title">Hub IA — Learning Center</span>
-      </a>
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
@@ -96,7 +94,7 @@
           <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
           <h2>Pourquoi ce module ?</h2>
           <p>
-            Le contrôle qualité humain a 4 limites structurelles : vitesse de cadence, fatigue, subjectivité, coût. Le contrôle par vision IA (caméras + deep learning + edge computing + intégration PLC) y répond avec un taux de détection 95-99 %, &lt;1 % de faux rejets et un ROI de 12-18 mois sur ligne moyenne ETI. Pour le tissu industriel vosgien (bois, papier, textile, plasturgie, agroalimentaire), c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie, avec des dispositifs publics qui cofinancent jusqu'à 60-70 %.
+            Le contrôle qualité humain a 4 limites structurelles : vitesse de cadence, fatigue, subjectivité, coût. Le contrôle par vision IA (caméras + deep learning + edge computing + intégration PLC) y répond avec un taux de détection 95-99 %, &lt;1 % de faux rejets et un ROI de 12-18 mois sur ligne moyenne ETI. Pour le tissu industriel du Grand Est (bois, papier, textile, plasturgie, agroalimentaire), c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie, avec des dispositifs publics qui cofinancent jusqu'à 60-70 %.
           </p>
 
           <div class="exec-takeaways">
@@ -170,7 +168,7 @@
         </div>
 
         <p>
-          C'est un cas pivot pour l'ensemble du tissu industriel vosgien. Avec un ROI typique en 12-18 mois pour les ETI, c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie.
+          C'est un cas pivot pour l'ensemble du tissu industriel du Grand Est. Avec un ROI typique en 12-18 mois pour les ETI, c'est l'un des cas industriels au meilleur ratio investissement/valeur de la décennie.
         </p>
 
         <div class="roi-box">
@@ -201,11 +199,11 @@
       <section class="module-section" id="section-2">
         <div class="module-section-header">
           <div class="module-section-icon icon-list">2</div>
-          <h2 class="module-section-title">Toutes les filières industrielles vosgiennes y trouvent un usage</h2>
+          <h2 class="module-section-title">Toutes les filières industrielles du Grand Est y trouvent un usage</h2>
         </div>
 
         <p>
-          Le pattern est largement transposable. Toutes les filières industrielles du tissu vosgien peuvent y trouver un usage rentable dès lors que la production est en série et que la qualité visuelle est un enjeu :
+          Le pattern est largement transposable. Toutes les filières industrielles du Grand Est (Vosges, Lorraine, Alsace, Champagne-Ardenne) peuvent y trouver un usage rentable dès lors que la production est en série et que la qualité visuelle est un enjeu :
         </p>
 
         <div class="filieres-grid">
@@ -369,31 +367,51 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche capture ─┐</strong>
-   Caméras industrielles (Basler, IDS, Cognex)
-   Selon défaut : couleur · hyperspectrale · ligne · 3D
-   + Éclairage technique maîtrisé (rasant, diffus, UV/IR)
-
-<strong>┌─ Couche inférence ─┐</strong>
-   Edge computing (NVIDIA Jetson, GPU serveur on-site)
-   Latence millisecondes pour suivre cadence ligne
-   Modèles deep learning : YOLO, Mask R-CNN, ViT
-
-<strong>┌─ Couche décision ─┐</strong>
-   Verdict OK / NOK / AMBIGU + catégorie défaut
-   Seuils différenciés par criticité défaut
-   Logging traçabilité MES + dashboard supervision
-
-<strong>┌─ Couche intégration ligne ─┐</strong>
-   PLC (Siemens, Schneider, Rockwell) via OPC UA / Modbus / Profinet
-   Action automatique : éjection · marquage · alerte · ralentissement
-   MES intégré pour reporting qualité
-
-<strong>┌─ Couche apprentissage continu ─┐</strong>
-   Cas ambigus → annotation opérateur → enrichissement dataset
-   Re-calibration trimestrielle / semestrielle
-   Monitoring drift performance modèle
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📷 Couche capture — caméras + éclairage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step"><div class="archi-step-icon">📷</div><div class="archi-step-content"><strong>Caméras industrielles</strong><small>Basler · IDS · Cognex — selon défaut : couleur · hyperspectrale · ligne · 3D</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step"><div class="archi-step-icon">💡</div><div class="archi-step-content"><strong>Éclairage technique maîtrisé</strong><small>Rasant · diffus · UV / IR selon le type de défaut à révéler</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🧠 Couche inférence — edge computing</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-agent"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Edge computing</strong><small>NVIDIA Jetson · GPU serveur on-site · latence millisecondes pour suivre la cadence ligne</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Modèles deep learning</strong><small>YOLO · Mask R-CNN · ViT (Vision Transformer)</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">⚖️ Couche décision</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-decision"><div class="archi-step-icon">✅</div><div class="archi-step-content"><strong>Verdict OK / NOK / AMBIGU</strong><small>+ catégorie de défaut · seuils différenciés par criticité</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📊</div><div class="archi-step-content"><strong>Logging + traçabilité MES</strong><small>Dashboard supervision pour les équipes qualité</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔌 Couche intégration ligne</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-trigger"><div class="archi-step-icon">🏭</div><div class="archi-step-content"><strong>PLC industriel</strong><small>Siemens · Schneider · Rockwell — via OPC UA / Modbus / Profinet</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-output"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Action automatique sur ligne</strong><small>Éjection · marquage · alerte · ralentissement (selon décision modèle)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📈</div><div class="archi-step-content"><strong>MES intégré</strong><small>Reporting qualité, indicateurs de production</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🔄 Couche apprentissage continu</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-decision"><div class="archi-step-icon">❓</div><div class="archi-step-content"><strong>Cas ambigus identifiés</strong><small>Score de confiance bas → besoin d'avis opérateur</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-human"><div class="archi-step-icon">✏️</div><div class="archi-step-content"><strong>Annotation opérateur</strong><small>Verdict humain → enrichissement du dataset</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Re-calibration trimestrielle / semestrielle</strong><small>Monitoring drift de performance modèle, ré-entraînement périodique</small></div></div>
+            </div>
+          </div>
         </div>
 
         <h3>Solutions commerciales spécialisées</h3>
@@ -418,7 +436,7 @@
 
         <h3>Partenaires d'intégration sur le territoire</h3>
         <p>
-          Pour les industriels vosgiens : <a href="../ressources.html#nin-ia" class="tool-link">NIN-IA</a> (alumni QFC) accompagne les déploiements accessibles, <strong>Atsora Solutions</strong> (alumni QFC) couvre les cas plus complexes orientés supervision process. Centres techniques locaux : <strong>CRITT Bois</strong>, <strong>IUT Hubert Curien</strong>, <strong>ENSTIB</strong> peuvent accompagner sur la R&D filière bois. <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orienter et accompagner les projets.
+          Pour les industriels du Grand Est : <a href="../ressources.html#nin-ia" class="tool-link">NIN-IA</a> (alumni QFC) accompagne les déploiements accessibles, <strong>Atsora Solutions</strong> (alumni QFC) couvre les cas plus complexes orientés supervision process. Centres techniques locaux : <strong>CRITT Bois</strong>, <strong>IUT Hubert Curien</strong>, <strong>ENSTIB</strong> peuvent accompagner sur la R&D filière bois. <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orienter et accompagner les projets.
         </p>
 
         <h3>Prérequis</h3>
@@ -436,7 +454,7 @@
 
         <div class="funding-box">
           <h3>💰 Cofinancement public jusqu'à 50-70 %</h3>
-          <p style="margin: 0 0 var(--space-3);">La vision IA en contrôle qualité est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement attractifs pour les ETI vosgiennes :</p>
+          <p style="margin: 0 0 var(--space-3);">La vision IA en contrôle qualité est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement attractifs pour les ETI du Grand Est :</p>
           <ul>
             <li><strong>Région Grand Est Compétitivité</strong> — soutien à la transformation digitale industrielle, taux de financement client final pouvant atteindre 70 % selon montant et impact territorial.</li>
             <li><strong>DECARB IND (France 2030)</strong> — la vision IA réduit indirectement l'empreinte carbone via réduction des rebuts et amélioration du rendement matière. Subvention jusqu'à 30 % HT.</li>
@@ -444,7 +462,7 @@
             <li><strong>Pionniers IA (Bpifrance)</strong> — bourse d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
             <li><strong>CIR / CII</strong> — sur la partie R&D et innovation du déploiement (modélisation custom, capteurs spécifiques, intégration avancée).</li>
           </ul>
-          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu vosgien, le cumul Région Grand Est Compétitivité + DECARB IND + Pionniers IA permet typiquement d'atteindre 60-70 % de cofinancement public, avec accompagnement possible par un Startup Manager du réseau Quest for Change ou un consultant en ingénierie financière.</em></p>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu industriel territorial (Grand Est, dont Vosges), le cumul Région Grand Est Compétitivité + DECARB IND + Pionniers IA permet typiquement d'atteindre 60-70 % de cofinancement public, avec accompagnement possible par un Startup Manager du réseau Quest for Change ou un consultant en ingénierie financière.</em></p>
         </div>
       </section>
 
@@ -514,7 +532,7 @@
         </div>
 
         <p>
-          Une société fictive mais réaliste, inspirée du tissu industriel bois vosgien. 5 étapes décortiquées sur un déploiement de 14 mois. Compte 70 minutes pour assimiler en profondeur, ou 25 minutes en survol.
+          Une société fictive mais réaliste, inspirée du tissu industriel filière bois Grand Est. 5 étapes décortiquées sur un déploiement de 14 mois. Compte 70 minutes pour assimiler en profondeur, ou 25 minutes en survol.
         </p>
 
         <div class="case-deep-actor">
@@ -823,6 +841,10 @@
         <div class="module-section-header">
           <div class="module-section-icon icon-resources">11</div>
           <h2 class="module-section-title">Pour aller plus loin</h2>
+
+          <div class="callout callout-info" style="margin: var(--space-4) 0;">
+            <p style="margin:0;">📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études Bpifrance, AI Act, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce module.</p>
+          </div>
         </div>
 
         <div class="resources-cat">

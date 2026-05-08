@@ -13,9 +13,10 @@ function updateProgress() {
 window.addEventListener('scroll', updateProgress, { passive: true });
 
 // Scroll-spy : highlight de la section active dans le TOC
+// Support des 2 structures TOC : .module-toc-list a (V3 standard) et .module-toc-nav a (variante 8 modules)
 document.addEventListener('DOMContentLoaded', () => {
-  const tocSections = document.querySelectorAll('.module-section[id]');
-  const tocLinks = document.querySelectorAll('.module-toc-list a');
+  const tocSections = document.querySelectorAll('.module-section[id], section[id^="section-"]');
+  const tocLinks = document.querySelectorAll('.module-toc-list a, .module-toc-nav a');
 
   if (tocSections.length === 0 || tocLinks.length === 0) return;
 
@@ -47,8 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Toggle TOC mobile
+// Toggle TOC mobile (structure module-toc-list)
 function toggleToc() {
   const list = document.getElementById('tocList');
   if (list) list.classList.toggle('open');
+  // Compat structure alternative module-toc-nav (8 modules)
+  const nav = document.getElementById('tocNav');
+  if (nav) {
+    nav.classList.toggle('collapsed');
+    // Mettre à jour le bouton − / +
+    const btn = document.querySelector('.module-toc-toggle');
+    if (btn) btn.textContent = nav.classList.contains('collapsed') ? '+' : '−';
+  }
 }

@@ -26,10 +26,8 @@
 
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo">
-        <span class="nav-title">Hub IA — Learning Center</span>
-      </a>
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
@@ -347,30 +345,47 @@
         </div>
 
         <h3>Architecture de référence</h3>
-        <div class="archi-block">
-<strong>┌─ Couche orchestration ─┐</strong>
-   Humain → Discord (channel #orchestrator)
-   → Agent orchestrateur (LangGraph / OpenClaw)
-   → Routage par périmètre + cron jobs
-   → Délégation à l'agent compétent
-
-<strong>┌─ Couche agents fonctionnels ─┐</strong>
-   Agent Sales      → channel #sales      → modèle + outils CRM
-   Agent Marketing  → channel #marketing  → modèle + outils contenu
-   Agent Writer     → channel #writer     → modèle long-form + RAG
-   Agent Developer  → channel #dev        → modèle code + outils dev
-
-<strong>┌─ Couche mémoire et apprentissage ─┐</strong>
-   Vector store (Qdrant) — embeddings de toutes les actions
-   + Base SQL (Postgres) — état structuré, historique, KPIs
-   + Bibliothèque de skills (workflows hardened)
-   → Tous les agents lisent et écrivent
-
-<strong>┌─ Couche pilotage humain ─┐</strong>
-   Dashboard unifié (Notion / Linear / ClickUp)
-   → Tâches en cours par agent
-   → Validations humaines en attente
-   → Métriques de chaque fonction
+        <div class="archi-flow">
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🎯 Couche orchestration</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">👤</div><div class="archi-step-content"><strong>Humain</strong><small>Discord (channel #orchestrator)</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🎭</div><div class="archi-step-content"><strong>Agent orchestrateur</strong><small>LangGraph / OpenClaw — routage par périmètre + cron jobs</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🔀</div><div class="archi-step-content"><strong>Délégation à l'agent compétent</strong><small>Selon la nature de la tâche</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">🤖 Couche agents fonctionnels</div>
+            <div class="archi-branches" style="padding-left:0;">
+              <div class="archi-branch"><div class="archi-branch-icon">💼</div><div><strong>Agent Sales</strong><small>#sales · modèle + outils CRM</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">📣</div><div><strong>Agent Marketing</strong><small>#marketing · modèle + outils contenu</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">✍️</div><div><strong>Agent Writer</strong><small>#writer · modèle long-form + RAG</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">👨‍💻</div><div><strong>Agent Developer</strong><small>#dev · modèle code + outils dev</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">💾 Couche mémoire et apprentissage</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-store"><div class="archi-step-icon">🧬</div><div class="archi-step-content"><strong>Vector store (Qdrant)</strong><small>Embeddings de toutes les actions des agents</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">🗄️</div><div class="archi-step-content"><strong>Base SQL (Postgres)</strong><small>État structuré, historique, KPIs</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>Bibliothèque de skills</strong><small>Workflows hardened, réutilisés par les agents</small></div></div>
+              <div class="archi-arrow">↓</div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🔁</div><div class="archi-step-content"><strong>Tous les agents lisent et écrivent</strong><small>Mémoire partagée pour la cohérence multi-agents</small></div></div>
+            </div>
+          </div>
+          <div class="archi-flow-section">
+            <div class="archi-flow-section-label">📊 Couche pilotage humain</div>
+            <div class="archi-flow-steps">
+              <div class="archi-step is-human"><div class="archi-step-icon">📋</div><div class="archi-step-content"><strong>Dashboard unifié</strong><small>Notion / Linear / ClickUp</small></div></div>
+              <div class="archi-branches" style="padding-left:0;">
+                <div class="archi-branch"><div class="archi-branch-icon">⏱️</div><div><strong>Tâches en cours</strong><small>Par agent et par périmètre</small></div></div>
+                <div class="archi-branch draft"><div class="archi-branch-icon">⏳</div><div><strong>Validations en attente</strong><small>Approbations humaines requises</small></div></div>
+                <div class="archi-branch"><div class="archi-branch-icon">📈</div><div><strong>Métriques par fonction</strong><small>Throughput, coût, qualité</small></div></div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <h3>Frameworks d'orchestration multi-agents</h3>
@@ -779,6 +794,10 @@
         <div class="module-section-header">
           <div class="module-section-icon icon-resources">10</div>
           <h2 class="module-section-title">Pour aller plus loin</h2>
+
+          <div class="callout callout-info" style="margin: var(--space-4) 0;">
+            <p style="margin:0;">📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études Bpifrance, AI Act, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce module.</p>
+          </div>
         </div>
 
         <div class="resources-cat">
