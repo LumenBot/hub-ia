@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance & comptabilité augmentées — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <!-- Barre de progression de lecture -->
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=a#modules" class="card-badge axe-a">📚 Productivité</a>
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b" style="opacity:0.7;">+ 🧭 Décision</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">35 min de lecture</span>
+      </div>
+      <h1>💰 Finance & comptabilité augmentées</h1>
+      <p class="module-subtitle">
+        Automatiser l'extraction des factures fournisseurs, le rapprochement bancaire, la prévision de cash et la détection d'anomalies financières. Pour une PME, 60 à 80 % du temps d'un service comptable est automatisable. ROI documenté à 155 % en 1 an sur retours d'expérience France Num. Précision OCR+LLM 92-98 %.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. 4 cas d'usage couverts</a>
+        <a href="#section-3">3. Architecture du pipeline</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack & outils</a>
+        <a href="#section-6">6. Cas d'étude guidé</a>
+        <a href="#section-7">7. Pièges à éviter</a>
+        <a href="#section-8">8. Auto-diagnostic</a>
+        <a href="#section-9">9. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 90 secondes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            La fonction comptable et financière en PME est un des plus gros gisements de productivité IA documentés en 2026. Le bloc « extraction factures + rapprochement + prévision cash + détection anomalies » couvre 60 à 80 % du temps d'un service comptable PME, avec un ROI médian France Num à 155 % la 1ʳᵉ année et un retour terrain Batibig (BTP) qui détecte 110 K€ de sur-facturation pour 20 K€ d'investissement. Stack accessible (Claude/GPT + n8n/Make + ERP standard), précision OCR+LLM 92-98 %, déploiement 6-12 semaines.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📄</div>
+              <div class="exec-takeaway-content">
+                <strong>Extraction factures = quick win.</strong> OCR+LLM extrait fournisseur, montant, TVA, lignes, imputations comptables. Précision 92-98 % après calibrage. Économie typique : 20-120 h/mois pour 200-500 factures/mois.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📊</div>
+              <div class="exec-takeaway-content">
+                <strong>Prévision cash = pilotage stratégique.</strong> Agent IA qui apprend les délais paiement réels (vs DSO théoriques) et projette les encaissements à 30-60-90 jours. Précision typique ±5 % sur 60 jours.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔍</div>
+              <div class="exec-takeaway-content">
+                <strong>Détection anomalies = revenue protection.</strong> Cas Batibig BTP : 110 K€ de sur-facturation détectés pour 20 K€ d'investissement (1 mois de dev). LLM analysant écarts vs catalogue/historique.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⚖️</div>
+              <div class="exec-takeaway-content">
+                <strong>Validation humaine systématique.</strong> Un comptable garde le dernier mot sur chaque imputation, chaque rapprochement litigieux, chaque alerte d'anomalie. L'IA propose, l'humain valide.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">155 %</div>
+              <div class="exec-stat-label">ROI médian PME 1ʳᵉ année</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">92-98 %</div>
+              <div class="exec-stat-label">Précision OCR+LLM</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">6-12 sem</div>
+              <div class="exec-stat-label">Déploiement</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">35 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une PME/ETI avec ≥ 100 factures fournisseurs/mois ; tu as un service comptable saturé sur les tâches répétitives ; ton DAF passe trop de temps à reconstituer la prévision cash hebdo ; tu suspectes des anomalies de facturation fournisseurs sans avoir le temps de les auditer ; tu as un ERP avec API (Sage, Cegid, EBP, Pennylane, Qonto, Odoo, autre).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — un gisement IA sous-exploité</h2>
+        </div>
+
+        <p>
+          La fonction finance / comptabilité en PME est <strong>une des plus chronophages</strong> et l'une des moins outillées par l'IA en 2026 : 60 à 80 % du temps d'un service comptable est consacré à des tâches répétitives à faible valeur ajoutée — saisie ou contrôle de factures, lettrage, rapprochement bancaire, relances clients, reporting hebdomadaire. Pourtant, ces tâches sont précisément celles que l'IA générative et les agents savent automatiser le mieux.
+        </p>
+        <p>
+          Le retour terrain <strong>France Num</strong> sur une PME de 35 salariés est emblématique : <strong>22 K€ investis sur 76 jours, 280 h/mois récupérées sur 4 sous-cas</strong> (extraction factures, relances, rapprochement, rapports financiers), <strong>ROI 155 % la 1ʳᵉ année</strong>. Le retour <strong>Batibig (BTP)</strong> est plus parlant encore : un outil de détection d'anomalies sur factures fournisseurs développé en 1 mois pour 20 K€, qui détecte <strong>110 K€ de sur-facturation</strong> dès la 1ʳᵉ année.
+        </p>
+
+        <div class="pull-quote">
+          La finance PME est un cas d'usage idéal pour l'IA : volumes répétitifs, structure des données stable, ROI mesurable en quelques semaines, validation humaine facile à inscrire dans le workflow comptable existant. Pourtant la majorité des PME-ETI n'ont pas encore franchi le pas — c'est l'un des gisements de productivité les mieux documentés et les moins exploités.
+        </p>
+
+        <p>
+          Ce module couvre <strong>4 sous-cas qui se renforcent mutuellement</strong> : extraction de factures fournisseurs (la brique de base), rapprochement bancaire automatique (qui consomme l'output de l'extraction), prévision de cash (qui s'appuie sur l'historique des délais paiement réels), et détection d'anomalies financières (qui audite les flux extraits). Mis bout à bout, ce sont 60 à 80 % des tâches comptables récurrentes qui basculent en mode « IA propose, humain valide ».
+        </p>
+      </section>
+
+      <!-- 2. 4 CAS D'USAGE -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les 4 cas d'usage couverts par le module</h2>
+        </div>
+
+        <p>
+          Les 4 sous-cas peuvent être déployés indépendamment, mais leur valeur compose. La séquence recommandée : démarrer par l'extraction (brique foundation), enchaîner sur le rapprochement (qui consomme l'output), ajouter la prévision cash (qui s'appuie sur les données réelles), terminer par la détection d'anomalies (qui audite l'ensemble).
+        </p>
+
+        <div class="usecase-grid">
+          <div class="usecase-card">
+            <div class="usecase-card-icon">📄</div>
+            <div class="usecase-card-title">Extraction factures fournisseurs</div>
+            <div class="usecase-card-desc">OCR+LLM extrait fournisseur, n° facture, montant HT/TTC, TVA, lignes de détail, imputations comptables — y compris sur factures scannées ou photographiées.</div>
+            <div class="usecase-card-roi">Gain : 20-120 h/mois pour 200-500 factures</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">🔄</div>
+            <div class="usecase-card-title">Rapprochement bancaire automatique</div>
+            <div class="usecase-card-desc">Agent IA qui rapproche les écritures bancaires avec les factures et les paiements clients en s'appuyant sur les libellés, montants et dates. Filtre les rapprochements évidents.</div>
+            <div class="usecase-card-roi">Gain : 10-40 h/mois sur le lettrage</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">📊</div>
+            <div class="usecase-card-title">Prévision cash & pilotage trésorerie</div>
+            <div class="usecase-card-desc">Apprend les délais paiement réels par client, projette les encaissements à 30-60-90 j, déclenche les relances automatiques. Reporting hebdo automatisé pour le DAF.</div>
+            <div class="usecase-card-roi">Précision typique ±5 % sur 60 jours</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">🔍</div>
+            <div class="usecase-card-title">Détection anomalies & sur-facturation</div>
+            <div class="usecase-card-desc">LLM compare chaque facture entrante au catalogue fournisseur, à l'historique, aux contrats. Détecte écarts de prix, doublons, lignes injustifiées, dérives temporelles.</div>
+            <div class="usecase-card-roi">Cas Batibig : 110 K€ détectés / 20 K€ investis</div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Recommandation par défaut</strong> : démarrer par l'extraction de factures, qui est la brique de base et le quick win le plus mesurable (≤ 6 semaines de déploiement, ROI immédiat). Étendre ensuite vers le rapprochement bancaire, puis la prévision cash, puis la détection d'anomalies. <strong>Ne pas chercher à tout déployer en parallèle</strong> — l'humanisation du workflow comptable demande du calibrage à chaque étape.
+        </p>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture du pipeline</h2>
+        </div>
+
+        <p>
+          Pipeline canonique sur le sous-cas extraction de factures (qui sert de fondation aux 3 autres). Trigger sur arrivée d'une facture (email, scan, drive, EDI). OCR+LLM extrait les champs structurés. Agent comptable propose l'imputation. Validation humaine (sauf pour les fournisseurs récurrents avec règles validées). Écriture ERP. Boucle d'apprentissage sur les corrections.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar21" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar21green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+            </defs>
+
+            <!-- Sources -->
+            <rect x="20" y="40" width="170" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">📥 SOURCES</text>
+            <text x="105" y="80" text-anchor="middle" font-size="11" fill="#333">Email · scan · drive · EDI</text>
+            <text x="105" y="93" text-anchor="middle" font-size="10" fill="#666" font-style="italic">~200-500 factures/mois</text>
+
+            <!-- Étape 1 OCR+LLM -->
+            <rect x="210" y="40" width="170" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="295" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">1 — EXTRACTION</text>
+            <text x="295" y="85" text-anchor="middle" font-size="11" fill="#333">OCR robuste + LLM</text>
+            <text x="295" y="100" text-anchor="middle" font-size="11" fill="#333">Fournisseur · montant · TVA</text>
+            <text x="295" y="115" text-anchor="middle" font-size="11" fill="#333">Lignes · imputation</text>
+            <text x="295" y="132" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Précision 92-98 %</text>
+
+            <!-- Étape 2 Validation -->
+            <rect x="400" y="40" width="170" height="100" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="485" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — RÈGLES</text>
+            <text x="485" y="85" text-anchor="middle" font-size="11" fill="white">Auto si fournisseur</text>
+            <text x="485" y="100" text-anchor="middle" font-size="11" fill="white">récurrent + confiance</text>
+            <text x="485" y="115" text-anchor="middle" font-size="11" fill="white">Sinon validation humain</text>
+            <text x="485" y="132" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Cap 70-85 % auto</text>
+
+            <!-- Étape 3 Écriture ERP -->
+            <rect x="590" y="40" width="170" height="100" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="675" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">3 — ÉCRITURE ERP</text>
+            <text x="675" y="85" text-anchor="middle" font-size="11" fill="#333">API native ERP</text>
+            <text x="675" y="100" text-anchor="middle" font-size="11" fill="#333">Sage · Cegid · Pennylane</text>
+            <text x="675" y="115" text-anchor="middle" font-size="11" fill="#333">EBP · Odoo · Qonto</text>
+            <text x="675" y="132" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Logging traçabilité</text>
+
+            <!-- Étape 4 Comptable validation -->
+            <rect x="780" y="40" width="120" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="840" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">✋ HUMAIN</text>
+            <text x="840" y="85" text-anchor="middle" font-size="10" fill="#333">Comptable</text>
+            <text x="840" y="100" text-anchor="middle" font-size="10" fill="#333">tranche les</text>
+            <text x="840" y="115" text-anchor="middle" font-size="10" fill="#333">cas litigieux</text>
+            <text x="840" y="135" text-anchor="middle" font-size="9" fill="#666" font-style="italic">15-30 % flux</text>
+
+            <!-- Couche 2 - Sous-cas -->
+            <rect x="20" y="200" width="220" height="80" rx="10" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="130" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">A — RAPPROCHEMENT BANCAIRE</text>
+            <text x="130" y="248" text-anchor="middle" font-size="11" fill="#333">Agent qui matche</text>
+            <text x="130" y="265" text-anchor="middle" font-size="11" fill="#333">factures ↔ écritures bancaires</text>
+
+            <rect x="270" y="200" width="220" height="80" rx="10" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="380" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5C20">B — PRÉVISION CASH</text>
+            <text x="380" y="248" text-anchor="middle" font-size="11" fill="#333">Apprend délais réels</text>
+            <text x="380" y="265" text-anchor="middle" font-size="11" fill="#333">Projette à 30/60/90 j</text>
+
+            <rect x="520" y="200" width="220" height="80" rx="10" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="630" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#8C1A1A">C — DÉTECTION ANOMALIES</text>
+            <text x="630" y="248" text-anchor="middle" font-size="11" fill="#333">Compare prix vs catalogue</text>
+            <text x="630" y="265" text-anchor="middle" font-size="11" fill="#333">Doublons · dérives</text>
+
+            <!-- Boucle apprentissage en bas -->
+            <rect x="100" y="340" width="720" height="60" rx="10" fill="#FFFBEB" stroke="#B89030" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="365" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">🔄 BOUCLE D'APPRENTISSAGE</text>
+            <text x="460" y="385" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Corrections du comptable → enrichissement règles fournisseur + ajustement prompts → précision augmente dans le temps</text>
+
+            <!-- Flèches -->
+            <line x1="190" y1="70" x2="208" y2="70" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar21)"/>
+            <line x1="380" y1="80" x2="398" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar21)"/>
+            <line x1="570" y1="80" x2="588" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar21)"/>
+            <line x1="760" y1="80" x2="778" y2="80" stroke="#5C8C5C" stroke-width="2.5" marker-end="url(#ar21green)"/>
+
+            <!-- ERP → 3 sous-cas -->
+            <line x1="675" y1="140" x2="200" y2="198" stroke="#5C8C5C" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar21)"/>
+            <line x1="675" y1="140" x2="380" y2="198" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar21)"/>
+            <line x1="675" y1="140" x2="630" y2="198" stroke="#C82A2A" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar21)"/>
+
+            <!-- Boucle apprentissage -->
+            <line x1="295" y1="280" x2="295" y2="338" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar21)"/>
+            <line x1="630" y1="280" x2="630" y2="338" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar21)"/>
+
+            <text x="450" y="425" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Pipeline foundation (extraction) + 3 sous-cas dérivés qui se renforcent mutuellement, avec validation humaine et apprentissage continu</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline foundation : extraction OCR+LLM → application règles → écriture ERP → validation humaine sur les cas litigieux. 3 sous-cas dérivés (rapprochement, prévision, anomalies) consomment et alimentent le pipeline central.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Cartographier le flux factures actuel.</strong> Combien de factures fournisseurs par mois ? Combien de fournisseurs récurrents (qui représentent typiquement 70-80 % du volume) ? Combien de temps consomme la saisie aujourd'hui ? Quel ERP est en place et expose-t-il une API ? Cet audit prend 2-3 heures et conditionne tout le reste.</li>
+          <li><strong>Choisir l'OCR robuste adapté à tes documents.</strong> Pour les factures structurées (PDF natifs), <strong>Mistral Document AI</strong> ou <strong>Anthropic Vision</strong> via Claude suffisent. Pour les factures scannées ou photographiées, ajouter une couche <strong>Mindee</strong> ou <strong>Tesseract</strong> en pré-traitement. Précision attendue après calibrage : 92-98 % sur les fournisseurs récurrents, 85-92 % sur les fournisseurs occasionnels.</li>
+          <li><strong>Configurer le LLM extracteur.</strong> Prompt système qui définit le schéma JSON de sortie : fournisseur, n° facture, date, montant HT, TVA, montant TTC, lignes de détail, imputation comptable suggérée. Few-shot avec 5-10 exemples calibrés sur tes formats. <strong>Claude</strong> excelle sur l'extraction structurée nuancée. <strong>Mistral Large</strong> est l'option souveraine EU recommandée sur les données fournisseurs sensibles (CU-020 conformité RGPD/AI Act).</li>
+          <li><strong>Définir les règles d'auto-validation.</strong> Auto-validation pour les fournisseurs récurrents avec écart prix < 5 % vs historique. Sinon escalade au comptable. Cap typique : 70-85 % du flux en auto, 15-30 % en validation humaine. <strong>Démarrer en mode prudent (50 % auto)</strong>, augmenter progressivement après calibrage.</li>
+          <li><strong>Intégrer à l'ERP via API native.</strong> <strong>Pennylane</strong> et <strong>Qonto</strong> ont les API les plus accessibles pour PME. <strong>Sage 100</strong> et <strong>Cegid</strong> ont des connecteurs dédiés. <strong>EBP</strong> et <strong>Odoo</strong> exposent des API REST. Pour les ERP plus anciens, intermédier via une couche <strong>n8n</strong> ou <strong>Make</strong>.</li>
+          <li><strong>Boucle d'apprentissage continu.</strong> Chaque correction humaine sur une imputation ou un fournisseur enrichit la base de règles. Au bout de 6-8 semaines de calibrage, le taux d'auto-validation passe typiquement de 50 % à 75-85 %.</li>
+          <li><strong>Étendre vers le rapprochement bancaire.</strong> Une fois l'extraction stabilisée, configurer un agent qui matche les écritures bancaires avec les factures + paiements clients sur la base libellés/montants/dates. Algo simple suffit pour 80 % des cas, LLM tranche les ambigus.</li>
+          <li><strong>Étendre vers la prévision cash.</strong> Agent qui apprend les délais paiement réels par client (vs DSO théoriques), projette les encaissements à 30/60/90 j, déclenche les relances. Reporting hebdo automatisé pour le DAF.</li>
+          <li><strong>Étendre vers la détection d'anomalies.</strong> LLM qui compare chaque facture entrante au catalogue fournisseur (si disponible), à l'historique de prix, aux contrats. Alerte sur écarts > 10 %, doublons, dérives temporelles. Cas Batibig : 110 K€ détectés en 1 an pour 20 K€ d'investissement.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK & OUTILS -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack & outils</h2>
+        </div>
+
+        <h3>OCR robuste pour factures</h3>
+        <p>
+          <strong>Mistral Document AI</strong> et <strong>Anthropic Vision</strong> (intégré à Claude) couvrent l'essentiel des factures PDF natives. Pour les documents scannés/photographiés, <strong>Mindee</strong> (français) propose une API spécialisée factures avec bonne précision et tarif PME-friendly. <strong>Tesseract</strong> en pré-traitement pour les très grands volumes auto-hébergés. <strong>Google Document AI</strong> et <strong>AWS Textract</strong> sont des alternatives cloud robustes mais plus chères et hors souveraineté EU.
+        </p>
+
+        <h3>LLM extracteur</h3>
+        <p>
+          <a href="../ressources.html#claude" class="tool-link">Claude</a> excelle sur l'extraction structurée nuancée (lignes de détail, imputations comptables). <a href="../ressources.html#mistral" class="tool-link">Mistral Large</a> est l'option souveraine EU recommandée pour les données fournisseurs sensibles. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste robuste sur les volumes industriels. Pour les structures qui veulent on-premise, <a href="../ressources.html#mistral-forge" class="tool-link">Mistral Forge</a> ou un <a href="../ressources.html#llama" class="tool-link">Llama</a> fine-tuné sur ton historique de factures.
+        </p>
+
+        <h3>Solutions clés en main spécialisées finance</h3>
+        <p>
+          <strong>Pennylane</strong> est la référence française pour les TPE-PME — comptabilité native + IA d'extraction intégrée. <strong>Qonto</strong> propose une couche IA croissante sur la gestion bancaire et la facturation. <strong>Medius</strong> (international) est positionné sur les ETI avec workflow approbation factures. <strong>MIA</strong> et <strong>Justai.fr</strong> sont des solutions françaises émergentes spécialisées sur l'extraction factures pour PME.
+        </p>
+
+        <h3>Orchestration</h3>
+        <p>
+          <a href="../ressources.html#n8n" class="tool-link">n8n</a> en self-hosted reste la solution recommandée pour la souveraineté des données financières. <a href="../ressources.html#make" class="tool-link">Make</a> est l'alternative cloud rapide à mettre en place. <strong>Zapier</strong> peut suffire pour des volumes limités (≤ 100 factures/mois). Pour les structures plus mâtures, <strong>LangChain</strong> ou <strong>LangGraph</strong> permettent des workflows custom multi-agents.
+        </p>
+
+        <h3>Intégration ERP / comptabilité</h3>
+        <p>
+          API natives prioritaires : <strong>Pennylane</strong>, <strong>Qonto</strong>, <strong>Sage 100</strong>, <strong>Cegid</strong>, <strong>EBP</strong>, <strong>Odoo</strong>. Pour les ERP plus anciens (Sage 30, Ciel, autre), intermédier via n8n/Make ou solution d'intégration type <strong>Workato</strong>. Vérifier que ton ERP expose les écritures comptables, les fournisseurs, et la balance — c'est le minimum pour un déploiement utile.
+        </p>
+
+        <h3>Conformité RGPD & sécurité</h3>
+        <p>
+          Les données fournisseurs incluent souvent des données personnelles (RIB, n° SIRET, contacts). <strong>Privilégier les solutions hébergées EU</strong> (Pennylane, Qonto, Mistral) sur ces flux. Documenter les traitements dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD & AI Act</a>). Le sujet n'est pas anodin : un cabinet d'expertise comptable a déjà été sanctionné par la CNIL en 2024 pour traitement non conforme de données fournisseurs via un LLM cloud non-EU.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Un volume minimal de 100 factures/mois pour amortir le setup (en-dessous, ROI marginal). Un ERP avec API exploitable. Un comptable ou DAF identifié comme référent qui valide les imputations sur les premières semaines (calibrage). Un budget initial ~5-15 K€ pour la mise en place + 50-200 €/mois d'inférence. Pour les sous-cas avancés (prévision cash, détection anomalies), prévoir 6 mois de recul historique sur les flux pour calibrer les modèles.
+        </p>
+      </section>
+
+      <!-- 6. CAS D'ÉTUDE GUIDÉ -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">6</div>
+          <h2 class="module-section-title">Cas d'étude — PME services 35 salariés</h2>
+        </div>
+
+        <p>
+          Inspiré d'un retour d'expérience France Num. PME de services 35 salariés, ~250 factures fournisseurs/mois, ERP Pennylane en place, 1 comptable interne saturée + 1 DAF. Objectif : libérer du temps sur les tâches répétitives et fiabiliser la prévision cash.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">PME de services à la personne, 35 salariés, ~3 M€ de CA, basée en région parisienne. Comptable interne (mi-temps) + DAF qui pilote la trésorerie. Volume factures fournisseurs : ~250/mois (loyers, prestataires, achats fournitures, sous-traitance), dont ~40 fournisseurs récurrents qui représentent 80 % du volume. ERP Pennylane en place mais sans automatisation IA. Saisie factures = 35 h/mois sur le mi-temps comptable. Prévision cash hebdo reconstituée à la main par le DAF en 3 h/semaine.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>35 salariés</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Volume factures</div>
+              <strong>~250/mois</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">ERP en place</div>
+              <strong>Pennylane</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cible gain</div>
+              <strong>50-70 % temps comptable</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Démarrer par l'extraction factures (semaine 1-3)</h3>
+            <p>Configuration d'un workflow n8n self-hosted : trigger sur boîte email <code>compta@</code> dédiée, extraction par Anthropic Claude (Mistral Large possible pour souveraineté), output JSON structuré, écriture Pennylane via API. Mode prudent au démarrage : 100 % validation comptable les 2 premières semaines pour calibrer. Audit hebdo des erreurs.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              n8n self-hosted (VPS Hostinger 15 €/mois) → Gmail trigger sur compta@ → Anthropic Claude pour extraction → JSON structuré → Pennylane API → notification Slack #compta
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Sur 2 semaines : 130 factures extraites, précision 91 %. La comptable corrige les 12 erreurs (toutes sur 2 fournisseurs aux formats inhabituels). Temps de saisie passé de 35 h/mois à ~12 h/mois pour les 2 premières semaines (calibrage actif).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Activer l'auto-validation sur les fournisseurs récurrents (semaine 4-6)</h3>
+            <p>Une fois la précision stabilisée à 95 %+, activation de l'auto-validation pour les 40 fournisseurs récurrents avec écart prix < 5 % vs historique. Les 60 % de factures restantes (fournisseurs occasionnels, écarts de prix significatifs) restent en validation comptable. Boucle d'apprentissage : chaque correction comptable enrichit la base de règles fournisseur.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Ajout règles n8n : matrice fournisseur récurrent + tolérance prix → branche auto-validation directe vers Pennylane → branche validation humaine pour les écarts
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>Temps comptable factures : 35 h/mois → 8 h/mois</strong>. 78 % des factures en auto-validation, 22 % en validation comptable. La comptable récupère 27 h/mois qu'elle redéploie sur la relance clients et le contrôle de gestion (anciennes priorités tombées en désuétude).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Ajouter le rapprochement bancaire automatique (semaine 7-9)</h3>
+            <p>Configuration d'un second workflow qui matche chaque écriture bancaire Pennylane avec les factures + paiements clients enregistrés. Algo simple sur libellés/montants/dates suffit pour 80 % des cas. Claude tranche les ambigus (libellés non-standard, paiements partiels, virements inversés).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              n8n workflow lettrage → Pennylane API (écritures bancaires) → matching algorithmique direct + Claude pour ambigus → écriture lettrage Pennylane
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>Temps lettrage : 12 h/mois → 4 h/mois</strong>. 85 % des écritures lettrées automatiquement, 15 % en validation comptable. Cumul sur 2 sous-cas : <strong>31 h/mois récupérées</strong> pour la comptable.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Activer la prévision cash hebdomadaire pour le DAF (semaine 10-12)</h3>
+            <p>Agent IA qui apprend les délais paiement réels par client sur 12 mois d'historique Pennylane, projette les encaissements à 30/60/90 j, génère un dashboard hebdo lundi 8h pour le DAF. Inclut la trésorerie disponible + projection à 30 j + alertes si dérive (un client habituellement à 30 j passe à 50 j).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Workflow n8n hebdo → extraction historique Pennylane sur 12 mois → modèle simple Python (régression sur DSO réel par client) → projection 90 j → dashboard Notion + email DAF
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>Temps DAF prévision cash : 3 h/semaine → 30 min/semaine</strong>. Précision projection ±4 % sur 60 jours sur les 4 mois suivants. Le DAF identifie 2 clients qui ont dérivé silencieusement sur leurs délais et déclenche les relances ciblées.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Bilan 76 jours et régime stabilisé</h3>
+            <p>Au bout de 76 jours (~3 mois), les 3 sous-cas sont en régime stabilisé. Investissement total : <strong>22 K€</strong> (15 K€ développement n8n par prestataire + 7 K€ inférence Claude/Mistral sur l'année). Gain mensuel cumulé : <strong>~280 h récupérées</strong> sur le bloc finance (comptable + DAF + redéploiement sur valeur ajoutée). Au-delà du gain de temps, fiabilisation des prévisions cash et qualité de service comptable accrue.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Régime stabilisé → maintenance ~1 h/mois (revue erreurs, ajustement prompts) → re-calibration trimestrielle des règles fournisseurs
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>ROI 1ʳᵉ année : 155 %</strong>. Bilan : 22 K€ investis, 280 h/mois récupérées (équivalent ~34 K€/an de coût comptable redéployé), fiabilisation des prévisions cash. Décision direction : étendre au sous-cas détection anomalies en année 2.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 3 mois</div>
+          <p>
+            La PME a investi 22 K€ et récupéré l'équivalent de 280 h/mois sur le bloc finance, avec un ROI de 155 % la 1ʳᵉ année. <strong>Plus important encore : la comptable a redéployé son temps libéré sur des activités à plus forte valeur</strong> (relance clients structurée, contrôle de gestion, accompagnement business). C'est ce repositionnement humain qui fait la vraie différence — le pattern n'a pas remplacé un poste, il a transformé une fonction de saisie en fonction de pilotage. Le DAF, de son côté, est passé de la reconstitution hebdo manuelle à une vraie analyse stratégique de la trésorerie.
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Vouloir tout déployer en parallèle</h3>
+        <p>
+          La tentation est de configurer extraction + rapprochement + prévision + détection en simultané. <strong>Pratique systématiquement échouée</strong>. Chaque sous-cas demande son propre calibrage (4-6 semaines), et leur interaction crée des bugs difficiles à isoler. Discipline : démarrer par l'extraction (foundation), enchaîner après stabilisation, ajouter chaque sous-cas après calibrage du précédent.
+        </p>
+
+        <h3>Auto-validation trop ambitieuse au démarrage</h3>
+        <p>
+          Activer 80 % d'auto-validation dès la 1ʳᵉ semaine = catastrophe. Une erreur d'imputation comptable propagée 50 fois est ingérable à corriger a posteriori. <strong>Démarrer en mode prudent : 100 % validation comptable les 2 premières semaines</strong>, calibrer, monter progressivement à 50 %, puis 70 %, puis 80 %+. Cap sur le taux d'erreur résiduel (cible : < 1 % en régime stabilisé).
+        </p>
+
+        <h3>Souveraineté EU sous-estimée</h3>
+        <p>
+          Les données fournisseurs incluent souvent des données personnelles (RIB, contacts, contrats). <strong>Utiliser ChatGPT ou Claude API standard (cloud US) sur ces données pose un problème RGPD réel</strong>. La CNIL a déjà sanctionné un cabinet d'expertise comptable en 2024 sur ce sujet. Privilégier Mistral, Pennylane intégré, ou solutions on-premise pour les flux sensibles. Documenter dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>).
+        </p>
+
+        <h3>Détection d'anomalies trop bruyante</h3>
+        <p>
+          Activer la détection sans calibrage produit 30-50 alertes/jour = ignorées rapidement. <strong>Discipline : commencer par les anomalies à fort enjeu</strong> (écart prix > 10 %, doublons exacts, dérives temporelles > 20 %). Cap maximum 5 alertes/semaine. Itérer sur les seuils. La leçon Batibig : ils ont commencé par 1 type d'anomalie (sur-facturation prix) et ajouté progressivement les autres.
+        </p>
+
+        <h3>Pas de plan de gestion des erreurs propagées</h3>
+        <p>
+          Une erreur d'imputation comptable propagée dans l'ERP est plus coûteuse à corriger a posteriori qu'à éviter en amont. <strong>Procédure d'incident documentée</strong> : si une erreur récurrente est détectée (>3 cas du même type), arrêt immédiat de l'auto-validation sur ce périmètre, retour validation humaine systématique le temps de fixer le prompt ou les règles.
+        </p>
+
+        <h3>Sous-investissement dans la formation comptable</h3>
+        <p>
+          La comptable garde le rôle clé : valider, corriger, calibrer. Sans formation IA dédiée (cf. article 4 AI Act, <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>), elle ne sait pas évaluer la qualité des sorties IA et ne contribue pas à la boucle d'apprentissage. <strong>Prévoir 1-2 jours de formation</strong> sur les principes IA + 0,5 jour sur le workflow spécifique au démarrage du déploiement.
+        </p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">8</div>
+          <h2 class="module-section-title">Auto-diagnostic — Es-tu prêt à déployer ?</h2>
+        </div>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <p class="diagnostic-intro">Réponds aux 6 questions suivantes pour évaluer ton point de départ et générer un plan d'action priorisé exportable.</p>
+          </div>
+
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Combien de factures fournisseurs traites-tu par mois ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Moins de 50</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>50 à 150</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>150 à 500</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Plus de 500</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Quel ERP / outil comptable utilises-tu ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Excel / pas d'ERP</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>Outil ancien sans API</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>Sage / Cegid / EBP / Odoo</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Pennylane / Qonto (API native)</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Quelle est la part des fournisseurs récurrents (en % du volume de factures) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>< 50 % récurrents</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>50-70 % récurrents</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>70-85 % récurrents</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>> 85 % récurrents</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Disposes-tu d'un comptable / DAF référent capable de valider et calibrer ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Non, externalisé total</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Externalisé partiel + référent interne</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Comptable interne</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Comptable + DAF intégrés</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Compétence n8n / Make ou prestataire mobilisable ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Aucune en interne, pas de prestataire</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Bases en interne</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Prestataire identifié</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Maîtrise interne ou prestataire dédié</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Budget initial mobilisable pour le déploiement ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>< 5 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>5 à 15 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>15 à 30 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>> 30 K€</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">9</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et retours d'expérience</h3>
+          <ul>
+            <li>
+              <a href="https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle/comprendre-et-adopter-lia/integrer-lia-retours" target="_blank" rel="noopener">France Num — RetEx PME finance & IA</a>
+              <span class="resources-meta">Cas concret PME 35 salariés, ROI 155 % la 1ʳᵉ année</span>
+            </li>
+            <li>
+              <a href="https://blog.workday.com/fr-fr/ia-generative-finance-domaines-application.html" target="_blank" rel="noopener">Workday — IA générative finance</a>
+              <span class="resources-meta">Workday — domaines d'application IA en finance d'entreprise</span>
+            </li>
+            <li>
+              <a href="https://qonto.com/fr/blog/tpe-pme/gestion/intelligence-artificielle-finance" target="_blank" rel="noopener">Qonto — IA en finance TPE/PME</a>
+              <span class="resources-meta">Qonto — guide pratique adoption IA dans la fonction finance</span>
+            </li>
+            <li>
+              <a href="https://www.lemagit.fr/conseil/IA-appliquee-aux-outils-comptables-et-financiers-les-cas-dusages" target="_blank" rel="noopener">LeMagIT — IA outils comptables et financiers</a>
+              <span class="resources-meta">Cartographie des cas d'usage IA en comptabilité d'entreprise</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=n8n+facture+OCR+claude+pennylane" target="_blank" rel="noopener">n8n + OCR + Claude + Pennylane — workflow factures</a>
+              <span class="resources-meta">YouTube — pas-à-pas pour des setups extraction factures</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=mindee+API+facture+extraction" target="_blank" rel="noopener">Mindee API — extraction factures</a>
+              <span class="resources-meta">YouTube — démo de l'API française spécialisée extraction</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=prevision+cash+IA+excel+python" target="_blank" rel="noopener">Prévision cash IA — méthodes</a>
+              <span class="resources-meta">YouTube — modélisation cash flow PME avec ML simple</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://docs.pennylane.com" target="_blank" rel="noopener">Pennylane API Documentation</a>
+              <span class="resources-meta">Référence française pour l'intégration TPE-PME</span>
+            </li>
+            <li>
+              <a href="https://developers.qonto.com" target="_blank" rel="noopener">Qonto API Documentation</a>
+              <span class="resources-meta">API banque + facturation, intégration native</span>
+            </li>
+            <li>
+              <a href="https://docs.mindee.com" target="_blank" rel="noopener">Mindee API Documentation</a>
+              <span class="resources-meta">API française spécialisée OCR factures et reçus</span>
+            </li>
+            <li>
+              <a href="https://docs.anthropic.com/en/docs/build-with-claude/vision" target="_blank" rel="noopener">Claude Vision Documentation</a>
+              <span class="resources-meta">Anthropic — extraction structurée à partir d'images de documents</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/n8n" target="_blank" rel="noopener">r/n8n sur Reddit</a>
+              <span class="resources-meta">Workflows finance partagés par la communauté</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/Accounting" target="_blank" rel="noopener">r/Accounting sur Reddit</a>
+              <span class="resources-meta">Communauté comptables internationale, retours IA</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/catalogue-offres/diag-data-ia" target="_blank" rel="noopener">Bpifrance Diag Data IA</a>
+              <span class="resources-meta">Parcours de cadrage opérationnel gratuit pour PME</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-021';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const answers = {};
+      let allAnswered = true;
+
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+
+      if (answers.d1 == 0) {
+        actions.push({ prio: 'haute', titre: 'Volume insuffisant — pas de déploiement maintenant',
+          desc: 'Avec moins de 50 factures/mois, le ROI sur le déploiement IA reste marginal vs effort de mise en place. Rester sur du semi-manuel ou outil léger type Pennylane natif sans surcouche IA.' });
+      } else if (answers.d1 >= 2) {
+        actions.push({ prio: 'haute', titre: 'Démarrer par extraction factures sous 6 semaines',
+          desc: 'Volume idéal pour amortir un setup. Configuration n8n + Claude/Mistral + ERP API. Démarrer en mode prudent (validation 100 % les 2 premières semaines).' });
+      }
+
+      if (answers.d2 <= 1) {
+        actions.push({ prio: 'haute', titre: 'Migrer vers un ERP avec API exploitable d\'abord',
+          desc: 'Sans API ERP, l\'intégration reste artisanale et fragile. Migration prioritaire vers Pennylane (le plus simple PME), Qonto, Sage, Cegid, ou EBP avec connecteur. C\'est un préalable indispensable avant tout déploiement IA.' });
+      } else if (answers.d2 == 3) {
+        actions.push({ prio: 'moyenne', titre: 'Profiter de l\'API native Pennylane / Qonto pour gain rapide',
+          desc: 'Tu as déjà l\'ERP idéal pour ce déploiement. Setup en 2-4 semaines possibles avec un workflow n8n + extraction Claude. ROI immédiat dès le 1er mois en régime stabilisé.' });
+      }
+
+      if (answers.d3 >= 2) {
+        actions.push({ prio: 'haute', titre: 'Capitaliser sur les fournisseurs récurrents (auto-validation)',
+          desc: 'Avec 70 %+ de fournisseurs récurrents, tu peux activer l\'auto-validation après 4-6 semaines de calibrage et atteindre 75-85 % d\'auto. C\'est ce qui maximise le ROI sur le bloc extraction.' });
+      }
+
+      if (answers.d4 <= 1) {
+        actions.push({ prio: 'haute', titre: 'Identifier un référent comptable interne avant de démarrer',
+          desc: 'Sans comptable / DAF référent capable de valider et calibrer les premières semaines, le déploiement échoue. Avec une comptabilité 100 % externalisée, négocier avec le cabinet pour une mission ponctuelle de calibrage (5-10 jours) ou créer un poste à mi-temps.' });
+      }
+
+      if (answers.d5 <= 1) {
+        actions.push({ prio: 'moyenne', titre: 'Mobiliser un prestataire d\'intégration spécialisé',
+          desc: 'Sans compétence n8n / Make en interne, identifier un prestataire (NIN-IA, Spinalia ou autre alumni QFC) pour le setup initial. Compter 5-10 K€ pour un déploiement de base sur extraction factures.' });
+      } else if (answers.d5 >= 2) {
+        actions.push({ prio: 'moyenne', titre: 'Setup interne possible en 3-4 semaines',
+          desc: 'Avec une maîtrise n8n / Make, le setup interne est accessible. Compter 3-4 semaines de travail à temps partiel pour un déploiement extraction factures complet et calibré.' });
+      }
+
+      if (answers.d6 == 0) {
+        actions.push({ prio: 'basse', titre: 'Démarrer 100 % gratuit avec n8n self-hosted + Claude free tier',
+          desc: 'Budget zéro : n8n self-hosted (VPS Hostinger 15 €/mois), Claude API en free tier (suffisant pour 100-200 factures/mois). Setup minimal mais fonctionnel. À étendre quand le ROI est démontré.' });
+      } else if (answers.d6 >= 2) {
+        actions.push({ prio: 'basse', titre: 'Budget suffisant pour solution clés en main',
+          desc: 'Avec 15 K€+, possibilité d\'opter pour Pennylane Smart (extraction native incluse), MIA-app.ai (français spécialisé), ou prestataire complet. Time-to-value < 1 mois.' });
+      }
+
+      // Toujours
+      actions.push({ prio: 'haute', titre: 'Sécuriser RGPD + souveraineté EU sur les données fournisseurs',
+        desc: 'Les RIB, contrats et données fournisseurs sont des données personnelles. Privilégier Mistral, Pennylane intégré, ou solution on-premise. Inscrire au registre RGPD (cf. CU-020 Conformité).' });
+
+      actions.push({ prio: 'moyenne', titre: 'Plan de calibrage progressif sur 6-8 semaines',
+        desc: 'Mode prudent au démarrage (100 % validation comptable), montée progressive vers 50 % → 70 % → 85 % d\'auto-validation. Audit hebdo des erreurs les 4 premières semaines.' });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — déploiement structuré pertinent';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — démarrage extraction factures recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire (ERP, référent)';
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="diag-score-box">
+          <div class="diag-score-num">${maturite}%</div>
+          <div class="diag-score-label">${scoreLabel}</div>
+        </div>
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>
+      `;
+
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+
+      actions.forEach((a, i) => {
+        html += `
+          <div class="diag-action">
+            <span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span>
+            <h4>${i+1}. ${a.titre}</h4>
+            <p>${a.desc}</p>
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="diag-export">
+          <button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button>
+          <button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, maturite, date: new Date().toISOString()
+      }));
+
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
+    }
+
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Plan d'action — Finance & comptabilité augmentées\n\n*Auto-diagnostic Hub IA Learning Center — ${plan.date}*\n\n**Maturité du dispositif actuel : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`;
+        });
+        content += `---\n\n*Plan généré par le module CU-021 du Hub IA Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — FINANCE & COMPTABILITE AUGMENTEES\nAuto-diagnostic Hub IA Learning Center — ${plan.date}\n\nMaturite : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`;
+        });
+        content += `=========================================\nPlan genere par le module CU-021 du Hub IA Learning Center\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-action-finance-augmentee.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
