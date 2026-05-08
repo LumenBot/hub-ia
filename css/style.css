@@ -535,6 +535,12 @@ img, svg {
 .section-icon.n1 { background: var(--color-n1-bg); }
 .section-icon.n2 { background: var(--color-n2-bg); }
 .section-icon.n3 { background: var(--color-n3-bg); }
+.section-icon.fam-decouverte { background: #E0F4F0; }
+.section-icon.fam-marketing { background: #FFF8E8; }
+.section-icon.fam-decision { background: #F0F4FA; }
+.section-icon.fam-support { background: #FDF4DC; }
+.section-icon.fam-industrie { background: #E8E0F4; }
+.section-icon.fam-agentique { background: #FFE5D4; }
 
 .section-title {
   font-size: 1.75rem;
