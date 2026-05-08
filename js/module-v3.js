@@ -15,7 +15,7 @@ window.addEventListener('scroll', updateProgress, { passive: true });
 // Scroll-spy : highlight de la section active dans le TOC
 // Support des 2 structures TOC : .module-toc-list a (V3 standard) et .module-toc-nav a (variante 8 modules)
 document.addEventListener('DOMContentLoaded', () => {
-  const tocSections = document.querySelectorAll('.module-section[id], section[id^="section-"]');
+  const tocSections = document.querySelectorAll('.module-section[id], section[id^="section-"], .cat-divider[id]');
   const tocLinks = document.querySelectorAll('.module-toc-list a, .module-toc-nav a');
 
   if (tocSections.length === 0 || tocLinks.length === 0) return;
