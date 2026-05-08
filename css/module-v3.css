@@ -11,7 +11,7 @@
 .module-layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-8); max-width: 1200px; margin: 0 auto; padding: var(--space-6) var(--space-5); }
 
 /* Sidebar TOC */
-.module-toc { position: sticky; top: 90px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; padding-right: var(--space-3); }
+.module-toc { position: sticky; top: 130px; align-self: start; max-height: calc(100vh - 150px); overflow-y: auto; padding-right: var(--space-3); }
 .module-toc-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-soft); margin-bottom: var(--space-3); padding-left: var(--space-3); }
 .module-toc-list { list-style: none; padding: 0; margin: 0; }
 .module-toc-list li { margin: 0; }
