@@ -429,6 +429,11 @@
           Pour les ETI qui veulent garder la maîtrise totale ou qui ont des cas très spécifiques : <a href="../ressources.html#yolo-opencv" class="tool-link">YOLO</a> (You Only Look Once) pour la détection en temps réel, <strong>MMDetection</strong> pour les frameworks de détection avancés, <a href="../ressources.html#pytorch" class="tool-link">PyTorch</a> ou <strong>TensorFlow</strong> pour les modèles custom. Demande équipe data ou prestataire spécialisé. <a href="../ressources.html#mistral-forge" class="tool-link">Mistral Forge</a> peut être pertinent pour fine-tuner un modèle sur un dataset propre avec garantie de souveraineté.
         </p>
 
+        <h3>Foundation models vision (2024-2026)</h3>
+        <p>
+          Deux modèles open-source ont émergé comme références 2026 et rendent la vision industrielle accessible aux PME sans équipe ML lourde. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, MIT) est un vision-language foundation model compact (0,7 B paramètres) qui unifie détection, segmentation, captioning et grounding en un seul réseau — performant en zero-shot, fine-tunable en quelques heures, déployable sur edge (NVIDIA Jetson). <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) est le standard de fait pour la segmentation pixel-perfect en temps réel, avec extension vidéo cohérente frame-par-frame. Pipeline canonique : Florence-2 pour la détection + SAM 2 pour la segmentation fine des défauts identifiés.
+        </p>
+
         <h3>Hardware industriel</h3>
         <p>
           Caméras : <strong>Basler</strong> et <strong>IDS</strong> sont les références industrielles, avec gamme couvrant tous les besoins (couleur, monochrome, ligne, 3D, hyperspectrale). Calculateurs edge : <strong>NVIDIA Jetson</strong> (Xavier, Orin) pour les déploiements compacts, GPU serveur on-site pour les volumes importants. Éclairage technique : fournisseurs spécialisés (CCS, Smart Vision Lights, Effilux pour le marché français).

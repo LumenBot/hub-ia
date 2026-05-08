@@ -464,6 +464,42 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
 .callout-warn { border-left-color: #B45309; background: #FFF7ED; color: #78350F; }
 .callout-success { border-left-color: #1F5132; background: #F0F9F2; color: #1F5132; }
 
+/* Risk matrix — matrice de classification 4 niveaux (CU-020 AI Act, réutilisable)
+ * Variants : .interdit (rouge sombre) · .eleve (rouge) · .limite (orange) · .minimal (vert)
+ */
+.risk-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+.risk-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+.risk-card.interdit { border-top-color: #8C1A1A; background: linear-gradient(180deg, #FFF1F1 0%, white 30%); }
+.risk-card.eleve { border-top-color: #C82A2A; background: linear-gradient(180deg, #FFE0E0 0%, white 30%); }
+.risk-card.limite { border-top-color: #B86E1A; background: linear-gradient(180deg, #FFF8F0 0%, white 30%); }
+.risk-card.minimal { border-top-color: #5C8C5C; background: linear-gradient(180deg, #E8F4E0 0%, white 30%); }
+.risk-card-level { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+.risk-card.interdit .risk-card-level { color: #8C1A1A; }
+.risk-card.eleve .risk-card-level { color: #C82A2A; }
+.risk-card.limite .risk-card-level { color: #B86E1A; }
+.risk-card.minimal .risk-card-level { color: #2E5C2E; }
+.risk-card-title { font-weight: 700; font-size: 1rem; margin-bottom: var(--space-2); color: var(--color-text); }
+.risk-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+.risk-card-examples { font-size: 0.75rem; color: var(--color-text-soft); font-style: italic; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+
+/* Alert deadline — bandeau urgence réglementaire (variant rouge de .callout/.alert) */
+.alert-deadline { background: linear-gradient(135deg, #FFF1F1 0%, #FFE0E0 100%); border: 2px solid #C82A2A; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) auto; max-width: 1200px; display: flex; align-items: flex-start; gap: var(--space-4); }
+.alert-deadline-icon { font-size: 2rem; flex-shrink: 0; }
+.alert-deadline-content h3 { color: #8C1A1A; margin: 0 0 var(--space-2); font-size: 1.0625rem; }
+.alert-deadline-content p { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--color-text); }
+.alert-deadline-content strong { color: #8C1A1A; }
+
+/* Usecase grid — cartes de cas d'usage avec ROI (CU-021 finance, CU-022 voicebot, réutilisable)
+ * NOTE : duplique partiellement .signals-grid / .filieres-grid / .agents-grid. Voir suggestion
+ * v3.4 du brief Cowork pour refactor en .cards-grid paramétrable.
+ */
+.usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+.usecase-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+.usecase-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+.usecase-card-title { font-weight: 700; color: var(--color-primary); font-size: 1rem; margin-bottom: var(--space-2); }
+.usecase-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+.usecase-card-roi { font-size: 0.8125rem; color: #2E5C2E; font-weight: 600; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+
 .tool-card-header h3 {
   margin: 0 0 var(--space-1);
   color: var(--color-primary);

@@ -453,6 +453,11 @@
           <strong>Autodesk Fusion Generative Design</strong> est la référence sur la conception générative (pièces complexes optimisées en topologie). Pour les modèles custom : <a href="../ressources.html#pytorch" class="tool-link">PyTorch</a> ou <strong>TensorFlow</strong> pour le deep learning, <strong>Stable-Baselines3</strong> pour le reinforcement learning sur l'ordonnancement complexe. <a href="../ressources.html#mistral-forge" class="tool-link">Mistral Forge</a> peut être pertinent pour fine-tuner un modèle sur des datasets propres avec garantie de souveraineté.
         </p>
 
+        <h3>Caractérisation matière fine — vision foundation models</h3>
+        <p>
+          Pour la caractérisation matière en amont du solveur (qualité-grume bois, défauts visuels métal, irrégularités textile), deux foundation models open-source ont émergé comme références 2026 et baissent significativement le ticket d'entrée. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, 0,7 B paramètres, MIT) unifie détection + segmentation + captioning en un seul modèle compact, performant en zero-shot et déployable sur edge. <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) ajoute la segmentation pixel-perfect en temps réel — particulièrement utile pour caractériser des géométries irrégulières (nœuds dans une grume, défauts de tissage). Pipeline canonique pour PME : Florence-2 pour pré-classer le flux + SAM 2 pour la segmentation fine, avant ingestion dans le solveur d'optimisation.
+        </p>
+
         <h3>Partenaires d'intégration et écosystème territorial</h3>
         <p>
           Pour le tissu industriel du Grand Est : <strong>Atsora Solutions</strong> (alumni QFC) couvre la dimension supervision data process et IA industrielle. Côté académique : <strong>ENSTIB</strong>, <strong>LERMAB</strong> et <strong>CRAN</strong> à Nancy sont des partenaires R&D de premier plan, particulièrement sur la filière bois. La <strong>Fondation Excellence Campus Bois</strong> (créée déc. 2025) avec mécènes Piveteau, Poujoulat et Cadwork est un levier institutionnel direct. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orientation et accompagnement.
