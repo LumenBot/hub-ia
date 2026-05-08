@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR-03 Maturité humaine & formation — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Grille dispositifs financement — spécifique PR-03 */
+    .funding-table { background: white; border-radius: var(--radius-md); overflow: hidden; margin: var(--space-5) 0; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+    .funding-table table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+    .funding-table th { background: var(--color-primary); color: white; padding: var(--space-3) var(--space-4); text-align: left; font-weight: 700; }
+    .funding-table td { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); vertical-align: top; }
+    .funding-table tr:nth-child(even) td { background: var(--color-bg); }
+    .funding-table td:first-child { font-weight: 700; color: var(--color-primary); }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux préalables
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-03</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">12 min de lecture</span>
+      </div>
+      <h1>🎓 Maturité humaine &amp; formation</h1>
+      <p class="module-subtitle">
+        Article 4 AI Act : formation IA obligatoire pour toute équipe manipulant l'IA, deadline 2 août 2026. Cartographie des dispositifs de financement formation pour PME / ETI : OPCO, FNE-Formation, CPF, plan de développement, France Num. Combien ça coûte, qui finance, comment monter le dossier.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. L'obligation Article 4 AI Act</a>
+        <a href="#section-2">2. Dispositifs de financement</a>
+        <a href="#section-3">3. Méthode de cadrage</a>
+        <a href="#section-4">4. Plans de formation par fonction</a>
+        <a href="#section-5">5. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 90 secondes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            L'AI Act impose, via son article 4, une <strong>formation IA obligatoire pour toute équipe manipulant l'IA</strong>, sans exception (deadline 2 août 2026). En parallèle, il existe en France un écosystème dense de dispositifs publics qui financent cette formation à 100 % pour les PME / ETI : OPCO (Akto, OPCO 2i, OPCO Atlas, etc.), FNE-Formation, CPF, plan de développement des compétences, France Num. <strong>L'investissement net peut être nul</strong> pour une PME qui mobilise les bons dispositifs, avec des retours documentés type +180 K€/an de gain net (cas BusinessDigital, PME industrielle 45p).
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⚖️</div>
+              <div class="exec-takeaway-content">
+                <strong>Obligation légale, pas option.</strong> Article 4 AI Act : tout collaborateur qui utilise un système IA (même ChatGPT pour résumer un email) doit avoir un niveau minimal de littératie IA. Sanctions activables 2 août 2026.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💰</div>
+              <div class="exec-takeaway-content">
+                <strong>Financement public quasi total possible.</strong> OPCO Akto / OPCO 2i / OPCO Atlas peuvent prendre en charge 100 % du coût pédagogique pour les PME. FNE-Formation finance jusqu'à 70 % en 2026. CPF en complément.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📈</div>
+              <div class="exec-takeaway-content">
+                <strong>ROI mesurable et documenté.</strong> Cas BusinessDigital (PME industrielle 45p, CA 6,5 M€) : audit 1h → roadmap 6 mois → financement OPCO Akto 100 % → +12h/sem temps commercial libéré, -65 % temps facturation, +18 % CA sans embauche, gain net 180 K€/an.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Plan différencié par fonction.</strong> Pas de MOOC unique pour tous. Différencier littératie générale (article 4 = 4-8h pour tous) vs formation métier (15-30h pour utilisateurs réguliers) vs formation experte (2-5j pour usages haut risque).
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">2 août 2026</div><div class="exec-stat-label">Deadline article 4</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">100 %</div><div class="exec-stat-label">Financement possible (OPCO)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">180 K€</div><div class="exec-stat-label">Gain net cas type PME (an 1)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">12 min</div><div class="exec-stat-label">Lecture</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">L'obligation Article 4 AI Act</h2>
+        </div>
+
+        <p>
+          L'article 4 du règlement européen sur l'intelligence artificielle (AI Act, 2024) impose à <strong>toute organisation utilisant des systèmes d'IA</strong> de garantir un niveau minimal de <strong>littératie IA</strong> chez ses collaborateurs concernés. La date d'application est le <strong>2 août 2026</strong> (entrée en vigueur des obligations majeures sur les modèles à usage général et les sanctions).
+        </p>
+
+        <h3>Périmètre de l'obligation</h3>
+        <p>
+          L'article 4 ne fait <strong>aucune exception</strong>. Tout collaborateur qui :
+        </p>
+        <ul>
+          <li>Utilise ChatGPT, Claude, Mistral, Gemini, Le Chat ou tout autre LLM</li>
+          <li>Manipule un agent IA dans son workflow (CRM augmenté, voicebot, RAG)</li>
+          <li>Travaille avec des outils IA spécialisés (assistants rédactionnels, traduction, vision)</li>
+          <li>Exploite des données traitées par IA (analyses, prévisions, scoring)</li>
+        </ul>
+        <p>
+          ... doit avoir reçu une formation lui permettant d'<strong>utiliser l'IA en connaissance de cause</strong> : connaître les capacités et limites des modèles, les risques (hallucinations, biais, fuite de données), les bonnes pratiques (validation humaine, vérification des sorties), les obligations RGPD et déontologiques.
+        </p>
+
+        <h3>Niveau minimal exigé</h3>
+        <p>
+          L'AI Act ne fixe pas de programme précis ni de durée minimale. <strong>L'employeur est responsable</strong> de définir le niveau de littératie adapté à chaque fonction. Pratique consensuelle qui émerge en 2026 :
+        </p>
+        <ul>
+          <li><strong>Niveau de base (4-8h)</strong> : tous les collaborateurs concernés. Vue d'ensemble, terminologie, capacités, limites, risques, bonnes pratiques génériques. Format type : MOOC Class'Code Inria (gratuit), parcours OpenClassrooms IA fondamentaux.</li>
+          <li><strong>Niveau métier (15-30h)</strong> : utilisateurs réguliers d'IA dans leur fonction. Adapté aux usages réels (rédaction, analyse, support client, etc.). Format type : OpenClassrooms parcours métier, formations Hub France IA.</li>
+          <li><strong>Niveau expert (2-5 jours)</strong> : utilisateurs sur usages haut risque AI Act (RH, crédit, infrastructures critiques) ou référents IA internes. Format type : présentiel certifiant Hub France IA, École polytechnique exécutive, certifications éditeurs.</li>
+        </ul>
+
+        <h3>Documentation et traçabilité</h3>
+        <p>
+          L'employeur doit pouvoir <strong>prouver</strong> que la formation a été suivie : attestations de formation, plan de développement des compétences documenté, matrice des compétences IA par collaborateur. La traçabilité s'inscrit dans le <strong>registre des usages IA</strong> documenté en <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD &amp; AI Act</a>.
+        </p>
+
+        <div class="pull-quote">
+          La formation IA n'est plus un bonus de bienveillance employeur. C'est une obligation légale activable au 2 août 2026. La bonne nouvelle : elle peut être financée à 100 % par les dispositifs publics, et son ROI documenté est massif.
+        </div>
+      </section>
+
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Cartographie des dispositifs de financement</h2>
+        </div>
+
+        <p>
+          La France dispose d'un écosystème dense de dispositifs publics qui financent la formation professionnelle, dont la formation IA. Pour une PME / ETI, le coût net peut être nul à condition de mobiliser les bons leviers et de monter le dossier correctement.
+        </p>
+
+        <div class="funding-table">
+          <table>
+            <thead>
+              <tr><th>Dispositif</th><th>Cible</th><th>Taux de prise en charge</th><th>Montage</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>OPCO (Akto, OPCO 2i, OPCO Atlas, AFDAS, OCAPIAT)</td>
+                <td>PME &lt; 50 salariés en priorité, jusqu'à 300 selon OPCO</td>
+                <td>Souvent 100 % du coût pédagogique + indemnités salariales partielles</td>
+                <td>Dossier auprès de ton OPCO de branche, instruction 4-8 semaines</td>
+              </tr>
+              <tr>
+                <td>FNE-Formation</td>
+                <td>Toutes entreprises en transition (transformations économiques, technologiques)</td>
+                <td>40 à 70 % du coût pédagogique selon taille de l'entreprise</td>
+                <td>Dossier auprès de la DREETS régionale, cofinancement État</td>
+              </tr>
+              <tr>
+                <td>CPF (Compte Personnel Formation)</td>
+                <td>Tout salarié individuellement</td>
+                <td>100 % de l'enveloppe CPF (typiquement 500 €/an cumulé)</td>
+                <td>Initié par le salarié, complément possible employeur</td>
+              </tr>
+              <tr>
+                <td>Plan de développement des compétences</td>
+                <td>Toutes entreprises (au-delà des seuils OPCO)</td>
+                <td>Financement direct par l'entreprise (déductible)</td>
+                <td>Document interne formalisé annuel</td>
+              </tr>
+              <tr>
+                <td>France Num</td>
+                <td>TPE / PME en transformation numérique</td>
+                <td>Diag Data IA gratuit + accompagnement</td>
+                <td>Inscription France Num + diag par activateur agréé</td>
+              </tr>
+              <tr>
+                <td>Diag Data IA Bpifrance</td>
+                <td>PME / ETI accompagnées Bpifrance</td>
+                <td>Cofinancement variable (audit gratuit + remédiations cofinancées)</td>
+                <td>Demande via espace Bpifrance ou réseau accompagnement</td>
+              </tr>
+              <tr>
+                <td>Pacte productivité IA Région Grand Est</td>
+                <td>PME / ETI Grand Est</td>
+                <td>Cofinancement régional (à confirmer cas par cas)</td>
+                <td>Réseau French Tech East / Bpifrance Grand Est</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Comment ça se cumule en pratique</h3>
+        <p>
+          Pour une PME industrielle 45p adhérente à OPCO Akto, le montage type :
+        </p>
+        <ul>
+          <li><strong>OPCO Akto</strong> finance 100 % du coût pédagogique (formations IA pour 35-40 collaborateurs concernés)</li>
+          <li><strong>FNE-Formation</strong> en cofinancement si transformation économique majeure (typiquement 30-50 % en complément des indemnités salariales)</li>
+          <li><strong>CPF</strong> mobilisé individuellement par les collaborateurs sur les parcours certifiants longs (parcours certifiant 30-60h)</li>
+          <li><strong>Plan de développement des compétences</strong> pour les formats internes spécifiques (atelier 2-4h sur les usages métier)</li>
+        </ul>
+        <p>
+          Résultat : une PME peut financer un plan de formation IA de 50-80 K€ (formation + coaching + accompagnement) avec un coût net proche de 0 € si le montage est bien fait. Le cas BusinessDigital documenté par Franck PARIENTI illustre ce pattern.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Méthode de cadrage en 5 étapes</h2>
+        </div>
+
+        <ol>
+          <li><strong>Cartographier les usages IA actuels et cibles.</strong> Audit déclaratif des collaborateurs + audit logs SaaS (cf. CU-020 Conformité). Identifier qui utilise quoi, qui devra utiliser quoi à 12-18 mois. Output : registre des usages avec criticité (article 4 niveau de base / métier / expert par collaborateur).</li>
+          <li><strong>Identifier ton OPCO de branche.</strong> Par convention collective. Akto pour les services / numérique / conseil, OPCO 2i pour l'industrie, OPCO Atlas pour les services financiers, AFDAS pour la communication, OCAPIAT pour l'agro, etc. Prendre contact avec l'OPCO pour cadrer l'enveloppe disponible et les organismes de formation référencés.</li>
+          <li><strong>Choisir les organismes de formation.</strong> Privilégier les organismes <strong>Qualiopi</strong> et référencés par ton OPCO. Mix recommandé : MOOC Class'Code (gratuit, niveau de base), OpenClassrooms (parcours métier certifiants), Hub France IA (certifiants experts), formations internes adaptées (livrées par référent IA + prestataire).</li>
+          <li><strong>Monter le dossier OPCO.</strong> Formaliser : objectifs, public cible, programme, durée, organisme, coût, calendrier. L'OPCO instruit en 4-8 semaines. <strong>Démarrer 3-4 mois avant la date prévue de formation</strong> pour anticiper.</li>
+          <li><strong>Lancer le déploiement et tracer.</strong> Convocations, attestations, suivi. Inscrire les attestations dans le registre des compétences IA. La traçabilité est obligation légale (article 4) et facilitatrice en cas de contrôle.</li>
+        </ol>
+
+        <p>
+          Discipline non négociable : <strong>impliquer le DRH (ou l'équivalent en PME)</strong> dès le début. La formation IA croise GPEC, plan de développement, dialogue social — c'est un sujet RH avant d'être un sujet IT.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">4</div>
+          <h2 class="module-section-title">Plans de formation par fonction</h2>
+        </div>
+
+        <p>
+          Différenciation des plans selon les fonctions impactées. Exemple type pour une PME / ETI 50-100 personnes.
+        </p>
+
+        <h3>Fonction commerciale (4 commerciaux)</h3>
+        <ul>
+          <li>Niveau de base (4h MOOC Class'Code) — tous</li>
+          <li>Niveau métier (15h OpenClassrooms IA pour la vente) — tous les 4 commerciaux</li>
+          <li>Atelier interne (4h) sur les usages réels du CRM augmenté + assistant rédactionnel — tous les 4 commerciaux</li>
+          <li>Coût : ~1 200 €/personne, financé OPCO 100 %</li>
+        </ul>
+
+        <h3>Fonction marketing &amp; communication (3 personnes)</h3>
+        <ul>
+          <li>Niveau de base (4h Class'Code)</li>
+          <li>Parcours certifiant OpenClassrooms IA pour le marketing (30h)</li>
+          <li>Atelier interne content repurposing (cf. CU-009) + pipeline contenu social (cf. CU-010)</li>
+          <li>Coût : ~1 800 €/personne, financé OPCO + CPF</li>
+        </ul>
+
+        <h3>Fonction RH (1-2 personnes)</h3>
+        <ul>
+          <li>Niveau de base (4h Class'Code)</li>
+          <li>Formation Hub France IA spécialisée RH + AI Act (2 jours présentiel) — usages haut risque article 4</li>
+          <li>Atelier interne sur le CV &amp; entretiens augmentés (cf. CU-007)</li>
+          <li>Coût : ~2 500 €/personne, financé OPCO 100 %</li>
+        </ul>
+
+        <h3>Fonction comptabilité &amp; finance (2-3 personnes)</h3>
+        <ul>
+          <li>Niveau de base (4h Class'Code)</li>
+          <li>Parcours certifiant OpenClassrooms IA finance (30h)</li>
+          <li>Atelier interne Pennylane / Qonto + cas extraction factures (cf. CU-021)</li>
+          <li>Coût : ~1 800 €/personne, financé OPCO + CPF</li>
+        </ul>
+
+        <h3>Fonction technique / DSI (1-2 personnes selon structure)</h3>
+        <ul>
+          <li>Niveau de base (déjà acquis pour la plupart)</li>
+          <li>Formation expert agents IA (Hub France IA ou Le Wagon, 5 jours présentiel)</li>
+          <li>Veille active : abonnement DGE, Bpifrance Le Lab, communautés techniques</li>
+          <li>Coût : ~3 500 €/personne, financé OPCO + plan de développement</li>
+        </ul>
+
+        <h3>Direction / COMEX</h3>
+        <ul>
+          <li>Niveau de base + cadrage stratégique (8h dont parcours dirigeants Bpifrance Le Hub ou Hub France IA exécutif)</li>
+          <li>Comité de pilotage IA mensuel — 2h/mois récurrent</li>
+          <li>Coût : ~2 000 €/personne, plan de développement</li>
+        </ul>
+
+        <p>
+          Total indicatif PME 50p : ~80 K€ de coût pédagogique brut, financé à ~80-100 % via OPCO + FNE + CPF + plan de développement. Coût net employeur typique : 0 à 15 K€ selon montage.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">5</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Textes officiels</h3>
+          <ul>
+            <li><a href="https://artificialintelligenceact.eu" target="_blank" rel="noopener">AI Act — texte officiel européen</a><span class="resources-meta">Article 4 sur la littératie IA obligatoire</span></li>
+            <li><a href="https://travail-emploi.gouv.fr/le-fne-formation/" target="_blank" rel="noopener">FNE-Formation — Ministère du Travail</a><span class="resources-meta">Dispositif national pour les transitions économiques et technologiques</span></li>
+            <li><a href="https://www.francecompetences.fr" target="_blank" rel="noopener">France Compétences — Liste des OPCO</a><span class="resources-meta">Annuaire officiel des opérateurs de compétences par convention collective</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎓 Formations recommandées</h3>
+          <ul>
+            <li><a href="https://classcode.fr" target="_blank" rel="noopener">MOOC Class'Code / Inria</a><span class="resources-meta">Gratuit, 4h, niveau de base article 4 — référence</span></li>
+            <li><a href="https://openclassrooms.com/fr/" target="_blank" rel="noopener">OpenClassrooms — parcours IA métiers</a><span class="resources-meta">15-30h, certifiant, ~250-500 €, finançables CPF + OPCO</span></li>
+            <li><a href="https://www.hub-franceia.fr" target="_blank" rel="noopener">Hub France IA — parcours certifiants</a><span class="resources-meta">Niveau expert, 2-5 jours présentiel, finançables OPCO</span></li>
+            <li><a href="https://www.bpifrance.fr/catalogue-offres/diag-data-ia" target="_blank" rel="noopener">Bpifrance Diag Data IA</a><span class="resources-meta">Parcours de cadrage opérationnel gratuit pour PME</span></li>
+            <li><a href="https://www.francenum.gouv.fr" target="_blank" rel="noopener">FUN-MOOC France Num « IA et société »</a><span class="resources-meta">Gratuit, 5 semaines, 10 thèmes, dirigeants TPE/PME</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li><a href="pr-01-maturite-organisationnelle.html">PR-01 Maturité organisationnelle</a><span class="resources-meta">Le mandat exécutif qui rend la formation efficace</span></li>
+            <li><a href="../modules/cu-020-conformite-rgpd-ai-act.html">CU-020 Conformité RGPD &amp; AI Act</a><span class="resources-meta">Cartographie des usages = préalable au plan de formation différencié</span></li>
+            <li><a href="../modules/cu-007-rh-cv-entretiens.html">CU-007 CV &amp; entretiens RH</a><span class="resources-meta">Cas d'usage haut risque AI Act, formation expert obligatoire</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../prealables.html">Préalables</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+
+</body>
+</html>

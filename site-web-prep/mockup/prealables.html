@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Préalables — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/module-v3.css">
+  <style>
+    /* Section Préalables — page d'index */
+    .prealables-hero { background: linear-gradient(135deg, #1F3864 0%, #2E5395 100%); color: white; padding: var(--space-7) var(--space-5); text-align: center; }
+    .prealables-hero h1 { color: white; font-size: 2rem; margin: 0 0 var(--space-3); }
+    .prealables-hero p { font-size: 1.0625rem; line-height: 1.6; max-width: 760px; margin: 0 auto var(--space-3); opacity: 0.95; }
+    .prealables-hero .pill { display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; font-size: 0.8125rem; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .prealables-intro { max-width: 900px; margin: var(--space-7) auto; padding: 0 var(--space-5); }
+    .prealables-intro h2 { color: var(--color-primary); margin-bottom: var(--space-4); }
+    .prealables-intro p { line-height: 1.7; margin-bottom: var(--space-4); }
+
+    .prealables-grid { max-width: 1200px; margin: var(--space-6) auto; padding: 0 var(--space-5); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); }
+    .pr-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-6); border-left: 5px solid var(--color-primary); transition: transform 0.15s ease, box-shadow 0.15s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .pr-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-left-color: #FFD600; }
+    .pr-card-num { font-size: 0.75rem; font-weight: 700; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+    .pr-card-icon { font-size: 2.25rem; margin-bottom: var(--space-3); line-height: 1; }
+    .pr-card-title { font-size: 1.125rem; font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-3); line-height: 1.3; }
+    .pr-card-desc { font-size: 0.9375rem; line-height: 1.5; color: var(--color-text-soft); margin-bottom: var(--space-4); flex: 1; }
+    .pr-card-meta { font-size: 0.8125rem; color: var(--color-text-soft); padding-top: var(--space-3); border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; }
+    .pr-card-meta strong { color: var(--color-primary); }
+
+    .prealables-footer-cta { max-width: 900px; margin: var(--space-7) auto; padding: var(--space-6); background: linear-gradient(135deg, #FFF8E8 0%, #FFEFC8 100%); border-left: 5px solid #FFD600; border-radius: var(--radius-md); }
+    .prealables-footer-cta h3 { color: var(--color-text); margin: 0 0 var(--space-3); }
+    .prealables-footer-cta p { margin: 0 0 var(--space-3); line-height: 1.6; }
+    .prealables-footer-cta a { color: var(--color-primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="index.html#modules" class="nav-link">Modules</a>
+        <a href="ressources.html" class="nav-link">Ressources</a>
+        <a href="axes.html" class="nav-link">Axes</a>
+        <a href="index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="prealables-hero">
+    <div class="pill">⚡ Comprendre avant de faire</div>
+    <h1>Préalables / Pré-requis à l'intégration de l'IA</h1>
+    <p>
+      6 cadrages transverses pour réussir un projet IA en PME / ETI : maturité organisationnelle, préalables data &amp; SI, formation et financement, marché de l'emploi, sécurité opérationnelle, qualité du code.
+    </p>
+    <p style="font-size: 0.9375rem; opacity: 0.85;">
+      Ces préalables sont à connaître <strong>avant</strong> de se lancer dans un cas d'usage spécifique. Ils répondent à la question : « qu'est-ce que je dois maîtriser pour que mon projet IA réussisse ? ».
+    </p>
+  </header>
+
+  <section class="prealables-intro">
+    <h2>Pourquoi cette section ?</h2>
+    <p>
+      Selon une étude AdvisoryX / DXC publiée en janvier 2026, <strong>77 % des dirigeants érigent l'IA en priorité stratégique, mais 94 % échouent à la déployer</strong>. Cette dissonance massive ne vient pas de l'IA elle-même — elle vient des préalables qui n'ont pas été sécurisés.
+    </p>
+    <p>
+      Le Hub IA — Learning Center documente les <strong>22 cas d'usage IA opérationnels</strong> sous la rubrique <a href="index.html#modules">Modules</a>. Mais lancer un cas d'usage sans avoir sécurisé sa maturité organisationnelle, ses fondations data et SI, sa formation interne, ou sa gouvernance sécurité, c'est s'exposer à rejoindre les 94 % qui échouent.
+    </p>
+    <p>
+      Cette section <strong>« Préalables »</strong> rassemble les enseignements transverses, indépendants de tout cas d'usage spécifique. Format article pédagogique, lecture courte (10-15 minutes par préalable), avec auto-évaluation quand pertinent. À parcourir avant ou en parallèle des modules CU.
+    </p>
+  </section>
+
+  <section class="prealables-grid">
+
+    <a href="prealables/pr-01-maturite-organisationnelle.html" class="pr-card">
+      <div class="pr-card-num">PR-01</div>
+      <div class="pr-card-icon">🏛️</div>
+      <div class="pr-card-title">Maturité organisationnelle</div>
+      <div class="pr-card-desc">
+        Pourquoi 94 % des projets IA échouent. Diagnostic structurel : silos, validation 15 niveaux, mandat absent, syndrome du POC à vie. Modèle 5R™ Cnam-Dejoux pour cadrer la transformation. Auto-évaluation en 10 questions.
+      </div>
+      <div class="pr-card-meta">
+        <span>📚 Article + auto-diag</span>
+        <span><strong>15 min</strong></span>
+      </div>
+    </a>
+
+    <a href="prealables/pr-02-preables-data-si.html" class="pr-card">
+      <div class="pr-card-num">PR-02</div>
+      <div class="pr-card-icon">💾</div>
+      <div class="pr-card-title">Préalables data &amp; SI</div>
+      <div class="pr-card-desc">
+        Qualité données, APIs ouvertes, architecture modulaire, legacy 20 ans vs greenfield. Les fondations techniques sans lesquelles l'IA reste un POC. Check-list 12 critères de maturité SI à valider avant tout déploiement.
+      </div>
+      <div class="pr-card-meta">
+        <span>📚 Article + checklist</span>
+        <span><strong>15 min</strong></span>
+      </div>
+    </a>
+
+    <a href="prealables/pr-03-maturite-humaine-formation.html" class="pr-card">
+      <div class="pr-card-num">PR-03</div>
+      <div class="pr-card-icon">🎓</div>
+      <div class="pr-card-title">Maturité humaine &amp; formation</div>
+      <div class="pr-card-desc">
+        Article 4 AI Act : formation IA obligatoire pour toute équipe manipulant l'IA. Cartographie des dispositifs de financement formation : OPCO, FNE, CPF, France Num. Combien ça coûte vraiment, qui finance, comment monter un dossier.
+      </div>
+      <div class="pr-card-meta">
+        <span>📚 Article + grille dispositifs</span>
+        <span><strong>12 min</strong></span>
+      </div>
+    </a>
+
+    <a href="prealables/pr-04-marche-ia-emploi.html" class="pr-card">
+      <div class="pr-card-num">PR-04</div>
+      <div class="pr-card-icon">📊</div>
+      <div class="pr-card-title">Marché IA &amp; impact emploi</div>
+      <div class="pr-card-desc">
+        Productivité ×5 dans les secteurs très exposés à l'IA (PwC). 77 000 offres FR en 2023, ×7 vs 2018. Prime salariale +25 % pour les compétences IA. Compétences évoluent 25 % plus vite. Données macro pour cadrer les enjeux RH.
+      </div>
+      <div class="pr-card-meta">
+        <span>📊 Article chiffré</span>
+        <span><strong>10 min</strong></span>
+      </div>
+    </a>
+
+    <a href="prealables/pr-05-securite-ia.html" class="pr-card">
+      <div class="pr-card-num">PR-05</div>
+      <div class="pr-card-icon">🛡️</div>
+      <div class="pr-card-title">Sécurité IA &amp; risques opérationnels</div>
+      <div class="pr-card-desc">
+        Au-delà du RGPD/AI Act conformité (CU-020), les risques sécurité opérationnelle : 3 cas DGSI documentés (espionnage, fuite, manipulation), Shadow AI non maîtrisé, vendor lock-in. Check-list classification des risques par criticité.
+      </div>
+      <div class="pr-card-meta">
+        <span>📚 Article + checklist</span>
+        <span><strong>12 min</strong></span>
+      </div>
+    </a>
+
+    <a href="prealables/pr-06-qualite-code-ia.html" class="pr-card">
+      <div class="pr-card-num">PR-06</div>
+      <div class="pr-card-icon">⚙️</div>
+      <div class="pr-card-title">Qualité du code IA (côté tech)</div>
+      <div class="pr-card-desc">
+        La productivité ×3 avec Claude Code / Cursor / Copilot s'accompagne de 7 risques structurels (turbo flemme, dérive, dette technique invisible). Discipline qualité = condition pour passer le « train IA » sans dérailler. 7 garde-fous documentés.
+      </div>
+      <div class="pr-card-meta">
+        <span>📚 Article + 7 garde-fous</span>
+        <span><strong>10 min</strong></span>
+      </div>
+    </a>
+
+  </section>
+
+  <section class="prealables-footer-cta">
+    <h3>Une fois les préalables maîtrisés...</h3>
+    <p>
+      ... tu peux parcourir les <a href="index.html#modules">22 cas d'usage opérationnels</a> en sachant lequel cibler en priorité, et les <a href="ressources.html">76 fiches outils</a> en sachant comment les évaluer. Les préalables ne sont pas un détour : ils sont le chemin le plus court vers un déploiement IA qui réussit.
+    </p>
+    <p>
+      <strong>Ordre suggéré pour les nouveaux porteurs Starter Class</strong> : PR-01 (organisationnel) → PR-02 (data/SI) → PR-03 (formation/financement) → un module CU correspondant à leur cas d'usage prioritaire.
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="index.html#a-propos">À propos</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="axes.html">Axes</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

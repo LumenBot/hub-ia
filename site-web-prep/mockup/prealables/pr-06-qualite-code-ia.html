@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR-06 Qualité du code IA — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    .alert-block { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-4) 0; border-left: 4px solid #B86E1A; }
+    .alert-block-num { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #B86E1A; margin-bottom: var(--space-2); }
+    .alert-block-title { font-size: 1rem; color: var(--color-text); margin-bottom: var(--space-2); font-weight: 600; }
+    .alert-block p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+    .guardrail { background: linear-gradient(135deg, #E8F4E0 0%, #F4FAF4 100%); border: 1px solid #5C8C5C; border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin: var(--space-3) 0; border-left: 4px solid #2E5C2E; }
+    .guardrail-num { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #2E5C2E; margin-bottom: var(--space-2); }
+    .guardrail-title { font-size: 1rem; color: var(--color-text); margin-bottom: var(--space-2); font-weight: 600; }
+    .guardrail p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux préalables
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-06</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+      </div>
+      <h1>⚙️ Qualité du code IA (côté tech)</h1>
+      <p class="module-subtitle">
+        La productivité ×3 avec Claude Code, Cursor ou Copilot s'accompagne de 7 risques structurels documentés par les développeurs en production : turbo flemme, dérive progressive, dette technique invisible, journées 10h non perçues. Discipline qualité = condition pour passer le « train IA » sans dérailler. 7 garde-fous opérationnels.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Productivité ×3 documentée</a>
+        <a href="#section-2">2. 7 alertes terrain</a>
+        <a href="#section-3">3. 7 garde-fous opérationnels</a>
+        <a href="#section-4">4. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 60 secondes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            Les agents codeurs autonomes (Claude Code, Cursor Composer, Aider, Devin, GitHub Copilot Workspace) génèrent des gains de productivité documentés ×3 chez les développeurs pratiquants. Mais ces gains s'accompagnent de risques structurels nouveaux : code « qui fonctionne » mais non maintenable, dérive progressive du modèle, ajout de règles non demandées, confiance aveugle, journées de 10h non perçues. Sans discipline qualité, le gain de productivité est annulé par la dette technique invisible. Ce préalable documente 7 alertes observées en production + 7 garde-fous concrets.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🚀</div>
+              <div class="exec-takeaway-content">
+                <strong>Productivité ×3 documentée.</strong> 5 jours bien chargés avec un agent codeur = équivalent à 15 jours en mode classique pour un développeur expérimenté. Le gain est réel.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⚠️</div>
+              <div class="exec-takeaway-content">
+                <strong>7 alertes structurelles.</strong> Code non maintenable, dérive progressive, ajout de règles non demandées, turbo flemme, confiance aveugle, effet waouw maquettes, journées 10h non perçues. Toutes documentées en production en 2025-2026.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🛡️</div>
+              <div class="exec-takeaway-content">
+                <strong>7 garde-fous opérationnels.</strong> Discipline qualité = condition pour passer le « train IA » sans dérailler. Tests automatisés, revue critique, briefs structurés, audit dette technique récurrent, pause cognitive imposée.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Sans qualité, gain net = 0.</strong> Une feature livrée 3× plus vite mais qui demande 3× plus de maintenance dans 6 mois = même charge totale, plus de stress, et mauvaise réputation tech.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">×3</div><div class="exec-stat-label">Productivité dev observée</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">7</div><div class="exec-stat-label">Alertes structurelles</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">7</div><div class="exec-stat-label">Garde-fous opérationnels</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">10 min</div><div class="exec-stat-label">Lecture</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Productivité ×3 documentée — et les contreparties</h2>
+        </div>
+
+        <p>
+          Les agents codeurs autonomes représentent l'évolution la plus radicale du métier de développeur depuis 30 ans. Stripe Minions (1000+ PR/semaine, cf. <a href="../modules/cu-015-stripe-minions.html" class="tool-link">CU-015</a>), Claude Code, Cursor Composer, Aider, Devin, GitHub Copilot Workspace — tous documentent des gains de productivité massifs : un développeur expérimenté qui maîtrise ces outils peut produire en 5 jours ce qu'il faisait en 15 en mode classique. Le gain est réel et reproductible.
+        </p>
+
+        <div class="pull-quote">
+          Pour la première fois de ma vie de développeur, je n'ai quasiment pas écrit une ligne de code cette semaine. J'estime qu'en 5 jours bien chargés, j'ai pondu quelque chose qui m'en aurait pris 15 si je l'avais fait moi-même. Le métier est en plein bouleversement, et ceux qui ne prennent pas le train IA seront largués dans 6 mois. <em>(Toad, retour terrain pro 2026)</em>
+        </p>
+
+        <p>
+          Mais ce gain s'accompagne de <strong>risques structurels nouveaux</strong> que les développeurs en production identifient progressivement. Pas des risques techniques sur les modèles eux-mêmes — ils sont matures. Des risques <strong>cognitifs et organisationnels</strong> sur la manière dont l'humain interagit avec l'agent. Ces risques peuvent annuler totalement le gain de productivité s'ils ne sont pas adressés.
+        </p>
+
+        <p>
+          Cette section documente les 7 alertes les plus récurrentes observées en 2025-2026, puis les 7 garde-fous opérationnels qui permettent de capter le gain sans payer la dette technique cachée.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">2</div>
+          <h2 class="module-section-title">7 alertes terrain documentées</h2>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 1</div>
+          <h3 class="alert-block-title">Code « qui fonctionne » mais inmaintenable</h3>
+          <p>
+            L'agent IA produit du code qui passe les tests immédiats — mais sans notion d'architecture, de modularité, de cohésion / couplage, le code généré devient un patchwork ingérable à 6-12 mois. Symptôme typique : refactor douloureux nécessaire à chaque évolution majeure. <strong>Ne se voit pas immédiatement</strong> — c'est ce qui le rend dangereux.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 2</div>
+          <h3 class="alert-block-title">Dérive progressive de l'agent</h3>
+          <p>
+            Même cadré par des directives explicites (fichiers MD, prompts système), l'agent IA a une fâcheuse tendance à dériver petit à petit : il ajoute des dépendances non demandées, change le style de code en cours de session, oublie progressivement des contraintes initiales. Sans relecture critique régulière, on se retrouve à 3 semaines avec un code qui ne ressemble plus à ce qu'on voulait.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 3</div>
+          <h3 class="alert-block-title">Ajout de règles « pour bien faire » non demandées</h3>
+          <p>
+            L'agent ajoute fréquemment des comportements non spécifiés (logs verbeux, validation excessive, gestion d'erreurs sur-conçue, tests qui rassurent mais ne testent rien d'utile). Au début c'est sympa, c'est « complet ». Au bout de quelques semaines, c'est un empilement de logique défensive qui rend le code 3× plus long et 5× plus difficile à débugger.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 4</div>
+          <h3 class="alert-block-title">Turbo flemme</h3>
+          <p>
+            On devient TRÈS flemmard. Pour un label à modifier — truc qui prend 1 seconde manuellement — on écrit un prompt « modifie le label xxx en xxx » qui prend 30 secondes. Au-delà du gaspillage de tokens, c'est un changement cognitif : l'humain perd progressivement l'habitude de faire les micro-actions et perd la connaissance fine de son propre code.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 5</div>
+          <h3 class="alert-block-title">Confiance aveugle</h3>
+          <p>
+            On vérifie de moins en moins le code produit, parce qu'il « fonctionne ». On ne le lit plus ligne par ligne. On valide les PR sans relecture critique. À l'arrivée, on découvre des bugs subtils en production que l'humain aurait détecté en mode manuel : effet de bord, faille de sécurité, edge case mal géré.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 6</div>
+          <h3 class="alert-block-title">Effet waouw maquettes vs réalité</h3>
+          <p>
+            Les agents IA sont très très bons pour générer des maquettes d'applications visuellement convaincantes. Effet waouw assuré auprès des chefs / clients. Mais derrière la maquette, l'architecture peut être fragile, le code non modulaire, les choix techniques discutables. Décalage perception vs réalité technique = source de désillusion à 3-6 mois.
+          </p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Alerte 7</div>
+          <h3 class="alert-block-title">Journées 10h sans s'en rendre compte</h3>
+          <p>
+            La productivité tellement élevée donne envie de toujours faire plus. On enchaîne les sessions, on lance des agents en parallèle, on touche à 5 sujets dans la même journée. Résultat : journées de 10h sans pause, fatigue cognitive non perçue immédiatement, baisse de qualité décisionnelle aux moments critiques. Risque burnout silencieux à 6-12 mois.
+          </p>
+        </div>
+
+        <p>
+          Ces 7 alertes ne sont pas théoriques. Elles sont documentées par <strong>plusieurs développeurs et équipes</strong> en production sur Claude Code, Cursor Composer, Aider, GitHub Copilot Workspace et autres agents 2025-2026. Elles sont le revers de la médaille — réel — du gain de productivité.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">3</div>
+          <h2 class="module-section-title">7 garde-fous opérationnels</h2>
+        </div>
+
+        <p>
+          Pour chaque alerte, un garde-fou concret. Aucun n'est révolutionnaire pris isolément — ce sont les bonnes pratiques classiques du génie logiciel, mais appliquées avec une intensité accrue dans le contexte des agents codeurs.
+        </p>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 1</div>
+          <h3 class="guardrail-title">Tests automatisés systématiques + revue de code humaine</h3>
+          <p>
+            Tout code produit par l'agent doit passer une batterie de tests automatisés (unitaires, intégration, e2e selon criticité) ET une revue de code par un humain qui lit ligne par ligne. Pas d'auto-merge sur PR agent, jamais. Discipline non négociable héritée du génie logiciel classique.
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 2</div>
+          <h3 class="guardrail-title">Briefs structurés (objectif / contexte / contraintes)</h3>
+          <p>
+            Format obligatoire pour chaque session agent : « Objectif : [résultat attendu en 1 phrase]. Contexte : [info clé]. Contraintes : [ce qu'il ne doit PAS faire]. ». Plus le brief est précis, moins l'agent dérive. Capitaliser dans une bibliothèque interne de briefs validés.
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 3</div>
+          <h3 class="guardrail-title">Audit dette technique récurrent (mensuel)</h3>
+          <p>
+            Une fois par mois, audit explicite de la dette technique introduite par l'agent : code non utilisé, dépendances non justifiées, complexité cyclomatique excessive, doublons, patterns incohérents. Outils : SonarQube, CodeClimate, Codacy. Refactor systématique sur les zones identifiées. Sans cet audit, la dette s'accumule silencieusement.
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 4</div>
+          <h3 class="guardrail-title">Discipline « ne pas demander à l'IA ce qui prend 10 secondes »</h3>
+          <p>
+            Règle simple anti-flemme : si la modification prend moins de 10 secondes en manuel, on la fait en manuel. L'agent IA est pour les tâches structurées, pas pour les micro-changements. Discipline qui maintient la connaissance fine du code par l'humain.
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 5</div>
+          <h3 class="guardrail-title">Cap nombre d'itérations par session (max 5 cycles)</h3>
+          <p>
+            Une session agent qui boucle (5 itérations sans converger) signale que la tâche n'est pas adaptée au pattern « one-shot ». Discipline : arrêt automatique après 5 cycles, escalade vers session interactive ou retour à du code manuel. Évite la perte de temps et le burnout cognitif.
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 6</div>
+          <h3 class="guardrail-title">Cap nombre de sessions parallèles (max 3-5 par humain)</h3>
+          <p>
+            Un humain ne peut pas relire de manière critique plus de 3-5 sessions agentiques en parallèle sans dégradation de la qualité de revue. Discipline : pas plus de 3-5 sessions actives simultanément. Au-delà, soit on abdique la relecture (et le pattern devient dangereux), soit les PR s'empilent en limbo (et le pattern ne livre plus).
+          </p>
+        </div>
+
+        <div class="guardrail">
+          <div class="guardrail-num">Garde-fou 7</div>
+          <h3 class="guardrail-title">Pause cognitive imposée (8h max par jour)</h3>
+          <p>
+            La productivité élevée donne envie de continuer. Discipline : pause cognitive imposée à 8h maximum de session agentique par jour. Au-delà, qualité décisionnelle dégradée. Idéalement : alternance sessions agent (production) et sessions humaines pures (architecture, design, négociation) pour préserver les compétences profondes du développeur.
+          </p>
+        </div>
+
+        <p>
+          Application en équipe tech : <strong>inscrire ces 7 garde-fous dans le CONTRIBUTING.md</strong> du repo. En faire un sujet de revue trimestrielle équipe. Mesurer la dette technique dans les KPIs au même titre que la vélocité. C'est ce qui distingue les équipes qui durent de celles qui s'effondrent à 12-18 mois.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">4</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Sources et références</h3>
+          <ul>
+            <li><a href="https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents" target="_blank" rel="noopener">Stripe — Minions (1000+ PR/semaine)</a><span class="resources-meta">Référence du pattern « one-shot, end-to-end coding agents »</span></li>
+            <li><a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI — Agentic AI (Andrew Ng)</a><span class="resources-meta">Cours de référence sur les patterns d'agents autonomes</span></li>
+            <li><a href="https://martinfowler.com" target="_blank" rel="noopener">Martin Fowler — Tech debt</a><span class="resources-meta">Référence historique sur la dette technique, applicable à l'ère IA</span></li>
+            <li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">OWASP Top 10 LLM</a><span class="resources-meta">Vulnérabilités IA, complémentaire à la qualité code</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li><a href="../modules/cu-015-stripe-minions.html">CU-015 Stripe Minions / agents codeurs</a><span class="resources-meta">Le module opérationnel sur les agents codeurs autonomes</span></li>
+            <li><a href="pr-02-preables-data-si.html">PR-02 Préalables data &amp; SI</a><span class="resources-meta">Tests, sandbox, observabilité = fondations technique</span></li>
+            <li><a href="../ressources.html#claude-code">Claude Code (Anthropic)</a><span class="resources-meta">Référence agent codeur autonome 2026</span></li>
+            <li><a href="../ressources.html#cursor">Cursor</a><span class="resources-meta">IDE avec mode Composer agent autonome intégré</span></li>
+            <li><a href="../ressources.html#aider">Aider</a><span class="resources-meta">Alternative open-source déployable en local</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../prealables.html">Préalables</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+
+</body>
+</html>
