@@ -27,6 +27,11 @@
   --color-n3-border: #B05A30;
   --color-n3-bg-subtle: #FDF6F2;
 
+  --color-n4-bg: #FFE0E0;
+  --color-n4-fg: #8C1A1A;
+  --color-n4-border: #C82A2A;
+  --color-n4-bg-subtle: #FFF1F1;
+
   /* Axes V2 — par valeur ajoutée IA */
   --color-axe-a-bg: #E1EFE3;  --color-axe-a-fg: #1F5132;  --color-axe-a-border: #4A8A65;  /* A Productivité */
   --color-axe-b-bg: #DCE7F3;  --color-axe-b-fg: #1B3B66;  --color-axe-b-border: #3F6FA8;  /* B Décision */
@@ -586,6 +591,7 @@ img, svg {
 .card.n1:hover { border-color: var(--color-n1-border); }
 .card.n2:hover { border-color: var(--color-n2-border); }
 .card.n3:hover { border-color: var(--color-n3-border); }
+.card.n4:hover { border-color: var(--color-n4-border); }
 
 .card-top {
   display: flex;
@@ -621,6 +627,11 @@ img, svg {
 .card-badge.n3 {
   background: var(--color-n3-bg);
   color: var(--color-n3-fg);
+}
+
+.card-badge.n4 {
+  background: var(--color-n4-bg);
+  color: var(--color-n4-fg);
 }
 
 .card-warning {
