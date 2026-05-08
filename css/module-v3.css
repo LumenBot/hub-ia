@@ -360,6 +360,18 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
 .tool-badge.hybrid { background: linear-gradient(135deg, #DCE7F3, #DCF0DF); color: #1B3B66; }
 .tool-badge.openweight { background: #FEF3C7; color: #78350F; }
 
+/* Coût d'entrée (5ᵉ dimension — revue Cowork v3.2) */
+.tool-badge.cost-free { background: #DCF0DF; color: #1F5132; }
+.tool-badge.cost-freemium { background: #ECF6E0; color: #4A6A1F; }
+.tool-badge.cost-paid { background: #FFE8D4; color: #7A3E12; }
+.tool-badge.cost-enterprise { background: #FCD9D9; color: #7A1F20; }
+
+/* Complexité de mise en œuvre (6ᵉ dimension) */
+.tool-badge.complexity-1 { background: #F0F4F8; color: #1B3B66; }
+.tool-badge.complexity-2 { background: #E0E8F4; color: #1B3B66; }
+.tool-badge.complexity-3 { background: #D0DCF0; color: #1B3B66; }
+.tool-badge.complexity-4 { background: #C0D0EC; color: #0F2A4A; font-weight: 600; }
+
 /* Category dividers (Ressources page — section catalogue) */
 .cat-divider {
   display: grid;
