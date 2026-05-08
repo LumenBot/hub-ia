@@ -387,6 +387,67 @@ img, svg {
 }
 
 /* ============================================
+   ENCART PRÉALABLES (home)
+   ============================================ */
+.prealables-banner {
+  background: linear-gradient(135deg, #1F3864 0%, #2A4A7F 100%);
+  color: white;
+  padding: var(--space-8) var(--space-6);
+  border-bottom: 4px solid #FFD600;
+}
+.prealables-banner-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.prealables-banner-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.prealables-banner-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #FFD600;
+}
+.prealables-banner-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0;
+}
+.prealables-banner-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  max-width: 720px;
+}
+.prealables-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: #FFD600;
+  color: #1F3864;
+  font-weight: 700;
+  text-decoration: none;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.prealables-banner-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+@media (max-width: 720px) {
+  .prealables-banner { padding: var(--space-6) var(--space-4); }
+  .prealables-banner-title { font-size: 1.375rem; }
+}
+
+/* ============================================
    MAIN — SECTIONS MODULES
    ============================================ */
 

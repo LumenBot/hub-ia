@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR-04 Marché IA & impact emploi — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    .stat-block { background: linear-gradient(135deg, #1F3864 0%, #2E5395 100%); color: white; padding: var(--space-5) var(--space-6); border-radius: var(--radius-md); margin: var(--space-5) 0; text-align: center; }
+    .stat-block-num { font-size: 3rem; font-weight: 800; color: #FFD600; line-height: 1; margin-bottom: var(--space-2); }
+    .stat-block-label { font-size: 1rem; line-height: 1.4; }
+    .stat-block-source { font-size: 0.8125rem; opacity: 0.7; margin-top: var(--space-3); font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux préalables
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-04</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
+      </div>
+      <h1>📊 Marché IA &amp; impact emploi</h1>
+      <p class="module-subtitle">
+        Productivité ×5 dans les secteurs très exposés à l'IA. 77 000 offres d'emploi exigeant des compétences IA en France en 2023, ×7 vs 2018. Prime salariale +25 % pour les compétences IA spécialisées. Compétences évoluent 25 % plus vite. Données macro pour cadrer les enjeux RH et économiques d'un projet IA.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Productivité ×5</a>
+        <a href="#section-2">2. Le marché de l'emploi IA</a>
+        <a href="#section-3">3. Prime salariale</a>
+        <a href="#section-4">4. Spécificité française</a>
+        <a href="#section-5">5. Implications stratégiques</a>
+        <a href="#section-6">6. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 60 secondes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            L'AI Jobs Barometer 2024 de PwC, basé sur l'analyse de 500 millions+ d'offres d'emploi dans 15 pays, documente 4 phénomènes structurants : <strong>productivité ×5 dans les secteurs très exposés à l'IA</strong>, marché de l'emploi IA en croissance massive (×7 en 5 ans en France), prime salariale jusqu'à +25 % pour les compétences IA, obsolescence accélérée des compétences (25 % plus vite). Ces chiffres macro permettent de cadrer les enjeux RH et économiques d'un projet IA — et de justifier l'investissement en formation auprès de la direction.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🚀</div>
+              <div class="exec-takeaway-content">
+                <strong>Productivité ×5.</strong> Dans les secteurs très exposés à l'IA (services financiers, IT, services pro), la productivité par travailleur croît 5× plus vite que dans les secteurs faiblement exposés.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📈</div>
+              <div class="exec-takeaway-content">
+                <strong>Marché emploi IA ×7 en France.</strong> 77 000 offres d'emploi exigeant des compétences IA en 2023 vs 11 000 en 2018. Croissance qui se poursuit en 2024-2026.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">💸</div>
+              <div class="exec-takeaway-content">
+                <strong>Prime salariale jusqu'à +49 %.</strong> Compétences IA = +25 % en moyenne. Pic à +49 % (avocats US), +43 % (directeurs ventes/marketing), +33 % (analystes financiers).
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">⏱️</div>
+              <div class="exec-takeaway-content">
+                <strong>Compétences obsolescentes 25 % plus vite.</strong> Dans les métiers exposés à l'IA, les compétences requises changent 25 % plus vite que dans les métiers peu exposés. La formation continue n'est pas option.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">×5</div><div class="exec-stat-label">Productivité secteurs exposés</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">×7</div><div class="exec-stat-label">Offres IA France 2018→2023</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">+25 %</div><div class="exec-stat-label">Prime salariale moyenne</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">10 min</div><div class="exec-stat-label">Lecture</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Productivité ×5 dans les secteurs très exposés à l'IA</h2>
+        </div>
+
+        <p>
+          L'AI Jobs Barometer 2024 de PwC, étude qui analyse 500 millions d'offres d'emploi sur 15 pays, distingue les <strong>secteurs très exposés à l'IA</strong> (services financiers, conseil, technologies, services professionnels) des <strong>secteurs faiblement exposés</strong> (BTP, hôtellerie, restauration, certains services à la personne).
+        </p>
+
+        <div class="stat-block">
+          <div class="stat-block-num">×5</div>
+          <div class="stat-block-label">Productivité par travailleur dans les secteurs très exposés à l'IA<br>vs secteurs faiblement exposés (2018-2023)</div>
+          <div class="stat-block-source">Source : PwC AI Jobs Barometer 2024</div>
+        </div>
+
+        <p>
+          Le mécanisme : dans les secteurs très exposés, l'IA générative a permis aux collaborateurs d'<strong>augmenter leur production sans augmenter proportionnellement leur charge cognitive</strong>. Un avocat assisté par un LLM peut produire 3-4 mémorandums dans le temps qu'il en faisait 1. Un analyste financier peut traiter 5 dossiers vs 1.
+        </p>
+
+        <p>
+          Ce différentiel de productivité <strong>se creuse</strong>. Les secteurs très exposés captent une part croissante de la valeur économique. Pour une PME / ETI dans un secteur exposé (services pros, conseil, finance), <strong>ne pas adopter l'IA = perdre du terrain face aux concurrents</strong>. Pour une PME / ETI dans un secteur peu exposé (BTP, agro, industrie traditionnelle), l'IA peut devenir <strong>un facteur de différenciation</strong> précisément parce que la majorité du marché ne l'utilise pas encore.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Le marché de l'emploi IA explose</h2>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-block-num">77 000</div>
+          <div class="stat-block-label">Offres d'emploi en France exigeant des compétences IA en 2023<br>(×7 vs 11 000 en 2018)</div>
+          <div class="stat-block-source">Source : PwC AI Jobs Barometer 2024 (Pauline Adam-Kalfon, PwC France)</div>
+        </div>
+
+        <p>
+          La croissance du marché de l'emploi IA en France est l'une des plus fortes au monde, alignée avec la dynamique européenne (Allemagne, UK) et derrière les leaders mondiaux (US, Chine, Inde). 77 000 offres en 2023, c'est <strong>×7 vs 2018</strong>. Les chiffres 2024 et 2025 (non encore publiés au moment de cette analyse) devraient confirmer la tendance.
+        </p>
+
+        <p>
+          La répartition par fonction est instructive :
+        </p>
+        <ul>
+          <li><strong>Data scientists / ML engineers</strong> : la cohorte historique, en croissance régulière (+30 % par an)</li>
+          <li><strong>Prompt engineers</strong> : nouvelle catégorie (≈ 0 en 2018, plusieurs milliers en 2023)</li>
+          <li><strong>Profils métier augmentés</strong> : la vraie explosion — analystes financiers, juristes, marketeurs, commerciaux qui exigent désormais des compétences IA dans leurs offres</li>
+          <li><strong>Référents IA</strong> : nouveau rôle hybride (DSI x DRH x compliance), en émergence 2025-2026</li>
+        </ul>
+
+        <p>
+          Pour une PME / ETI, l'enjeu n'est pas tant de recruter des « profils IA » que de <strong>former les profils métier existants</strong>. C'est le combo (cf. <a href="pr-03-maturite-humaine-formation.html" class="tool-link">PR-03 Maturité humaine &amp; formation</a>) qui gagne, pas la chasse aux unicorns data scientists.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Prime salariale : +25 % en moyenne, jusqu'à +49 %</h2>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-block-num">+25 %</div>
+          <div class="stat-block-label">Prime salariale moyenne pour les compétences IA<br>Pic à +49 % (avocats US), +43 % (DV-marketing), +33 % (analystes finance)</div>
+          <div class="stat-block-source">Source : PwC AI Jobs Barometer 2024</div>
+        </div>
+
+        <p>
+          Sur les 15 pays analysés par PwC, la prime salariale pour les compétences IA spécialisées est de +25 % en moyenne. Les pics sectoriels :
+        </p>
+        <ul>
+          <li><strong>+49 %</strong> pour les avocats aux États-Unis (analyse contractuelle augmentée par IA)</li>
+          <li><strong>+43 %</strong> pour les directeurs ventes / marketing (capacité à orchestrer des stacks IA marketing)</li>
+          <li><strong>+33 %</strong> pour les analystes financiers (capacité à exploiter des LLM sur les données financières)</li>
+          <li><strong>+25 %</strong> en moyenne tous secteurs confondus</li>
+        </ul>
+
+        <p>
+          Ces primes ne sont <strong>pas un effet de bulle</strong> — elles reflètent la productivité différentielle réelle des collaborateurs IA-compétents. C'est aussi un argument fort pour les apprenants : <strong>investir 30 heures dans une formation IA peut générer +25 % de salaire à 1-3 ans</strong>. C'est un retour sur investissement personnel difficile à battre.
+        </p>
+
+        <p>
+          Pour les employeurs, le message est inverse : <strong>les talents IA-compétents vont coûter plus cher</strong>. C'est une raison supplémentaire de former les talents existants en interne (cf. PR-03) plutôt que d'attendre de devoir les recruter à prix fort sur un marché tendu.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">4</div>
+          <h2 class="module-section-title">Spécificité française : l'industrie tire la demande</h2>
+        </div>
+
+        <p>
+          Une particularité française relevée par PwC : <strong>contrairement aux pays où la demande IA vient surtout des services intellectuels (finance, conseil), en France c'est l'industrie qui demande le plus de compétences IA</strong>. Cette spécificité s'explique par la structure du tissu économique français : industrie manufacturière forte, recherche industrielle développée, plan France 2030 orienté souveraineté industrielle.
+        </p>
+
+        <p>
+          Concrètement, cela résonne fortement avec le tissu industriel du Grand Est et notamment des Vosges :
+        </p>
+        <ul>
+          <li><strong>Filière bois</strong> (Egger Rambervillers, NS-Weisrock, scieries vosgiennes) : optimisation production, vision industrielle, maintenance prédictive (cf. CU-016, CU-017, CU-018)</li>
+          <li><strong>Textile</strong> (Linvosges, Bleu Forêt, Garnier-Thiebaut) : optimisation matière, contrôle qualité visuel</li>
+          <li><strong>Mécanique</strong> (Numalliance et autres) : ordonnancement, vision défauts, agents codeurs (cf. CU-015)</li>
+        </ul>
+
+        <p>
+          C'est précisément le <strong>positionnement différenciant du réseau Quest for Change</strong> : ancrer l'IA dans un tissu industriel territorial qui est demandeur, pas seulement dans le numérique tertiaire.
+        </p>
+
+        <p>
+          Donnée complémentaire (BEI, Les Echos décembre 2025) : <strong>seuls 25 % des entreprises françaises utilisent l'IA générative en 2025, vs 37 % en moyenne européenne</strong>. La France est en retard sur l'adoption — c'est paradoxalement une opportunité pour les acteurs qui accélèrent maintenant, vs une menace pour ceux qui attendent.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">5</div>
+          <h2 class="module-section-title">Implications stratégiques pour PME / ETI</h2>
+        </div>
+
+        <h3>Pour les dirigeants</h3>
+        <p>
+          La productivité ×5 dans les secteurs exposés est une donnée macro qui justifie de <strong>budgétiser un projet IA significatif sur 12-18 mois</strong>, pas de le voir comme une dépense optionnelle. À condition de sécuriser les préalables (PR-01 à PR-06), le ROI se matérialise généralement à plusieurs niveaux : économies de temps de traitement, captation de CA additionnel (chiffrages indicatifs développés dans les modules CU-022 voicebot, CU-008 RAG, CU-017 vision industrielle), réduction d'erreurs et de rebuts. Les ordres de grandeur dépendent fortement du secteur, du volume d'opérations et de la maturité organisationnelle.
+        </p>
+
+        <h3>Pour les DRH</h3>
+        <p>
+          La prime salariale +25 % et l'obsolescence accélérée des compétences impliquent de <strong>passer d'une logique de recrutement à une logique de formation continue</strong>. Investir dans la montée en compétences IA des collaborateurs existants est plus rentable que d'attendre de devoir embaucher à prix fort. Le cofinancement public (cf. PR-03) rend cet investissement quasi gratuit.
+        </p>
+
+        <h3>Pour les collaborateurs</h3>
+        <p>
+          Investir 30 heures de formation IA peut générer <strong>+25 % de salaire à 1-3 ans</strong> selon les secteurs. C'est un retour sur investissement personnel difficile à battre. Plus largement, les compétences IA deviennent un prérequis pour rester pertinent dans les métiers exposés (analystes, juristes, marketeurs, commerciaux, communicants, RH).
+        </p>
+
+        <h3>Pour le réseau QFC</h3>
+        <p>
+          La spécificité française (industrie tire la demande IA) <strong>aligne le positionnement du réseau Quest for Change avec la dynamique nationale</strong>. Les startups industrielles accompagnées dans le territoire Grand Est sont précisément sur le segment où la demande IA est la plus forte. C'est un message à valoriser dans la communication réseau.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">6</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📊 Sources et études</h3>
+          <ul>
+            <li><a href="https://www.pwc.fr/fr/espace-presse/communiques-de-presse/2024/mai/ai-jobs-barometer.html" target="_blank" rel="noopener">PwC — AI Jobs Barometer 2024</a><span class="resources-meta">Étude 500 M offres / 15 pays — référence chiffres macro IA &amp; emploi</span></li>
+            <li><a href="https://www.pwc.fr/fr/publications/2026/02/les-metiers-se-reconfigurent-avec-l-ia.html" target="_blank" rel="noopener">PwC France — Métiers reconfigurés par l'IA (2026)</a><span class="resources-meta">Étude française complémentaire, secteurs exposés et croissance CA</span></li>
+            <li><a href="https://www.bei.org" target="_blank" rel="noopener">BEI — Investment Survey IA</a><span class="resources-meta">25 % FR vs 37 % EU sur adoption IA générative en 2025</span></li>
+            <li><a href="https://lelab.bpifrance.fr" target="_blank" rel="noopener">Bpifrance Le Lab — PME-ETI et IA 2026</a><span class="resources-meta">Étude 1 200 dirigeants : 55 % opérationnalisation IA en 2026</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li><a href="pr-03-maturite-humaine-formation.html">PR-03 Maturité humaine &amp; formation</a><span class="resources-meta">Le préalable opérationnel pour transformer les chiffres macro en actions</span></li>
+            <li><a href="pr-01-maturite-organisationnelle.html">PR-01 Maturité organisationnelle</a><span class="resources-meta">Le préalable structurel</span></li>
+            <li><a href="../index.html#modules">Les 22 modules CU</a><span class="resources-meta">Cas d'usage concrets pour matérialiser les chiffres macro</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../prealables.html">Préalables</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+
+</body>
+</html>
