@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conformité RGPD & AI Act pour PME — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Risk matrix — spécifique CU-020 */
+    .risk-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .risk-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+    .risk-card.interdit { border-top-color: #8C1A1A; background: linear-gradient(180deg, #FFF1F1 0%, white 30%); }
+    .risk-card.eleve { border-top-color: #C82A2A; background: linear-gradient(180deg, #FFE0E0 0%, white 30%); }
+    .risk-card.limite { border-top-color: #B86E1A; background: linear-gradient(180deg, #FFF8F0 0%, white 30%); }
+    .risk-card.minimal { border-top-color: #5C8C5C; background: linear-gradient(180deg, #E8F4E0 0%, white 30%); }
+    .risk-card-level { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+    .risk-card.interdit .risk-card-level { color: #8C1A1A; }
+    .risk-card.eleve .risk-card-level { color: #C82A2A; }
+    .risk-card.limite .risk-card-level { color: #B86E1A; }
+    .risk-card.minimal .risk-card-level { color: #2E5C2E; }
+    .risk-card-title { font-weight: 700; font-size: 1rem; margin-bottom: var(--space-2); color: var(--color-text); }
+    .risk-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .risk-card-examples { font-size: 0.75rem; color: var(--color-text-soft); font-style: italic; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+
+    /* Bandeau urgence réglementaire */
+    .alert-deadline { background: linear-gradient(135deg, #FFF1F1 0%, #FFE0E0 100%); border: 2px solid #C82A2A; border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-5) auto; max-width: 1200px; display: flex; align-items: flex-start; gap: var(--space-4); }
+    .alert-deadline-icon { font-size: 2rem; flex-shrink: 0; }
+    .alert-deadline-content h3 { color: #8C1A1A; margin: 0 0 var(--space-2); font-size: 1.0625rem; }
+    .alert-deadline-content p { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--color-text); }
+    .alert-deadline-content strong { color: #8C1A1A; }
+  </style>
+</head>
+<body>
+
+  <!-- Reading progress bar -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">🔴 Industrialisation</a>
+        <span class="card-badge" style="background:#FFF1F1; color:#8C1A1A; border:1px solid #C82A2A;">⚖️ Conformité réglementaire</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
+      </div>
+      <h1>⚖️ Conformité RGPD & AI Act pour PME</h1>
+      <p class="module-subtitle">
+        Cartographier les usages IA (y compris Shadow AI), classer chaque usage par niveau de risque AI Act, articuler avec le RGPD existant, mettre en place la formation IA obligatoire des équipes (article 4). Méthode pragmatique pour PME et ETI sans DPO juridique dédié — avant la deadline du 2 août 2026.
+      </p>
+    </div>
+  </header>
+
+  <!-- Bandeau urgence réglementaire -->
+  <div class="alert-deadline">
+    <div class="alert-deadline-icon">⏰</div>
+    <div class="alert-deadline-content">
+      <h3>Deadline réglementaire : 2 août 2026</h3>
+      <p>L'AI Act entre en application sur les obligations majeures. <strong>Sanctions jusqu'à 7 % du chiffre d'affaires mondial annuel ou 35 M€ par infraction</strong> (le plus élevé). Article 4 : formation IA obligatoire pour <strong>toute équipe manipulant l'IA</strong>. Sans dispositif documenté, la PME est exposée — y compris si elle utilise simplement ChatGPT ou Claude au quotidien.</p>
+    </div>
+  </div>
+
+  <div class="module-layout">
+
+    <!-- Sticky sidebar TOC -->
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. 4 niveaux de risque AI Act</a>
+        <a href="#section-3">3. Architecture du dispositif</a>
+        <a href="#section-4">4. Cartographie Shadow AI</a>
+        <a href="#section-5">5. Articulation RGPD ↔ AI Act</a>
+        <a href="#section-6">6. Stack & outils</a>
+        <a href="#section-7">7. Troubleshooting</a>
+        <a href="#section-8">8. Étude de cas ManufactCo</a>
+        <a href="#section-9">9. Pièges à éviter</a>
+        <a href="#section-10">10. Checklist d'éligibilité</a>
+        <a href="#section-11">11. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            L'AI Act européen entre en application le 2 août 2026 sur les obligations majeures. Côté PME, deux évidences : (1) la majorité des entreprises ont déjà des usages IA non documentés (« Shadow AI ») — typiquement 15 à 30 usages par PME de 50-100 personnes, dont 2 à 5 relèvent potentiellement du « haut risque » au sens AI Act ; (2) l'article 4 impose une formation IA obligatoire à toute équipe manipulant l'IA, sans exception. Sans dispositif documenté avant la deadline, la PME est exposée à des sanctions jusqu'à 7 % du CA mondial. Ce module pose la méthode pragmatique pour cartographier, classer, et structurer le dispositif — sans expertise juridique dédiée.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔍</div>
+              <div class="exec-takeaway-content">
+                <strong>Cartographier le « Shadow AI » est la première brique.</strong> 60 à 80 % des usages IA en PME sont non documentés en 2026 (collaborateurs qui utilisent ChatGPT Pro perso, équipes RH qui testent un outil de tri CV, marketing qui pousse des prompts dans Claude). Sans inventaire, aucun dispositif n'est crédible.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🚦</div>
+              <div class="exec-takeaway-content">
+                <strong>4 niveaux de risque AI Act, traitement différencié.</strong> Interdit (à arrêter immédiatement), haut risque (dispositif lourd : registre, AIPD, contrôle humain documenté), risque limité (transparence usager), risque minimal (~80 % des usages PME, charte interne suffit).
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🤝</div>
+              <div class="exec-takeaway-content">
+                <strong>Articulation RGPD ↔ AI Act non négociable.</strong> Le RGPD protège la donnée personnelle (consentement, finalité), l'AI Act protège le système (transparence, robustesse, contrôle humain). DPO + référent IA travaillent main dans la main, avec matrice RACI documentée.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎓</div>
+              <div class="exec-takeaway-content">
+                <strong>Formation IA obligatoire (article 4).</strong> Toute équipe manipulant l'IA doit avoir un niveau minimal de littératie. Aucune exception « ne concerne que les développeurs ». Formats acceptables : MOOC certifiants, parcours internes documentés, attestation de l'employeur.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">2 août 2026</div>
+              <div class="exec-stat-label">Deadline obligations majeures</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">7 %</div>
+              <div class="exec-stat-label">CA mondial — sanction max</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">15-30</div>
+              <div class="exec-stat-label">Usages IA typiques par PME 50-100p</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">45 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une PME ou ETI qui utilise déjà l'IA (même de façon informelle) ; tu n'as pas de DPO juridique interne dédié à l'IA ; tu cherches une méthode pragmatique pour cartographier les usages, classer les risques, sécuriser le dispositif avant le 2 août 2026 ; tu veux comprendre comment articuler RGPD et AI Act sans devenir juriste — pour décider, prioriser, déployer.
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — pourquoi maintenant</h2>
+        </div>
+
+        <p>
+          Le règlement européen sur l'intelligence artificielle (AI Act) a été adopté en 2024, avec une entrée en application progressive jusqu'au 2 août 2027. <strong>La date la plus structurante côté PME est le 2 août 2026</strong> : entrée en vigueur des obligations sur les modèles à usage général, l'article 4 (formation IA obligatoire), les organismes notifiés, et les premières sanctions effectives.
+        </p>
+        <p>
+          En parallèle, le RGPD est applicable depuis 2018, mais l'IA générative crée des flux de données nouveaux qui n'étaient pas prévus dans les registres initiaux : envoi de mails clients à un LLM cloud pour reformulation, traitement de CV par un agent de pré-tri, audit d'un PDF contractuel par Claude ou GPT. <strong>La majorité des PME ont des usages IA qui ne figurent pas dans leur registre RGPD</strong> — ce qui est, en soi, déjà un manquement.
+        </p>
+
+        <div class="pull-quote">
+          La conformité IA n'est pas une affaire de juristes, c'est une affaire de pilotage. Tant qu'on n'a pas cartographié ce que les équipes utilisent réellement, on ne peut ni protéger les données, ni former les bonnes personnes, ni anticiper les sanctions. La cartographie Shadow AI est le préalable absolu.
+        </div>
+
+        <p>
+          Concrètement, <strong>une PME de 50 à 100 personnes a typiquement 15 à 30 usages IA en circulation</strong> en 2026, dont une part non négligeable n'est pas connue de la direction : ChatGPT Pro perso pour rédaction commerciale, Claude pour analyse de contrat, Otter ou Fireflies pour CR de réunion, outils de tri CV testés par RH, agents marketing automation. Sans dispositif, la responsabilité juridique du dirigeant est engagée à mesure que l'AI Act devient effectif.
+        </p>
+
+        <p>
+          La bonne nouvelle : <strong>le dispositif de conformité est largement à la portée d'une PME-ETI</strong>, à condition d'adopter une méthode pragmatique. Ce module documente les 5 phases : inventaire, classification, mise en conformité urgente, formation, gouvernance continue. Avec une étude de cas réaliste (ManufactCo, ETI mécanique 80 personnes Grand Est) qui décortique 4 mois de mise en place.
+        </p>
+      </section>
+
+      <!-- 2. 4 NIVEAUX DE RISQUE AI ACT -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les 4 niveaux de risque AI Act</h2>
+        </div>
+
+        <p>
+          L'AI Act classe les systèmes d'IA en 4 niveaux de risque, avec un traitement différencié. La logique : <strong>plus le risque pour les droits fondamentaux ou la sécurité est élevé, plus les obligations le sont</strong>. Pour une PME, l'exercice consiste à classer chaque usage cartographié dans la bonne catégorie — c'est ce qui détermine le niveau d'effort et de documentation à fournir.
+        </p>
+
+        <div class="risk-matrix">
+          <div class="risk-card interdit">
+            <div class="risk-card-level">🛑 Interdit</div>
+            <div class="risk-card-title">Pratiques inacceptables</div>
+            <div class="risk-card-desc">À arrêter immédiatement, sans exception. Exposition juridique maximale.</div>
+            <div class="risk-card-examples">Ex : reconnaissance émotionnelle au travail, scoring social, manipulation cognitive, identification biométrique en temps réel dans l'espace public.</div>
+          </div>
+          <div class="risk-card eleve">
+            <div class="risk-card-level">⚠️ Haut risque</div>
+            <div class="risk-card-title">Dispositif lourd obligatoire</div>
+            <div class="risk-card-desc">Registre dédié, AIPD renforcée, contrôle humain documenté, robustesse testée, monitoring continu.</div>
+            <div class="risk-card-examples">Ex : recrutement (tri CV, scoring candidats), évaluation salariés, accès au crédit, infrastructures critiques, biométrie identification.</div>
+          </div>
+          <div class="risk-card limite">
+            <div class="risk-card-level">⚡ Risque limité</div>
+            <div class="risk-card-title">Transparence obligatoire</div>
+            <div class="risk-card-desc">L'utilisateur final doit savoir qu'il interagit avec un système IA. Mention claire visible.</div>
+            <div class="risk-card-examples">Ex : chatbots clients, deepfakes, contenus générés (article, image, voix), assistance par IA dans les emails sortants.</div>
+          </div>
+          <div class="risk-card minimal">
+            <div class="risk-card-level">✅ Risque minimal</div>
+            <div class="risk-card-title">Charte d'usage interne suffit</div>
+            <div class="risk-card-desc">Pas d'obligation lourde. Bonne pratique : politique IA documentée + formation.</div>
+            <div class="risk-card-examples">Ex : assistant rédactionnel personnel, traduction automatique, recherche augmentée, génération d'idées. ~80 % des usages PME.</div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Implication clé pour la PME</strong> : sur 23 usages typiques, <strong>1 à 2 sont haut risque</strong> (souvent en RH ou crédit), <strong>3 à 5 sont à risque limité</strong> (chatbots clients, contenu généré), et <strong>tout le reste est risque minimal</strong>. L'effort de mise en conformité doit être calibré en conséquence : ne pas traiter un assistant rédactionnel personnel comme un système haut risque, ne pas traiter un agent RH comme un usage anodin.
+        </p>
+      </section>
+
+      <!-- 3. ARCHITECTURE DU DISPOSITIF -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture du dispositif</h2>
+        </div>
+
+        <p>
+          Pipeline en 5 phases séquentielles, à dérouler dans cet ordre : cartographie → classification → mise en conformité urgente → formation → gouvernance continue. Les phases 1-3 sont à boucler avant le 2 août 2026 ; la phase 4 doit avoir démarré ; la phase 5 est un régime permanent.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar20" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar20red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#C82A2A"/>
+              </marker>
+            </defs>
+
+            <!-- Phase 1 — Cartographie -->
+            <rect x="20" y="40" width="170" height="100" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="105" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">1 — CARTOGRAPHIE</text>
+            <text x="105" y="88" text-anchor="middle" font-size="11" fill="#333">Audit Shadow AI</text>
+            <text x="105" y="103" text-anchor="middle" font-size="11" fill="#333">Inventaire usages</text>
+            <text x="105" y="118" text-anchor="middle" font-size="11" fill="#333">par fonction métier</text>
+            <text x="105" y="133" text-anchor="middle" font-size="10" fill="#666" font-style="italic">3-4 semaines</text>
+
+            <!-- Phase 2 — Classification -->
+            <rect x="210" y="40" width="170" height="100" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="295" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">2 — CLASSIFICATION</text>
+            <text x="295" y="88" text-anchor="middle" font-size="11" fill="#333">4 niveaux AI Act</text>
+            <text x="295" y="103" text-anchor="middle" font-size="11" fill="#333">+ matrice RGPD</text>
+            <text x="295" y="118" text-anchor="middle" font-size="11" fill="#333">+ priorisation</text>
+            <text x="295" y="133" text-anchor="middle" font-size="10" fill="#666" font-style="italic">2 semaines</text>
+
+            <!-- Phase 3 — Mise en conformité -->
+            <rect x="400" y="40" width="170" height="100" rx="12" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="485" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#8C1A1A">3 — CONFORMITÉ</text>
+            <text x="485" y="88" text-anchor="middle" font-size="11" fill="#333">Registres + politiques</text>
+            <text x="485" y="103" text-anchor="middle" font-size="11" fill="#333">AIPD haut risque</text>
+            <text x="485" y="118" text-anchor="middle" font-size="11" fill="#333">Contrôle humain doc.</text>
+            <text x="485" y="133" text-anchor="middle" font-size="10" fill="#666" font-style="italic">6-8 semaines</text>
+
+            <!-- Phase 4 — Formation -->
+            <rect x="590" y="40" width="170" height="100" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="675" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">4 — FORMATION</text>
+            <text x="675" y="88" text-anchor="middle" font-size="11" fill="#333">Article 4 AI Act</text>
+            <text x="675" y="103" text-anchor="middle" font-size="11" fill="#333">100 % équipes</text>
+            <text x="675" y="118" text-anchor="middle" font-size="11" fill="#333">Attestations doc.</text>
+            <text x="675" y="133" text-anchor="middle" font-size="10" fill="#666" font-style="italic">8-16 semaines</text>
+
+            <!-- Phase 5 — Gouvernance -->
+            <rect x="780" y="40" width="120" height="100" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="3"/>
+            <text x="840" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#2E5C2E">5 — GOUVERNANCE</text>
+            <text x="840" y="85" text-anchor="middle" font-size="10" fill="#333">Régime continu</text>
+            <text x="840" y="100" text-anchor="middle" font-size="10" fill="#333">Revue trim.</text>
+            <text x="840" y="118" text-anchor="middle" font-size="10" fill="#333">Veille</text>
+            <text x="840" y="135" text-anchor="middle" font-size="10" fill="#333">réglementaire</text>
+
+            <!-- Acteurs en bas -->
+            <rect x="20" y="200" width="280" height="80" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5"/>
+            <text x="160" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">👤 RÉFÉRENT IA</text>
+            <text x="160" y="245" text-anchor="middle" font-size="11" fill="#333">Responsable opérationnel du dispositif</text>
+            <text x="160" y="262" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Peut être cumulé avec DPO ou rôle dédié</text>
+
+            <rect x="320" y="200" width="280" height="80" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5"/>
+            <text x="460" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">⚖️ DPO (RGPD)</text>
+            <text x="460" y="245" text-anchor="middle" font-size="11" fill="#333">Garde-fou données personnelles</text>
+            <text x="460" y="262" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Articulation matrice RACI avec référent IA</text>
+
+            <rect x="620" y="200" width="280" height="80" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5"/>
+            <text x="760" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">🏢 SPONSOR EXÉCUTIF</text>
+            <text x="760" y="245" text-anchor="middle" font-size="11" fill="#333">DG / DAF / DRH selon structure</text>
+            <text x="760" y="262" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Décision arbitrage et budget</text>
+
+            <!-- Documents clés -->
+            <rect x="100" y="320" width="720" height="100" rx="10" fill="#FFFBEB" stroke="#B89030" stroke-width="2" stroke-dasharray="4,3"/>
+            <text x="460" y="345" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">📋 DOCUMENTS CLÉS À PRODUIRE</text>
+            <text x="180" y="370" text-anchor="middle" font-size="10" fill="#333">Registre traitements RGPD</text>
+            <text x="350" y="370" text-anchor="middle" font-size="10" fill="#333">Registre usages IA</text>
+            <text x="520" y="370" text-anchor="middle" font-size="10" fill="#333">Politique IA (charte)</text>
+            <text x="690" y="370" text-anchor="middle" font-size="10" fill="#333">AIPD haut risque</text>
+            <text x="180" y="395" text-anchor="middle" font-size="10" fill="#333">Matrice RACI DPO/Référent</text>
+            <text x="350" y="395" text-anchor="middle" font-size="10" fill="#333">Plan formation article 4</text>
+            <text x="520" y="395" text-anchor="middle" font-size="10" fill="#333">Attestations équipes</text>
+            <text x="690" y="395" text-anchor="middle" font-size="10" fill="#333">Procédure incident</text>
+
+            <!-- Flèches en chaîne phases 1-5 -->
+            <line x1="190" y1="90" x2="208" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar20)"/>
+            <line x1="380" y1="90" x2="398" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar20)"/>
+            <line x1="570" y1="90" x2="588" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar20)"/>
+            <line x1="760" y1="90" x2="778" y2="90" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar20)"/>
+
+            <!-- Flèches acteurs -> phases (pointillé) -->
+            <line x1="160" y1="200" x2="160" y2="142" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar20)"/>
+            <line x1="460" y1="200" x2="460" y2="142" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar20)"/>
+            <line x1="760" y1="200" x2="760" y2="142" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar20)"/>
+
+            <!-- Flèche phases -> documents (pointillé) -->
+            <line x1="295" y1="280" x2="350" y2="318" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar20)"/>
+            <line x1="675" y1="280" x2="600" y2="318" stroke="#B89030" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar20)"/>
+
+            <!-- Légende deadline -->
+            <text x="450" y="445" text-anchor="middle" font-size="11" fill="#8C1A1A" font-weight="700">⏰ Phases 1-3 obligatoires avant 2 août 2026 — Phase 4 démarrée — Phase 5 régime continu</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline 5 phases : cartographie → classification → mise en conformité urgente → formation → gouvernance continue. 3 acteurs structurants (référent IA, DPO, sponsor exécutif) + 8 documents clés à produire.</p>
+      </section>
+
+      <!-- 4. CARTOGRAPHIE SHADOW AI -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Méthode de cartographie Shadow AI</h2>
+        </div>
+
+        <p>
+          La cartographie est la phase la plus importante du dispositif. <strong>Sans inventaire exhaustif, le reste n'a pas de valeur juridique</strong>. La méthode pragmatique combine deux approches : audit déclaratif des équipes (qualitatif) et audit logs des outils SaaS (quantitatif). Le croisement des deux révèle les usages que les équipes oublient ou ne signalent pas.
+        </p>
+
+        <h3>Audit déclaratif (qualitatif)</h3>
+        <p>
+          Questionnaire individuel envoyé à chaque collaborateur, anonymisable au début pour libérer la parole. Format type : 8 à 12 questions sur les outils utilisés, la fréquence, les données traitées, le périmètre, les bénéfices ressentis, les craintes. <strong>Discipline clé : ne pas culpabiliser la première ligne</strong> — l'objectif est de comprendre la réalité, pas de punir des collaborateurs qui ont essayé de gagner en productivité.
+        </p>
+
+        <h3>Audit logs SaaS (quantitatif)</h3>
+        <p>
+          Pour les structures qui ont Microsoft 365 ou Google Workspace, l'audit des logs SaaS révèle souvent 30 à 50 % d'usages non déclarés en audit qualitatif. <strong>Microsoft Purview</strong> et <strong>Google Audit Logs</strong> remontent les flux vers les LLM externes (ChatGPT, Claude, Gemini, Mistral) au niveau navigateur d'entreprise. Croisement obligatoire avec la déclaration équipe.
+        </p>
+
+        <h3>Format de fiche par usage</h3>
+        <p>
+          Pour chaque usage cartographié, produire une fiche standardisée : <strong>nom de l'usage</strong> (ex : « tri CV par agent IA »), <strong>fonction métier</strong> (RH), <strong>outil utilisé</strong> (Claude, GPT, agent custom), <strong>données traitées</strong> (CV candidats, données personnelles), <strong>fréquence</strong> (5 à 20 par jour), <strong>responsable opérationnel</strong>, <strong>bénéfice ressenti</strong>, <strong>risque AI Act anticipé</strong> (à classer en phase 2).
+        </p>
+
+        <h3>Output attendu</h3>
+        <p>
+          Un <strong>registre central</strong> (Notion, Airtable, ou Excel structuré) contenant l'ensemble des usages, mis à jour trimestriellement. C'est ce registre qui devient la source unique de vérité pour la classification, la mise en conformité, la formation, et l'audit. Sans registre tenu, aucun dispositif n'est défendable face à un contrôle CNIL ou une autorité AI Act.
+        </p>
+      </section>
+
+      <!-- 5. ARTICULATION RGPD AI ACT -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Articulation RGPD ↔ AI Act</h2>
+        </div>
+
+        <p>
+          Le RGPD et l'AI Act <strong>ne se substituent pas, ils se complètent</strong>. Le RGPD protège la donnée personnelle dans son cycle de vie (consentement, finalité, durée de conservation, sécurité). L'AI Act protège le système d'IA dans sa conception et son fonctionnement (transparence, robustesse, contrôle humain, qualité des données d'entraînement). Les deux s'appliquent simultanément à tout usage IA qui traite de la donnée personnelle.
+        </p>
+
+        <div class="compare-table">
+          <table>
+            <thead>
+              <tr><th>Dimension</th><th>RGPD (depuis 2018)</th><th>AI Act (à partir d'août 2026)</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Objet protégé</td>
+                <td>La donnée personnelle</td>
+                <td>Le système d'IA</td>
+              </tr>
+              <tr>
+                <td>Acteur clé</td>
+                <td>DPO (Data Protection Officer)</td>
+                <td>Référent IA (rôle nouveau)</td>
+              </tr>
+              <tr>
+                <td>Document central</td>
+                <td>Registre des traitements</td>
+                <td>Registre des usages IA</td>
+              </tr>
+              <tr>
+                <td>Analyse d'impact</td>
+                <td>AIPD (Analyse d'Impact)</td>
+                <td>AIPD renforcée pour haut risque</td>
+              </tr>
+              <tr>
+                <td>Sanctions</td>
+                <td>4 % CA mondial / 20 M€</td>
+                <td>7 % CA mondial / 35 M€</td>
+              </tr>
+              <tr>
+                <td>Champ d'application</td>
+                <td>Tout traitement de données personnelles</td>
+                <td>Tout système d'IA — même sans donnée perso</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Le rôle du Référent IA</h3>
+        <p>
+          C'est un <strong>nouveau rôle introduit par l'AI Act</strong>. Pour une PME, il peut être cumulé avec celui de DPO (à condition de formation complémentaire) ou délégué à un référent dédié (souvent à mi-temps, profil DSI ou QHSE). <strong>Pour les ETI</strong>, la séparation des rôles est recommandée : DPO sur le RGPD, référent IA sur la gouvernance IA, avec une matrice RACI documentée pour les zones de chevauchement (typiquement les usages IA qui traitent de la donnée personnelle).
+        </p>
+
+        <h3>Documents transverses</h3>
+        <p>
+          Au-delà des registres, 3 documents structurent l'articulation : <strong>la politique IA</strong> (charte d'usage interne, ce qui est autorisé, encadré, interdit), <strong>la matrice RACI DPO/Référent IA</strong> (qui décide, qui est responsable, qui est consulté, qui est informé pour chaque type d'usage), et <strong>la procédure d'incident IA</strong> (que faire si un agent IA produit une erreur préjudiciable, un déni de service, une fuite de données).
+        </p>
+      </section>
+
+      <!-- 6. STACK & OUTILS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">6</div>
+          <h2 class="module-section-title">Stack & outils</h2>
+        </div>
+
+        <h3>Outils de gouvernance et audit IA</h3>
+        <p>
+          Pour les PME-ETI qui veulent industrialiser, plusieurs solutions françaises émergent. <strong>EthiqAIS</strong> propose un référentiel de gouvernance IA et d'audit éthique, particulièrement adapté aux structures intermédiaires. <strong>Goodweek</strong> (alumni QFC) couvre la gouvernance multi-LLM avec auditabilité technique. <strong>NIN-IA</strong> (alumni QFC) accompagne les déploiements PME avec une dimension conformité. Pour les structures sans budget dédié, <strong>les modèles types CNIL</strong> (registre des traitements) et France Num restent un excellent point de départ.
+        </p>
+
+        <h3>Audit Shadow AI</h3>
+        <p>
+          <strong>Microsoft Purview</strong> (intégré à Microsoft 365 E3/E5) remonte les flux vers les LLM externes au niveau navigateur d'entreprise. <strong>Google Audit Logs</strong> couvre l'équivalent pour Google Workspace. Pour les structures hybrides, <strong>Cloudflare Zero Trust</strong> ou <strong>Zscaler</strong> exposent les requêtes vers les domaines LLM (chat.openai.com, claude.ai, mistral.ai, etc.) au niveau réseau.
+        </p>
+
+        <h3>Formation IA équipes (article 4)</h3>
+        <p>
+          <strong>OpenClassrooms</strong> propose des parcours certifiants IA accessibles aux PME (~250-500 € par collaborateur). <strong>Le Wagon</strong> couvre les formats bootcamp pour les profils techniques. <strong>Diag Data IA Bpifrance</strong> est un parcours de cadrage opérationnel gratuit pour PME. <strong>Hub France IA</strong> propose des parcours certifiants alignés sur les attentes de l'AI Act. <strong>MOOC Class'Code / Inria</strong> est gratuit et de bonne facture pour la littératie IA générale (article 4 minimum).
+        </p>
+
+        <h3>Souverains / on-premise pour usages sensibles</h3>
+        <p>
+          Pour les structures qui veulent réduire l'exposition aux LLM cloud non-EU sur des usages sensibles, <strong>Mistral</strong> et <strong>Mistral Forge</strong> permettent des déploiements souverains. <strong>Lucie / OpenLLM-France</strong> (Linagora) propose un LLM open-source francophone. <strong>Pleias-RAG</strong> est spécialisé sur les usages juridiques et compliance avec données 100 % open. <strong>LightOn Paradigm</strong> couvre les déploiements on-premise pour grandes organisations. Ces outils sont à privilégier sur les usages haut risque ou impliquant des données stratégiques.
+        </p>
+
+        <h3>Modèles documentaires</h3>
+        <p>
+          La <strong>CNIL</strong> publie des modèles types réutilisables : registre des traitements, mentions d'information, politique de confidentialité. Le site <strong>service-public.fr (Entreprendre)</strong> détaille les obligations AI Act sectorielles. Le <strong>Conseil d'État</strong> et <strong>la DGE</strong> publient régulièrement des décryptages opérationnels. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orientation.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Un sponsor exécutif identifié (DG, DAF ou DRH selon la structure). Un référent IA mobilisable (interne mi-temps ou prestataire externe). Un DPO en place ou désigné (RGPD préalable). Une capacité d'audit déclaratif des équipes. Un budget formation (à minima 250-500 € par collaborateur impacté). Pour les structures de taille intermédiaire, prévoir 2 à 3 jours/personne sur 4 mois pour la mise en place initiale.
+        </p>
+      </section>
+
+      <!-- 7. TROUBLESHOOTING -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Troubleshooting — pannes et dérives fréquentes</h2>
+        </div>
+
+        <div class="trouble-table">
+          <table>
+            <thead>
+              <tr><th>Symptôme</th><th>Cause probable</th><th>Action corrective</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cartographie qui rate massivement le Shadow AI (audit déclaratif révèle 5 usages, en réalité 25 sont en circulation)</td>
+                <td>Climat de défiance — collaborateurs craignent une sanction s'ils déclarent des usages personnels</td>
+                <td>Anonymiser le questionnaire d'audit la 1re fois. Communiquer sur l'objectif (cartographier pour protéger, pas pour punir). Croiser systématiquement avec audit logs Microsoft Purview ou Google.</td>
+              </tr>
+              <tr>
+                <td>Classification AI Act qui glisse vers le « tout haut risque »</td>
+                <td>Excès de prudence du référent IA, méconnaissance des critères réels</td>
+                <td>Se référer aux annexes officielles AI Act + lignes directrices CNIL. ~80 % des usages PME relèvent du risque minimal. Le « haut risque » est précisément défini : recrutement, crédit, évaluation salariés, infrastructures critiques.</td>
+              </tr>
+              <tr>
+                <td>Cartographie qui devient obsolète en 3 mois</td>
+                <td>Pas de processus de revue continue, nouveaux usages déclarés sans intégration au registre</td>
+                <td>Revue trimestrielle systématique du registre. Process onboarding nouveau collaborateur incluant le déclaratif IA. Communication interne périodique sur l'usage IA documenté vs Shadow AI.</td>
+              </tr>
+              <tr>
+                <td>Articulation DPO / Référent IA floue, conflit de périmètre</td>
+                <td>Matrice RACI non documentée, double rôle implicite</td>
+                <td>Formaliser une matrice RACI explicite avec les 5-10 décisions structurantes (qui valide un nouvel usage, qui pilote l'AIPD, qui forme les équipes, qui répond à un contrôle CNIL, etc.). Formation croisée DPO/Référent IA.</td>
+              </tr>
+              <tr>
+                <td>Formation IA générique non adaptée aux usages réels</td>
+                <td>MOOC standard sans contextualisation, équipes qui décrochent</td>
+                <td>Compléter le MOOC général par 2-3 ateliers internes par fonction (RH, marketing, finance, ops) avec les vrais usages cartographiés. Attestation par l'employeur après audit pratique de mise en application.</td>
+              </tr>
+              <tr>
+                <td>Sanctions perçues comme théoriques, démotivation du dispositif</td>
+                <td>Pas de cas de sanction concret connu en interne, perception « il ne va rien se passer »</td>
+                <td>Communiquer les premières sanctions effectives (CNIL et autorités AI Act) dès qu'elles sortent. Lier le dispositif à la confiance client (RGPD-AI Act = avantage commercial vs concurrents non conformes).</td>
+              </tr>
+              <tr>
+                <td>Dépendance excessive aux LLM cloud non-EU sur des usages sensibles</td>
+                <td>Pas de réflexion souveraineté, choix par défaut sur les outils US</td>
+                <td>Pour les usages haut risque ou stratégiques, basculer sur Mistral, Lucie, Pleias-RAG, ou solution on-premise. Documenter la décision dans le registre des usages IA.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. ÉTUDE DE CAS MANUFACTCO -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">8</div>
+          <h2 class="module-section-title">Étude de cas — ManufactCo, ETI mécanique 80 personnes Grand Est</h2>
+        </div>
+
+        <p>
+          Une société fictive mais réaliste, inspirée du tissu industriel mécanique du réseau Quest for Change. 5 étapes décortiquées sur un déploiement de 4 mois. Compte 60 minutes pour assimiler en profondeur, ou 20 minutes en survol.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">ManufactCo — ETI de 80 personnes, secteur mécanique de précision, basée en Grand Est, 18 M€ de CA, environ 40 % d'export. La direction (DG + DAF + DRH) a confirmé l'usage de plusieurs outils IA sans dispositif structuré : Claude pour la rédaction commerciale, ChatGPT Pro perso de plusieurs collaborateurs, agent de tri CV testé par RH, Otter pour les CR de réunion, agent de traduction commerciale. Pas de DPO interne, RGPD géré par la DAF. Aucune cartographie IA documentée. Échéance : être en conformité avant le 2 août 2026.</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Effectif</div>
+              <strong>80 personnes</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">CA</div>
+              <strong>18 M€</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Usages IA pré-cartographie</div>
+              <strong>Inconnus</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Cible</div>
+              <strong>Conformité 2 août 2026</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cartographie Shadow AI (semaine 1-3)</h3>
+            <p>Mobilisation du DAF comme sponsor exécutif. Désignation d'un référent IA — ici la responsable QHSE, formée en 2 jours sur les bases AI Act + RGPD via Hub France IA. Lancement d'un audit déclaratif anonymisé envoyé à 75 collaborateurs (12 questions, 8 minutes par réponse). Croisement avec audit logs Microsoft Purview sur 2 semaines pour détecter les flux non déclarés.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Questionnaire Tally pour audit déclaratif (anonymisé), Microsoft Purview pour audit logs (déjà inclus dans la licence M365 E3 de ManufactCo), registre central dans Notion partagé entre DAF / Référent IA / DRH
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>23 usages IA cartographiés</strong> au total. 18 déclarés en audit qualitatif, 5 supplémentaires révélés par Purview (ChatGPT Pro perso de 3 commerciaux, Claude utilisé pour analyse de CV par 2 RH sans déclaration). Climat constructif : aucune sanction en interne, communication explicite « cartographier pour protéger ». Surprise positive : le dispositif révèle des usages opportuns à structurer plutôt qu'à interdire.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Classification AI Act et matrice RGPD (semaine 4-5)</h3>
+            <p>Classification des 23 usages selon les 4 niveaux AI Act, avec validation du DAF et du référent IA. Sur les 23 usages : <strong>0 interdit</strong>, <strong>2 haut risque</strong> (tri CV par agent, évaluation annuelle assistée par IA), <strong>4 risque limité</strong> (chatbot site web, mention IA sur emails commerciaux clients), <strong>17 risque minimal</strong>. Pour chaque usage, identification du traitement de données personnelles et inscription au registre RGPD. Ateliers d'1h avec chaque chef de service pour valider les classifications.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Référentiel CNIL (registre traitements) + Annexe III AI Act (haut risque) + matrice de classification interne dans Notion. Pas d'outil dédié, le format Excel/Notion suffit pour 23 usages.
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Classification stabilisée et validée par DAF + Référent IA + DPO externe (cabinet d'avocats, mission ponctuelle de 2 jours). Identification immédiate de 2 usages à arrêter en l'état (tri CV agent : violation potentielle haut risque sans dispositif, à reprendre en mode mitigé avec contrôle humain documenté ; évaluation annuelle assistée IA : suspension le temps de cadrer).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Mise en conformité urgente (semaine 6-12)</h3>
+            <p>Pour les <strong>2 usages haut risque</strong> : production d'une AIPD renforcée, formalisation du contrôle humain (toute décision RH issue d'un agent IA est revue par un humain documenté avant action), restriction des données traitées au strict nécessaire, monitoring mensuel. Pour les <strong>4 usages à risque limité</strong> : ajout des mentions de transparence (« généré avec assistance IA » sur les emails commerciaux, bandeau « cet assistant est un agent IA » sur le chatbot site). Pour les <strong>17 usages risque minimal</strong> : intégration à la politique IA interne, charte d'usage diffusée à toute l'entreprise. Production des 8 documents clés.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Modèles CNIL pour registre + AIPD. Politique IA rédigée à partir de modèles France Num. Matrice RACI DPO externe / Référent IA / DAF dans Notion. Pour les usages haut risque, basculement vers Mistral pour les analyses de CV (souveraineté EU + auditabilité).
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Dispositif documenté en 6 semaines. Coût externe : ~12 K€ (DPO en mission ponctuelle 2 j, formation référent IA 2 j, abonnement Mistral pour usage RH). Coût interne : ~25 jours-homme cumulés (référent IA, DAF, DRH, chefs de service). Tous les 8 documents clés produits et accessibles dans Notion partagé.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Formation équipes — article 4 AI Act (semaine 8-16, en parallèle)</h3>
+            <p>Identification des 64 collaborateurs concernés par l'usage IA (sur les 80, 16 sont en production sans accès numérique IA). Plan de formation différencié : <strong>tous les 64</strong> suivent le MOOC Class'Code IA littératie (gratuit, 4 h en autonomie), <strong>les 28 utilisateurs réguliers</strong> ajoutent un parcours OpenClassrooms IA pour les métiers (15 h, ~350 €/personne), <strong>les 6 utilisateurs sur usages haut risque</strong> ajoutent une formation spécialisée Hub France IA (2 jours présentiel, ~1 500 €/personne). Attestations de l'employeur émises après audit pratique de mise en application.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              MOOC Class'Code (gratuit), parcours OpenClassrooms (~10 K€ pour 28 personnes), Hub France IA (~9 K€ pour 6 personnes). Plateforme RH ManufactCo pour suivi des attestations.
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              <strong>100 % des 64 collaborateurs concernés formés avant le 2 août 2026</strong>. Coût formation total : ~19 K€ (1 % du CA, déductible). Effet bonus inattendu : 2 cas de Shadow AI nouveaux remontés volontairement par des collaborateurs en cours de formation (ils ont compris les enjeux et se sont auto-déclarés).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Régime stabilisé et bilan 4 mois (mois 5+)</h3>
+            <p>Mise en place du régime continu : revue trimestrielle du registre des usages IA (1 demi-journée toutes les 13 semaines), mise à jour automatique du process onboarding (nouveau collaborateur = déclaratif IA dès la 1re semaine), veille réglementaire confiée au DAF avec alerte sur les évolutions AI Act et lignes directrices CNIL. Au 2 août 2026, ManufactCo est en conformité. Communication externe : mise en avant du dispositif vers les clients (« ManufactCo conforme AI Act ») comme avantage commercial vs concurrents.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Régime stabilisé sur Notion. Veille via newsletter CNIL + DGE. Reporting trimestriel COMEX en 1 page.
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Investissement total 4 mois : <strong>~31 K€ externes + 30 j-h internes</strong>. Au 2 août 2026, dispositif documenté complet, 23 usages cartographiés et classés, 100 % équipes formées. <strong>Avantage commercial mesurable</strong> : 3 prospects exportateurs (Allemagne, Pays-Bas) ont posé la question de la conformité AI Act lors d'appels d'offres au S2 2026 — ManufactCo a répondu favorablement avec son dispositif documenté, contrairement à plusieurs concurrents.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 4 mois</div>
+          <p>
+            ManufactCo est passée de zéro dispositif à une conformité AI Act + RGPD complète en 4 mois, pour un coût de ~31 K€ externes (1,7 % du CA) et 30 j-h internes. <strong>Le dispositif est désormais un avantage commercial</strong> sur les marchés export européens où la conformité AI Act devient un critère d'évaluation. <strong>Plus important encore : la cartographie a permis de transformer 5 cas de Shadow AI en usages structurés et plus efficaces</strong> — la conformité, conçue comme un projet de cadrage et non comme une contrainte, a accéléré l'intégration de l'IA dans l'organisation au lieu de la freiner. La leçon clé : démarrer par la cartographie, ne pas avoir peur de découvrir des usages non déclarés, traiter cela comme une opportunité de structuration plutôt que comme un audit punitif.
+          </p>
+        </div>
+      </section>
+
+      <!-- 9. PIÈGES À ÉVITER -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">9</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Cartographie tronquée par climat de défiance</h3>
+        <p>
+          Si les collaborateurs craignent une sanction en déclarant leurs usages, l'audit déclaratif rate massivement. <strong>Le ratio « usages déclarés / usages réels » peut tomber à 30 %</strong>. Discipline : anonymiser le questionnaire la première fois, communiquer explicitement « cartographier pour protéger », croiser systématiquement avec audit logs SaaS pour valider l'exhaustivité. Sans cartographie complète, le dispositif est juridiquement faible.
+        </p>
+
+        <h3>Excès de prudence sur la classification</h3>
+        <p>
+          La tendance première du référent IA peu formé est de classer tout usage IA comme « haut risque » par sécurité. <strong>C'est contre-productif</strong> : sur-coût documentaire massif, démotivation des équipes, dispositif qui devient ingérable. Se référer aux annexes officielles AI Act et aux lignes directrices CNIL — environ 80 % des usages PME sont risque minimal. Le « haut risque » a une définition précise et limitée.
+        </p>
+
+        <h3>Articulation DPO / Référent IA non documentée</h3>
+        <p>
+          Sans matrice RACI explicite, les zones de chevauchement deviennent des zones de blocage. <strong>Qui valide un nouvel usage IA traitant de données personnelles ?</strong> DPO sur la dimension RGPD, Référent IA sur la dimension AI Act, DAF sur la décision business. Documenter explicitement ces flux avant le premier conflit.
+        </p>
+
+        <h3>Formation IA générique non adaptée</h3>
+        <p>
+          Un MOOC théorique sans application aux usages réels de la PME ne tient pas l'engagement des équipes. <strong>Discipline : compléter par 2-3 ateliers internes par fonction</strong> (RH, marketing, finance, ops) qui partent des usages cartographiés et des contraintes opérationnelles propres à la structure. L'attestation de l'employeur n'est crédible que si elle est adossée à un audit pratique.
+        </p>
+
+        <h3>Dépendance aux LLM cloud non-EU sur usages sensibles</h3>
+        <p>
+          Un usage haut risque (tri CV, évaluation salariés) sur ChatGPT ou Claude expose la PME à des transferts de données hors UE non maîtrisés et à un risque de fuite. <strong>Pour les usages sensibles, basculer sur Mistral, Lucie, Pleias-RAG, ou solution on-premise</strong> est une décision technique mais aussi stratégique. Documenter la décision dans le registre.
+        </p>
+
+        <h3>Cartographie qui devient obsolète sans gouvernance</h3>
+        <p>
+          Le rythme d'apparition de nouveaux outils IA en 2026 est élevé (un nouvel outil chaque trimestre dans une PME active). <strong>Sans revue trimestrielle systématique du registre, la cartographie est obsolète en 6-9 mois</strong>. Inscrire la revue dans les rituels managériaux (revue COMEX trimestrielle, point incubation pour les startups).
+        </p>
+
+        <h3>Sous-estimation du calendrier</h3>
+        <p>
+          Mettre en conformité une PME-ETI prend <strong>3 à 6 mois selon la maturité initiale</strong>. Démarrer en juillet 2026 pour être prêt au 2 août 2026 est impossible. Démarrer en avril 2026 est limite. <strong>Démarrer dès maintenant si ce n'est pas déjà fait est la seule option pragmatique</strong>.
+        </p>
+      </section>
+
+      <!-- 10. CHECKLIST D'ÉLIGIBILITÉ -->
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">10</div>
+          <h2 class="module-section-title">Checklist d'éligibilité au déploiement</h2>
+        </div>
+
+        <div class="eligibility">
+          <div class="eligibility-header">
+            <p class="eligibility-intro">Évalue ta capacité à déployer un dispositif de conformité RGPD & AI Act crédible avant le 2 août 2026. La checklist distingue <strong>prérequis bloquants</strong> (sans lesquels le dispositif est juridiquement faible) et <strong>critères de qualité</strong> (qui conditionnent la durabilité). Verdict GO / NO-GO / À MÛRIR à la fin, avec export du rapport.</p>
+          </div>
+
+          <form id="eligibilityForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 Prérequis bloquants — sans cela, ne pas déployer</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>1. Sponsor exécutif identifié</strong>
+                  <small>DG, DAF ou DRH selon la structure. Engagement formel sur le projet, budget et arbitrage des décisions structurantes.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>2. Référent IA mobilisable (interne mi-temps ou prestataire externe)</strong>
+                  <small>Personne formée AI Act + RGPD, opérant la cartographie, la classification et le pilotage continu. Profil DSI, QHSE, DAF étendu, ou prestataire dédié.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>3. DPO en place ou désigné (RGPD préalable)</strong>
+                  <small>Le RGPD doit être à minima maîtrisé avant d'attaquer l'AI Act. Sans DPO interne ou externe (mission), le dispositif IA est juridiquement faible.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>4. Capacité d'audit déclaratif des équipes</strong>
+                  <small>Climat de confiance permettant aux collaborateurs de déclarer leurs usages réels (y compris perso). Sans cela, cartographie tronquée.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>5. Budget formation IA équipes alloué</strong>
+                  <small>Article 4 AI Act = formation obligatoire. Budget minimal : 250-500 €/collaborateur impacté. Pour les utilisateurs sur usages haut risque, prévoir 1 500-2 000 €/personne.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ Critères de qualité — conditionnent la durabilité</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>6. Calendrier de mise en place réaliste (3-6 mois)</strong>
+                  <small>Démarrer dès maintenant si pas encore fait. Mettre en conformité une PME-ETI prend 3 à 6 mois selon maturité initiale.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>7. Outil de registre central choisi (Notion / Airtable / Excel)</strong>
+                  <small>Source unique de vérité pour les usages IA, accessible par référent IA, DPO, sponsor exécutif. Format simple OK.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>8. Capacité d'audit logs SaaS pour Shadow AI (Microsoft Purview, Google, Cloudflare)</strong>
+                  <small>Croisement audit déclaratif + audit logs révèle 30-50 % d'usages additionnels. Sans cela, cartographie incomplète.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>9. Plan de gouvernance continue (revue trimestrielle inscrite au COMEX)</strong>
+                  <small>Sans rituel inscrit, la cartographie devient obsolète en 6-9 mois. La conformité IA est un régime continu, pas un projet ponctuel.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>10. Stratégie souveraineté pour usages sensibles (Mistral / Lucie / on-premise)</strong>
+                  <small>Pour les usages haut risque ou stratégiques : éviter exposition aux LLM non-EU. Documenté dans le registre. Bonus : avantage commercial sur marchés européens.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateEligibility()">Évaluer mon éligibilité au déploiement</button>
+
+          </form>
+
+          <div class="eligibility-result" id="eligibilityResult"></div>
+        </div>
+      </section>
+
+      <!-- 11. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-11">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">11</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Textes officiels et guides institutionnels</h3>
+          <ul>
+            <li>
+              <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a>
+              <span class="resources-meta">Commission européenne — règlement adopté 2024, entrée en application progressive</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Intelligence artificielle</a>
+              <span class="resources-meta">CNIL — guides RGPD-IA, recommandations, modèles de registres</span>
+            </li>
+            <li>
+              <a href="https://www.entreprises.gouv.fr/decryptages-de-nos-experts/le-reglement-europeen-sur-lintelligence-artificielle-publics-concernes" target="_blank" rel="noopener">DGE — Décryptages AI Act</a>
+              <span class="resources-meta">Direction Générale des Entreprises — vulgarisation des obligations PME</span>
+            </li>
+            <li>
+              <a href="https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle" target="_blank" rel="noopener">France Num — Intelligence artificielle</a>
+              <span class="resources-meta">France Num — retours d'expérience PME et guides pratiques</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎓 Formations IA équipes (article 4)</h3>
+          <ul>
+            <li>
+              <a href="https://classcode.fr" target="_blank" rel="noopener">Class'Code / Inria — MOOC IA littératie</a>
+              <span class="resources-meta">Gratuit, 4h en autonomie. Référence pour le minimum article 4</span>
+            </li>
+            <li>
+              <a href="https://openclassrooms.com/fr/" target="_blank" rel="noopener">OpenClassrooms — parcours IA pour les métiers</a>
+              <span class="resources-meta">15h, ~350 €/personne, certifiant. Pour utilisateurs réguliers</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/catalogue-offres/diag-data-ia" target="_blank" rel="noopener">Diag Data IA — Bpifrance</a>
+              <span class="resources-meta">Parcours de cadrage opérationnel gratuit pour PME</span>
+            </li>
+            <li>
+              <a href="https://www.hub-franceia.fr" target="_blank" rel="noopener">Hub France IA — parcours certifiants</a>
+              <span class="resources-meta">Formation alignée AI Act, présentiel et distanciel</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos pratiques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=AI+Act+conformité+PME+2026" target="_blank" rel="noopener">AI Act conformité PME — webinaires 2026</a>
+              <span class="resources-meta">YouTube — sessions de cadrage par DGE, CNIL, cabinets spécialisés</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=cartographie+shadow+IA+entreprise" target="_blank" rel="noopener">Cartographie Shadow AI — méthodes pratiques</a>
+              <span class="resources-meta">YouTube — retours terrain de référents IA en PME</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=microsoft+purview+audit+IA" target="_blank" rel="noopener">Microsoft Purview — audit Shadow AI</a>
+              <span class="resources-meta">YouTube — démo de configuration des audits logs M365</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🛠️ Outils et solutions souveraines</h3>
+          <ul>
+            <li>
+              <a href="../ressources.html#mistral" target="_blank">Mistral — souverain EU</a>
+              <span class="resources-meta">LLM français pour usages sensibles, articulation conformité native</span>
+            </li>
+            <li>
+              <a href="../ressources.html#lucie" target="_blank">Lucie / OpenLLM-France</a>
+              <span class="resources-meta">LLM open-source francophone, financé France 2030</span>
+            </li>
+            <li>
+              <a href="../ressources.html#pleias-rag" target="_blank">Pleias-RAG — RAG juridique souverain</a>
+              <span class="resources-meta">Petits modèles RAG conformes RGPD/AI Act native, données Common Corpus</span>
+            </li>
+            <li>
+              <a href="../ressources.html#ethiqais" target="_blank">EthiqAIS — gouvernance et audit éthique</a>
+              <span class="resources-meta">Référentiel français de gouvernance IA pour structures intermédiaires</span>
+            </li>
+            <li>
+              <a href="../ressources.html#goodweek" target="_blank">Goodweek — gouvernance multi-LLM</a>
+              <span class="resources-meta">Alumni QFC — fédération multi-LLM avec auditabilité technique</span>
+            </li>
+            <li>
+              <a href="../ressources.html#nin-ia" target="_blank">NIN-IA — accompagnement PME</a>
+              <span class="resources-meta">Alumni QFC — déploiements PME avec dimension conformité</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés et veille</h3>
+          <ul>
+            <li>
+              <a href="https://www.cnil.fr/fr/abonnement-newsletter" target="_blank" rel="noopener">Newsletter CNIL</a>
+              <span class="resources-meta">Veille officielle française — recommandations IA et RGPD</span>
+            </li>
+            <li>
+              <a href="https://www.hub-franceia.fr" target="_blank" rel="noopener">Hub France IA — communauté</a>
+              <span class="resources-meta">Réseau d'acteurs français de l'IA, événements et publications</span>
+            </li>
+            <li>
+              <a href="https://www.frenchtech.com/fr/" target="_blank" rel="noopener">French Tech — actualités réglementaires</a>
+              <span class="resources-meta">Communauté startup française, actualités AI Act et financements</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-020';
+
+    function evaluateEligibility() {
+      const form = document.getElementById('eligibilityForm');
+      const result = document.getElementById('eligibilityResult');
+      const blockers = ['b1','b2','b3','b4','b5'];
+      const quality = ['q1','q2','q3','q4','q5'];
+
+      const blockersData = [
+        { id: 'b1', label: "Sponsor exécutif identifié" },
+        { id: 'b2', label: "Référent IA mobilisable (interne mi-temps ou prestataire externe)" },
+        { id: 'b3', label: "DPO en place ou désigné (RGPD préalable)" },
+        { id: 'b4', label: "Capacité d'audit déclaratif des équipes" },
+        { id: 'b5', label: "Budget formation IA équipes alloué" }
+      ];
+      const qualityData = [
+        { id: 'q1', label: "Calendrier de mise en place réaliste (3-6 mois)" },
+        { id: 'q2', label: "Outil de registre central choisi (Notion / Airtable / Excel)" },
+        { id: 'q3', label: "Capacité d'audit logs SaaS pour Shadow AI" },
+        { id: 'q4', label: "Plan de gouvernance continue (revue trimestrielle COMEX)" },
+        { id: 'q5', label: "Stratégie souveraineté pour usages sensibles" }
+      ];
+
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 critères avant d\'évaluer l\'éligibilité.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((sum, q) => sum + answers[q], 0);
+      const qualityScore = quality.reduce((sum, q) => sum + answers[q], 0);
+      const totalScore = blockerScore + qualityScore;
+
+      const blockerGaps = blockersData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+      const qualityGaps = qualityData.filter(item => answers[item.id] < 2).map(item => ({
+        ...item, partiel: answers[item.id] === 1
+      }));
+
+      const blockerNonRespected = blockers.filter(q => answers[q] === 0).length;
+      let verdictClass, verdictTitle, verdictSubtitle;
+
+      if (blockerNonRespected >= 1) {
+        verdictClass = 'no-go';
+        verdictTitle = '🛑 NO-GO — déploiement non recommandé en l\'état';
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). Sans ces fondations, le dispositif est juridiquement faible et expose la PME aux sanctions. Traiter les gaps en urgence avant le 2 août 2026 — démarrer par le sponsor exécutif et le référent IA.`;
+      } else if (blockerScore >= 8 && qualityScore >= 7) {
+        verdictClass = 'go';
+        verdictTitle = '✅ GO — déploiement structuré possible';
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Engager le projet immédiatement, en commençant par la cartographie Shadow AI (semaines 1-3 du calendrier 4 mois).";
+      } else {
+        verdictClass = 'warmup';
+        verdictTitle = '⚠️ À MÛRIR — pilote périmétré possible';
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lancer la cartographie Shadow AI sur 1-2 fonctions pilotes (RH + commerce typiquement), consolider les fondations en parallèle, étendre ensuite si la valeur est démontrée.";
+      }
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="verdict-box ${verdictClass}">
+          <div class="verdict-title">${verdictTitle}</div>
+          <div class="verdict-subtitle">${verdictSubtitle}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/10</strong></span>
+            <span><strong>Qualité : ${qualityScore}/10</strong></span>
+            <span><strong>Total : ${totalScore}/20</strong></span>
+          </div>
+        </div>
+      `;
+
+      if (blockerGaps.length > 0) {
+        html += `<div class="gap-list"><h4>Gaps sur les prérequis bloquants</h4><ul>`;
+        blockerGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+      if (qualityGaps.length > 0) {
+        html += `<div class="gap-list" style="border-color: #B86E1A;"><h4 style="color: #8C5410;">Gaps sur les critères de qualité</h4><ul>`;
+        qualityGaps.forEach(g => {
+          html += `<li class="${g.partiel ? 'partiel' : ''}">${g.label}${g.partiel ? ' <em>(partiel)</em>' : ''}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+
+      html += `
+        <div class="eligibility-export">
+          <button type="button" class="eligibility-export-btn" onclick="exportEligibility('md')">📥 Exporter le rapport en Markdown</button>
+          <button type="button" class="eligibility-export-btn secondary" onclick="exportEligibility('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true,
+        verdict: verdictClass,
+        blockerScore, qualityScore, totalScore,
+        date: new Date().toISOString()
+      }));
+
+      window._hubiaEligibility = {
+        verdictClass, verdictTitle, verdictSubtitle,
+        blockerScore, qualityScore, totalScore,
+        blockerGaps, qualityGaps, date
+      };
+    }
+
+    function exportEligibility(format) {
+      const data = window._hubiaEligibility;
+      if (!data) return;
+
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Rapport d'éligibilité — Conformité RGPD & AI Act pour PME\n\n`;
+        content += `*Évaluation Hub IA Learning Center — ${data.date}*\n\n`;
+        content += `## Verdict : ${data.verdictTitle}\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `**Scores :**  \n`;
+        content += `- Prérequis bloquants : ${data.blockerScore}/10  \n`;
+        content += `- Critères de qualité : ${data.qualityScore}/10  \n`;
+        content += `- Total : ${data.totalScore}/20\n\n`;
+        content += `---\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `## Gaps sur les prérequis bloquants\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `## Gaps sur les critères de qualité\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `- ${g.partiel ? '⚠️ (partiel)' : '❌'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `---\n\n`;
+        content += `*Rapport généré par le module CU-020 du Hub IA Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `RAPPORT D'ELIGIBILITE — CONFORMITE RGPD & AI ACT POUR PME\n`;
+        content += `Evaluation Hub IA Learning Center — ${data.date}\n\n`;
+        content += `=========================================\n`;
+        content += `VERDICT : ${data.verdictTitle.replace(/[🛑✅⚠️]/g, '').trim()}\n`;
+        content += `=========================================\n\n`;
+        content += `${data.verdictSubtitle}\n\n`;
+        content += `Scores :\n`;
+        content += `  Prerequis bloquants : ${data.blockerScore}/10\n`;
+        content += `  Criteres de qualite : ${data.qualityScore}/10\n`;
+        content += `  Total : ${data.totalScore}/20\n\n`;
+
+        if (data.blockerGaps.length > 0) {
+          content += `GAPS SUR PREREQUIS BLOQUANTS\n\n`;
+          data.blockerGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        if (data.qualityGaps.length > 0) {
+          content += `GAPS SUR CRITERES DE QUALITE\n\n`;
+          data.qualityGaps.forEach(g => {
+            content += `  ${g.partiel ? '[partiel]' : '[non]'} ${g.label}\n`;
+          });
+          content += `\n`;
+        }
+        content += `=========================================\n`;
+        content += `Rapport genere par le module CU-020 du Hub IA Learning Center — questforchange.eu\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const mime = format === 'md' ? 'text/markdown' : 'text/plain';
+      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `rapport-eligibilite-conformite-rgpd-ai-act.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>

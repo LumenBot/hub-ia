@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voicebot accueil téléphonique IA — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Bloc cas d'usage voicebot — spécifique CU-022 */
+    .usecase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+    .usecase-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); border-top: 4px solid var(--color-primary); }
+    .usecase-card-icon { font-size: 1.75rem; margin-bottom: var(--space-2); }
+    .usecase-card-title { font-weight: 700; color: var(--color-primary); font-size: 1rem; margin-bottom: var(--space-2); }
+    .usecase-card-desc { font-size: 0.8125rem; color: var(--color-text-soft); line-height: 1.4; margin-bottom: var(--space-2); }
+    .usecase-card-roi { font-size: 0.8125rem; color: #2E5C2E; font-weight: 600; padding-top: var(--space-2); border-top: 1px solid var(--color-border); }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d">📈 Croissance</a>
+        <a href="../index.html?niveau=n2#modules" class="card-badge n2">🟡 Applications métier</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">30 min de lecture</span>
+      </div>
+      <h1>📞 Voicebot accueil téléphonique IA</h1>
+      <p class="module-subtitle">
+        Agent vocal IA qui décroche, qualifie l'appel, prend RDV, répond aux FAQ, route vers humain si besoin. Couverture étendue 7h-21h sans surcoût, baisse no-show 22 %, économies 30-60 K€/an. ROI documenté en 2-4 mois sur retours secteur médical, e-commerce et services PME. La couche voice 2026 (Cartesia, ElevenLabs Conv 2.0, Voxtral) atteint des latences sub-150 ms qui rendent la conversation naturelle.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le contexte</a>
+        <a href="#section-2">2. 4 cas d'usage couverts</a>
+        <a href="#section-3">3. Architecture du pipeline voice</a>
+        <a href="#section-4">4. Étapes en détail</a>
+        <a href="#section-5">5. Stack & outils</a>
+        <a href="#section-6">6. Cas d'étude guidé</a>
+        <a href="#section-7">7. Pièges à éviter</a>
+        <a href="#section-8">8. Auto-diagnostic</a>
+        <a href="#section-9">9. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 90 secondes</div>
+          <h2>Pourquoi ce module ?</h2>
+          <p>
+            Dans une PME, 62 % des appels non répondus ne donnent jamais lieu à un rappel — soit 350-900 € de CA perdu par appel manqué selon le secteur. La couche voice IA 2026 (Cartesia Sonic 90-150 ms latence, ElevenLabs Conversational AI 2.0, Voxtral souverain Mistral) rend désormais la conversation téléphonique avec un agent quasi-naturelle. Stack accessible (Vapi en plateforme dev-first, ou setup custom Twilio + STT + LLM + TTS), déploiement 4-8 semaines, économies typiques 30-60 K€/an, ROI 2-4 mois.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📞</div>
+              <div class="exec-takeaway-content">
+                <strong>62 % des appels non répondus = CA perdu silencieux.</strong> Coût moyen par appel manqué : 350-900 € selon secteur (médical, e-commerce, services). Voicebot couvre 7h-21h et capte 90 %+ des demandes.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎙️</div>
+              <div class="exec-takeaway-content">
+                <strong>Latence sub-150 ms désormais accessible.</strong> Cartesia Sonic + Deepgram Nova-3 + Claude/GPT en cascade rendent la conversation fluide. Le seuil psychologique « robotique » est franchi en 2026.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🤝</div>
+              <div class="exec-takeaway-content">
+                <strong>Routage vers humain non négociable.</strong> L'agent qualifie et prend RDV ou répond aux FAQ, mais escalade systématiquement les cas hors périmètre, les réclamations, les sujets sensibles vers un humain.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🇪🇺</div>
+              <div class="exec-takeaway-content">
+                <strong>Souveraineté EU recommandée.</strong> Les conversations clients contiennent des données personnelles (santé, demandes commerciales). Voxtral (Mistral) ou solution on-premise pour usages sensibles. RGPD + AI Act risque limité (transparence obligatoire « vous parlez à un agent IA »).
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">62 %</div>
+              <div class="exec-stat-label">Appels non répondus PME</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">2-4 mois</div>
+              <div class="exec-stat-label">ROI typique</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">30-60 K€</div>
+              <div class="exec-stat-label">Économies an / poste accueil</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">30 min</div>
+              <div class="exec-stat-label">Lecture du module</div>
+            </div>
+          </div>
+
+          <div class="exec-when">
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une PME secteur médical, e-commerce, services à la personne, ou support B2B avec ≥ 30 appels entrants/jour ; ton accueil téléphonique est saturé ou tu rates beaucoup d'appels en pic ; tu veux étendre les horaires de réponse sans embaucher ; tu acceptes la transparence IA (mention « cet appel est traité par un agent IA » obligatoire RGPD + AI Act).
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le contexte — 2026, l'année où les voicebots deviennent crédibles</h2>
+        </div>
+
+        <p>
+          Les voicebots existent depuis 15 ans. Pourquoi 2026 marque-t-elle un tournant ? <strong>Trois ruptures techniques convergent</strong>. (1) Latence : Cartesia Sonic descend à 90-150 ms en TTS, Deepgram Nova-3 fait du STT streaming sub-200 ms, Claude Haiku ou GPT-4o-mini répondent en 300-500 ms — soit une boucle conversationnelle complète sous la seconde, le seuil psychologique de « naturel ». (2) Qualité vocale : ElevenLabs Conversational AI 2.0 et Cartesia produisent des voix indiscernables de l'humain en français. (3) Compréhension contextuelle : LLM 2026 maîtrisent l'intention, les nuances, les interruptions — capacité que les voicebots historiques (style serveur vocal IVR) n'avaient pas.
+        </p>
+        <p>
+          Côté business, l'enjeu PME est massif. <strong>62 % des appels non répondus dans une PME ne donnent jamais lieu à un rappel</strong> (étude Bouygues Telecom Business 2025). Coût moyen par appel manqué selon secteur : 350-900 € en médical (RDV perdu), 200-600 € en e-commerce (panier non transformé), 150-400 € en B2B services. Pour une structure qui rate 5-10 appels par jour, c'est 50-150 K€ de CA perdu par an — silencieusement.
+        </p>
+
+        <div class="pull-quote">
+          Le voicebot 2026 n'est plus un serveur vocal qui frustre les clients. C'est un agent qui décroche en 2 sonneries, qualifie en 30 secondes, prend RDV en 1 minute, et route vers un humain quand il faut. Pour 90 % des appels entrants en PME, c'est suffisant — et largement préféré au répondeur ou à la mise en attente longue.
+        </div>
+
+        <p>
+          La cible PME idéale : <strong>secteur médical</strong> (cabinets, cliniques, paramédical) où le no-show coûte cher et où l'accueil téléphonique sature ; <strong>e-commerce</strong> avec questions pré-vente récurrentes (livraison, retours, disponibilité) ; <strong>services à la personne</strong> (ménage, jardinage, services seniors) ; <strong>B2B services</strong> avec qualification leads et prise de RDV commerciaux. Pour les structures avec accueil très complexe (négociations, support technique avancé), garder l'humain et utiliser le voicebot uniquement en débordement.
+        </p>
+      </section>
+
+      <!-- 2. 4 CAS D'USAGE -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Les 4 cas d'usage couverts par le module</h2>
+        </div>
+
+        <p>
+          4 patterns canoniques observés dans les déploiements PME 2026. Le bon cas d'usage dépend de ton secteur et de ton volume d'appels — démarrer par un seul pattern, étendre après calibrage.
+        </p>
+
+        <div class="usecase-grid">
+          <div class="usecase-card">
+            <div class="usecase-card-icon">🏥</div>
+            <div class="usecase-card-title">Médical — RDV & FAQ</div>
+            <div class="usecase-card-desc">Cabinets, cliniques, paramédical. Prise de RDV via agenda intégré (Doctolib, Maiia, Calendly), FAQ horaires/tarifs/parking, rappel SMS automatique pour réduire no-show.</div>
+            <div class="usecase-card-roi">ROI : -45 % temps secrétariat, -22 % no-show</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">🛒</div>
+            <div class="usecase-card-title">E-commerce — Pré-vente & SAV niveau 1</div>
+            <div class="usecase-card-desc">Questions sur disponibilité, livraison, retours, suivi commande. Routage vers humain pour réclamations et négociations. Captation 7j/7 du flux pré-vente perdu hors heures ouvrées.</div>
+            <div class="usecase-card-roi">ROI : +15-25 % conversion appels</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">🏠</div>
+            <div class="usecase-card-title">Services à la personne — Devis & RDV</div>
+            <div class="usecase-card-desc">Ménage, jardinage, plomberie, services seniors. Qualification de la demande (zone, prestation, urgence), proposition de créneau, transmission au technicien.</div>
+            <div class="usecase-card-roi">ROI : -30 K€/an coût accueil PME 10p</div>
+          </div>
+          <div class="usecase-card">
+            <div class="usecase-card-icon">💼</div>
+            <div class="usecase-card-title">B2B — Qualification leads</div>
+            <div class="usecase-card-desc">SaaS, conseil, services pros. Qualification BANT (budget, autorité, besoin, timing), routage vers commercial junior ou senior selon scoring, prise de RDV démo.</div>
+            <div class="usecase-card-roi">ROI : +30-50 % leads qualifiés</div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Recommandation par défaut</strong> : démarrer par 1 cas d'usage principal et 5-10 intentions cibles maximum (« prendre RDV », « connaître les horaires », « connaître les tarifs », « parler à un humain »). Élargir uniquement après 4-6 semaines de calibrage. La tentation de couvrir tout dès le début est l'erreur n° 1 des déploiements PME.
+        </p>
+      </section>
+
+      <!-- 3. ARCHITECTURE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Architecture du pipeline voice</h2>
+        </div>
+
+        <p>
+          Pipeline canonique 2026 : appel entrant → STT streaming → NLU/LLM → action (CRM, agenda, base FAQ) → TTS → réponse. Boucle conversationnelle sub-1s. Routage vers humain en cas de hors périmètre, mots-clés sensibles, ou demande explicite.
+        </p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs>
+              <marker id="ar22" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/>
+              </marker>
+              <marker id="ar22green" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#5C8C5C"/>
+              </marker>
+              <marker id="ar22red" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#C82A2A"/>
+              </marker>
+            </defs>
+
+            <!-- Appel entrant -->
+            <rect x="20" y="40" width="150" height="80" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="95" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">📞 APPEL</text>
+            <text x="95" y="85" text-anchor="middle" font-size="11" fill="#333">Twilio · OVH · Aircall</text>
+            <text x="95" y="100" text-anchor="middle" font-size="11" fill="#333">Numéro géographique</text>
+            <text x="95" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">SIP / WebRTC</text>
+
+            <!-- Étape 1 STT -->
+            <rect x="190" y="40" width="150" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="265" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#7A5C20">1 — STT</text>
+            <text x="265" y="85" text-anchor="middle" font-size="11" fill="#333">Speech to text</text>
+            <text x="265" y="100" text-anchor="middle" font-size="11" fill="#333">Streaming &lt; 200 ms</text>
+            <text x="265" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Deepgram · Voxtral</text>
+
+            <!-- Étape 2 LLM -->
+            <rect x="360" y="40" width="150" height="80" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="435" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#FFD600">2 — LLM</text>
+            <text x="435" y="85" text-anchor="middle" font-size="11" fill="white">NLU + intent</text>
+            <text x="435" y="100" text-anchor="middle" font-size="11" fill="white">Decision routing</text>
+            <text x="435" y="115" text-anchor="middle" font-size="10" fill="#FFD600" font-style="italic">Claude · GPT · Mistral</text>
+
+            <!-- Étape 3 Action -->
+            <rect x="530" y="40" width="150" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="605" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#4A3A8C">3 — ACTION</text>
+            <text x="605" y="85" text-anchor="middle" font-size="11" fill="#333">CRM · agenda · FAQ</text>
+            <text x="605" y="100" text-anchor="middle" font-size="11" fill="#333">API call externes</text>
+            <text x="605" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Doctolib · HubSpot</text>
+
+            <!-- Étape 4 TTS -->
+            <rect x="700" y="40" width="150" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="775" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">4 — TTS</text>
+            <text x="775" y="85" text-anchor="middle" font-size="11" fill="#333">Text to speech</text>
+            <text x="775" y="100" text-anchor="middle" font-size="11" fill="#333">Streaming 90-150 ms</text>
+            <text x="775" y="115" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Cartesia · ElevenLabs</text>
+
+            <!-- Routage -->
+            <rect x="20" y="200" width="280" height="80" rx="12" fill="#E8F4E0" stroke="#5C8C5C" stroke-width="2"/>
+            <text x="160" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#2E5C2E">A — RDV / FAQ traités</text>
+            <text x="160" y="248" text-anchor="middle" font-size="11" fill="#333">Conversation aboutie</text>
+            <text x="160" y="265" text-anchor="middle" font-size="11" fill="#333">~70-85 % du flux</text>
+
+            <rect x="320" y="200" width="280" height="80" rx="12" fill="#FFF8F0" stroke="#B86E1A" stroke-width="2"/>
+            <text x="460" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#8C5410">B — Hors périmètre</text>
+            <text x="460" y="248" text-anchor="middle" font-size="11" fill="#333">Routage humain disponible</text>
+            <text x="460" y="265" text-anchor="middle" font-size="11" fill="#333">~10-20 % du flux</text>
+
+            <rect x="620" y="200" width="280" height="80" rx="12" fill="#FFF1F1" stroke="#C82A2A" stroke-width="2"/>
+            <text x="760" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#8C1A1A">C — Sensible / urgent</text>
+            <text x="760" y="248" text-anchor="middle" font-size="11" fill="#333">Escalade humain immédiate</text>
+            <text x="760" y="265" text-anchor="middle" font-size="11" fill="#333">~5-10 % du flux</text>
+
+            <!-- CRM logging -->
+            <rect x="100" y="340" width="720" height="60" rx="10" fill="#F0F4FA" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="460" y="365" text-anchor="middle" font-size="13" font-weight="700" fill="#1F3864">📝 LOGGING CRM + TRANSCRIPTION + APPRENTISSAGE</text>
+            <text x="460" y="385" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Chaque appel est transcrit, loggé dans le CRM, et alimente l'amélioration des prompts et de la base FAQ</text>
+
+            <!-- Flèches -->
+            <line x1="170" y1="80" x2="188" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar22)"/>
+            <line x1="340" y1="80" x2="358" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar22)"/>
+            <line x1="510" y1="80" x2="528" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar22)"/>
+            <line x1="680" y1="80" x2="698" y2="80" stroke="#2E5395" stroke-width="2.5" marker-end="url(#ar22)"/>
+
+            <!-- Étape 4 → 3 issues -->
+            <line x1="775" y1="120" x2="200" y2="198" stroke="#5C8C5C" stroke-width="2" marker-end="url(#ar22green)"/>
+            <line x1="775" y1="120" x2="500" y2="198" stroke="#B86E1A" stroke-width="2" marker-end="url(#ar22)"/>
+            <line x1="775" y1="120" x2="780" y2="198" stroke="#C82A2A" stroke-width="2" marker-end="url(#ar22red)"/>
+
+            <!-- Issues → logging -->
+            <line x1="160" y1="280" x2="200" y2="338" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar22)"/>
+            <line x1="460" y1="280" x2="460" y2="338" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar22)"/>
+            <line x1="760" y1="280" x2="720" y2="338" stroke="#2E5395" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar22)"/>
+
+            <text x="450" y="425" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Pipeline temps réel : appel → STT → LLM → action → TTS, avec routage automatique et logging CRM systématique</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Pipeline 4 étapes (STT → LLM → action → TTS) avec 3 issues possibles : RDV/FAQ traités directement, hors périmètre routé vers humain, sensible/urgent escalade immédiate. Logging CRM + transcription continue.</p>
+      </section>
+
+      <!-- 4. ÉTAPES EN DÉTAIL -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-steps">4</div>
+          <h2 class="module-section-title">Les étapes en détail</h2>
+        </div>
+
+        <ol>
+          <li><strong>Cartographier les appels entrants actuels.</strong> Quels sont les 5-10 motifs les plus fréquents ? Quel volume quotidien / horaire ? Quels appels sont systématiquement transmis à un humain (sensibles, complexes) ? Cette cartographie conditionne le périmètre fonctionnel de l'agent et les intentions cibles. Pour la majorité des PME : 5-10 intentions couvrent 80-90 % du flux.</li>
+          <li><strong>Définir la matrice d'auto-traitement vs escalade humain.</strong> Pour chaque motif identifié : auto-traitement par agent (RDV simple, FAQ standard) ou escalade humain (réclamation, négociation, sujet sensible). Cette matrice est l'équivalent voice de la matrice email du <a href="cu-013-workflow-email-crm.html" class="tool-link">CU-013 Workflow email-CRM</a>. <strong>Démarrer en mode prudent</strong> : 50-60 % auto, 40-50 % humain. Étendre après calibrage.</li>
+          <li><strong>Choisir la plateforme : Vapi vs custom.</strong> <strong>Vapi.ai</strong> est la plateforme dev-first 2026 — déploiement en 1-2 semaines, tarif accessible PME (~0,10-0,20 € par minute), couvre tout le pipeline. Pour les structures qui veulent plus de contrôle ou de souveraineté EU, setup custom : Twilio (téléphonie) + Deepgram ou Voxtral (STT) + Claude/Mistral (LLM) + Cartesia ou ElevenLabs (TTS).</li>
+          <li><strong>Configurer l'identité vocale.</strong> Voix synthétique cohérente avec ta marque (Cartesia / ElevenLabs ont des voix françaises naturelles). Phrase d'accueil claire : « Bonjour, vous êtes en ligne avec [Nom] de [Entreprise], comment puis-je vous aider ? ». <strong>Mention « cet appel est traité par un agent IA » obligatoire</strong> au début (transparence AI Act + RGPD).</li>
+          <li><strong>Intégrer aux systèmes (CRM, agenda, base FAQ).</strong> Pour les RDV : connecteurs natifs Doctolib (médical), Maiia, Calendly, HubSpot Calendar. Pour les FAQ : base structurée (Notion, Airtable, ou base de connaissances dédiée). Pour le logging : CRM HubSpot/Pipedrive/Salesforce avec création d'activité par appel + transcription complète.</li>
+          <li><strong>Configurer le routage humain.</strong> Pour les cas hors périmètre ou les mots-clés sensibles (« réclamation », « urgent », « avocat », « parler à un humain »), transfert immédiat vers un humain disponible. Implémentation : SIP/forward vers téléphone interne avec contexte de la conversation (qui appelle, ce qu'il a dit) transmis par SMS ou Slack.</li>
+          <li><strong>Phase pilote 4-6 semaines.</strong> Déploiement sur une plage horaire limitée (ex : 12h-14h ou 18h-21h) pour tester sans risque. Audit hebdo des transcriptions : qualité de réponse, taux d'escalade, cas mal traités. Calibrage des prompts. <strong>Cap obligatoire</strong> : ne pas étendre tant que le taux de satisfaction client n'est pas validé sur l'échantillon pilote (surveys post-appel sur 100+ conversations).</li>
+          <li><strong>Extension progressive.</strong> Une fois la phase pilote validée, étendre les horaires (full 7h-21h ou 24/7), élargir les intentions cibles, ajouter des cas d'usage (de RDV vers prise commande, qualification BANT, etc.).</li>
+          <li><strong>Mesurer et industrialiser.</strong> 4 KPIs : taux de captation appels (vs avant), taux d'escalade humain (vs cible 30-40 %), satisfaction client (NPS post-appel), gain de temps humain (heures par jour récupérées). Reporting mensuel direction.</li>
+        </ol>
+      </section>
+
+      <!-- 5. STACK & OUTILS -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-tools">5</div>
+          <h2 class="module-section-title">Stack & outils</h2>
+        </div>
+
+        <h3>Plateformes voicebot dev-first (rapide)</h3>
+        <p>
+          <a href="../ressources.html#vapi" class="tool-link">Vapi.ai</a> est la référence 2026 pour les déploiements PME — plateforme dev-first qui couvre tout le pipeline (téléphonie + STT + LLM + TTS + intégrations CRM/agenda), tarif ~0,10-0,20 € par minute, déploiement en 1-2 semaines. <strong>Retell AI</strong> et <strong>Bland AI</strong> sont des alternatives. Ces plateformes sont idéales si tu veux du time-to-value rapide et que la souveraineté EU n'est pas un blocker dur.
+        </p>
+
+        <h3>Téléphonie (la couche d'entrée)</h3>
+        <p>
+          <strong>Twilio</strong> reste le standard mondial pour numéros virtuels et SIP. <strong>OVHcloud Téléphonie</strong> et <strong>Bouygues Telecom Business Voice</strong> sont les options souveraines françaises. <strong>Aircall</strong> et <strong>Ringover</strong> sont des plateformes complètes orientées PME avec routage IA natif émergent en 2026.
+        </p>
+
+        <h3>STT — Speech to text</h3>
+        <p>
+          <strong>Deepgram Nova-3</strong> est la référence streaming sub-200 ms en 2026. <a href="../ressources.html#voxtral" class="tool-link">Voxtral (Mistral)</a> est l'alternative souveraine EU de plus en plus mature. <a href="../ressources.html#whisper" class="tool-link">Whisper</a> (OpenAI, open-source) reste pertinent pour les déploiements off-line ou souverains. <strong>AssemblyAI Universal-3 Pro Streaming</strong> couvre les usages premium avec neural turn detection (savoir quand le locuteur a fini de parler, sans coupure brusque).
+        </p>
+
+        <h3>LLM — compréhension et décision</h3>
+        <p>
+          <a href="../ressources.html#claude" class="tool-link">Claude Haiku</a> ou <a href="../ressources.html#gpt" class="tool-link">GPT-4o-mini</a> pour les latences les plus basses (300-500 ms par tour de parole). <a href="../ressources.html#mistral" class="tool-link">Mistral</a> en option souveraine EU. Pour la compréhension d'intentions très fines ou les conversations complexes, basculer vers Claude Sonnet ou GPT-4o standard.
+        </p>
+
+        <h3>TTS — voix naturelles</h3>
+        <p>
+          <a href="../ressources.html#cartesia" class="tool-link">Cartesia Sonic / Line</a> est le leader latence en 2026 (90-150 ms), avec qualité naturelle élevée et tarif accessible PME. <a href="../ressources.html#elevenlabs" class="tool-link">ElevenLabs Conversational AI 2.0</a> reste référence qualité émotionnelle, idéal si la voix est un élément différenciant fort de ta marque. <a href="../ressources.html#voxtral" class="tool-link">Voxtral</a> côté souveraineté française.
+        </p>
+
+        <h3>Intégrations (CRM, agenda, FAQ)</h3>
+        <p>
+          Pour les RDV médicaux : <strong>Doctolib API</strong>, <strong>Maiia</strong>, <strong>KelDoc</strong>. Pour les RDV génériques : <strong>Calendly</strong>, <strong>Cal.com</strong>, <strong>HubSpot Calendar</strong>. CRM : <a href="../ressources.html#hubspot" class="tool-link">HubSpot</a>, <a href="../ressources.html#pipedrive" class="tool-link">Pipedrive</a>, <a href="../ressources.html#salesforce" class="tool-link">Salesforce</a>, <a href="../ressources.html#attio" class="tool-link">Attio</a>. Base FAQ : Notion, Airtable, ou base de connaissances dédiée type Document360.
+        </p>
+
+        <h3>Conformité RGPD & AI Act</h3>
+        <p>
+          <strong>Mention obligatoire en début d'appel</strong> : « cet appel est traité par un agent IA » (transparence AI Act risque limité + RGPD). <strong>Conservation des transcriptions</strong> : durée justifiée par finalité (typiquement 6-12 mois), inscrite au registre RGPD. <strong>Privilégier les solutions hébergées EU</strong> sur les conversations contenant des données sensibles (santé, demandes commerciales nominatives). Documenter l'usage dans le dispositif <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD & AI Act</a>.
+        </p>
+
+        <h3>Prérequis</h3>
+        <p>
+          Volume minimal : 30 appels/jour pour amortir le setup. CRM en place avec API exploitable. Agenda intégrable (Doctolib, Calendly, HubSpot, autre). Référent identifié pour calibrer les prompts les 4-6 premières semaines. Budget initial 5-15 K€ pour Vapi + intégrations, ou 15-30 K€ pour setup custom Twilio/Deepgram/Claude/Cartesia. Coût récurrent : ~0,10-0,20 € par minute via Vapi, ou équivalent en cumulé custom.
+        </p>
+      </section>
+
+      <!-- 6. CAS D'ÉTUDE GUIDÉ -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-case">6</div>
+          <h2 class="module-section-title">Cas d'étude — Cabinet de kinésithérapie 6 praticiens</h2>
+        </div>
+
+        <p>
+          Inspiré d'un retour Nerolia AI 2026. Cabinet de kinésithérapie en agglomération moyenne, 6 kinés, ~500 RDV/semaine, ~80 appels entrants/jour. Secrétaire mi-temps saturée + ~30 % d'appels non répondus en pic. Objectif : capter 90 %+ des appels, réduire le no-show, libérer du temps secrétaire pour l'accueil patient sur place.
+        </p>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">L'acteur</div>
+          <p style="margin: 0;">Cabinet de kinésithérapie associatif, 6 praticiens, ~500 RDV/semaine. Volume d'appels entrants : ~80/jour, dont ~25 non répondus en pic (12h-14h, 17h-19h). Secrétariat = 1 ETP mi-temps. Cabinet déjà sur Doctolib pour les RDV mais ~40 % des prises de RDV passent par téléphone (patients âgés, urgences, patients réguliers). No-show actuel : ~12 % (RDV ratés sans prévenir).</p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Praticiens</div>
+              <strong>6 kinés</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Appels / jour</div>
+              <strong>~80</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Non répondus</div>
+              <strong>~30 %</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">No-show actuel</div>
+              <strong>~12 %</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div class="case-deep-step-content">
+            <h3>Cartographier les motifs d'appel et définir le périmètre (semaine 1-2)</h3>
+            <p>Le cabinet identifie 7 motifs représentant 90 % des appels : prise de RDV (45 %), modification/annulation RDV (20 %), demande horaires/parking/tarifs (12 %), urgence ou douleur aiguë (8 %), demande facturation/mutuelle (8 %), prise de contact nouveaux patients (5 %), divers (10 %). Matrice définie : RDV + modif + FAQ horaires/tarifs en auto-traitement, urgence + facturation + nouveaux patients en escalade vers la secrétaire ou un praticien selon disponibilité.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Pas d'IA à cette étape — atelier équipe sur les motifs récents (analyse de 200 derniers appels journalisés)
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Périmètre clair : 5 intentions cibles pour l'agent (prise RDV, modif RDV, horaires, parking, tarifs) — couvrent 80 % du flux. Tout le reste = escalade vers secrétaire ou téléphone d'urgence praticien.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div class="case-deep-step-content">
+            <h3>Setup Vapi + intégration Doctolib (semaine 3-4)</h3>
+            <p>Choix Vapi pour rapidité de mise en place. Numéro principal du cabinet routé vers Vapi via OVHcloud Téléphonie (souveraineté EU). Configuration agent : voix Cartesia française naturelle, prompt système avec les 5 intentions, intégration Doctolib API pour disponibilités et prises de RDV. Phrase d'accueil : « Bonjour, vous êtes en ligne avec l'agent virtuel du cabinet [Nom]. Pour votre information, cet appel est traité par une intelligence artificielle. Comment puis-je vous aider ? ».</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              OVHcloud Téléphonie (numéro existant routé) → Vapi.ai (plateforme complète) → Cartesia voice française → Claude Haiku LLM → Doctolib API → SMS rappel via Twilio
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Agent fonctionnel en 12 jours. Test interne sur 30 appels factices (kinés et famille). Précision intent : 96 %. Latence boucle conversationnelle : ~800 ms — perception naturelle. Budget setup : 4 800 € (prestataire 4 jours + abonnement Vapi 6 mois).
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div class="case-deep-step-content">
+            <h3>Phase pilote — créneau 12h-14h pendant 4 semaines (semaine 5-8)</h3>
+            <p>Activation de l'agent uniquement sur le créneau 12h-14h (pause secrétaire). Audit hebdo de 100 % des transcriptions. Survey SMS post-appel envoyé à 100 % des patients : « Comment évalueriez-vous cet appel sur 5 ? ». Calibrage hebdo des prompts en fonction des cas mal traités. Fonctionnalité de rappel SMS automatique 24h avant chaque RDV ajoutée pour réduire le no-show.</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Vapi.ai en mode pilote 12h-14h → SMS rappels J-1 via Twilio → Notion partagé pour audit hebdo + corrections prompts
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Sur 4 semaines de pilote : 540 appels traités sur le créneau, 78 % entièrement gérés par l'agent (RDV pris ou modifiés), 22 % escaladés vers secrétaire en post-pause. <strong>Satisfaction patients : 4,2/5</strong> sur surveys (88 % réponses). <strong>No-show passé de 12 % à 7 %</strong> grâce aux SMS J-1. Patients âgés : pas de friction notable, voix Cartesia perçue comme naturelle.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div class="case-deep-step-content">
+            <h3>Extension full 7h-21h + ajout questions tarifs/mutuelle (semaine 9-12)</h3>
+            <p>Sur la base du pilote validé, extension à 7h-21h (couverture étendue par rapport aux horaires secrétaire 9h-17h). Ajout d'une 6ᵉ intention : questions tarifs et mutuelle (avec bases tarifaires structurées dans Notion). En heures ouvrées (9h-17h), l'agent traite uniquement les motifs simples et passe le reste à la secrétaire. Hors heures ouvrées, l'agent traite tout sauf urgences (escalade vers téléphone praticien d'astreinte).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Routage horaire (heure ouvrée vs hors heures ouvrées) configuré dans Vapi → ajout intention tarifs/mutuelle avec base Notion structurée → escalade urgence vers téléphone d'astreinte praticien
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              Couverture appels passée de ~70 % à <strong>~94 %</strong>. La secrétaire récupère du temps en heures ouvrées qu'elle redéploie sur l'accueil patient sur place. <strong>+45 RDV/semaine</strong> captés en hors heures ouvrées (pic 18h-21h). Satisfaction patients stable à 4,2/5.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">5</div>
+          <div class="case-deep-step-content">
+            <h3>Régime stabilisé et bilan 4 mois (mois 5+)</h3>
+            <p>Régime de croisière atteint. Maintenance ~2h/mois pour la secrétaire (revue audit + calibrage). Coût récurrent : ~280 €/mois (Vapi + Cartesia + Twilio SMS rappels). Gain mesurable : équivalent ~0,5 ETP secrétaire en heures ouvrées (redéployé sur accueil patient sur place) + 45 RDV/semaine en hors heures ouvrées. Économies estimées sur l'année : ~30 K€ + ~80 K€ de CA RDV additionnels (45 RDV × 50 € × 35 semaines).</p>
+            <div class="case-deep-tech">
+              <div class="case-deep-tech-label">Stack technique</div>
+              Régime stable → revue mensuelle des transcriptions par échantillonnage 5 % → ajustements prompts trimestriels
+            </div>
+            <div class="case-deep-result">
+              <div class="case-deep-result-label">Résultat</div>
+              ROI atteint au 3ᵉ mois sur le périmètre instrumenté. <strong>~110 K€ de valeur cumulée la 1ʳᵉ année</strong> (économies + CA additionnel) pour 4,8 K€ de setup + ~3,4 K€/an de coûts récurrents. Décision direction : étendre aux 2 autres cabinets du groupe en année 2.
+            </div>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Bilan 4 mois</div>
+          <p>
+            Le cabinet est passé de 30 % d'appels non répondus à 6 %, du no-show 12 % à 7 % grâce aux SMS J-1 automatisés, et a libéré l'équivalent de 0,5 ETP secrétaire en heures ouvrées + capté 45 RDV additionnels par semaine en hors heures ouvrées. <strong>~110 K€ de valeur cumulée la 1ʳᵉ année pour 4,8 K€ de setup + 3,4 K€/an de coûts récurrents</strong>. Plus important encore : la secrétaire a redéployé son temps sur l'accueil patient sur place, perçu très positivement par les patients fragiles. La technologie a remplacé le « décroche-raccroche » mécanique, pas le rôle relationnel.
+          </p>
+        </div>
+      </section>
+
+      <!-- 7. PIÈGES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">7</div>
+          <h2 class="module-section-title">Les pièges à éviter</h2>
+        </div>
+
+        <h3>Vouloir couvrir trop d'intentions au démarrage</h3>
+        <p>
+          La tentation est de vouloir traiter tous les motifs d'appel dès la phase pilote. <strong>Erreur n° 1 des déploiements PME</strong> : taux d'erreur élevé, frustration patient/client, abandon du dispositif au bout de 2 mois. Discipline : <strong>5-10 intentions cibles maximum</strong> couvrant 80-90 % du flux. Étendre uniquement après calibrage.
+        </p>
+
+        <h3>Latence > 1 seconde (perception robotique)</h3>
+        <p>
+          Au-dessus d'1 seconde de boucle conversationnelle (de la fin du locuteur au début de la réponse agent), l'expérience devient frustrante. <strong>Cibler sub-1 seconde</strong>. Stack 2026 capable : Cartesia Sonic 90-150 ms TTS + Deepgram Nova-3 streaming + Claude Haiku 300-500 ms = ~700-900 ms. Si latence dérive, identifier le goulot et optimiser.
+        </p>
+
+        <h3>Pas de mention IA en début d'appel</h3>
+        <p>
+          <strong>Mention obligatoire RGPD + AI Act risque limité</strong> : « cet appel est traité par un agent IA ». Sans cela, déploiement non conforme. Astuce : intégrer la mention dans la phrase d'accueil de manière naturelle (« vous êtes en ligne avec l'assistant virtuel du cabinet [Nom] »), pas en disclaimer pénible.
+        </p>
+
+        <h3>Sous-estimation de la conformité données sensibles</h3>
+        <p>
+          Les conversations téléphoniques contiennent souvent des données sensibles (santé en médical, informations financières en banque, demandes commerciales nominatives). <strong>Privilégier les solutions hébergées EU</strong> (OVH téléphonie + Voxtral + Mistral). Documenter la durée de conservation des transcriptions dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>).
+        </p>
+
+        <h3>Pas de routage humain crédible</h3>
+        <p>
+          Un voicebot qui ne route jamais vers un humain est un mur de frustration. <strong>Routage humain garanti</strong> : sur demande explicite (« je veux parler à un humain »), sur mots-clés sensibles (« réclamation », « urgence », « avocat »), sur incapacité de l'agent à comprendre après 2 tentatives. Implémentation : forward SIP vers téléphone interne ou SMS d'alerte avec rappel patient sous 1h.
+        </p>
+
+        <h3>Manque d'audit qualité dans les premières semaines</h3>
+        <p>
+          Sans audit hebdo de 100 % des transcriptions les 4-6 premières semaines, les dérives ne sont pas détectées. Patient frustré qui ne se plaint pas mais ne revient pas. <strong>Discipline non négociable</strong> : revue 100 % les 4-6 premières semaines, échantillonnage 10-20 % en régime stabilisé. Survey SMS post-appel pour mesurer la satisfaction objective.
+        </p>
+
+        <h3>Voix synthétique mal calibrée pour ta cible</h3>
+        <p>
+          Une voix trop robotique frustre. Une voix trop « commerciale américaine traduite » détonne en France. Une voix trop jeune sur une cible patient âgé crée une distance. <strong>Tester 3-5 voix françaises sur ta cible avant de figer</strong>. Cartesia et ElevenLabs proposent de larges catalogues. La voix est un élément de marque, pas un détail technique.
+        </p>
+      </section>
+
+      <!-- 8. AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">8</div>
+          <h2 class="module-section-title">Auto-diagnostic — Es-tu prêt à déployer ?</h2>
+        </div>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <p class="diagnostic-intro">Réponds aux 6 questions suivantes pour évaluer ton point de départ et générer un plan d'action priorisé exportable.</p>
+          </div>
+
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Quel volume d'appels entrants reçois-tu par jour ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>< 20 appels/jour</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>20-50 appels/jour</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>50-150 appels/jour</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>> 150 appels/jour</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Quel pourcentage d'appels est aujourd'hui non répondu (en pic) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>< 5 % (accueil non saturé)</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>5-15 %</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>15-30 %</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>> 30 % (saturation forte)</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. As-tu un CRM/agenda intégrable (API exploitable) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Non, gestion manuelle</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>Outil isolé sans API</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>HubSpot / Pipedrive / Calendly</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Doctolib / Salesforce / connecteurs natifs</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Quel est ton secteur d'activité ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Médical / paramédical (RDV)</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>E-commerce / services à la personne</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>B2B services / SaaS</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Industrie / autre (cas complexes)</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Disposes-tu d'un référent capable de calibrer 4-6 semaines ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Non, équipe saturée</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Référent disponible 1h/semaine</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Référent disponible 3-5h/semaine</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Équipe dédiée 0,1-0,2 ETP</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Budget initial mobilisable pour le déploiement ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>< 3 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>3 à 8 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>8 à 20 K€</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>> 20 K€</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Générer mon plan d'action priorisé</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 9. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">9</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Articles de fond et retours d'expérience</h3>
+          <ul>
+            <li>
+              <a href="https://nerolia-ai.fr/blog/accueil-telephonique-automatique-ia-pme" target="_blank" rel="noopener">Nerolia AI — accueil téléphonique IA PME</a>
+              <span class="resources-meta">Cas concrets et retours médical / e-commerce / services PME</span>
+            </li>
+            <li>
+              <a href="https://www.bouyguestelecom-business.fr/digital-data/data-ia/agent-vocal-intelligent/" target="_blank" rel="noopener">Bouygues Telecom Business — Agent vocal intelligent</a>
+              <span class="resources-meta">Étude 62 % appels non répondus, ROI sectoriel</span>
+            </li>
+            <li>
+              <a href="https://softcery.com/lab/choosing-the-right-voice-agent-platform-in-2026" target="_blank" rel="noopener">Softcery — comparatif plateformes voicebot 2026</a>
+              <span class="resources-meta">Analyse comparée Vapi, Retell, Bland, ElevenLabs Conv 2.0</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🎥 Tutoriels et démos techniques</h3>
+          <ul>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=vapi+ai+tutorial+voicebot+2026" target="_blank" rel="noopener">Vapi.ai — tutoriels voicebot</a>
+              <span class="resources-meta">YouTube — pas-à-pas pour des setups rapides PME</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=cartesia+sonic+tts+latency" target="_blank" rel="noopener">Cartesia Sonic — démos latence</a>
+              <span class="resources-meta">YouTube — démos voix françaises et latences sub-150 ms</span>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/results?search_query=elevenlabs+conversational+AI+2.0" target="_blank" rel="noopener">ElevenLabs Conv AI 2.0 — démos</a>
+              <span class="resources-meta">YouTube — démos voix émotionnelles et agents complets</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle</h3>
+          <ul>
+            <li>
+              <a href="https://docs.vapi.ai" target="_blank" rel="noopener">Vapi.ai Documentation</a>
+              <span class="resources-meta">Plateforme dev-first pour voicebots — référence 2026</span>
+            </li>
+            <li>
+              <a href="https://docs.cartesia.ai" target="_blank" rel="noopener">Cartesia Documentation</a>
+              <span class="resources-meta">TTS ultra-faible latence avec voix françaises naturelles</span>
+            </li>
+            <li>
+              <a href="https://elevenlabs.io/docs" target="_blank" rel="noopener">ElevenLabs Documentation</a>
+              <span class="resources-meta">Référence qualité émotionnelle TTS + agent vocal complet</span>
+            </li>
+            <li>
+              <a href="https://docs.deepgram.com" target="_blank" rel="noopener">Deepgram Documentation</a>
+              <span class="resources-meta">STT streaming sub-200 ms, neural turn detection</span>
+            </li>
+            <li>
+              <a href="https://www.twilio.com/docs" target="_blank" rel="noopener">Twilio Documentation</a>
+              <span class="resources-meta">Téléphonie programmable et SIP</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>💬 Communautés</h3>
+          <ul>
+            <li>
+              <a href="https://www.reddit.com/r/vapi" target="_blank" rel="noopener">r/vapi sur Reddit</a>
+              <span class="resources-meta">Communauté autour de la plateforme voicebot Vapi</span>
+            </li>
+            <li>
+              <a href="https://www.reddit.com/r/AI_Agents" target="_blank" rel="noopener">r/AI_Agents sur Reddit</a>
+              <span class="resources-meta">Communauté agents IA en production, retours voicebots</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../axes.html">Axes</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    const moduleId = 'cu-022';
+
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const answers = {};
+      let allAnswered = true;
+
+      ['d1','d2','d3','d4','d5','d6'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 6 questions avant de générer ton plan.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const total = answers.d1 + answers.d2 + answers.d3 + answers.d4 + answers.d5 + answers.d6;
+      const maturite = Math.round((total / 18) * 100);
+      const actions = [];
+
+      if (answers.d1 == 0) {
+        actions.push({ prio: 'haute', titre: 'Volume insuffisant — pas de déploiement maintenant',
+          desc: 'Avec moins de 20 appels/jour, le ROI sur le déploiement reste marginal vs effort de mise en place. Préférer un répondeur intelligent + email automatisé. Reconsidérer si croissance forte attendue.' });
+      } else if (answers.d1 >= 2) {
+        actions.push({ prio: 'haute', titre: 'Volume idéal — démarrer pilote sous 4-6 semaines',
+          desc: 'Volume permettant un ROI rapide. Démarrer par un cas d\'usage limité (créneau saturé ou hors heures ouvrées) sur Vapi.ai, étendre après calibrage.' });
+      }
+
+      if (answers.d2 >= 2) {
+        actions.push({ prio: 'haute', titre: 'Saturation actuelle = ROI immédiat sur captation',
+          desc: 'Avec 15 %+ d\'appels non répondus, chaque appel capté est valeur immédiate. Cibler en priorité les pics horaires saturés (12h-14h, 17h-19h typiquement).' });
+      }
+
+      if (answers.d3 == 0) {
+        actions.push({ prio: 'haute', titre: 'Mettre en place un CRM/agenda intégrable d\'abord',
+          desc: 'Sans système d\'information intégrable, l\'agent voicebot ne peut pas prendre de RDV ni logger. Migrer d\'abord vers Calendly, HubSpot, ou solution sectorielle (Doctolib, Maiia). Préalable indispensable.' });
+      } else if (answers.d3 >= 2) {
+        actions.push({ prio: 'moyenne', titre: 'Profiter de l\'intégration native pour gain rapide',
+          desc: 'Tu as déjà l\'écosystème adapté. Setup Vapi + connecteur natif possible en 2-3 semaines. ROI immédiat sur le 1er créneau pilote.' });
+      }
+
+      if (answers.d4 == 3) {
+        actions.push({ prio: 'haute', titre: 'Secteur médical — cas d\'usage emblématique',
+          desc: 'RDV + FAQ + SMS rappel J-1 (réduction no-show 22 %). Connecteurs natifs Doctolib/Maiia. ROI typique 2-3 mois. Pilote recommandé : créneau pause secrétariat 12h-14h sur 4 semaines.' });
+      }
+
+      if (answers.d5 <= 1) {
+        actions.push({ prio: 'haute', titre: 'Mobiliser un référent calibrage 3-5h/semaine',
+          desc: 'Sans référent disponible 4-6 semaines pour auditer transcriptions et ajuster prompts, le déploiement échoue. Identifier secrétaire / responsable accueil + alternatif. C\'est le seul facteur humain non négociable.' });
+      }
+
+      if (answers.d6 == 0) {
+        actions.push({ prio: 'basse', titre: 'Budget limité — démarrer minimal sur Vapi',
+          desc: 'Vapi.ai accessible à partir de quelques centaines €/mois en variable. Setup interne possible si compétence n8n/Twilio en interne. À étendre quand le ROI est démontré.' });
+      } else if (answers.d6 >= 2) {
+        actions.push({ prio: 'basse', titre: 'Budget suffisant pour setup custom souverain',
+          desc: 'Possibilité de setup custom Twilio + Voxtral/Mistral + Cartesia souverain EU. Plus de contrôle, conformité RGPD/AI Act renforcée pour secteurs sensibles (médical, finance).' });
+      }
+
+      // Toujours
+      actions.push({ prio: 'haute', titre: 'Sécuriser RGPD + AI Act (mention IA en début d\'appel)',
+        desc: 'Mention obligatoire « cet appel est traité par un agent IA » au début de chaque appel. Conservation transcriptions documentée au registre RGPD. Voir CU-020 Conformité.' });
+
+      actions.push({ prio: 'moyenne', titre: 'Phase pilote 4-6 semaines avant extension',
+        desc: 'Démarrer sur 1 créneau horaire ou 1 cas d\'usage limité. Audit hebdo 100 % transcriptions. Survey SMS post-appel. Étendre uniquement après validation satisfaction client.' });
+
+      actions.push({ prio: 'basse', titre: 'Tester 3-5 voix françaises sur ta cible',
+        desc: 'La voix synthétique est un élément de marque. Tester sur ta cible (patients âgés, clients B2B, etc.) avant de figer. Cartesia et ElevenLabs proposent de larges catalogues.' });
+
+      let scoreLabel = '';
+      if (maturite >= 70) scoreLabel = 'Maturité élevée — déploiement structuré pertinent';
+      else if (maturite >= 40) scoreLabel = 'Maturité moyenne — pilote ciblé recommandé';
+      else scoreLabel = 'Maturité faible — chantier amont prioritaire';
+
+      const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="diag-score-box">
+          <div class="diag-score-num">${maturite}%</div>
+          <div class="diag-score-label">${scoreLabel}</div>
+        </div>
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-4);">Ton plan d'action priorisé</h3>
+      `;
+
+      const order = { haute: 0, moyenne: 1, basse: 2 };
+      actions.sort((a, b) => order[a.prio] - order[b.prio]);
+
+      actions.forEach((a, i) => {
+        html += `
+          <div class="diag-action">
+            <span class="diag-action-prio ${a.prio}">Priorité ${a.prio}</span>
+            <h4>${i+1}. ${a.titre}</h4>
+            <p>${a.desc}</p>
+          </div>
+        `;
+      });
+
+      html += `
+        <div class="diag-export">
+          <button type="button" class="diag-export-btn" onclick="exportPlan('md')">📥 Exporter en Markdown</button>
+          <button type="button" class="diag-export-btn secondary" onclick="exportPlan('txt')">📄 Exporter en texte simple</button>
+        </div>
+      `;
+
+      result.innerHTML = html;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
+        completed: true, maturite, date: new Date().toISOString()
+      }));
+      window._hubiaPlan = { maturite, scoreLabel, actions, date };
+    }
+
+    function exportPlan(format) {
+      const plan = window._hubiaPlan;
+      if (!plan) return;
+      let content = '';
+
+      if (format === 'md') {
+        content += `# Plan d'action — Voicebot accueil téléphonique IA\n\n*Auto-diagnostic Hub IA Learning Center — ${plan.date}*\n\n**Maturité du dispositif actuel : ${plan.maturite}%**  \n*${plan.scoreLabel}*\n\n---\n\n## Actions priorisées\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `### ${i+1}. ${a.titre}\n**Priorité : ${a.prio}**\n\n${a.desc}\n\n`;
+        });
+        content += `---\n\n*Plan généré par le module CU-022 du Hub IA Learning Center — questforchange.eu*\n`;
+      } else {
+        content += `PLAN D'ACTION — VOICEBOT ACCUEIL TELEPHONIQUE IA\nAuto-diagnostic Hub IA Learning Center — ${plan.date}\n\nMaturite : ${plan.maturite}%\n${plan.scoreLabel}\n\n=========================================\n\nACTIONS PRIORISEES\n\n`;
+        plan.actions.forEach((a, i) => {
+          content += `${i+1}. ${a.titre.toUpperCase()}\n   Priorite : ${a.prio}\n\n   ${a.desc}\n\n`;
+        });
+        content += `=========================================\nPlan genere par le module CU-022 du Hub IA Learning Center\n`;
+      }
+
+      const ext = format === 'md' ? 'md' : 'txt';
+      const blob = new Blob([content], { type: (format === 'md' ? 'text/markdown' : 'text/plain') + ';charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-action-voicebot-accueil.${ext}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
