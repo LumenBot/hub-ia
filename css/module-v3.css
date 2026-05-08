@@ -360,6 +360,21 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
 .tool-badge.hybrid { background: linear-gradient(135deg, #DCE7F3, #DCF0DF); color: #1B3B66; }
 .tool-badge.openweight { background: #FEF3C7; color: #78350F; }
 
+/* Callouts (bibliographie pointers, info banners) */
+.callout {
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  border-left: 4px solid var(--color-primary, #2E5395);
+  background: #F4F8FD;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.callout p { margin: 0; }
+.callout-info { border-left-color: #2E5395; background: #F4F8FD; color: #1B3B66; }
+.callout-info a { color: #1B3B66; font-weight: 600; }
+.callout-warn { border-left-color: #B45309; background: #FFF7ED; color: #78350F; }
+.callout-success { border-left-color: #1F5132; background: #F0F9F2; color: #1F5132; }
+
 .tool-card-header h3 {
   margin: 0 0 var(--space-1);
   color: var(--color-primary);
