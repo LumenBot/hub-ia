@@ -442,9 +442,58 @@ img, svg {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
+.prealables-banner-ctas {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+.prealables-banner-cta-alt {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.prealables-banner-cta-alt:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Encart opportunité (suit l'encart Préalables sur la home) */
+.opportunity-banner {
+  background: linear-gradient(135deg, #FFF8E8 0%, #FFEFC8 100%);
+  padding: var(--space-7) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.opportunity-banner-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.opportunity-banner-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #8C5410;
+}
+.opportunity-banner-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #1F3864;
+  margin: var(--space-2) 0 var(--space-3);
+}
+.opportunity-banner-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+  max-width: 760px;
+}
+
 @media (max-width: 720px) {
   .prealables-banner { padding: var(--space-6) var(--space-4); }
   .prealables-banner-title { font-size: 1.375rem; }
+  .opportunity-banner { padding: var(--space-6) var(--space-4); }
+  .opportunity-banner-title { font-size: 1.25rem; }
 }
 
 /* ============================================
@@ -1221,6 +1270,19 @@ a.card-badge:hover {
   .footer-partners-logos { gap: var(--space-5); }
   .footer-partners-logos a { height: 28px; }
   .footer-partners-logos img { max-height: 28px; }
+}
+
+/* Liste des 4 niveaux du dispositif */
+.about-levels {
+  margin: var(--space-4) 0 var(--space-5);
+  padding-left: var(--space-5);
+  line-height: 1.7;
+}
+.about-levels li {
+  margin-bottom: var(--space-3);
+}
+.about-levels strong {
+  color: var(--color-primary);
 }
 
 /* Page À propos — quote et contact */

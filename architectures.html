@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectures — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/module-v3.css">
+  <style>
+    /* Cards patterns d'architecture */
+    .arch-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); margin: var(--space-4) 0; border-left: 5px solid var(--color-primary); }
+    .arch-card.a1 { border-left-color: #C82A2A; }
+    .arch-card.a2 { border-left-color: #B86E1A; }
+    .arch-card.a3 { border-left-color: #5C8C5C; }
+    .arch-card.a4 { border-left-color: #2E5395; }
+    .arch-card.hybrid { border-left-color: #7A5CB8; background: linear-gradient(135deg, #F8F4FF 0%, white 100%); }
+    .arch-card-num { font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+    .arch-card.a1 .arch-card-num { color: #8C1A1A; }
+    .arch-card.a2 .arch-card-num { color: #8C5410; }
+    .arch-card.a3 .arch-card-num { color: #2E5C2E; }
+    .arch-card.a4 .arch-card-num { color: #1F3864; }
+    .arch-card.hybrid .arch-card-num { color: #4A3A8C; }
+    .arch-card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-3); color: var(--color-text); }
+    .arch-card-tagline { font-size: 0.9375rem; color: var(--color-text-soft); margin-bottom: var(--space-4); font-style: italic; }
+    .arch-card h4 { font-size: 0.9375rem; font-weight: 700; color: var(--color-primary); margin: var(--space-4) 0 var(--space-2); }
+    .arch-card ul { margin: 0 0 var(--space-3); padding-left: var(--space-5); }
+    .arch-card li { margin-bottom: var(--space-1); font-size: 0.9375rem; line-height: 1.5; }
+
+    .arch-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); margin: var(--space-4) 0; }
+    .arch-meta-item { background: var(--color-bg); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: 0.8125rem; }
+    .arch-meta-label { font-size: 0.6875rem; color: var(--color-text-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+    .arch-meta-value { font-weight: 700; color: var(--color-primary); margin-top: 2px; }
+
+    @media (max-width: 768px) { .arch-meta { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="prealables.html" class="nav-link">Préalables</a>
+        <a href="architectures.html" class="nav-link nav-link-active">Architectures</a>
+        <a href="index.html#modules" class="nav-link">Modules</a>
+        <a href="ressources.html" class="nav-link">Ressources</a>
+        <a href="index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="index.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à l'accueil
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Cadrage technique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
+      </div>
+      <h1>🏗️ Architectures</h1>
+      <p class="module-subtitle">
+        Choisir le bon pattern d'implémentation IA pour ton cas d'usage. 4 patterns canoniques (SaaS propriétaire, propriétaire managé, open-source cloud souverain, open-source on-premise) + l'option hybride. Chaque pattern conditionne la faisabilité technique, juridique et économique d'un cas d'usage. Le bon choix dépend de la sensibilité des données, des contraintes réglementaires, du budget, et de la maturité technique disponible.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Pourquoi ce sujet</a>
+        <a href="#section-2">2. SaaS propriétaire (A1)</a>
+        <a href="#section-3">3. Propriétaire managé (A2)</a>
+        <a href="#section-4">4. Open-source cloud souverain (A3)</a>
+        <a href="#section-5">5. Open-source on-premise (A4)</a>
+        <a href="#section-6">6. Hybride</a>
+        <a href="#section-7">7. Tableau comparatif</a>
+        <a href="#section-8">8. Méthode de choix</a>
+        <a href="#section-9">9. Patterns complémentaires</a>
+        <a href="#section-10">10. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 2 minutes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            Le choix d'architecture IA conditionne la <strong>faisabilité</strong> d'un cas d'usage autant que le cas d'usage lui-même. Un même besoin métier (par exemple un agent IA qui traite des CV candidats) peut être <em>impossible</em> en SaaS propriétaire (RGPD strict + AI Act haut risque) mais <em>parfaitement réalisable</em> sur une stack open-source hébergée en cloud souverain. Cette page documente les 4 patterns canoniques + l'hybride pour t'aider à choisir.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">☁️</div>
+              <div class="exec-takeaway-content">
+                <strong>A1 — SaaS propriétaire.</strong> Le plus simple, le plus rapide. ChatGPT, Claude, Gemini en accès direct. Adapté aux usages non sensibles. Risque souveraineté élevé sur données stratégiques.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🏢</div>
+              <div class="exec-takeaway-content">
+                <strong>A2 — Propriétaire managé.</strong> AWS Bedrock, Azure OpenAI, Vertex AI. Modèle propriétaire mais infrastructure cliente avec data residency contrôlée. Compromis souveraineté / qualité.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🇪🇺</div>
+              <div class="exec-takeaway-content">
+                <strong>A3 — Open-source cloud souverain.</strong> Mistral cloud EU, Lucie via OVHcloud / Scaleway / Outscale. Souveraineté EU + auditabilité du modèle. Le compromis recommandé pour les flux sensibles.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔒</div>
+              <div class="exec-takeaway-content">
+                <strong>A4 — Open-source on-premise / local.</strong> Lucie, Mistral self-hosted, Ollama, llama.cpp. Souveraineté maximale. Coût et complexité élevés. Pour usages stratégiques ou défense.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">4</div><div class="exec-stat-label">Patterns canoniques</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">+1</div><div class="exec-stat-label">Pattern hybride transverse</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">5 critères</div><div class="exec-stat-label">Pour choisir</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">20 min</div><div class="exec-stat-label">Lecture</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Pourquoi le choix d'architecture conditionne la faisabilité</h2>
+        </div>
+
+        <p>
+          La majorité des contenus IA pour PME / ETI parle « d'outils » (Claude, GPT, Mistral) ou « de cas d'usage » (extraction factures, RAG, voicebot). Ces deux dimensions sont nécessaires mais <strong>pas suffisantes</strong>. Entre les deux, il y a une dimension structurante : <strong>le pattern d'architecture choisi pour héberger le modèle et orchestrer les flux de données</strong>.
+        </p>
+
+        <div class="pull-quote">
+          Un même cas d'usage (par exemple un agent qui pré-trie des CV candidats) peut être strictement infaisable en mode SaaS propriétaire (transferts hors UE de données personnelles candidats, classification haut risque AI Act) mais parfaitement réalisable sur une stack open-source EU hébergée. Le choix d'architecture n'est pas un détail technique : c'est la condition de faisabilité.
+        </div>
+
+        <p>
+          Plusieurs cas d'usage du Hub IA Learning Center illustrent cette dépendance :
+        </p>
+        <ul>
+          <li><strong><a href="modules/cu-007-rh-cv-entretiens.html" class="tool-link">CU-007 RH (CV &amp; entretiens)</a></strong> : usage <em>haut risque</em> au sens AI Act → architecture A2/A3/A4 obligatoire, A1 déconseillée fortement</li>
+          <li><strong><a href="modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD &amp; AI Act</a></strong> : recense les usages où la souveraineté EU est non négociable</li>
+          <li><strong><a href="modules/cu-021-finance-augmentee.html" class="tool-link">CU-021 Finance augmentée</a></strong> : factures fournisseurs avec données personnelles → A2/A3 recommandé, A1 sous condition stricte</li>
+          <li><strong><a href="modules/cu-013-workflow-email-crm.html" class="tool-link">CU-013 Workflow email-CRM</a></strong> : flux clients mixtes → souvent hybride (A1 pour FAQ génériques, A3 pour données client sensibles)</li>
+        </ul>
+
+        <p>
+          Cette page documente les 4 patterns canoniques + l'hybride. Pour chaque pattern : description, quand l'utiliser, quand l'éviter, exemples d'outils, implications souveraineté/coût/complexité, modules CU compatibles ou incompatibles.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">Pattern A1 — SaaS propriétaire (cloud public)</h2>
+        </div>
+
+        <div class="arch-card a1">
+          <div class="arch-card-num">A1 — Pattern le plus simple, mais souveraineté limitée</div>
+          <h3 class="arch-card-title">☁️ SaaS propriétaire en cloud public</h3>
+          <p class="arch-card-tagline">L'accès direct au modèle propriétaire via l'API ou l'interface du fournisseur, hébergé sur son cloud public mondial.</p>
+
+          <div class="arch-meta">
+            <div class="arch-meta-item"><div class="arch-meta-label">Souveraineté</div><div class="arch-meta-value" style="color:#8C1A1A;">🔴 Faible</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Complexité</div><div class="arch-meta-value">🛠️ Plug &amp; play</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Coût d'entrée</div><div class="arch-meta-value">🟢 Faible</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Time to value</div><div class="arch-meta-value">🟢 Quelques heures</div></div>
+          </div>
+
+          <h4>Exemples typiques</h4>
+          <ul>
+            <li><strong>ChatGPT</strong> via API OpenAI ou interface chat.openai.com</li>
+            <li><strong>Claude</strong> via API Anthropic ou claude.ai</li>
+            <li><strong>Gemini</strong> via API Google AI Studio ou gemini.google.com</li>
+            <li><strong>Le Chat</strong> de Mistral via le Mistral cloud EU (cas particulier : modèle propriétaire mais éditeur EU)</li>
+            <li>Outils SaaS productivité avec IA intégrée : Notion AI, Slack AI, Microsoft 365 Copilot grand public</li>
+          </ul>
+
+          <h4>✅ Quand l'utiliser</h4>
+          <ul>
+            <li>Données <strong>non sensibles</strong> ou <strong>publiques</strong> (recherche augmentée, brainstorming, idéation, rédaction de contenu marketing public)</li>
+            <li>Usages individuels où l'employeur a établi une charte d'usage explicite</li>
+            <li>Prototypes et POC pour valider rapidement un cas d'usage avant industrialisation</li>
+            <li>Tâches sans engagement contractuel ou réglementaire fort</li>
+            <li>Time-to-value critique où la souveraineté n'est pas un blocker</li>
+          </ul>
+
+          <h4>❌ Quand l'éviter</h4>
+          <ul>
+            <li>Données personnelles à risque (santé, RH, mineurs, données sensibles RGPD article 9)</li>
+            <li>Données stratégiques de l'entreprise (BP, propriété intellectuelle, contrats, R&amp;D, données financières)</li>
+            <li>Usages haut risque AI Act (recrutement, crédit, infrastructures critiques, services publics)</li>
+            <li>Secteurs régulés (banque, assurance, défense, énergie critique)</li>
+            <li>Toute organisation avec exigence de conformité RGPD / AI Act renforcée pour ses clients ou partenaires</li>
+          </ul>
+
+          <h4>⚠️ Risques principaux</h4>
+          <ul>
+            <li><strong>Transferts hors UE</strong> : la majorité des fournisseurs SaaS US n'offrent pas de garantie effective de localisation EU</li>
+            <li><strong>Persistance dans les modèles</strong> : selon les CGU, les contenus utilisateurs peuvent alimenter l'entraînement des futurs modèles (à vérifier au cas par cas, certains plans Enterprise désactivent cette persistance)</li>
+            <li><strong>Vendor lock-in</strong> : dépendance forte à un fournisseur qui peut changer ses tarifs, ses CGU ou cesser le service</li>
+            <li><strong>Shadow AI invisible</strong> : sans politique d'usage explicite, les collaborateurs utilisent souvent des comptes personnels qui exposent l'organisation</li>
+          </ul>
+
+          <h4>Coût indicatif</h4>
+          <ul>
+            <li>Plan grand public : 0 à 30 €/mois/utilisateur (Claude Pro 18 €, ChatGPT Plus 20 €)</li>
+            <li>API usage : ~0,01 à 0,10 € pour 1k tokens selon modèle. Coût mensuel typique PME : 50 à 500 € selon volume</li>
+            <li>Plans Enterprise : 25-60 €/mois/utilisateur pour des garanties contractuelles renforcées (no-training, audit, SLA)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">3</div>
+          <h2 class="module-section-title">Pattern A2 — Propriétaire managé (cloud privé / data residency)</h2>
+        </div>
+
+        <div class="arch-card a2">
+          <div class="arch-card-num">A2 — Modèle propriétaire, mais infrastructure cliente</div>
+          <h3 class="arch-card-title">🏢 Propriétaire hébergé en cloud privé / managé</h3>
+          <p class="arch-card-tagline">Le modèle reste propriétaire (Anthropic, OpenAI, Cohere, etc.) mais est déployé dans un environnement cloud sous contrôle du client, avec data residency garantie (souvent EU).</p>
+
+          <div class="arch-meta">
+            <div class="arch-meta-item"><div class="arch-meta-label">Souveraineté</div><div class="arch-meta-value" style="color:#B86E1A;">🟡 Moyenne</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Complexité</div><div class="arch-meta-value">🛠️🛠️ Setup léger</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Coût d'entrée</div><div class="arch-meta-value">🟡 Moyen</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Time to value</div><div class="arch-meta-value">🟡 Quelques semaines</div></div>
+          </div>
+
+          <h4>Exemples typiques</h4>
+          <ul>
+            <li><strong>AWS Bedrock</strong> : Anthropic Claude, Cohere, AI21, Stability hébergés sur ton tenant AWS, région EU disponible (Paris ou Francfort)</li>
+            <li><strong>Azure OpenAI Service</strong> : OpenAI GPT-4/5 hébergés sur Azure, région EU (Suède, France)</li>
+            <li><strong>Google Vertex AI</strong> : Gemini hébergé sur GCP, région EU disponible</li>
+            <li><strong>Anthropic Claude on Vertex AI</strong> et <strong>Cohere on Vertex AI</strong> : combinaisons hybrides</li>
+            <li><strong>OpenAI Enterprise</strong> avec engagement no-training et data residency EU</li>
+          </ul>
+
+          <h4>✅ Quand l'utiliser</h4>
+          <ul>
+            <li>Données personnelles RGPD à risque modéré nécessitant une data residency EU</li>
+            <li>Secteurs avec exigences réglementaires moyennes (services B2B, e-commerce, services pros)</li>
+            <li>Organisations déjà engagées sur AWS / Azure / GCP pour leur SI général (intégration native, contrats consolidés)</li>
+            <li>Volumes industriels où la qualité du modèle propriétaire est critique mais où la souveraineté est aussi exigée</li>
+            <li>Cas où la qualité frontière (Claude Opus 4.6, GPT-5.4) est nécessaire mais où le SaaS public direct est jugé trop exposé</li>
+          </ul>
+
+          <h4>❌ Quand l'éviter</h4>
+          <ul>
+            <li>Souveraineté EU stricte exigée (les clouds hyperscalers restent juridiquement US, exposés au CLOUD Act)</li>
+            <li>Très petites structures (TPE) sans compte cloud existant — le setup initial peut peser</li>
+            <li>Cas où un modèle open-source mature suffit — l'investissement A2 est alors disproportionné</li>
+          </ul>
+
+          <h4>⚠️ Subtilité « souveraineté »</h4>
+          <p>
+            A2 offre une <strong>data residency contrôlée</strong> (les données restent en EU pendant le traitement) mais <strong>pas une souveraineté juridique complète</strong> : AWS, Azure, GCP sont des entités US soumises au CLOUD Act, qui peut théoriquement contraindre la divulgation de données à des autorités US même si les données sont stockées en EU. Pour les données vraiment stratégiques, A3 ou A4 sont préférables. Pour les données « simplement RGPD », A2 est une réponse pragmatique.
+          </p>
+
+          <h4>Coût indicatif</h4>
+          <ul>
+            <li>Modèle de tarification au token, équivalent au SaaS direct mais avec un overhead infrastructure (~10-20 % de surcoût)</li>
+            <li>Coût initial setup compte cloud / VPC : ~5-15 K€ si pas déjà en place</li>
+            <li>Coût récurrent typique PME/ETI : 200-2 000 €/mois selon volume</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">4</div>
+          <h2 class="module-section-title">Pattern A3 — Open-source / open-weight cloud souverain</h2>
+        </div>
+
+        <div class="arch-card a3">
+          <div class="arch-card-num">A3 — Le compromis recommandé pour les flux sensibles EU</div>
+          <h3 class="arch-card-title">🇪🇺 Open-source / open-weight hébergé en cloud souverain EU</h3>
+          <p class="arch-card-tagline">Modèles à poids ouverts (Mistral, Lucie, Pleias, Llama) hébergés sur des clouds européens souverains (OVHcloud, Scaleway, Outscale, Numspot). Souveraineté juridique EU + auditabilité du modèle.</p>
+
+          <div class="arch-meta">
+            <div class="arch-meta-item"><div class="arch-meta-label">Souveraineté</div><div class="arch-meta-value" style="color:#2E5C2E;">🟢 EU forte</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Complexité</div><div class="arch-meta-value">🛠️🛠️🛠️ Intégration</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Coût d'entrée</div><div class="arch-meta-value">🟡 Moyen</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Time to value</div><div class="arch-meta-value">🟠 1-3 mois</div></div>
+          </div>
+
+          <h4>Exemples typiques</h4>
+          <ul>
+            <li><strong>Mistral Cloud EU</strong> : Mistral Large 2, Codestral, Voxtral hébergés en région EU par Mistral AI directement</li>
+            <li><strong>Lucie / OpenLLM-France</strong> via OVHcloud, Scaleway ou Outscale</li>
+            <li><strong>Pleias-RAG</strong> hébergé sur infrastructure souveraine EU pour les usages juridique / compliance</li>
+            <li><strong>Llama 3.x / Mixtral</strong> auto-hébergés sur OVHcloud / Scaleway avec instances GPU</li>
+            <li><strong>Mistral Forge</strong> pour fine-tuning souverain sur dataset propriétaire</li>
+            <li><strong>Hugging Face Inference Endpoints</strong> en région EU pour des modèles open-weight précis</li>
+          </ul>
+
+          <h4>✅ Quand l'utiliser</h4>
+          <ul>
+            <li>Données personnelles sensibles avec exigence souveraineté EU forte</li>
+            <li>Données stratégiques de l'entreprise (BP, propriété intellectuelle, contrats stratégiques)</li>
+            <li>Secteurs régulés (banque, assurance, santé en mode externalisé contrôlé)</li>
+            <li>Organisations qui veulent un message clair vers leurs clients sur la souveraineté</li>
+            <li>Cas où la qualité d'un modèle open-source mature (Mistral Large 2, Llama 3.3) est suffisante (en pratique : 80-90 % des cas PME/ETI)</li>
+            <li>Préparation à une éventuelle bascule vers A4 (on-premise) à terme</li>
+          </ul>
+
+          <h4>❌ Quand l'éviter</h4>
+          <ul>
+            <li>TPE sans compétence DevOps ni budget pour un setup intégration</li>
+            <li>Cas où la qualité frontière (Claude Opus 4.6, GPT-5.4) est strictement nécessaire — les open-source EU restent compétitifs mais pas systématiquement frontière</li>
+            <li>Time-to-value critique &lt; 1 mois — préférer un POC en A1 puis bascule vers A3 une fois validé</li>
+          </ul>
+
+          <h4>💡 Avantage différenciant</h4>
+          <p>
+            A3 offre la <strong>combinaison rare</strong> de la souveraineté EU juridique forte (cloud non soumis au CLOUD Act) ET de l'auditabilité du modèle (poids ouverts inspectables). Pour les organisations qui doivent à la fois respecter le RGPD strict et démontrer une maîtrise de leur stack IA, c'est le compromis le plus pragmatique en 2026.
+          </p>
+
+          <h4>Coût indicatif</h4>
+          <ul>
+            <li>API Mistral Cloud EU : ~0,002 à 0,008 € / 1k tokens (compétitif avec OpenAI)</li>
+            <li>Infrastructure GPU sur OVHcloud / Scaleway pour auto-hébergement open-weight : ~80-300 €/mois pour un déploiement TPE/PME (modèle moyen, charge modeste)</li>
+            <li>Coût initial setup : 5-20 K€ selon ambition (PoC vs déploiement industriel)</li>
+            <li>Hugging Face Inference Endpoints EU : tarification à l'heure GPU + bande passante</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">5</div>
+          <h2 class="module-section-title">Pattern A4 — Open-source on-premise / local</h2>
+        </div>
+
+        <div class="arch-card a4">
+          <div class="arch-card-num">A4 — Souveraineté maximale, complexité maximale</div>
+          <h3 class="arch-card-title">🔒 Open-source on-premise / déploiement local</h3>
+          <p class="arch-card-tagline">Modèles open-source/open-weight déployés sur infrastructure cliente : data centers internes, GPU on-premise, edge devices. Aucune donnée ne sort de l'organisation.</p>
+
+          <div class="arch-meta">
+            <div class="arch-meta-item"><div class="arch-meta-label">Souveraineté</div><div class="arch-meta-value" style="color:#2E5C2E;">🟢 Maximale</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Complexité</div><div class="arch-meta-value">🛠️🛠️🛠️🛠️ Projet</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Coût d'entrée</div><div class="arch-meta-value" style="color:#8C1A1A;">🔴 Élevé</div></div>
+            <div class="arch-meta-item"><div class="arch-meta-label">Time to value</div><div class="arch-meta-value" style="color:#8C1A1A;">🔴 3-12 mois</div></div>
+          </div>
+
+          <h4>Exemples typiques</h4>
+          <ul>
+            <li><strong>Lucie / Mistral / Llama / Mixtral</strong> auto-hébergés sur GPU internes (NVIDIA H100, A100, ou stations DGX)</li>
+            <li><strong>Ollama</strong> + <strong>llama.cpp</strong> pour des déploiements légers (modèles 7B-13B sur stations de travail)</li>
+            <li><strong>vLLM</strong> ou <strong>TGI (Text Generation Inference)</strong> pour des déploiements industriels</li>
+            <li><strong>LightOn Paradigm</strong> en mode on-premise pour grandes administrations</li>
+            <li><strong>Edge AI</strong> sur appareils embarqués (NVIDIA Jetson, smartphones, IoT industriel)</li>
+          </ul>
+
+          <h4>✅ Quand l'utiliser</h4>
+          <ul>
+            <li>Données ultra-stratégiques où aucune sortie de l'organisation n'est tolérable (défense, santé sensible, R&amp;D protégée)</li>
+            <li>Réglementations sectorielles strictes (OIV, OSE, secteurs à exigences nationales spécifiques)</li>
+            <li>Volumes très importants où l'amortissement du hardware devient économiquement supérieur au cloud (millions de requêtes/jour)</li>
+            <li>Cas d'usage avec contraintes de latence ultra-critique (edge industriel, robotique)</li>
+            <li>Capacité à mobiliser une équipe DevOps / MLOps interne ou via prestataire dédié</li>
+          </ul>
+
+          <h4>❌ Quand l'éviter</h4>
+          <ul>
+            <li>TPE / PME sans compétence DevOps interne ni budget setup ≥ 50 K€</li>
+            <li>Cas d'usage où A3 (cloud souverain EU) suffit — éviter le sur-engagement</li>
+            <li>Volumes faibles à moyens où le coût d'amortissement hardware ne se justifie pas</li>
+            <li>Organisations qui privilégient l'agilité (mises à jour régulières des modèles) — A4 demande une discipline d'évolution lourde</li>
+          </ul>
+
+          <h4>⚠️ Coûts cachés à anticiper</h4>
+          <ul>
+            <li><strong>Hardware GPU</strong> : 30-150 K€ pour une station ou serveur GPU industriel adapté</li>
+            <li><strong>MLOps</strong> : 0,5 à 1 ETP pour assurer le run, les mises à jour, le monitoring</li>
+            <li><strong>Énergie</strong> : 1-3 K€/mois selon la charge (impact carbone à documenter)</li>
+            <li><strong>Mises à jour modèles</strong> : un nouveau modèle open-source majeur sort tous les 3-6 mois — réinstallation, fine-tuning, validation</li>
+            <li><strong>Sécurité physique et logique</strong> : si on choisit on-premise, c'est aussi parce qu'on prend en charge la sécurité de bout en bout</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">6</div>
+          <h2 class="module-section-title">Pattern transverse — Hybride</h2>
+        </div>
+
+        <div class="arch-card hybrid">
+          <div class="arch-card-num">Hybride — Le pattern le plus fréquent en pratique</div>
+          <h3 class="arch-card-title">🎭 Architecture hybride : panacher selon la sensibilité du flux</h3>
+          <p class="arch-card-tagline">Combiner plusieurs patterns dans un même système, en orientant chaque flux vers l'architecture adaptée à sa sensibilité. Le pattern le plus fréquent en réalité opérationnelle.</p>
+
+          <h4>Pattern type</h4>
+          <p>
+            Une PME / ETI typique en 2026 a souvent une stack hybride <strong>même sans s'en rendre compte</strong> :
+          </p>
+          <ul>
+            <li>Les <strong>collaborateurs utilisent ChatGPT / Claude grand public</strong> pour des usages individuels (pattern A1, recherche augmentée, reformulation)</li>
+            <li>L'<strong>équipe technique utilise Mistral Cloud EU</strong> pour les agents IA traitant des données client (pattern A3)</li>
+            <li>Les <strong>cas d'usage haut risque</strong> (RH, finance) utilisent <strong>AWS Bedrock</strong> avec data residency EU (pattern A2)</li>
+            <li>Le <strong>cas d'usage stratégique</strong> (R&amp;D protégée) tourne sur <strong>Mistral self-hosted</strong> en on-premise (pattern A4)</li>
+          </ul>
+
+          <h4>Pourquoi c'est rationnel</h4>
+          <p>
+            <strong>Forcer un seul pattern pour tous les usages = inefficacité économique et organisationnelle</strong>. Tout passer en A4 coûterait une fortune et ralentirait massivement les cas d'usage légers. Tout passer en A1 exposerait l'organisation sur ses cas critiques. Le bon design est <strong>orienté flux</strong> : chaque cas d'usage est analysé pour sa sensibilité, et la stack est calibrée en conséquence.
+          </p>
+
+          <h4>Discipline à inscrire</h4>
+          <ul>
+            <li><strong>Politique IA documentée</strong> (cf. <a href="modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>) qui précise quel pattern utiliser pour quel type de données</li>
+            <li><strong>Cartographie Shadow AI</strong> pour identifier les usages individuels A1 et les encadrer</li>
+            <li><strong>Choix technologiques convergents</strong> : essayer de limiter à 2-3 patterns max pour éviter la complexité de maintenance</li>
+            <li><strong>Mise à jour régulière</strong> de la cartographie : les usages évoluent, les contraintes aussi</li>
+          </ul>
+
+          <h4>Anti-patterns hybrides</h4>
+          <ul>
+            <li><strong>« Cloud-first sans réflexion »</strong> : tout pousser en A1 par défaut sans cartographier la sensibilité = exposition silencieuse</li>
+            <li><strong>« Souverain partout »</strong> : tout en A3/A4 même pour usages anodins = sur-coût et lenteur de déploiement</li>
+            <li><strong>« Patchwork ingérable »</strong> : utiliser 5 patterns différents avec 8 fournisseurs = dette technique massive</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">7</div>
+          <h2 class="module-section-title">Tableau comparatif synthétique</h2>
+        </div>
+
+        <div class="compare-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th>A1 SaaS</th>
+                <th>A2 Managé</th>
+                <th>A3 OS souverain</th>
+                <th>A4 On-premise</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Souveraineté juridique</strong></td>
+                <td>🔴 Faible</td>
+                <td>🟡 Moyenne (CLOUD Act)</td>
+                <td>🟢 EU forte</td>
+                <td>🟢 Maximale</td>
+              </tr>
+              <tr>
+                <td><strong>Complexité de mise en œuvre</strong></td>
+                <td>🟢 Plug &amp; play</td>
+                <td>🟡 Setup léger</td>
+                <td>🟠 Intégration</td>
+                <td>🔴 Projet lourd</td>
+              </tr>
+              <tr>
+                <td><strong>Time to value</strong></td>
+                <td>🟢 Quelques heures</td>
+                <td>🟡 Quelques semaines</td>
+                <td>🟠 1-3 mois</td>
+                <td>🔴 3-12 mois</td>
+              </tr>
+              <tr>
+                <td><strong>Coût d'entrée</strong></td>
+                <td>🟢 0-30 €/mois</td>
+                <td>🟡 200-2 000 €/mois</td>
+                <td>🟡 80-300 €/mois</td>
+                <td>🔴 50 K€+ initial</td>
+              </tr>
+              <tr>
+                <td><strong>Qualité du modèle</strong></td>
+                <td>🟢 Frontière</td>
+                <td>🟢 Frontière</td>
+                <td>🟡 Très bonne</td>
+                <td>🟡 Bonne (selon HW)</td>
+              </tr>
+              <tr>
+                <td><strong>Auditabilité du modèle</strong></td>
+                <td>🔴 Boîte noire</td>
+                <td>🔴 Boîte noire</td>
+                <td>🟢 Poids ouverts</td>
+                <td>🟢 Contrôle total</td>
+              </tr>
+              <tr>
+                <td><strong>RGPD données sensibles</strong></td>
+                <td>🔴 Risqué</td>
+                <td>🟡 Possible avec garanties</td>
+                <td>🟢 OK</td>
+                <td>🟢 OK</td>
+              </tr>
+              <tr>
+                <td><strong>AI Act haut risque</strong></td>
+                <td>🔴 Déconseillé</td>
+                <td>🟡 Conditionnel</td>
+                <td>🟢 Recommandé</td>
+                <td>🟢 Recommandé</td>
+              </tr>
+              <tr>
+                <td><strong>Vendor lock-in</strong></td>
+                <td>🔴 Fort</td>
+                <td>🟠 Modéré (cloud + modèle)</td>
+                <td>🟢 Faible (open-weight)</td>
+                <td>🟢 Aucun</td>
+              </tr>
+              <tr>
+                <td><strong>Cas d'usage typique PME</strong></td>
+                <td>POC, brainstorming, rédaction marketing</td>
+                <td>Production B2B, RGPD modéré</td>
+                <td>Production sensible, données client/stratégiques</td>
+                <td>R&amp;D protégée, défense, OIV</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">8</div>
+          <h2 class="module-section-title">Méthode de choix — 5 critères pour décider</h2>
+        </div>
+
+        <p>
+          Pour chaque cas d'usage IA envisagé, parcourir ces 5 questions dans l'ordre. La réponse à chacune oriente vers un pattern (ou écarte un pattern). Méthode pragmatique qui produit une décision en 30-60 minutes.
+        </p>
+
+        <ol>
+          <li>
+            <strong>Quelle est la sensibilité des données traitées ?</strong>
+            <ul>
+              <li>Publiques ou non sensibles → A1 OK</li>
+              <li>Personnelles RGPD modérées → A2 ou A3</li>
+              <li>Personnelles RGPD article 9 (santé, biométrie, opinions) ou stratégiques entreprise → A3 ou A4</li>
+              <li>Ultra-stratégiques (R&amp;D protégée, défense, OIV) → A4</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Le cas d'usage est-il classé haut risque AI Act ?</strong>
+            <ul>
+              <li>Non (risque minimal ou limité) → tous patterns possibles</li>
+              <li>Oui (recrutement, crédit, scoring salariés, infrastructures critiques) → A2 minimum recommandé, A3/A4 préférable</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Quel est le time-to-value attendu ?</strong>
+            <ul>
+              <li>&lt; 1 semaine → A1 obligatoire (mais à reconfirmer une fois validé)</li>
+              <li>1-3 mois → A2 ou A3 envisageables</li>
+              <li>&gt; 3 mois → A3 ou A4 selon enjeu souveraineté</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Quelle est la maturité technique disponible (interne ou via prestataire) ?</strong>
+            <ul>
+              <li>Aucune → A1 (ou A2 via cabinet conseil)</li>
+              <li>Compétence n8n / orchestration → A2 ou A3 accessibles</li>
+              <li>Équipe DevOps / MLOps interne ou prestataire spécialisé → A3 ou A4</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Quel est le budget annuel mobilisable (capex + opex) ?</strong>
+            <ul>
+              <li>&lt; 5 K€/an → A1 ou A2 light</li>
+              <li>5-30 K€/an → A2 ou A3 confortablement</li>
+              <li>&gt; 30 K€/an → A3 ou A4 selon enjeu</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p>
+          Une fois ces 5 critères passés en revue, le pattern à privilégier émerge généralement clairement. <strong>Si plusieurs patterns restent envisageables, privilégier celui qui maximise la souveraineté à coût et complexité comparables</strong> — la valeur supplémentaire de A3 vs A1 sur les cas sensibles dépasse largement le surcoût.
+        </p>
+
+        <div class="pull-quote">
+          Une décision d'architecture n'est jamais figée. Démarrer en A1 pour valider rapidement un POC, puis basculer en A3 quand le cas d'usage est confirmé pour la production, est un cycle parfaitement légitime — à condition de l'avoir planifié dès le départ et de ne pas glisser en production sur un pattern A1 par inertie.
+        </div>
+      </section>
+
+      <section class="module-section" id="section-9">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">9</div>
+          <h2 class="module-section-title">Patterns complémentaires (à surveiller)</h2>
+        </div>
+
+        <p>
+          Au-delà des 4 patterns canoniques + hybride, plusieurs approches émergent en 2025-2026 qui méritent surveillance sans avoir encore atteint la maturité d'un pattern de référence pour PME / ETI.
+        </p>
+
+        <h3>Edge AI — IA embarquée sur device</h3>
+        <p>
+          Modèles compacts (Phi-4, Llama 3.2 1B/3B, Florence-2, Mistral 7B quantifiés) tournant <strong>directement sur smartphones, PC, ou IoT industriels</strong>. Avantages : latence ultra-faible, fonctionnement déconnecté, confidentialité par design. Limites : qualité modèle plus modeste, coût matériel intégré, gestion mises à jour par device. Cas pertinents : applications mobiles avec assistant IA, robotique industrielle, IoT défense / médical.
+        </p>
+
+        <h3>Hugging Face Inference Endpoints</h3>
+        <p>
+          Pattern intermédiaire entre A3 et A4 : <strong>infrastructure managée par Hugging Face</strong> avec choix du modèle open-weight, déploiement en région EU possible, tarification à l'heure GPU. Permet de tester des modèles spécifiques sans monter une infrastructure complète. Très utile pour POC A3 / A4 ou pour des modèles spécialisés (Pleias, Florence, etc.).
+        </p>
+
+        <h3>Coopératives de calcul EU</h3>
+        <p>
+          Émergence d'initiatives européennes pour mutualiser des infrastructures GPU (Numspot, projets coopératifs sectoriels). Pattern intéressant pour les ETI qui veulent bénéficier d'A3 / A4 sans portage individuel complet, mais maturité encore limitée en 2026 — à suivre à 18-24 mois.
+        </p>
+
+        <h3>Federated Learning &amp; Confidential Computing</h3>
+        <p>
+          Techniques avancées qui permettent l'entraînement ou l'inférence sur données chiffrées (homomorphic encryption, enclaves SGX/SEV/TDX). Très pertinent pour des cas d'usage multi-organisations (consortiums sectoriels, données médicales partagées). Maturité industrielle encore variable, à surveiller.
+        </p>
+
+        <h3>« BYOM » (Bring Your Own Model) sur infrastructures partenaires</h3>
+        <p>
+          Certains acteurs cloud souverains (OVHcloud, Scaleway, Numspot) proposent désormais d'héberger des modèles fournis par le client, avec engagement contractuel renforcé. C'est une variante de A3 / A4 hybride qui combine l'agilité cloud et la souveraineté contractuelle.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-10">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">10</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Sources et cadrages</h3>
+          <ul>
+            <li><a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Recommandations IA &amp; RGPD</a><span class="resources-meta">Cadrage juridique des transferts hors UE et garanties à exiger des fournisseurs</span></li>
+            <li><a href="https://www.ssi.gouv.fr" target="_blank" rel="noopener">ANSSI — Recommandations cloud souverain</a><span class="resources-meta">Doctrine cloud de confiance, qualification SecNumCloud</span></li>
+            <li><a href="https://artificialintelligenceact.eu" target="_blank" rel="noopener">AI Act — texte officiel</a><span class="resources-meta">Définition des usages haut risque et obligations associées</span></li>
+            <li><a href="https://www.entreprises.gouv.fr" target="_blank" rel="noopener">DGE — Décryptages IA en entreprise</a><span class="resources-meta">Guides opérationnels publics français</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li><a href="prealables/pr-02-preables-data-si.html">Préalables data &amp; SI</a><span class="resources-meta">Fondations techniques préalables au choix d'architecture</span></li>
+            <li><a href="prealables/pr-05-securite-ia.html">Sécurité IA &amp; risques opérationnels</a><span class="resources-meta">Risques par pattern et contre-mesures</span></li>
+            <li><a href="modules/cu-020-conformite-rgpd-ai-act.html">CU-020 Conformité RGPD &amp; AI Act</a><span class="resources-meta">Dispositif gouvernance qui s'appuie sur le choix d'architecture</span></li>
+            <li><a href="modules/cu-007-rh-cv-entretiens.html">CU-007 CV &amp; entretiens RH</a><span class="resources-meta">Cas d'usage haut risque AI Act — choix d'architecture critique</span></li>
+            <li><a href="modules/cu-021-finance-augmentee.html">CU-021 Finance augmentée</a><span class="resources-meta">Données fournisseurs sensibles — A2/A3 recommandés</span></li>
+            <li><a href="modules/cu-013-workflow-email-crm.html">CU-013 Workflow email-CRM</a><span class="resources-meta">Architecture hybride typique selon types de flux</span></li>
+            <li><a href="modules/cu-008-knowledge-base-rag.html">CU-008 Knowledge base RAG</a><span class="resources-meta">RAG sur corpus interne — A3 ou A4 selon sensibilité</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🛠️ Fiches outils par pattern</h3>
+          <ul>
+            <li><strong>A1</strong> : <a href="ressources.html#claude" class="tool-link">Claude</a>, <a href="ressources.html#gpt" class="tool-link">GPT</a>, <a href="ressources.html#gemini" class="tool-link">Gemini</a></li>
+            <li><strong>A2</strong> : AWS Bedrock, Azure OpenAI, Vertex AI (à indexer)</li>
+            <li><strong>A3</strong> : <a href="ressources.html#mistral" class="tool-link">Mistral</a>, <a href="ressources.html#lucie" class="tool-link">Lucie</a>, <a href="ressources.html#pleias-rag" class="tool-link">Pleias-RAG</a>, <a href="ressources.html#voxtral" class="tool-link">Voxtral</a></li>
+            <li><strong>A4</strong> : <a href="ressources.html#mistral-forge" class="tool-link">Mistral Forge</a>, <a href="ressources.html#lighton" class="tool-link">LightOn</a>, Ollama, llama.cpp (à indexer)</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="index.html#a-propos">À propos</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="prealables.html">Préalables</a>
+        <a href="architectures.html">Architectures</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/module-v3.js"></script>
+
+</body>
+</html>

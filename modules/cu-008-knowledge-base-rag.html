@@ -21,6 +21,7 @@
       <div class="nav-links">
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
       </div>
@@ -65,6 +66,13 @@
     </aside>
 
     <main class="module-main">
+
+      <!-- TAG ARCHITECTURES -->
+      <div class="callout callout-info" style="margin: var(--space-4) 0;">
+        <p>
+          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : dépend totalement de la sensibilité du corpus indexé. Documentation publique → <strong>A1 OK</strong>. Documentation interne stratégique (procédures, contrats, savoir-faire) → <strong>A3 ou A4</strong>. RAG juridique / compliance → <strong>Pleias-RAG</strong> (open-weight souverain) en A3 / A4. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
+        </p>
+      </div>
 
       <!-- EXECUTIVE SUMMARY -->
       <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
@@ -448,6 +456,53 @@
           </form>
 
           <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- RETEX BPIFRANCE -->
+      <section class="module-section" id="retex-bpifrance">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📍</div>
+          <div class="module-section-title">
+            <h2>RetEx — Conseil aviation, ~25 personnes</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-actor">
+          <div class="case-deep-actor-label">Cas type — Conseil aviation, ~25 personnes</div>
+          <p style="margin: 0;">
+            <strong>Time to Fly</strong> (25 employés, 2,6 M€ CA, Roissy) — conseil aviation. Algorithme RAG (GPT-4) pour analyse documentaire de conformité réglementaire, jusqu'à 1 000 pages par audit.
+          </p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Coût prototype</div>
+              <strong>100 K€ subv. ~50 %</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Précision identification</div>
+              <strong>80 %</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Gain temps audit</div>
+              <strong>−50 %</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">ROI estimé</div>
+              <strong>2 ans</strong>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;">
+            <strong>Précision démontrée 80 %</strong> sur identification des passages pertinents et conformité, <strong>gain temps −50 %</strong> par audit. Coût prototype 100 K€ subventionné ~50 % via IA Booster + Pack IA région IDF. <strong>Limite documentée</strong> : prototype encore sans interface utilisateur, blocage à 300 K€ pour la phase 2 d'industrialisation. Cas illustratif des freins financiers sur le passage POC → production.
+          </p>
+          <p style="margin: 0; font-size: 0.8125rem; color: var(--color-text-soft); font-style: italic;">
+            Source : Bpifrance Le Lab, « L'IA dans les PME et ETI françaises », juin 2025, p. 114-119.
+          </p>
+        </div>
+
+        <div class="callout callout-info" style="margin-top: var(--space-4);">
+          <p style="margin: 0;">
+            <strong>📈 Tendance Cisco 2028.</strong> Cisco prévoit qu'en 2028, <strong>68 % des interactions de service client seront gérées de bout en bout par l'IA agentique sans intervention humaine</strong>. Le pattern RAG est l'une des briques fondatrices de cette évolution.
+          </p>
         </div>
       </section>
 

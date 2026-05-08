@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PR-01 Maturité organisationnelle — Hub IA Learning Center</title>
+  <title>Maturité organisationnelle — Hub IA Learning Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@
       </a>
       <div class="nav-links">
         <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
         <a href="../index.html#modules" class="nav-link">Modules</a>
         <a href="../ressources.html" class="nav-link">Ressources</a>
         <a href="../index.html#a-propos" class="nav-link">À propos</a>
@@ -50,7 +51,7 @@
         Retour aux préalables
       </a>
       <div class="module-badges">
-        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-01</span>
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Cadrage</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
       </div>
       <h1>🏛️ Maturité organisationnelle</h1>
@@ -74,6 +75,7 @@
         <a href="#section-3">3. Modèle 5R™ Cnam-Dejoux</a>
         <a href="#section-4">4. Avantage PME / ETI agiles</a>
         <a href="#section-5">5. Auto-évaluation maturité</a>
+        <a href="#section-diag-projet-en-cours">5bis. Diagnostic projet en cours</a>
         <a href="#section-6">6. Pour aller plus loin</a>
       </nav>
     </aside>
@@ -193,7 +195,7 @@
           La vraie puissance de l'IA générative vient de l'orchestration : <strong>RAG sur les bases internes, function calls vers les ERP/CRM/outils métier, pipelines d'agents autonomes</strong>. Pour faire ça, il faut des données propres, des APIs ouvertes, une architecture modulaire. Les grandes entreprises tournent sur des systèmes legacy empilés depuis 20 ans avec des données en silos que personne n'a jamais structurées pour être exploitées par une IA.
         </p>
         <p>
-          <strong>Bonne pratique</strong> : avant de lancer un projet IA, faire un audit technique du SI cible (cf. <a href="pr-02-preables-data-si.html" class="tool-link">PR-02 Préalables data &amp; SI</a>). Si le SI est trop legacy, le projet IA doit commencer par une rénovation a minima des APIs, sans quoi on construira sur du sable.
+          <strong>Bonne pratique</strong> : avant de lancer un projet IA, faire un audit technique du SI cible (cf. <a href="pr-02-preables-data-si.html" class="tool-link">Préalables data &amp; SI</a>). Si le SI est trop legacy, le projet IA doit commencer par une rénovation a minima des APIs, sans quoi on construira sur du sable.
         </p>
 
         <h3>Cause 4 — La culture de l'IA-comme-rustine</h3>
@@ -436,6 +438,120 @@
         </div>
       </section>
 
+      <!-- 5bis. DIAGNOSTIC PROJET EN COURS — 12 ANTI-PATTERNS -->
+      <section class="module-section" id="section-diag-projet-en-cours">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">5bis</div>
+          <h2 class="module-section-title">Diagnostic d'un projet IA déjà lancé — 12 anti-patterns</h2>
+        </div>
+
+        <p>
+          L'auto-évaluation précédente cadre la maturité <strong>avant</strong> de lancer un projet. Cette section couvre le cas complémentaire : un projet IA est <strong>déjà en cours</strong> (POC, pilote, début de production) et tu veux poser un diagnostic objectif sur sa trajectoire. 12 anti-patterns documentés par les études convergentes (MIT « State of AI in Business 2025 », Gartner, S&amp;P Global, Bpifrance Le Lab) — chacun augmente significativement la probabilité que le projet rejoigne les 95 % qui n'atteignent jamais la production à grande échelle.
+        </p>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <h3 style="color: #B86E1A; margin: 0 0 var(--space-3);">Check-list 12 anti-patterns — coche ceux qui s'appliquent à ton projet</h3>
+            <p class="diagnostic-intro">Plus tu coches, plus le risque d'échec est élevé. ≥ 4 anti-patterns détectés = signal d'alerte fort, considérer une remise à plat avant de poursuivre.</p>
+          </div>
+
+          <form id="antipatternForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap1" style="margin-right: 8px;">
+                <strong>1. Sponsor exécutif faible ou absent.</strong> Personne au COMEX ne porte vraiment le projet, le pilote est un middle-manager isolé.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap2" style="margin-right: 8px;">
+                <strong>2. ROI non chiffré ou non mesurable.</strong> Le projet ne sait pas dire quel KPI il doit faire bouger ni de combien.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap3" style="margin-right: 8px;">
+                <strong>3. Données du périmètre cible non préparées.</strong> Pas de nettoyage préalable, données en silos, schéma non documenté (cf. <a href="pr-02-preables-data-si.html" class="tool-link">Préalables data &amp; SI</a>).
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap4" style="margin-right: 8px;">
+                <strong>4. Pattern d'architecture non choisi explicitement.</strong> Le projet utilise par défaut un SaaS propriétaire sans avoir évalué les patterns A2/A3/A4 (cf. <a href="../architectures.html" class="tool-link">Architectures</a>).
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap5" style="margin-right: 8px;">
+                <strong>5. Aucun audit Shadow AI.</strong> Personne ne sait ce que les collaborateurs utilisent déjà — risque de doublons et de Shadow AI persistante (cf. <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD &amp; AI Act</a>).
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap6" style="margin-right: 8px;">
+                <strong>6. Périmètre métier flou ou trop large.</strong> Le projet veut tout transformer en même temps au lieu de cibler 1-2 cas d'usage prioritaires.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap7" style="margin-right: 8px;">
+                <strong>7. Plan de formation IA absent ou générique.</strong> Pas de plan article 4 AI Act adapté aux fonctions impactées (cf. <a href="pr-03-maturite-humaine-formation.html" class="tool-link">Maturité humaine &amp; formation</a>).
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap8" style="margin-right: 8px;">
+                <strong>8. Validation humaine non documentée.</strong> Sur les actions externes (envoi, paiement, contrat), pas de matrice claire « auto / draft / humain ».
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap9" style="margin-right: 8px;">
+                <strong>9. Comité de pilotage IA inexistant ou ad-hoc.</strong> Pas de point régulier (mensuel min) pour suivre l'avancement, arbitrer, calibrer.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap10" style="margin-right: 8px;">
+                <strong>10. POC sans plan de bascule production.</strong> Le projet vit en POC depuis 6+ mois sans calendrier ni budget pour la mise à l'échelle. Le « POC orphelin » est l'anti-pattern n°1 documenté MIT et Gartner.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap11" style="margin-right: 8px;">
+                <strong>11. Absence de procédure d'incident IA.</strong> Si l'agent fait une erreur préjudiciable demain, personne ne sait quoi faire.
+              </label>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">
+                <input type="checkbox" name="ap12" style="margin-right: 8px;">
+                <strong>12. Vendor lock-in sans plan B.</strong> Toute la chaîne dépend d'un seul fournisseur (Anthropic OU OpenAI OU autre) sans alternative documentée si le service ferme ou modifie ses CGU.
+              </label>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="evaluateAntiPatterns()">Évaluer le risque d'échec</button>
+          </form>
+
+          <div class="diag-result" id="antipatternResult"></div>
+        </div>
+
+        <p style="margin-top: var(--space-5);">
+          <strong>Pourquoi c'est important</strong> : les études convergent — MIT (95 %), Gartner (30 % de projets abandonnés en 2026), S&amp;P Global (46 % des POCs abandonnés), Rand Corp (&gt; 80 %). Ce n'est pas la technologie qui échoue, c'est l'exécution. Les anti-patterns ci-dessus sont les <strong>causes structurelles documentées</strong> de cet échec.
+        </p>
+      </section>
+
       <!-- 6. POUR ALLER PLUS LOIN -->
       <section class="module-section" id="section-6">
         <div class="module-section-header">
@@ -469,11 +585,11 @@
           <h3>🔗 Préalables et modules associés</h3>
           <ul>
             <li>
-              <a href="pr-02-preables-data-si.html">PR-02 Préalables data &amp; SI</a>
+              <a href="pr-02-preables-data-si.html">Préalables data &amp; SI</a>
               <span class="resources-meta">Audit technique du SI cible (cause structurelle n°3)</span>
             </li>
             <li>
-              <a href="pr-03-maturite-humaine-formation.html">PR-03 Maturité humaine &amp; formation</a>
+              <a href="pr-03-maturite-humaine-formation.html">Maturité humaine &amp; formation</a>
               <span class="resources-meta">Article 4 AI Act + dispositifs de financement formation</span>
             </li>
             <li>
@@ -558,6 +674,46 @@
         </div>
         <div class="diag-action" style="border-left-color: ${color};">
           <p style="margin: 0;">${reco}</p>
+        </div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function evaluateAntiPatterns() {
+      const form = document.getElementById('antipatternForm');
+      const result = document.getElementById('antipatternResult');
+      let count = 0;
+      for (let i = 1; i <= 12; i++) {
+        if (form.querySelector(`input[name="ap${i}"]`).checked) count++;
+      }
+
+      let level, color, msg;
+      if (count === 0) {
+        level = '✅ Aucun anti-pattern détecté';
+        color = '#2E5C2E';
+        msg = 'Trajectoire saine. Maintenir les rituels de pilotage et la discipline qualité.';
+      } else if (count <= 3) {
+        level = '🟡 Quelques signaux faibles (' + count + '/12)';
+        color = '#B86E1A';
+        msg = 'Anti-patterns ciblés à corriger sans urgence absolue. Prioriser ceux qui touchent au sponsor exécutif, à l\'ROI et au plan de bascule production — ce sont les causes les plus déterminantes selon MIT.';
+      } else if (count <= 6) {
+        level = '🟠 Risque élevé (' + count + '/12)';
+        color = '#C82A2A';
+        msg = 'Plusieurs anti-patterns structurels détectés. Probabilité d\'abandon ou d\'échec significatif. Recommandation : pause de 2-4 semaines pour remettre à plat avant de poursuivre l\'investissement.';
+      } else {
+        level = '🛑 Risque critique (' + count + '/12)';
+        color = '#8C1A1A';
+        msg = 'Le projet est dans la zone des 95 % qui n\'atteignent jamais la production à grande échelle (MIT). Recommandation forte : arrêter ou suspendre, refaire le cadrage organisationnel (cf. auto-éval section 5), repartir sur des bases plus solides.';
+      }
+
+      result.innerHTML = `
+        <div style="text-align:center; padding: var(--space-5) 0;">
+          <div style="font-size: 3rem; font-weight: 800; color: ${color}; line-height: 1;">${count}<span style="font-size: 1.5rem; color: var(--color-text-soft);">/12</span></div>
+          <div style="font-size: 1.0625rem; font-weight: 700; color: ${color}; margin: var(--space-2) 0;">${level}</div>
+        </div>
+        <div class="diag-action" style="border-left-color: ${color};">
+          <p style="margin: 0;">${msg}</p>
         </div>
       `;
       result.classList.add('show');
