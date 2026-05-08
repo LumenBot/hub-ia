@@ -379,6 +379,21 @@
           <a href="../ressources.html#claude-code" class="tool-link">Claude Code</a> (Anthropic) est aujourd'hui largement reconnu pour sa qualité sur le code, particulièrement les tâches end-to-end avec exploration et tests. Lancement via terminal CLI, mode autonome ou supervision. <a href="../ressources.html#devin" class="tool-link">Devin</a> (Cognition) est le pionnier du concept « agent IA développeur autonome » avec interface web dédiée, pertinent pour les structures qui veulent un produit fini sans setup. <strong>Cursor Composer</strong> est intégré à l'IDE Cursor, idéal pour les développeurs qui restent dans leur flow de travail. <a href="../ressources.html#aider" class="tool-link">Aider</a> est l'option open source légère, déployable en local. <a href="../ressources.html#copilot-workspace" class="tool-link">GitHub Copilot Workspace</a> est l'offre Microsoft/GitHub, intégrée nativement à GitHub.
         </p>
 
+        <h3>SDK officiels &amp; alternative souveraine</h3>
+        <p>
+          Au-delà des produits CLI/IDE, les éditeurs publient des SDK pour construire ses propres agents codeurs : <strong>Claude Agent SDK</strong> (Anthropic), <strong>OpenAI Agents SDK</strong>, et l'alternative souveraine européenne <a href="../ressources.html#mistral-agents" class="tool-link">Mistral Agents SDK</a> 🇫🇷🇪🇺 — particulièrement pertinente pour les structures avec patrimoine logiciel sensible ou exigences AI Act renforcées.
+        </p>
+
+        <h3>Standard MCP — le « USB-C des agents »</h3>
+        <p>
+          <a href="../ressources.html#mcp" class="tool-link">MCP (Model Context Protocol)</a>, donné par Anthropic à la Linux Foundation en décembre 2025, standardise la manière dont un agent codeur appelle des outils externes (filesystem, git, bases, APIs). Adoption massive en 2026 (Claude, OpenAI, Mistral, et la plupart des frameworks). Pour les Stripe Minions internes : exposer tes outils dev (déploiement, monitoring, base de tickets) en serveurs MCP permet de découpler l'agent du LLM sous-jacent et de mutualiser les connecteurs entre projets.
+        </p>
+
+        <h3>Automatisation GUI — Computer Use</h3>
+        <p>
+          Pour les tâches qui sortent du strict code (lecture d'interface admin, navigation web, scripts GUI legacy), <a href="../ressources.html#computer-use" class="tool-link">Anthropic Computer Use</a> (production en 2026) permet à Claude d'interagir directement avec une interface graphique. Évolution naturelle de la RPA traditionnelle pilotée par LLM, à utiliser en sandbox sécurisé pour les opérations qui ne sont pas accessibles via API.
+        </p>
+
         <h3>Stack pour les usages non-dev</h3>
         <p>
           Pour appliquer le pattern d'asynchronicité hors du code : <strong>Claude Projects</strong> avec instructions persistantes pour les tâches récurrentes, <strong>ChatGPT Tasks</strong> avec scheduling pour les tâches programmées, <a href="../ressources.html#n8n" class="tool-link">n8n</a> avec workflows déclenchables manuellement pour les tâches semi-automatisées. Le concept est identique : un brief, un livrable attendu, une notification.
