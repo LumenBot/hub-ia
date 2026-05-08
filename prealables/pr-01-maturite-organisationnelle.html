@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR-01 Maturité organisationnelle — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Échelle de maturité 5 niveaux — spécifique PR */
+    .maturity-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); margin: var(--space-5) 0; }
+    .maturity-level { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-3); text-align: center; border-top: 4px solid var(--color-primary); }
+    .maturity-level.l1 { border-top-color: #C82A2A; }
+    .maturity-level.l2 { border-top-color: #E8A55C; }
+    .maturity-level.l3 { border-top-color: #FFD600; }
+    .maturity-level.l4 { border-top-color: #5C8C5C; }
+    .maturity-level.l5 { border-top-color: #2E5395; }
+    .maturity-level-num { font-size: 1.5rem; font-weight: 800; color: var(--color-primary); }
+    .maturity-level-title { font-weight: 700; font-size: 0.875rem; margin: var(--space-2) 0; color: var(--color-text); }
+    .maturity-level-desc { font-size: 0.75rem; color: var(--color-text-soft); line-height: 1.4; }
+    @media (max-width: 768px) { .maturity-scale { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux préalables
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-01</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+      </div>
+      <h1>🏛️ Maturité organisationnelle</h1>
+      <p class="module-subtitle">
+        Pourquoi 70 à 95 % des projets IA n'atteignent pas la production (consensus Gartner / McKinsey / Deloitte). Diagnostic structurel : silos, validations à 15 niveaux, mandat absent, syndrome du POC à vie. Modèle 5R™ (Cnam-Dejoux) pour cadrer la transformation. Auto-évaluation en 10 questions avant de te lancer.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Le constat 70-95 % d'échec</a>
+        <a href="#section-2">2. 4 causes structurelles</a>
+        <a href="#section-3">3. Modèle 5R™ Cnam-Dejoux</a>
+        <a href="#section-4">4. Avantage PME / ETI agiles</a>
+        <a href="#section-5">5. Auto-évaluation maturité</a>
+        <a href="#section-6">6. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 90 secondes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            Plusieurs cabinets d'analyse (Gartner, McKinsey, Deloitte) convergent : <strong>70 à 95 % des projets IA ne passent pas le cap du POC pour atteindre une production avec ROI mesurable</strong>, malgré une priorité stratégique massive affichée par les dirigeants. Cette dissonance massive ne vient pas de la technologie. Elle vient de l'organisation. Plaquer une couche d'IA sur un fonctionnement existant — silos, validations, legacy, mandat absent — produit systématiquement des POC sans suite. La vraie question avant un projet IA n'est pas « quelle techno ? » mais « est-ce que mon organisation est prête à utiliser l'IA ? ».
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🚧</div>
+              <div class="exec-takeaway-content">
+                <strong>L'IA exige de repenser les flux, pas de les augmenter.</strong> Coller un LLM sur des process à 15 niveaux de validation = échec garanti. Le vrai sujet est l'architecture socio-technique, pas l'algorithme.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🎯</div>
+              <div class="exec-takeaway-content">
+                <strong>Le mandat exécutif est non négociable.</strong> Quand personne n'a la légitimité de toucher à l'organisation, le projet finit en POC à vie. Sponsor exécutif (DG / DAF / DRH) avec mandat clair = condition de réussite n°1.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🐢</div>
+              <div class="exec-takeaway-content">
+                <strong>Les PME / ETI agiles ont un avantage structurel.</strong> Là où une grande boîte met 18 mois en POC sans résultat, une PME peut déployer un agent IA opérationnel en 6-12 semaines. À condition d'avoir la maturité organisationnelle pour le faire.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📐</div>
+              <div class="exec-takeaway-content">
+                <strong>Cadre 5R™ (Cnam, Cécile Dejoux) pour structurer la transformation.</strong> 5 dimensions à travailler en parallèle : Repenser, Réorganiser, Réinventer (rôles), Reconnaître (compétences), Réguler. Référentiel scientifique pour piloter le changement.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat">
+              <div class="exec-stat-num">70-95 %</div>
+              <div class="exec-stat-label">Projets IA qui n'atteignent pas la production (Gartner, McKinsey, Deloitte)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">~18 mois</div>
+              <div class="exec-stat-label">Durée typique POC sans suite (grandes boîtes — ordre de grandeur)</div>
+            </div>
+            <div class="exec-stat">
+              <div class="exec-stat-num">15 min</div>
+              <div class="exec-stat-label">Lecture + auto-éval</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONSTAT -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Le constat — 70 à 95 % d'échec en production</h2>
+        </div>
+
+        <p>
+          Plusieurs cabinets d'analyse (Gartner, McKinsey, Deloitte) convergent depuis 2023-2025 sur un constat structurel : <strong>70 à 95 % des projets IA en grandes structures n'atteignent pas la production avec un ROI mesurable</strong>. Côté français, les études Bpifrance Le Lab et France Num documentent une même dissonance : priorité stratégique massive affichée par les dirigeants, mais déploiement effectif anecdotique chez les PME et ETI.
+        </p>
+
+        <p>
+          Pourquoi ? Pas la technologie — Claude, GPT, Mistral, Llama sont matures, performants, accessibles. Pas le coût — un déploiement IA en PME se chiffre en milliers d'euros, pas en millions. Pas la donnée brute — la majorité des entreprises ont des données suffisantes pour démarrer.
+        </p>
+
+        <div class="pull-quote">
+          La cause principale est structurelle. L'IA générative exige de repenser les flux de travail depuis zéro. Le problème, c'est que personne dans la plupart des entreprises n'a le mandat ni le courage de toucher à l'organisation. Donc on fait des POC, des pilotes, des comités de réflexion, des études de faisabilité… pendant 18 mois. Et à la fin, on conclut que l'IA, c'est prometteur mais pas encore mature.
+        </div>
+
+        <p>
+          Cette analyse, formulée par plusieurs praticiens et analystes en 2025-2026, recoupe le diagnostic Bpifrance Le Lab (mai 2025) qui montrait que <strong>55 % des PME-ETI françaises avaient franchi le cap de l'opérationnalisation IA en 2026</strong>, contre 15 % en 2024 — un saut spectaculaire. Mais derrière ce chiffre encourageant, le détail révèle : ce sont les PME-ETI les plus agiles qui réussissent, pas les grands groupes.
+        </p>
+
+        <p>
+          La conclusion stratégique pour le réseau Quest for Change est positive et structurante. <strong>L'agilité organisationnelle des PME et ETI est un avantage compétitif</strong> face aux grands groupes paralysés par leurs propres process. À condition de connaître les pièges et de sécuriser les préalables.
+        </p>
+      </section>
+
+      <!-- 2. CAUSES -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">4 causes structurelles d'échec</h2>
+        </div>
+
+        <p>
+          Au-delà du diagnostic général, 4 causes structurelles reviennent dans tous les retours d'expérience grandes structures qui échouent. Une PME / ETI peut éviter chacune de ces 4 causes — c'est précisément l'avantage de sa taille.
+        </p>
+
+        <h3>Cause 1 — L'absence de mandat exécutif</h3>
+        <p>
+          Dans la plupart des grandes entreprises, le projet IA est lancé par un middle-manager ambitieux ou un DSI qui veut « faire bouger les choses ». Mais sans <strong>mandat explicite du DG / COMEX</strong> autorisant à modifier les flux de travail et les organigrammes, le projet bute sur le premier silo qui dit non. Conséquence : le projet se réduit à un POC sur un périmètre de plus en plus restreint, jusqu'à n'avoir plus de valeur business.
+        </p>
+        <p>
+          <strong>Bonne pratique</strong> : avant de lancer un projet IA, obtenir une note de cadrage signée par le DG (ou DAF / DRH selon le périmètre) qui formalise (a) l'objectif business, (b) les changements organisationnels acceptables, (c) le périmètre des décisions déléguées au pilote. Sans ce document, ne pas démarrer.
+        </p>
+
+        <h3>Cause 2 — L'empilement de validations à 15 niveaux</h3>
+        <p>
+          Une décision business courante dans une grande organisation passe par 5 à 15 validations hiérarchiques avant d'être actée. Quand on tente de coller un agent IA sur un workflow « décision », l'IA produit un livrable en 30 secondes mais le livrable attend 3 semaines en validation. Le gain de productivité de l'IA est annulé par le goulot d'étranglement humain.
+        </p>
+        <p>
+          <strong>Bonne pratique</strong> : avant de lancer un projet IA, cartographier le workflow cible et identifier les validations qui peuvent être <strong>simplifiées, déléguées, supprimées</strong>. C'est cette simplification qui crée la valeur, pas l'IA. L'IA est l'occasion de la faire — pas le moyen de la contourner.
+        </p>
+
+        <h3>Cause 3 — Les systèmes legacy non interconnectés</h3>
+        <p>
+          La vraie puissance de l'IA générative vient de l'orchestration : <strong>RAG sur les bases internes, function calls vers les ERP/CRM/outils métier, pipelines d'agents autonomes</strong>. Pour faire ça, il faut des données propres, des APIs ouvertes, une architecture modulaire. Les grandes entreprises tournent sur des systèmes legacy empilés depuis 20 ans avec des données en silos que personne n'a jamais structurées pour être exploitées par une IA.
+        </p>
+        <p>
+          <strong>Bonne pratique</strong> : avant de lancer un projet IA, faire un audit technique du SI cible (cf. <a href="pr-02-preables-data-si.html" class="tool-link">PR-02 Préalables data &amp; SI</a>). Si le SI est trop legacy, le projet IA doit commencer par une rénovation a minima des APIs, sans quoi on construira sur du sable.
+        </p>
+
+        <h3>Cause 4 — La culture de l'IA-comme-rustine</h3>
+        <p>
+          Beaucoup d'entreprises utilisent l'IA générative comme une rustine algorithmique sur un problème de structure : « ChatGPT pour résumer les emails ». C'est un détournement qui rate l'opportunité. La vraie valeur vient quand on connecte l'IA à la data interne, qu'on construit des pipelines d'agents, qu'on automatise des chaînes de valeur entières.
+        </p>
+        <p>
+          <strong>Bonne pratique</strong> : avant de lancer un projet IA, formaliser explicitement l'ambition. Est-ce qu'on cherche une <strong>amélioration marginale</strong> (ChatGPT pour l'email = OK, gain modeste) ou une <strong>transformation systémique</strong> (architecture agentique end-to-end = enjeu majeur, mais effort majeur) ? Les deux ambitions sont légitimes mais ne mobilisent pas les mêmes ressources.
+        </p>
+      </section>
+
+      <!-- 3. MODÈLE 5R -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <h2 class="module-section-title">Modèle 5R™ — cadre de transformation IA (Cnam, Cécile Dejoux)</h2>
+        </div>
+
+        <p>
+          Pour cadrer une transformation IA structurée, le modèle 5R™ développé par Cécile Dejoux (Cnam, observatoire 2 ans sur la transformation du travail à l'ère de l'IA générative) propose 5 dimensions à travailler en parallèle. Référentiel scientifique reconnu, publié dans HBR France janvier 2026.
+        </p>
+
+        <div class="maturity-scale">
+          <div class="maturity-level l1">
+            <div class="maturity-level-num">R1</div>
+            <div class="maturity-level-title">Repenser</div>
+            <div class="maturity-level-desc">les missions, les services, la valeur produite</div>
+          </div>
+          <div class="maturity-level l2">
+            <div class="maturity-level-num">R2</div>
+            <div class="maturity-level-title">Réorganiser</div>
+            <div class="maturity-level-desc">les flux, les process, les interactions humain-IA</div>
+          </div>
+          <div class="maturity-level l3">
+            <div class="maturity-level-num">R3</div>
+            <div class="maturity-level-title">Réinventer</div>
+            <div class="maturity-level-desc">les rôles, les fiches de poste, les compétences</div>
+          </div>
+          <div class="maturity-level l4">
+            <div class="maturity-level-num">R4</div>
+            <div class="maturity-level-title">Reconnaître</div>
+            <div class="maturity-level-desc">les apprentissages, les évolutions, les contributions</div>
+          </div>
+          <div class="maturity-level l5">
+            <div class="maturity-level-num">R5</div>
+            <div class="maturity-level-title">Réguler</div>
+            <div class="maturity-level-desc">la gouvernance, les usages, les risques</div>
+          </div>
+        </div>
+
+        <p>
+          La force du modèle est de <strong>refuser la séquence linéaire « techno → organisation »</strong>. Les 5 dimensions sont à travailler en parallèle, sous peine de produire des effets pervers : une techno déployée sans réorganisation crée de la frustration ; une réorganisation sans réinvention des rôles crée des conflits ; une régulation sans reconnaissance crée du désengagement.
+        </p>
+
+        <p>
+          Pour une PME/ETI, l'application du 5R est plus accessible que pour une grande entreprise — moins de strates, mandat plus court à obtenir, dialogue social plus direct. <strong>C'est un avantage à exploiter activement</strong>.
+        </p>
+
+        <h3>Application pratique en PME/ETI</h3>
+        <p>
+          Recommandation pour une PME 50-100 personnes qui démarre un projet IA significatif :
+        </p>
+
+        <ol>
+          <li><strong>Repenser</strong> (1-2 semaines) : atelier COMEX qui formalise « qu'est-ce que l'IA va changer dans la valeur qu'on produit ? ». Output : note de cadrage signée par le DG.</li>
+          <li><strong>Réorganiser</strong> (4-6 semaines) : cartographie des workflows cibles avec et sans IA, identification des validations / silos à simplifier. Output : nouveau workflow documenté + matrice RACI.</li>
+          <li><strong>Réinventer</strong> (en parallèle, 8-12 semaines) : fiches de poste mises à jour pour les fonctions impactées. Plan de formation lié (cf. <a href="pr-03-maturite-humaine-formation.html" class="tool-link">PR-03</a>).</li>
+          <li><strong>Reconnaître</strong> (régime continu) : intégration des compétences IA dans les évaluations annuelles, valorisation des contributeurs, partages de pratique.</li>
+          <li><strong>Réguler</strong> (à structurer dès le départ) : politique IA interne, registre des usages, gouvernance RGPD/AI Act (cf. <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>) et sécurité (cf. <a href="pr-05-securite-ia.html" class="tool-link">PR-05</a>).</li>
+        </ol>
+
+        <p>
+          La séquence n'est pas figée — les 5 dimensions s'enrichissent mutuellement. Mais aucune ne peut être totalement ignorée sans compromettre les autres.
+        </p>
+      </section>
+
+      <!-- 4. AVANTAGE PME -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">4</div>
+          <h2 class="module-section-title">L'avantage structurel des PME / ETI agiles</h2>
+        </div>
+
+        <p>
+          La conclusion à retenir n'est pas pessimiste — au contraire. <strong>Le taux d'échec massif des grands groupes est une opportunité pour les PME et ETI agiles</strong> qui peuvent se positionner sur des cas d'usage IA opérationnels là où leurs concurrents grands groupes restent en POC.
+        </p>
+
+        <h3>Avantages structurels d'une PME / ETI agile</h3>
+
+        <p>
+          <strong>Mandat plus court à obtenir.</strong> Dans une PME 50-100 personnes, le DG décide. Dans un grand groupe, il faut convaincre 15 directions. Une décision IA peut être actée en 1 réunion COMEX dans une PME, vs 6-12 mois en comité dans une grande structure.
+        </p>
+
+        <p>
+          <strong>Workflows plus simples à réorganiser.</strong> Là où une grande entreprise a 30 ans d'historique organisationnel à déconstruire, une PME peut redessiner ses flux en quelques semaines. Le « courage organisationnel » coûte moins cher.
+        </p>
+
+        <p>
+          <strong>Dialogue avec les équipes plus direct.</strong> Pas de strates intermédiaires qui filtrent l'information, pas de syndicats à 5 sièges régionaux. Les questions humaines (compétences, peur du remplacement, formation) se traitent en direct, plus rapidement et plus authentiquement.
+        </p>
+
+        <p>
+          <strong>Choix techniques moins contraints par le legacy.</strong> Une PME peut adopter Mistral, Lucie, Pleias-RAG, Voxtral souverain — un grand groupe ne peut pas, son SI et ses contrats fournisseurs l'enferment.
+        </p>
+
+        <h3>Le piège à éviter en PME</h3>
+
+        <p>
+          L'avantage structurel ne se concrétise que si la PME <strong>refuse de mimer les grandes boîtes</strong>. La tentation classique : faire un POC pendant 6 mois pour « voir si ça marche », attendre la maturité d'un fournisseur cloud, déléguer à un cabinet de conseil qui fait pareil pour tous ses clients. C'est rejoindre la majorité des projets qui n'atteignent pas la production.
+        </p>
+
+        <div class="pull-quote">
+          La meilleure approche en PME / ETI : choisir un cas d'usage cadré (cf. <a href="../index.html#modules" style="color: inherit;">les 22 modules CU</a>), obtenir le mandat exécutif, déployer en 6-12 semaines avec un fournisseur souverain, mesurer le ROI, étendre. C'est tout. Le « courage organisationnel » paye plus que la prudence stratégique sur ce sujet.
+        </div>
+
+        <p>
+          Cette posture est précisément ce que le réseau Quest for Change cultive avec ses startups accompagnées et son écosystème PME/ETI Grand Est. <strong>L'enjeu pour le territoire est de ne pas laisser passer cette fenêtre de 18-36 mois pendant laquelle l'agilité fait la différence</strong>.
+        </p>
+      </section>
+
+      <!-- 5. AUTO-ÉVALUATION -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">5</div>
+          <h2 class="module-section-title">Auto-évaluation maturité organisationnelle</h2>
+        </div>
+
+        <div class="diagnostic">
+          <div class="diagnostic-header">
+            <p class="diagnostic-intro">10 questions pour évaluer la maturité organisationnelle de ta PME / ETI face à un projet IA. Réponds honnêtement (l'objectif est de poser un diagnostic, pas de te rassurer). Tu obtiens un score sur 30 et une recommandation d'action.</p>
+          </div>
+
+          <form id="diagForm">
+
+            <div class="diag-question">
+              <label class="diag-question-label">1. Le projet IA dispose-t-il d'un mandat formalisé du DG ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d1" value="0"><span>Non, c'est plus une initiative</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="1"><span>Oui à l'oral</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="2"><span>Oui en note de cadrage écrite</span></label>
+                <label class="diag-option"><input type="radio" name="d1" value="3"><span>Oui + budget alloué + KPI</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">2. Les workflows existants peuvent-ils être modifiés pour accueillir l'IA ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d2" value="0"><span>Tout est figé / contractualisé</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="1"><span>Quelques ajustements possibles</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="2"><span>Refonte significative envisageable</span></label>
+                <label class="diag-option"><input type="radio" name="d2" value="3"><span>Carte blanche pour repenser</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">3. Le SI dispose-t-il d'APIs exploitables ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d3" value="0"><span>Tout en legacy fermé</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="1"><span>Quelques outils API</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="2"><span>SI majoritairement API</span></label>
+                <label class="diag-option"><input type="radio" name="d3" value="3"><span>Architecture moderne et modulaire</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">4. Y a-t-il un référent IA identifié et libéré pour piloter ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d4" value="0"><span>Non, à trouver</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="1"><span>Idée mais pas formalisé</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="2"><span>Identifié, à mi-temps</span></label>
+                <label class="diag-option"><input type="radio" name="d4" value="3"><span>Identifié et 100 % dédié</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">5. Quelle est la culture interne face au changement ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d5" value="0"><span>Résistance forte, traumatismes passés</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="1"><span>Prudente, attentiste</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="2"><span>Curieuse et ouverte</span></label>
+                <label class="diag-option"><input type="radio" name="d5" value="3"><span>Proactive, équipes demandeuses</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">6. Les équipes ont-elles déjà été formées à l'IA (article 4 AI Act) ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d6" value="0"><span>Non, jamais</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="1"><span>Quelques pionniers se sont auto-formés</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="2"><span>Plan de formation en cours</span></label>
+                <label class="diag-option"><input type="radio" name="d6" value="3"><span>Plan exécuté et attestations en place</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">7. La gouvernance RGPD / AI Act est-elle structurée ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d7" value="0"><span>Non, pas formalisé</span></label>
+                <label class="diag-option"><input type="radio" name="d7" value="1"><span>RGPD seulement</span></label>
+                <label class="diag-option"><input type="radio" name="d7" value="2"><span>RGPD + cartographie usages IA en cours</span></label>
+                <label class="diag-option"><input type="radio" name="d7" value="3"><span>Dispositif complet (cf. CU-020)</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">8. Avez-vous identifié 1 cas d'usage prioritaire avec ROI mesurable ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d8" value="0"><span>Non, on cherche encore</span></label>
+                <label class="diag-option"><input type="radio" name="d8" value="1"><span>Plusieurs idées, pas tranchées</span></label>
+                <label class="diag-option"><input type="radio" name="d8" value="2"><span>Un cas pilote choisi, ROI estimé</span></label>
+                <label class="diag-option"><input type="radio" name="d8" value="3"><span>Cas pilote + ROI + plan déploiement 12 sem.</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">9. Le budget de déploiement (au-delà du POC) est-il sécurisé ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d9" value="0"><span>Non, on verra si POC réussit</span></label>
+                <label class="diag-option"><input type="radio" name="d9" value="1"><span>Budget POC seulement</span></label>
+                <label class="diag-option"><input type="radio" name="d9" value="2"><span>Budget déploiement engagé sous condition POC</span></label>
+                <label class="diag-option"><input type="radio" name="d9" value="3"><span>Budget pluriannuel sécurisé</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <label class="diag-question-label">10. Es-tu prêt à arrêter le projet si les préalables ne sont pas remplis ?</label>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="d10" value="0"><span>Non, on doit y aller dans tous les cas</span></label>
+                <label class="diag-option"><input type="radio" name="d10" value="1"><span>Hésitation forte</span></label>
+                <label class="diag-option"><input type="radio" name="d10" value="2"><span>Discipline acceptée mais pas testée</span></label>
+                <label class="diag-option"><input type="radio" name="d10" value="3"><span>Oui, condition explicite du sponsor</span></label>
+              </div>
+            </div>
+
+            <button type="button" class="diag-submit" onclick="generatePlan()">Calculer mon score de maturité</button>
+
+          </form>
+
+          <div class="diag-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <!-- 6. POUR ALLER PLUS LOIN -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">6</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📖 Sources et études citées</h3>
+          <ul>
+            <li>
+              <a href="https://www.gartner.com/en/newsroom/press-releases" target="_blank" rel="noopener">Gartner — recherches sur l'adoption IA en entreprise</a>
+              <span class="resources-meta">Plusieurs publications Gartner / McKinsey / Deloitte 2023-2025 convergent sur 70-95 % d'échec en production</span>
+            </li>
+            <li>
+              <a href="https://www.hbrfrance.fr" target="_blank" rel="noopener">HBR France — Cécile Dejoux, modèle 5R™</a>
+              <span class="resources-meta">Cnam, observatoire 2 ans transformation du travail à l'ère IA générative</span>
+            </li>
+            <li>
+              <a href="https://lelab.bpifrance.fr" target="_blank" rel="noopener">Bpifrance Le Lab — PME-ETI et IA</a>
+              <span class="resources-meta">Étude 1 200 dirigeants : 55 % opérationnalisation IA en 2026 vs 15 % en 2024</span>
+            </li>
+            <li>
+              <a href="https://www.entreprises.gouv.fr" target="_blank" rel="noopener">DGE — Lettre veille SDE Bercy</a>
+              <span class="resources-meta">Lettre interministérielle hebdomadaire IA en entreprise, source de référence</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li>
+              <a href="pr-02-preables-data-si.html">PR-02 Préalables data &amp; SI</a>
+              <span class="resources-meta">Audit technique du SI cible (cause structurelle n°3)</span>
+            </li>
+            <li>
+              <a href="pr-03-maturite-humaine-formation.html">PR-03 Maturité humaine &amp; formation</a>
+              <span class="resources-meta">Article 4 AI Act + dispositifs de financement formation</span>
+            </li>
+            <li>
+              <a href="../modules/cu-020-conformite-rgpd-ai-act.html">CU-020 Conformité RGPD &amp; AI Act</a>
+              <span class="resources-meta">Module gouvernance complet — dispositif obligations / preuves</span>
+            </li>
+            <li>
+              <a href="../modules/cu-014-multi-agents.html">CU-014 Multi-agents par fonction métier</a>
+              <span class="resources-meta">Pattern d'organisation augmentée — illustration concrète des 5R</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../prealables.html">Préalables</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    function generatePlan() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const answers = {};
+      let allAnswered = true;
+
+      ['d1','d2','d3','d4','d5','d6','d7','d8','d9','d10'].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 10 questions pour calculer ton score.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const total = Object.values(answers).reduce((a,b) => a+b, 0); // sur 30
+      const pct = Math.round((total / 30) * 100);
+
+      let level, label, color, reco;
+      if (total >= 24) {
+        level = '🟢 Maturité élevée'; color = '#2E5C2E';
+        label = 'Tu réunis les conditions structurelles d\'un déploiement réussi.';
+        reco = '<strong>Recommandation : engage le projet sans attendre.</strong> Choisis un cas d\'usage cadré (cf. les 22 modules CU), formalise le mandat exécutif, déploie en 6-12 semaines avec un fournisseur souverain, mesure le ROI, étends. Le risque principal à ce niveau : la tentation de la prudence excessive. Le marché ne va pas attendre.';
+      } else if (total >= 18) {
+        level = '🟡 Maturité moyenne'; color = '#B86E1A';
+        label = 'Plusieurs préalables sont en place, certains restent à sécuriser.';
+        reco = '<strong>Recommandation : structurer 4-6 semaines de préparation</strong> avant de lancer. Cibler en priorité les questions où tu as répondu 0 ou 1 — ce sont tes maillons faibles. Démarrer par un cas d\'usage à fort ROI et faible risque organisationnel pour valider la dynamique avant d\'attaquer plus complexe.';
+      } else if (total >= 10) {
+        level = '🟠 Maturité limitée'; color = '#C82A2A';
+        label = 'Plusieurs préalables structurels manquent. Risque élevé d\'échec si déploiement immédiat.';
+        reco = '<strong>Recommandation : ne pas démarrer un projet IA significatif maintenant.</strong> Investir 2-3 mois pour : (1) obtenir un mandat exécutif formalisé, (2) auditer le SI, (3) lancer un plan de formation. Ce qui ressemble à un détour est en réalité le chemin le plus court vers un déploiement qui réussit.';
+      } else {
+        level = '🔴 Maturité faible'; color = '#8C1A1A';
+        label = 'L\'organisation n\'est pas prête à absorber un projet IA structurant.';
+        reco = '<strong>Recommandation : ne pas lancer.</strong> Avant tout projet, travailler en profondeur les fondamentaux : sponsor exécutif, audit organisationnel, plan de transformation à 12-18 mois. Un projet IA aujourd\'hui se solderait par un POC sans suite — ce qui crée plus de scepticisme que de progrès.';
+      }
+
+      result.innerHTML = `
+        <div style="text-align:center; padding: var(--space-5) 0;">
+          <div style="font-size: 3rem; font-weight: 800; color: ${color}; line-height: 1;">${total}<span style="font-size: 1.5rem; color: var(--color-text-soft);">/30</span></div>
+          <div style="font-size: 1.0625rem; font-weight: 700; color: ${color}; margin: var(--space-2) 0;">${level}</div>
+          <div style="font-size: 0.9375rem; color: var(--color-text-soft); max-width: 500px; margin: 0 auto;">${label}</div>
+        </div>
+        <div class="diag-action" style="border-left-color: ${color};">
+          <p style="margin: 0;">${reco}</p>
+        </div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+
+</body>
+</html>

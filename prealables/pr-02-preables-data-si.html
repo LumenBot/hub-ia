@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR-02 Préalables data & SI — Hub IA Learning Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux préalables
+      </a>
+      <div class="module-badges">
+        <span class="card-badge" style="background:#1F3864; color:white;">⚡ Préalable PR-02</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+      </div>
+      <h1>💾 Préalables data &amp; SI</h1>
+      <p class="module-subtitle">
+        Qualité des données, APIs ouvertes, architecture modulaire, legacy 20 ans vs greenfield. Les fondations techniques sans lesquelles l'IA reste un POC. Check-list 12 critères de maturité SI à valider avant de démarrer un projet IA significatif.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <div class="module-toc-header">
+        <span class="module-toc-title">📑 Sommaire</span>
+        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
+      </div>
+      <nav class="module-toc-nav" id="tocNav">
+        <a href="#executive-summary" class="active">Synthèse rapide</a>
+        <a href="#section-1">1. Pourquoi la data est le 1er sujet</a>
+        <a href="#section-2">2. 4 piliers techniques</a>
+        <a href="#section-3">3. Audit SI en 12 critères</a>
+        <a href="#section-4">4. Stratégies legacy vs greenfield</a>
+        <a href="#section-5">5. Pour aller plus loin</a>
+      </nav>
+    </aside>
+
+    <main class="module-main">
+
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel en 90 secondes</div>
+          <h2>Pourquoi cette page ?</h2>
+          <p>
+            La vraie puissance de l'IA générative en entreprise vient de l'orchestration : RAG sur les bases internes, function calls vers les ERP/CRM/outils métier, pipelines d'agents. Pour faire ça, il faut des fondations techniques : données propres, APIs ouvertes, architecture modulaire. Sans ces préalables, le projet IA s'arrête à « ChatGPT pour résumer des emails ». 4 piliers techniques + 12 critères d'audit pour évaluer la maturité du SI cible avant de lancer un projet IA significatif.
+          </p>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">📦</div>
+              <div class="exec-takeaway-content">
+                <strong>Données structurées et propres.</strong> Le RAG ou un agent IA n'extraient de la valeur que de données qualifiées. Si tes données métier sont éparpillées dans 12 outils non interconnectés, le préalable est le travail data, pas l'IA.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🔌</div>
+              <div class="exec-takeaway-content">
+                <strong>APIs ouvertes.</strong> Sans API exploitable sur l'ERP, le CRM, les outils métier, l'IA ne peut pas agir — elle peut au mieux générer du texte. Les agents IA modernes (CU-013, CU-014) reposent tous sur cette couche.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🏗️</div>
+              <div class="exec-takeaway-content">
+                <strong>Architecture modulaire.</strong> Un SI legacy monolithique de 20 ans est presque impossible à connecter à un agent IA. Une architecture modulaire (services découplés, événements, queues) permet l'orchestration agentique avec un coût raisonnable.
+              </div>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-icon">🛡️</div>
+              <div class="exec-takeaway-content">
+                <strong>Sécurité &amp; gouvernance.</strong> Connecter un LLM aux données internes ouvre des risques (fuites, prompt injection, exfiltration). Sans logs, contrôles d'accès, sandbox, le projet IA crée plus de risque qu'il n'apporte de valeur.
+              </div>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">4</div><div class="exec-stat-label">Piliers techniques</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">12</div><div class="exec-stat-label">Critères d'audit</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">2-3 mois</div><div class="exec-stat-label">Audit + remédiations critiques</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">15 min</div><div class="exec-stat-label">Lecture</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <h2 class="module-section-title">Pourquoi la data est le 1er sujet (avant l'IA)</h2>
+        </div>
+
+        <p>
+          Le réflexe spontané face à un projet IA est de regarder les modèles, les outils, les frameworks. C'est l'erreur n°1. <strong>L'IA ne crée de valeur qu'en s'appuyant sur des données qualifiées et accessibles</strong>. Sans données structurées, le LLM n'a rien de pertinent à dire sur ton activité — il reste générique.
+        </p>
+
+        <div class="pull-quote">
+          La vraie puissance de l'IA générative vient de l'orchestration : connecter le modèle aux données internes via du RAG, construire des pipelines d'agents autonomes capables d'enchaîner des tâches, intégrer des function calls pour que l'IA puisse agir directement dans les systèmes métier. Pour faire ça, il faut des données propres, des APIs ouvertes et une architecture modulaire — au minimum.
+        </div>
+
+        <p>
+          La conséquence opérationnelle est claire : <strong>avant de te lancer dans un cas d'usage IA</strong> (CU-001 à CU-022), <strong>fais un audit data &amp; SI</strong>. Si l'audit révèle des trous structurels, traite-les d'abord — c'est plus court et moins coûteux que de tenter un projet IA voué à l'échec sur des fondations fragiles.
+        </p>
+
+        <p>
+          Bonne nouvelle : les PME et ETI agiles ont souvent un SI plus simple à auditer et à remédier qu'une grande entreprise. Le travail est faisable en 2-3 mois pour la majorité des structures qui démarrent.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-list">2</div>
+          <h2 class="module-section-title">4 piliers techniques d'un SI prêt pour l'IA</h2>
+        </div>
+
+        <h3>Pilier 1 — Qualité des données</h3>
+        <p>
+          Les données doivent être <strong>structurées, à jour, sans doublons critiques, avec une définition métier partagée</strong>. Un CRM avec 30 % de fiches en doublon, un ERP où le champ « client » n'a pas la même définition que dans le système comptable, un drive avec 50 versions du même document — c'est du bruit qui fera halluciner ton agent IA. La règle : <em>garbage in, garbage out</em> reste vraie en 2026.
+        </p>
+        <p>
+          <strong>Exigence minimale</strong> : avoir nettoyé les données du périmètre cible (le CRM si tu lances un agent commercial, l'ERP si c'est un agent finance, les contrats si c'est du RAG juridique). Un nettoyage initial prend 2-6 semaines sur un périmètre PME, c'est un investissement obligatoire.
+        </p>
+
+        <h3>Pilier 2 — APIs ouvertes</h3>
+        <p>
+          Sans API exploitable sur tes systèmes (ERP, CRM, drive, outils métier), un agent IA ne peut pas <strong>agir</strong> — il peut au mieux suggérer du texte qu'un humain devra ensuite ressaisir. La plupart des outils modernes (HubSpot, Pennylane, Qonto, Salesforce, Pipedrive) exposent des APIs REST. Les outils anciens (Sage 30 sans extension, Ciel, Excel partagé en réseau) ne le font pas — c'est rédhibitoire pour la majorité des cas d'usage agentiques.
+        </p>
+        <p>
+          <strong>Exigence minimale</strong> : pour chaque système central (ERP, CRM, drive, outil métier), vérifier qu'il expose une API REST documentée et que tu as les credentials pour t'y connecter. Si non, prévoir une migration ou un connecteur intermédiaire (n8n, Make).
+        </p>
+
+        <h3>Pilier 3 — Architecture modulaire</h3>
+        <p>
+          Un SI <strong>monolithique</strong> (1 gros logiciel maison qui fait tout, code couplé) est presque impossible à interconnecter à un agent IA. Une architecture <strong>modulaire</strong> (services découplés, événements, queues, APIs claires) permet l'orchestration agentique avec un coût raisonnable. Pour une PME / ETI, ce n'est pas un sujet bloquant si les outils principaux sont des SaaS modernes (Pennylane + HubSpot + Slack + Notion = c'est déjà modulaire).
+        </p>
+        <p>
+          <strong>Exigence minimale</strong> : pas d'architecture parfaite à atteindre. Évaluer simplement si chaque outil clé peut être substitué ou interconnecté indépendamment des autres. Si tout est imbriqué dans 1 outil-mammouth, c'est l'occasion d'une refonte progressive.
+        </p>
+
+        <h3>Pilier 4 — Sécurité &amp; gouvernance</h3>
+        <p>
+          Connecter un LLM aux données internes ouvre des risques nouveaux (fuites, prompt injection, exfiltration). Sans logs, contrôles d'accès, sandbox d'exécution, le projet IA crée plus de risque qu'il n'apporte de valeur. C'est aussi le préalable à la conformité <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">RGPD &amp; AI Act</a> et à la sécurité opérationnelle (cf. <a href="pr-05-securite-ia.html" class="tool-link">PR-05 Sécurité IA</a>).
+        </p>
+        <p>
+          <strong>Exigence minimale</strong> : authentification SSO sur les outils internes, logs d'accès aux données sensibles, sandbox d'exécution pour les agents avec actions externes, registre des accès IA aux bases métier.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-diag">3</div>
+          <h2 class="module-section-title">Audit SI en 12 critères</h2>
+        </div>
+
+        <p>
+          Check-list à parcourir avec ton DSI ou prestataire SI avant de lancer un projet IA significatif. Réponse Oui / Partiel / Non sur chaque critère. <strong>Si ≥ 3 critères répondent Non sur les bloquants (B1-B6), reporter le projet IA</strong> et traiter d'abord les fondations.
+        </p>
+
+        <div class="eligibility">
+          <form id="diagForm">
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title bloquant">🔒 6 critères bloquants — sans cela, projet IA voué à l'échec</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B1. Données du périmètre cible structurées et à jour</strong>
+                  <small>CRM, ERP, drive ou base métier visée par le cas d'usage : pas de doublons critiques, définitions partagées, mises à jour récentes</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B2. APIs REST exposées sur les systèmes centraux</strong>
+                  <small>ERP, CRM, outils métier visés par le cas d'usage exposent une API documentée avec credentials disponibles</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B3. Authentification centralisée (SSO ou équivalent)</strong>
+                  <small>Identités utilisateurs gérées de façon centralisée (Microsoft 365, Google Workspace, SSO maison). Pas de comptes éparpillés outil par outil.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B4. Logs d'accès aux données sensibles</strong>
+                  <small>Capacité à tracer qui a accédé à quelle donnée et quand. Préalable à RGPD + AI Act + audit sécurité.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B5. Sauvegarde + plan de reprise testés</strong>
+                  <small>Backup régulier des bases métier + procédure de reprise testée annuellement. Indépendant de l'IA mais minimum vital.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>B6. DSI ou prestataire SI mobilisable</strong>
+                  <small>Compétence interne ou externe pour piloter l'audit, les remédiations et l'intégration agentique. Pas de projet IA sans pilote SI.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="b6" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="b6" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="b6" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="eligibility-section">
+              <div class="eligibility-section-title">⭐ 6 critères de qualité — conditionnent la durabilité</div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q1. Architecture modulaire (services découplés)</strong>
+                  <small>Outils principaux substituables ou interconnectables indépendamment</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q1" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q2. Outils SaaS modernes vs legacy on-premise</strong>
+                  <small>Majorité des outils en SaaS modernes (Pennylane, HubSpot, Notion, etc.) plutôt que logiciels installés anciens</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q2" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q3. Documentation des flux et schémas de données</strong>
+                  <small>Qui produit quoi, qui consomme quoi, modèles de données documentés. Indépendant de l'IA mais accélérateur fort.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q3" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q4. Outil d'orchestration / automation déjà en place</strong>
+                  <small>n8n, Make, Zapier, ou équivalent déjà utilisé pour des automations simples. Maturité dans l'API-driven.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q4" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q5. Sandbox / environnement de test disponible</strong>
+                  <small>Capacité à tester un agent IA sans toucher à la production. Préalable à toute intégration sérieuse.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q5" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q5" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+              <div class="eligibility-item">
+                <div class="eligibility-item-label">
+                  <strong>Q6. Capacité monitoring / observabilité</strong>
+                  <small>Outils en place pour suivre les usages IA en production : coût d'inférence, latence, taux d'erreur, dérives.</small>
+                </div>
+                <div class="eligibility-item-radios">
+                  <label class="eligibility-radio oui"><input type="radio" name="q6" value="2"><span>Oui</span></label>
+                  <label class="eligibility-radio partiel"><input type="radio" name="q6" value="1"><span>Partiel</span></label>
+                  <label class="eligibility-radio non"><input type="radio" name="q6" value="0"><span>Non</span></label>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="button" class="eligibility-submit" onclick="evaluateAudit()">Évaluer la maturité du SI</button>
+          </form>
+
+          <div class="eligibility-result" id="diagResult"></div>
+        </div>
+      </section>
+
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">4</div>
+          <h2 class="module-section-title">Stratégies legacy vs greenfield</h2>
+        </div>
+
+        <p>
+          Selon le diagnostic posé par l'audit, deux stratégies de déploiement IA possibles.
+        </p>
+
+        <h3>Stratégie 1 — Greenfield IA-first sur SI mature</h3>
+        <p>
+          Si ton audit ressort majoritairement Oui (≥ 8 critères Oui sur 12), tu peux <strong>lancer un projet IA structurant immédiatement</strong>. Le SI est prêt à accueillir une couche agentique sans refonte majeure. C'est typiquement le cas des PME / ETI qui ont migré sur des SaaS modernes ces 3-5 dernières années (Pennylane, HubSpot, Notion, n8n, Slack).
+        </p>
+        <p>
+          Plan d'action : choisir un cas d'usage cadré (cf. les <a href="../index.html#modules" class="tool-link">22 modules CU</a>), formaliser le mandat exécutif (cf. <a href="pr-01-maturite-organisationnelle.html" class="tool-link">PR-01</a>), déployer en 6-12 semaines avec un fournisseur souverain (Mistral, Lucie, Pleias-RAG, etc.), mesurer le ROI, étendre.
+        </p>
+
+        <h3>Stratégie 2 — Brownfield IA progressif sur SI legacy</h3>
+        <p>
+          Si ton audit ressort majoritairement Non ou Partiel sur les bloquants (3+ Non sur B1-B6), <strong>traiter d'abord les fondations</strong> avant de viser l'IA structurante. Plan d'action : audit complet par le DSI / prestataire, plan de remédiation sur 3-6 mois (migration outils legacy, ouverture APIs, nettoyage données), puis projet IA cadré.
+        </p>
+        <p>
+          Pendant la phase de remédiation, possibilité de lancer des cas d'usage IA <strong>légers et périphériques</strong> qui n'attaquent pas le cœur du SI : assistant rédactionnel personnel (CU-002), recherche augmentée (CU-001), CR de réunion (CU-003), traduction (CU-004). Ces cas d'usage produisent de la valeur sans dépendre d'intégrations SI complexes.
+        </p>
+
+        <h3>Le piège à éviter : la stratégie « grand soir »</h3>
+        <p>
+          Refondre tout le SI en 18 mois pour préparer l'arrivée de l'IA = piège classique. <strong>Refonte ciblée + déploiement progressif</strong> est plus court et plus sûr. Le SI parfait est un horizon, pas un préalable. La majorité des PME / ETI peuvent démarrer un cas d'usage IA opérationnel en 6-12 semaines même avec un SI imparfait, à condition de bien choisir le cas d'usage et de cadrer le périmètre data.
+        </p>
+      </section>
+
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-resources">5</div>
+          <h2 class="module-section-title">Pour aller plus loin</h2>
+        </div>
+
+        <div class="resources-cat">
+          <h3>📚 Sources et références</h3>
+          <ul>
+            <li>
+              <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Recommandations data &amp; IA</a>
+              <span class="resources-meta">Bonnes pratiques data quality + sécurité applicables aux projets IA</span>
+            </li>
+            <li>
+              <a href="https://www.francenum.gouv.fr/guides-et-conseils/data" target="_blank" rel="noopener">France Num — Guides data PME</a>
+              <span class="resources-meta">Cadrages pédagogiques data pour TPE et PME</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/catalogue-offres/diag-data-ia" target="_blank" rel="noopener">Bpifrance — Diag Data IA</a>
+              <span class="resources-meta">Parcours d'audit gratuit pour PME accompagnées</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h3>🔗 Préalables et modules associés</h3>
+          <ul>
+            <li>
+              <a href="pr-01-maturite-organisationnelle.html">PR-01 Maturité organisationnelle</a>
+              <span class="resources-meta">Le préalable organisationnel qui complète l'audit technique</span>
+            </li>
+            <li>
+              <a href="pr-05-securite-ia.html">PR-05 Sécurité IA &amp; risques opérationnels</a>
+              <span class="resources-meta">Approfondissement sécurité opérationnelle</span>
+            </li>
+            <li>
+              <a href="../modules/cu-008-knowledge-base-rag.html">CU-008 Knowledge base RAG</a>
+              <span class="resources-meta">Cas d'usage qui dépend totalement des préalables data</span>
+            </li>
+            <li>
+              <a href="../modules/cu-013-workflow-email-crm.html">CU-013 Workflow email-CRM</a>
+              <span class="resources-meta">Cas d'usage qui dépend totalement des APIs CRM</span>
+            </li>
+            <li>
+              <a href="../modules/cu-014-multi-agents.html">CU-014 Multi-agents par fonction métier</a>
+              <span class="resources-meta">Le cas d'usage le plus exigeant en maturité SI</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../prealables.html">Préalables</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+  <script>
+    function evaluateAudit() {
+      const form = document.getElementById('diagForm');
+      const result = document.getElementById('diagResult');
+      const blockers = ['b1','b2','b3','b4','b5','b6'];
+      const quality = ['q1','q2','q3','q4','q5','q6'];
+      const answers = {};
+      let allAnswered = true;
+
+      [...blockers, ...quality].forEach(q => {
+        const sel = form.querySelector(`input[name="${q}"]:checked`);
+        if (sel) answers[q] = parseInt(sel.value);
+        else allAnswered = false;
+      });
+
+      if (!allAnswered) {
+        result.innerHTML = '<p style="color:#C82A2A; font-weight:600;">Réponds aux 12 critères pour évaluer.</p>';
+        result.classList.add('show');
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const blockerScore = blockers.reduce((s,q) => s+answers[q], 0); // /12
+      const qualityScore = quality.reduce((s,q) => s+answers[q], 0); // /12
+      const blockerNon = blockers.filter(q => answers[q] === 0).length;
+      const oui = [...blockers, ...quality].filter(q => answers[q] === 2).length;
+
+      let verdict, msg;
+      if (blockerNon >= 3) {
+        verdict = '🛑 NO-GO — fondations à remédier d\'abord';
+        msg = `${blockerNon} critères bloquants non satisfaits. Lancer un projet IA significatif sans ces fondations = échec quasi garanti. Plan recommandé : audit complet DSI + plan remédiation 3-6 mois (migration legacy, ouverture APIs, nettoyage données), puis projet IA cadré. En attendant : démarrer par des cas d'usage légers et périphériques (CU-001 à CU-004).`;
+      } else if (oui >= 8) {
+        verdict = '✅ GO — SI prêt pour un projet IA structurant';
+        msg = 'Tu peux lancer immédiatement un cas d\'usage IA significatif (CU-008, CU-013, CU-014 ou autre selon ton angle métier). Stratégie greenfield IA-first applicable. Mandat exécutif (PR-01) + plan déploiement 6-12 semaines.';
+      } else {
+        verdict = '⚠️ À MÛRIR — pilote ciblé possible avec remédiations parallèles';
+        msg = 'Les bloquants sont couverts mais la maturité globale reste perfectible. Lancer un pilote sur 1 cas d\'usage périphérique (faible dépendance SI) tout en sécurisant les critères qualité (Q1-Q6). Étendre ensuite une fois les remédiations effectuées.';
+      }
+
+      result.innerHTML = `
+        <div class="verdict-box ${blockerNon >= 3 ? 'no-go' : (oui >= 8 ? 'go' : 'warmup')}">
+          <div class="verdict-title">${verdict}</div>
+          <div class="verdict-subtitle" style="margin-top: var(--space-3);">${msg}</div>
+          <div style="margin-top: var(--space-3); display: flex; gap: var(--space-4); justify-content: center; font-size: 0.875rem;">
+            <span><strong>Bloquants : ${blockerScore}/12</strong></span>
+            <span><strong>Qualité : ${qualityScore}/12</strong></span>
+            <span><strong>Total Oui : ${oui}/12</strong></span>
+          </div>
+        </div>
+      `;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+
+</body>
+</html>
