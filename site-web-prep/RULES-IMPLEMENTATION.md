@@ -1,0 +1,209 @@
+# Règles d'implémentation — Hub IA Learning Center
+
+**Version :** 1.0 (mai 2026)
+**Statut :** Référentiel non négociable
+**Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
+
+> Ce fichier est le **référentiel ultime** des règles d'implémentation du Hub IA. Tout ce qui n'y est pas n'est pas une règle ; tout ce qui y est doit être respecté à la lettre. Toute PR qui contredit ce fichier doit être amendée avant merge.
+
+---
+
+## 0. Préambule — pourquoi ce fichier existe
+
+Le Hub IA est un site pédagogique destiné à des **dirigeants PME/ETI non-IT** du Grand Est. Trois propriétés en font un outil utile : (i) il dit la vérité (sourcing rigoureux, pas d'hallucination), (ii) il parle leur langue (pas de jargon technique non explicité), (iii) il est cohérent (les chiffres et la nav sont synchronisés partout). Sans ces trois propriétés, c'est juste un blog de plus.
+
+Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axes au fil des itérations — d'où ce fichier.
+
+---
+
+## 1. Règles non négociables — 4 dimensions
+
+### 1.1 Sourcing & véracité
+
+**Règle 1.1.1** — Aucune affirmation chiffrée sans source datée, vérifiable, et publique. Format obligatoire : *« 95 % des projets GenAI échouent (étude MIT Sloan / NANDA, août 2025) »*. Pas de chiffre orphelin.
+
+**Règle 1.1.2** — Aucune statistique inventée, aucune extrapolation présentée comme fait. Si la donnée n'existe pas, on ne l'écrit pas. Préférer une qualification prudente (« la majorité des PME observent… ») à un chiffre fabriqué.
+
+**Règle 1.1.3** — Sources prioritaires : Bpifrance Le Lab, France Num, INSEE, Pôle emploi, McKinsey, MIT Sloan, Microsoft Work Trend, PwC, OECD, études institutionnelles FR/UE. Sources à éviter : blogs marketing d'éditeurs, contenus sponsorisés, posts LinkedIn anecdotiques, IA ayant cité une source sans lien vérifiable.
+
+**Règle 1.1.4** — Toute citation directe de personne (dirigeant, expert) doit être publique et vérifiable. Pas de témoignage fictif, même pour illustrer.
+
+**Règle 1.1.5** — Les RetEx d'entreprises ne sont nommables que si la source est institutionnelle et publique (Bpifrance Le Lab, presse économique reconnue). Les cas remontés par cabinets de conseil sont **anonymisés** (présentés comme « pattern »).
+
+### 1.2 Cohérence numérique cross-site
+
+**Règle 1.2.1** — Chaque chiffre structurel du site (« 22 modules », « 6 préalables », « 76 fiches outils », nombre d'axes, etc.) doit être identique sur **toutes** les pages où il apparaît. Si un de ces nombres bouge, **tous** doivent bouger en même temps dans le même commit.
+
+**Règle 1.2.2** — Avant tout commit qui ajoute/retire un module, un préalable ou une fiche outil, exécuter une recherche cross-site sur l'ancien nombre et lister tous les hits à mettre à jour. Liste minimale à vérifier : `index.html`, `prealables.html`, `architectures.html`, `ressources.html`, `axes.html`, page À propos, footers de tous les modules CU et PR, méta-descriptions.
+
+**Règle 1.2.3** — Glossaire des chiffres-clés à maintenir cohérent (à actualiser à chaque itération) :
+
+| Chiffre | Valeur courante (mai 2026) | Lieux d'apparition |
+|---|---|---|
+| Nombre de modules CU | 22 (CU-001 → CU-022) | home, page modules, à propos, méta |
+| Nombre de préalables PR | 6 (PR-01 → PR-06) | prealables.html, home, à propos |
+| Nombre de fiches outils | 76 | ressources.html, à propos, hero ressources |
+| Nombre d'axes pédagogiques | 6 (A à E + Architecture agentique) | axes.html, home |
+| Nombre de patterns d'architecture | 4 + 1 hybride | architectures.html, à propos |
+| Nombre d'entrées nav | 6 (Préalables / Architectures / Modules / Ressources / Axes / À propos) | toutes pages |
+
+**Règle 1.2.4** — Les statistiques macro (95 % MIT, +270 % Microsoft, 76 % France Num, 94 % AdvisoryX, ×5 productivité PwC, 77 000 offres) sont synchronisées sur leurs lieux d'apparition (home + PR-01 + PR-02 + PR-04). Toute modification d'un chiffre macro déclenche une vérification cross-pages.
+
+### 1.3 Niveau de langue & terminologie
+
+**Règle 1.3.1** — Public cible : dirigeant PME/ETI **non-IT**, profil 40-65 ans, formation gestion ou technique métier. Vocabulaire de référence : celui qu'on entend dans une CCI ou une chambre de métiers, pas dans une conférence DevOps.
+
+**Règle 1.3.2** — Aucun jargon technique sans glose explicite à la première occurrence dans une page. Liste indicative de termes à expliciter (non exhaustive) :
+
+| Terme | Glose obligatoire la 1re fois |
+|---|---|
+| RAG | « Retrieval-Augmented Generation : un agent IA qui consulte ta documentation interne avant de répondre » |
+| MVP | « Minimum Viable Product : la version la plus simple d'un produit qu'on peut déjà mettre dans les mains d'un client » |
+| POC | « Proof of Concept : prototype pour valider une faisabilité avant d'industrialiser » |
+| Fine-tuning | « ajustement d'un modèle IA sur tes propres données » |
+| Embeddings | « représentation numérique d'un texte que l'IA peut comparer » |
+| Prompt | « instruction donnée à l'IA en langage naturel » |
+| Token | « unité de texte traitée par l'IA, ~3-4 caractères en moyenne » |
+| LLM | « Large Language Model : modèle d'IA générative type ChatGPT, Claude, Gemini » |
+| API | « interface de programmation qui permet à un logiciel d'en appeler un autre » |
+| SaaS | « Software as a Service : logiciel hébergé chez l'éditeur, accessible par navigateur » |
+| Cloud souverain | « hébergement cloud opéré sous juridiction européenne, certifié SecNumCloud le cas échéant » |
+| Open-source | « logiciel dont le code source est public et modifiable » |
+| On-premise | « hébergement sur tes propres serveurs, dans ton infrastructure » |
+
+**Règle 1.3.3** — Privilégier les termes français quand ils existent (« veille concurrentielle » plutôt que « competitive intelligence », « tableau de bord » plutôt que « dashboard »). Anglicismes acceptés : ceux entrés dans le langage courant gestion (ROI, KPI, scaling, pipeline commercial).
+
+**Règle 1.3.4** — Phrases courtes en moyenne (15-25 mots). Pas de paragraphes de plus de 6 lignes. Pas de subordonnées en cascade.
+
+**Règle 1.3.5** — Les acronymes propres au réseau QFC / Quai Alpha (SUM, PM, Starter Class, Comité d'Engagement) sont à utiliser avec parcimonie sur le site public — il ne s'adresse pas aux porteurs de l'écosystème mais à des dirigeants externes.
+
+**Règle 1.3.6** — Pas de jargon de référencement éditorial visible côté UX. Les codes internes (`PR-01`, `CU-007`, `A1/A2/A3/A4`) **ne doivent pas apparaître dans les titres ou les cards visibles** (ils peuvent rester dans l'URL et les ancres). Seul le titre métier est visible en surface.
+
+### 1.4 Harmonisation visuelle cross-pages
+
+**Règle 1.4.1** — La nav principale est **identique sur toutes les pages**, dans le même ordre, avec les mêmes libellés. Toute évolution de la nav se propage simultanément sur toutes les pages dans le même commit.
+
+**Règle 1.4.2** — Le head banner (logo, titre, accroche) suit le même gabarit sur toutes les pages : même hauteur, même typo, même padding, même comportement sticky.
+
+**Règle 1.4.3** — Le footer est identique partout : crédits Quai Alpha / Quest for Change, mention année, lien repo GitHub, lien méthodologie, lien à propos.
+
+**Règle 1.4.4** — Les composants CSS structurants sont mutualisés dans `module-v3.css`. Les composants spécifiques à une page peuvent rester inline si utilisés à un seul endroit ; sinon, factorisation obligatoire.
+
+**Règle 1.4.5** — Le pattern executive summary (gradient bleu marine + 4 takeaways + stats grid + callout « when ») est **obligatoire** en tête de chaque module CU et préalable PR. Pas d'exception.
+
+**Règle 1.4.6** — La sticky TOC + scroll-spy + reading progress bar sont actifs sur tous les modules CU, tous les PR, et la page Architectures. Si un de ces composants ne fonctionne pas sur une page, c'est un bug bloquant.
+
+---
+
+## 2. Checklist obligatoire avant tout commit / PR
+
+À exécuter **avant** push. Une PR qui n'a pas validé cette checklist doit être amendée.
+
+```
+☐ J'ai lu RULES-IMPLEMENTATION.md en intégralité avant de commencer.
+
+☐ Sourcing : tous mes nouveaux chiffres ont une source datée et vérifiable.
+☐ Sourcing : aucune statistique inventée, aucune citation fictive.
+
+☐ Cohérence numérique : si j'ai modifié le nombre de modules / préalables / outils,
+  j'ai mis à jour TOUS les lieux listés en règle 1.2.2 dans le même commit.
+☐ Cohérence numérique : grep cross-site exécuté sur les chiffres impactés.
+
+☐ Niveau de langue : aucun nouveau terme technique sans glose à sa 1re occurrence.
+☐ Niveau de langue : pas de PR-XX / CU-XX / A1-A4 visible dans les titres ou cards.
+
+☐ Harmonisation : nav identique sur toutes les pages touchées.
+☐ Harmonisation : head banner et footer identiques.
+☐ Harmonisation : sticky TOC + scroll-spy + progress bar fonctionnels sur les pages avec contenu long.
+
+☐ Tests croisés : Chrome / Firefox / Safari, mobile + desktop.
+☐ Liens : aucun lien mort, tous les liens cross-pages fonctionnent.
+
+☐ Description PR : pointe vers le brief de l'itération + résume les écarts au RULES s'il y en a (et pourquoi).
+```
+
+---
+
+## 3. Pattern de sourcing — exemples
+
+### Bon exemple
+
+> **+270 % de ROI moyen** sur les déploiements IA générative en entreprise (*Microsoft New Future of Work Report 2025*, données 2024 sur 1 200 organisations).
+
+### Mauvais exemple (à proscrire)
+
+> Les études montrent que l'IA permet d'augmenter la productivité de manière significative.
+
+### Format en HTML
+
+```html
+<p><strong>+270 % de ROI moyen</strong> sur les déploiements IA générative
+(<a href="https://aka.ms/AINewFutureOfWork" target="_blank" rel="noopener">
+Microsoft New Future of Work Report 2025</a>).</p>
+```
+
+Toujours un `<a>` cliquable vers la source. Si la source n'a pas d'URL publique stable, citer la référence complète (titre + auteur + date + éditeur).
+
+---
+
+## 4. Pattern de glose terminologique — exemples
+
+### Bon exemple
+
+> Un agent **RAG** (Retrieval-Augmented Generation : un assistant IA qui consulte d'abord ta documentation interne avant de formuler sa réponse) permet de répondre aux questions techniques de tes équipes en s'appuyant sur tes manuels, procédures et historiques projets.
+
+### Mauvais exemple (à proscrire)
+
+> Le RAG permet d'augmenter la pertinence des LLM sur des verticales métier en réduisant les hallucinations.
+
+(Trois termes techniques non explicités en une phrase = lecteur perdu)
+
+---
+
+## 5. Pattern d'harmonisation numérique
+
+### Scénario : ajout d'un module CU-023
+
+Avant push, exécuter :
+
+```bash
+# Lister tous les hits "22 modules" (à mettre à jour vers "23 modules")
+grep -rn "22 modules" .
+grep -rn "22 cas d'usage" .
+grep -rn "CU-001 → CU-022" .
+grep -rn "CU-001 à CU-022" .
+
+# Vérifier que la mise à jour est cohérente
+grep -rn "23 modules" .
+grep -rn "23 cas d'usage" .
+grep -rn "CU-001 → CU-023" .
+```
+
+Tous les hits anciens doivent avoir disparu, tous les nouveaux doivent être présents. Sinon, le commit n'est pas prêt.
+
+---
+
+## 6. Décisions éditoriales structurantes (rappel)
+
+- **Pas de pub pour acteurs commerciaux** : pas de fiches sur cabinets de conseil, intégrateurs, agences. Les RetEx mentionnent les cas, pas les prestataires intermédiaires.
+- **Distinction CU / PR / Architectures** : voir brief v3.4 et v3.5 pour le détail. Ne pas mélanger.
+- **Pas de reframing géographique** : le site reste calibré PME/ETI Grand Est, pas national, pas international.
+- **Pas de refonte du design system** sans validation explicite Blaise.
+- **Pas d'ajout de catégorie d'outils** sans validation explicite Blaise.
+
+---
+
+## 7. Évolution de ce fichier
+
+Ce fichier est **vivant**. À chaque itération majeure (v3.6, v3.7, etc.), Cowork (côté Blaise) ou Claude Code peut proposer des amendements via PR dédiée. Toute évolution doit faire l'objet d'une discussion explicite avec Blaise avant merge.
+
+Versionnage : on incrémente la version en tête de fichier (1.0 → 1.1 → 2.0 selon ampleur).
+
+---
+
+## 8. Contact & responsabilité
+
+Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.eu
+Dernière mise à jour : 9 mai 2026 (création v1.0)
+
+**Si tu lis ce fichier en tant que LLM / agent : ton rôle est de t'y conformer, pas de l'interpréter. En cas de doute, demande à Blaise avant de commit.**
