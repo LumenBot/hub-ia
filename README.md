@@ -1,39 +1,42 @@
-# Hub IA territorial
+# Hub IA — Learning Center
 
-Site de micro-learning sur les usages de l'IA en entreprise — programme du **réseau Quest for Change**.
+Site pédagogique sur les usages de l'IA et des agents IA en environnements métier et corporate — programme du **réseau Quest for Change**.
 
 🌐 **Site en ligne** : https://lumenbot.github.io/hub-ia/
 
-## V1.1 — Mai 2026
+## v3.5 — mai 2026
 
-18 modules courts (10-15 min de lecture) classés par niveau de complexité, avec un format pédagogique différencié selon le niveau :
+Une base de référence opérationnelle, en accès libre, structurée en 4 niveaux complémentaires :
 
-- 🟢 **N1-N3 Fondamentaux** — quiz 5 questions
-- 🟡 **N4-N6 Applications métier** — auto-diagnostic + plan d'action exportable (.txt)
-- 🔴 **N7-N8 Industrialisation** — étude de cas + checklist d'éligibilité pondérée
+- 🧱 **6 préalables** — qu'est-ce que je dois maîtriser avant de me lancer ? (`prealables.html`)
+- 🏗️ **4 patterns d'architecture + l'option hybride** — comment je déploie techniquement ? (`architectures.html`)
+- 🎯 **22 modules cas d'usage** — comment résoudre concrètement mon problème métier ? (`modules/`)
+- 🛠️ **83 fiches outils** — quel outil pour ma stack ? (`ressources.html`)
+
+Les 22 modules sont regroupés en **6 familles métier** sur la home (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) et étiquetés sur une **échelle de complexité 4 niveaux** (⭐ Initiation · ⭐⭐ Opérationnel · ⭐⭐⭐ Avancé · ⭐⭐⭐⭐ Expert).
 
 ## Structure
 
 ```
 hub-ia/
-├── index.html              ← landing page (3 sections, 18 cards)
-├── css/style.css           ← design system unique
-├── modules/                ← une page par cas d'usage
-│   ├── cu-NNN-*.html       ← modules pédagogiques
-│   ├── _template-quiz.html             ← gabarit N1-N3
-│   ├── _template-auto-diagnostic.html  ← gabarit N4-N6
-│   └── _template-etude-de-cas.html     ← gabarit N7-N8
-└── .nojekyll               ← désactive Jekyll côté GitHub Pages
+├── index.html              ← landing page (4 niveaux + 6 familles métier)
+├── prealables.html         ← index des 6 préalables
+├── prealables/             ← une page par préalable (pr-01 à pr-06)
+├── architectures.html      ← 4 patterns + hybride + méthode de décision
+├── modules/                ← une page par cas d'usage (cu-001 à cu-022)
+├── ressources.html         ← catalogue d'outils (83 fiches en 14 catégories)
+├── css/                    ← design system (style.css + module-v3.css)
+├── js/                     ← module-v3.js (TOC sticky, reading progress, scroll-spy)
+└── site-web-prep/          ← briefs, patches, rapports d'audit, mockups
 ```
-
-## Statut
-
-- ✅ 18 modules publiés et linkés depuis l'index (CU-001 → CU-018)
-- ➕ CU-019 (Newsletter locale) disponible en accès direct, hors index V1
 
 ## Stack
 
 HTML5 + CSS3 + JS vanilla. Pas de framework, pas de build, pas de backend. Persistance des progressions via `localStorage` (clé `hubia_<module-id>`). Hébergement GitHub Pages.
+
+## Référentiel d'implémentation
+
+Toute contribution au site doit respecter le référentiel `site-web-prep/RULES-IMPLEMENTATION.md` (sourcing rigoureux, cohérence numérique cross-site, niveau de langue dirigeant non-IT, harmonisation visuelle).
 
 ## Licence
 
