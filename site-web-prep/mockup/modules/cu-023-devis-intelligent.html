@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Génération de devis intelligente — Hub IA Learning Center</title>
+  <meta name="description" content="Génération automatisée de propositions commerciales par IA : panorama des outils 2026, gain de productivité documenté, écueils typiques (hallucination prix, désynchronisation CGV, workslop).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    .tool-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .tool-table th {
+      background: #1e3a8a;
+      color: white;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .tool-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    .tool-table tr:nth-child(even) { background: #f8fafc; }
+    .alert-block {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+    }
+    .alert-block h3 { color: #991b1b; margin-top: 0; }
+    .stat-block {
+      background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .stat-block-number {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-block-label {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+    .stat-block-source {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 1rem;
+    }
+    .checklist-block {
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    .checklist-block h3 { color: #065f46; margin-top: 0; }
+    .checklist-block ul { list-style: none; padding-left: 0; }
+    .checklist-block ul li {
+      padding-left: 2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .checklist-block ul li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .pull-quote {
+      background: #f0f9ff;
+      border-left: 4px solid #0284c7;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #075985;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link nav-link-active">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
+      <div class="module-badges">
+        <span class="card-badge">📋 Auto-diagnostic</span>
+        <span class="card-badge">🟡 Niveau 4-6</span>
+        <span class="card-badge">15 min</span>
+      </div>
+      <h1>Génération de devis intelligente</h1>
+      <p class="module-subtitle">Faire passer la création d'une proposition commerciale d'1 heure à 36 minutes, avec +20 % de taux de signature à la clé. Le cas d'usage IA le plus accessible pour une PME — gain rapide, faible risque, ROI mesurable. Et c'est aussi le bon endroit pour commencer à tester l'IA opérationnelle dans ta boîte.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>Pourquoi cette page ?</h2>
+        <p>La génération de devis par IA est devenue un cas d'usage <strong>commun et bien servi</strong> par le marché en 2026. Tous les CRM/ERP majeurs (Pennylane, Sellsy, Axonaut, HubSpot, Salesforce, PandaDoc) intègrent désormais une couche IA qui rédige la proposition à partir d'un brief, recommande des prix, structure les conditions générales. Le ROI est <strong>rapide et documenté</strong> : étude HPC Technology Group via PandaDoc — passage d'1 h à <strong>36 minutes</strong> par proposition, <strong>+20 % de taux de closing</strong>.</p>
+        <p>C'est aussi le bon point d'entrée si tu débutes l'IA opérationnelle : faible risque, gain mesurable, pas de dépendance régulatoire majeure. Mais attention aux pièges classiques — hallucination prix, désynchronisation conditions générales, perte de jugement commercial.</p>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">⚡</div>
+            <div class="exec-takeaway-content">
+              <strong>Gain de productivité concret et rapide.</strong> Les études PandaDoc / Consensus / HPC Technology Group documentent une <strong>division par 2 du temps de rédaction</strong> et une <strong>amélioration du taux de closing de 15 à 20 %</strong>. Pour un commercial qui produit 30 propositions par mois, c'est ~30 heures économisées et 4 deals supplémentaires signés.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🎯</div>
+            <div class="exec-takeaway-content">
+              <strong>Cas d'usage le plus accessible pour démarrer l'IA.</strong> Pas de migration ERP, pas de conformité réglementaire bloquante, ROI 3-6 mois. C'est le bon point d'entrée pour qu'une PME teste « l'IA en opérationnel » sans risque majeur. Une fois ce cas validé, tu sais arbitrer pour des chantiers plus structurants (RAG, order-to-cash, RH).
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">⚠️</div>
+            <div class="exec-takeaway-content">
+              <strong>Le commercial reste responsable de la proposition.</strong> Ce n'est pas un projet IA, c'est un <strong>projet commercial assisté par IA</strong>. Le commercial valide chaque devis, ajuste la marge, vérifie les CGV. Les écueils — hallucination prix, perte du jugement commercial, désynchronisation CGV — ne pardonnent pas si l'humain disparaît du circuit.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🔧</div>
+            <div class="exec-takeaway-content">
+              <strong>Prends une IA déterministe et auditable, pas générative pure sur le pricing.</strong> Gartner et la littérature CPQ 2025 insistent : pour le pricing, une IA <strong>« rule-bound, auditable »</strong> est obligatoire. Une IA générative qui invente un prix sur grand compte = risque contractuel et financier.
+            </div>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">×2</div>
+            <div class="exec-stat-label">Vitesse de production de devis (PandaDoc / Consensus)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">+20 %</div>
+            <div class="exec-stat-label">Taux de closing (HPC Technology Group)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">28 %</div>
+            <div class="exec-stat-label">Entreprises qui appliquent l'IA au marketing/ventes 2025 (Bpifrance Le Lab)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">40 %</div>
+            <div class="exec-stat-label">Collaborateurs subissant du « workslop » mensuel (Microsoft 2025)</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand ce module est utile :</strong> tu produis plus de 20 devis par mois, tu cherches un premier cas d'usage IA à fort ROI / faible risque pour ton équipe commerciale, tu utilises déjà un CRM/ERP qui propose une couche IA et tu hésites à activer la fonction.
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Pourquoi commencer par les devis</h2>
+      </div>
+
+      <p>Sur les 22 cas d'usage du Hub IA, la génération de devis intelligente est <strong>le plus simple à enclencher</strong> dans une PME. Quatre raisons :</p>
+
+      <h3>1.1 Aucune migration de SI requise</h3>
+      <p>Tous les CRM/ERP majeurs ont une couche IA en option ou en standard depuis 2025. Activer la fonction = quelques heures de paramétrage, pas un projet à 80 K€.</p>
+
+      <h3>1.2 Pas de contrainte régulatoire majeure</h3>
+      <p>Contrairement à l'<a href="cu-024-order-to-cash.html">order-to-cash</a> (facturation électronique 2026, AI Act haut-risque) ou au <a href="cu-007-ia-rh.html">CU-007 RH</a> (RGPD strict, biais à auditer), le devis n'a pas de calendrier réglementaire 2026 qui pèse. Tu peux y aller à ton rythme.</p>
+
+      <h3>1.3 ROI rapide et mesurable</h3>
+      <p>Tu peux mesurer le gain en 60 jours : compte le temps moyen de production d'un devis avant/après, compte le taux de signature avant/après. Si la fonction te prend plus de temps qu'elle n'en fait gagner, tu désactives.</p>
+
+      <h3>1.4 Bon laboratoire pour ton équipe</h3>
+      <p>L'équipe commerciale est habituée à manipuler des outils numériques (CRM, e-mailing). Lui faire tester l'IA sur le devis est l'un des terrains les moins anxiogènes. Une fois le cas validé, tu peux proposer plus structurant (RAG documentaire, recouvrement, RH).</p>
+
+      <div class="pull-quote">
+        Ne traite pas la génération de devis IA comme un projet IA. Traite-la comme un projet commercial qui se trouve être assisté par IA. C'est le bon framing.
+      </div>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">2</div>
+        <h2 class="module-section-title">Panorama des outils 2026</h2>
+      </div>
+
+      <p>Le marché s'est consolidé autour de 3 catégories : les CRM intégrés français, les CRM internationaux, et les outils dédiés CPQ (Configure-Price-Quote). Voici une orientation par profil de PME.</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Outil</th>
+            <th>Catégorie</th>
+            <th>Public cible</th>
+            <th>Points forts IA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pennylane Devis</strong></td>
+            <td>Compta + facturation FR (PA agréée DGFiP)</td>
+            <td>TPE / PME B2B compta intégrée</td>
+            <td>OCR, IA réconciliation, intégration expert-comptable</td>
+          </tr>
+          <tr>
+            <td><strong>Sellsy</strong></td>
+            <td>CRM + pilotage ventes FR</td>
+            <td>PME B2B avec équipe commerciale</td>
+            <td>Génération auto, pipeline, e-signature intégrée</td>
+          </tr>
+          <tr>
+            <td><strong>Axonaut</strong></td>
+            <td>ERP/CRM tout-en-un FR</td>
+            <td>PME 5-50 salariés, tout-en-un</td>
+            <td>Devis + facturation + compta + CRM en un seul outil</td>
+          </tr>
+          <tr>
+            <td><strong>HubSpot AI</strong></td>
+            <td>CRM international + CPQ intégré</td>
+            <td>PME B2B technologique, scale-up</td>
+            <td>CPQ depuis fiche deal, génération multilingue</td>
+          </tr>
+          <tr>
+            <td><strong>Salesforce Einstein</strong></td>
+            <td>CRM enterprise + CPQ avancé</td>
+            <td>ETI, catalogue produits complexe</td>
+            <td>Recommandation produits, pricing dynamique</td>
+          </tr>
+          <tr>
+            <td><strong>PandaDoc AI</strong></td>
+            <td>Outil dédié proposition + e-signature</td>
+            <td>Toute PME B2B avec cycle commercial</td>
+            <td>Templates + IA rédactionnelle, intégration HubSpot/Salesforce</td>
+          </tr>
+          <tr>
+            <td><strong>Tacton</strong></td>
+            <td>CPQ vertical industriel</td>
+            <td>ETI industrielle, configuration produit</td>
+            <td>AI Product Modeling Assistant lancé 2025</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Recommandation pratique :</strong> commence par <strong>activer la fonction IA de ton outil actuel</strong>. Si tu utilises déjà Pennylane, Sellsy ou HubSpot, la couche IA est probablement déjà disponible — pas la peine de changer d'outil pour tester. Si tu n'as encore aucun CRM/ERP, oriente-toi vers Pennylane (compta-first), Sellsy (vente-first) ou Axonaut (tout-en-un) selon ton cas.</p>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">3</div>
+        <h2 class="module-section-title">Le cas chiffré — HPC Technology Group via PandaDoc</h2>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-block-number">36 min</div>
+        <div class="stat-block-label">temps moyen de production d'une proposition après IA</div>
+        <div class="stat-block-source">vs &gt; 1 h avant — étude PandaDoc + HubSpot, HPC Technology Group</div>
+      </div>
+
+      <p>HPC Technology Group, un revendeur informatique B2B, a déployé PandaDoc AI couplé à HubSpot pour générer ses propositions commerciales. Résultats publiés par PandaDoc :</p>
+
+      <ul>
+        <li><strong>Temps moyen par proposition :</strong> &gt; 1 heure → 36 minutes (–40 %)</li>
+        <li><strong>Taux de closing :</strong> +20 %</li>
+        <li><strong>Volume traité :</strong> +30 % de propositions sur la même équipe</li>
+      </ul>
+
+      <p>Autre cas documenté dans la même série PandaDoc : <strong>Consensus</strong> (plateforme demo automation US) — temps de proposition divisé par 2 dans le trimestre suivant l'implémentation, 84 % des propositions ouvertes par les prospects (instrumentation native PandaDoc). <strong>Carr Workplaces</strong> (immobilier flex US) : –15 % de time-to-close, 100 K$/an d'économies sur le stack précédent.</p>
+
+      <div class="pull-quote">
+        Ces chiffres viennent d'études éditeur — à pondérer. Mais l'ordre de grandeur (×2 vitesse, +15-20 % closing) se retrouve sur plusieurs cas indépendants. C'est la vraie ampleur du gain.
+      </div>
+
+      <p><strong>Source :</strong> <a href="https://www.pandadoc.com/customers-case-study/goconsensus/" target="_blank" rel="noopener">PandaDoc — études de cas Consensus / HPC Technology Group / Carr Workplaces</a></p>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">4</div>
+        <h2 class="module-section-title">Cinq écueils à anticiper</h2>
+      </div>
+
+      <div class="alert-block">
+        <h3>1. Hallucination prix sur grand compte</h3>
+        <p>Une IA générative pure (sans règles déterministes) peut <strong>inventer un prix</strong> qui ne correspond pas à ton catalogue, à ta grille de remise, ou à tes accords client. Sur un grand compte avec contrat-cadre, c'est un risque contractuel direct. <strong>Gartner 2025 et la littérature CPQ insistent : préférer une IA déterministe, rule-bound, auditable.</strong> Concrètement : ton outil doit s'appuyer sur ton catalogue produits exact et ne pas générer de prix « libres ».</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>2. Désynchronisation des conditions générales</h3>
+        <p>Une IA qui régénère tes CGV à chaque devis sans cadre juridique = risque contractuel. Les CGV doivent venir d'un <strong>template validé par ton avocat</strong>, pas d'une génération libre. La couche IA peut formater, traduire, ajuster une formule de politesse — pas réécrire des clauses.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>3. Trop d'automatisation = perte du jugement commercial</h3>
+        <p>La littérature CPQ 2025 documente le rejet par les commerciaux quand l'IA décide seule sur des deals stratégiques. Un commercial sait quand il faut consentir une remise, quand il faut tenir la position, quand il faut réécrire une clause à la main. <strong>L'IA propose, le commercial dispose.</strong> Sur les 5-10 % de tes deals stratégiques, garde la main pleinement humaine.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>4. Workslop — 40 % des collaborateurs concernés</h3>
+        <p>Microsoft New Future of Work 2025 : <strong>40 % des collaborateurs subissent mensuellement</strong> du contenu IA « qui a l'air bon mais contient des erreurs ». Sur le devis, ça se traduit par : prix plausible mais faux, formulation correcte mais mal calibrée commercialement, CGV pertinente mais non applicable à ton secteur. Sans relecture humaine systématique, tu envoies du workslop à tes clients.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>5. Risque de dérive marge</h3>
+        <p>Une IA optimisée pour la conversion va proposer plus de remises pour signer plus. Si tu ne fixes pas un <strong>plancher de marge</strong> dans le paramétrage, tu signes plus mais tu gagnes moins. Définis dès le départ une marge minimum non franchissable et un workflow d'approbation pour toute remise au-delà d'un seuil.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">5</div>
+        <h2 class="module-section-title">Auto-diagnostic — es-tu prêt pour activer ?</h2>
+      </div>
+
+      <p>Réponds aux 8 questions ci-dessous. Compte le nombre de OUI. Si tu en as 6 ou plus, tu peux y aller. Si tu en as moins de 4, mieux vaut consolider d'abord.</p>
+
+      <div class="checklist-block">
+        <h3>Auto-diagnostic en 8 questions</h3>
+        <ul>
+          <li><strong>1.</strong> Mon équipe commerciale produit régulièrement plus de 10 propositions par mois.</li>
+          <li><strong>2.</strong> J'ai déjà un CRM ou un outil de gestion qui propose une couche IA en standard ou en option.</li>
+          <li><strong>3.</strong> Mon catalogue produits / services est numérisé et tenu à jour.</li>
+          <li><strong>4.</strong> Mes conditions générales de vente sont stabilisées, validées juridiquement et accessibles dans un format réutilisable.</li>
+          <li><strong>5.</strong> J'ai défini une grille de remise avec des plafonds clairs (seuil au-delà duquel la remise demande une validation manager).</li>
+          <li><strong>6.</strong> Mes commerciaux acceptent l'idée d'une assistance IA sur leur quotidien (pas de rejet culturel).</li>
+          <li><strong>7.</strong> Je peux mesurer mes deux KPI cibles : temps moyen de production d'un devis, taux de signature.</li>
+          <li><strong>8.</strong> Je suis prêt à dédier un manager pendant 3-6 mois pour piloter le déploiement et mesurer le ROI.</li>
+        </ul>
+      </div>
+
+      <p><strong>6 OUI ou plus :</strong> active la fonction IA de ton outil actuel ce mois-ci. Donne-toi 60 jours de mesure avant de tirer un bilan.</p>
+      <p><strong>4-5 OUI :</strong> tu peux y aller mais il manque un ou deux fondamentaux. Stabilise les NON avant de lancer.</p>
+      <p><strong>Moins de 4 OUI :</strong> consolide d'abord. Le devis IA ne réparera pas un catalogue désordonné, des CGV instables, ou une équipe commerciale en rejet de l'IA. Lis le préalable <a href="../prealables/pr-01-maturite-organisationnelle.html">PR-01 maturité organisationnelle</a>.</p>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">6</div>
+        <h2 class="module-section-title">Plan d'action 90 jours</h2>
+      </div>
+
+      <h3>Phase 1 — Préparation (semaines 1-3)</h3>
+      <ul>
+        <li>Stabilise ton catalogue produits/services dans ton CRM/ERP.</li>
+        <li>Valide juridiquement tes CGV de référence et stocke-les en template réutilisable.</li>
+        <li>Définis ta grille de remise + plancher de marge non franchissable.</li>
+        <li>Mesure ton baseline : temps moyen de production d'un devis (sur 20 derniers), taux de signature (sur 100 derniers).</li>
+      </ul>
+
+      <h3>Phase 2 — Pilote (semaines 4-7)</h3>
+      <ul>
+        <li>Active la fonction IA sur ton outil actuel pour 1-2 commerciaux volontaires.</li>
+        <li>Définis un workflow simple : IA génère le brouillon, commercial relit et ajuste, manager valide si remise &gt; X %.</li>
+        <li>Brief les commerciaux : « l'IA propose, vous disposez ». Ils restent responsables du devis envoyé.</li>
+        <li>Recueille les retours hebdomadaires : qu'est-ce qui marche, qu'est-ce qui ne marche pas, quelles erreurs typiques.</li>
+      </ul>
+
+      <h3>Phase 3 — Mesure (semaines 8-12)</h3>
+      <ul>
+        <li>Mesure les 2 KPI cibles : temps moyen de production, taux de signature.</li>
+        <li>Compare au baseline pré-IA.</li>
+        <li>Si gain mesurable : déploie sur toute l'équipe commerciale, formalise le workflow.</li>
+        <li>Si gain non mesurable : analyse pourquoi (catalogue ? prompt ? CGV ? rejet utilisateur ?), corrige ou désactive.</li>
+      </ul>
+
+      <h3>Phase 4 — Industrialisation (mois 4-6)</h3>
+      <ul>
+        <li>Forme l'ensemble de l'équipe commerciale.</li>
+        <li>Documente le « bon prompt » et les écueils typiques pour ton métier.</li>
+        <li>Mets en place un audit trimestriel des devis générés (échantillon de 20-30) pour détecter les dérives (marge, hallucination, désynchronisation CGV).</li>
+        <li>Si le succès est confirmé, attaque le prochain cas d'usage IA — par exemple <a href="cu-024-order-to-cash.html">order-to-cash</a> ou <a href="cu-008-knowledge-base-rag.html">knowledge base RAG</a>.</li>
+      </ul>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">7</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+      </div>
+
+      <h3>7.1 Modules CU complémentaires</h3>
+      <ul>
+        <li><a href="cu-024-order-to-cash.html">CU-024 — Order-to-cash automation</a> (le cycle complet, dont le devis est l'amont)</li>
+        <li><a href="cu-013-data-analytique.html">CU-013 — Data analytique</a> (KPI commercial et pilotage)</li>
+        <li><a href="cu-009-content-repurposing.html">CU-009 — Content repurposing</a> (génération de contenu commercial multi-format)</li>
+      </ul>
+
+      <h3>7.2 Préalables associés</h3>
+      <ul>
+        <li><a href="../prealables/pr-01-maturite-organisationnelle.html">PR-01 — Maturité organisationnelle</a> (es-tu prêt à déployer l'IA en opérationnel ?)</li>
+        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (sur le devis, c'est SaaS sans débat)</li>
+      </ul>
+
+      <h3>7.3 Sources principales</h3>
+      <ul>
+        <li><a href="https://lelab.bpifrance.fr/Etudes/les-entreprises-francaises-et-l-ia-l-aube-d-une-revolution/l-ia-dans-les-pme-et-eti-francaises-6-chiffres-a-retenir" target="_blank" rel="noopener">Bpifrance Le Lab — IA PME/ETI 6 chiffres clés</a></li>
+        <li><a href="https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf" target="_blank" rel="noopener">Baromètre France Num 2025 (PDF)</a></li>
+        <li><a href="https://www.pandadoc.com/customers-case-study/goconsensus/" target="_blank" rel="noopener">PandaDoc — études de cas Consensus / HPC</a></li>
+        <li><a href="https://www.microsoft.com/en-us/research/publication/new-future-of-work-report-2025/" target="_blank" rel="noopener">Microsoft New Future of Work Report 2025</a> (workslop)</li>
+        <li><a href="https://itbrief.co.uk/story/tacton-launches-ai-assistant-to-cut-cpq-modelling-work" target="_blank" rel="noopener">itbrief.co.uk — Tacton AI Product Modeling Assistant</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

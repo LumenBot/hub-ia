@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build vs Buy à l'ère de l'IA — Hub IA Learning Center</title>
+  <meta name="description" content="Faut-il acheter un SaaS ou faire développer sur mesure ? Le seuil de rentabilité du « build » s'est effondré avec le dev IA-assisté, mais 95 % des projets IA ne génèrent aucun ROI. Matrice de décision en 6 critères pour PME/ETI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Composants spécifiques PR-07 */
+    .decision-matrix {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .decision-matrix table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .decision-matrix th {
+      background: #1e3a8a;
+      color: white;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .decision-matrix td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    .decision-matrix .crit-buy { background: #ecfdf5; color: #065f46; font-weight: 600; }
+    .decision-matrix .crit-build { background: #fef3c7; color: #92400e; font-weight: 600; }
+    .decision-matrix .crit-hybrid { background: #ede9fe; color: #5b21b6; font-weight: 600; }
+    .scenario-card {
+      background: white;
+      border-left: 4px solid #1e3a8a;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .scenario-card.buy { border-left-color: #059669; }
+    .scenario-card.build { border-left-color: #d97706; }
+    .scenario-card.hybrid { border-left-color: #7c3aed; }
+    .scenario-card-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+    .scenario-card.buy .scenario-card-label { background: #d1fae5; color: #065f46; }
+    .scenario-card.build .scenario-card-label { background: #fed7aa; color: #9a3412; }
+    .scenario-card.hybrid .scenario-card-label { background: #ddd6fe; color: #5b21b6; }
+    .reality-check {
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border: 1px solid #fecaca;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .reality-check h3 {
+      color: #991b1b;
+      margin-top: 0;
+    }
+    .pitfall-list {
+      background: #fff7ed;
+      border-left: 4px solid #f97316;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+    }
+    .pitfall-list ol li {
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="nav-logo">🧭</span>
+        <span class="nav-title">Hub IA — Learning Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../axes.html" class="nav-link">Axes</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">← Retour aux préalables</a>
+      <div class="module-badges">
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge">15 min</span>
+      </div>
+      <h1>Build vs Buy à l'ère de l'IA</h1>
+      <p class="module-subtitle">Faut-il acheter un SaaS ou faire développer sur mesure ? Le seuil de rentabilité du « build » s'est effondré avec le dev IA-assisté — mais 95 % des projets IA ne génèrent toujours aucun ROI. Une matrice de décision en 6 critères, calibrée pour dirigeants PME/ETI non-IT.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>Pourquoi cette page ?</h2>
+        <p>Pendant 20 ans, la doctrine était claire pour une PME : <strong>acheter un SaaS</strong> chaque fois que possible, ne faire développer que pour des process différenciants. Le développement applicatif IA-assisté (Cursor, Claude Code, Lovable, Bolt, v0) a comprimé les délais de <strong>20 à 50 %</strong> et fait baisser le coût d'un build léger d'autant. La doctrine bouge — mais la nouvelle n'est pas « build everywhere » : <strong>67 % des stratégies IA « buy » réussissent contre 33 % seulement des builds internes</strong> (MIT NANDA, 2025).</p>
+        <p>Cette page te donne la grille de décision actualisée pour 2026, et te prévient des nouveaux pièges.</p>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">📉</div>
+            <div class="exec-takeaway-content">
+              <strong>Le seuil de rentabilité du « build » s'est effondré.</strong> Un MVP qui demandait 4-6 mois à une ESN classique se prototype aujourd'hui en 6-10 semaines avec un dev IA-assisté. Le calcul total cost of ownership penche plus souvent vers le build que dans les années 2010.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">⚠️</div>
+            <div class="exec-takeaway-content">
+              <strong>Mais 95 % des projets IA en entreprise ne génèrent aucun ROI mesurable.</strong> La cause n'est pas la technologie — c'est l'absence de redesign de workflow, de gouvernance, et de pilotage métier. Si tu pars sur un build sans ces 3 ingrédients, tu vas dans les 95 %.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🎯</div>
+            <div class="exec-takeaway-content">
+              <strong>Le bon réflexe 2026 est hybride.</strong> SaaS pour les briques commodity (compta, paie, CRM standard), build léger IA-assisté pour les <strong>micro-applications métier</strong> spécifiques (workflows, intégrations, reporting custom). 78 % des entreprises anticipent davantage de builds en 2026 — sans abandonner leurs SaaS.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🛡️</div>
+            <div class="exec-takeaway-content">
+              <strong>Six critères suffisent pour décider en 15 minutes.</strong> Différenciation, volume, évolutivité, budget, compétences internes, délai. La grille en bas de page te permet d'arbitrer un cas concret. Si tu ne sais pas répondre à un critère, c'est déjà une réponse : tu n'es pas prêt à builder.
+            </div>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">95 %</div>
+            <div class="exec-stat-label">Projets GenAI sans ROI mesurable (MIT NANDA 2025)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">67 % vs 33 %</div>
+            <div class="exec-stat-label">Buy vs Build : taux de réussite (MIT NANDA 2025)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">78 %</div>
+            <div class="exec-stat-label">Entreprises anticipent + de builds en 2026 (Retool)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">21 %</div>
+            <div class="exec-stat-label">Organisations IA ayant redesigné leurs workflows (McKinsey)</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand cette page est utile :</strong> tu envisages un projet IA opérationnel (devis, recouvrement, RH, knowledge base, app métier) et tu hésites entre prendre un SaaS du marché et faire développer sur mesure. Tu veux un cadre de décision rationnel avant d'engager du budget.
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Ce qui a changé en 2025-2026</h2>
+      </div>
+
+      <p>Pendant 15 ans, le calcul était simple : un développement sur mesure coûtait <strong>10 à 30 fois</strong> le prix d'un SaaS équivalent sur la durée de vie du produit. La majorité des PME ont donc choisi SaaS, et c'était le bon choix.</p>
+
+      <p>Trois tendances ont rebattu les cartes :</p>
+
+      <h3>1.1 La compression des délais et des coûts</h3>
+      <p>Les outils de développement IA-assisté (Cursor, Claude Code, Windsurf, Lovable, Bolt.new, v0, Replit Agent) génèrent du code à grande vitesse. Étude GitHub Copilot (2024-2025) : <strong>-55 % de temps de tâche</strong> sur 95 développeurs benchmarkés (<a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">GitHub Blog</a>). Sur des MVPs entiers, Lovable revendique des <strong>premiers prototypes en 25 minutes</strong>. À l'échelle d'un projet, ces outils compriment les délais de <strong>20 à 50 %</strong> et réduisent le coût/feature.</p>
+
+      <h3>1.2 La banalisation de l'IA dans les SaaS du marché</h3>
+      <p>Tous les éditeurs SaaS B2B intègrent désormais des modules IA : Pennylane fait du lettrage IA, HubSpot génère des e-mails commerciaux, Salesforce Einstein recommande des produits. La <strong>différenciation par l'IA</strong> est plus difficile à obtenir avec un SaaS standard. Faire développer un workflow IA spécifique à ton métier devient un argument compétitif réel.</p>
+
+      <h3>1.3 La pression réglementaire qui force l'arbitrage</h3>
+      <p>Trois calendriers obligent à arbitrer maintenant : <strong>facturation électronique en réception 1<sup>er</sup> sept. 2026</strong> (toutes entreprises), AI Act systèmes haut-risque applicable <strong>2 août 2026</strong> (scoring client, RH, recouvrement), RGPD renforcé sur l'IA (<a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL recommandations 2025</a>). Tu ne peux plus repousser la décision.</p>
+
+      <div class="pull-quote">
+        Le bon réflexe n'est plus « SaaS par défaut ». C'est « SaaS pour les commodités, build léger pour ce qui te différencie ».
+      </div>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">2</div>
+        <h2 class="module-section-title">La prise de réalité — le « scaling gap »</h2>
+      </div>
+
+      <p>Avant d'arbitrer build vs buy, il faut intégrer une donnée structurante : <strong>l'IA déçoit massivement</strong> en entreprise.</p>
+
+      <div class="reality-check">
+        <h3>Les chiffres qui doivent t'arrêter</h3>
+        <ul>
+          <li><strong>95 % des projets GenAI en entreprise ne génèrent aucun ROI mesurable</strong> sur 30-40 milliards de dollars investis (MIT NANDA, <em>State of AI in Business 2025</em>, relayé <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/" target="_blank" rel="noopener">Fortune</a>).</li>
+          <li><strong>88 % des organisations utilisent l'IA dans au moins une fonction</strong>, mais <strong>seulement 6 % sont AI high performers</strong> (>5 % d'EBIT impact, <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey State of AI 2025</a>).</li>
+          <li><strong>21 % seulement</strong> des organisations IA ont redesigné leurs workflows (McKinsey, 2025) — c'est pourtant le seul critère le plus corrélé à l'EBIT-impact.</li>
+          <li><strong>Buy vs Build : 67 % vs 33 %</strong> de taux de réussite (MIT NANDA, 2025).</li>
+        </ul>
+      </div>
+
+      <p>La conclusion à en tirer n'est pas « ne pas faire de l'IA ». C'est : <strong>la différence entre les 5 % qui réussissent et les 95 % qui échouent n'est pas la technologie</strong>. C'est la gouvernance, le redesign de workflow, et le pilotage métier. Tu vas voir que cette grille s'applique aussi à l'arbitrage build vs buy.</p>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">3</div>
+        <h2 class="module-section-title">Quand BUY (SaaS) reste le bon choix</h2>
+      </div>
+
+      <p>Pour la majorité des PME, sur la majorité des cas, <strong>acheter un SaaS reste le bon réflexe</strong>. Six situations où c'est clair :</p>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>Le process n'est pas un différenciant compétitif</h3>
+        <p>Compta, paie, gestion des congés, signature électronique, e-mailing : ces process sont identiques dans 95 % des entreprises de ton secteur. Faire développer ne crée aucun avantage. SaaS standard, point.</p>
+      </div>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>Tu n'as pas d'équipe IT en interne</h3>
+        <p>Un build, même léger, demande de la maintenance permanente : monitoring, patchs sécurité, mises à jour de dépendances, conformité (RGPD, AI Act, facturation électronique). Sans personne en interne pour s'en occuper, tu accumules une dette qui t'explosera dans 18 mois.</p>
+      </div>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>Tu veux valider un cas d'usage avant d'engager</h3>
+        <p>Avant de builder, prouve que le besoin existe. Un SaaS d'essai à 50 €/mois pendant 3 mois te dira si l'usage est réel. Si oui, tu peux ensuite envisager un build pour l'industrialiser. Sinon, tu n'as perdu que 150 €.</p>
+      </div>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>Le cas est bien servi par un modèle généraliste</h3>
+        <p>Génération de mails, traduction, transcription audio, résumé de documents : ces tâches sont parfaitement traitées par les SaaS du marché qui s'appuient sur GPT, Claude, Gemini ou Mistral. Builder un wrapper maison n'apporte rien, sinon de la dette technique.</p>
+      </div>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>Tu as besoin d'un ROI rapide avec un modèle économique éprouvé</h3>
+        <p>Les SaaS leaders (HubSpot, Salesforce, Pennylane, Sellsy) ont des centaines de milliers d'utilisateurs payants. Le modèle marche. Si tu cherches un ROI à 6 mois, tu ne le trouveras pas sur un build. Tu le trouveras sur un déploiement SaaS bien cadré.</p>
+      </div>
+
+      <div class="scenario-card buy">
+        <span class="scenario-card-label">✓ BUY</span>
+        <h3>La conformité réglementaire est externalisée</h3>
+        <p>Pour la facturation électronique 2026, tu dois passer par une <strong>Plateforme Agréée DGFiP</strong> (PA, ex-PDP) ou une plateforme interopérable. <strong>120 PA ont été immatriculées en avril 2026</strong> (<a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">economie.gouv.fr</a>). Faire développer une PA agréée maison est hors de portée d'une PME. Sur ce sujet, c'est SaaS, sans débat.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">4</div>
+        <h2 class="module-section-title">Quand BUILD redevient pertinent (avec IA-assisted dev)</h2>
+      </div>
+
+      <p>Cinq situations où la nouvelle génération d'outils de développement IA-assisté change l'arbitrage :</p>
+
+      <div class="scenario-card build">
+        <span class="scenario-card-label">⚙ BUILD</span>
+        <h3>L'IA façonne ton positionnement compétitif</h3>
+        <p>Tu as un savoir-faire propre que personne d'autre n'a (un workflow industriel, une méthode commerciale, un patrimoine documentaire). Un SaaS standard ne sait pas le modéliser. Un workflow IA spécifique devient ton avantage. Cf. le <a href="../modules/cu-008-knowledge-base-rag.html">CU-008 RAG documentaire</a> et le pattern AMETRA cité en v3.4.</p>
+      </div>
+
+      <div class="scenario-card build">
+        <span class="scenario-card-label">⚙ BUILD</span>
+        <h3>Aucun SaaS du marché ne couvre ton workflow</h3>
+        <p>Tu as cherché et le SaaS n'existe pas — ou il existe mais à 80 % seulement, et les 20 % manquants sont précisément le cœur de ton process. Faire développer une micro-application métier IA-assistée (~6-10 semaines pour un POC, 4-7 mois pour une prod) devient une option crédible.</p>
+      </div>
+
+      <div class="scenario-card build">
+        <span class="scenario-card-label">⚙ BUILD</span>
+        <h3>Le volume utilisateurs justifie l'amortissement</h3>
+        <p>Calcul typique : un SaaS à 50 €/mois × 30 utilisateurs × 5 ans = <strong>90 000 €</strong>. Un build IA-assisté pour le même besoin : 40-80 K€ initial + 20-30 %/an de maintenance, soit ~70-130 K€ sur 5 ans. À volume élevé, le build devient compétitif — et tu gardes la main sur le produit.</p>
+      </div>
+
+      <div class="scenario-card build">
+        <span class="scenario-card-label">⚙ BUILD</span>
+        <h3>Tu es enfermé chez un fournisseur SaaS qui augmente ses prix</h3>
+        <p>Si ton SaaS critique a doublé son tarif en 2 ans et que ta dépendance est forte (lock-in données, formation des équipes), un build de remplacement IA-assisté retrouve un sens. C'est un sujet de souveraineté technique, plus seulement financier.</p>
+      </div>
+
+      <div class="scenario-card build">
+        <span class="scenario-card-label">⚙ BUILD</span>
+        <h3>Tu as accès à des compétences IA-natives</h3>
+        <p>Tu connais un dev qui maîtrise Cursor / Claude Code / Windsurf, ou tu as identifié un prestataire IA-natif sérieux (sécurité, RGPD, monitoring intégrés). Le coût d'entrée d'un build est descendu suffisamment pour que ce soit envisageable. Cf. le <a href="../modules/cu-027-dev-applicatif-ia.html">CU-027 Développement applicatif IA-assisté</a>.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">5</div>
+        <h2 class="module-section-title">Le pattern dominant 2026 — l'approche hybride</h2>
+      </div>
+
+      <p>Le bon réflexe en 2026 n'est ni « 100 % SaaS » ni « 100 % build ». C'est <strong>l'hybride</strong>, et c'est ce qu'observent les études sur le terrain.</p>
+
+      <p>Le rapport Retool <em>Build vs Buy 2026</em> (817 clients interrogés) trouve que <strong>35 % ont remplacé au moins un SaaS par un build interne dans les 12 derniers mois</strong>, et <strong>78 % anticipent davantage de builds internes en 2026</strong> (<a href="https://retool.com/blog/ai-build-vs-buy-report-2026" target="_blank" rel="noopener">Retool</a>). Mais ces mêmes entreprises ne suppriment pas leurs SaaS centraux — elles ajoutent des couches custom là où ça crée de la valeur.</p>
+
+      <div class="scenario-card hybrid">
+        <span class="scenario-card-label">⚡ HYBRIDE</span>
+        <h3>Le pattern type</h3>
+        <ul>
+          <li><strong>SaaS pour les briques commodity</strong> : ERP/comptabilité (Pennylane, Sage), CRM standard (HubSpot, Sellsy), e-mailing (Brevo, Mailchimp), paie (Payfit), signature électronique (DocuSign, Yousign).</li>
+          <li><strong>Build léger IA-assisté pour les micro-applications métier</strong> : un workflow d'extraction RAG sur ta documentation interne, un agent de qualification des leads sur ton site, un tableau de bord de pilotage personnalisé qui agrège les API de tes SaaS.</li>
+          <li><strong>Intégrations IA pour faire tenir le tout</strong> : Make, Zapier, n8n IA-augmentés. Ce ne sont ni des SaaS purs ni des builds — ce sont des couches de composition.</li>
+        </ul>
+      </div>
+
+      <p>Le résultat : tu as la fiabilité et la conformité d'un SaaS leader sur 80 % de ton SI, et la différenciation d'un build sur les 20 % qui font ton avantage compétitif.</p>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">6</div>
+        <h2 class="module-section-title">Matrice de décision en 6 critères</h2>
+      </div>
+
+      <p>Applique cette grille à ton cas concret. Si tu coches majoritairement la colonne BUY, achète. Majoritairement BUILD, fais développer (avec gouvernance — voir section 7). Mix : pars sur de l'hybride.</p>
+
+      <div class="decision-matrix">
+        <table>
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>Question à te poser</th>
+              <th>BUY si…</th>
+              <th>BUILD si…</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Différenciation</strong></td>
+              <td>Le process est-il un avantage compétitif ?</td>
+              <td class="crit-buy">Process commodity (compta, paie, e-mailing)</td>
+              <td class="crit-build">Process différenciant (workflow propre, savoir-faire)</td>
+            </tr>
+            <tr>
+              <td><strong>2. Volume</strong></td>
+              <td>Combien d'utilisateurs sur 5 ans ?</td>
+              <td class="crit-buy">&lt; 20 utilisateurs ou usage occasionnel</td>
+              <td class="crit-build">&gt; 50 utilisateurs ou volume élevé</td>
+            </tr>
+            <tr>
+              <td><strong>3. Évolutivité</strong></td>
+              <td>Tes besoins évoluent-ils vite ?</td>
+              <td class="crit-buy">Besoin stable, évolution lente</td>
+              <td class="crit-build">Besoin évolutif, custom requis chaque trimestre</td>
+            </tr>
+            <tr>
+              <td><strong>4. Budget</strong></td>
+              <td>Quel TCO sur 5 ans ?</td>
+              <td class="crit-buy">SaaS 50-200 €/mois suffit, ROI 6 mois</td>
+              <td class="crit-build">Budget initial 40-100 K€ + 20 %/an OK</td>
+            </tr>
+            <tr>
+              <td><strong>5. Compétences</strong></td>
+              <td>As-tu des ressources IT internes ou prestataire fiable ?</td>
+              <td class="crit-buy">Pas d'équipe IT, pas de prestataire IA identifié</td>
+              <td class="crit-build">Équipe IT en place ou prestataire IA-natif accessible</td>
+            </tr>
+            <tr>
+              <td><strong>6. Délai</strong></td>
+              <td>Quand as-tu besoin que ça marche ?</td>
+              <td class="crit-buy">Besoin sous 1-2 mois</td>
+              <td class="crit-build">3-9 mois acceptables, valeur long terme</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Règle pratique :</strong> 4 BUY sur 6 ou plus → SaaS. 4 BUILD sur 6 ou plus → développement IA-assisté avec gouvernance. Mix → hybride (le SaaS pour la base + un build léger sur la zone différenciante).</p>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">7</div>
+        <h2 class="module-section-title">Sept écueils à éviter</h2>
+      </div>
+
+      <div class="pitfall-list">
+        <ol>
+          <li><strong>Sous-estimer la maintenance d'un build.</strong> Un build n'est jamais « fini » : monitoring, mise à jour, sécurité, mise en conformité (RGPD, AI Act, facturation électronique). Coût récurrent <strong>20-30 %/an</strong> du coût initial. Budgète-le, ou tu paieras la dette technique deux ans plus tard.</li>
+          <li><strong>Sur-estimer les compétences internes.</strong> Beaucoup de PME pensent pouvoir « former leur stagiaire à Cursor » et obtenir une app prod. La réalité de la mise en prod (CI/CD, sécurité, RGPD, monitoring) requiert un profil dev senior. Pas de raccourci.</li>
+          <li><strong>Confondre démo et production.</strong> Lovable génère un MVP en 25 minutes. Cela ne veut pas dire que tu as un produit livrable. Le « ça marche sur ma machine » est une étape, pas un livrable client. Cf. l'incident <a href="../modules/cu-027-dev-applicatif-ia.html#tea-app">Tea App de juillet 2025</a>.</li>
+          <li><strong>Sous-estimer la dette technique.</strong> Études GitClear / arxiv 2025 sur 211 millions de lignes de code IA-assisté : <strong>8 fois plus de duplications</strong>, <strong>-40 % de refactoring</strong>. Le code marche aujourd'hui, il sera ingérable dans 18 mois sans gouvernance.</li>
+          <li><strong>Choisir SaaS par défaut sans calcul TCO.</strong> Un SaaS à 50 €/mois × 10 utilisateurs × 5 ans = <strong>30 K€</strong> + dépendance + paramétrage. Un build IA-assisté peut concurrencer. Fais le calcul total cost of ownership avant de signer 5 ans de SaaS.</li>
+          <li><strong>Choisir Build sans gouvernance.</strong> Le 95 % d'échec MIT NANDA s'explique largement par l'absence de revue, de redesign de workflow, de pilotage métier. Si tu pars sur un build sans nommer un PO interne et sans cadrer les KPI métier, tu vas dans les 95 %.</li>
+          <li><strong>Ignorer le « workflow redesign ».</strong> McKinsey le martèle : c'est le seul critère le plus corrélé à l'EBIT-impact, mais <strong>21 % seulement</strong> des organisations IA ont redesigné leurs workflows. Sans redesign, tu numérises l'inefficacité.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-8">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">8</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+      </div>
+
+      <h3>8.1 Modules CU à consulter ensuite</h3>
+      <ul>
+        <li><a href="../modules/cu-027-dev-applicatif-ia.html">CU-027 — Développement applicatif métier IA-assisté</a> : si tu pars sur un build, ce module détaille comment piloter sans être IT.</li>
+        <li><a href="../modules/cu-023-devis-intelligent.html">CU-023 — Génération de devis intelligente</a> : exemple de cas où SaaS standard suffit la plupart du temps.</li>
+        <li><a href="../modules/cu-024-order-to-cash.html">CU-024 — Order-to-cash automation</a> : exemple de cas où le SaaS PA agréée DGFiP est obligatoire (facturation électronique 2026).</li>
+        <li><a href="../modules/cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> : exemple de cas où le build IA-assisté redevient pertinent (savoir-faire propre).</li>
+      </ul>
+
+      <h3>8.2 Préalables associés</h3>
+      <ul>
+        <li><a href="pr-01-maturite-organisationnelle.html">PR-01 — Maturité organisationnelle</a> : avant tout build, vérifie que ton organisation est prête (gouvernance, KPI, PO interne).</li>
+        <li><a href="pr-02-preables-data-si.html">PR-02 — Préalables data &amp; SI</a> : avant tout build IA, vérifie que ta donnée est exploitable.</li>
+        <li><a href="pr-06-qualite-code-ia.html">PR-06 — Qualité du code généré par IA</a> : si tu pars sur un build, lis ce préalable avant de signer un devis avec un prestataire.</li>
+        <li><a href="../architectures.html">Architectures de déploiement</a> : SaaS managé, cloud souverain, on-premise — ce préalable se prolonge dans le choix d'architecture.</li>
+      </ul>
+
+      <h3>8.3 Sources principales</h3>
+      <ul>
+        <li><a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/" target="_blank" rel="noopener">MIT NANDA — State of AI in Business 2025</a> (relayé Fortune)</li>
+        <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The state of AI 2025</a></li>
+        <li><a href="https://retool.com/blog/ai-build-vs-buy-report-2026" target="_blank" rel="noopener">Retool — Build vs Buy 2026 report</a> (817 clients)</li>
+        <li><a href="https://lelab.bpifrance.fr/Etudes/les-entreprises-francaises-et-l-ia-l-aube-d-une-revolution" target="_blank" rel="noopener">Bpifrance Le Lab — IA dans les PME et ETI françaises</a> (juin 2025)</li>
+        <li><a href="https://www.pwc.com/gx/en/issues/artificial-intelligence/job-barometer/2025/report.pdf" target="_blank" rel="noopener">PwC AI Jobs Barometer 2025</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">🧭</span>
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
