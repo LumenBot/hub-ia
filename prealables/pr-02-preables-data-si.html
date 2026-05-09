@@ -85,7 +85,7 @@
             <div class="exec-takeaway">
               <div class="exec-takeaway-icon">🔌</div>
               <div class="exec-takeaway-content">
-                <strong>APIs ouvertes.</strong> Sans API exploitable sur l'ERP, le CRM, les outils métier, l'IA ne peut pas agir — elle peut au mieux générer du texte. Les agents IA modernes (CU-013, CU-014) reposent tous sur cette couche.
+                <strong>APIs ouvertes.</strong> Sans API exploitable sur l'ERP, le CRM, les outils métier, l'IA ne peut pas agir — elle peut au mieux générer du texte. Les agents IA modernes (workflows email-CRM, multi-agents) reposent tous sur cette couche.
               </div>
             </div>
             <div class="exec-takeaway">
@@ -132,7 +132,7 @@
         </div>
 
         <p>
-          La conséquence opérationnelle est claire : <strong>avant de te lancer dans un cas d'usage IA</strong> (CU-001 à CU-022), <strong>fais un audit data &amp; SI</strong>. Si l'audit révèle des trous structurels, traite-les d'abord — c'est plus court et moins coûteux que de tenter un projet IA voué à l'échec sur des fondations fragiles.
+          La conséquence opérationnelle est claire : <strong>avant de te lancer dans un cas d'usage IA</strong> (l'ensemble des cas d'usage), <strong>fais un audit data &amp; SI</strong>. Si l'audit révèle des trous structurels, traite-les d'abord — c'est plus court et moins coûteux que de tenter un projet IA voué à l'échec sur des fondations fragiles.
         </p>
 
         <p>
@@ -368,7 +368,7 @@
           Si ton audit ressort majoritairement Oui (≥ 8 critères Oui sur 12), tu peux <strong>lancer un projet IA structurant immédiatement</strong>. Le SI est prêt à accueillir une couche agentique sans refonte majeure. C'est typiquement le cas des PME / ETI qui ont migré sur des SaaS modernes ces 3-5 dernières années (Pennylane, HubSpot, Notion, n8n, Slack).
         </p>
         <p>
-          Plan d'action : choisir un cas d'usage cadré (cf. les <a href="../index.html#modules" class="tool-link">22 modules CU</a>), formaliser le mandat exécutif (cf. <a href="pr-01-maturite-organisationnelle.html" class="tool-link">PR-01</a>), déployer en 6-12 semaines avec un fournisseur souverain (Mistral, Lucie, Pleias-RAG, etc.), mesurer le ROI, étendre.
+          Plan d'action : choisir un cas d'usage cadré (cf. les <a href="../index.html#modules" class="tool-link">22 modules cas d'usage</a>), formaliser le mandat exécutif (cf. <a href="pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>), déployer en 6-12 semaines avec un fournisseur souverain (Mistral, Lucie, Pleias-RAG, etc.), mesurer le ROI, étendre.
         </p>
 
         <h3>Stratégie 2 — Brownfield IA progressif sur SI legacy</h3>
@@ -376,7 +376,7 @@
           Si ton audit ressort majoritairement Non ou Partiel sur les bloquants (3+ Non sur B1-B6), <strong>traiter d'abord les fondations</strong> avant de viser l'IA structurante. Plan d'action : audit complet par le DSI / prestataire, plan de remédiation sur 3-6 mois (migration outils legacy, ouverture APIs, nettoyage données), puis projet IA cadré.
         </p>
         <p>
-          Pendant la phase de remédiation, possibilité de lancer des cas d'usage IA <strong>légers et périphériques</strong> qui n'attaquent pas le cœur du SI : assistant rédactionnel personnel (CU-002), recherche augmentée (CU-001), CR de réunion (CU-003), traduction (CU-004). Ces cas d'usage produisent de la valeur sans dépendre d'intégrations SI complexes.
+          Pendant la phase de remédiation, possibilité de lancer des cas d'usage IA <strong>légers et périphériques</strong> qui n'attaquent pas le cœur du SI : assistant rédactionnel personnel (cf. Assistant rédactionnel), recherche augmentée (cf. Recherche &amp; veille), CR de réunion (cf. CR de réunion), traduction (cf. Traduction). Ces cas d'usage produisent de la valeur sans dépendre d'intégrations SI complexes.
         </p>
 
         <h3>Le piège à éviter : la stratégie « grand soir »</h3>
@@ -495,10 +495,10 @@
       let verdict, msg;
       if (blockerNon >= 3) {
         verdict = '🛑 NO-GO — fondations à remédier d\'abord';
-        msg = `${blockerNon} critères bloquants non satisfaits. Lancer un projet IA significatif sans ces fondations = échec quasi garanti. Plan recommandé : audit complet DSI + plan remédiation 3-6 mois (migration legacy, ouverture APIs, nettoyage données), puis projet IA cadré. En attendant : démarrer par des cas d'usage légers et périphériques (CU-001 à CU-004).`;
+        msg = `${blockerNon} critères bloquants non satisfaits. Lancer un projet IA significatif sans ces fondations = échec quasi garanti. Plan recommandé : audit complet DSI + plan remédiation 3-6 mois (migration legacy, ouverture APIs, nettoyage données), puis projet IA cadré. En attendant : démarrer par des cas d'usage légers et périphériques (les modules d'initiation).`;
       } else if (oui >= 8) {
         verdict = '✅ GO — SI prêt pour un projet IA structurant';
-        msg = 'Tu peux lancer immédiatement un cas d\'usage IA significatif (CU-008, CU-013, CU-014 ou autre selon ton angle métier). Stratégie greenfield IA-first applicable. Mandat exécutif (cf. Maturité organisationnelle) + plan déploiement 6-12 semaines.';
+        msg = 'Tu peux lancer immédiatement un cas d\'usage IA significatif (knowledge base RAG, workflow email-CRM, multi-agents ou autre selon ton angle métier). Stratégie greenfield IA-first applicable. Mandat exécutif (cf. Maturité organisationnelle) + plan déploiement 6-12 semaines.';
       } else {
         verdict = '⚠️ À MÛRIR — pilote ciblé possible avec remédiations parallèles';
         msg = 'Les bloquants sont couverts mais la maturité globale reste perfectible. Lancer un pilote sur 1 cas d\'usage périphérique (faible dépendance SI) tout en sécurisant les critères qualité (Q1-Q6). Étendre ensuite une fois les remédiations effectuées.';
