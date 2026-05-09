@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Développement applicatif métier IA-assisté — Hub IA Learning Center</title>
+  <meta name="description" content="Comment faire développer une application métier sur mesure quand on est dirigeant PME non-IT. Panorama des outils 2026, écueils sécurité, cadre juridique, checklist prestataire.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    .arch-callout {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-left: 4px solid #1e3a8a;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .arch-callout-icon { font-size: 1.5rem; }
+    .tool-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .tool-table th {
+      background: #1e3a8a;
+      color: white;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .tool-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    .tool-table tr:nth-child(even) { background: #f8fafc; }
+    .alert-block {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+    }
+    .alert-block h3 { color: #991b1b; margin-top: 0; }
+    .incident-card {
+      background: #fff7ed;
+      border: 2px solid #fb923c;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 12px;
+    }
+    .incident-card-label {
+      display: inline-block;
+      background: #ea580c;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .checklist-block {
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    .checklist-block h3 { color: #065f46; margin-top: 0; }
+    .checklist-block ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist-block ul li {
+      padding-left: 2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .checklist-block ul li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .legal-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 1.25rem;
+      border-radius: 8px;
+    }
+    .legal-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .legal-card h4 { margin: 0 0 0.5rem; color: #1e3a8a; }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link nav-link-active">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
+      <div class="module-badges">
+        <span class="card-badge">⚡ Étude de cas + checklist</span>
+        <a href="../index.html?niveau=n4#modules" class="card-badge n4" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐⭐ Niveau 4 — Expert</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+      </div>
+      <h1>Développement applicatif métier IA-assisté</h1>
+      <p class="module-subtitle">L'IA générative a fait basculer le rapport de force entre la PME et le développement logiciel. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines avec Cursor, Claude Code, Lovable ou Windsurf. Mais 45 % du code généré par IA contient des failles. Voici comment piloter sans être IT, et sans finir comme Tea App en juillet 2025.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>Pourquoi cette page ?</h2>
+        <p>Tu es dirigeant d'une PME ou d'une ETI. Tu n'es pas développeur. Tu as identifié un besoin que les SaaS du marché ne couvrent pas : un workflow propre, une intégration spécifique, une micro-application métier. Jusqu'ici, faire développer demandait <strong>40-100 K€</strong> et <strong>6-12 mois</strong> via une ESN. La nouvelle génération d'outils de développement IA-assisté (Cursor, Claude Code, Lovable, Bolt, Windsurf, Replit Agent) change la donne — un POC sort en <strong>6-10 semaines</strong>, une app production-ready en <strong>4-7 mois</strong>. Mais un dirigeant non-IT qui se lance sans cadrage va droit dans le mur.</p>
+        <p>Cette page te donne le panorama des outils 2026, le cadre juridique synthétisé, les écueils documentés, et la checklist sécurité minimale à exiger d'un prestataire vibe coding.</p>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🚀</div>
+            <div class="exec-takeaway-content">
+              <strong>Le seuil d'entrée s'est effondré, mais reste exigeant.</strong> Délai POC : 6-10 semaines. Délai prod : 4-7 mois. Coût initial typique : 30-80 K€ pour un prestataire IA-natif (vs 80-200 K€ ESN classique). Maintenance récurrente : 20-30 %/an.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🔓</div>
+            <div class="exec-takeaway-content">
+              <strong>45 % du code généré par IA contient des failles de sécurité.</strong> Cloud Security Alliance, 2025, sur 100 LLM testés et 80 tâches. Sans relecture humaine et tests automatisés, tu déploies du code troué. Le cas Tea App (juillet 2025, 72 000 photos d'identité fuitées) illustre ce que ça donne.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">📋</div>
+            <div class="exec-takeaway-content">
+              <strong>Ton rôle n'est pas de coder, c'est de piloter.</strong> Cadrer le besoin métier, choisir un prestataire IA-natif sérieux, exiger une checklist sécurité, valider les livrables, planifier la maintenance. Si tu te concentres sur ces 5 points, tu mets ton projet dans les 5 % qui réussissent.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">⚖️</div>
+            <div class="exec-takeaway-content">
+              <strong>Trois cadres juridiques à connaître.</strong> Propriété intellectuelle du code (le droit d'auteur reste réservé à l'humain), RGPD (l'éditeur LLM est sous-traitant), AI Act (haut-risque dès août 2026 si scoring/RH/recouvrement). Une page synthétique en bas du module.
+            </div>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">-55 %</div>
+            <div class="exec-stat-label">Temps de tâche dev avec GitHub Copilot (GitHub Research)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">45 %</div>
+            <div class="exec-stat-label">Code IA-généré contenant des failles (Cloud Security Alliance 2025)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">8×</div>
+            <div class="exec-stat-label">Plus de duplications dans le code IA (GitClear, 211M lignes)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">72 000</div>
+            <div class="exec-stat-label">Pièces d'identité fuitées (Tea App, juillet 2025)</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand ce module est utile :</strong> tu as fait le diagnostic <a href="../prealables/pr-07-build-vs-buy.html">build vs buy</a> et tu pars sur un build. Tu cherches un prestataire ou tu veux cadrer un dev IA-assisté en interne. Tu veux comprendre les écueils avant de signer.
+        </div>
+      </div>
+    </section>
+
+    <div class="arch-callout">
+      <span class="arch-callout-icon">⚙️</span>
+      <div>
+        <strong>Architecture recommandée :</strong> A2 (propriétaire managé EU) ou A3 (open-source cloud souverain) selon la sensibilité de ta donnée. A4 (on-premise) si données très sensibles.<br>
+        <small>Voir <a href="../architectures.html">les 4 patterns d'architecture</a> et le <a href="../architectures.html#decision">tableau de décision</a>.</small>
+      </div>
+    </div>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Le panorama des outils en 2026</h2>
+      </div>
+
+      <p>Le marché s'est structuré en 2025-2026 autour de 3 catégories d'outils. Comprendre laquelle correspond à ton besoin t'évite de te perdre dans le marketing des éditeurs.</p>
+
+      <h3>1.1 Trois catégories d'outils — quel usage pour qui</h3>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Outil</th>
+            <th>Catégorie</th>
+            <th>Usage cible PME</th>
+            <th>Maturité prod</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lovable</strong></td>
+            <td>App builder no-code IA</td>
+            <td>Dirigeant non-IT validant une idée par MVP rapide</td>
+            <td>Démo / POC</td>
+          </tr>
+          <tr>
+            <td><strong>Bolt.new</strong></td>
+            <td>Prototype démo, frontend-first</td>
+            <td>Démo client / pitch investisseur</td>
+            <td>Démo</td>
+          </tr>
+          <tr>
+            <td><strong>v0 (Vercel)</strong></td>
+            <td>UI generation, Next.js natif</td>
+            <td>Pages marketing, interfaces ciblées</td>
+            <td>Démo / Production light</td>
+          </tr>
+          <tr>
+            <td><strong>Replit Agent</strong></td>
+            <td>Cloud + déploiement intégré</td>
+            <td>App web complète sans setup serveur</td>
+            <td>Démo / POC</td>
+          </tr>
+          <tr>
+            <td><strong>Cursor</strong></td>
+            <td>Éditeur IDE IA (fork VS Code)</td>
+            <td>Prestataire ou dev senior interne</td>
+            <td>Production</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Code</strong></td>
+            <td>Agent CLI sur codebase</td>
+            <td>Refactoring massif, audit sur projet existant</td>
+            <td>Production</td>
+          </tr>
+          <tr>
+            <td><strong>Windsurf</strong></td>
+            <td>IDE agentique production</td>
+            <td>Code « shippable » avec tests intégrés</td>
+            <td>Production</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Comparatif benchmark Aqua Voice / DEV.to 2025-2026 : pour la <strong>production-ready</strong>, Windsurf (8,5/10) &gt; Cursor (7,5/10) &gt; Replit (7/10). Pour la <strong>vitesse de prototype</strong>, Replit ~45 min, Windsurf ~65 min vers prototype fonctionnel. Pour la <strong>sécurité</strong>, GitHub Copilot a été le seul outil ayant produit <strong>0 issue de sécurité</strong> dans le benchmark (style génératif conservateur).</p>
+
+      <h3>1.2 Ce que tu dois retenir comme dirigeant non-IT</h3>
+      <p>Tu n'as pas à choisir l'outil — tu as à choisir un <strong>prestataire qui maîtrise un de ces outils</strong>. Mais tu dois savoir poser les bonnes questions :</p>
+      <ul>
+        <li>« Tu utilises quoi pour générer le code ? » — la réponse doit nommer un outil de cette liste, et idéalement <strong>Cursor, Claude Code ou Windsurf</strong> pour de la production.</li>
+        <li>« Tu utilises Lovable / Bolt pour la prod ou pour le POC ? » — si la réponse est « pour la prod », fuir.</li>
+        <li>« Tu fais quoi pour garantir la sécurité du code généré ? » — la réponse doit mentionner relecture humaine, tests automatisés, scan de sécurité (Snyk, Semgrep), pas juste « ça marche ».</li>
+      </ul>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">2</div>
+        <h2 class="module-section-title">L'incident emblématique — Tea App, juillet 2025</h2>
+      </div>
+
+      <div class="incident-card" id="tea-app">
+        <span class="incident-card-label">Cas pédagogique</span>
+        <h3>Tea App — 72 000 pièces d'identité fuitées en 24 heures</h3>
+        <p>Tea était une application de dating « women-only » américaine, sortie en 2025, lancée à grand renfort de communication marketing. En juillet 2025, ~<strong>72 000 photos d'identité</strong> (selfies + permis de conduire) de ses utilisatrices ont été exposées publiquement. Tous les utilisateurs pouvaient télécharger les chats privés des autres via la clé API exposée dans le code client.</p>
+
+        <p><strong>Cause directe identifiée par les analyses post-mortem :</strong></p>
+        <ul>
+          <li>Base <strong>Firebase ouverte sans authentification</strong> — paramétrage par défaut laissé en place.</li>
+          <li>Code généré par IA <strong>déployé sans revue humaine</strong> ni audit de sécurité.</li>
+          <li>Données conservées <strong>au-delà de la promesse marketing</strong> de suppression immédiate.</li>
+          <li>Clé API exposée côté client (« hardcodée » dans le bundle JavaScript).</li>
+        </ul>
+
+        <p><strong>Ce que ça t'apprend :</strong> le code IA-généré ne pose pas seul une question de qualité technique — il pose une question de <strong>gouvernance produit</strong>. Sans relecture, sans audit, sans test, ce que tu obtiens est une démo, pas un produit. Tea avait des utilisateurs, du financement, du marketing — et zéro cadre de sécurité. Si tu fais développer une app métier qui collecte de la donnée client, applique systématiquement la checklist en section 4.</p>
+
+        <p><strong>Sources :</strong> <a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks blog</a> · <a href="https://hackread.com/tea-app-breach-women-dating-platform-user-images-leak/" target="_blank" rel="noopener">Hackread</a> · <a href="https://www.ainvest.com/news/tea-app-data-breach-exposes-72-000-users-ai-generated-code-security-lapse-2507/" target="_blank" rel="noopener">ainvest</a></p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">3</div>
+        <h2 class="module-section-title">Six écueils typiques à connaître</h2>
+      </div>
+
+      <p>Les chiffres ci-dessous viennent d'études indépendantes 2025 sur le code IA-généré à grande échelle. Ils ne sont pas marketing — ils sont mesurés.</p>
+
+      <div class="alert-block">
+        <h3>1. Sécurité — 45 % du code IA contient des failles</h3>
+        <p>Cloud Security Alliance, 2025, sur 100 LLM testés et 80 tâches : <strong>45 % des outputs contiennent des failles de sécurité</strong> (<a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">CSA Labs</a>). Les commits IA-assistés exposent des secrets à <strong>3,2 %</strong> vs 1,5 % pour le code humain.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>2. Dette technique — 8× plus de duplications</h3>
+        <p>Analyse GitClear sur 211 millions de lignes de code IA-assisté : <strong>8 fois plus de blocs dupliqués</strong> de 5+ lignes, <strong>-39,9 % de refactoring</strong>. Le code « marche » aujourd'hui, il sera ingérable dans 18 mois sans revue régulière.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>3. Dépendance modèle — un changement de version peut casser ton app</h3>
+        <p>Un changement de modèle (Claude 3.5 → Claude 4, GPT-4 → GPT-5) peut casser des comportements implicites de ton application. Si ton workflow IA dépend d'un prompt précis, tu dois versionner et tester à chaque mise à jour.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>4. Hallucinations dans le code — appels API inexistants</h3>
+        <p>Les LLM inventent régulièrement des fonctions, des bibliothèques, des signatures d'API qui n'existent pas. Sans relecture humaine ni exécution automatique, ces hallucinations passent en prod. C'est l'une des sources principales de bugs intermittents.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>5. Workslop appliqué au code</h3>
+        <p>Microsoft New Future of Work Report 2025 : <strong>40 % des collaborateurs subissent mensuellement</strong> du contenu IA « qui a l'air bon mais contient des erreurs », forçant des corrections. Appliqué au code, c'est encore plus piégeux : le code marche en démo, casse en prod.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>6. Compétences cachées sous-estimées</h3>
+        <p>« Faire coder par IA » ≠ « avoir une app en prod ». Il manque : déploiement (CI/CD), monitoring, RGPD, backup, gestion des secrets, observabilité, tests automatisés, mise à jour des dépendances. Un dirigeant non-IT qui pense pouvoir s'en passer va dans le mur.</p>
+      </div>
+
+      <p>Données complémentaires marquantes : sur <strong>5 600 apps « vibe-codées »</strong> publiquement scannées, <strong>2 000 vulnérabilités critiques</strong>, <strong>400 secrets exposés</strong>, <strong>175 cas de PII exposées</strong> (dossiers médicaux, paiements). Source : analyses 2025 multiples relayées par Cloud Security Alliance et ITPro.</p>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">4</div>
+        <h2 class="module-section-title">Checklist sécurité minimale à exiger d'un prestataire</h2>
+      </div>
+
+      <p>Avant de signer un devis avec un prestataire qui développe ton app en mode IA-assisté, exige par écrit (dans le contrat ou en annexe technique) ces 12 points minimum :</p>
+
+      <div class="checklist-block">
+        <h3>Checklist sécurité — 12 points contractuels</h3>
+        <ul>
+          <li><strong>Authentification</strong> par défaut sur toutes les routes (pas de Firebase ouvert, pas de bucket S3 public).</li>
+          <li><strong>Gestion des secrets</strong> : variables d'environnement, pas de clé API en dur dans le code client.</li>
+          <li><strong>Scan de sécurité automatisé</strong> à chaque commit (Snyk, Semgrep, Sonar ou équivalent).</li>
+          <li><strong>Tests automatisés</strong> : couverture minimale ≥ 60 % sur le code métier critique.</li>
+          <li><strong>Revue humaine</strong> systématique de tout code IA-généré avant merge — pas de « auto-merge ».</li>
+          <li><strong>RGPD</strong> : registre des traitements, consentement utilisateur, durée de conservation, suppression sur demande.</li>
+          <li><strong>Hébergement</strong> en Europe (idéalement souverain — voir <a href="../architectures.html">architectures</a>).</li>
+          <li><strong>Backup</strong> automatisé quotidien avec restauration testée trimestriellement.</li>
+          <li><strong>Monitoring</strong> et alertes sur erreurs en production (Sentry, Datadog ou équivalent).</li>
+          <li><strong>Documentation technique</strong> : README clair, schéma d'architecture, procédure de déploiement.</li>
+          <li><strong>Réversibilité</strong> : tu dois pouvoir récupérer ton code source et tes données à tout moment.</li>
+          <li><strong>Maintenance contractualisée</strong> : SLA, fréquence des mises à jour de dépendances, gestion des incidents.</li>
+        </ul>
+      </div>
+
+      <p>Si un prestataire refuse de s'engager sur ces 12 points, change de prestataire. Le marché est désormais assez large pour ne pas accepter de compromis sur la sécurité de base.</p>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">5</div>
+        <h2 class="module-section-title">Cadre juridique synthétisé</h2>
+      </div>
+
+      <div class="legal-grid">
+        <div class="legal-card">
+          <div class="legal-card-icon">©️</div>
+          <h4>Propriété intellectuelle</h4>
+          <p>Le <strong>droit d'auteur</strong> reste réservé à l'humain (US Copyright Office janvier 2025, position relayée en France par CMS Legal et Paris Place de Droit). Anthropic et OpenAI <strong>cèdent les droits</strong> sur les outputs au client (CGV commerciales). En droit français, le code créé par un salarié dans le cadre de son emploi appartient à l'employeur, IA-assisté ou non.</p>
+          <p><a href="https://droit.developpez.com/actu/382670/" target="_blank" rel="noopener">droit.developpez.com</a> · <a href="https://www.parisplacededroit.org/wp-content/uploads/2025/10/Livre-blanc-IA-sept-2025-V6-2.pdf" target="_blank" rel="noopener">Livre blanc Paris Place de Droit</a></p>
+        </div>
+
+        <div class="legal-card">
+          <div class="legal-card-icon">🛡️</div>
+          <h4>RGPD</h4>
+          <p>Si ton app traite des données personnelles, l'éditeur LLM (Anthropic, OpenAI, Mistral) est <strong>sous-traitant au sens RGPD</strong>. Anthropic a obtenu <strong>ISO 42001 en janvier 2026</strong>. Hébergement Europe (Frankfurt/Paris) possible depuis juin 2024 chez Anthropic. Inscris ces traitements à ton registre.</p>
+          <p><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — IA et RGPD</a></p>
+        </div>
+
+        <div class="legal-card">
+          <div class="legal-card-icon">⚖️</div>
+          <h4>AI Act</h4>
+          <p>Applicable aux systèmes <strong>haut-risque dès le 2 août 2026</strong>. Si ton app fait du scoring de candidats RH, du scoring de solvabilité client, ou de la prise de décision automatique sur des sujets sensibles, tu es classé haut-risque : CE marking obligatoire, documentation technique exhaustive, logs, supervision humaine permanente.</p>
+          <p><a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank" rel="noopener">CNIL — AI Act Q-R</a></p>
+        </div>
+
+        <div class="legal-card">
+          <div class="legal-card-icon">📜</div>
+          <h4>Contrat avec ton prestataire</h4>
+          <p>Trois clauses essentielles : <strong>cession des droits</strong> sur le code (et tous les artefacts), <strong>obligation de moyens sur la sécurité</strong> (référence à la checklist en section 4), <strong>réversibilité</strong> avec accès au code source à tout moment et à la fin du contrat. Sans ces 3 clauses, ne signe pas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">6</div>
+        <h2 class="module-section-title">Le bon mode de pilotage — 5 étapes</h2>
+      </div>
+
+      <p>Tu n'es pas développeur. Ton rôle est de <strong>cadrer et de valider</strong>. Voici la séquence type d'un projet PME bien piloté :</p>
+
+      <h3>Étape 1 — Cadrage métier (semaine 1-2)</h3>
+      <p>Tu définis le besoin métier en clair : qui va utiliser, pour quoi faire, quel KPI mesurable (gain de temps, gain de marge, taux de conversion). Pas de ligne de code écrite à ce stade. Si tu n'arrives pas à formuler le KPI, le projet n'est pas mûr.</p>
+
+      <h3>Étape 2 — Choix du prestataire (semaine 2-3)</h3>
+      <p>Sélectionne un prestataire IA-natif sérieux, vérifie ses références récentes (qui utilisent Cursor / Claude Code / Windsurf en prod), demande un cas équivalent au tien. Exige la checklist sécurité section 4 dans le devis. Compare 2-3 propositions.</p>
+
+      <h3>Étape 3 — POC sur 6-10 semaines</h3>
+      <p>Premier livrable : un POC fonctionnel. Pas un produit. Un POC sert à <strong>valider que la valeur métier est là</strong>, pas à mettre en prod. Si le POC ne valide pas le KPI, tu arrêtes — tu n'auras perdu que le coût du POC.</p>
+
+      <h3>Étape 4 — Industrialisation (mois 3-7)</h3>
+      <p>Si le POC valide la valeur, on industrialise : refactoring, sécurité, monitoring, déploiement, formation utilisateurs. Cette étape <strong>coûte 3 à 5 fois plus que le POC</strong>. C'est normal. Beaucoup de PME se cassent ici parce qu'elles pensaient avoir un produit avec le POC.</p>
+
+      <h3>Étape 5 — Maintenance et évolution (continu)</h3>
+      <p>Budget annuel récurrent : <strong>20-30 % du coût initial</strong> pour la maintenance, mises à jour de dépendances, conformité, évolutions fonctionnelles. Inscris-le au budget dès l'étape 1, sinon tu auras une mauvaise surprise au bout d'un an.</p>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">7</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+      </div>
+
+      <h3>7.1 Préalables associés</h3>
+      <ul>
+        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (à lire AVANT ce module si pas encore fait)</li>
+        <li><a href="../prealables/pr-06-qualite-code-ia.html">PR-06 — Qualité du code généré par IA</a> (les 7 alertes Toad et les garde-fous techniques)</li>
+        <li><a href="../prealables/pr-05-securite-ia.html">PR-05 — Sécurité IA</a> (cadre DGSI et checklist générale)</li>
+        <li><a href="../architectures.html">Architectures de déploiement</a> (4 patterns + hybride pour choisir où héberger ton app)</li>
+      </ul>
+
+      <h3>7.2 Modules CU complémentaires</h3>
+      <ul>
+        <li><a href="cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> (cas typique de build léger sur un savoir-faire propre)</li>
+        <li><a href="cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a> (architecture agentique avancée)</li>
+        <li><a href="cu-015-stripe-minions.html">CU-015 — Agents codeurs Stripe Minions</a> (le cas d'usage interne pour développeurs en place)</li>
+      </ul>
+
+      <h3>7.3 Sources principales</h3>
+      <ul>
+        <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">Cloud Security Alliance — Vibe Coding Security (2025)</a></li>
+        <li><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">GitHub Copilot productivity research</a></li>
+        <li><a href="https://arxiv.org/abs/2512.11922" target="_blank" rel="noopener">arxiv 2512.11922 — Vibe Coding in Practice</a></li>
+        <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a></li>
+        <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a></li>
+        <li><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — IA et RGPD</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

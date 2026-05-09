@@ -8,19 +8,19 @@ Site pédagogique sur les usages de l'IA et des agents IA en environnements mét
 
 Une base de référence opérationnelle, en accès libre, structurée en 4 niveaux complémentaires :
 
-- 🧱 **6 préalables** — qu'est-ce que je dois maîtriser avant de me lancer ? (`prealables.html`)
+- 🧱 **7 préalables** — qu'est-ce que je dois maîtriser avant de me lancer ? (`prealables.html`)
 - 🏗️ **4 patterns d'architecture + l'option hybride** — comment je déploie techniquement ? (`architectures.html`)
-- 🎯 **22 modules cas d'usage** — comment résoudre concrètement mon problème métier ? (`modules/`)
+- 🎯 **25 modules cas d'usage** — comment résoudre concrètement mon problème métier ? (`modules/`)
 - 🛠️ **83 fiches outils** — quel outil pour ma stack ? (`ressources.html`)
 
-Les 22 modules sont regroupés en **6 familles métier** sur la home (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) et étiquetés sur une **échelle de complexité 4 niveaux** (⭐ Initiation · ⭐⭐ Opérationnel · ⭐⭐⭐ Avancé · ⭐⭐⭐⭐ Expert).
+Les 25 modules sont regroupés en **6 familles métier** sur la home (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) et étiquetés sur une **échelle de complexité 4 niveaux** (⭐ Initiation · ⭐⭐ Opérationnel · ⭐⭐⭐ Avancé · ⭐⭐⭐⭐ Expert).
 
 ## Structure
 
 ```
 hub-ia/
 ├── index.html              ← landing page (4 niveaux + 6 familles métier)
-├── prealables.html         ← index des 6 préalables
+├── prealables.html         ← index des 7 préalables
 ├── prealables/             ← une page par préalable (pr-01 à pr-06)
 ├── architectures.html      ← 4 patterns + hybride + méthode de décision
 ├── modules/                ← une page par cas d'usage (cu-001 à cu-022)

@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.0 (mai 2026)
+**Version :** 1.1 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -34,20 +34,25 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 
 **Règle 1.2.1** — Chaque chiffre structurel du site (« 22 modules », « 6 préalables », « 76 fiches outils », nombre d'axes, etc.) doit être identique sur **toutes** les pages où il apparaît. Si un de ces nombres bouge, **tous** doivent bouger en même temps dans le même commit.
 
-**Règle 1.2.2** — Avant tout commit qui ajoute/retire un module, un préalable ou une fiche outil, exécuter une recherche cross-site sur l'ancien nombre et lister tous les hits à mettre à jour. Liste minimale à vérifier : `index.html`, `prealables.html`, `architectures.html`, `ressources.html`, `axes.html`, page À propos, footers de tous les modules CU et PR, méta-descriptions.
+**Règle 1.2.2** — Avant tout commit qui ajoute/retire un module, un préalable ou une fiche outil, exécuter une recherche cross-site sur l'ancien nombre et lister tous les hits à mettre à jour. Liste minimale à vérifier : `index.html` (meta, hero stats, filter count haut + bas, section À propos), `prealables.html` (meta, accroche, footer-cta), `architectures.html`, `ressources.html` (badge V·outils·catégories, accroche synthèse, exec-stats, intitulés des sections), `README.md`, footers de tous les modules CU et PR, méta-descriptions de toutes les pages.
 
 **Règle 1.2.3** — Glossaire des chiffres-clés à maintenir cohérent (à actualiser à chaque itération) :
 
-| Chiffre | Valeur courante (mai 2026) | Lieux d'apparition |
+| Chiffre | Valeur courante (mai 2026, v3.6) | Lieux d'apparition |
 |---|---|---|
-| Nombre de modules CU | 22 (CU-001 → CU-022) | home, page modules, à propos, méta |
-| Nombre de préalables PR | 6 (PR-01 → PR-06) | prealables.html, home, à propos |
-| Nombre de fiches outils | 76 | ressources.html, à propos, hero ressources |
-| Nombre d'axes pédagogiques | 6 (A à E + Architecture agentique) | axes.html, home |
+| Nombre de modules CU | 25 (CU-001 → CU-024 + CU-027 ; CU-025 et CU-026 réservés v3.7) | home, page modules, à propos, méta |
+| Nombre de préalables PR | 7 (PR-01 → PR-07) | prealables.html, home, à propos |
+| Nombre de fiches outils | 83 | ressources.html, à propos, hero ressources |
 | Nombre de patterns d'architecture | 4 + 1 hybride | architectures.html, à propos |
-| Nombre d'entrées nav | 6 (Préalables / Architectures / Modules / Ressources / Axes / À propos) | toutes pages |
+| Nombre d'entrées nav | 5 (Préalables / Architectures / Modules / Ressources / À propos) | toutes pages |
+| Nombre de familles métier (modules) | 6 (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) | home |
+| Échelle complexité | 4 niveaux (⭐ Initiation / ⭐⭐ Opérationnel / ⭐⭐⭐ Avancé / ⭐⭐⭐⭐ Expert) | home (filtre), badges modules |
 
-**Règle 1.2.4** — Les statistiques macro (95 % MIT, +270 % Microsoft, 76 % France Num, 94 % AdvisoryX, ×5 productivité PwC, 77 000 offres) sont synchronisées sur leurs lieux d'apparition (home + PR-01 + PR-02 + PR-04). Toute modification d'un chiffre macro déclenche une vérification cross-pages.
+**Règle 1.2.4** — Les statistiques macro (95 % MIT NANDA, +270 % Microsoft / Sigma, 76 % France Num, ×5 productivité PwC, 77 000 offres PwC, 3,7× IDC Copilot, consensus 70-95 % Gartner / McKinsey / Deloitte) sont synchronisées sur leurs lieux d'apparition (home + PR-01 + PR-02 + PR-04). Toute modification d'un chiffre macro déclenche une vérification cross-pages.
+
+**Règle 1.2.5** — **Cohérence intra-page des chiffres affichés**. Sur une même page, les chiffres déclarés doivent être cohérents entre eux. Ex : si l'accroche dit « catalogue étendu à 83 fiches en 14 catégories », la grille de stats juste en dessous ne peut pas afficher « 76 Deep-dives · 90+ Outils indexés · 13 Catégories ». Toute stat affichée doit être identique aux comptages réels (vérifier par grep le nombre d'éléments avant de figer une stat).
+
+**Règle 1.2.6** — **Pas de versioning interne sur le front**. Les mentions « V3.5 », « v3.6 », « itération v3.x » sont des conventions internes (commits, briefs, RULES). Elles **ne doivent jamais apparaître côté UX visible** (badges, accroches, descriptions). Le site est un produit publié, pas un changelog. Pour signaler une nouveauté côté front, préférer une formulation neutre : « catégorie récente », « nouveauté 2026 », ou pas de marqueur du tout. Le versioning reste dans `git log` et dans les briefs internes.
 
 ### 1.3 Niveau de langue & terminologie
 
@@ -77,7 +82,17 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 
 **Règle 1.3.5** — Les acronymes propres au réseau QFC / Quai Alpha (SUM, PM, Starter Class, Comité d'Engagement) sont à utiliser avec parcimonie sur le site public — il ne s'adresse pas aux porteurs de l'écosystème mais à des dirigeants externes.
 
-**Règle 1.3.6** — Pas de jargon de référencement éditorial visible côté UX. Les codes internes (`PR-01`, `CU-007`, `A1/A2/A3/A4`) **ne doivent pas apparaître dans les titres ou les cards visibles** (ils peuvent rester dans l'URL et les ancres). Seul le titre métier est visible en surface.
+**Règle 1.3.6** — Pas de jargon de référencement éditorial visible côté UX. Les codes internes (`PR-01`, `CU-007`) **ne doivent pas apparaître dans les titres, cards, badges ou corps de texte visibles** (ils peuvent rester dans l'URL et les ancres). Seul le titre métier est visible en surface.
+
+**Exception** : les codes `A1 / A2 / A3 / A4` sont les noms canoniques des patterns d'architecture (validés v3.5). Ils restent visibles sur `architectures.html` et dans les encarts d'architectures recommandées des modules sensibles. Cette exception ne s'étend à aucun autre code interne.
+
+**Règle 1.3.7** — **Pas d'introduction de nomenclatures internes non explicitées sur le front**. Toute échelle, codification ou taxonomie nouvelle visible côté UX doit être :
+- soit alignée sur les classifications existantes du site (ex : échelle de complexité ⭐ à ⭐⭐⭐⭐ déjà déployée sur les modules) ;
+- soit accompagnée d'une glose immédiate.
+
+Anti-exemple historique : le bloc « Maturité opérationnelle — N1-N3 quiz / N4-N6 pilote / N7-N8 mise à l'échelle » sur `ressources.html` (jargon non explicité, hors scope outils, désaligné de l'échelle ⭐ à ⭐⭐⭐⭐ utilisée sur les modules). Retiré en v3.6.
+
+**Règle 1.3.8** — **Toute légende de badge / nomenclature affichée doit refléter ce qui est réellement utilisé sur la page**. Si la légende décrit des badges « N1-N3 / N4-N6 / N7-N8 » mais que les fiches outils affichent des badges « Établi / Émergent / Early access », il y a incohérence à corriger.
 
 ### 1.4 Harmonisation visuelle cross-pages
 
@@ -204,6 +219,17 @@ Versionnage : on incrémente la version en tête de fichier (1.0 → 1.1 → 2.0
 ## 8. Contact & responsabilité
 
 Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.eu
-Dernière mise à jour : 9 mai 2026 (création v1.0)
+
+Historique :
+- **v1.0** — 9 mai 2026 : création.
+- **v1.1** — mai 2026, en complément de l'audit v3.5.3 et de l'itération v3.6 :
+  - Glossaire chiffres-clés (§ 1.2.3) actualisé : 25 modules / 7 préalables / 83 fiches / 5 entrées de nav (sans Axes) / 6 familles métier / échelle 4 étoiles.
+  - § 1.2.2 : liste des lieux d'apparition cross-site précisée (badge ressources, exec-stats, README, etc.).
+  - § 1.2.5 ajoutée : cohérence intra-page des chiffres affichés (anti-pattern : 76 deep-dives vs 83 fiches sur la même page).
+  - § 1.2.6 ajoutée : pas de versioning interne (V3.5, v3.6) sur le front.
+  - § 1.3.6 : exception A1-A4 formalisée (validée v3.5).
+  - § 1.3.7 ajoutée : pas d'introduction de nomenclatures internes non explicitées (anti-pattern : N1-N3/N4-N6/N7-N8).
+  - § 1.3.8 ajoutée : cohérence légende ↔ badges réellement utilisés.
+  - § 1.2.4 : suppression de la mention « 94 % AdvisoryX » (étude retirée v3.4) ; ajout du consensus 70-95 % et du 3,7× IDC.
 
 **Si tu lis ce fichier en tant que LLM / agent : ton rôle est de t'y conformer, pas de l'interpréter. En cas de doute, demande à Blaise avant de commit.**

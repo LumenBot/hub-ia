@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order-to-cash automation — Hub IA Learning Center</title>
+  <meta name="description" content="Automatiser le cycle complet devis → bon de commande → facturation → relance → encaissement → lettrage. Calendrier facturation électronique 2026, AI Act scoring client, DSO 65 jours en France.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    .arch-callout {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-left: 4px solid #1e3a8a;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .arch-callout-icon { font-size: 1.5rem; }
+    .timeline-block {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #f59e0b;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    .timeline-block h3 {
+      color: #92400e;
+      margin-top: 0;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .timeline-step {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 3px solid #f59e0b;
+    }
+    .timeline-step-date {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .pa-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .pa-table th {
+      background: #1e3a8a;
+      color: white;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .pa-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .pa-table tr:nth-child(even) { background: #f8fafc; }
+    .stage-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .stage-card-num {
+      display: inline-block;
+      background: #1e3a8a;
+      color: white;
+      font-weight: 700;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 32px;
+      margin-right: 0.75rem;
+    }
+    .stage-card h3 { display: inline; vertical-align: middle; }
+    .checklist-block {
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    .checklist-block h3 { color: #065f46; margin-top: 0; }
+    .checklist-block ul { list-style: none; padding-left: 0; }
+    .checklist-block ul li {
+      padding-left: 2rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .checklist-block ul li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .alert-block {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+    }
+    .alert-block h3 { color: #991b1b; margin-top: 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link nav-link-active">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
+      <div class="module-badges">
+        <span class="card-badge">📋 Étude de cas + checklist</span>
+        <a href="../index.html?niveau=n4#modules" class="card-badge n4" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐⭐ Niveau 4 — Expert</a>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">22 min de lecture</span>
+      </div>
+      <h1>Order-to-cash automation</h1>
+      <p class="module-subtitle">Le cycle complet — devis, bon de commande, facturation, relance, encaissement, lettrage — automatisé par IA. Le DSO moyen des PME/ETI françaises atteint 65 jours en 2025. La facturation électronique devient obligatoire en réception au 1<sup>er</sup> septembre 2026. Comment arbitrer maintenant.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>Pourquoi cette page ?</h2>
+        <p>L'order-to-cash (O2C) est la chaîne qui va du devis jusqu'à l'encaissement effectif. C'est le moteur de trésorerie d'une PME — et c'est aussi l'endroit où l'inefficacité coûte le plus cher. <strong>Le DSO moyen des PME/ETI françaises atteint 65 jours en 2025</strong> (Banque de France, juillet 2025), <strong>15 milliards d'euros de cash flow</strong> sont pénalisés chaque année par les retards de paiement. Trois chocs réglementaires en 2026 forcent à arbitrer maintenant : facturation électronique obligatoire en réception (1<sup>er</sup> sept. 2026), AI Act haut-risque sur scoring client (août 2026), DGCCRF qui durcit ses contrôles (+18,5 % d'anomalies détectées en 2024).</p>
+        <p>Cette page te donne la cartographie complète du cycle, les outils PA agréées DGFiP par segment, et la checklist projet pour passer à l'action.</p>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">📅</div>
+            <div class="exec-takeaway-content">
+              <strong>Calendrier réglementaire qui force la décision.</strong> Réception facture électronique obligatoire pour toutes les entreprises au <strong>1<sup>er</sup> sept. 2026</strong>. Émission obligatoire pour les PME/TPE au <strong>1<sup>er</sup> sept. 2027</strong>. 120 plateformes agréées DGFiP immatriculées en avril 2026. Tu dois choisir ta PA dans les 12 prochains mois.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">💰</div>
+            <div class="exec-takeaway-content">
+              <strong>Le ROI est documenté et substantiel.</strong> Sidetrade (leader européen O2C IA) revendique <strong>30-40 % de réduction du DSO excédentaire</strong> chez ses clients. Esker documente <strong>+35-50 % de productivité</strong> sur les opérations recouvrement. Pour une PME à 5 M€ de CA avec un DSO de 65 jours, gagner 10 jours = 140 K€ de trésorerie libérée.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">⚠️</div>
+            <div class="exec-takeaway-content">
+              <strong>L'AI Act bouleverse le scoring client.</strong> À partir du 2 août 2026, les systèmes de scoring de solvabilité sont classés <strong>haut-risque</strong> au sens AI Act : CE marking, documentation technique, supervision humaine permanente. Ton outil O2C doit être conforme — et ton prestataire ESN doit pouvoir te le prouver par écrit.
+            </div>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-icon">🎯</div>
+            <div class="exec-takeaway-content">
+              <strong>Sur ce sujet, c'est SaaS, pas Build.</strong> Une plateforme agréée DGFiP est hors de portée d'une PME. Le bon choix est un SaaS PA agréée (Pennylane, Sellsy, Axonaut, Esker, Sidetrade…) intégré à ton ERP. Voir le préalable <a href="../prealables/pr-07-build-vs-buy.html">build vs buy</a> pour comprendre pourquoi.
+            </div>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">65 jours</div>
+            <div class="exec-stat-label">DSO moyen PME/ETI françaises 2025 (Banque de France)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">15 Md€</div>
+            <div class="exec-stat-label">Cash flow PME pénalisé par retards de paiement</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">120</div>
+            <div class="exec-stat-label">Plateformes Agréées DGFiP en avril 2026</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">+18,5 %</div>
+            <div class="exec-stat-label">Anomalies détectées DGCCRF 2024 (contrôles délais)</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand ce module est utile :</strong> tu émets plus de 100 factures par mois, ton DSO est supérieur à 50 jours, tu n'as pas encore choisi ta plateforme agréée DGFiP pour la facturation électronique, ou tu cherches à fluidifier la chaîne devis → encaissement.
+        </div>
+      </div>
+    </section>
+
+    <div class="arch-callout">
+      <span class="arch-callout-icon">⚙️</span>
+      <div>
+        <strong>Architecture recommandée :</strong> A2 (propriétaire managé EU) — la quasi-totalité des plateformes agréées DGFiP sont des SaaS hébergés en Europe. A3 (open-source cloud souverain) envisageable pour ETI &gt; 50 M€ CA avec exigences renforcées.<br>
+        <small>Voir <a href="../architectures.html">les 4 patterns d'architecture</a> et le <a href="../architectures.html#decision">tableau de décision</a>.</small>
+      </div>
+    </div>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Le cycle order-to-cash en 6 étapes</h2>
+      </div>
+
+      <p>L'O2C couvre <strong>6 maillons de la chaîne commerciale et financière</strong>, de la sollicitation du client jusqu'à l'encaissement effectif et son enregistrement comptable. Chaque maillon a aujourd'hui une couche IA disponible.</p>
+
+      <div class="stage-card">
+        <span class="stage-card-num">1</span>
+        <h3>Devis</h3>
+        <p>Génération automatisée de propositions commerciales à partir d'un brief client, recommandation de prix, conditions générales actualisées. <em>Couvert par <a href="cu-023-devis-intelligent.html">CU-023 Devis intelligent</a>.</em></p>
+      </div>
+
+      <div class="stage-card">
+        <span class="stage-card-num">2</span>
+        <h3>Bon de commande / Validation</h3>
+        <p>Acceptation client (e-signature), conversion automatique du devis validé en bon de commande, déclenchement du workflow logistique ou de production si applicable.</p>
+      </div>
+
+      <div class="stage-card">
+        <span class="stage-card-num">3</span>
+        <h3>Facturation</h3>
+        <p>Émission de la facture (électronique au format Factur-X, UBL ou CII obligatoire à partir de sept. 2027 pour PME/TPE), envoi via PA agréée DGFiP, archivage à valeur probante. C'est ici que se concentre la <strong>contrainte réglementaire 2026-2027</strong>.</p>
+      </div>
+
+      <div class="stage-card">
+        <span class="stage-card-num">4</span>
+        <h3>Relance</h3>
+        <p>Détection automatique des retards, génération de relances graduées (rappel amical, mise en demeure, pré-contentieux), priorisation IA des dossiers selon scoring de risque. <strong>C'est l'étape où le ROI IA est le plus mesurable</strong> — Sidetrade revendique 30-40 % de DSO excédentaire en moins.</p>
+      </div>
+
+      <div class="stage-card">
+        <span class="stage-card-num">5</span>
+        <h3>Encaissement</h3>
+        <p>Réception des paiements, intégration des flux bancaires (DSP2, agrégation comptes), réconciliation automatique facture ↔ paiement.</p>
+      </div>
+
+      <div class="stage-card">
+        <span class="stage-card-num">6</span>
+        <h3>Lettrage comptable</h3>
+        <p>Apurement comptable des écritures, gestion des écarts (escompte, retard de paiement, avoirs), reporting trésorerie. Le lettrage IA gère les cas complexes (paiement partiel, paiement multi-factures, devises).</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">2</div>
+        <h2 class="module-section-title">Le calendrier réglementaire 2026-2027</h2>
+      </div>
+
+      <div class="timeline-block">
+        <h3>📅 Trois échéances qui forcent à arbitrer maintenant</h3>
+        <div class="timeline-grid">
+          <div class="timeline-step">
+            <div class="timeline-step-date">2 août 2026</div>
+            <strong>AI Act haut-risque</strong>
+            <p>Systèmes de scoring de solvabilité classés haut-risque : CE marking, documentation technique, supervision humaine.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-step-date">1<sup>er</sup> sept. 2026</div>
+            <strong>Réception obligatoire</strong>
+            <p>Toutes les entreprises doivent pouvoir <strong>recevoir</strong> des factures électroniques via une plateforme agréée DGFiP.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-step-date">1<sup>er</sup> sept. 2027</div>
+            <strong>Émission PME/TPE</strong>
+            <p>Les PME et TPE doivent <strong>émettre</strong> leurs factures B2B au format électronique structuré.</p>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-step-date">Continu</div>
+            <strong>Contrôles DGCCRF</strong>
+            <p>+18,5 % d'anomalies détectées en 2024 sur les délais de paiement (contrôles intensifiés).</p>
+          </div>
+        </div>
+      </div>
+
+      <p><strong>Source :</strong> <a href="https://www.urssaf.fr/accueil/actualites/facturation-electronique.html" target="_blank" rel="noopener">Urssaf — Facturation électronique 2026</a> · <a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">economie.gouv.fr — Liste des plateformes agréées</a> · <a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank" rel="noopener">CNIL — AI Act</a></p>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">3</div>
+        <h2 class="module-section-title">Choisir sa Plateforme Agréée DGFiP par segment</h2>
+      </div>
+
+      <p>120 plateformes agréées (PA, ex-PDP) ont été immatriculées par la DGFiP en avril 2026. Le coût médian observé est de <strong>17,99 €/mois</strong> sur 113 PA analysées. Voici une orientation par segment d'entreprise :</p>
+
+      <table class="pa-table">
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th>Outils orientés FR</th>
+            <th>Forces</th>
+            <th>Tarif indicatif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TPE / micro</strong></td>
+            <td>Tiime, Indy, Abby</td>
+            <td>Offres PA gratuites ou très bas coût, démarrage rapide</td>
+            <td>0-15 €/mois</td>
+          </tr>
+          <tr>
+            <td><strong>PME B2B (compta)</strong></td>
+            <td>Pennylane, Sellsy</td>
+            <td>OCR + IA réconciliation, intégration ERP, expert-comptable connecté</td>
+            <td>25-50 €/mois</td>
+          </tr>
+          <tr>
+            <td><strong>PME tout-en-un</strong></td>
+            <td>Axonaut</td>
+            <td>ERP/CRM/devis/compta, conçu en France (Toulouse), tout-en-un</td>
+            <td>~70 €/mois</td>
+          </tr>
+          <tr>
+            <td><strong>PME industriels / mid-market</strong></td>
+            <td>Esker, Sage Network</td>
+            <td>Suite S2P/O2C complète, multi-pays, gros volumes</td>
+            <td>Sur devis, généralement &gt; 500 €/mois</td>
+          </tr>
+          <tr>
+            <td><strong>ETI &gt; 50 M€ CA</strong></td>
+            <td>Sidetrade, Esker, Cegid, Sage X3</td>
+            <td>O2C IA-native (Sidetrade « Aimie »), multi-devises, scoring crédit avancé</td>
+            <td>Sur devis, projet 3-12 mois</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Critères de choix (au-delà du prix) :</strong> interopérabilité avec ton expert-comptable, intégration native avec ton ERP existant, qualité du support FR, profondeur fonctionnelle sur la relance et le lettrage automatique, conformité AI Act documentée.</p>
+
+      <p><strong>Source officielle :</strong> <a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">Liste DGFiP des plateformes agréées</a> (à consulter à jour).</p>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">4</div>
+        <h2 class="module-section-title">Pattern d'orchestration IA — exemple typique</h2>
+      </div>
+
+      <p>L'IA n'apporte pas la même valeur sur les 6 étapes du cycle. Voici les zones où elle change vraiment la donne, et celles où c'est marginal.</p>
+
+      <h3>4.1 Forte valeur IA — étapes 4 (relance) et 6 (lettrage)</h3>
+      <p>Sur la <strong>relance</strong> : un agent IA priorise les dossiers selon scoring de risque (probabilité de défaut, comportement de paiement historique, taille du compte, criticité commerciale), génère des messages graduellement plus fermes, ajuste le ton selon la relation. <strong>Gain typique : 30-40 % de DSO excédentaire en moins, 35-50 % de productivité opérationnelle</strong>.</p>
+
+      <p>Sur le <strong>lettrage</strong> : un agent IA gère les cas complexes que les règles classiques ratent — paiement partiel, paiement consolidé multi-factures, écart de quelques centimes (escompte, taxe), facture en devise étrangère. <strong>Gain typique : 60-80 % du lettrage en automatique, là où les règles classiques plafonnent à 30-40 %</strong>.</p>
+
+      <h3>4.2 Valeur IA modérée — étapes 1 (devis) et 3 (facturation)</h3>
+      <p>Sur le <strong>devis</strong>, l'IA aide à la rédaction et à la cohérence catalogue (voir <a href="cu-023-devis-intelligent.html">Génération de devis intelligente</a>) mais le différenciel concurrentiel reste sur la qualité commerciale humaine.</p>
+
+      <p>Sur la <strong>facturation</strong>, la contrainte est surtout réglementaire (PA agréée, format Factur-X). L'IA n'est pas le sujet — c'est la conformité.</p>
+
+      <h3>4.3 Valeur IA faible — étapes 2 (BC) et 5 (encaissement)</h3>
+      <p>Le bon de commande est principalement un workflow de signature et de validation. L'encaissement est un flux bancaire normalisé (DSP2). L'IA n'apporte pas de valeur structurante sur ces 2 étapes.</p>
+
+      <h3>4.4 La règle pratique pour ton arbitrage</h3>
+      <p>Si tu n'as ni le temps ni le budget pour tout faire en même temps, <strong>commence par le maillon 4 (relance)</strong>. C'est là que le ROI est le plus rapide et le plus mesurable. La plupart des SaaS leaders (Sidetrade, Esker, Aston AI) sont d'ailleurs nés sur ce maillon.</p>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">5</div>
+        <h2 class="module-section-title">Cinq écueils typiques</h2>
+      </div>
+
+      <div class="alert-block">
+        <h3>1. Intégration ERP existant — 30-50 % du coût total</h3>
+        <p>La majorité des PME ont un <strong>Sage / Cegid / Quadratus legacy</strong>. Le branchement O2C IA peut prendre <strong>3-6 mois</strong> et représenter 30-50 % du coût total du projet. Budgète-le dès le départ. Si ton SaaS cible n'a pas de connecteur natif vers ton ERP, change de cible.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>2. AI Act et scoring client — niveau de conformité à exiger</h3>
+        <p>À partir d'<strong>août 2026</strong>, les systèmes de scoring de solvabilité sont classés haut-risque au sens AI Act : CE marking, documentation technique exhaustive, logs, supervision humaine permanente. La <strong>CNIL est l'autorité de référence en France</strong>. Ton prestataire doit pouvoir te fournir la documentation de conformité — par écrit.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>3. Biais de scoring — risque de discrimination algorithmique</h3>
+        <p>Un scoring qui priorise systématiquement la relance sur certains profils (taille d'entreprise, secteur, géographie) peut constituer une <strong>discrimination algorithmique</strong>. Pour les fintech, ce contrôle est exercé par l'ACPR. Pour toutes les autres, le risque réputationnel est réel. Demande à ton prestataire un audit annuel des biais.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>4. Sur-relance — casser la relation client</h3>
+        <p>Un agent IA mal cadré peut envoyer 3 relances par jour à un bon payeur ponctuellement en retard. <strong>Cap quotidien obligatoire</strong> dans le paramétrage : pas plus d'une relance par dossier par 5 jours, pas de relance avant J+5 du dépassement. Définit aussi des exceptions pour tes top clients.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>5. Conformité facturation électronique — pas de bricolage</h3>
+        <p>Tout outil O2C qui émet ou reçoit des factures B2B en France à partir de sept. 2026 doit être <strong>PA agréée DGFiP ou interopérable avec une PA</strong>. Une solution maison ou un développement spécifique non agréé est hors-jeu. Sur ce point, c'est SaaS sans débat.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">6</div>
+        <h2 class="module-section-title">Checklist projet O2C — 12 points avant de signer</h2>
+      </div>
+
+      <div class="checklist-block">
+        <h3>Checklist d'éligibilité — à valider avant de signer ta PA</h3>
+        <ul>
+          <li><strong>PA agréée DGFiP</strong> ou interopérabilité native avec une PA agréée.</li>
+          <li><strong>Connecteur natif</strong> avec ton ERP / outil compta existant (test sandbox documenté).</li>
+          <li><strong>Conformité AI Act</strong> documentée par écrit pour le scoring client et la priorisation.</li>
+          <li><strong>Hébergement Europe</strong> (Frankfurt, Paris, Dublin) avec garanties contractuelles.</li>
+          <li><strong>RGPD</strong> : registre des traitements, durée de conservation, suppression sur demande.</li>
+          <li><strong>Cap de relance configurable</strong> (max 1 relance par 5 jours, exceptions top clients).</li>
+          <li><strong>Audit annuel des biais</strong> de scoring proposé en standard ou en option.</li>
+          <li><strong>Reporting de pilotage</strong> : DSO, taux de relance, taux de recouvrement, mensuel automatisé.</li>
+          <li><strong>Réversibilité</strong> : récupération de tes données et historique de factures à tout moment.</li>
+          <li><strong>Support FR</strong> avec SLA documenté (temps de réponse, escalade).</li>
+          <li><strong>Tarification claire</strong> : par utilisateur ou par volume de factures, pas de palier caché.</li>
+          <li><strong>Plan de migration</strong> depuis ton outil actuel : durée, accompagnement, garantie de continuité.</li>
+        </ul>
+      </div>
+
+      <p>Si une PA refuse de t'engager sur 3 ou plus de ces 12 points, regarde une autre PA. Le marché compte 120 acteurs immatriculés — tu as de la marge.</p>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">7</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+      </div>
+
+      <h3>7.1 Modules CU complémentaires</h3>
+      <ul>
+        <li><a href="cu-023-devis-intelligent.html">CU-023 — Génération de devis intelligente</a> (l'amont du cycle O2C)</li>
+        <li><a href="cu-021-automatisation-factures.html">CU-021 — Automatisation factures fournisseurs</a> (le cycle Procure-to-Pay, miroir du O2C côté achats)</li>
+        <li><a href="cu-013-data-analytique.html">CU-013 — Data analytique</a> (KPI de pilotage trésorerie)</li>
+      </ul>
+
+      <h3>7.2 Préalables associés</h3>
+      <ul>
+        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (sur l'O2C, c'est SaaS sans débat — comprendre pourquoi)</li>
+        <li><a href="../prealables/pr-02-preables-data-si.html">PR-02 — Préalables data &amp; SI</a> (l'intégration ERP est le maillon faible)</li>
+        <li><a href="../prealables/pr-05-securite-ia.html">PR-05 — Sécurité IA</a> (scoring client = donnée sensible)</li>
+      </ul>
+
+      <h3>7.3 Sources principales</h3>
+      <ul>
+        <li><a href="https://www.banque-france.fr/system/files/2025-07/ODP-2024.pdf" target="_blank" rel="noopener">Banque de France — Observatoire des Délais de Paiement 2024</a></li>
+        <li><a href="https://www.daf-mag.fr/tresorerie-1239/financement-de-la-tresorerie-2119/tresorerie-sous-tension-quand-lia-devient-un-levier-strategique-pour-les-directions-financieres-22812" target="_blank" rel="noopener">Daf-Mag — IA et trésorerie</a></li>
+        <li><a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">economie.gouv.fr — Plateformes agréées DGFiP</a></li>
+        <li><a href="https://www.urssaf.fr/accueil/actualites/facturation-electronique.html" target="_blank" rel="noopener">Urssaf — Facturation électronique 2026</a></li>
+        <li><a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank" rel="noopener">CNIL — AI Act premières Q-R</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
