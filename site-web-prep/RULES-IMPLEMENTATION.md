@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.1 (mai 2026)
+**Version :** 1.2 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -107,6 +107,141 @@ Anti-exemple historique : le bloc « Maturité opérationnelle — N1-N3 quiz / 
 **Règle 1.4.5** — Le pattern executive summary (gradient bleu marine + 4 takeaways + stats grid + callout « when ») est **obligatoire** en tête de chaque module CU et préalable PR. Pas d'exception.
 
 **Règle 1.4.6** — La sticky TOC + scroll-spy + reading progress bar sont actifs sur tous les modules CU, tous les PR, et la page Architectures. Si un de ces composants ne fonctionne pas sur une page, c'est un bug bloquant.
+
+### 1.5 Pattern structurel obligatoire pour tout module CU et toute fiche PR
+
+Cette section formalise le pattern HTML / CSS / JS attendu pour **tout nouveau module CU et toute nouvelle fiche PR**. Toute production Cowork (mockup) ou Claude Code (intégration) doit s'y conformer. Ce pattern est non négociable — il garantit la cohérence visuelle et la maintenabilité du site.
+
+**Règle 1.5.1 — Squelette HTML minimal**. Tout module CU et toute fiche PR doit suivre cette ordonnance :
+
+```html
+<body>
+  <!-- 1. Reading progress (avant le hero, en dehors du main) -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- 2. Nav harmonisée (cf. règles 1.4.1-1.4.2) -->
+  <nav class="nav scrolled" id="nav">…</nav>
+
+  <!-- 3. Hero du module -->
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="…" class="module-back">← Retour aux modules</a>
+      <div class="module-badges">
+        <a href="…" class="card-badge axe-X">…</a>          <!-- axe métier obligatoire -->
+        <a href="…" class="card-badge nX">⭐… Niveau X</a>   <!-- niveau de complexité -->
+        <span class="card-badge">📋 Type</span>              <!-- type de format -->
+        <span class="card-badge">… min de lecture</span>     <!-- temps de lecture -->
+      </div>
+      <h1>EMOJI Titre métier</h1>                            <!-- emoji ouvrant obligatoire -->
+      <p class="module-subtitle">…</p>                        <!-- 2-3 phrases -->
+    </div>
+  </header>
+
+  <!-- 4. Layout 2 colonnes (sidebar + main) -->
+  <div class="module-layout">
+
+    <aside class="module-toc">                               <!-- TOC sticky obligatoire -->
+      <button class="module-toc-mobile-toggle">📋 Sommaire</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary">…</a></li>
+        <li><a href="#section-1">…</a></li>
+        …
+        <li><a href="#ressources">…</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- 5. Executive summary (gradient bleu marine, obligatoire) -->
+      <section class="module-section" id="executive-summary">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>…</h2>
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>           <!-- num pas icon -->
+              <p>…</p>
+            </div>
+            <!-- 4 takeaways au total -->
+          </div>
+          <div class="exec-stats">…</div>                       <!-- 3-4 stats -->
+          <div class="exec-when">                               <!-- public cible -->
+            <h3>Ce module est pour toi si…</h3>
+            <ul>…</ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Sections numérotées (header avec section-number obligatoire) -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Titre métier</h2>
+          </div>
+        </div>
+        …
+      </section>
+      …
+
+      <!-- 7. Pour aller plus loin (id="ressources" obligatoire — pas "section-7") -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">…</div>
+        <div class="resources-cat">
+          <h3>🔗 Modules complémentaires</h3>
+          <ul>…</ul>                                          <!-- noms métier, pas codes CU-XX -->
+        </div>
+        <div class="resources-cat">
+          <h3>🧱 Préalables associés</h3>
+          <ul>…</ul>
+        </div>
+        <div class="resources-cat">
+          <h3>📚 Sources et études</h3>
+          <ul>
+            <li><a href="…" target="_blank" rel="noopener">…</a><span class="resources-meta">…</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- 8. Footer harmonisé (cf. règle 1.4.3) -->
+  <footer class="footer">…</footer>
+
+  <!-- 9. JS module-v3 (active TOC sticky + scroll-spy + reading progress) -->
+  <script src="../js/module-v3.js"></script>
+</body>
+```
+
+**Règle 1.5.2 — Composants CSS de référence**. Ne jamais redéfinir les composants suivants en `<style>` inline. Ils sont dans `module-v3.css` ou `style.css` et doivent être référencés tels quels :
+
+- Layout : `.module-layout` · `.module-toc` · `.module-main` · `.module-toc-list`
+- Hero : `.module-hero` · `.module-hero-inner` · `.module-back` · `.module-badges` · `.module-subtitle`
+- Synthèse : `.exec-summary` · `.exec-summary-label` · `.exec-takeaways` · `.exec-takeaway` · `.exec-takeaway-num` · `.exec-stats` · `.exec-stat` · `.exec-when`
+- Section : `.module-section` · `.module-section-header` · `.module-section-icon` · `.module-section-title` · `.section-number`
+- Composants typés (à utiliser, pas à réinventer) : `.callout` (`.callout-info` / `.callout-warn`) · `.alert-block` · `.alert-ai-act` · `.checklist-block` · `.diagnostic` · `.case-deep-actor` · `.pull-quote` · `.resources-cat`
+- Niveaux : `.card-badge.n1` · `.n2` · `.n3` · `.n4`
+- Axes métier : `.card-badge.axe-a` à `axe-e` · classe spéciale agentique
+
+Si une page introduit un composant nouveau (ex : `.timeline-block`, `.tool-table`, `.legal-grid`), il peut rester inline **uniquement s'il est utilisé sur une seule page**. Dès qu'il est utilisé sur 2+ pages, il doit migrer dans `module-v3.css` ou `style.css`.
+
+**Règle 1.5.3 — Anti-patterns interdits sur les modules / fiches PR** :
+
+- ❌ **Pas de `<main>` direct sans `module-layout`** : tout module / fiche doit avoir la sidebar TOC sticky.
+- ❌ **Pas d'`id="section-7"` pour la dernière section** : utiliser `id="ressources"` (cohérent avec le pattern et les renvois inter-pages).
+- ❌ **Pas de `.exec-takeaway-icon` (emoji texte) au lieu de `.exec-takeaway-num`** : le pattern de référence utilise des numéros 1-2-3-4, pas des icônes émoji.
+- ❌ **Pas de `<style>` inline qui redéfinit `.exec-summary`, `.exec-takeaway`, `.alert-block`, `.checklist-block`** : ces composants sont centralisés.
+- ❌ **Pas de h1 sans emoji ouvrant** sur les modules / fiches PR (ex : `<h1>Order-to-cash automation</h1>` doit devenir `<h1>💸 Order-to-cash automation</h1>`).
+- ❌ **Pas de balise `<a>` dans le contenu d'une card cliquable de la home** (le navigateur ferme la card prématurément). Si une source doit être citée, la mettre sur la page CU dédiée.
+
+**Règle 1.5.4 — Rôle de Cowork vs Claude Code**. Pour éviter les désynchronisations de canal :
+
+- **Cowork (production de mockup)** : produit le contenu éditorial, le sourcing et la matière. Doit suivre le pattern HTML 1.5.1 dès le mockup. Ne déforme pas le squelette de référence.
+- **Claude Code (intégration)** : valide la conformité du mockup au pattern 1.5.1 **avant** de copier le fichier dans le repo. Si le mockup dévie (ex : pas de `module-layout`, codes `CU-XX` visibles, `<style>` inline qui redéfinit les composants centralisés, lien `axes.html` cassé), Claude Code corrige avant intégration et le signale dans le commit.
+- **Référence visuelle commune** : `modules/cu-008-knowledge-base-rag.html` est le module canonique de référence pour la structure complète (TOC + executive summary + sections numérotées + auto-diagnostic JS + Pour aller plus loin avec `.resources-cat`). Tout nouveau module doit s'aligner sur sa structure.
 
 ---
 
@@ -222,6 +357,11 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.2** — mai 2026, suite à v3.6.1 (harmonisation des modules CU-023/024/027 produits par Cowork qui déviaient du pattern de référence) :
+  - § 1.5 ajoutée : pattern structurel obligatoire pour tout module CU et toute fiche PR (squelette HTML, composants CSS de référence, anti-patterns interdits, rôles Cowork ↔ Claude Code).
+  - Nouvelle référence canonique : `modules/cu-008-knowledge-base-rag.html` est le gabarit visuel.
+  - § 1.5.3 codifie 6 anti-patterns à bannir (dont `<a>` imbriqué dans card cliquable, `id="section-7"` au lieu de `id="ressources"`, `<style>` inline qui redéfinit les composants centralisés, h1 sans emoji ouvrant).
+  - § 1.5.4 clarifie la responsabilité de Cowork (mockup conforme au pattern dès la production) et celle de Claude Code (validation conformité avant intégration, correction sinon).
 - **v1.1** — mai 2026, en complément de l'audit v3.5.3 et de l'itération v3.6 :
   - Glossaire chiffres-clés (§ 1.2.3) actualisé : 25 modules / 7 préalables / 83 fiches / 5 entrées de nav (sans Axes) / 6 familles métier / échelle 4 étoiles.
   - § 1.2.2 : liste des lieux d'apparition cross-site précisée (badge ressources, exec-stats, README, etc.).

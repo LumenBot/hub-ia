@@ -126,21 +126,41 @@
     </div>
   </nav>
 
+  <div class="reading-progress" id="readingProgress"></div>
+
   <header class="module-hero">
     <div class="module-hero-inner">
       <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
       <div class="module-badges">
-        <span class="card-badge">⚡ Étude de cas + checklist</span>
+        <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
         <a href="../index.html?niveau=n4#modules" class="card-badge n4" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐⭐ Niveau 4 — Expert</a>
+        <span class="card-badge">📋 Étude de cas + checklist</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
-      <h1>Développement applicatif métier IA-assisté</h1>
+      <h1>🛠️ Développement applicatif métier IA-assisté</h1>
       <p class="module-subtitle">L'IA générative a fait basculer le rapport de force entre la PME et le développement logiciel. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines avec Cursor, Claude Code, Lovable ou Windsurf. Mais 45 % du code généré par IA contient des failles. Voici comment piloter sans être IT, et sans finir comme Tea App en juillet 2025.</p>
     </div>
   </header>
 
-  <main>
-    <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">⚙️</span>Panorama des outils 2026</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚠️</span>Incident Tea App — leçons</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🚧</span>Six écueils typiques</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛡️</span>Checklist sécurité prestataire</a></li>
+        <li><a href="#section-5"><span class="toc-icon">⚖️</span>Cadre juridique synthétisé</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🚀</span>Mode de pilotage en 5 étapes</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
 
     <section class="module-section" id="executive-summary">
       <div class="exec-summary">
@@ -151,28 +171,20 @@
 
         <div class="exec-takeaways">
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🚀</div>
-            <div class="exec-takeaway-content">
-              <strong>Le seuil d'entrée s'est effondré, mais reste exigeant.</strong> Délai POC : 6-10 semaines. Délai prod : 4-7 mois. Coût initial typique : 30-80 K€ pour un prestataire IA-natif (vs 80-200 K€ ESN classique). Maintenance récurrente : 20-30 %/an.
-            </div>
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>Le seuil d'entrée s'est effondré, mais reste exigeant.</strong> Délai POC : 6-10 semaines. Délai prod : 4-7 mois. Coût initial typique : 30-80 K€ pour un prestataire IA-natif (vs 80-200 K€ ESN classique). Maintenance récurrente : 20-30 %/an.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🔓</div>
-            <div class="exec-takeaway-content">
-              <strong>45 % du code généré par IA contient des failles de sécurité.</strong> Cloud Security Alliance, 2025, sur 100 LLM testés et 80 tâches. Sans relecture humaine et tests automatisés, tu déploies du code troué. Le cas Tea App (juillet 2025, 72 000 photos d'identité fuitées) illustre ce que ça donne.
-            </div>
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>45 % du code généré par IA contient des failles de sécurité.</strong> Cloud Security Alliance, 2025, sur 100 LLM testés et 80 tâches. Sans relecture humaine et tests automatisés, tu déploies du code troué. Le cas Tea App (juillet 2025, 72 000 photos d'identité fuitées) illustre ce que ça donne.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">📋</div>
-            <div class="exec-takeaway-content">
-              <strong>Ton rôle n'est pas de coder, c'est de piloter.</strong> Cadrer le besoin métier, choisir un prestataire IA-natif sérieux, exiger une checklist sécurité, valider les livrables, planifier la maintenance. Si tu te concentres sur ces 5 points, tu mets ton projet dans les 5 % qui réussissent.
-            </div>
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>Ton rôle n'est pas de coder, c'est de piloter.</strong> Cadrer le besoin métier, choisir un prestataire IA-natif sérieux, exiger une checklist sécurité, valider les livrables, planifier la maintenance. Si tu te concentres sur ces 5 points, tu mets ton projet dans les 5 % qui réussissent.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">⚖️</div>
-            <div class="exec-takeaway-content">
-              <strong>Trois cadres juridiques à connaître.</strong> Propriété intellectuelle du code (le droit d'auteur reste réservé à l'humain), RGPD (l'éditeur LLM est sous-traitant), AI Act (haut-risque dès août 2026 si scoring/RH/recouvrement). Une page synthétique en bas du module.
-            </div>
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>Trois cadres juridiques à connaître.</strong> Propriété intellectuelle du code (le droit d'auteur reste réservé à l'humain), RGPD (l'éditeur LLM est sous-traitant), AI Act (haut-risque dès août 2026 si scoring/RH/recouvrement). Une page synthétique en bas du module.</p>
           </div>
         </div>
 
@@ -212,7 +224,10 @@
     <section class="module-section" id="section-1">
       <div class="module-section-header">
         <div class="module-section-icon icon-context">1</div>
-        <h2 class="module-section-title">Le panorama des outils en 2026</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 1</div>
+          <h2>Le panorama des outils en 2026</h2>
+        </div>
       </div>
 
       <p>Le marché s'est structuré en 2025-2026 autour de 3 catégories d'outils. Comprendre laquelle correspond à ton besoin t'évite de te perdre dans le marketing des éditeurs.</p>
@@ -288,7 +303,10 @@
     <section class="module-section" id="section-2">
       <div class="module-section-header">
         <div class="module-section-icon icon-warning">2</div>
-        <h2 class="module-section-title">L'incident emblématique — Tea App, juillet 2025</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 2</div>
+          <h2>L'incident emblématique — Tea App, juillet 2025</h2>
+        </div>
       </div>
 
       <div class="incident-card" id="tea-app">
@@ -313,7 +331,10 @@
     <section class="module-section" id="section-3">
       <div class="module-section-header">
         <div class="module-section-icon icon-warning">3</div>
-        <h2 class="module-section-title">Six écueils typiques à connaître</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 3</div>
+          <h2>Six écueils typiques à connaître</h2>
+        </div>
       </div>
 
       <p>Les chiffres ci-dessous viennent d'études indépendantes 2025 sur le code IA-généré à grande échelle. Ils ne sont pas marketing — ils sont mesurés.</p>
@@ -354,7 +375,10 @@
     <section class="module-section" id="section-4">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">4</div>
-        <h2 class="module-section-title">Checklist sécurité minimale à exiger d'un prestataire</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 4</div>
+          <h2>Checklist sécurité minimale à exiger d'un prestataire</h2>
+        </div>
       </div>
 
       <p>Avant de signer un devis avec un prestataire qui développe ton app en mode IA-assisté, exige par écrit (dans le contrat ou en annexe technique) ces 12 points minimum :</p>
@@ -383,7 +407,10 @@
     <section class="module-section" id="section-5">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">5</div>
-        <h2 class="module-section-title">Cadre juridique synthétisé</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 5</div>
+          <h2>Cadre juridique synthétisé</h2>
+        </div>
       </div>
 
       <div class="legal-grid">
@@ -419,7 +446,10 @@
     <section class="module-section" id="section-6">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">6</div>
-        <h2 class="module-section-title">Le bon mode de pilotage — 5 étapes</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 6</div>
+          <h2>Le bon mode de pilotage — 5 étapes</h2>
+        </div>
       </div>
 
       <p>Tu n'es pas développeur. Ton rôle est de <strong>cadrer et de valider</strong>. Voici la séquence type d'un projet PME bien piloté :</p>
@@ -440,38 +470,48 @@
       <p>Budget annuel récurrent : <strong>20-30 % du coût initial</strong> pour la maintenance, mises à jour de dépendances, conformité, évolutions fonctionnelles. Inscris-le au budget dès l'étape 1, sinon tu auras une mauvaise surprise au bout d'un an.</p>
     </section>
 
-    <section class="module-section" id="section-7">
+    <section class="module-section" id="ressources">
       <div class="module-section-header">
         <div class="module-section-icon icon-context">7</div>
-        <h2 class="module-section-title">Pour aller plus loin</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 7</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
       </div>
 
-      <h3>7.1 Préalables associés</h3>
-      <ul>
-        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (à lire AVANT ce module si pas encore fait)</li>
-        <li><a href="../prealables/pr-06-qualite-code-ia.html">PR-06 — Qualité du code généré par IA</a> (les 7 alertes Toad et les garde-fous techniques)</li>
-        <li><a href="../prealables/pr-05-securite-ia.html">PR-05 — Sécurité IA</a> (cadre DGSI et checklist générale)</li>
-        <li><a href="../architectures.html">Architectures de déploiement</a> (4 patterns + hybride pour choisir où héberger ton app)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🧱 Préalables associés</h3>
+        <ul>
+          <li><a href="../prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a> — à lire avant ce module si pas encore fait</li>
+          <li><a href="../prealables/pr-06-qualite-code-ia.html">Qualité du code IA</a> — les 7 alertes terrain et les garde-fous techniques</li>
+          <li><a href="../prealables/pr-05-securite-ia.html">Sécurité IA &amp; risques opérationnels</a> — cadrage et checklist générale</li>
+          <li><a href="../architectures.html">Architectures de déploiement</a> — 4 patterns + hybride pour choisir où héberger ton app</li>
+        </ul>
+      </div>
 
-      <h3>7.2 Modules CU complémentaires</h3>
-      <ul>
-        <li><a href="cu-008-knowledge-base-rag.html">CU-008 — Knowledge base RAG</a> (cas typique de build léger sur un savoir-faire propre)</li>
-        <li><a href="cu-014-multi-agents.html">CU-014 — Multi-agents par fonction</a> (architecture agentique avancée)</li>
-        <li><a href="cu-015-stripe-minions.html">CU-015 — Agents codeurs Stripe Minions</a> (le cas d'usage interne pour développeurs en place)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🔗 Modules complémentaires</h3>
+        <ul>
+          <li><a href="cu-008-knowledge-base-rag.html">Knowledge base RAG</a> — cas typique de build léger sur un savoir-faire propre</li>
+          <li><a href="cu-014-multi-agents.html">Multi-agents par fonction</a> — architecture agentique avancée</li>
+          <li><a href="cu-015-stripe-minions.html">Agents codeurs (cas Stripe Minions)</a> — angle développeur professionnel, complémentaire de ce module</li>
+        </ul>
+      </div>
 
-      <h3>7.3 Sources principales</h3>
-      <ul>
-        <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">Cloud Security Alliance — Vibe Coding Security (2025)</a></li>
-        <li><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">GitHub Copilot productivity research</a></li>
-        <li><a href="https://arxiv.org/abs/2512.11922" target="_blank" rel="noopener">arxiv 2512.11922 — Vibe Coding in Practice</a></li>
-        <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a></li>
-        <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a></li>
-        <li><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — IA et RGPD</a></li>
-      </ul>
+      <div class="resources-cat">
+        <h3>📚 Sources et études</h3>
+        <ul>
+          <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">Cloud Security Alliance — Vibe Coding Security (2025)</a><span class="resources-meta">Risques sécurité du code généré par IA</span></li>
+          <li><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">GitHub — Copilot productivity research</a><span class="resources-meta">Mesures d'impact dev assisté par IA</span></li>
+          <li><a href="https://arxiv.org/abs/2512.11922" target="_blank" rel="noopener">arXiv 2512.11922 — Vibe Coding in Practice</a><span class="resources-meta">Étude académique sur les patterns de dev IA-assisté</span></li>
+          <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a><span class="resources-meta">Analyse de l'incident Tea App, juillet 2025</span></li>
+          <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a><span class="resources-meta">Comparatif terrain des outils 2025</span></li>
+          <li><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — IA et RGPD</a><span class="resources-meta">Recommandations conformité applicables</span></li>
+        </ul>
+      </div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">

@@ -112,21 +112,40 @@
     </div>
   </nav>
 
+  <div class="reading-progress" id="readingProgress"></div>
+
   <header class="module-hero">
     <div class="module-hero-inner">
       <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
       <div class="module-badges">
-        <span class="card-badge">📋 Auto-diagnostic</span>
+        <a href="../index.html?axe=d#modules" class="card-badge axe-d">📈 Croissance</a>
         <a href="../index.html?niveau=n2#modules" class="card-badge n2">⭐⭐ Niveau 2 — Opérationnel</a>
+        <span class="card-badge">📋 Auto-diagnostic</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
       </div>
-      <h1>Génération de devis intelligente</h1>
-      <p class="module-subtitle">Faire passer la création d'une proposition commerciale d'1 heure à 36 minutes, avec +20 % de taux de signature à la clé. Le cas d'usage IA le plus accessible pour une PME — gain rapide, faible risque, ROI mesurable. Et c'est aussi le bon endroit pour commencer à tester l'IA opérationnelle dans ta boîte.</p>
+      <h1>📋 Devis simples : la porte d'entrée IA</h1>
+      <p class="module-subtitle">Faire passer la création d'une proposition commerciale courte d'1 heure à 36 minutes, avec +20 % de taux de signature à la clé. Le cas d'usage IA le plus accessible pour démarrer en TPE / PME — devis catalogue, forfaits, services standardisés. Pour les propositions B2B complexes (RFP, bid management, propal &gt; 20 pages), voir le module <a href="cu-005-devis-propositions.html" style="color: inherit; text-decoration: underline;">Propositions commerciales B2B</a>.</p>
     </div>
   </header>
 
-  <main>
-    <div class="reading-progress" id="readingProgress"></div>
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🎯</span>Pourquoi commencer par les devis</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚙️</span>Panorama des outils 2026</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📊</span>Le cas chiffré HPC / PandaDoc</a></li>
+        <li><a href="#section-4"><span class="toc-icon">⚠️</span>Cinq écueils à anticiper</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 90 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
 
     <section class="module-section" id="executive-summary">
       <div class="exec-summary">
@@ -137,28 +156,20 @@
 
         <div class="exec-takeaways">
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">⚡</div>
-            <div class="exec-takeaway-content">
-              <strong>Gain de productivité concret et rapide.</strong> Les études PandaDoc / Consensus / HPC Technology Group documentent une <strong>division par 2 du temps de rédaction</strong> et une <strong>amélioration du taux de closing de 15 à 20 %</strong>. Pour un commercial qui produit 30 propositions par mois, c'est ~30 heures économisées et 4 deals supplémentaires signés.
-            </div>
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>Gain de productivité concret et rapide.</strong> Les études PandaDoc / Consensus / HPC Technology Group documentent une <strong>division par 2 du temps de rédaction</strong> et une <strong>amélioration du taux de closing de 15 à 20 %</strong>. Pour un commercial qui produit 30 propositions par mois, c'est ~30 heures économisées et 4 deals supplémentaires signés.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🎯</div>
-            <div class="exec-takeaway-content">
-              <strong>Cas d'usage le plus accessible pour démarrer l'IA.</strong> Pas de migration ERP, pas de conformité réglementaire bloquante, ROI 3-6 mois. C'est le bon point d'entrée pour qu'une PME teste « l'IA en opérationnel » sans risque majeur. Une fois ce cas validé, tu sais arbitrer pour des chantiers plus structurants (RAG, order-to-cash, RH).
-            </div>
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>Cas d'usage le plus accessible pour démarrer l'IA.</strong> Pas de migration ERP, pas de conformité réglementaire bloquante, ROI 3-6 mois. C'est le bon point d'entrée pour qu'une PME teste « l'IA en opérationnel » sans risque majeur. Une fois ce cas validé, tu sais arbitrer pour des chantiers plus structurants (RAG, order-to-cash, RH).</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">⚠️</div>
-            <div class="exec-takeaway-content">
-              <strong>Le commercial reste responsable de la proposition.</strong> Ce n'est pas un projet IA, c'est un <strong>projet commercial assisté par IA</strong>. Le commercial valide chaque devis, ajuste la marge, vérifie les CGV. Les écueils — hallucination prix, perte du jugement commercial, désynchronisation CGV — ne pardonnent pas si l'humain disparaît du circuit.
-            </div>
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>Le commercial reste responsable de la proposition.</strong> Ce n'est pas un projet IA, c'est un <strong>projet commercial assisté par IA</strong>. Le commercial valide chaque devis, ajuste la marge, vérifie les CGV. Les écueils — hallucination prix, perte du jugement commercial, désynchronisation CGV — ne pardonnent pas si l'humain disparaît du circuit.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🔧</div>
-            <div class="exec-takeaway-content">
-              <strong>Prends une IA déterministe et auditable, pas générative pure sur le pricing.</strong> Gartner et la littérature CPQ 2025 insistent : pour le pricing, une IA <strong>« rule-bound, auditable »</strong> est obligatoire. Une IA générative qui invente un prix sur grand compte = risque contractuel et financier.
-            </div>
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>Prends une IA déterministe et auditable, pas générative pure sur le pricing.</strong> Gartner et la littérature CPQ 2025 insistent : pour le pricing, une IA <strong>« rule-bound, auditable »</strong> est obligatoire. Une IA générative qui invente un prix sur grand compte = risque contractuel et financier.</p>
           </div>
         </div>
 
@@ -190,7 +201,10 @@
     <section class="module-section" id="section-1">
       <div class="module-section-header">
         <div class="module-section-icon icon-context">1</div>
-        <h2 class="module-section-title">Pourquoi commencer par les devis</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 1</div>
+          <h2>Pourquoi commencer par les devis</h2>
+        </div>
       </div>
 
       <p>Sur les 25 cas d'usage du Hub IA, la génération de devis intelligente est <strong>le plus simple à enclencher</strong> dans une PME. Quatre raisons :</p>
@@ -215,7 +229,10 @@
     <section class="module-section" id="section-2">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">2</div>
-        <h2 class="module-section-title">Panorama des outils 2026</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 2</div>
+          <h2>Panorama des outils 2026</h2>
+        </div>
       </div>
 
       <p>Le marché s'est consolidé autour de 3 catégories : les CRM intégrés français, les CRM internationaux, et les outils dédiés CPQ (Configure-Price-Quote). Voici une orientation par profil de PME.</p>
@@ -281,7 +298,10 @@
     <section class="module-section" id="section-3">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">3</div>
-        <h2 class="module-section-title">Le cas chiffré — HPC Technology Group via PandaDoc</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 3</div>
+          <h2>Le cas chiffré — HPC Technology Group via PandaDoc</h2>
+        </div>
       </div>
 
       <div class="stat-block">
@@ -310,7 +330,10 @@
     <section class="module-section" id="section-4">
       <div class="module-section-header">
         <div class="module-section-icon icon-warning">4</div>
-        <h2 class="module-section-title">Cinq écueils à anticiper</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 4</div>
+          <h2>Cinq écueils à anticiper</h2>
+        </div>
       </div>
 
       <div class="alert-block">
@@ -342,7 +365,10 @@
     <section class="module-section" id="section-5">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">5</div>
-        <h2 class="module-section-title">Auto-diagnostic — es-tu prêt pour activer ?</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 5</div>
+          <h2>Auto-diagnostic — es-tu prêt pour activer ?</h2>
+        </div>
       </div>
 
       <p>Réponds aux 8 questions ci-dessous. Compte le nombre de OUI. Si tu en as 6 ou plus, tu peux y aller. Si tu en as moins de 4, mieux vaut consolider d'abord.</p>
@@ -369,7 +395,10 @@
     <section class="module-section" id="section-6">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">6</div>
-        <h2 class="module-section-title">Plan d'action 90 jours</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 6</div>
+          <h2>Plan d'action 90 jours</h2>
+        </div>
       </div>
 
       <h3>Phase 1 — Préparation (semaines 1-3)</h3>
@@ -405,35 +434,46 @@
       </ul>
     </section>
 
-    <section class="module-section" id="section-7">
+    <section class="module-section" id="ressources">
       <div class="module-section-header">
-        <div class="module-section-icon icon-context">7</div>
-        <h2 class="module-section-title">Pour aller plus loin</h2>
+        <div class="module-section-icon icon-resources">7</div>
+        <div class="module-section-title">
+          <div class="section-number">Section 7</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
       </div>
 
-      <h3>7.1 Modules CU complémentaires</h3>
-      <ul>
-        <li><a href="cu-024-order-to-cash.html">CU-024 — Order-to-cash automation</a> (le cycle complet, dont le devis est l'amont)</li>
-        <li><a href="cu-013-data-analytique.html">CU-013 — Data analytique</a> (KPI commercial et pilotage)</li>
-        <li><a href="cu-009-content-repurposing.html">CU-009 — Content repurposing</a> (génération de contenu commercial multi-format)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🔗 Modules complémentaires</h3>
+        <ul>
+          <li><a href="cu-005-devis-propositions.html">Propositions commerciales B2B complexes</a> — pour les RFP, bid management, propal &gt; 20 pages avec voix de marque</li>
+          <li><a href="cu-024-order-to-cash.html">Order-to-cash automation</a> — le cycle complet dont le devis est l'amont</li>
+          <li><a href="cu-009-content-repurposing.html">Content repurposing</a> — génération de contenu commercial multi-format</li>
+        </ul>
+      </div>
 
-      <h3>7.2 Préalables associés</h3>
-      <ul>
-        <li><a href="../prealables/pr-01-maturite-organisationnelle.html">PR-01 — Maturité organisationnelle</a> (es-tu prêt à déployer l'IA en opérationnel ?)</li>
-        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (sur le devis, c'est SaaS sans débat)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🧱 Préalables associés</h3>
+        <ul>
+          <li><a href="../prealables/pr-01-maturite-organisationnelle.html">Maturité organisationnelle</a> — es-tu prêt à déployer l'IA en opérationnel ?</li>
+          <li><a href="../prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a> — sur le devis, c'est SaaS sans débat</li>
+        </ul>
+      </div>
 
-      <h3>7.3 Sources principales</h3>
-      <ul>
-        <li><a href="https://lelab.bpifrance.fr/Etudes/les-entreprises-francaises-et-l-ia-l-aube-d-une-revolution/l-ia-dans-les-pme-et-eti-francaises-6-chiffres-a-retenir" target="_blank" rel="noopener">Bpifrance Le Lab — IA PME/ETI 6 chiffres clés</a></li>
-        <li><a href="https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf" target="_blank" rel="noopener">Baromètre France Num 2025 (PDF)</a></li>
-        <li><a href="https://www.pandadoc.com/customers-case-study/goconsensus/" target="_blank" rel="noopener">PandaDoc — études de cas Consensus / HPC</a></li>
-        <li><a href="https://www.microsoft.com/en-us/research/publication/new-future-of-work-report-2025/" target="_blank" rel="noopener">Microsoft New Future of Work Report 2025</a> (workslop)</li>
-        <li><a href="https://itbrief.co.uk/story/tacton-launches-ai-assistant-to-cut-cpq-modelling-work" target="_blank" rel="noopener">itbrief.co.uk — Tacton AI Product Modeling Assistant</a></li>
-      </ul>
+      <div class="resources-cat">
+        <h3>📚 Sources et études</h3>
+        <ul>
+          <li><a href="https://lelab.bpifrance.fr/Etudes/les-entreprises-francaises-et-l-ia-l-aube-d-une-revolution/l-ia-dans-les-pme-et-eti-francaises-6-chiffres-a-retenir" target="_blank" rel="noopener">Bpifrance Le Lab — IA PME / ETI 6 chiffres clés</a><span class="resources-meta">2025 — adoption IA en France</span></li>
+          <li><a href="https://www.francenum.gouv.fr/files/2025-09/Barom%C3%A8tre%20France%20Num%202025%20-%20Rapport.pdf" target="_blank" rel="noopener">Baromètre France Num 2025 (PDF)</a><span class="resources-meta">76 % digitalisation, 28 % usages IA marketing/ventes</span></li>
+          <li><a href="https://www.pandadoc.com/customers-case-study/goconsensus/" target="_blank" rel="noopener">PandaDoc — étude de cas Consensus / HPC</a><span class="resources-meta">×2 vitesse, +20 % closing</span></li>
+          <li><a href="https://www.microsoft.com/en-us/research/publication/new-future-of-work-report-2025/" target="_blank" rel="noopener">Microsoft New Future of Work Report 2025</a><span class="resources-meta">workslop, +270 % ROI</span></li>
+          <li><a href="https://itbrief.co.uk/story/tacton-launches-ai-assistant-to-cut-cpq-modelling-work" target="_blank" rel="noopener">itbrief.co.uk — Tacton AI Product Modeling Assistant</a><span class="resources-meta">2025 — pricing rule-bound auditable</span></li>
+        </ul>
+      </div>
     </section>
-  </main>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">
