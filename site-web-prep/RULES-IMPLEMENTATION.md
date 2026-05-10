@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.4 (mai 2026)
+**Version :** 1.5 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -38,13 +38,14 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 
 **Règle 1.2.3** — Glossaire des chiffres-clés à maintenir cohérent (à actualiser à chaque itération) :
 
-| Chiffre | Valeur courante (mai 2026, v3.6) | Lieux d'apparition |
+| Chiffre | Valeur courante (mai 2026, v3.7) | Lieux d'apparition |
 |---|---|---|
-| Nombre de modules CU | 25 (CU-001 → CU-024 + CU-027 ; CU-025 et CU-026 réservés v3.7) | home, page modules, à propos, méta |
+| Nombre de modules CU | 26 (CU-001 → CU-025 + CU-027 ; CU-026 réservé v3.8) | home, page modules, à propos, méta |
 | Nombre de préalables PR | 7 (PR-01 → PR-07) | prealables.html, home, à propos |
-| Nombre de fiches outils | 83 | ressources.html, à propos, hero ressources |
+| Nombre de fiches Déploiement DEP | 8 (DEP-01 → DEP-08, nouvelle section v3.7) | deploiement.html, home, à propos |
+| Nombre de fiches outils | 97 (83 + 14 ajoutées v3.7) | ressources.html, à propos, hero ressources |
 | Nombre de patterns d'architecture | 4 + 1 hybride | architectures.html, à propos |
-| Nombre d'entrées nav | 5 (Préalables / Architectures / Modules / Ressources / À propos) | toutes pages |
+| Nombre d'entrées nav | 6 (Préalables / Architectures / Déploiement / Modules / Ressources / À propos) | toutes pages |
 | Nombre de familles métier (modules) | 6 (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) | home |
 | Échelle complexité | 4 niveaux (⭐ Initiation / ⭐⭐ Opérationnel / ⭐⭐⭐ Avancé / ⭐⭐⭐⭐ Expert) | home (filtre), badges modules |
 
@@ -428,6 +429,9 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5** — mai 2026, suite à v3.7 (expansion éditoriale majeure : nouvelle section Déploiement + CU-025 + 5 enrichissements + 14 fiches outils) :
+  - § 1.2.3 (glossaire chiffres-clés) actualisé v3.7 : 25 → 26 modules CU (CU-025 ajouté, CU-026 réservé v3.8) ; 83 → 97 fiches outils (14 ajoutées : Pennylane, Sellsy, Axonaut, PandaDoc, Esker, Sidetrade, Tacton, Lovable, Bolt.new, v0, Replit Agent, Windsurf, GitHub Copilot Workspace, Kimi K2.6) ; 5 → 6 entrées de nav (ajout « Déploiement » entre Architectures et Modules) ; ajout d'une nouvelle ligne « Nombre de fiches Déploiement DEP : 8 (DEP-01 → DEP-08) ».
+  - Le pattern HTML obligatoire RULES § 1.5.1 s'applique aux fiches DEP avec les mêmes principes que les PR (cadrage transverse). Les fiches DEP suivent le squelette des préalables (sections numérotées, executive summary, sticky TOC, Schéma A pour les ressources finales).
 - **v1.4** — mai 2026, suite à audit visuel post-v3.6.2 (incohérences résiduelles CU-024/CU-027 + 3 amendements proposés par Claude Code dans rapport v3.6.2) :
   - § 1.5.5 enrichie : précision que le format checklist statique reste valide sous un autre nom (« Checklist d'éligibilité », « Checklist projet », « Checklist sécurité prestataire »). Format interactif fortement recommandé pour cohérence UX sur les modules N4.
   - § 1.5 enrichie : règle explicite de **cohérence card index ↔ contenu réel** (si card promet « Étude de cas + checklist », le module doit livrer les deux ; sinon renommer la card). Toute désynchronisation détectée = bug bloquant.
