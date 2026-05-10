@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents en production : observabilité et garde-fous — Hub IA Learning Center</title>
+  <meta name="description" content="89 % des organisations ont une forme d'observabilité pour leurs agents, 94 % parmi celles en prod. La qualité reste le blocker n°1 (32 %), la sécurité monte en n°2 (24,9 %).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
+      </div>
+      <h1>🔭 Agents en production : observabilité et garde-fous</h1>
+      <p class="module-subtitle">89 % des organisations ont une forme d'observabilité pour leurs agents, 94 % parmi celles en prod. La qualité reste le blocker n°1 (32 %), la sécurité monte en n°2 (24,9 %). Voici le cadre opérationnel.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Pourquoi c'est différent</a></li>
+        <li><a href="#section-2"><span class="toc-icon">🔭</span>Les 5 layers d'observabilité</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🛡️</span>Les garde-fous obligatoires</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛠️</span>Panorama outils 2026</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📊</span>KPI à monitorer</a></li>
+        <li><a href="#section-6"><span class="toc-icon">⚖️</span>DevOps vs MLOps vs LLMOps</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Sans observabilité ni garde-fous, un agent en prod est une bombe à retardement</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>L'observabilité = obligatoire en prod, non négociable.</strong> 94 % des organisations ayant des agents en prod ont déployé une forme d'observabilité (LangChain 2026). Sans tracing structuré, retry monitoring, alertes, tu ne sais pas que ton agent est cassé jusqu'à ce qu'un client appelle.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>5 layers d'observabilité à connaître.</strong> (a) Logs LLM (chaque appel modèle), (b) Tool calls (chaque action exécutée), (c) Retry/fallback (chaque échec géré), (d) Coût par session, (e) Satisfaction utilisateur. Sans ces 5 layers, tu pilotes à l'aveugle.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Les garde-fous sauvent ta facture.</strong> Un agent en boucle infinie peut consommer <strong>10 000 € en 24h</strong> sans cap budgétaire. Cap obligatoire : par session, par utilisateur, par jour. Plus retry-with-backoff, fail-safe gracieux, step-limit absolu.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>La qualité reste le blocker n°1 (32 %), la sécurité monte au n°2 (24,9 %).</strong> LangChain 2026. Implications : ton plan d'observabilité doit prévoir mesure qualité (eval pipeline) ET monitoring sécurité (anomalies, prompt injections détectées).</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">57 %</div><div class="exec-stat-label">Organisations avec agents en prod (LangChain 2026)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">89 % / 94 %</div><div class="exec-stat-label">Avec observabilité (global / en prod)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">32 % / 24,9 %</div><div class="exec-stat-label">Qualité / sécurité = blockers n°1 et n°2</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">23 %</div><div class="exec-stat-label">Organisations qui scalent un agent (McKinsey nov. 2025)</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as un <strong>agent IA en production</strong> ou en pilote avancé</li>
+              <li>Tu cherches le cadre minimum d'observabilité avant de monter en charge</li>
+              <li>Tu as déjà eu des incidents (réponses fausses, boucles infinies, factures qui explosent) et tu veux les prévenir</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. POURQUOI C'EST DIFFÉRENT -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Pourquoi l'observabilité d'agents est différente du monitoring traditionnel</h2>
+          </div>
+        </div>
+
+        <h3>1.1 Le problème spécifique aux agents</h3>
+        <p>Un agent IA fait plusieurs choses <strong>non déterministes</strong> à chaque appel :</p>
+        <ul>
+          <li>Choisir un outil (qui peut être le mauvais)</li>
+          <li>Lire un résultat (qui peut être ambigu)</li>
+          <li>Décider du prochain step (qui peut diverger)</li>
+          <li>Générer une réponse (qui peut halluciner)</li>
+        </ul>
+        <p>Un monitoring traditionnel (HTTP 200/500, latence, erreurs) <strong>ne suffit pas</strong>. Un agent peut renvoyer 200 OK avec une latence parfaite et une réponse complètement fausse.</p>
+
+        <h3>1.2 La règle « tu ne pilotes pas ce que tu ne mesures pas »</h3>
+        <p>Sans observabilité spécifique aux agents, tu ne sais pas :</p>
+        <ul>
+          <li>Combien d'erreurs sont remontées par les utilisateurs (vs subies silencieusement)</li>
+          <li>Pourquoi un agent boucle (mauvais outil ? prompt mal cadré ? modèle qui dérive ?)</li>
+          <li>Combien chaque session coûte</li>
+          <li>Si la qualité moyenne se dégrade au fil du temps (drift)</li>
+        </ul>
+        <p>→ La direction conduit à l'aveugle. Les incidents sont systémiquement détectés trop tard.</p>
+      </section>
+
+      <!-- 2. LES 5 LAYERS -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Les 5 layers d'observabilité essentiels</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Layer 1 — Logs LLM structurés</h3>
+        <p>À chaque appel modèle, on log :</p>
+        <ul>
+          <li>Modèle utilisé (Claude Sonnet, GPT-4, etc.)</li>
+          <li>Tokens input / output</li>
+          <li>Coût estimé</li>
+          <li>Latence</li>
+          <li>Système prompt + user prompt (anonymisés)</li>
+          <li>Réponse complète</li>
+        </ul>
+        <p><strong>Outil de référence</strong> : Comet Opik, LangSmith, Helicone, Phoenix Arize, Langfuse (open-source), promptlayer.</p>
+
+        <h3>2.2 Layer 2 — Tool calls tracking</h3>
+        <p>Chaque outil appelé par l'agent :</p>
+        <ul>
+          <li>Nom de l'outil</li>
+          <li>Paramètres passés</li>
+          <li>Résultat retourné</li>
+          <li>Succès/échec</li>
+          <li>Latence</li>
+        </ul>
+        <p>→ Permet de détecter : outils qui échouent souvent, outils sous-utilisés (à supprimer pour réduire le contexte), patterns de chaînage anormaux.</p>
+
+        <h3>2.3 Layer 3 — Retry / fallback / fail-safe</h3>
+        <p>Quand un outil échoue ou retourne du garbage :</p>
+        <ul>
+          <li>Stratégie retry (combien de fois, avec quel backoff)</li>
+          <li>Fallback déclenché (autre outil, autre modèle)</li>
+          <li>Fail-safe activé (réponse standard, escalade humaine)</li>
+        </ul>
+        <p>→ Sans tracking de ces patterns, tu ne sais pas combien d'utilisateurs reçoivent une réponse dégradée.</p>
+
+        <h3>2.4 Layer 4 — Coût par session / utilisateur / jour</h3>
+        <p>Tracking continu :</p>
+        <ul>
+          <li>Coût par session conversationnelle</li>
+          <li>Coût par utilisateur (pour détecter abus ou usage massif inattendu)</li>
+          <li>Coût agrégé par jour (pour anticiper la facture mensuelle)</li>
+        </ul>
+        <p>→ Sans ce tracking : la facture mensuelle est une surprise.</p>
+
+        <h3>2.5 Layer 5 — Satisfaction utilisateur (feedback explicite)</h3>
+        <p>Pour chaque interaction :</p>
+        <ul>
+          <li>👍/👎 utilisateur si possible</li>
+          <li>Champ texte feedback</li>
+          <li>Drop-off (l'utilisateur abandonne sans terminer)</li>
+        </ul>
+        <p>→ Sans feedback, le drift qualité passe inaperçu.</p>
+      </section>
+
+      <!-- 3. GARDE-FOUS -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Les garde-fous obligatoires pour un agent en prod</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Cap budgétaire (le plus critique)</h3>
+        <p>Un agent en boucle infinie peut consommer <strong>10 000 € en 24h</strong> sur un compte Anthropic ou OpenAI. Cap obligatoire :</p>
+        <ul>
+          <li><strong>Cap par session</strong> : max X € par session conversationnelle (ex : 0,50 €)</li>
+          <li><strong>Cap par utilisateur</strong> : max Y €/jour par utilisateur</li>
+          <li><strong>Cap global jour</strong> : max Z €/jour total — alerte sonore et arrêt automatique au dépassement</li>
+        </ul>
+        <p>→ Sans ces 3 caps, c'est juste une question de temps avant l'incident.</p>
+
+        <h3>3.2 Step-limit absolu</h3>
+        <p>Tout agent doit avoir un <strong>nombre maximum de steps</strong> par session. Typiquement 10-20 steps. Au-delà, fail-safe vers une réponse standard ou escalade humaine.</p>
+        <p>→ Évite les boucles infinies (bug le plus fréquent en agents).</p>
+
+        <h3>3.3 Retry avec backoff exponentiel</h3>
+        <p>Quand un outil ou un modèle échoue : retry 3 fois max, avec backoff exponentiel (1s, 4s, 16s). Au-delà : fallback ou fail-safe.</p>
+        <p>→ Évite de saturer le modèle ou l'outil distant.</p>
+
+        <h3>3.4 Fail-safe gracieux</h3>
+        <p>En cas d'échec définitif : <strong>ne jamais retourner une erreur technique brute</strong> à l'utilisateur. Préparer une réponse standard du type : « Je n'arrive pas à traiter ta demande pour l'instant. Veux-tu que je l'escalade à un humain ? ».</p>
+
+        <h3>3.5 Détection prompt injection</h3>
+        <p>Tracker les patterns de prompt injection (cf. <a href="dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents</a>) :</p>
+        <ul>
+          <li>Tentatives de override du système prompt</li>
+          <li>Tentatives d'extraction de données via prompt</li>
+          <li>Patterns d'attaque connus (DAN, etc.)</li>
+        </ul>
+        <p>→ Outil : guard rails open-source (NeMo Guardrails, Lakera Guard, Rebuff).</p>
+      </section>
+
+      <!-- 4. PANORAMA OUTILS -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Panorama outils 2026 par budget</h2>
+          </div>
+        </div>
+
+        <h3>4.1 Stack open-source self-hosted (gratuit ou faible coût hosting)</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Outil</th><th>Rôle</th><th>Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Langfuse</strong></td><td>Observabilité LLM/agents complète</td><td>Gratuit OSS, hosting ~20-100 €/mois</td></tr>
+            <tr><td><strong>Phoenix Arize</strong></td><td>Tracing + eval LLM</td><td>Gratuit OSS</td></tr>
+            <tr><td><strong>NeMo Guardrails (Nvidia)</strong></td><td>Garde-fous prompt injection</td><td>Gratuit</td></tr>
+            <tr><td><strong>OpenInference</strong></td><td>Standard de tracing OSS</td><td>Gratuit</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.2 Stack SaaS managed (plus rapide à déployer)</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Outil</th><th>Rôle</th><th>Coût typique PME</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Comet Opik</strong></td><td>Eval + observabilité LLM</td><td>Free tier puis ~50-200 €/mois</td></tr>
+            <tr><td><strong>LangSmith</strong></td><td>Observabilité LangChain</td><td>~30-200 €/mois</td></tr>
+            <tr><td><strong>Helicone</strong></td><td>LLM gateway + monitoring</td><td>~20-100 €/mois</td></tr>
+            <tr><td><strong>Lakera Guard</strong></td><td>Garde-fous sécurité</td><td>~50-300 €/mois</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 Recommandation pratique pour démarrer</h3>
+        <p>Pour une PME qui démarre :</p>
+        <ul>
+          <li><strong>Langfuse self-hosted</strong> + <strong>NeMo Guardrails</strong> (gratuit, contrôle, EU)</li>
+          <li>Si manque de bandwidth ops : <strong>Comet Opik free tier</strong> + <strong>Helicone free tier</strong></li>
+        </ul>
+        <p>→ Setup possible en 1-2 semaines.</p>
+        <p>Pour le panorama complet, voir la <a href="../ressources.html#bibliographie">page Ressources du Hub</a>.</p>
+      </section>
+
+      <!-- 5. KPI -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>KPI à monitorer en continu</h2>
+          </div>
+        </div>
+
+        <h3>5.1 KPI techniques</h3>
+        <ul>
+          <li><strong>Latence p95, p99</strong> : temps de réponse au 95e et 99e percentile</li>
+          <li><strong>Taux d'échec</strong> : % de sessions terminant sur fail-safe</li>
+          <li><strong>Tokens consommés / session</strong> : moyenne et médiane</li>
+          <li><strong>Coût / session</strong> : moyenne et médiane</li>
+        </ul>
+
+        <h3>5.2 KPI qualité</h3>
+        <ul>
+          <li><strong>Score eval automatique</strong> : sur dataset golden (50-200 cas)</li>
+          <li><strong>Feedback explicite</strong> : ratio 👍 / total</li>
+          <li><strong>Drop-off rate</strong> : % de sessions abandonnées avant complétion</li>
+          <li><strong>Retry rate</strong> : % de sessions avec retry déclenché</li>
+        </ul>
+
+        <h3>5.3 KPI sécurité</h3>
+        <ul>
+          <li><strong>Prompt injections détectées</strong> : nombre/jour</li>
+          <li><strong>Anomalies de pattern</strong> : sessions atypiques (volume, requêtes, accès)</li>
+          <li><strong>Tool calls inhabituels</strong> : agent qui appelle un outil rarement utilisé</li>
+        </ul>
+
+        <h3>5.4 KPI business</h3>
+        <ul>
+          <li><strong>Sessions / jour</strong></li>
+          <li><strong>Sessions par utilisateur / mois</strong></li>
+          <li><strong>Taux de résolution sans escalade humaine</strong> (pour agents support)</li>
+        </ul>
+      </section>
+
+      <!-- 6. DEVOPS / MLOPS / LLMOPS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>DevOps vs MLOps vs LLMOps : les différences fondamentales</h2>
+          </div>
+        </div>
+
+        <p>Beaucoup de PME tentent d'appliquer des pratiques DevOps à leurs agents IA. <strong>C'est un piège.</strong> Trois disciplines distinctes :</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>Discipline</th><th>Objet</th><th>Cycle</th><th>Critère succès</th><th>Reproductibilité</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>DevOps</strong></td>
+              <td>Code logiciel</td>
+              <td>code → test → deploy → monitor</td>
+              <td>Code fonctionne comme spécifié</td>
+              <td>100 % (même input → même output)</td>
+            </tr>
+            <tr>
+              <td><strong>MLOps</strong></td>
+              <td>Modèles ML statistiques</td>
+              <td>data → train → evaluate → deploy → retrain</td>
+              <td>Modèle prédit avec qualité acceptable</td>
+              <td>Haute (même data + même algo → même modèle)</td>
+            </tr>
+            <tr>
+              <td><strong>LLMOps</strong></td>
+              <td>Agents LLM, prompts, RAG</td>
+              <td>prompt → eval → deploy → monitor → adjust</td>
+              <td>Valeur métier (ROI, satisfaction utilisateur)</td>
+              <td>Faible (LLM intrinsèquement non déterministes)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>→ Implication : les outils LLMOps (observabilité, eval, garde-fous) sont <strong>différents</strong> des outils DevOps. Ne pas tenter de tout faire avec Datadog ou Prometheus.</p>
+      </section>
+
+      <!-- 7. PLAN D'ACTION -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">7</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Plan d'action 30 jours pour observabilité minimale</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-7 — Setup observabilité minimale</h4>
+            <ul>
+              <li>Choisir stack (Langfuse self-hosted ou Comet Opik free tier)</li>
+              <li>Instrumenter chaque appel LLM et tool call</li>
+              <li>Dashboard de base : latence, coût, taux d'échec</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 8-15 — Garde-fous critiques</h4>
+            <ul>
+              <li>Cap budgétaire 3 niveaux (session, utilisateur, jour)</li>
+              <li>Step-limit absolu sur chaque agent</li>
+              <li>Retry avec backoff exponentiel</li>
+              <li>Fail-safe gracieux</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 16-23 — Eval pipeline</h4>
+            <ul>
+              <li>Construction dataset golden 50-100 cas</li>
+              <li>Run eval automatique quotidienne</li>
+              <li>Alerte si dégradation &gt; 5 %</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 24-30 — Monitoring sécurité</h4>
+            <ul>
+              <li>Garde-fous prompt injection (NeMo Guardrails ou Lakera)</li>
+              <li>Tracking anomalies pattern</li>
+              <li>Procédure réponse incident</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (observabilité, garde-fous LLM) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage agents.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://blog.langchain.dev/" target="_blank" rel="noopener">LangChain — State of Agent Engineering 2026</a><span class="resources-meta">Étude annuelle référence</span></li>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Layers of observability in AI systems</a><span class="resources-meta">Pilier 8 LLM Engineering Roadmap</span></li>
+            <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic Engineering — Building effective agents</a><span class="resources-meta">Patterns d'agents production-ready</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://langfuse.com/docs" target="_blank" rel="noopener">Langfuse Docs</a><span class="resources-meta">Open-source tracing LLM/agents</span></li>
+            <li><a href="https://phoenix.arize.com/" target="_blank" rel="noopener">Phoenix Arize</a><span class="resources-meta">Eval + tracing OSS</span></li>
+            <li><a href="https://www.comet.com/site/products/opik/" target="_blank" rel="noopener">Comet Opik</a><span class="resources-meta">Évaluation et observabilité LLM</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://github.com/NVIDIA/NeMo-Guardrails" target="_blank" rel="noopener">NeMo Guardrails (Nvidia)</a><span class="resources-meta">Framework garde-fous open-source</span></li>
+            <li><a href="https://docs.smith.langchain.com/" target="_blank" rel="noopener">LangSmith Docs</a><span class="resources-meta">Référence observabilité LangChain</span></li>
+            <li><a href="https://github.com/Arize-ai/openinference" target="_blank" rel="noopener">OpenInference</a><span class="resources-meta">Standard de tracing OSS</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://www.anthropic.com/discord" target="_blank" rel="noopener">Anthropic Discord</a><span class="resources-meta">Échanges agents production</span></li>
+            <li><a href="https://reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">r/LocalLLaMA</a><span class="resources-meta">Communauté LLM open-source</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

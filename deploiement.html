@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Déploiement — Hub IA Learning Center</title>
+  <meta name="description" content="8 cadrages techniques essentiels pour passer du pilote IA à la production : projet, RAG, context engineering, fine-tuning, observabilité, inférence, évaluation, sécurité. 95 % des projets GenAI échouent — la cause n'est jamais la technologie. Programme du réseau Quest for Change.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/module-v3.css">
+  <style>
+    /* Section Déploiement — page d'index (réplique du pattern .prealables-* validé v3.5+) */
+    .deploiement-hero { background: linear-gradient(135deg, #1F3864 0%, #2E5395 100%); color: white; padding: calc(var(--nav-height) + var(--space-7)) var(--space-5) var(--space-7); text-align: center; }
+    .deploiement-hero h1 { color: white; font-size: 2rem; margin: 0 0 var(--space-3); }
+    .deploiement-hero p { font-size: 1.0625rem; line-height: 1.6; max-width: 760px; margin: 0 auto var(--space-3); opacity: 0.95; }
+    .deploiement-hero .pill { display: inline-block; background: rgba(255,214,0,0.15); color: #FFD600; font-size: 0.8125rem; font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .deploiement-intro { max-width: 900px; margin: var(--space-7) auto; padding: 0 var(--space-5); }
+    .deploiement-intro h2 { color: var(--color-primary); margin-bottom: var(--space-4); }
+    .deploiement-intro p { line-height: 1.7; margin-bottom: var(--space-4); }
+
+    .deploiement-grid { max-width: 1200px; margin: var(--space-6) auto; padding: 0 var(--space-5); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); }
+    .dep-card { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-6); border-left: 5px solid var(--color-primary); transition: transform 0.15s ease, box-shadow 0.15s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .dep-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-left-color: #FFD600; }
+    .dep-card-icon { font-size: 2.25rem; margin-bottom: var(--space-3); line-height: 1; }
+    .dep-card-title { font-size: 1.125rem; font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-3); line-height: 1.3; }
+    .dep-card-desc { font-size: 0.9375rem; line-height: 1.5; color: var(--color-text-soft); margin-bottom: var(--space-4); flex: 1; }
+    .dep-card-meta { font-size: 0.8125rem; color: var(--color-text-soft); padding-top: var(--space-3); border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; }
+    .dep-card-meta strong { color: var(--color-primary); }
+
+    .deploiement-aiguillage { max-width: 1100px; margin: var(--space-7) auto; padding: 0 var(--space-5); }
+    .deploiement-aiguillage > h2 { color: var(--color-primary); margin-bottom: var(--space-4); text-align: center; }
+    .deploiement-aiguillage > p { text-align: center; max-width: 720px; margin: 0 auto var(--space-6); color: var(--color-text-soft); }
+    .parcours-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-5); }
+    .parcours-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5) var(--space-6); border-left: 4px solid var(--color-primary-light); }
+    .parcours-card h3 { color: var(--color-primary); margin-top: 0; margin-bottom: var(--space-3); font-size: 1.0625rem; }
+    .parcours-card ol { margin: 0; padding-left: var(--space-5); }
+    .parcours-card li { margin-bottom: var(--space-2); font-size: 0.9375rem; line-height: 1.5; }
+    .parcours-card a { color: var(--color-primary); font-weight: 600; }
+
+    .deploiement-footer-cta { max-width: 900px; margin: var(--space-7) auto; padding: var(--space-6); background: linear-gradient(135deg, #FFF8E8 0%, #FFEFC8 100%); border-left: 5px solid #FFD600; border-radius: var(--radius-md); }
+    .deploiement-footer-cta h3 { color: var(--color-text); margin: 0 0 var(--space-3); }
+    .deploiement-footer-cta p { margin: 0 0 var(--space-3); line-height: 1.6; }
+    .deploiement-footer-cta a { color: var(--color-primary); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="prealables.html" class="nav-link">Préalables</a>
+        <a href="architectures.html" class="nav-link">Architectures</a>
+        <a href="deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="index.html#modules" class="nav-link">Modules</a>
+        <a href="ressources.html" class="nav-link">Ressources</a>
+        <a href="index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="deploiement-hero">
+    <div class="pill">⚡ Section transverse · Cadrage stratégique</div>
+    <h1>🚀 Déploiement</h1>
+    <p>
+      Passer du pilote à la production. <strong>95 % des projets GenAI en entreprise n'ont aucun impact P&amp;L mesurable</strong> (MIT NANDA, août 2025). La cause n'est jamais la technologie, mais le cadrage. Cette section te donne les 8 cadrages essentiels pour ne pas faire partie des 95 %.
+    </p>
+  </header>
+
+  <section class="deploiement-intro">
+    <h2>Pourquoi cette section ?</h2>
+    <p>
+      La section <strong>Déploiement</strong> s'adresse aux dirigeants PME / ETI qui pilotent un projet IA en mise en production, et à leurs interfaces techniques (CTO, prestataire, équipe IT interne). Elle complète les <a href="prealables.html">Préalables</a> (cadrage transverse) et les <a href="index.html#modules">Modules</a> (cas d'usage opérationnels) avec les <strong>8 cadrages techniques essentiels</strong> pour passer du pilote à la production : cadrage projet, RAG en production, context engineering, fine-tuning, observabilité, inférence, évaluation, sécurité.
+    </p>
+    <p>
+      <strong>Public</strong> : Niveau ⭐⭐⭐ Avancé à ⭐⭐⭐⭐ Expert. Tu pilotes ou tu commandites un projet qui doit tenir en production.
+    </p>
+  </section>
+
+  <section class="deploiement-grid">
+
+    <a href="deploiement/dep-01-cadrer-projet-prod.html" class="dep-card">
+      <div class="dep-card-icon">🎯</div>
+      <div class="dep-card-title">Cadrer un projet IA pour la mise en production</div>
+      <div class="dep-card-desc">
+        95 % des projets GenAI échouent. La cause n'est jamais la technologie. POC vs pilote vs production, gouvernance, NIST AI RMF, 7 écueils documentés.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐ Avancé</span>
+        <span><strong>18 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-02-rag-architecture-prod.html" class="dep-card">
+      <div class="dep-card-icon">🔎</div>
+      <div class="dep-card-title">RAG en production : choisir son architecture</div>
+      <div class="dep-card-desc">
+        Le RAG hybride a triplé en Q1 2026. Comment décider entre LLM Wiki, RAG dense et hybride. Architecture de référence + outils 2026.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐ Avancé</span>
+        <span><strong>22 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-03-context-engineering-couts.html" class="dep-card">
+      <div class="dep-card-icon">💰</div>
+      <div class="dep-card-title">Context engineering et coût par requête</div>
+      <div class="dep-card-desc">
+        Prompt caching = -90 % sur les input tokens. Workslop = 9 M$ par an pour 10 000 employés. Discipline coût + leviers d'économie.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐ Avancé</span>
+        <span><strong>18 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-04-fine-tuning-pme.html" class="dep-card">
+      <div class="dep-card-icon">🎓</div>
+      <div class="dep-card-title">Fine-tuning : quand y aller, quand ne pas</div>
+      <div class="dep-card-desc">
+        Pour 80 % des cas PME, prompt + RAG suffit. Les 3 cas où le fine-tuning est vraiment justifié, et comment éviter le piège du « FT par défaut ».
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐ Avancé</span>
+        <span><strong>15 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-05-agents-observabilite.html" class="dep-card">
+      <div class="dep-card-icon">🔭</div>
+      <div class="dep-card-title">Agents en production : observabilité &amp; garde-fous</div>
+      <div class="dep-card-desc">
+        89 % des organisations ont une forme d'observabilité. Les 5 layers essentiels et les garde-fous obligatoires avant tout passage en prod.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐⭐ Expert</span>
+        <span><strong>20 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-06-inference-saas-self-hosted.html" class="dep-card">
+      <div class="dep-card-icon">⚙️</div>
+      <div class="dep-card-title">Inférence et coûts : SaaS vs self-hosted</div>
+      <div class="dep-card-desc">
+        Kimi K2.6 = 8-10× moins cher qu'Opus. vLLM = 2-4× plus de débit. Le tableau de décision SaaS vs hybride vs self-hosted en PME.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐⭐ Expert</span>
+        <span><strong>18 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-07-evaluation-qualite.html" class="dep-card">
+      <div class="dep-card-icon">✅</div>
+      <div class="dep-card-title">Évaluation continue et qualité IA</div>
+      <div class="dep-card-desc">
+        Tu ne peux pas piloter ce que tu ne mesures pas. La pipeline d'évaluation minimale en PME : eval set, métriques, monitoring, drift.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐⭐ Expert</span>
+        <span><strong>17 min</strong></span>
+      </div>
+    </a>
+
+    <a href="deploiement/dep-08-securite-agents-mcp.html" class="dep-card">
+      <div class="dep-card-icon">🛡️</div>
+      <div class="dep-card-title">Sécurité agents et MCP servers</div>
+      <div class="dep-card-desc">
+        12 % de skills malveillants sur OpenClaw janvier 2026. CVE-2025-59536 sur Claude Code. Audit obligatoire avant tout usage en prod.
+      </div>
+      <div class="dep-card-meta">
+        <span>📚 ⭐⭐⭐⭐ Expert</span>
+        <span><strong>22 min</strong></span>
+      </div>
+    </a>
+
+  </section>
+
+  <section class="deploiement-aiguillage">
+    <h2>Par où commencer ?</h2>
+    <p>3 parcours suggérés selon ton point d'entrée actuel.</p>
+    <div class="parcours-grid">
+
+      <div class="parcours-card">
+        <h3>🎯 Tu démarres un projet IA</h3>
+        <ol>
+          <li><a href="deploiement/dep-01-cadrer-projet-prod.html">Cadrer un projet IA pour la mise en production</a></li>
+          <li><a href="prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a></li>
+          <li>Le module CU correspondant à ton cas d'usage métier</li>
+        </ol>
+      </div>
+
+      <div class="parcours-card">
+        <h3>🤖 Tu mets en production un agent ou un RAG</h3>
+        <ol>
+          <li><a href="deploiement/dep-02-rag-architecture-prod.html">RAG en production : choisir son architecture</a> ou <a href="deploiement/dep-05-agents-observabilite.html">Agents : observabilité &amp; garde-fous</a></li>
+          <li><a href="deploiement/dep-07-evaluation-qualite.html">Évaluation continue et qualité IA</a></li>
+          <li><a href="deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP servers</a></li>
+        </ol>
+      </div>
+
+      <div class="parcours-card">
+        <h3>💰 Tu maîtrises le coût d'inférence</h3>
+        <ol>
+          <li><a href="deploiement/dep-03-context-engineering-couts.html">Context engineering et coût par requête</a></li>
+          <li><a href="deploiement/dep-06-inference-saas-self-hosted.html">Inférence et coûts : SaaS vs self-hosted</a></li>
+          <li><a href="deploiement/dep-04-fine-tuning-pme.html">Fine-tuning : quand y aller, quand ne pas</a></li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="deploiement-footer-cta">
+    <h3>Tu hésites encore sur l'architecture de déploiement ?</h3>
+    <p>Va voir les <a href="architectures.html">4 patterns d'architecture</a> (SaaS, propriétaire managé, open-source cloud souverain, on-premise) — un préalable structurel à plusieurs des cadrages de cette section (notamment DEP-06 inférence).</p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="prealables.html">Préalables</a>
+        <a href="architectures.html">Architectures</a>
+        <a href="deploiement.html">Déploiement</a>
+        <a href="index.html#modules">Modules</a>
+        <a href="ressources.html">Ressources</a>
+        <a href="index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadrer un projet IA pour la mise en production — Hub IA Learning Center</title>
+  <meta name="description" content="95 % des projets GenAI en entreprise n'ont aucun impact P&L mesurable. La cause n'est pas la technologie. C'est l'absence de cadrage. Voici comment ne pas faire partie des 95 %.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">18 min de lecture</span>
+      </div>
+      <h1>🎯 Cadrer un projet IA pour la mise en production</h1>
+      <p class="module-subtitle">95 % des projets GenAI en entreprise n'ont aucun impact P&amp;L mesurable. La cause n'est pas la technologie. C'est l'absence de cadrage. Voici comment ne pas faire partie des 95 %.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>POC, pilote, production</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚖️</span>Buy + partenariat vs Build interne</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🛡️</span>Les 4 piliers de gouvernance</a></li>
+        <li><a href="#section-4"><span class="toc-icon">⚠️</span>Les 7 écueils documentés</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📋</span>Le NIST AI RMF gratuit</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 90 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Pourquoi 95 % des projets GenAI échouent — et comment ne pas en faire partie</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>POC, pilote, production : trois phases distinctes avec trois objectifs différents.</strong> Confondre les trois est la cause n°1 d'échec. Le POC valide la faisabilité technique. Le pilote valide la valeur métier. La production industrialise. Chaque transition demande des critères Go/No-Go explicites.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>Buy + partenariat = 67 % de réussite vs 33 % en build interne</strong> (MIT NANDA 2025). Pour la PME, le bon réflexe par défaut est l'achat à un éditeur spécialisé + partenariat d'intégration, pas le build maison. Le build interne reste justifié pour 3 cas seulement : souveraineté critique, ROI massif documenté, ou différenciation compétitive durable.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>La gouvernance projet IA n'est pas une option.</strong> Avant le moindre POC : nommer un product owner métier, fixer 2-3 KPI mesurables, prévoir le redesign de workflow, anticiper la conformité (RGPD, AI Act, sectorielle). Sans ces 4 points, tu vas dans les 95 %.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Le NIST AI Risk Management Framework est ton référentiel gratuit.</strong> Pas besoin de réinventer une grille de gouvernance. Le NIST AI RMF (gratuit, public) couvre les 4 fonctions essentielles : Govern, Map, Measure, Manage. Adoptable en 1 journée pour une PME.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">95 %</div><div class="exec-stat-label">Pilotes GenAI sans impact P&amp;L (MIT NANDA 2025)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">67 % vs 33 %</div><div class="exec-stat-label">Buy+partenariat vs Build interne (MIT NANDA)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">23 %</div><div class="exec-stat-label">Organisations qui scalent un agent (McKinsey nov. 2025)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">6 %</div><div class="exec-stat-label">Entreprises &gt; 5 % d'EBIT attribué à l'IA (McKinsey)</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu envisages de <strong>passer un projet IA du pilote à la production</strong></li>
+              <li>Tu veux <strong>cadrer un projet IA dès le départ</strong> pour éviter les 95 % qui échouent</li>
+              <li>Tu cherches un référentiel de gouvernance simple, applicable, qui n'exige pas de devenir DSI</li>
+              <li>Tu veux savoir <strong>quelles questions poser à ton prestataire</strong> avant de signer</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. POC / PILOTE / PRODUCTION -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>POC, pilote, production : trois phases, trois objectifs</h2>
+          </div>
+        </div>
+
+        <p>La confusion entre ces trois phases est la cause n°1 d'échec des projets IA en PME. Comprendre la distinction est non négociable.</p>
+
+        <h3>1.1 Le POC (Proof of Concept) — valider la faisabilité technique</h3>
+        <p>Durée typique : <strong>2 à 6 semaines</strong>. Objectif : démontrer que la techno fonctionne sur ton cas d'usage. Pas de production, pas de vrais utilisateurs en aval, pas de SLA. Un POC qui marche prouve que c'est faisable, pas que ça apporte de la valeur.</p>
+        <p><strong>Critère de sortie POC</strong> : la techno fait ce qu'on attend d'elle dans des conditions contrôlées. Si oui → passage en pilote. Si non → arrêt sans regret (le POC a coûté quelques semaines, pas un an).</p>
+
+        <h3>1.2 Le pilote — valider la valeur métier</h3>
+        <p>Durée typique : <strong>3 à 6 mois</strong>. Objectif : mettre l'outil entre les mains de <strong>vrais utilisateurs</strong> sur un périmètre limité (1 équipe, 1 fonction, 1 cas d'usage). Mesurer la valeur métier avec des KPI cibles définis avant le démarrage.</p>
+        <p><strong>Critère de sortie pilote</strong> : les KPI métier sont atteints (gain de productivité, amélioration de qualité, réduction de coût, etc.). Si oui → passage en production. Si non → analyse des causes (mauvais cadrage ? mauvais workflow ? rejet utilisateur ? problème technique ?) puis correction ou arrêt.</p>
+
+        <h3>1.3 La production — industrialiser</h3>
+        <p>Durée typique : <strong>6 mois à 2 ans pour atteindre la stabilité</strong>. Objectif : déployer sur l'ensemble du périmètre cible avec SLA, monitoring, support, mise à jour, conformité, formation. C'est ici que <strong>le coût récurrent devient significatif</strong> (20-30 %/an du coût initial pour la maintenance).</p>
+        <p><strong>Critère de réussite production</strong> : le système est utilisé en routine, ROI mesurable et durable, conformité tenue. Si dérive → diagnostic + correction.</p>
+
+        <h3>1.4 La règle pratique pour ne pas se tromper</h3>
+        <div class="pull-quote">
+          <p>Ne jamais déployer un POC en production. C'est l'erreur la plus fréquente et la plus coûteuse. Entre le POC qui « marche » en démo et l'outil en production, il y a un facteur 5 à 10 en effort de structuration.</p>
+        </div>
+      </section>
+
+      <!-- 2. BUY VS BUILD -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Buy + partenariat vs Build interne : la doctrine 2026</h2>
+          </div>
+        </div>
+
+        <p>L'étude MIT NANDA 2025 est sans ambiguïté : <strong>les stratégies Buy + partenariat réussissent dans 67 % des cas contre 33 % pour les builds internes</strong>. C'est un facteur 2.</p>
+
+        <h3>2.1 Pourquoi Buy + partenariat gagne</h3>
+        <p>Trois raisons documentées :</p>
+        <ol>
+          <li><strong>Compétences cumulées</strong> : un éditeur spécialisé a des centaines de déploiements en historique. Une PME en a zéro.</li>
+          <li><strong>Maintenance externalisée</strong> : les mises à jour de modèles, les patchs sécurité, la conformité réglementaire (AI Act 2026, RGPD) sont gérés par l'éditeur.</li>
+          <li><strong>Time-to-value rapide</strong> : 3-6 mois pour un déploiement, contre 12-24 mois pour un build interne.</li>
+        </ol>
+
+        <h3>2.2 Quand le Build interne reste justifié</h3>
+        <p>3 cas seulement (cf. <a href="../prealables/pr-07-build-vs-buy.html">PR-07 Build vs Buy à l'ère de l'IA</a> pour le détail) :</p>
+        <ol>
+          <li><strong>Souveraineté critique</strong> : données ultra-sensibles, secret industriel, contrainte SecNumCloud absolue.</li>
+          <li><strong>ROI massif documenté</strong> : volume tel que l'amortissement du build est démontré sur 24 mois.</li>
+          <li><strong>Différenciation compétitive durable</strong> : le système IA fait ton avantage sur le marché, pas un sujet support.</li>
+        </ol>
+        <p>Pour tous les autres cas : <strong>Buy + partenariat est le bon réflexe par défaut</strong>.</p>
+
+        <h3>2.3 Le compromis intelligent : Buy + customisation légère</h3>
+        <p>Le pattern dominant en 2026 pour les PME ambitieuses : acheter un outil spécialisé (Pennylane, Sellsy, ou plus avancé selon le cas) + ajouter une <strong>couche de customisation IA-assistée</strong> (workflows n8n, micro-applications métier via Cursor / Lovable / Bolt — voir <a href="../modules/cu-027-dev-applicatif-ia.html">CU-027 Faire développer une appli métier</a>).</p>
+      </section>
+
+      <!-- 3. GOUVERNANCE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Les 4 piliers de gouvernance non négociables</h2>
+          </div>
+        </div>
+
+        <p>Avant le moindre POC, ces 4 points doivent être cadrés. <strong>C'est le minimum vital pour ne pas tomber dans les 95 %.</strong></p>
+
+        <h3>3.1 Un product owner métier nommé</h3>
+        <p>Pas un sponsor lointain. Un <strong>PO opérationnel</strong> qui dédie 20-40 % de son temps au projet pendant 6-12 mois. Sans PO métier, le projet dérive vers les besoins techniques de l'équipe IT et perd le contact avec la valeur réelle.</p>
+
+        <h3>3.2 2-3 KPI cibles mesurables, définis AVANT le POC</h3>
+        <p>Pas « améliorer la productivité ». Mais : « réduire le temps de traitement d'un dossier de 45 min à 20 min sur 80 % des cas, mesuré sur un échantillon de 100 dossiers ». Si tu ne sais pas formuler le KPI, le projet n'est pas mûr.</p>
+
+        <h3>3.3 Le redesign de workflow planifié</h3>
+        <p>McKinsey 2025 : <strong>seules 21 %</strong> des organisations IA ont redesigné leurs workflows. C'est pourtant le seul critère le plus corrélé à l'EBIT-impact. Sans redesign, tu numérises l'inefficacité existante. Le redesign de workflow se fait <strong>avant</strong> la mise en prod, pas après.</p>
+
+        <h3>3.4 La conformité anticipée</h3>
+        <p>Trois sujets à cadrer avant le POC :</p>
+        <ul>
+          <li><strong>RGPD</strong> (cf. <a href="../prealables/pr-05-securite-ia.html">PR-05 Sécurité IA</a>) : registre des traitements, consentement, durée de conservation</li>
+          <li><strong>AI Act</strong> (haut-risque applicable 2 août 2026) : si scoring RH, scoring crédit, prise de décision sensible</li>
+          <li><strong>Sectorielle</strong> : selon ton métier (santé, finance, éducation)</li>
+        </ul>
+        <p>Anticiper évite de devoir tout démonter en phase production.</p>
+      </section>
+
+      <!-- 4. ÉCUEILS -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Les 7 écueils les plus documentés</h2>
+          </div>
+        </div>
+
+        <p>À éviter à tout prix. Chaque écueil cité a tué un projet IA documenté en 2024-2025.</p>
+
+        <div class="alert-block">
+          <ol>
+            <li><strong>Lancer le POC avant d'avoir validé la désirabilité</strong> : le besoin métier n'existe pas, ou les utilisateurs cibles ne veulent pas du système. Cause d'échec ~25 % des cas.</li>
+            <li><strong>Confondre adoption (usage individuel) et transformation (changement organisationnel)</strong>. ChatGPT utilisé par 60 % des employés ≠ IA qui transforme l'entreprise.</li>
+            <li><strong>Skip de la gouvernance pendant le pilote</strong> → impossibilité de scaler ensuite (audit trails, compliance, reproductibilité absents).</li>
+            <li><strong>Tout vouloir builder en interne</strong> : ratio de réussite 1/3 contre 2/3 (MIT NANDA).</li>
+            <li><strong>Ignorer le redesign de workflow</strong> : tu numérises l'inefficacité.</li>
+            <li><strong>Sous-estimer le coût récurrent</strong> : 20-30 %/an du coût initial pour maintenance, mises à jour, conformité.</li>
+            <li><strong>Pas de PO métier dédié</strong> : projet techno sans valeur métier mesurée → arrêt à la fin du pilote.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 5. NIST AI RMF -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Le NIST AI RMF comme référentiel gratuit</h2>
+          </div>
+        </div>
+
+        <p>Le <strong>NIST AI Risk Management Framework</strong> (publié 2023, mis à jour 2024) est le référentiel gouvernement américain pour la gouvernance IA. Gratuit, public, applicable en PME.</p>
+
+        <p>Quatre fonctions :</p>
+        <ol>
+          <li><strong>Govern</strong> : politiques, rôles, responsabilités IA dans l'organisation</li>
+          <li><strong>Map</strong> : catégoriser les usages IA par risque</li>
+          <li><strong>Measure</strong> : KPI techniques (qualité), business (ROI), conformité (audit trails)</li>
+          <li><strong>Manage</strong> : prioriser les risques, traiter, monitorer</li>
+        </ol>
+
+        <div class="checklist-block">
+          <h3>Adoptable en 1 journée pour une PME</h3>
+          <ul>
+            <li>Le PO métier + le DSI ou prestataire IT remplissent ensemble les 4 sections sur ton cas d'usage</li>
+            <li>Le NIST fournit des templates téléchargeables prêts à l'emploi</li>
+            <li>Aucun coût de licence, ni dépendance à un éditeur</li>
+            <li>Compatible avec une démarche AI Act EU et RGPD (vocabulaire et axes proches)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 6. PLAN D'ACTION -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Plan d'action 90 jours pour cadrer un projet IA</h2>
+          </div>
+        </div>
+
+        <p>Si tu démarres un projet IA dans les 90 prochains jours, voici la séquence type :</p>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-15 — Désirabilité métier</h4>
+            <ul>
+              <li>Identifier le cas d'usage prioritaire (max 1 à la fois)</li>
+              <li>Valider auprès de 5-10 utilisateurs cibles par interview qualitative</li>
+              <li>Formuler les 2-3 KPI cibles mesurables</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 16-30 — Cadrage gouvernance</h4>
+            <ul>
+              <li>Nommer le PO métier (20-40 % de son temps dédié)</li>
+              <li>Adopter le NIST AI RMF (4 templates remplis)</li>
+              <li>Cadrer la conformité (RGPD, AI Act si haut-risque)</li>
+              <li>Décision Buy vs Build (cf. <a href="../prealables/pr-07-build-vs-buy.html">PR-07</a>)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 31-60 — POC technique</h4>
+            <ul>
+              <li>Mise en œuvre du POC sur conditions contrôlées</li>
+              <li>Critère Go/No-Go : la techno fait ce qui est attendu</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 61-90 — Pilote utilisateurs</h4>
+            <ul>
+              <li>5-15 utilisateurs cibles, 1 équipe, 1 fonction</li>
+              <li>Mesure des 2-3 KPI cibles</li>
+              <li>Décision Go/No-Go pour la mise en production</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ À l'issue de ces 90 jours</div>
+          <p>Tu sais si tu vas en production ou si tu arrêtes — sans avoir engagé de budget récurrent. C'est le scénario qui distingue les 5 % de projets IA qui réussissent des 95 % qui échouent.</p>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études Bpifrance, AI Act, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/" target="_blank" rel="noopener">Fortune — MIT NANDA report 95 % AI pilots failing</a><span class="resources-meta">Synthèse du rapport MIT NANDA août 2025</span></li>
+            <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The state of AI 2025 (mars)</a><span class="resources-meta">Étude annuelle 78 % adoption / 6 % EBIT &gt; 5 %</span></li>
+            <li><a href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity" target="_blank" rel="noopener">HBR — AI-generated workslop is destroying productivity (sept. 2025)</a><span class="resources-meta">Coût caché de l'IA mal cadrée</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/gen-ai-lifecycle-operational-excellence/dev-architecting.html" target="_blank" rel="noopener">AWS Prescriptive Guidance — Generative AI Lifecycle</a><span class="resources-meta">Framework architecture POC → prod</span></li>
+            <li><a href="https://presse.bpifrance.fr/bpifrance-deploie-10-milliards-deuros-pour-developper-lecosysteme-ia-et-soutenir-lappropriation-de-lintelligence-artificielle-par-les-entreprises-francaises" target="_blank" rel="noopener">Bpifrance Conseil Osez l'IA</a><span class="resources-meta">700 diagnostics IA en PME (2024)</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI Risk Management Framework</a><span class="resources-meta">Référentiel gouvernance IA gratuit (templates téléchargeables)</span></li>
+            <li><a href="https://www.aigl.blog/state-of-ai-in-business-2025/" target="_blank" rel="noopener">MIT NANDA — State of AI in Business 2025 (synthèse)</a><span class="resources-meta">Étude 153 leaders, 300 déploiements</span></li>
+            <li><a href="https://www.mckinsey.com/~/media/mckinsey/business%20functions/quantumblack/our%20insights/the%20state%20of%20ai/november%202025/the-state-of-ai-2025-agents-innovation_cmyk-v1.pdf" target="_blank" rel="noopener">McKinsey — State of AI nov. 2025 (PDF)</a><span class="resources-meta">Édition agents, 23 % scalent</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://lelab.bpifrance.fr" target="_blank" rel="noopener">Bpifrance Le Lab</a><span class="resources-meta">Études IA PME/ETI françaises</span></li>
+            <li><a href="https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle/comprendre-et-adopter-lia/le-podcast-les-pme-lia" target="_blank" rel="noopener">France Num</a><span class="resources-meta">Podcast PME et IA, baromètre annuel</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

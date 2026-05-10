@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG en production : choisir son architecture — Hub IA Learning Center</title>
+  <meta name="description" content="Le RAG hybride a triplé en Q1 2026 (10,3 % → 33,3 %). Le débat n'est plus « RAG ou pas » mais « quelle architecture selon mon volume et mes données ». Voici comment décider.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">22 min de lecture</span>
+      </div>
+      <h1>🔎 RAG en production : choisir son architecture</h1>
+      <p class="module-subtitle">Le RAG hybride a triplé en Q1 2026 (10,3 % → 33,3 %). Le débat n'est plus « RAG ou pas » mais « quelle architecture selon mon volume et mes données ». Voici comment décider.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>RAG en 2026 : ce qui a changé</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📚</span>LLM Wiki Karpathy</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🔀</span>Le RAG hybride 2026</a></li>
+        <li><a href="#section-4"><span class="toc-icon">📊</span>Tableau de décision RAG</a></li>
+        <li><a href="#section-5"><span class="toc-icon">💾</span>Choix vector DB</a></li>
+        <li><a href="#section-6"><span class="toc-icon">⚠️</span>Les 5 écueils typiques</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 60 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Trois architectures cohabitent en 2026 — bien choisir économise 10×</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>Trois architectures cohabitent en 2026 selon ton volume.</strong> Pour &lt; 100K tokens → LLM Wiki Karpathy (95 % moins coûteux). Pour 100K-10M tokens → RAG hybride (dense + sparse + reranking). Au-delà → RAG hybride avec sharding et caching avancé. Le mauvais choix coûte 10x plus.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>Le vector DB n'est PAS la décision principale.</strong> Beaucoup de PME se trompent en passant 80 % du temps sur le choix Pinecone vs Qdrant. <strong>Le bon embedding model et le reranking pèsent 5-10x plus</strong> sur la qualité finale.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Une pipeline de retrieval bien faite réduit les hallucinations de 70 à 90 %.</strong> Les chiffres de Techment 2026 sont reproductibles. Mais cela exige une discipline : chunking adapté, retrieval hybride, reranking obligatoire, eval pipeline pour mesurer.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Le LLM Wiki Karpathy (avril 2026) change la donne pour les petits corpus.</strong> Pour une base &lt; 100K tokens stable (manuel produit, FAQ technique, documentation interne d'un domaine), une simple base markdown maintenue par un LLM peut surpasser un RAG vectoriel — et coûter 95 % moins en tokens.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">+322 %</div><div class="exec-stat-label">Adoption retrieval hybride Q1 2026 (VentureBeat)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">70-90 %</div><div class="exec-stat-label">Réduction hallucinations avec pipeline propre (Techment)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">95 %</div><div class="exec-stat-label">Tokens en moins avec LLM Wiki sur petits corpus</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">+1 à 9 %</div><div class="exec-stat-label">Recall hybride vs vectoriel pur (TiDB)</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu envisages de déployer un <strong>RAG en production</strong> sur ton patrimoine documentaire interne</li>
+              <li>Tu veux choisir entre <strong>LLM Wiki / RAG dense / RAG hybride</strong></li>
+              <li>Tu cherches un référentiel pour benchmarker les vector DB sans te perdre dans les détails techniques</li>
+              <li>Tu as un budget mensuel à arbitrer pour ta pipeline RAG</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CONTEXTE 2026 -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>RAG en 2026 : pourquoi le débat a évolué</h2>
+          </div>
+        </div>
+
+        <h3>1.1 Ce qui a changé en 2025-2026</h3>
+        <p>Trois ruptures structurent le marché aujourd'hui :</p>
+        <ol>
+          <li><strong>Le RAG dense pur plafonne sur les corpus métier réels.</strong> Quand le corpus contient des acronymes, des codes produits, des références techniques (numéros ATC, codes SKU, références ISO), l'embedding sémantique ne suffit plus. D'où la bascule massive vers le <strong>retrieval hybride</strong> (dense + sparse BM25 + reranking).</li>
+          <li><strong>Le LLM Wiki d'Andrej Karpathy</strong> (gist GitHub avril 2026, 17 M de vues, 5 000 stars en quelques jours) propose une alternative radicale pour les petits corpus : pas de vector DB, pas de chunking, juste une base markdown maintenue par un LLM. <strong>95 % moins coûteux en tokens</strong> que le RAG vectoriel pour les bases &lt; 100K tokens stables.</li>
+          <li><strong>Les vector DB se sont commoditisés.</strong> Pinecone, Qdrant, Weaviate, Chroma, MongoDB Atlas Vector Search : 5+ acteurs solides, prix qui baissent, performances équivalentes sur la majorité des cas. Le débat n'est plus « lequel choisir » mais « comment l'utiliser correctement ».</li>
+        </ol>
+
+        <h3>1.2 La règle de décision en 30 secondes</h3>
+        <p>Trois questions pour choisir l'architecture :</p>
+        <ul>
+          <li><strong>Volume du corpus</strong> : &lt; 100K tokens ? 100K-10M ? &gt; 10M ?</li>
+          <li><strong>Fréquence de mise à jour</strong> : statique ? hebdomadaire ? continue ?</li>
+          <li><strong>Nature des données</strong> : texte narratif ? techniques avec acronymes/codes ? mixte ?</li>
+        </ul>
+        <p>Le tableau de décision en section 4 te donne la réponse.</p>
+      </section>
+
+      <!-- 2. LLM WIKI KARPATHY -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le LLM Wiki Karpathy — alternative crédible pour les petits corpus</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Le pattern en deux phrases</h3>
+        <p>Au lieu d'embedder ton corpus dans un vector DB et de retrieve des chunks à chaque requête, tu maintiens <strong>une base markdown structurée par un LLM</strong>. Quand tu ajoutes un document, le LLM met à jour les pages markdown affectées (synthèses, entités, contradictions). Quand un utilisateur pose une question, le LLM consulte directement les pages markdown pertinentes.</p>
+
+        <h3>2.2 Quand c'est pertinent (les cas types)</h3>
+        <ul>
+          <li><strong>Manuel produit stable</strong> (ex : documentation technique d'une machine industrielle) : 30K-80K tokens, mises à jour trimestrielles</li>
+          <li><strong>FAQ métier</strong> : questions/réponses standardisées, &lt; 50K tokens</li>
+          <li><strong>Procédures internes RH</strong> : règlement intérieur, processus de recrutement, etc.</li>
+          <li><strong>Documentation projet</strong> : un cahier des charges, un manuel d'intégration</li>
+        </ul>
+
+        <h3>2.3 Quand ce n'est PAS pertinent</h3>
+        <ul>
+          <li><strong>Volume &gt; 200K tokens</strong> : le contexte LLM devient trop coûteux et lent</li>
+          <li><strong>Mises à jour temps réel</strong> : pas adapté</li>
+          <li><strong>Corpus très hétérogène</strong> : la maintenance markdown devient une charge</li>
+        </ul>
+
+        <h3>2.4 Coût-bénéfice mesuré</h3>
+        <p>Pour une PME avec un corpus de 50K tokens :</p>
+        <ul>
+          <li><strong>RAG vectoriel</strong> : ~150-300 €/mois (vector DB managed + embeddings + LLM)</li>
+          <li><strong>LLM Wiki</strong> : ~10-50 €/mois (juste le LLM, pas de vector DB)</li>
+        </ul>
+        <p>→ Économie potentielle de 90 % sur les petits corpus.</p>
+      </section>
+
+      <!-- 3. RAG HYBRIDE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Le RAG hybride — le standard 2026 pour les corpus moyens et grands</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Anatomie d'une pipeline RAG hybride</h3>
+        <p>Sept étapes à connaître (ton prestataire doit te les réciter sans hésiter) :</p>
+        <ol>
+          <li><strong>Chunking</strong> : découpage du corpus en passages de 256-1024 tokens avec overlap de 100 tokens</li>
+          <li><strong>Embedding</strong> : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, Mistral embed, Cohere embed)</li>
+          <li><strong>Indexation</strong> : stockage des vecteurs + métadonnées dans le vector DB</li>
+          <li><strong>Query rewriting</strong> : reformulation de la requête utilisateur pour optimiser la recherche</li>
+          <li><strong>Retrieval hybride</strong> : recherche dense (vector similarity) <strong>+</strong> recherche sparse (BM25) en parallèle</li>
+          <li><strong>Reranking</strong> : un cross-encoder (Cohere Rerank, BGE-reranker) re-classe les top-K résultats par pertinence réelle</li>
+          <li><strong>Generation</strong> : le LLM consulte les chunks pertinents et génère la réponse avec citations</li>
+        </ol>
+
+        <h3>3.2 Les choix techniques qui pèsent vraiment sur la qualité</h3>
+        <p>Par ordre d'impact sur la qualité finale :</p>
+        <ol>
+          <li><strong>Embedding model</strong> : 30-40 % d'impact sur la pertinence</li>
+          <li><strong>Reranking</strong> : +10-30 % de précision (sauter cette étape sacrifie 30 % de précision)</li>
+          <li><strong>Chunking</strong> : sweet spot Q&amp;A factuel = 256-512 tokens, tâches analytiques = 512-1024 tokens</li>
+          <li><strong>Choix vector DB</strong> : 5-10 % d'impact (souvent surestimé en PME)</li>
+        </ol>
+
+        <h3>3.3 Eval pipeline obligatoire</h3>
+        <div class="pull-quote">
+          <p>Sans eval pipeline, tu ne sais pas si une modif améliore ou dégrade. Une eval pipeline = un dataset golden de 50-200 questions/réponses avec scoring automatique. Mise en place : 1-2 semaines, mais c'est ce qui sépare le RAG amateur du RAG production.</p>
+        </div>
+      </section>
+
+      <!-- 4. TABLEAU DE DÉCISION -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Tableau de décision RAG (à utiliser avec ton prestataire)</h2>
+          </div>
+        </div>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Volume corpus</th>
+              <th>Nature données</th>
+              <th>Fréquence MAJ</th>
+              <th>Architecture recommandée</th>
+              <th>Coût mensuel typique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 50K tokens</td><td>Texte narratif stable</td><td>Trimestrielle</td><td><strong>LLM Wiki Karpathy</strong></td><td>10-50 €</td></tr>
+            <tr><td>50K-100K tokens</td><td>Mixte</td><td>Mensuelle</td><td><strong>LLM Wiki</strong> ou <strong>RAG dense Chroma</strong></td><td>50-150 €</td></tr>
+            <tr><td>100K-1M tokens</td><td>Texte avec acronymes/codes</td><td>Hebdomadaire</td><td><strong>RAG hybride Qdrant</strong></td><td>150-500 €</td></tr>
+            <tr><td>1M-10M tokens</td><td>Mixte</td><td>Quotidienne</td><td><strong>RAG hybride Pinecone/Qdrant + cache</strong></td><td>500-2000 €</td></tr>
+            <tr><td>&gt; 10M tokens</td><td>Hétérogène</td><td>Continue</td><td><strong>RAG hybride sharded + LLM Wiki layer</strong></td><td>2000-10K €</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Important</strong> : ce tableau est indicatif. Le vrai choix dépend aussi de ta latence cible, de ton SLA, et de ta contrainte de souveraineté (cf. <a href="../architectures.html">page Architectures</a>).</p>
+      </section>
+
+      <!-- 5. VECTOR DB -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Choix vector DB : panorama 2026</h2>
+          </div>
+        </div>
+
+        <h3>5.1 Les 5 acteurs solides</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Vector DB</th><th>Profil</th><th>Quand le choisir</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Pinecone</strong></td><td>Managed serverless, premium</td><td>Enterprise sans équipe ops, pricing OK</td></tr>
+            <tr><td><strong>Qdrant</strong></td><td>Open-source, self-host possible, performant</td><td>Contrôle des coûts, souveraineté EU</td></tr>
+            <tr><td><strong>Weaviate</strong></td><td>Hybrid search natif, multi-tenant</td><td>Multi-clients, hybrid en standard</td></tr>
+            <tr><td><strong>Chroma</strong></td><td>Simple, local, gratuit</td><td>Prototypage, petits volumes</td></tr>
+            <tr><td><strong>MongoDB Atlas Vector Search</strong></td><td>Si déjà sur Mongo</td><td>Pas de nouvelle brique infra</td></tr>
+          </tbody>
+        </table>
+
+        <h3>5.2 La question piège : « Quel vector DB choisir ? »</h3>
+        <p><strong>Mauvaise question.</strong> La bonne question est : « Quel embedding model + quelle pipeline de reranking ? ». Le vector DB n'est qu'un moteur de stockage. La qualité vient de l'embedding et du reranking.</p>
+        <p>Si tu n'as pas encore d'avis : <strong>Qdrant self-hosted</strong> pour démarrer (gratuit, contrôle, EU). Migration vers Pinecone managed si tu atteins les limites ops.</p>
+      </section>
+
+      <!-- 6. ÉCUEILS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Les 5 écueils typiques RAG en production</h2>
+          </div>
+        </div>
+
+        <p>À éviter à tout prix.</p>
+
+        <div class="alert-block">
+          <ol>
+            <li><strong>Mauvais chunking = mauvais résultats</strong>, indépendamment du modèle. Sweet spot : 256-512 tokens Q&amp;A, 512-1024 tokens analytique. Trop petit → perte de contexte. Trop grand → bruit dans le retrieval.</li>
+            <li><strong>Croire que le choix vector DB est central</strong> : c'est l'embedding model qui pèse le plus sur la qualité.</li>
+            <li><strong>Oublier le reranking</strong> : -30 % de précision en moyenne.</li>
+            <li><strong>RAG dense pur sur corpus métier avec acronymes/codes</strong> : rate les références. Hybride obligatoire.</li>
+            <li><strong>Construire un RAG sans eval pipeline</strong> : impossible de mesurer si une modif améliore ou dégrade.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 7. PLAN D'ACTION -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">7</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Plan d'action 60 jours pour un RAG production-ready</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-15 — Cadrage</h4>
+            <ul>
+              <li>Inventaire du corpus (volume, nature, fréquence MAJ)</li>
+              <li>Décision architecture via tableau section 4</li>
+              <li>Définition KPI (précision sur dataset golden, latence cible, coût/requête max)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 16-30 — Pilote</h4>
+            <ul>
+              <li>Mise en œuvre de la pipeline (chunking + embedding + retrieval + reranking + generation)</li>
+              <li>Construction du dataset golden (50-100 questions/réponses)</li>
+              <li>Mesure des KPI sur le golden</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 31-45 — Optimisation</h4>
+            <ul>
+              <li>Itération sur chunking, embedding, reranking</li>
+              <li>Mesure systématique sur le golden après chaque modification</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 46-60 — Mise en production</h4>
+            <ul>
+              <li>Déploiement sur 5-15 utilisateurs cibles</li>
+              <li>Monitoring (latence, coût, satisfaction utilisateur)</li>
+              <li>Décision Go/No-Go production large</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage RAG.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://venturebeat.com/data/the-retrieval-rebuild-why-hybrid-retrieval-intent-tripled-as-enterprise-rag-programs-hit-the-scale-wall" target="_blank" rel="noopener">VentureBeat — Hybrid retrieval intent tripled (mars 2026)</a><span class="resources-meta">La bascule Q1 2026 vers le retrieval hybride</span></li>
+            <li><a href="https://www.mindstudio.ai/blog/llm-wiki-vs-rag-markdown-knowledge-base-comparison" target="_blank" rel="noopener">MindStudio — LLM Wiki vs RAG comparison</a><span class="resources-meta">Analyse comparée patterns 2026</span></li>
+            <li><a href="https://www.techment.com/blogs/rag-in-2026/" target="_blank" rel="noopener">Techment — RAG in 2026</a><span class="resources-meta">État de l'art RAG production</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Foundations of AI Engineering</a><span class="resources-meta">Série 8 piliers, RAG en pilier 2</span></li>
+            <li><a href="https://github.com/langchain-ai/rag-from-scratch" target="_blank" rel="noopener">LangChain RAG from scratch</a><span class="resources-meta">Vidéos pédagogiques fondamentales</span></li>
+            <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy LLM Wiki Gist</a><span class="resources-meta">Le pattern original avril 2026</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://arxiv.org/abs/2511.17593" target="_blank" rel="noopener">arXiv 2511.17593 — Survey on enterprise RAG</a><span class="resources-meta">Synthèse académique architectures RAG 2026</span></li>
+            <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic Engineering — Effective context engineering</a><span class="resources-meta">Référence sur l'organisation du contexte</span></li>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI RMF (sect. RAG)</a><span class="resources-meta">Gouvernance gratuit</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://community.pinecone.io/" target="_blank" rel="noopener">Pinecone Community</a><span class="resources-meta">Communauté technique active</span></li>
+            <li><a href="https://qdrant.tech/community/" target="_blank" rel="noopener">Qdrant Discord</a><span class="resources-meta">Open-source EU</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
