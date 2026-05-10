@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.3 (mai 2026)
+**Version :** 1.4 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -251,6 +251,7 @@ Si une page introduit un composant nouveau (ex : `.timeline-block`, `.tool-table
 - ❌ **Pas de h1 sans emoji ouvrant** sur les modules / fiches PR (ex : `<h1>Order-to-cash automation</h1>` doit devenir `<h1>💸 Order-to-cash automation</h1>`).
 - ❌ **Pas de balise `<a>` dans le contenu d'une card cliquable de la home** (le navigateur ferme la card prématurément). Si une source doit être citée, la mettre sur la page CU dédiée.
 - ❌ **Pas de couleurs hardcodées** dans les `<style>` inline (`#1e3a8a`, `#dc2626`, etc.) : utiliser exclusivement les variables CSS du design system (`--color-primary`, `--color-surface`, `--color-warning`, `--color-success`, etc.). Sinon, le design system perd sa cohérence (ajout v1.3).
+- ❌ **Pas d'espacements en valeurs absolues** (`padding: 1.5rem`, `margin: 2rem`, etc.) dans les `<style>` inline : utiliser les variables `var(--space-1)` à `var(--space-9)` du design system. Cohérence avec la grille d'espacement et facilité de refactorisation future (ajout v1.4 suite à proposition Claude Code v3.6.2).
 - ❌ **Pas de section nommée « Auto-diagnostic » sans form interactif + génération de plan + export** (cf. règle 1.5.5). Si la section ne respecte pas ces 3 propriétés, la nommer autrement (« Checklist d'éligibilité », « Récapitulatif »).
 - ❌ **Pas de récapitulatif des renvois internes (modules, préalables, fiches outils, architectures) dans la section finale `id="ressources"`** : ces renvois vivent dans le corps du module, contextualisés (cf. règle 1.5.6). La section finale est réservée aux ressources externes (Schéma A : Articles / Tutoriels / Documentation / Communautés + callout vers `ressources.html#bibliographie`).
 
@@ -268,9 +269,13 @@ Si une page introduit un composant nouveau (ex : `.timeline-block`, `.tool-table
 
 Le template de référence (`modules/_template-auto-diagnostic.html`) propose un format normalisé en 5 questions (positionnement / cas concret / frein / premier pas / indicateur), utilisable tel quel pour les modules N1-N3. Pour les modules N3-N4 plus avancés (CU-008, CU-013), un format custom est acceptable tant que les 3 propriétés ci-dessus sont respectées.
 
-**Anti-pattern à proscrire** : checklist statique en `<ul>` à compter manuellement, sans interactivité ni export (cas CU-023 v3.6.0 — corrigé en v3.6.2).
+**Anti-pattern à proscrire** : checklist statique en `<ul>` à compter manuellement, sans interactivité ni export, **nommée « Auto-diagnostic »** (cas CU-023 v3.6.0 — corrigé en v3.6.2).
 
 **Si la section ne respecte pas les 3 propriétés**, elle ne doit PAS être nommée « Auto-diagnostic ». Choisir un nom plus juste : « Checklist d'éligibilité », « Checklist projet », « Récapitulatif ». L'utilisateur doit savoir ce qu'il obtient.
+
+**Précision (ajout v1.4)** : le **format checklist statique** reste un format valide pour le Hub, à condition d'être **nommé en cohérence** avec ce qu'il livre (« Checklist d'éligibilité », « Checklist projet », « Checklist sécurité prestataire »). Il a sa valeur en format imprimable / référentiel contractuel. **MAIS** pour les modules N4 (Expert) où l'utilisateur attend un livrable actionnable et personnalisé, le format interactif (form + verdict + export) reste fortement recommandé pour cohérence UX avec les modules récents (CU-008, CU-013, CU-023). Cas limites traités au cas par cas par Cowork éditorial.
+
+**Précision (ajout v1.4) — cohérence card index ↔ contenu réel** : si une card de la home promet « Étude de cas + checklist », le module doit livrer **les deux**. Si le module ne contient qu'une checklist (sans étude de cas formelle), la card doit dire « Checklist projet » ou équivalent. Si le module contient un cas pédagogique (incident documenté, contre-exemple), la card peut dire « Cas pédagogique + checklist ». Toute désynchronisation card ↔ contenu détectée est un bug bloquant à corriger immédiatement.
 
 **Règle 1.5.6 — Renvois internes contextualisés (NOUVELLE v1.3)**. Les renvois vers d'autres ressources internes du Hub (autres modules CU, préalables PR, fiches outils de `ressources.html`, page Architectures) **vivent dans le CORPS du module**, au fil du texte, contextualisés à l'endroit où ils sont pertinents. Ils **ne doivent PAS** être récapitulés dans la section finale `id="ressources"` (qui est réservée aux ressources externes — cf. règle 1.5.5 et squelette HTML 1.5.1 mis à jour v1.3).
 
@@ -280,7 +285,11 @@ Le template de référence (`modules/_template-auto-diagnostic.html`) propose un
   ```html
   L'écosystème <a href="../ressources.html#cursor"><strong>Cursor</strong></a> permet…
   ```
-  Liste indicative d'ancres existantes : `#cursor`, `#claude-code`, `#claude`, `#pinecone`, `#n8n`, `#dify`, `#mistral`, `#perplexity`, `#notebooklm`, etc. (vérifier dans `ressources.html` les `id` de chaque `<article class="tool-card">`).
+  **Liste à jour des ancres outils** : à générer dynamiquement par grep avant chaque écriture (la liste indicative ci-dessous se désynchronise vite — préfère la commande live, ajout v1.4 suite à proposition Claude Code v3.6.2) :
+  ```bash
+  grep -oE '<article class="tool-card" id="[^"]+"' ressources.html | grep -oE 'id="[^"]+"' | sort -u
+  ```
+  Liste indicative au moment de v1.4 (~84 fiches) : `#cursor`, `#claude-code`, `#claude`, `#pinecone`, `#n8n`, `#dify`, `#mistral`, `#perplexity`, `#notebooklm`, `#hubspot`, `#salesforce`, `#copilot-workspace`, etc. À ne **pas** considérer comme exhaustive — toujours regreper avant écriture.
 
 - **Vers un préalable** : quand un module mentionne un cadrage transverse (organisation, data, sécurité, formation), renvoyer au préalable correspondant :
   ```html
@@ -419,6 +428,11 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.4** — mai 2026, suite à audit visuel post-v3.6.2 (incohérences résiduelles CU-024/CU-027 + 3 amendements proposés par Claude Code dans rapport v3.6.2) :
+  - § 1.5.5 enrichie : précision que le format checklist statique reste valide sous un autre nom (« Checklist d'éligibilité », « Checklist projet », « Checklist sécurité prestataire »). Format interactif fortement recommandé pour cohérence UX sur les modules N4.
+  - § 1.5 enrichie : règle explicite de **cohérence card index ↔ contenu réel** (si card promet « Étude de cas + checklist », le module doit livrer les deux ; sinon renommer la card). Toute désynchronisation détectée = bug bloquant.
+  - § 1.5.3 enrichie : interdiction des **espacements en valeurs absolues** (`padding: 1.5rem`, etc.) dans les `<style>` inline — utilisation obligatoire de `var(--space-X)`.
+  - § 1.5.6 enrichie : **commande grep dynamique** pour générer la liste à jour des ancres outils (la liste indicative se désynchronise vite, préférer la commande live).
 - **v1.3** — mai 2026, suite à l'audit éditorial conjoint Cowork + Claude Code et à l'itération corrective v3.6.2 :
   - § 1.5.1 (squelette HTML) : section finale `id="ressources"` refondue en **Schéma A** — 4 sous-rubriques **toutes externes uniquement** (Articles de fond / Tutoriels / Documentation officielle / Communautés) + callout vers `ressources.html#bibliographie`. Suppression des sous-rubriques internes (Modules complémentaires, Préalables associés) qui mélangeaient les niveaux.
   - § 1.5.3 (anti-patterns) renforcée : ajout de `.stat-block`, `.tool-table`, `.pull-quote`, `.arch-callout` à la liste des composants centralisés à ne pas redéfinir ; règle de **migration obligatoire vers `module-v3.css` dès la 2ème utilisation** ; interdiction des **couleurs hardcodées** ; interdiction de nommer « Auto-diagnostic » une section qui n'est pas interactive ; interdiction des **renvois internes dans la section finale ressources** (qui restent dans le corps).
