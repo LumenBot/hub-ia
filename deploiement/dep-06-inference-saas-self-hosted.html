@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inférence et coûts : SaaS vs self-hosted — Hub IA Learning Center</title>
+  <meta name="description" content="Kimi K2.6 = 8-10× moins cher que Claude Opus 4.7. vLLM = 2-4× plus de débit que les serveurs naïfs. Quantization Q4_K_M = ~1 % de qualité perdue, 4× moins de mémoire.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">18 min de lecture</span>
+      </div>
+      <h1>⚙️ Inférence et coûts : SaaS vs self-hosted</h1>
+      <p class="module-subtitle">Kimi K2.6 = 8-10× moins cher que Claude Opus 4.7. vLLM = 2-4× plus de débit que les serveurs naïfs. Quantization Q4_K_M = ~1 % de qualité perdue, 4× moins de mémoire. Le self-host n'est plus réservé aux ETI.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">⚖️</span>Le cadre de décision</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚡</span>vLLM et l'optimisation d'inférence</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🗜️</span>La quantization</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🔌</span>Le LLM gateway</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🌐</span>Le cas Kimi K2.6</a></li>
+        <li><a href="#section-6"><span class="toc-icon">📊</span>Tableau de décision rapide</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 60 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>SaaS vs self-hosted : un arbitrage stratégique, pas un choix binaire</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>Le self-host devient rentable au-delà d'un seuil de volume mensuel.</strong> Seuil approximatif : <strong>&gt; 5 M de tokens/mois</strong> pour un modèle moyen. En dessous, l'API SaaS reste économiquement et opérationnellement supérieure. Au-delà, le self-host commence à valoir son investissement initial.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>vLLM est le standard d'inférence open-source.</strong> Avec son innovation <strong>PagedAttention</strong>, vLLM réduit le gaspillage de mémoire KV cache de 60-80 % à &lt; 4 %, soit <strong>2-4× plus de débit</strong> que les serveurs naïfs (TGI, Text Generation Inference). Si tu self-hostes un modèle open-source, vLLM est le choix par défaut.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>La quantization 4-bit est le levier coût n°1 du self-host.</strong> Q4_K_M (le format llama.cpp standard) compresse les poids du modèle d'un facteur 4 (FP16 → 4-bit) avec <strong>~1 % de perplexité perdue</strong> seulement. Conséquence : un modèle 70B fine-tuné peut tourner sur <strong>1 seul GPU 24GB</strong> (RTX 4090, RTX 5090).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Kimi K2.6 change l'équation économique du SaaS lui-même.</strong> Open-source chinois performant (proche Claude Opus 4.7 sur SWE-Bench), proposé en API à <strong>0,80 $/M input et 3,60 $/M output</strong> soit 8-10× moins cher qu'Opus. Pour 75 % des cas d'usage agentic coding, c'est suffisant. Question : self-host Kimi ou utiliser son API ?</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">2-4×</div><div class="exec-stat-label">Débit vLLM PagedAttention vs serveurs naïfs</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">~1 %</div><div class="exec-stat-label">Perplexité perdue avec quantization 4-bit</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">8-10×</div><div class="exec-stat-label">Kimi K2.6 vs Claude Opus 4.7</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">&gt; 5 M tokens/mois</div><div class="exec-stat-label">Seuil approximatif rentabilité self-host</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as une <strong>facture LLM mensuelle qui dépasse 500-1 000 €/mois</strong> et tu te demandes si tu peux la réduire</li>
+              <li>Tu as une contrainte de souveraineté (données ultra-sensibles, secret industriel)</li>
+              <li>Tu veux tester un modèle spécifique non disponible en SaaS</li>
+              <li>Tu veux comprendre les ordres de grandeur avant de discuter avec ton CTO ou prestataire</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. CADRE DE DÉCISION -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Le cadre de décision SaaS vs self-hosted</h2>
+          </div>
+        </div>
+
+        <h3>1.1 Cinq critères à pondérer</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Critère</th><th>Favorise SaaS</th><th>Favorise self-hosted</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Volume mensuel</strong></td><td>&lt; 5 M tokens</td><td>&gt; 5 M tokens</td></tr>
+            <tr><td><strong>Latence</strong></td><td>200ms acceptable</td><td>&lt; 50ms requis (temps réel)</td></tr>
+            <tr><td><strong>Souveraineté</strong></td><td>EU + RGPD suffisant</td><td>SecNumCloud / cloud souverain strict</td></tr>
+            <tr><td><strong>Complexité ops</strong></td><td>Pas d'équipe ops</td><td>Équipe IT en place</td></tr>
+            <tr><td><strong>Flexibilité</strong></td><td>Modèle standard OK</td><td>Besoin spécifique (fine-tuning, modèles non standards)</td></tr>
+          </tbody>
+        </table>
+        <p>→ Si &gt; 3 critères favorisent self-host : envisage. Sinon, reste SaaS.</p>
+
+        <h3>1.2 La règle « default SaaS » pour la plupart des PME</h3>
+        <p>Pour la majorité des cas d'usage PME, <strong>l'API SaaS est meilleure</strong>. Raisons :</p>
+        <ul>
+          <li>Maintenance externalisée (mises à jour modèles, sécurité, conformité)</li>
+          <li>Pas de Capex GPU (10-30 K€ pour un GPU H100/A100)</li>
+          <li>Time-to-value rapide</li>
+          <li>Modèles régulièrement mis à jour (Claude Sonnet 4.6 → 4.7 → ... transparent)</li>
+        </ul>
+        <p>→ Le self-host devient pertinent <strong>après</strong> avoir prouvé la valeur en SaaS et atteint un volume significatif.</p>
+      </section>
+
+      <!-- 2. vLLM -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>vLLM et l'optimisation d'inférence</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Le problème : le gaspillage du KV cache</h3>
+        <p>Les serveurs LLM naïfs (TGI, FastAPI custom) gaspillent <strong>60 à 80 % de la mémoire allouée au KV cache</strong> (key-value cache, qui stocke les états intermédiaires des tokens déjà traités). Conséquence : peu de requêtes parallèles possibles, sous-utilisation du GPU.</p>
+
+        <h3>2.2 La solution vLLM : PagedAttention</h3>
+        <p>vLLM a inventé <strong>PagedAttention</strong> (2023, Berkeley), inspiré de la pagination mémoire OS. Au lieu d'allouer un bloc contigu de KV cache par requête, vLLM alloue par <strong>petites pages</strong> allouées dynamiquement.</p>
+        <p><strong>Résultat</strong> : gaspillage tombe à &lt; 4 %, soit <strong>2-4× plus de débit</strong> sur le même GPU.</p>
+        <p>→ Si tu self-hostes un modèle open-source, vLLM est devenu le standard 2024-2026.</p>
+
+        <h3>2.3 Les autres serveurs d'inférence</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Serveur</th><th>Profil</th><th>Quand l'utiliser</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>vLLM</strong></td><td>Open-source, PagedAttention, débit max</td><td>Cas par défaut self-host</td></tr>
+            <tr><td><strong>TGI (Hugging Face)</strong></td><td>Open-source, plus simple, intégration HF native</td><td>Si déjà sur écosystème HF</td></tr>
+            <tr><td><strong>Triton Inference Server (Nvidia)</strong></td><td>Production-grade enterprise, multi-modèles</td><td>Stack Nvidia complet</td></tr>
+            <tr><td><strong>llama.cpp</strong></td><td>C++ pur, supporte CPU + GPU, ultra-léger</td><td>Inférence on-device, edge, dev local</td></tr>
+            <tr><td><strong>Ollama</strong></td><td>Wrapper llama.cpp pour dev</td><td>Dev local et POC, pas pour prod</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3. QUANTIZATION -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>La quantization, levier coût n°1</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Le principe</h3>
+        <p>La <strong>quantization</strong> réduit la précision numérique des poids du modèle (FP16 16-bit → INT8 8-bit → INT4 4-bit). Effet : moins de mémoire requise, plus de tokens/seconde, <strong>avec une perte de qualité minime</strong> si bien fait.</p>
+
+        <h3>3.2 Les formats de quantization courants</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Format</th><th>Mémoire</th><th>Perte qualité</th><th>Quand l'utiliser</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>FP16</strong></td><td>Référence (1×)</td><td>0 %</td><td>Modèle production critique</td></tr>
+            <tr><td><strong>INT8</strong></td><td>0,5×</td><td>&lt; 0,5 %</td><td>Bonne option par défaut</td></tr>
+            <tr><td><strong>Q4_K_M (llama.cpp)</strong></td><td>0,25× (4×)</td><td>~1 %</td><td>Self-host budget contraint</td></tr>
+            <tr><td><strong>Q3_K_M</strong></td><td>0,2×</td><td>2-3 %</td><td>Cas extrêmes</td></tr>
+            <tr><td><strong>Q2_K</strong></td><td>0,15×</td><td>5-10 %</td><td>Démo / dev seulement</td></tr>
+          </tbody>
+        </table>
+        <p>→ Sweet spot 2026 : <strong>Q4_K_M</strong> pour le self-host PME. Permet de faire tourner un Llama 70B sur un seul GPU 24GB.</p>
+
+        <h3>3.3 Les outils de quantization</h3>
+        <ul>
+          <li><strong>llama.cpp</strong> : référence open-source, supporte 1.5-bit à 8-bit</li>
+          <li><strong>Hugging Face Optimum</strong> : kit pour quantization + ONNX export + hardware optim</li>
+          <li><strong>bitsandbytes</strong> : librairie 8-bit / 4-bit utilisée par Transformers / Unsloth</li>
+          <li><strong>Unsloth</strong> : 2× plus rapide pour fine-tuning + inférence quantizée</li>
+        </ul>
+      </section>
+
+      <!-- 4. LLM GATEWAY -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Le LLM gateway, brique transverse essentielle</h2>
+          </div>
+        </div>
+
+        <h3>4.1 Pourquoi un LLM gateway</h3>
+        <p>Si tu utilises plusieurs modèles (Claude, OpenAI, Mistral, Kimi, modèle self-hosted), tu veux :</p>
+        <ul>
+          <li>Un seul code à maintenir (interface unifiée)</li>
+          <li>Routage intelligent (selon coût, qualité, disponibilité)</li>
+          <li>Fallback automatique (si un modèle est down)</li>
+          <li>Cost tracking centralisé</li>
+          <li>Cache transparent</li>
+        </ul>
+        <p>→ C'est le rôle du <strong>LLM gateway</strong>.</p>
+
+        <h3>4.2 LiteLLM, le standard open-source 2026</h3>
+        <p><strong>LiteLLM</strong> unifie 100+ APIs LLM derrière une interface OpenAI-compatible. Open-source, self-hostable, gratuit.</p>
+        <p>Fonctions clés :</p>
+        <ul>
+          <li>Routage par modèle, coût, latence</li>
+          <li>Fallback automatique</li>
+          <li>Cost tracking par utilisateur / projet</li>
+          <li>Cache transparent</li>
+          <li>Rate limiting</li>
+        </ul>
+        <p>→ Setup PME : 1-3 jours pour basculer ton code de « API directe Anthropic » vers « via LiteLLM gateway ».</p>
+
+        <h3>4.3 Alternatives commerciales</h3>
+        <ul>
+          <li><strong>OpenRouter</strong> : SaaS multi-LLM avec routing</li>
+          <li><strong>Helicone</strong> : LLM gateway + observabilité (cf. <a href="dep-05-agents-observabilite.html">DEP-05</a>)</li>
+          <li><strong>Portkey</strong> : SaaS gateway + caching</li>
+        </ul>
+      </section>
+
+      <!-- 5. KIMI -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Le cas Kimi K2.6 — la rupture économique 2026</h2>
+          </div>
+        </div>
+
+        <h3>5.1 Les faits</h3>
+        <p><strong>Kimi K2.6</strong> (Moonshot AI, sortie 2026, open-source) :</p>
+        <ul>
+          <li><strong>0,80 $/M input, 3,60 $/M output</strong> (vs Claude Opus 4.7 : 5 $/M input, 25 $/M output)</li>
+          <li><strong>Open-source</strong> : self-hostable</li>
+          <li><strong>Performance</strong> : proche Claude Opus 4.7 sur SWE-Bench, Terminal-Bench, agentic coding (~75-90 % de la qualité)</li>
+          <li>API disponible chez Together.ai, Modal Labs, Fireworks AI</li>
+        </ul>
+
+        <h3>5.2 Implication pour la PME</h3>
+        <p>Pour 75 % des cas d'usage agentic coding (cf. <a href="../modules/cu-027-dev-applicatif-ia.html">CU-027 Faire développer une appli métier</a>), Kimi K2.6 est suffisant. Économie typique : <strong>80-90 % de la facture</strong> vs Opus.</p>
+        <p>→ Question stratégique : <strong>garder Opus pour les 25 % vraiment complexes, basculer 75 % sur Kimi</strong>.</p>
+
+        <h3>5.3 Self-host Kimi K2.6 ?</h3>
+        <p>Si tu as les compétences, oui. Kimi K2.6 est self-hostable sur GPU H100 cluster. Mais à ce niveau, comparer avec utiliser l'API Together.ai ou Fireworks AI hébergeant Kimi en EU. Le self-host n'est rentable qu'à partir de <strong>plusieurs millions de tokens/jour</strong>.</p>
+      </section>
+
+      <!-- 6. TABLEAU DE DÉCISION -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Tableau de décision rapide</h2>
+          </div>
+        </div>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>Cas d'usage</th><th>Volume mensuel</th><th>Recommandation 2026</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Démarrage IA, exploration</td><td>&lt; 1 M tokens</td><td>API SaaS (Anthropic, OpenAI, Mistral)</td></tr>
+            <tr><td>PME en croissance, multi-cas</td><td>1-5 M tokens</td><td>API SaaS via <strong>LiteLLM gateway</strong> + caching</td></tr>
+            <tr><td>PME avec exigence souveraineté</td><td>Quelconque</td><td>API EU (Mistral, Anthropic EU, OpenAI EU) ou self-host</td></tr>
+            <tr><td>Volume significatif, cas standards</td><td>5-50 M tokens</td><td>LLM gateway + dispatch modèle pas cher (Kimi, Mistral)</td></tr>
+            <tr><td>Volume très significatif</td><td>&gt; 50 M tokens</td><td>Self-host vLLM avec quantization Q4_K_M</td></tr>
+            <tr><td>Souveraineté + volume</td><td>&gt; 50 M tokens + secret</td><td>Self-host on-premise ou cloud souverain</td></tr>
+            <tr><td>Ultra basse latence (&lt; 50ms)</td><td>Quelconque</td><td>Self-host avec llama.cpp ou vLLM proche utilisateurs</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 7. PLAN D'ACTION -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">7</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Plan d'action 60 jours pour optimiser ton inférence</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-15 — Audit</h4>
+            <ul>
+              <li>Mesure facture mensuelle par cas d'usage</li>
+              <li>Identifier le coût par requête / coût par utilisateur</li>
+              <li>Mesurer la latence p95</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 16-30 — Quick wins SaaS</h4>
+            <ul>
+              <li>Déployer un LLM gateway (LiteLLM)</li>
+              <li>Implémenter prompt caching (cf. <a href="dep-03-context-engineering-couts.html">DEP-03</a>)</li>
+              <li>Tester routage Kimi K2.6 sur 75 % des cas d'usage simples</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 31-45 — Évaluer self-host</h4>
+            <ul>
+              <li>Si volume &gt; 5 M tokens/mois : POC vLLM avec un modèle open-source (Llama 8B ou Mistral 7B)</li>
+              <li>Calcul TCO 12 mois : Capex GPU + ops + énergie vs API mensuelle</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 46-60 — Décision</h4>
+            <ul>
+              <li>Si TCO self-host &lt; 50 % du SaaS sur 12 mois : migration progressive</li>
+              <li>Sinon : rester SaaS, optimiser caching et routage</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (serveurs d'inférence, outils self-host) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage inférence.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — DevOps vs MLOps vs LLMOps</a><span class="resources-meta">Pilier 6 LLM Engineering Roadmap</span></li>
+            <li><a href="https://blog.vllm.ai/" target="_blank" rel="noopener">vLLM blog — PagedAttention announcement</a><span class="resources-meta">Innovation technique de référence</span></li>
+            <li><a href="https://www.together.ai/" target="_blank" rel="noopener">Together.ai — Kimi K2.6 hosting analysis</a><span class="resources-meta">Analyse économique modèle vs API</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://docs.vllm.ai/en/latest/getting_started/quickstart.html" target="_blank" rel="noopener">vLLM Quickstart</a><span class="resources-meta">Lancer un serveur en 10 min</span></li>
+            <li><a href="https://github.com/ggerganov/llama.cpp" target="_blank" rel="noopener">llama.cpp tutorials</a><span class="resources-meta">Inférence locale optimisée</span></li>
+            <li><a href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener">Unsloth Notebooks</a><span class="resources-meta">Fine-tuning + inférence accélérés</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://github.com/vllm-project/vllm" target="_blank" rel="noopener">vLLM GitHub</a><span class="resources-meta">Référence inférence open-source</span></li>
+            <li><a href="https://docs.litellm.ai/" target="_blank" rel="noopener">LiteLLM Docs</a><span class="resources-meta">Gateway open-source</span></li>
+            <li><a href="https://github.com/ggerganov/llama.cpp" target="_blank" rel="noopener">llama.cpp GitHub</a><span class="resources-meta">Quantization 1.5-bit à 8-bit</span></li>
+            <li><a href="https://github.com/huggingface/optimum" target="_blank" rel="noopener">Hugging Face Optimum</a><span class="resources-meta">Quantization, ONNX, hardware optim</span></li>
+            <li><a href="https://github.com/bitsandbytes-foundation/bitsandbytes" target="_blank" rel="noopener">bitsandbytes GitHub</a><span class="resources-meta">Lib 8-bit / 4-bit</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">r/LocalLLaMA</a><span class="resources-meta">Communauté self-host LLM</span></li>
+            <li><a href="https://discord.com/invite/jz7wjKhh6g" target="_blank" rel="noopener">vLLM Discord</a><span class="resources-meta">Échanges techniques</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

@@ -60,6 +60,7 @@
         <li><a href="#what-youll-do"><span class="toc-icon">🎯</span>Ce que tu sauras faire</a></li>
         <li><a href="#contexte"><span class="toc-icon">🧭</span>Le cas et le contexte</a></li>
         <li><a href="#schema"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#llm-wiki"><span class="toc-icon">📝</span>Au-delà du RAG : LLM Wiki (2026)</a></li>
         <li><a href="#etapes"><span class="toc-icon">📋</span>Les étapes en détail</a></li>
         <li><a href="#outils"><span class="toc-icon">⚙️</span>Stack et outils</a></li>
         <li><a href="#cas-pratique"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
@@ -231,12 +232,93 @@
         <p class="schema-caption">Deux pipelines : ingestion en amont du corpus dans une base vectorielle, puis interrogation à la demande qui combine recherche sémantique et génération.</p>
       </section>
 
-      <!-- 4. ÉTAPES -->
+      <!-- 4. LLM WIKI (variante 2026) -->
+      <section class="module-section" id="llm-wiki">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📝</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Au-delà du RAG : l'approche LLM Wiki (Karpathy, 2026)</h2>
+          </div>
+        </div>
+
+        <p>En avril 2026, Andrej Karpathy a publié sur GitHub un gist intitulé <strong>« LLM Wiki »</strong> qui a fait <strong>17 millions de vues, 5 000 stars et 4 282 forks</strong> en quelques jours. Le gist propose une <strong>alternative architecturale au RAG classique</strong> pour les bases de connaissance de petite à moyenne taille. L'idée fondamentale : <strong>arrêter de retrieve, commencer à synthétiser</strong>.</p>
+
+        <h3>RAG classique vs LLM Wiki — la différence en deux phrases</h3>
+        <ul>
+          <li><strong>RAG classique</strong> : à chaque requête, on cherche dans le vector store → on récupère des chunks → on injecte dans le prompt → on génère une réponse → <strong>on oublie tout</strong>. Stateless. Pas de mémoire de synthèse.</li>
+          <li><strong>LLM Wiki</strong> : on maintient une <strong>base markdown structurée</strong> par un LLM. Quand on ajoute un document, le LLM met à jour les pages markdown affectées (synthèses, entités, contradictions). Quand un utilisateur pose une question, le LLM consulte directement les pages markdown pertinentes.</li>
+        </ul>
+        <p>Le shift conceptuel : <strong>synthesis persistante</strong> au lieu de <strong>retrieval éphémère</strong>.</p>
+
+        <h3>Quand le LLM Wiki bat le RAG vectoriel</h3>
+        <p>Selon les benchmarks publiés et les retours communautaires (mai 2026) :</p>
+        <div class="decision-matrix">
+          <table>
+            <thead>
+              <tr>
+                <th>Volume corpus</th>
+                <th>Stabilité</th>
+                <th>Recommandation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>&lt; 50K tokens</td>
+                <td>Stable (MAJ trimestrielle)</td>
+                <td><strong>LLM Wiki</strong> (~95 % moins cher en tokens vs RAG vectoriel)</td>
+              </tr>
+              <tr>
+                <td>50K-100K tokens</td>
+                <td>Stable</td>
+                <td><strong>LLM Wiki</strong> ou RAG dense léger (Chroma)</td>
+              </tr>
+              <tr>
+                <td>100K-1M tokens</td>
+                <td>Mixte</td>
+                <td><strong>RAG hybride</strong> (cf. <a href="../deploiement/dep-02-rag-architecture-prod.html">DEP-02</a>)</td>
+              </tr>
+              <tr>
+                <td>&gt; 1M tokens</td>
+                <td>Quelconque</td>
+                <td><strong>RAG hybride avec sharding</strong></td>
+              </tr>
+              <tr>
+                <td>Mises à jour temps réel</td>
+                <td>—</td>
+                <td><strong>RAG vectoriel</strong> (LLM Wiki ne convient pas)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Cas types où le LLM Wiki est pertinent en PME</h3>
+        <ul>
+          <li><strong>Manuel produit stable</strong> (documentation technique d'une machine, manuel d'intégration, procédure qualité)</li>
+          <li><strong>FAQ métier structurée</strong> (&lt; 50K tokens)</li>
+          <li><strong>Procédures internes RH</strong> (règlement intérieur, parcours d'onboarding)</li>
+          <li><strong>Documentation de projet</strong> (cahier des charges, spécifications fonctionnelles)</li>
+        </ul>
+
+        <h3>Cas où ça ne convient pas</h3>
+        <ul>
+          <li>Volume &gt; 200K tokens (le contexte LLM devient trop coûteux et lent)</li>
+          <li>Mises à jour temps réel (réindexation continue impossible)</li>
+          <li>Corpus très hétérogène (la maintenance markdown devient une charge)</li>
+          <li>Besoin de réponses ultra-précises avec citations multiples (le RAG hybride reste meilleur)</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <strong>Implication pour les PME qui démarrent un RAG :</strong> ne pas sauter directement sur Pinecone + embeddings + reranking si ton corpus est petit et stable. Tester d'abord l'approche LLM Wiki — souvent suffisante, beaucoup moins coûteuse, beaucoup plus simple à maintenir. L'usage personnel par un dirigeant est traité dans <a href="cu-025-knowledge-management-dirigeant.html">CU-025 Knowledge management IA-augmenté</a>.
+        </div>
+      </section>
+
+      <!-- 5. ÉTAPES -->
       <section class="module-section" id="etapes">
         <div class="module-section-header">
           <div class="module-section-icon primary">📋</div>
           <div class="module-section-title">
-            <div class="section-number">Section 4</div>
+            <div class="section-number">Section 6</div>
             <h2>Les étapes en détail</h2>
           </div>
         </div>
@@ -287,7 +369,7 @@
         <div class="module-section-header">
           <div class="module-section-icon success">🎯</div>
           <div class="module-section-title">
-            <div class="section-number">Section 6</div>
+            <div class="section-number">Section 7</div>
             <h2>Cas d'étude guidé — Mise en situation</h2>
           </div>
         </div>
@@ -359,7 +441,7 @@
         <div class="module-section-header">
           <div class="module-section-icon warning">⚠️</div>
           <div class="module-section-title">
-            <div class="section-number">Section 7</div>
+            <div class="section-number">Section 8</div>
             <h2>Les pièges à éviter</h2>
           </div>
         </div>
@@ -385,7 +467,7 @@
         <div class="module-section-header">
           <div class="module-section-icon warning">🔎</div>
           <div class="module-section-title">
-            <div class="section-number">Section 8</div>
+            <div class="section-number">Section 9</div>
             <h2>Auto-diagnostic — Ton organisation est-elle prête pour une knowledge base RAG ?</h2>
           </div>
         </div>
@@ -515,7 +597,7 @@
         <div class="module-section-header">
           <div class="module-section-icon purple">📚</div>
           <div class="module-section-title">
-            <div class="section-number">Section 9</div>
+            <div class="section-number">Section 10</div>
             <h2>Pour aller plus loin</h2>
           </div>
         </div>
@@ -531,6 +613,9 @@
             <li><a href="https://www.bcg.com/capabilities/artificial-intelligence" target="_blank" rel="noopener">BCG — Artificial Intelligence insights</a><span class="resources-meta">BCG — études sur le redesign des workflows par l'IA générative</span></li>
             <li><a href="https://hbr.org/topic/subject/knowledge-management" target="_blank" rel="noopener">Harvard Business Review — Knowledge Management</a><span class="resources-meta">HBR — analyses managériales sur la gestion des connaissances en entreprise</span></li>
             <li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Article fondateur RAG — Lewis et al. (2020)</a><span class="resources-meta">arXiv — papier de référence du pattern Retrieval-Augmented Generation</span></li>
+            <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy — LLM Wiki Gist (avril 2026)</a><span class="resources-meta">Le pattern original « synthesis persistante » alternative au RAG — 17M vues</span></li>
+            <li><a href="https://www.mindstudio.ai/blog/llm-wiki-vs-rag-markdown-knowledge-base-comparison" target="_blank" rel="noopener">MindStudio — LLM Wiki vs RAG comparison</a><span class="resources-meta">Analyse comparée chiffrée des deux approches</span></li>
+            <li><a href="https://x.com/Suryanshti777" target="_blank" rel="noopener">Suryansh Tiwari (X) — RAG doesn't learn</a><span class="resources-meta">Critique conceptuelle du RAG classique stateless</span></li>
           </ul>
         </div>
 

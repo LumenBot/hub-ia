@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fine-tuning : quand y aller, quand ne pas — Hub IA Learning Center</title>
+  <meta name="description" content="Le fine-tuning est devenu accessible (LoRA / QLoRA sur 1 GPU). Mais pour 80 % des cas PME, un bon prompt + RAG suffit largement. Voici quand le fine-tuning est vraiment justifié.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+      </div>
+      <h1>🎓 Fine-tuning : quand y aller, quand ne pas</h1>
+      <p class="module-subtitle">Le fine-tuning est devenu accessible (LoRA / QLoRA sur 1 GPU). Mais pour 80 % des cas PME, un bon prompt + RAG suffit largement. Voici quand le fine-tuning est vraiment justifié.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Est-il vraiment nécessaire ?</a></li>
+        <li><a href="#section-2"><span class="toc-icon">✅</span>Les 3 cas justifiés</a></li>
+        <li><a href="#section-3"><span class="toc-icon">⚠️</span>Les 5 cas à éviter</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛠️</span>LoRA et QLoRA en pratique</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📊</span>La discipline data</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 60 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Le fine-tuning : justifié pour 20 % des cas, piège pour les 80 % autres</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>Pour 80 % des cas PME, le fine-tuning n'est pas la bonne réponse.</strong> Avant de fine-tuner, demande-toi si un bon prompt + RAG couvre déjà 90 % du besoin. Dans la majorité des cas, oui. Le fine-tuning ne devient justifié que quand prompt + RAG plafonnent à &lt; 80 % de qualité sur un cas d'usage critique.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>Le fine-tuning a 3 cas d'usage légitimes en PME.</strong> (a) Adapter le <strong>format de sortie</strong> (générer toujours du JSON valide selon ton schéma propre), (b) capturer un <strong>style/voix de marque</strong> très spécifique (généralement difficile par prompt), (c) <strong>réduire le coût d'inférence</strong> (un petit modèle fine-tuné peut surpasser un gros modèle générique sur ton cas, à 10× moins cher).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>La qualité des données prime sur le volume.</strong> Ce qui sépare un fine-tuning réussi d'un raté n'est pas la quantité de données mais leur qualité : annotations cohérentes, déduplication, instruction formatting propre, filtrage. <strong>Sweet spot PME : 500 à 5 000 exemples bien préparés</strong>, pas 100 000 mal préparés.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>LoRA / QLoRA = standard pratique 2026.</strong> Plutôt que de fine-tuner les milliards de paramètres d'un modèle, on entraîne uniquement de petites matrices d'adaptation (LoRA = Low-Rank Adaptation). Coût typique : 50 à 500 € de GPU + 1-3 semaines de travail data + entraînement. Délai total raisonnable : 1-2 mois.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">80 %</div><div class="exec-stat-label">Cas PME où prompt + RAG suffisent</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">500-5 000</div><div class="exec-stat-label">Exemples — sweet spot PME</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">50-500 €</div><div class="exec-stat-label">Coût GPU LoRA/QLoRA pour un 7B-13B</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">1-3 %</div><div class="exec-stat-label">Perplexité perdue avec quantization 4-bit</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as déployé un prompt engineering + RAG et tu <strong>plafonnes à &lt; 80 % de qualité</strong> sur un cas d'usage critique</li>
+              <li>Tu veux savoir si le fine-tuning vaut l'investissement</li>
+              <li>Tu as un cas d'usage à <strong>très haut volume</strong> où l'inférence coûte cher</li>
+              <li>Tu cherches à capturer un style/voix difficile à transmettre par prompt</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. EST-CE VRAIMENT NÉCESSAIRE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Le fine-tuning est-il vraiment nécessaire ?</h2>
+          </div>
+        </div>
+
+        <h3>1.1 La hiérarchie des leviers (avant de fine-tuner)</h3>
+        <p>Avant de fine-tuner, parcourir cette hiérarchie dans l'ordre :</p>
+        <ol>
+          <li><strong>Prompt engineering basique</strong> : instructions claires, few-shot examples, format de sortie spécifié → 50-70 % de qualité atteinte gratuitement</li>
+          <li><strong>Prompt engineering avancé</strong> : chain-of-thought, prompt caching (cf. <a href="dep-03-context-engineering-couts.html">DEP-03 Context engineering et coûts</a>), structured output → +10-15 % qualité</li>
+          <li><strong>RAG</strong> sur ta base de connaissance (cf. <a href="dep-02-rag-architecture-prod.html">DEP-02 RAG en production</a>) → +10-20 % qualité sur cas où le contexte métier compte</li>
+          <li><strong>Fine-tuning</strong> → +5-15 % qualité sur cas spécifiques</li>
+        </ol>
+        <p>→ Si les étapes 1-3 atteignent 90 %, le fine-tuning n'apporte rien d'opérationnellement utile.</p>
+
+        <h3>1.2 Le test du « 80 % qui suffit »</h3>
+        <p>Pour beaucoup de cas d'usage PME, atteindre 80 % de qualité avec prompt + RAG est suffisant pour générer de la valeur. Le passage de 80 % à 92 % via fine-tuning :</p>
+        <ul>
+          <li>Coût : +50-500 € GPU + 1-2 mois de travail</li>
+          <li>Gain : 12 % de qualité supplémentaire</li>
+          <li>ROI : souvent négatif sur le court terme</li>
+        </ul>
+        <p><strong>À mesurer sur ton cas avant de décider.</strong></p>
+      </section>
+
+      <!-- 2. CAS JUSTIFIÉS -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Les 3 cas où le fine-tuning est vraiment justifié</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Format de sortie strict (le plus fréquent en PME)</h3>
+        <p>Si tu as besoin de <strong>toujours générer un format précis</strong> (JSON conforme à ton schéma, XML métier, format de fichier propriétaire) avec <strong>0 % d'erreur de format</strong>, le fine-tuning est plus fiable que le prompt engineering.</p>
+        <p><strong>Exemple type</strong> : génération automatique de fiches produit dans un schéma JSON spécifique pour ton ERP. Avec prompt = 95 % de format valide. Avec fine-tuning = 99,8 % de format valide. Sur 10 000 fiches/jour, la différence est significative.</p>
+
+        <h3>2.2 Capture d'un style ou voix de marque très spécifique</h3>
+        <p>Si tu produis du contenu (mails, articles, posts) qui doit avoir une <strong>voix très spécifique</strong> difficile à transmettre par prompt (humour particulier, ton sectoriel, vocabulaire métier), le fine-tuning capture ce style mieux qu'un prompt long.</p>
+        <p><strong>Exemple type</strong> : un éditeur de contenus juridiques qui veut un ton « expert mais accessible », avec ses propres formules de transition. 200-500 articles annotés peuvent suffire.</p>
+
+        <h3>2.3 Réduction du coût d'inférence</h3>
+        <p>Pour un cas d'usage à <strong>très haut volume</strong> (millions de requêtes/mois), fine-tuner un petit modèle (7B-13B) peut <strong>surpasser un gros modèle générique</strong> sur ton cas spécifique, à un coût d'inférence 10× moindre.</p>
+        <p><strong>Exemple type</strong> : classification automatique de tickets support (10 catégories métier). Un Mistral 7B fine-tuné peut atteindre 95 % de précision contre 92 % pour Claude Sonnet, à 10× moins cher en inférence.</p>
+      </section>
+
+      <!-- 3. CAS À ÉVITER -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Les 5 cas où le fine-tuning n'est PAS la bonne réponse</h2>
+          </div>
+        </div>
+
+        <p>À l'inverse, ces cas indiquent qu'il faut <strong>rester sur prompt + RAG</strong> :</p>
+
+        <div class="alert-block">
+          <ol>
+            <li><strong>Tu veux que le modèle « connaisse » des informations métier.</strong> C'est le rôle du RAG, pas du fine-tuning. Le fine-tuning n'apprend pas des faits, il apprend des patterns. Pour les faits → RAG.</li>
+            <li><strong>Les informations changent souvent.</strong> Re-fine-tuner à chaque mise à jour est insoutenable. RAG réindexe en quelques minutes.</li>
+            <li><strong>Le besoin n'est pas encore stable.</strong> Fine-tuner sur un besoin qui va évoluer = perte sèche.</li>
+            <li><strong>Tu n'as pas 500+ exemples de qualité.</strong> En dessous, le risque d'overfitting est élevé pour un gain marginal.</li>
+            <li><strong>Tu n'as pas mesuré ton baseline prompt + RAG.</strong> Sans baseline, impossible de justifier le ROI du fine-tuning.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 4. LORA / QLORA -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>LoRA et QLoRA en pratique</h2>
+          </div>
+        </div>
+
+        <h3>4.1 Le principe (en 2 phrases)</h3>
+        <p><strong>LoRA (Low-Rank Adaptation)</strong> : au lieu d'entraîner les milliards de paramètres d'un modèle, on entraîne uniquement de <strong>petites matrices d'adaptation</strong> ajoutées au modèle. Résultat : on garde 99 % de la connaissance générale du modèle + on ajoute notre adaptation spécifique, sur <strong>un seul GPU grand public</strong>.</p>
+        <p><strong>QLoRA</strong> : variante qui ajoute une quantization (compression 4-bit) du modèle de base, divisant encore par 4 la mémoire requise.</p>
+
+        <h3>4.2 Coût et délai typiques pour une PME</h3>
+        <p>Pour fine-tuner un Mistral 7B ou Llama 8B en LoRA sur tes données :</p>
+        <ul>
+          <li><strong>Préparation données</strong> : 1-3 semaines (le plus long en PME)</li>
+          <li><strong>Entraînement</strong> : 2-12 heures sur une GPU A100/H100 (Vast.ai, Runpod, Lambda Labs)</li>
+          <li><strong>Coût GPU</strong> : 50-500 € total</li>
+          <li><strong>Évaluation</strong> : 1 semaine</li>
+        </ul>
+        <p><strong>Délai total réaliste</strong> : 1-2 mois calendaires.</p>
+
+        <h3>4.3 Outils 2026</h3>
+        <ul>
+          <li><strong>Unsloth</strong> : framework open-source qui rend LoRA/QLoRA 2-5x plus rapide</li>
+          <li><strong>Hugging Face PEFT</strong> : bibliothèque officielle LoRA</li>
+          <li><strong>Hugging Face TRL</strong> : entraînement supervisé + RLHF</li>
+          <li><strong>Axolotl</strong> : framework wrapper pour fine-tuning à l'échelle</li>
+          <li><strong>Together.ai, Modal Labs, Lambda Labs</strong> : plateformes managed pour fine-tuning sans gérer l'infra</li>
+        </ul>
+      </section>
+
+      <!-- 5. DISCIPLINE DATA -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>La discipline data : le vrai sujet du fine-tuning</h2>
+          </div>
+        </div>
+
+        <h3>5.1 Qualité &gt; Volume</h3>
+        <div class="pull-quote">
+          <p>Le fine-tuning échoue 9 fois sur 10 à cause des données, pas de la technique.</p>
+        </div>
+        <p>Quatre disciplines essentielles :</p>
+        <ol>
+          <li><strong>Annotations cohérentes</strong> : si tu as 5 annotateurs, ils doivent avoir des guidelines strictes (kappa de Cohen &gt; 0,7)</li>
+          <li><strong>Déduplication</strong> : les doublons gonflent artificiellement le volume sans apporter de signal</li>
+          <li><strong>Instruction formatting propre</strong> : format input/output strict (Alpaca, ShareGPT, ChatML)</li>
+          <li><strong>Filtrage</strong> : enlever les exemples ambigus, contradictoires, ou mal annotés</li>
+        </ol>
+
+        <h3>5.2 Sweet spot PME</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Volume d'exemples</th><th>Viabilité</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 100 exemples</td><td>Fine-tuning généralement non viable, rester sur prompt</td></tr>
+            <tr><td>100-500 exemples</td><td>Viable pour cas très spécifiques (format strict)</td></tr>
+            <tr><td>500-5 000 exemples</td><td><strong>Sweet spot PME</strong> — qualité optimale si bien préparés</td></tr>
+            <tr><td>5 000-50 000 exemples</td><td>Pour cas à fort enjeu, demande processus d'annotation industrialisé</td></tr>
+            <tr><td>&gt; 50 000 exemples</td><td>Très rare en PME, généralement sur datasets synthétiques générés</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 6. PLAN D'ACTION -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Plan d'action 60 jours pour décider</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-15 — Mesure du baseline</h4>
+            <ul>
+              <li>Définir le cas d'usage candidat au fine-tuning</li>
+              <li>Construire un dataset golden de 100-200 cas test</li>
+              <li>Mesurer la qualité actuelle prompt + RAG sur ce golden</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 16-30 — Décision Go/No-Go fine-tuning</h4>
+            <ul>
+              <li>Si baseline &gt; 90 % : pas de fine-tuning, optimiser prompt</li>
+              <li>Si baseline 80-90 % : analyser les erreurs, voir si patterns récurrents</li>
+              <li>Si baseline &lt; 80 % : fine-tuning probablement justifié, passer à la suite</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 31-45 — Préparation des données</h4>
+            <ul>
+              <li>Constituer 500-2 000 exemples annotés de qualité</li>
+              <li>Format input/output strict</li>
+              <li>Split train/validation/test (70/15/15)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 46-60 — Entraînement et évaluation</h4>
+            <ul>
+              <li>LoRA/QLoRA sur Mistral 7B ou Llama 8B (selon licence)</li>
+              <li>Évaluation sur le golden vs baseline prompt + RAG</li>
+              <li>Décision déploiement si gain mesurable &gt; 5 % qualité</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (frameworks LLM, plateformes managées) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques au fine-tuning.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — 5 must-know LLM fine-tuning techniques</a><span class="resources-meta">Pilier 4 LLM Engineering Roadmap</span></li>
+            <li><a href="https://huggingface.co/blog/peft" target="_blank" rel="noopener">Hugging Face Blog — PEFT Methods</a><span class="resources-meta">Référence pédagogique LoRA</span></li>
+            <li><a href="https://magazine.sebastianraschka.com/" target="_blank" rel="noopener">Sebastian Raschka — Practical fine-tuning</a><span class="resources-meta">Newsletter technique de référence</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://github.com/unslothai/unsloth" target="_blank" rel="noopener">Unsloth Notebooks</a><span class="resources-meta">Notebooks Colab gratuits LoRA/QLoRA rapides</span></li>
+            <li><a href="https://huggingface.co/learn/llm-course" target="_blank" rel="noopener">Hugging Face LLM Course</a><span class="resources-meta">Cours communautaire end-to-end</span></li>
+            <li><a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Sebastian Raschka — Build a LLM from scratch</a><span class="resources-meta">Repo référence pretraining + fine-tuning + LoRA</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://huggingface.co/docs/peft" target="_blank" rel="noopener">Hugging Face PEFT Docs</a><span class="resources-meta">Documentation officielle LoRA/QLoRA</span></li>
+            <li><a href="https://huggingface.co/docs/trl" target="_blank" rel="noopener">Hugging Face TRL Docs</a><span class="resources-meta">Supervised fine-tuning + RLHF</span></li>
+            <li><a href="https://github.com/OpenAccess-AI-Collective/axolotl" target="_blank" rel="noopener">Axolotl GitHub</a><span class="resources-meta">Framework wrapper</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://discuss.huggingface.co/" target="_blank" rel="noopener">Hugging Face Forum</a><span class="resources-meta">Communauté technique</span></li>
+            <li><a href="https://reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">r/LocalLLaMA</a><span class="resources-meta">Communauté open-source LLM</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

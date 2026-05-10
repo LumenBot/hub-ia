@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Évaluation continue et qualité IA — Hub IA Learning Center</title>
+  <meta name="description" content="Tu ne peux pas piloter ce que tu ne mesures pas. Une eval pipeline, c'est ce qui distingue le projet IA amateur du projet IA production. Voici comment la construire en PME.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">17 min de lecture</span>
+      </div>
+      <h1>✅ Évaluation continue et qualité IA</h1>
+      <p class="module-subtitle">Tu ne peux pas piloter ce que tu ne mesures pas. Une eval pipeline, c'est ce qui distingue le projet IA amateur du projet IA production. Voici comment la construire en PME, sans être FAANG.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Pourquoi tu ne peux pas piloter sans evals</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📋</span>Construire le golden minimum</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🧪</span>Les 3 types d'evals</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛠️</span>Outils d'évaluation 2026</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🔄</span>Regression checks CI/CD</a></li>
+        <li><a href="#section-6"><span class="toc-icon">📊</span>A/B testing en production</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>L'eval pipeline distingue le projet IA amateur du projet IA production</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>Une eval pipeline distingue les projets IA amateurs des projets en production.</strong> C'est obligatoire dès que tu as une vraie utilisation. Coût d'entrée raisonnable (1-2 semaines de setup pour une PME), gain massif (détection précoce des dégradations, justification des changements de modèle, ROI mesurable).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>La distinction clé : evals (avant déploiement) vs observabilité (après).</strong> Les evals répondent à « est-ce que la sortie est bonne ? » avec des datasets golden. L'observabilité (cf. <a href="dep-05-agents-observabilite.html">DEP-05</a>) répond à « qu'est-ce qui se passe en prod en ce moment ? ». Les deux sont nécessaires et complémentaires.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>3 types d'evals à combiner.</strong> (a) Evals <strong>règle-based</strong> (format JSON valide, longueur de réponse, mots-clés interdits) — rapides et déterministes. (b) Evals <strong>sémantiques</strong> (similarité avec réponse de référence) — pour fact-checking. (c) Evals <strong>LLM-as-judge</strong> (un LLM juge la qualité d'une autre sortie) — pour qualité narrative.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Sweet spot dataset golden PME : 50-200 cas.</strong> Suffit pour détecter les régressions majeures (gap &gt; 5 %). Aller au-delà (1000+ cas) demande processus d'annotation industrialisé, généralement disproportionné en PME.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">32 %</div><div class="exec-stat-label">Qualité = blocker n°1 (LangChain 2026)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">50-200 cas</div><div class="exec-stat-label">Sweet spot dataset golden PME</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">80-90 %</div><div class="exec-stat-label">Régressions détectées avant les utilisateurs</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">1-2 semaines</div><div class="exec-stat-label">Délai de mise en place PME</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as un système IA en production sans eval pipeline et tu te poses la question</li>
+              <li>Tu changes régulièrement de modèle ou de prompt et tu veux savoir si ça améliore ou dégrade</li>
+              <li>Tu as eu des incidents qualité que tu n'avais pas anticipés</li>
+              <li>Tu veux <strong>convaincre ta direction du ROI d'une eval pipeline</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. POURQUOI -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Pourquoi tu ne peux pas piloter sans evals</h2>
+          </div>
+        </div>
+
+        <h3>1.1 Les 4 questions auxquelles seule une eval pipeline répond</h3>
+        <ol>
+          <li><strong>Est-ce que mon prompt v2 est meilleur que mon prompt v1 ?</strong> (Sans eval : impossible de savoir, on devine)</li>
+          <li><strong>Est-ce que basculer de Claude Sonnet à Kimi K2.6 dégrade la qualité ?</strong> (Sans eval : pari aveugle)</li>
+          <li><strong>Est-ce que mon RAG s'est dégradé après l'ajout de 1000 nouveaux documents ?</strong> (Sans eval : on découvre par les plaintes)</li>
+          <li><strong>Est-ce que ma nouvelle fonctionnalité agent maintient le niveau qualité antérieur ?</strong> (Sans eval : on fait confiance)</li>
+        </ol>
+
+        <h3>1.2 Le cycle « prompt → eval → improve → repeat »</h3>
+        <p>C'est le cycle de référence du LLMOps moderne (cf. <a href="dep-03-context-engineering-couts.html">DEP-03</a> sur la gouvernance prompts) :</p>
+        <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
+Prompt v1 → Run sur golden → Score
+   ↓
+Analyse erreurs → Identification patterns
+   ↓
+Prompt v2 → Run sur golden → Score
+   ↓
+Comparer Score v2 vs v1 → Garder si amélioration
+        </pre>
+        <p>→ Sans dataset golden et scoring automatique, ce cycle est impossible.</p>
+      </section>
+
+      <!-- 2. GOLDEN -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Construire le dataset golden minimum</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Le format type</h3>
+        <p>Pour chaque cas du golden :</p>
+        <ul>
+          <li><strong>Input</strong> : le prompt utilisateur réel ou représentatif</li>
+          <li><strong>Contexte</strong> (si applicable) : documents RAG, historique conversation</li>
+          <li><strong>Expected output</strong> : la réponse idéale (ou les caractéristiques d'une bonne réponse)</li>
+          <li><strong>Tags</strong> : catégorie de cas (facile/moyen/difficile, type de question, etc.)</li>
+          <li><strong>Source</strong> : d'où vient le cas (utilisateur réel anonymisé, cas synthétique, edge case)</li>
+        </ul>
+
+        <h3>2.2 Les 4 sources de cas pour ton golden</h3>
+        <ol>
+          <li><strong>Cas réels anonymisés</strong> : extraits de tes logs production (anonymise les PII). Reflète la distribution réelle des usages.</li>
+          <li><strong>Cas edge</strong> : situations rares mais critiques (questions ambiguës, cas limites, erreurs typiques).</li>
+          <li><strong>Cas adverses</strong> : prompts de stress test (jailbreak attempts, prompt injection, requêtes hors scope).</li>
+          <li><strong>Cas synthétiques</strong> : générés par LLM puis revus humain — pour étendre la couverture.</li>
+        </ol>
+
+        <h3>2.3 Sweet spot PME : 50-200 cas</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Volume</th><th>Niveau</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>&lt; 30 cas</td><td>Insuffisant, statistiques non représentatives</td></tr>
+            <tr><td>30-50 cas</td><td>Minimum viable pour démarrer</td></tr>
+            <tr><td>50-200 cas</td><td><strong>Sweet spot PME</strong>, équilibre coût annotation vs représentativité</td></tr>
+            <tr><td>200-1000 cas</td><td>Pour cas à fort enjeu, demande processus d'annotation industriel</td></tr>
+            <tr><td>&gt; 1000 cas</td><td>Généralement proportionné aux ETI / scale-ups</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3. TYPES D'EVALS -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Les 3 types d'evals à combiner</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Evals règle-based (rapides, déterministes)</h3>
+        <p>Vérifications automatiques sans LLM :</p>
+        <ul>
+          <li><strong>Format</strong> : JSON valide selon schéma, XML conforme, longueur</li>
+          <li><strong>Mots-clés</strong> : présence obligatoire, mots interdits (data leak, vulgarité)</li>
+          <li><strong>Patterns regex</strong> : numéros au bon format, dates valides</li>
+          <li><strong>Latence</strong> : temps de réponse sous SLA</li>
+        </ul>
+        <p>→ Coût : quasi-nul. Vitesse : milliseconde. À automatiser systématiquement.</p>
+
+        <h3>3.2 Evals sémantiques (similarity scoring)</h3>
+        <p>Comparaison entre la sortie générée et une référence :</p>
+        <ul>
+          <li><strong>BLEU / ROUGE</strong> : métriques classiques (utiles mais imparfaites)</li>
+          <li><strong>Embedding similarity</strong> : cosine similarity entre embedding de la sortie et de la référence</li>
+          <li><strong>BERTScore</strong> : variante avancée</li>
+        </ul>
+        <p>→ Coût : faible. Vitesse : 100ms-1s. Utile pour fact-checking et tâches structurées.</p>
+
+        <h3>3.3 Evals LLM-as-judge (qualité narrative)</h3>
+        <p>Un LLM juge la qualité d'une sortie d'un autre LLM, selon des critères définis :</p>
+        <ul>
+          <li><strong>Critères</strong> : précision, cohérence, ton, complétude, absence d'hallucination</li>
+          <li><strong>Échelle</strong> : 1-5 ou 1-10, avec rationale obligatoire</li>
+          <li><strong>Modèle juge</strong> : généralement plus puissant que le modèle évalué (ex : Claude Opus juge Claude Sonnet)</li>
+        </ul>
+        <p>→ Coût : significatif (chaque eval = 1 appel LLM puissant). À utiliser parcimonieusement, en complément des règle-based.</p>
+
+        <h3>3.4 Stratégie type PME</h3>
+        <ul>
+          <li><strong>Règle-based</strong> sur 100 % des cas (rapide, gratuit)</li>
+          <li><strong>Sémantique</strong> sur 100 % des cas où une référence existe (fact-checking)</li>
+          <li><strong>LLM-as-judge</strong> sur 20-30 % des cas (échantillonnage qualité narrative, coût maîtrisé)</li>
+        </ul>
+      </section>
+
+      <!-- 4. OUTILS -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Outils d'évaluation 2026</h2>
+          </div>
+        </div>
+
+        <h3>4.1 Stack open-source self-hosted</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Outil</th><th>Rôle</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Phoenix Arize</strong></td><td>Eval + tracing OSS, open-source</td><td>Référence open-source 2026</td></tr>
+            <tr><td><strong>Langfuse</strong></td><td>Eval + observabilité (cf. DEP-05)</td><td>Eval intégrée à l'observabilité</td></tr>
+            <tr><td><strong>DeepEval</strong></td><td>Bibliothèque Python eval pure</td><td>Bien pour tests automatisés CI</td></tr>
+            <tr><td><strong>PromptBench (Microsoft)</strong></td><td>Eval suite robustness</td><td>Pour stress test</td></tr>
+            <tr><td><strong>Eleuther LM Eval Harness</strong></td><td>Standard eval communauté open</td><td>Pour benchmarks modèles</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.2 Stack SaaS</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Outil</th><th>Rôle</th><th>Coût typique PME</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Comet Opik</strong></td><td>Eval + observabilité (déjà cité DEP-05)</td><td>Free tier puis ~50-200 €/mois</td></tr>
+            <tr><td><strong>LangSmith</strong></td><td>Eval intégrée à LangChain</td><td>~30-200 €/mois</td></tr>
+            <tr><td><strong>Patronus AI</strong></td><td>Eval enterprise spécialisé</td><td>Devis</td></tr>
+            <tr><td><strong>Braintrust</strong></td><td>Eval-first SaaS</td><td>Free tier puis variable</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 Recommandation pratique</h3>
+        <p>Pour démarrer en PME : <strong>Phoenix Arize self-hosted</strong> + <strong>DeepEval</strong> pour tests CI. Stack gratuit, contrôle, EU.</p>
+        <p>Si manque de bandwidth ops : <strong>Comet Opik free tier</strong> + <strong>DeepEval pour CI</strong>.</p>
+      </section>
+
+      <!-- 5. REGRESSION CHECKS -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Mettre en place les regression checks</h2>
+          </div>
+        </div>
+
+        <h3>5.1 Le principe</h3>
+        <p>À chaque modification (nouveau prompt, nouveau modèle, nouvelle pipeline RAG) : <strong>run automatique sur le golden</strong> + comparaison avec la baseline. Si dégradation &gt; seuil défini → bloquer le déploiement.</p>
+
+        <h3>5.2 Workflow type CI/CD pour LLM</h3>
+        <p>Pour la phase production runtime, voir <a href="dep-05-agents-observabilite.html">DEP-05 Agents en production</a>.</p>
+        <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
+Modification (PR) → Trigger CI
+   ↓
+Run golden eval (50-200 cas)
+   ↓
+Comparer scores vs main branch
+   ↓
+Si dégradation &gt; 5% → bloquer merge
+Si amélioration ≥ 0% → autoriser merge
+   ↓
+Deploy
+   ↓
+Monitor en prod (cf. DEP-05)
+        </pre>
+
+        <h3>5.3 Outils CI/CD compatibles</h3>
+        <ul>
+          <li><strong>GitHub Actions</strong> : runners gratuits pour OSS, payants à grand volume</li>
+          <li><strong>GitLab CI</strong> : équivalent</li>
+          <li><strong>Argo Workflows</strong> : pour pipelines plus complexes self-hosted</li>
+        </ul>
+        <p>→ Setup PME : 1-3 jours pour wirer une PR avec un run d'eval automatique.</p>
+      </section>
+
+      <!-- 6. A/B TESTING -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>A/B testing en production</h2>
+          </div>
+        </div>
+
+        <h3>6.1 Pourquoi A/B tester</h3>
+        <p>Pour valider l'impact réel d'une amélioration sur les utilisateurs (vs amélioration mesurée sur le golden, qui peut être un overfitting).</p>
+
+        <h3>6.2 Pattern type</h3>
+        <ul>
+          <li>50 % des sessions → variante A (baseline)</li>
+          <li>50 % des sessions → variante B (nouvelle)</li>
+          <li>Mesure des KPI : satisfaction explicite (👍/👎), conversion, drop-off, NPS</li>
+          <li>Durée minimum : 1-2 semaines pour signal statistique</li>
+        </ul>
+
+        <h3>6.3 Outils</h3>
+        <ul>
+          <li><strong>LiteLLM gateway</strong> (cf. <a href="dep-06-inference-saas-self-hosted.html">DEP-06</a>) supporte le routage A/B nativement</li>
+          <li><strong>Statsig</strong>, <strong>Eppo</strong>, <strong>Optimizely</strong> : plateformes A/B testing établies</li>
+        </ul>
+      </section>
+
+      <!-- 7. PLAN D'ACTION -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">7</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Plan d'action 30 jours pour une eval pipeline minimale</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-7 — Préparation</h4>
+            <ul>
+              <li>Identifier les cas d'usage à mesurer (le cas critique en priorité)</li>
+              <li>Construire le golden initial : 50 cas (mix réels anonymisés + edge cases)</li>
+              <li>Définir les KPI cibles (score précision, latence p95, coût/requête)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 8-15 — Setup outillage</h4>
+            <ul>
+              <li>Choisir stack (Phoenix Arize self-hosted ou Comet Opik free tier)</li>
+              <li>Implémenter evals règle-based (format, mots-clés, patterns)</li>
+              <li>Implémenter evals sémantiques sur cas avec référence</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 16-23 — Intégration CI/CD</h4>
+            <ul>
+              <li>Wirer une PR à un run d'eval automatique</li>
+              <li>Définir seuil de blocage (ex : -5 % qualité = bloque le merge)</li>
+              <li>Communiquer le workflow à l'équipe</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Jours 24-30 — LLM-as-judge échantillonné</h4>
+            <ul>
+              <li>Déployer LLM-as-judge sur 20 % des cas (qualité narrative)</li>
+              <li>Calibrer les prompts juges sur 10-20 cas annotés humain</li>
+              <li>Run quotidien automatique avec alerte sur dégradation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (eval et observabilité LLM) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage évaluation.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Eval &amp; observability layers</a><span class="resources-meta">Pilier 8 LLM Engineering Roadmap</span></li>
+            <li><a href="https://www.anthropic.com/engineering" target="_blank" rel="noopener">Anthropic Engineering — Building evaluations</a><span class="resources-meta">Pratiques de référence</span></li>
+            <li><a href="https://blog.langchain.dev/" target="_blank" rel="noopener">LangChain — State of Agent Engineering 2026</a><span class="resources-meta">Étude annuelle, qualité = blocker n°1</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://phoenix.arize.com/" target="_blank" rel="noopener">Phoenix Arize Docs</a><span class="resources-meta">Eval + tracing open-source</span></li>
+            <li><a href="https://github.com/confident-ai/deepeval" target="_blank" rel="noopener">DeepEval GitHub</a><span class="resources-meta">Bibliothèque eval Python</span></li>
+            <li><a href="https://github.com/microsoft/promptbench" target="_blank" rel="noopener">PromptBench (Microsoft)</a><span class="resources-meta">Stress test prompts</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://www.comet.com/docs/opik/" target="_blank" rel="noopener">Comet Opik docs</a><span class="resources-meta">Pratique eval + observabilité</span></li>
+            <li><a href="https://docs.smith.langchain.com/" target="_blank" rel="noopener">LangSmith — Evaluation guide</a><span class="resources-meta">Référence LangChain ecosystem</span></li>
+            <li><a href="https://github.com/EleutherAI/lm-evaluation-harness" target="_blank" rel="noopener">Eleuther LM Eval Harness</a><span class="resources-meta">Standard communauté open</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://arize-ai.slack.com/" target="_blank" rel="noopener">Phoenix Arize Slack</a><span class="resources-meta">Communauté open-source</span></li>
+            <li><a href="https://discord.gg/langchain" target="_blank" rel="noopener">LangChain Discord</a><span class="resources-meta">Échanges eval pratique</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

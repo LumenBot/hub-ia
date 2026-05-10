@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context engineering et coût par requête — Hub IA Learning Center</title>
+  <meta name="description" content="Le prompt caching Anthropic réduit de 90 % le coût des input tokens cachés. Mais 40 % des employés reçoivent du « workslop » qui coûte 9 M$/an dans une entreprise de 10 000 personnes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link nav-link-active">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../deploiement.html" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour à Déploiement
+      </a>
+      <div class="module-badges">
+        <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
+        <span class="card-badge">🎯 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">18 min de lecture</span>
+      </div>
+      <h1>💰 Context engineering et coût par requête</h1>
+      <p class="module-subtitle">Le prompt caching Anthropic réduit de 90 % le coût des input tokens cachés. Mais 40 % des employés reçoivent du « workslop » qui coûte 9 M$/an dans une entreprise de 10 000 personnes. Le coût IA n'est pas seulement le prix du token.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire de la fiche</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">💾</span>Prompt caching</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚠️</span>Le workslop documenté</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🧩</span>Gestion du contexte</a></li>
+        <li><a href="#section-4"><span class="toc-icon">⚖️</span>Choix de modèle stratégique</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📊</span>Tableau récap des leviers</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Maîtriser le coût IA en 5 leviers documentés</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>Le prompt caching change l'économie de l'IA.</strong> Anthropic propose -90 % sur les input tokens cachés (0,1× le prix standard sur cache hit). Sur des conversations longues (RAG, agents, support client), le caching peut diviser la facture par 5 à 10. Coût d'écriture du cache : 1,25× standard pour TTL 5 min.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>Workslop = 186 $/employé/mois de coût caché.</strong> Étude BetterUp x Stanford septembre 2025 : 40 % des employés ont reçu du « workslop » (contenu IA poli mais inutile/inexact) sur 30 jours. Coût moyen : 1h56 par incident, <strong>9 M$/an pour une entreprise de 10 000 personnes</strong>. Argument-massue pour vendre la gouvernance prompts.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Le reasoning des LLM se dégrade au-delà de 3 000 tokens.</strong> Sweet spot pratique : 150-300 mots dans le prompt utilisateur. Une JSON schema complexe consomme 500+ tokens. 90 outils disponibles dans un agent = 50 000+ tokens <strong>avant la première interaction</strong>. La gestion du contexte est devenue un métier.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Le choix de modèle est devenu un arbitrage stratégique.</strong> Kimi K2.6 (open-source, chinois) est 8-10x moins cher que Claude Opus 4.7 pour ~75 % de la qualité. Pour 80 % des cas d'usage PME, un modèle moyen suffit largement. Garder Opus pour 20 % de cas réellement complexes.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">-90 %</div><div class="exec-stat-label">Sur input tokens cachés (Anthropic)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">186 $</div><div class="exec-stat-label">Coût workslop / employé / mois (BetterUp x Stanford)</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">3 000 tokens</div><div class="exec-stat-label">Seuil dégradation reasoning</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">8-10×</div><div class="exec-stat-label">Kimi K2.6 vs Claude Opus 4.7</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as commencé à utiliser l'IA en production et tu vois <strong>les premières factures</strong></li>
+              <li>Tu veux <strong>maîtriser les coûts sans sacrifier la qualité</strong></li>
+              <li>Tu cherches un cadre pour <strong>gouverner les prompts comme du code</strong></li>
+              <li>Tu te demandes si tu peux switcher de modèle pour réduire la facture</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. PROMPT CACHING -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-context">1</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Le prompt caching, levier n°1 d'optimisation coût</h2>
+          </div>
+        </div>
+
+        <h3>1.1 Comment ça marche</h3>
+        <p>Le prompt caching permet de <strong>réutiliser</strong> le calcul d'une portion du contexte qu'on envoie à plusieurs reprises au modèle. Concrètement : si tu as un long système prompt + un long manuel produit que tu envoies à chaque conversation, le modèle peut « mémoriser » cette portion stable et la facturer <strong>0,1× le prix standard</strong> (cache hit).</p>
+        <p>Anthropic a popularisé le pattern. AWS Bedrock l'a adopté. OpenAI propose un équivalent.</p>
+
+        <h3>1.2 Cas d'usage où le caching divise la facture</h3>
+        <ul>
+          <li><strong>RAG sur corpus stable</strong> : système prompt + chunks récupérés similaires entre requêtes</li>
+          <li><strong>Agents multi-tour</strong> : conversation longue où le contexte initial reste identique</li>
+          <li><strong>Support client</strong> : FAQ / base de connaissance envoyée à chaque interaction</li>
+          <li><strong>Génération de code</strong> : codebase ou documentation envoyée en contexte stable</li>
+        </ul>
+
+        <h3>1.3 Coûts du caching à connaître</h3>
+        <ul>
+          <li><strong>Lecture cache (cache hit)</strong> : 0,1× prix standard input</li>
+          <li><strong>Écriture cache</strong> : 1,25× prix standard input pour TTL 5 min, 2× pour TTL 1h</li>
+          <li><strong>Pas de cache</strong> : prix standard</li>
+        </ul>
+        <p>→ <strong>Stratégie type</strong> : tout ce qui est stable &gt; 5 min (système prompt, FAQ, manuel produit) → cacher avec TTL 1h. Tout ce qui change vite → ne pas cacher.</p>
+
+        <h3>1.4 Économie type pour une PME</h3>
+        <p>Pour une PME utilisant Claude pour du support client (1000 conversations/mois × 4000 tokens contexte stable) :</p>
+        <ul>
+          <li><strong>Sans caching</strong> : ~150-200 €/mois</li>
+          <li><strong>Avec caching</strong> (90 % cache hit) : ~30-50 €/mois</li>
+        </ul>
+        <div class="stat-block">
+          <div class="stat-block-num">−70 à −80 %</div>
+          <div class="stat-block-label">Économie sur la facture d'inférence avec un caching bien activé</div>
+        </div>
+      </section>
+
+      <!-- 2. WORKSLOP -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">2</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>Le workslop, coût caché documenté</h2>
+          </div>
+        </div>
+
+        <h3>2.1 Définition (BetterUp x Stanford 2025)</h3>
+        <p>Le <strong>workslop</strong> = contenu produit par IA qui a l'air poli et professionnel, mais qui est <strong>inutile, inexact, ou pire</strong>, qui force des corrections en aval. Exemples :</p>
+        <ul>
+          <li>Mail commercial parfaitement rédigé mais qui dit n'importe quoi sur le produit</li>
+          <li>Compte-rendu de réunion qui invente des engagements</li>
+          <li>Code qui appelle une fonction qui n'existe pas</li>
+          <li>Synthèse documentaire qui omet l'élément critique</li>
+        </ul>
+
+        <h3>2.2 Les chiffres qui doivent t'arrêter</h3>
+        <div class="alert-block">
+          <ul>
+            <li><strong>40 % des employés</strong> ont reçu du workslop sur les 30 derniers jours (étude BetterUp x Stanford, septembre 2025, n=1100)</li>
+            <li><strong>1h56</strong> : temps moyen perdu par incident workslop (correction, vérification, refonte)</li>
+            <li><strong>186 $/employé/mois</strong> de coût caché en moyenne</li>
+            <li><strong>9 M$/an</strong> pour une entreprise de 10 000 personnes</li>
+          </ul>
+        </div>
+
+        <h3>2.3 Comment réduire le workslop : la gouvernance prompts comme du code</h3>
+        <p>Cinq pratiques documentées :</p>
+        <ol>
+          <li><strong>Versionner les prompts</strong> dans un repo git (pas dans des chat éphémères)</li>
+          <li><strong>Tester les prompts</strong> avec un dataset golden (50-100 cas) avant déploiement</li>
+          <li><strong>Documenter chaque prompt</strong> : objectif, audience, format de sortie attendu, contre-exemples</li>
+          <li><strong>Reviewer les prompts</strong> comme du code (PR avec relecture par un pair)</li>
+          <li><strong>Mesurer les regressions</strong> quand on change de modèle ou qu'on optimise</li>
+        </ol>
+        <p>→ Outils : promptlayer, langfuse, helicone (open-source), phoenix arize (open-source)</p>
+      </section>
+
+      <!-- 3. GESTION DU CONTEXTE -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>La gestion du contexte (context engineering)</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Le contexte n'est pas infini, ni cognitivement neutre</h3>
+        <p>Bien que les modèles annoncent des fenêtres de <strong>1M, 2M, 10M tokens</strong>, leur <strong>reasoning se dégrade dès 3 000 tokens</strong> (recherche état de l'art 2026 sur la dégradation de l'attention long-context).</p>
+        <div class="pull-quote">
+          <p>Le contexte qui compte = celui que le modèle utilise effectivement, pas celui qu'on lui envoie.</p>
+        </div>
+
+        <h3>3.2 Le coût des tools et schemas dans un agent</h3>
+        <p>Quand on construit un agent avec MCP servers (Model Context Protocol) ou tool calling :</p>
+        <ul>
+          <li>Une JSON schema complexe = <strong>500+ tokens</strong> par outil</li>
+          <li>90 outils disponibles = <strong>50 000+ tokens avant la première interaction utilisateur</strong></li>
+          <li>Multiplié par chaque appel à l'agent</li>
+        </ul>
+        <p>→ Stratégie : <strong>filtrer les outils</strong> par contexte (un agent commercial n'a pas besoin des outils techniques). Réduit le contexte initial de 80-90 %.</p>
+
+        <h3>3.3 Sweet spot pratique en context engineering</h3>
+        <p>Pour un prompt utilisateur :</p>
+        <ul>
+          <li><strong>150-300 mots</strong> : sweet spot reasoning</li>
+          <li><strong>300-1000 mots</strong> : encore acceptable pour tâches structurées</li>
+          <li><strong>&gt; 1000 mots</strong> : commence à diluer l'attention</li>
+        </ul>
+        <p>Pour le contexte total (système + retrieval + historique) :</p>
+        <ul>
+          <li><strong>&lt; 8K tokens</strong> : excellent</li>
+          <li><strong>8K-32K tokens</strong> : acceptable avec discipline</li>
+          <li><strong>&gt; 32K tokens</strong> : nécessite caching et filtrage</li>
+        </ul>
+      </section>
+
+      <!-- 4. CHOIX DE MODÈLE -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Le choix de modèle comme arbitrage stratégique</h2>
+          </div>
+        </div>
+
+        <h3>4.1 La règle 80/20 du choix de modèle</h3>
+        <p>Pour la majorité des cas d'usage PME :</p>
+        <ul>
+          <li><strong>80 % des requêtes</strong> sont gérables par un modèle moyen (Claude Sonnet, GPT-4 mini, Mistral Medium, Kimi K2.6)</li>
+          <li><strong>20 % des requêtes</strong> complexes nécessitent un modèle haut de gamme (Claude Opus, GPT-4 Turbo)</li>
+        </ul>
+        <p>Coût typique :</p>
+        <ul>
+          <li><strong>Modèle moyen</strong> : 0,5-3 $/M input tokens, 2-15 $/M output tokens</li>
+          <li><strong>Modèle haut de gamme</strong> : 5-15 $/M input, 15-75 $/M output</li>
+        </ul>
+        <p>→ Bien dispatcher = diviser la facture par 5 à 10.</p>
+
+        <h3>4.2 Le cas Kimi K2.6 — la bascule chinoise</h3>
+        <p>Kimi K2.6 (open-source Moonshot AI, sortie 2026) :</p>
+        <ul>
+          <li><strong>0,80 $/M input, 3,60 $/M output</strong> (vs Claude Opus 4.7 à 5 $/M input et 25 $/M output)</li>
+          <li>Performance proche de Claude Opus sur SWE-Bench, Terminal-Bench, agentic coding</li>
+          <li>Open-source, self-hostable</li>
+          <li>Hébergement EU possible</li>
+        </ul>
+        <p>→ Pour les use cases coding agentique (cf. <a href="../modules/cu-027-dev-applicatif-ia.html">CU-027 Faire développer une appli métier</a>), Kimi K2.6 devient un challenger sérieux à Opus.</p>
+
+        <h3>4.3 Stratégie de routage (LLM gateway)</h3>
+        <p>Outils type <strong>LiteLLM</strong> (open-source) ou <strong>OpenRouter</strong> permettent de :</p>
+        <ul>
+          <li>Router selon complexité de la requête (simple → modèle pas cher, complexe → modèle premium)</li>
+          <li>Implémenter un fallback (si Anthropic down → bascule OpenAI)</li>
+          <li>Tracker le coût par cas d'usage</li>
+          <li>A/B tester deux modèles en parallèle</li>
+        </ul>
+        <p>→ Gain typique : 30-60 % de réduction de facture sur 6 mois après déploiement d'un LLM gateway.</p>
+      </section>
+
+      <!-- 5. TABLEAU RÉCAP -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">5</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Tableau récapitulatif des leviers</h2>
+          </div>
+        </div>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Levier</th>
+              <th>Effort initial</th>
+              <th>Gain typique</th>
+              <th>Quand y aller</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Prompt caching</strong></td><td>1-3 jours dev</td><td>-50 à -80 % facture inférence</td><td>Dès que contexte stable &gt; 5 min</td></tr>
+            <tr><td><strong>Gouvernance prompts</strong> (versioning, tests)</td><td>1-2 semaines setup</td><td>-30 à -50 % workslop</td><td>Avant la mise en prod</td></tr>
+            <tr><td><strong>Filtrage outils MCP</strong></td><td>1-2 jours</td><td>-50 à -90 % contexte initial agent</td><td>Dès que &gt; 10 outils</td></tr>
+            <tr><td><strong>LLM gateway + routage modèle</strong></td><td>1-2 semaines</td><td>-30 à -60 % facture totale</td><td>Dès 500 €/mois de facture</td></tr>
+            <tr><td><strong>Switch modèle premium → moyen</strong></td><td>Quelques heures</td><td>-50 à -90 % par requête</td><td>Audit régulier des cas d'usage</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 6. PLAN D'ACTION -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-success">6</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Plan d'action 30 jours pour maîtriser les coûts IA</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">1</div>
+          <div>
+            <h4>Jours 1-7 — Audit</h4>
+            <ul>
+              <li>Extraire la facture détaillée par cas d'usage</li>
+              <li>Identifier les 3-5 cas d'usage les plus consommateurs</li>
+              <li>Mesurer le contexte moyen et le ratio cache hit actuel</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">2</div>
+          <div>
+            <h4>Jours 8-15 — Quick wins</h4>
+            <ul>
+              <li>Activer le prompt caching sur les cas d'usage à contexte stable</li>
+              <li>Filtrer les outils MCP des agents (ne garder que les utilisés)</li>
+              <li>Switcher les cas d'usage simples vers un modèle moyen</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">3</div>
+          <div>
+            <h4>Jours 16-30 — Gouvernance</h4>
+            <ul>
+              <li>Mettre en place le versioning de prompts dans un repo git</li>
+              <li>Construire un dataset golden de 50-100 cas (par cas d'usage)</li>
+              <li>Déployer un LLM gateway (LiteLLM open-source) pour routage et tracking</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">✓ Économie typique attendue à 30 jours</div>
+          <p><strong>40 à 70 % de la facture initiale.</strong> Ces ordres de grandeur sont reproductibles dès lors que les 3 premières optimisations (caching, filtrage outils, switch modèle) sont rigoureusement appliquées.</p>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (LLM gateway, monitoring, observabilité) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity" target="_blank" rel="noopener">HBR — AI-generated workslop is destroying productivity (sept. 2025)</a><span class="resources-meta">Étude BetterUp x Stanford</span></li>
+            <li><a href="https://www.anthropic.com/news/prompt-caching" target="_blank" rel="noopener">Anthropic News — Prompt caching announcement</a><span class="resources-meta">Annonce officielle + benchmarks</span></li>
+            <li><a href="https://www.newsletter.swirlai.com/p/state-of-context-engineering-in-2026" target="_blank" rel="noopener">Aurimas Griciūnas / SwirlAI — State of context engineering 2026</a><span class="resources-meta">Synthèse pratique</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching" target="_blank" rel="noopener">Anthropic Docs — Prompt caching guide</a><span class="resources-meta">Documentation officielle</span></li>
+            <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Context engineering pillar</a><span class="resources-meta">Pilier 3 du LLM Engineering Roadmap</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://www.getmaxim.ai/articles/context-engineering-for-ai-agents-production-optimization-strategies/" target="_blank" rel="noopener">Maxim AI — Context engineering for AI agents</a><span class="resources-meta">Token economics 2026</span></li>
+            <li><a href="https://docs.litellm.ai/" target="_blank" rel="noopener">LiteLLM Docs</a><span class="resources-meta">LLM gateway open-source de référence</span></li>
+            <li><a href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity" target="_blank" rel="noopener">BetterUp x Stanford — Workslop study</a><span class="resources-meta">Méthodologie + chiffres</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://www.anthropic.com/discord" target="_blank" rel="noopener">Anthropic Discord</a><span class="resources-meta">Échanges techniques pratiques</span></li>
+            <li><a href="https://github.com/langchain-ai/langchain/discussions" target="_blank" rel="noopener">LangChain GitHub Discussions</a><span class="resources-meta">Patterns context engineering</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>

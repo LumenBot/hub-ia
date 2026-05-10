@@ -398,11 +398,34 @@
               <td class="crit-buy">Besoin sous 1-2 mois</td>
               <td class="crit-build">3-9 mois acceptables, valeur long terme</td>
             </tr>
+            <tr>
+              <td><strong>7. Compétences IA-natives <span style="color: var(--color-accent); font-size: 0.85em;">(nouveau 2026)</span></strong></td>
+              <td>As-tu accès à un dev senior maîtrisant le stack ECC ?</td>
+              <td class="crit-buy">Pas de dev senior IA-natif accessible</td>
+              <td class="crit-build">Dev senior + Cursor + Kimi K2.6 + ECC stack mobilisables</td>
+            </tr>
+            <tr>
+              <td><strong>8. Coût d'inférence <span style="color: var(--color-accent); font-size: 0.85em;">(nouveau 2026)</span></strong></td>
+              <td>Quel est ton volume d'inférence mensuel ?</td>
+              <td class="crit-buy">Volume marginal, Opus suffit ponctuellement</td>
+              <td class="crit-build">Volume élevé : tu peux switcher 75 % vers Kimi sans perte de qualité (cf. <a href="../deploiement/dep-06-inference-saas-self-hosted.html">DEP-06</a>)</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <p><strong>Règle pratique :</strong> 4 BUY sur 6 ou plus → SaaS. 4 BUILD sur 6 ou plus → développement IA-assisté avec gouvernance. Mix → hybride (le SaaS pour la base + un build léger sur la zone différenciante).</p>
+      <p><strong>Règle pratique :</strong> 4 BUY sur 8 ou plus → SaaS. 4 BUILD sur 8 ou plus → développement IA-assisté avec gouvernance. Mix → hybride (le SaaS pour la base + un build léger sur la zone différenciante).</p>
+
+      <div class="callout callout-warning" style="margin-top: 1.5rem;">
+        <strong>💸 La compression des coûts du build IA-assisté en 2026</strong>
+        <p style="margin-top: 0.5rem;">Le coût d'un build IA-assisté a été divisé par 3 à 5 entre 2023 et 2026, sans compromis sur la qualité finale, grâce à 3 facteurs convergents :</p>
+        <ul style="margin-top: 0.5rem;">
+          <li><strong>Modèles open-source compétitifs</strong> : Kimi K2.6 (sortie 2026) propose ~75 % de la qualité de Claude Opus 4.7 pour ~10 % du coût d'inférence. Cf. <a href="../modules/cu-027-dev-applicatif-ia.html#section-1bis">CU-027 § Kimi K2.6 + ECC</a>.</li>
+          <li><strong>Frameworks d'agents matures</strong> : ECC (Everything Claude Code) avec ~38 agents spécialisés + AgentShield ≈ équivalent d'une équipe de 3-4 devs juniors pour ~$20-200/mois.</li>
+          <li><strong>Patterns Fat Skills / Thin Harness</strong> (Garry Tan) : architecture compounding où chaque skill réutilisable réduit le coût de la suivante. Cf. <a href="../modules/cu-014-veille-strategique.html">CU-014</a>.</li>
+        </ul>
+        <p style="margin-top: 0.5rem;">Conséquence : le <strong>seuil de rentabilité du Build s'est abaissé</strong> par rapport à 2023. Le « Buy » reste statistiquement supérieur (67 % vs 33 % de réussite — MIT NANDA), mais les cas où le Build est justifié deviennent plus accessibles aux PME ambitieuses qui savent cadrer (cf. <a href="../deploiement/dep-01-cadrer-projet-prod.html">DEP-01</a>).</p>
+      </div>
     </section>
 
     <section class="module-section" id="section-7">
@@ -459,6 +482,9 @@
           <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The state of AI 2025</a><span class="resources-meta">Patterns d'adoption IA en entreprise</span></li>
           <li><a href="https://lelab.bpifrance.fr/Etudes/les-entreprises-francaises-et-l-ia-l-aube-d-une-revolution" target="_blank" rel="noopener">Bpifrance Le Lab — IA dans les PME et ETI françaises</a><span class="resources-meta">Juin 2025 — adoption IA en France</span></li>
           <li><a href="https://www.pwc.com/gx/en/issues/artificial-intelligence/job-barometer/2025/report.pdf" target="_blank" rel="noopener">PwC AI Jobs Barometer 2025 (PDF)</a><span class="resources-meta">×5 productivité, primes salariales</span></li>
+          <li><a href="https://www.aigl.blog/state-of-ai-in-business-2025/" target="_blank" rel="noopener">MIT NANDA — State of AI in Business 2025 (synthèse)</a><span class="resources-meta">Source des chiffres 67 % vs 33 % Buy/Build</span></li>
+          <li><a href="https://www.together.ai/" target="_blank" rel="noopener">Together.ai — Kimi K2.6 économie d'inférence</a><span class="resources-meta">Analyse coût comparé open-source / closed</span></li>
+          <li><a href="https://x.com/garrytan" target="_blank" rel="noopener">Garry Tan — Personal AI compounding (X)</a><span class="resources-meta">Patterns Fat Skills / Thin Harness 2026</span></li>
         </ul>
       </div>
 

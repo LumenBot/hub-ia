@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge management IA-augmenté pour dirigeant — Hub IA — Learning Center</title>
+  <meta name="description" content="Capture automatique des lectures, conversations, idées. Synthèse continue par un agent IA. Briefing matinal généré chaque jour. Le pattern qui transforme un dirigeant en intelligence augmentée — accessible en 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Composants single-use spécifiques à ce module :
+       - Schéma SVG des 4 layers (capture / pipeline / vault / agent)
+       - Timeline du plan d'action 30 jours (variante locale, pas centralisée)
+       - Bloc « briefing exemple » (variante visuelle distincte du pull-quote)
+       Les composants mutualisés (.alert-block, .checklist-block, .arch-callout,
+       .tool-table, .pull-quote, .case-deep-actor, .resources-cat, .callout-info)
+       sont dans module-v3.css. */
+    .timeline-block {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 2px solid #F59E0B;
+      padding: var(--space-5);
+      border-radius: var(--radius-md);
+      margin: var(--space-5) 0;
+    }
+    .timeline-block h3 {
+      color: #92400E;
+      margin-top: 0;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+    .timeline-step {
+      background: white;
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      border-left: 3px solid #F59E0B;
+    }
+    .timeline-step-date {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #92400E;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+    }
+    .timeline-step ul {
+      margin: var(--space-2) 0 0;
+      padding-left: var(--space-4);
+      font-size: 0.9375rem;
+    }
+    .briefing-example {
+      background: #F8F4FF;
+      border: 1px solid #C4B5FD;
+      border-left: 5px solid #7A5CB8;
+      padding: var(--space-5) var(--space-6);
+      margin: var(--space-5) 0;
+      border-radius: var(--radius-md);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    .briefing-example .briefing-title {
+      font-weight: 700;
+      color: #4A3A8C;
+      font-size: 1rem;
+      margin-bottom: var(--space-3);
+    }
+    .briefing-example strong { color: #4A3A8C; }
+    .briefing-example p { margin: var(--space-3) 0; }
+    .schema-svg-wrap { margin: var(--space-5) 0; overflow-x: auto; }
+    .schema-svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+    .schema-caption {
+      text-align: center;
+      font-style: italic;
+      color: var(--color-text-soft);
+      font-size: 0.9375rem;
+      margin-top: var(--space-3);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../deploiement.html" class="nav-link">Déploiement</a>
+        <a href="../index.html#modules" class="nav-link nav-link-active">Modules</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="../index.html#a-propos" class="nav-link">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</a>
+        <span class="card-badge">📋 Étude de cas + plan d'action</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+      </div>
+      <h1>🧠 Knowledge management IA-augmenté pour dirigeant</h1>
+      <p class="module-subtitle">
+        Capture automatique de tes lectures, conversations, idées. Synthèse continue par un agent IA. Briefing matinal généré chaque jour. Le pattern qui transforme un dirigeant en intelligence augmentée — ce n'est plus un projet R&amp;D, c'est devenu accessible en 2026.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🚫</span>Pourquoi le KM classique échoue</a></li>
+        <li><a href="#section-2"><span class="toc-icon">🏗️</span>L'architecture en 4 layers</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📨</span>Le briefing matinal</a></li>
+        <li><a href="#section-4"><span class="toc-icon">📅</span>La synthèse hebdomadaire</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🛠️</span>Plan d'action 30 jours</a></li>
+        <li><a href="#section-6"><span class="toc-icon">💰</span>Coût et effort réels</a></li>
+        <li><a href="#section-7"><span class="toc-icon">⚠️</span>Les 5 écueils typiques</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- TAG ARCHITECTURES -->
+      <div class="arch-callout">
+        <span class="arch-callout-icon">🏗️</span>
+        <p style="margin:0;">
+          <strong>Architectures recommandées pour ce cas d'usage</strong> : le vault Obsidian reste local sur ta machine (souveraineté maximale, données sensibles dirigeant). L'agent Claude tourne en <strong>A1</strong> (API Anthropic) pour l'usage individuel, ou <strong>A3</strong> (Mistral / déploiement EU) si tu veux une souveraineté EU complète. Voir <a href="../architectures.html" class="tool-link">Architectures</a> et <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">DEP-08 Sécurité agents MCP</a> pour la gestion du fichier <code>CLAUDE.md</code>.
+        </p>
+      </div>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Transformer la dissipation cognitive du dirigeant en patrimoine qui compounde</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>La capture sans friction est la condition d'entrée.</strong> Tout système de knowledge management qui demande &gt; 10 secondes de saisie échoue dans les 6 mois. Pattern 2026 : Readwise (articles + tweets), Telegram bot (idées rapides), Whisper (voice memos), Airr (podcasts). Tout flow automatique vers ton vault Obsidian.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>L'organisation par TYPE bat l'organisation par TOPIC.</strong> L'erreur classique : organiser par sujet (Marketing, RH, Finance). Résultat : silos, pas de connexions cross-domaines. L'organisation par type (Observations, Réactions, Patterns, Questions, Numbers) permet à l'IA de découvrir des liens entre des notes très différentes.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Le briefing matinal automatique change la donne.</strong> Chaque matin à 6 h, un agent IA lit ton vault des 7 derniers jours et génère un briefing : 3 connexions surprenantes, 1 pattern émergent, 1 question à creuser. Tu te lèves face à des insights, pas à un écran vide.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>Le compounding est mesurable à 6 mois.</strong> À 1 mois : utile. À 3 mois : tu commences à voir des connexions oubliées. À 6 mois : l'IA sait des choses sur ton thinking que tu as toi-même oubliées. À 12 mois : avantage cognitif structurel difficile à rattraper.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">5-10 h</div><div class="exec-stat-label">Setup initial dirigeant</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">25-60 €/mois</div><div class="exec-stat-label">Coût mensuel total</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">0 min/jour</div><div class="exec-stat-label">Effort après setup</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">6 mois</div><div class="exec-stat-label">Compounding mesurable</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Ce module est pour toi si…</h3>
+            <ul>
+              <li>Tu es dirigeant qui consomme beaucoup d'information (articles, podcasts, conversations)</li>
+              <li>Tu as l'impression d'oublier des idées importantes — ton patrimoine cognitif se dissipe au lieu de compounder</li>
+              <li>Tu veux construire un patrimoine cognitif <strong>qui s'enrichit chaque jour, sans intervention</strong></li>
+              <li>Tu cherches un système concret, pas une théorie — et tu as <strong>5-10 h de setup initial</strong> à investir</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. POURQUOI LE KM CLASSIQUE ÉCHOUE -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🚫</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Pourquoi le knowledge management classique échoue</h2>
+          </div>
+        </div>
+
+        <p>Tu es dirigeant. Tu lis 5 à 10 articles par jour. Tu as 20 à 30 conversations par semaine. Tu génères des dizaines d'idées que tu oublies. Tu produis des notes éparpillées dans 5 outils différents (Notes iOS, Slack, mails, Notion, post-it). <strong>Ton patrimoine cognitif se dissipe</strong> au lieu de compounder.</p>
+
+        <p>Le pattern <em>« Knowledge management IA-augmenté »</em> émergé en 2025-2026 (Garry Tan, CyrilXBT, Dami-Defi, Shruti Codes, Ziwen — voir veille X mai 2026) transforme cette dissipation en <strong>patrimoine qui s'enrichit chaque jour, sans intervention</strong>. Capture automatique → connexion automatique par IA → briefing matinal → synthèse hebdomadaire.</p>
+
+        <h3>1.1 Le syndrome du tombeau</h3>
+        <p>La plupart des dirigeants utilisent leur Notion / Notes / Obsidian comme un <strong>tombeau organisé</strong> : tout y entre, rien n'en sort. Notes accumulées, jamais relues, jamais connectées, jamais activées.</p>
+        <p>Cause : <strong>friction de capture trop élevée</strong> + <strong>absence de boucle de retour</strong>.</p>
+
+        <h3>1.2 Trois failles structurelles</h3>
+        <ol>
+          <li><strong>Friction de capture</strong> : si saisir une idée prend plus de 10 secondes, le système meurt sous charge cognitive.</li>
+          <li><strong>Absence de connexion</strong> : les notes vivent en silos. Un dirigeant n'a pas le temps de relire et connecter manuellement.</li>
+          <li><strong>Absence de retour</strong> : le système est passif. Aucun briefing, aucune surprise, aucune valeur retournée.</li>
+        </ol>
+
+        <h3>1.3 Le shift conceptuel 2026</h3>
+        <p>Les patterns émergés en 2025-2026 résolvent ces 3 failles avec <strong>3 leviers IA</strong> :</p>
+        <ol>
+          <li><strong>Capture automatique</strong> (Readwise, Telegram bot, Whisper)</li>
+          <li><strong>Connexion automatique</strong> (agent IA qui lit le vault régulièrement)</li>
+          <li><strong>Retour automatique</strong> (briefing matinal + synthèse hebdo)</li>
+        </ol>
+
+        <div class="pull-quote">
+          <p>L'IA ne remplace pas ta pensée. Elle te restitue ta propre pensée enrichie de connexions que tu n'aurais pas faites — parce que tu n'as plus le temps de relire ce que tu as écrit il y a 3 mois.</p>
+        </div>
+      </section>
+
+      <!-- 2. ARCHITECTURE EN 4 LAYERS -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🏗️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>L'architecture en 4 layers</h2>
+          </div>
+        </div>
+
+        <p>Le pattern de référence (synthèse des 4 articles X mai 2026 — CyrilXBT, Dami-Defi, Shruti Codes, Ziwen — et de l'article Garry Tan) :</p>
+
+        <div class="schema-svg-wrap">
+          <svg class="schema-svg" viewBox="0 0 920 420" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+            <defs><marker id="arK" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2E5395"/></marker></defs>
+
+            <!-- LAYER 1 : CAPTURE -->
+            <rect x="60" y="20" width="800" height="80" rx="12" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
+            <text x="460" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#1F3864">LAYER 1 — CAPTURE AUTOMATIQUE</text>
+            <text x="460" y="70" text-anchor="middle" font-size="12" fill="#333">Readwise (articles, Kindle, Twitter) · Telegram bot (idées) · Whisper (voice) · Airr (podcasts)</text>
+            <text x="460" y="88" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Règle d'or : zéro tagging manuel — tout vers 00 - INBOX/</text>
+
+            <!-- arrow 1->2 -->
+            <line x1="460" y1="100" x2="460" y2="128" stroke="#2E5395" stroke-width="3" marker-end="url(#arK)"/>
+
+            <!-- LAYER 2 : PIPELINE n8n -->
+            <rect x="60" y="130" width="800" height="80" rx="12" fill="#FDF4DC" stroke="#B89030" stroke-width="2"/>
+            <text x="460" y="158" text-anchor="middle" font-size="14" font-weight="700" fill="#7A5C20">LAYER 2 — PIPELINE D'ORGANISATION (n8n)</text>
+            <text x="460" y="180" text-anchor="middle" font-size="12" fill="#333">Watch INBOX · Appel Claude API pour catégoriser et raffiner · Déplace dans le bon dossier</text>
+            <text x="460" y="198" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Self-hosted ou cloud freemium — setup 1-2 jours avec template communauté</text>
+
+            <!-- arrow 2->3 -->
+            <line x1="460" y1="210" x2="460" y2="238" stroke="#2E5395" stroke-width="3" marker-end="url(#arK)"/>
+
+            <!-- LAYER 3 : VAULT OBSIDIAN -->
+            <rect x="60" y="240" width="800" height="80" rx="12" fill="#F8F4FF" stroke="#7A5CB8" stroke-width="2"/>
+            <text x="460" y="268" text-anchor="middle" font-size="14" font-weight="700" fill="#4A3A8C">LAYER 3 — VAULT OBSIDIAN (mémoire)</text>
+            <text x="460" y="290" text-anchor="middle" font-size="12" fill="#333">5 dossiers seulement : 00-INBOX · 01-CAPTURES · 02-CONNECTIONS · 03-BRIEFS · 04-PUBLISHED</text>
+            <text x="460" y="308" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Anti-pattern à éviter : organisation par sujet (silos)</text>
+
+            <!-- arrow 3->4 -->
+            <line x1="460" y1="320" x2="460" y2="348" stroke="#2E5395" stroke-width="3" marker-end="url(#arK)"/>
+
+            <!-- LAYER 4 : AGENT IA -->
+            <rect x="60" y="350" width="800" height="60" rx="12" fill="#1F3864" stroke="#0E1F3D" stroke-width="2"/>
+            <text x="460" y="378" text-anchor="middle" font-size="14" font-weight="700" fill="#FFD600">LAYER 4 — AGENT IA (intelligence)</text>
+            <text x="460" y="400" text-anchor="middle" font-size="12" fill="white">Claude Sonnet 4.6+ piloté par CLAUDE.md · Briefing matinal · Synthèse hebdo · Q&amp;A à la demande</text>
+          </svg>
+        </div>
+        <p class="schema-caption">Quatre layers empilés : la capture entre par le haut sans friction, l'agent IA livre la valeur par le bas chaque matin.</p>
+
+        <h3>2.1 Layer 1 — Capture automatique (entrée)</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Source</th><th>Outil</th><th>Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Articles web</td><td><strong>Readwise</strong> (browser extension)</td><td>~9 $/mois</td></tr>
+            <tr><td>Highlights Kindle, Twitter, Pocket</td><td><strong>Readwise</strong> (intégration native)</td><td>inclus</td></tr>
+            <tr><td>Idées rapides depuis mobile</td><td><strong>Telegram bot</strong> custom (via n8n)</td><td>gratuit</td></tr>
+            <tr><td>Voice memos</td><td><strong>Whisper</strong> (transcription)</td><td>gratuit (API ou local)</td></tr>
+            <tr><td>Podcasts</td><td><strong>Airr</strong> (clips)</td><td>gratuit / freemium</td></tr>
+            <tr><td>Conversations</td><td>Notes manuelles ou voice memo + Whisper</td><td>gratuit</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Règle d'or</strong> : zéro tagging manuel. Tout entre dans un dossier <code>00 - INBOX/</code> du vault Obsidian.</p>
+
+        <h3>2.2 Layer 2 — Pipeline d'organisation (n8n)</h3>
+        <p>Workflow n8n (gratuit self-hosted ou freemium cloud) qui :</p>
+        <ul>
+          <li>Watch le dossier INBOX</li>
+          <li>Pour chaque nouveau fichier : appel Claude API pour catégoriser et raffiner</li>
+          <li>Déplace dans le bon sous-dossier (<code>Notes/</code>, <code>Ideas/</code>, <code>Patterns/</code>, <code>Questions/</code>, <code>Numbers/</code>)</li>
+        </ul>
+        <p>→ Setup : 1-2 jours pour un profil non-dev (avec template communauté).</p>
+
+        <h3>2.3 Layer 3 — Vault Obsidian (mémoire)</h3>
+        <p>5 dossiers seulement (la simplicité est essentielle) :</p>
+        <ul>
+          <li><code>00 - INBOX/</code> : entrées non triées</li>
+          <li><code>01 - CAPTURES/</code> : sous-divisé par <strong>type</strong> (observations, réactions, patterns, questions, numbers)</li>
+          <li><code>02 - CONNECTIONS/</code> : insights synthétisés par l'IA</li>
+          <li><code>03 - BRIEFS/</code> : briefings matinaux générés</li>
+          <li><code>04 - PUBLISHED/</code> : contenu déjà publié, archivé</li>
+        </ul>
+
+        <div class="callout callout-warn" style="margin: var(--space-4) 0;">
+          <p style="margin:0;"><strong>⚠️ Anti-pattern à éviter</strong> : organisation par sujet (Marketing / RH / Finance). Résultat : silos, pas de connexions cross-domaines. L'organisation par <strong>type</strong> permet à l'IA de découvrir des liens entre des notes très différentes.</p>
+        </div>
+
+        <h3>2.4 Layer 4 — Agent IA (intelligence)</h3>
+        <p>Claude (Sonnet 4.6 ou supérieur) avec un fichier <code>CLAUDE.md</code> à la racine du vault qui décrit :</p>
+        <ul>
+          <li>Ton identité (rôle, métier, sujets d'intérêt)</li>
+          <li>Tes 2026 goals</li>
+          <li>Tes règles d'usage (« jamais de filler », « cite les sources »)</li>
+          <li>L'architecture du vault</li>
+        </ul>
+        <p>L'agent fait 3 choses régulièrement :</p>
+        <ol>
+          <li><strong>Briefing matinal</strong> (cron 6h) : analyse les 7 derniers jours du vault, sort 3 connexions + 1 pattern + 1 question</li>
+          <li><strong>Synthèse hebdo</strong> (cron lundi 8h) : analyse les 30 derniers jours, sort thèses émergentes + contradictions + thèmes récurrents</li>
+          <li><strong>Q&amp;A à la demande</strong> : tu poses une question, l'agent répond en s'appuyant sur ton vault</li>
+        </ol>
+
+        <div class="callout callout-info" style="margin: var(--space-4) 0;">
+          <p style="margin:0;">🔐 <strong>Sécurité du fichier <code>CLAUDE.md</code></strong> et des accès au vault : voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents MCP</a> pour la gestion des permissions filesystem et des secrets dans un setup agentique personnel.</p>
+        </div>
+
+        <p>Cette architecture personnelle est la <strong>variante individuelle dirigeant</strong> du pattern <a href="cu-008-knowledge-base-rag.html">CU-008 Knowledge base RAG</a> (variante organisationnelle) et reprend les principes <a href="cu-014-multi-agents.html">Fat Skills / Thin Harness</a> sur l'architecture des agents.</p>
+      </section>
+
+      <!-- 3. BRIEFING MATINAL -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📨</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Le briefing matinal — exemple concret</h2>
+          </div>
+        </div>
+
+        <h3>3.1 Le prompt type (à mettre dans CLAUDE.md)</h3>
+        <div class="pull-quote">
+          <p>Tu es mon assistant intelligent de knowledge management. Chaque matin à 6 h, génère un briefing en 3 sections : (1) <strong>3 connexions surprenantes</strong> entre captures des 7 derniers jours et notes plus anciennes (cite les notes sources) ; (2) <strong>1 pattern émergent</strong> dans mes captures récentes (qu'est-ce qui revient ? quel sujet me préoccupe ?) ; (3) <strong>1 question à creuser aujourd'hui</strong> basée sur les patterns identifiés. Format : 1 page max, langage direct, sans filler. Référence les notes sources avec leur chemin Obsidian.</p>
+        </div>
+
+        <h3>3.2 Exemple de briefing généré</h3>
+        <div class="briefing-example">
+          <div class="briefing-title">📨 Briefing du 9 mai 2026</div>
+
+          <p><strong>3 connexions :</strong></p>
+          <ol>
+            <li>Ta note du 3 mai sur <em>« le pattern Obsidian + Claude »</em> se connecte à ta capture du 7 mai sur <em>« Karpathy LLM Wiki »</em>. Les deux décrivent la même architecture (synthesis persistante au lieu de retrieval éphémère). Tu pourrais consolider en une thèse.</li>
+            <li>Ton observation sur <em>« les startups deeptech vosgiennes ont besoin de 18+ mois entre POC et commercialisation »</em> contredit ton hypothèse du 1<sup>er</sup> mai sur <em>« les cycles courts comme avantage compétitif »</em>. À résoudre.</li>
+            <li>Trois captures séparées sur la souveraineté numérique (du 4, 6, 8 mai) convergent : tu es en train de construire une position. Pourrait être un post LinkedIn.</li>
+          </ol>
+
+          <p><strong>Pattern émergent :</strong> Tu reviens 4 fois cette semaine sur <em>« le coût caché du SaaS multi-fournisseurs »</em>. Sujet à formaliser ?</p>
+
+          <p><strong>Question à creuser :</strong> Si on accepte que le LLM Wiki bat le RAG sur les petits corpus, comment cela change-t-il l'arbitrage build vs buy pour les PME ?</p>
+        </div>
+
+        <h3>3.3 Effet sur le dirigeant</h3>
+        <p>Tu te lèves face à des <strong>insights surprenants tirés de ton propre vault</strong> que tu as oubliés. Pas de blank page anxiety. Pas de risque d'oublier des idées importantes. Pas de friction de relecture.</p>
+      </section>
+
+      <!-- 4. SYNTHÈSE HEBDOMADAIRE -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">📅</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>La synthèse hebdomadaire</h2>
+          </div>
+        </div>
+
+        <p>Chaque lundi matin, l'agent génère une synthèse en 4 sections sur les 30 derniers jours :</p>
+
+        <ol>
+          <li><strong>Thèses émergentes</strong> : positions intellectuelles qui se construisent dans tes notes</li>
+          <li><strong>Contradictions à résoudre</strong> : oppositions entre notes récentes et anciennes</li>
+          <li><strong>Lacunes de connaissance</strong> : sujets que tu effleures mais que tu n'as pas creusés</li>
+          <li><strong>Action à prioriser</strong> : la chose la plus actionnable de la semaine</li>
+        </ol>
+
+        <p>→ <strong>Effet sur 6 mois</strong> : tu construis un thinking cohérent et profond, sans effort additionnel.</p>
+
+        <p>Le pattern de boucle asynchrone (l'agent travaille pendant que tu dors et restitue à ton réveil) est une transposition au dirigeant individuel du pattern Stripe Minions documenté dans <a href="cu-015-stripe-minions.html">CU-015 Asynchronicité agentique</a>.</p>
+      </section>
+
+      <!-- 5. PLAN D'ACTION 30 JOURS -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Plan d'action 30 jours pour démarrer</h2>
+          </div>
+        </div>
+
+        <p>Une mise en place étalée sur 4 semaines, dans la logique POC → pilote → production documentée dans <a href="../deploiement/dep-01-cadrer-projet-prod.html">DEP-01 Cadrer un projet IA en production</a>. Compte 5-10 h de travail au total, étalées sur 30 jours.</p>
+
+        <div class="timeline-block">
+          <h3>📅 Plan d'action en 4 sprints d'une semaine</h3>
+          <div class="timeline-grid">
+            <div class="timeline-step">
+              <div class="timeline-step-date">Jours 1-7</div>
+              <strong>Setup vault et capture</strong>
+              <ul>
+                <li>Installer Obsidian + créer la structure 5 dossiers</li>
+                <li>S'abonner à Readwise + installer browser extension</li>
+                <li>Créer le bot Telegram (template communauté n8n)</li>
+                <li>Test : capturer 5 articles + 5 idées + 1 voice memo</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-date">Jours 8-15</div>
+              <strong>Pipeline n8n</strong>
+              <ul>
+                <li>Self-host n8n (Docker sur PC perso ou Raspberry Pi) ou compte cloud freemium</li>
+                <li>Importer template workflow communauté (catégorisation INBOX par Claude)</li>
+                <li>Test sur 10-20 captures</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-date">Jours 16-23</div>
+              <strong>Agent Claude</strong>
+              <ul>
+                <li>Créer le fichier <code>CLAUDE.md</code> à la racine du vault (template fourni)</li>
+                <li>Setup Claude Desktop + filesystem MCP server pour accès au vault</li>
+                <li>Configurer le briefing matinal (cron + prompt)</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-date">Jours 24-30</div>
+              <strong>Synthèse hebdo + ajustements</strong>
+              <ul>
+                <li>Configurer la synthèse hebdomadaire (cron lundi 8 h)</li>
+                <li>Tester sur 1 semaine complète</li>
+                <li>Ajuster <code>CLAUDE.md</code> selon les premiers retours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist-block">
+          <h3>✅ Conditions de réussite avant de démarrer</h3>
+          <ul>
+            <li>Tu as bloqué <strong>5-10 h dans ton agenda</strong> sur les 30 prochains jours (pas 2 h le dimanche soir en bonus)</li>
+            <li>Tu acceptes que le système soit <strong>imparfait à 1 mois</strong> et utile à 3 mois — pas de jugement prématuré</li>
+            <li>Tu as un compte Anthropic API (ou Claude Pro avec Desktop + MCP) pour l'agent</li>
+            <li>Tu as une machine perso où tourne Obsidian (le vault reste local, pas de cloud à ce stade)</li>
+            <li>Tu as identifié un <strong>moment quotidien</strong> (5 min, café du matin) pour lire le briefing — sinon le système meurt</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 6. COÛT ET EFFORT RÉELS -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">💰</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Coût et effort réels</h2>
+          </div>
+        </div>
+
+        <h3>6.1 Coût mensuel récurrent (typique)</h3>
+        <table class="tool-table">
+          <thead>
+            <tr><th>Poste</th><th>Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Readwise Premium</td><td>~9 $/mois</td></tr>
+            <tr><td>Claude API (briefing + synthèse + Q&amp;A)</td><td>~10-30 €/mois selon usage</td></tr>
+            <tr><td>Hosting n8n self-host (RPi ou serveur perso)</td><td>~0-5 €/mois</td></tr>
+            <tr><td>Whisper (transcription, API ou local)</td><td>~0-10 €/mois</td></tr>
+            <tr><td>Obsidian Sync (optionnel pour multi-device)</td><td>~5 $/mois</td></tr>
+            <tr><td><strong>Total typique</strong></td><td><strong>~25-60 €/mois</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3>6.2 Effort</h3>
+        <ul>
+          <li><strong>Setup initial</strong> : 5-10 heures (étalées sur 30 jours)</li>
+          <li><strong>Effort quotidien après setup</strong> : 0-5 minutes (juste capturer en passant)</li>
+          <li><strong>Effort hebdomadaire</strong> : 15-30 min (lecture du briefing + synthèse, ajustement <code>CLAUDE.md</code> si besoin)</li>
+        </ul>
+
+        <h3>6.3 ROI à 6 mois</h3>
+        <p>Pas de ROI financier direct. <strong>ROI cognitif</strong> : moins d'idées perdues, meilleurs choix stratégiques, capacité à voir des connexions entre projets, posture intellectuelle plus profonde.</p>
+        <p>→ Pour un dirigeant qui prend 5-10 décisions stratégiques par mois, l'amélioration de la qualité de pensée a un <strong>impact exponentiel sur l'entreprise</strong>.</p>
+
+        <div class="case-deep-actor" style="margin-top: var(--space-5);">
+          <div class="case-deep-actor-label">Retours communautaires convergents</div>
+          <p style="margin: 0;">Le compounding mesurable à 6 mois est documenté par plusieurs retours croisés en mai 2026 : <strong>CyrilXBT</strong> (vault Obsidian auto-apprenant), <strong>Garry Tan</strong> (GBrain open source), <strong>Dami-Defi</strong> (Second Brain JARVIS-like), <strong>Shruti Codes</strong> et <strong>Ziwen</strong>. Pas un cas isolé : un pattern qui converge.</p>
+        </div>
+      </section>
+
+      <!-- 7. LES 5 ÉCUEILS TYPIQUES -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">⚠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Les 5 écueils typiques</h2>
+          </div>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Écueil 1</div>
+          <div class="alert-block-title">Sur-organiser le vault au démarrage</div>
+          <p>20 dossiers, 50 tags, 100 templates. Résultat : friction de capture explose, système meurt en 3 mois. <strong>Garder 5 dossiers maximum.</strong></p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Écueil 2</div>
+          <div class="alert-block-title">Vouloir tout automatiser dès le jour 1</div>
+          <p>Commencer simple (capture Readwise + briefing matinal) puis enrichir. La sur-engineering tue le pattern. La maturation du système se fait par itération, pas par big bang initial.</p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Écueil 3</div>
+          <div class="alert-block-title">Ne pas mettre à jour <code>CLAUDE.md</code></div>
+          <p>Ton <code>CLAUDE.md</code> doit refléter ton actualité (projets en cours, sujets prioritaires). <strong>Sans mise à jour mensuelle, le briefing devient générique</strong> et tu décroches en 2-3 mois.</p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Écueil 4</div>
+          <div class="alert-block-title">Confondre quantité et qualité</div>
+          <p>Capturer 100 articles/jour pour ne jamais en relire un seul. <strong>Mieux vaut 5 captures volontaires/jour</strong> que 100 captures réflexes que l'IA ne peut pas connecter à du sens.</p>
+        </div>
+
+        <div class="alert-block">
+          <div class="alert-block-num">Écueil 5</div>
+          <div class="alert-block-title">Abandonner avant 3 mois</div>
+          <p>Le compounding effect commence à 3 mois. Avant, c'est juste un bon outil de notes. Après, c'est un avantage cognitif. <strong>La discipline des 90 premiers jours est non-négociable.</strong></p>
+        </div>
+      </section>
+
+      <!-- RESSOURCES (Schéma A) -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+          <p style="margin:0;">📚 <strong>Bibliographie transverse :</strong> pour le panorama complet des outils de knowledge management IA et frameworks d'agents, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie">page Ressources du Hub → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce module.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://x.com/garrytan" target="_blank" rel="noopener">Garry Tan — Meta-Meta-Prompting + Fat Skills Thin Harness</a><span class="resources-meta">X / Twitter — Architecture personal AI compounding (mai 2026)</span></li>
+            <li><a href="https://x.com/cyrilXBT" target="_blank" rel="noopener">CyrilXBT — Obsidian Knowledge Vault auto-apprenant</a><span class="resources-meta">X / Twitter — Pattern complet documenté (mai 2026)</span></li>
+            <li><a href="https://x.com/DamiDefi" target="_blank" rel="noopener">Dami-Defi — Second Brain qui pense (JARVIS in Obsidian)</a><span class="resources-meta">X / Twitter — Implémentation détaillée (mai 2026)</span></li>
+            <li><a href="https://x.com/Suryanshti777" target="_blank" rel="noopener">Suryansh Tiwari — RAG vs Karpathy LLM Wiki</a><span class="resources-meta">X / Twitter — Critique conceptuelle RAG (mai 2026)</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy LLM Wiki Gist</a><span class="resources-meta">GitHub Gist — Pattern original de synthesis persistante</span></li>
+            <li><a href="https://github.com/garrytan/gbrain" target="_blank" rel="noopener">GBrain (Garry Tan)</a><span class="resources-meta">GitHub — Implémentation référence open-source</span></li>
+            <li><a href="https://help.obsidian.md/" target="_blank" rel="noopener">Obsidian Help</a><span class="resources-meta">Documentation officielle Obsidian — vault, plugins, sync</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://docs.anthropic.com/" target="_blank" rel="noopener">Anthropic API Docs</a><span class="resources-meta">Documentation Claude API — pour intégration agent et MCP</span></li>
+            <li><a href="https://docs.n8n.io/hosting/" target="_blank" rel="noopener">n8n Self-hosted guide</a><span class="resources-meta">Documentation n8n — workflow automation gratuit en self-host</span></li>
+            <li><a href="https://readwise.io/integrations" target="_blank" rel="noopener">Readwise integrations</a><span class="resources-meta">Readwise — capture multi-source (articles, Kindle, Twitter, podcasts)</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://forum.obsidian.md/" target="_blank" rel="noopener">Obsidian Forum</a><span class="resources-meta">Communauté très active sur knowledge management et workflows IA</span></li>
+            <li><a href="https://reddit.com/r/ObsidianMD" target="_blank" rel="noopener">r/ObsidianMD</a><span class="resources-meta">Subreddit — échanges templates et workflows agentiques</span></li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="../index.html#a-propos">À propos</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+
+</body>
+</html>

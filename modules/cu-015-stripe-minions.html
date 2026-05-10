@@ -392,14 +392,19 @@
           Pour les tâches qui sortent du strict code (lecture d'interface admin, navigation web, scripts GUI legacy), <a href="../ressources.html#computer-use" class="tool-link">Anthropic Computer Use</a> (production en 2026) permet à Claude d'interagir directement avec une interface graphique. Évolution naturelle de la RPA traditionnelle pilotée par LLM, à utiliser en sandbox sécurisé pour les opérations qui ne sont pas accessibles via API.
         </p>
 
+        <h3>Évolutions 2026 — Kimi K2.6, ECC stack et Fat Skills</h3>
+        <p>
+          En 2026, le pattern d'asynchronicité agentique a continué d'évoluer avec l'arrivée de <strong>Kimi K2.6</strong> (Moonshot AI, open-source, ~10 % du coût d'Opus pour ~75 % de la qualité), de <strong>ECC stack</strong> (~38 agents spécialisés + AgentShield) et des patterns Garry Tan « Fat Skills / Thin Harness » (cf. <a href="cu-014-multi-agents.html#section-3bis">CU-014 § Fat Skills enrichi en parallèle</a>). Ces évolutions abaissent le coût d'entrée d'un déploiement Minions-like pour une PME : ce qui demandait Stripe-scale en 2025 devient accessible à une équipe de 3-5 devs en 2026.
+        </p>
+
         <h3>Stack pour les usages non-dev</h3>
         <p>
-          Pour appliquer le pattern d'asynchronicité hors du code : <strong>Claude Projects</strong> avec instructions persistantes pour les tâches récurrentes, <strong>ChatGPT Tasks</strong> avec scheduling pour les tâches programmées, <a href="../ressources.html#n8n" class="tool-link">n8n</a> avec workflows déclenchables manuellement pour les tâches semi-automatisées. Le concept est identique : un brief, un livrable attendu, une notification.
+          Pour appliquer le pattern d'asynchronicité hors du code : <strong>Claude Projects</strong> avec instructions persistantes pour les tâches récurrentes, <strong>ChatGPT Tasks</strong> avec scheduling pour les tâches programmées, <a href="../ressources.html#n8n" class="tool-link">n8n</a> avec workflows déclenchables manuellement pour les tâches semi-automatisées. Le concept est identique : un brief, un livrable attendu, une notification. Pour la transposition à un usage personnel/dirigeant (knowledge management auto-apprenant), voir <a href="cu-025-knowledge-management-dirigeant.html">CU-025 Knowledge management IA-augmenté</a>.
         </p>
 
         <h3>Garde-fous de sécurité (côté dev)</h3>
         <p>
-          Pour les agents qui touchent au code : environnement de sandbox isolé (l'agent ne touche pas la production directement), branche dédiée par session, tests obligatoires verts avant ouverture de PR, code review humaine obligatoire avant merge. Pour les structures avec patrimoine logiciel sensible : déploiement on-premise (Aider local) ou via solution gouvernée. <strong>Ne jamais donner à un agent un accès direct à la production</strong>, même temporairement.
+          Pour les agents qui touchent au code : environnement de sandbox isolé (l'agent ne touche pas la production directement), branche dédiée par session, tests obligatoires verts avant ouverture de PR, code review humaine obligatoire avant merge. Pour les structures avec patrimoine logiciel sensible : déploiement on-premise (Aider local) ou via solution gouvernée. <strong>Ne jamais donner à un agent un accès direct à la production</strong>, même temporairement. Pour les garde-fous spécifiques aux agents et MCP servers en production (audit AgentShield, prompt injection, CVE 2026), voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents et MCP servers</a>.
         </p>
 
         <h3>Infrastructure et monitoring</h3>
@@ -807,6 +812,14 @@
             <li>
               <a href="https://hbr.org/topic/subject/innovation" target="_blank" rel="noopener">Harvard Business Review — Innovation</a>
               <span class="resources-meta">HBR — implications managériales de l'IA autonome dans les organisations</span>
+            </li>
+            <li>
+              <a href="https://x.com/garrytan" target="_blank" rel="noopener">Garry Tan — Meta-Meta-Prompting + Fat Skills / Thin Harness (X)</a>
+              <span class="resources-meta">Référence pattern asynchronicité 2026 — accompagne CU-014 enrichi</span>
+            </li>
+            <li>
+              <a href="https://kimi.com/blog/kimi-k2-6" target="_blank" rel="noopener">Kirill — Kimi K2.6 Complete A-Z Guide</a>
+              <span class="resources-meta">Évolution du marché coding agentique 2026 — économie d'inférence</span>
             </li>
           </ul>
         </div>

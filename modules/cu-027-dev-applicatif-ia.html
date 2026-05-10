@@ -93,6 +93,7 @@
       <ul class="module-toc-list" id="tocList">
         <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
         <li><a href="#section-1"><span class="toc-icon">⚙️</span>Panorama des outils 2026</a></li>
+        <li><a href="#section-1bis"><span class="toc-icon">💸</span>État de l'art 2026 : Kimi K2.6 + ECC</a></li>
         <li><a href="#section-2"><span class="toc-icon">⚠️</span>Incident Tea App — leçons</a></li>
         <li><a href="#section-3"><span class="toc-icon">🚧</span>Six écueils typiques</a></li>
         <li><a href="#section-4"><span class="toc-icon">🛡️</span>Checklist sécurité prestataire</a></li>
@@ -240,6 +241,36 @@
         <li>« Tu utilises Lovable / Bolt pour la prod ou pour le POC ? » — si la réponse est « pour la prod », fuir.</li>
         <li>« Tu fais quoi pour garantir la sécurité du code généré ? » — la réponse doit mentionner relecture humaine, tests automatisés, scan de sécurité (Snyk, Semgrep), pas juste « ça marche ».</li>
       </ul>
+    </section>
+
+    <section class="module-section" id="section-1bis">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-flow">1bis</div>
+        <div class="module-section-title">
+          <div class="section-number">Section 1bis</div>
+          <h2>État de l'art 2026 : la rupture économique Kimi K2.6 + ECC stack</h2>
+        </div>
+      </div>
+
+      <p>Au-delà du panorama général, deux ruptures économiques majeures redéfinissent en 2026 ce qu'il est possible de faire avec un budget PME.</p>
+
+      <h3>1. La rupture Kimi K2.6</h3>
+      <p><strong>Kimi K2.6</strong> (Moonshot AI, sortie 2026, open-source) bouleverse l'économie du coding agentique : <strong>0,80 $/M tokens en input, 3,60 $/M tokens en output</strong>, contre 5 $/M et 25 $/M pour Claude Opus 4.7. Performance proche d'Opus sur SWE-Bench, Terminal-Bench et agentic coding (~75-90 %). Disponible via Together.ai, Modal Labs, Fireworks AI, Groq.</p>
+      <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir <a href="../deploiement/dep-06-inference-saas-self-hosted.html">DEP-06 Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
+
+      <h3>2. ECC (Everything Claude Code) — l'écosystème open-source qui remplace une équipe</h3>
+      <p><strong>ECC</strong> est devenu en 2026 le standard de qui pilote un projet de dev applicatif IA-assisté : 38 agents spécialisés (planner, security-reviewer, typescript-reviewer, etc.), 156 skills réutilisables, 72 commandes slash, et <strong>AgentShield</strong> — audit sécurité gratuit (1 282 tests, 102 règles).</p>
+      <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
+
+      <h3>3. Le pattern Garry Tan — Fat Skills / Thin Harness</h3>
+      <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir <a href="cu-014-multi-agents.html">CU-014 Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
+
+      <h3>4. Trois questions à poser à ton prestataire en 2026</h3>
+      <ol>
+        <li><strong>« Tu utilises quoi comme modèle de base ? »</strong> — si la réponse est « Opus uniquement », demander pourquoi pas Kimi K2.6 sur les cas non complexes (économie 80-90 %).</li>
+        <li><strong>« Tu utilises ECC ou un équivalent ? »</strong> — si non, demander quel framework de skills/agents est utilisé. Sans framework, le coût de maintenance va exploser.</li>
+        <li><strong>« Tu lances AgentShield avant chaque mise en prod ? »</strong> — si non, exiger qu'un audit sécurité soit fait. Voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents et MCP</a>.</li>
+      </ol>
     </section>
 
     <section class="module-section" id="section-2">
