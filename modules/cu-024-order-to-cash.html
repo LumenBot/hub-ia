@@ -141,21 +141,41 @@
     </div>
   </nav>
 
+  <div class="reading-progress" id="readingProgress"></div>
+
   <header class="module-hero">
     <div class="module-hero-inner">
       <a href="../index.html#modules" class="module-back">← Retour aux modules</a>
       <div class="module-badges">
-        <span class="card-badge">📋 Étude de cas + checklist</span>
+        <a href="../index.html?axe=a#modules" class="card-badge axe-a">🚀 Productivité</a>
         <a href="../index.html?niveau=n4#modules" class="card-badge n4" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐⭐ Niveau 4 — Expert</a>
+        <span class="card-badge">📋 Étude de cas + checklist</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">22 min de lecture</span>
       </div>
-      <h1>Order-to-cash automation</h1>
+      <h1>💸 Order-to-cash automation</h1>
       <p class="module-subtitle">Le cycle complet — devis, bon de commande, facturation, relance, encaissement, lettrage — automatisé par IA. Le DSO moyen des PME/ETI françaises atteint 65 jours en 2025. La facturation électronique devient obligatoire en réception au 1<sup>er</sup> septembre 2026. Comment arbitrer maintenant.</p>
     </div>
   </header>
 
-  <main>
-    <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🔁</span>Le cycle O2C en 6 étapes</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📅</span>Calendrier réglementaire 2026-2027</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🏢</span>Choisir sa Plateforme Agréée</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🤖</span>Pattern d'orchestration IA</a></li>
+        <li><a href="#section-5"><span class="toc-icon">⚠️</span>Cinq écueils typiques</a></li>
+        <li><a href="#section-6"><span class="toc-icon">✅</span>Checklist 12 points</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
 
     <section class="module-section" id="executive-summary">
       <div class="exec-summary">
@@ -166,28 +186,20 @@
 
         <div class="exec-takeaways">
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">📅</div>
-            <div class="exec-takeaway-content">
-              <strong>Calendrier réglementaire qui force la décision.</strong> Réception facture électronique obligatoire pour toutes les entreprises au <strong>1<sup>er</sup> sept. 2026</strong>. Émission obligatoire pour les PME/TPE au <strong>1<sup>er</sup> sept. 2027</strong>. 120 plateformes agréées DGFiP immatriculées en avril 2026. Tu dois choisir ta PA dans les 12 prochains mois.
-            </div>
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>Calendrier réglementaire qui force la décision.</strong> Réception facture électronique obligatoire pour toutes les entreprises au <strong>1<sup>er</sup> sept. 2026</strong>. Émission obligatoire pour les PME/TPE au <strong>1<sup>er</sup> sept. 2027</strong>. 120 plateformes agréées DGFiP immatriculées en avril 2026. Tu dois choisir ta PA dans les 12 prochains mois.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">💰</div>
-            <div class="exec-takeaway-content">
-              <strong>Le ROI est documenté et substantiel.</strong> Sidetrade (leader européen O2C IA) revendique <strong>30-40 % de réduction du DSO excédentaire</strong> chez ses clients. Esker documente <strong>+35-50 % de productivité</strong> sur les opérations recouvrement. Pour une PME à 5 M€ de CA avec un DSO de 65 jours, gagner 10 jours = 140 K€ de trésorerie libérée.
-            </div>
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>Le ROI est documenté et substantiel.</strong> Sidetrade (leader européen O2C IA) revendique <strong>30-40 % de réduction du DSO excédentaire</strong> chez ses clients. Esker documente <strong>+35-50 % de productivité</strong> sur les opérations recouvrement. Pour une PME à 5 M€ de CA avec un DSO de 65 jours, gagner 10 jours = 140 K€ de trésorerie libérée.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">⚠️</div>
-            <div class="exec-takeaway-content">
-              <strong>L'AI Act bouleverse le scoring client.</strong> À partir du 2 août 2026, les systèmes de scoring de solvabilité sont classés <strong>haut-risque</strong> au sens AI Act : CE marking, documentation technique, supervision humaine permanente. Ton outil O2C doit être conforme — et ton prestataire ESN doit pouvoir te le prouver par écrit.
-            </div>
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>L'AI Act bouleverse le scoring client.</strong> À partir du 2 août 2026, les systèmes de scoring de solvabilité sont classés <strong>haut-risque</strong> au sens AI Act : CE marking, documentation technique, supervision humaine permanente. Ton outil O2C doit être conforme — et ton prestataire ESN doit pouvoir te le prouver par écrit.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🎯</div>
-            <div class="exec-takeaway-content">
-              <strong>Sur ce sujet, c'est SaaS, pas Build.</strong> Une plateforme agréée DGFiP est hors de portée d'une PME. Le bon choix est un SaaS PA agréée (Pennylane, Sellsy, Axonaut, Esker, Sidetrade…) intégré à ton ERP. Voir le préalable <a href="../prealables/pr-07-build-vs-buy.html">build vs buy</a> pour comprendre pourquoi.
-            </div>
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>Sur ce sujet, c'est SaaS, pas Build.</strong> Une plateforme agréée DGFiP est hors de portée d'une PME. Le bon choix est un SaaS PA agréée (Pennylane, Sellsy, Axonaut, Esker, Sidetrade…) intégré à ton ERP. Voir le préalable <a href="../prealables/pr-07-build-vs-buy.html">build vs buy</a> pour comprendre pourquoi.</p>
           </div>
         </div>
 
@@ -227,7 +239,10 @@
     <section class="module-section" id="section-1">
       <div class="module-section-header">
         <div class="module-section-icon icon-context">1</div>
-        <h2 class="module-section-title">Le cycle order-to-cash en 6 étapes</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 1</div>
+          <h2>Le cycle order-to-cash en 6 étapes</h2>
+        </div>
       </div>
 
       <p>L'O2C couvre <strong>6 maillons de la chaîne commerciale et financière</strong>, de la sollicitation du client jusqu'à l'encaissement effectif et son enregistrement comptable. Chaque maillon a aujourd'hui une couche IA disponible.</p>
@@ -272,7 +287,10 @@
     <section class="module-section" id="section-2">
       <div class="module-section-header">
         <div class="module-section-icon icon-warning">2</div>
-        <h2 class="module-section-title">Le calendrier réglementaire 2026-2027</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 2</div>
+          <h2>Le calendrier réglementaire 2026-2027</h2>
+        </div>
       </div>
 
       <div class="timeline-block">
@@ -307,7 +325,10 @@
     <section class="module-section" id="section-3">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">3</div>
-        <h2 class="module-section-title">Choisir sa Plateforme Agréée DGFiP par segment</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 3</div>
+          <h2>Choisir sa Plateforme Agréée DGFiP par segment</h2>
+        </div>
       </div>
 
       <p>120 plateformes agréées (PA, ex-PDP) ont été immatriculées par la DGFiP en avril 2026. Le coût médian observé est de <strong>17,99 €/mois</strong> sur 113 PA analysées. Voici une orientation par segment d'entreprise :</p>
@@ -363,7 +384,10 @@
     <section class="module-section" id="section-4">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">4</div>
-        <h2 class="module-section-title">Pattern d'orchestration IA — exemple typique</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 4</div>
+          <h2>Pattern d'orchestration IA — exemple typique</h2>
+        </div>
       </div>
 
       <p>L'IA n'apporte pas la même valeur sur les 6 étapes du cycle. Voici les zones où elle change vraiment la donne, et celles où c'est marginal.</p>
@@ -388,7 +412,10 @@
     <section class="module-section" id="section-5">
       <div class="module-section-header">
         <div class="module-section-icon icon-warning">5</div>
-        <h2 class="module-section-title">Cinq écueils typiques</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 5</div>
+          <h2>Cinq écueils typiques</h2>
+        </div>
       </div>
 
       <div class="alert-block">
@@ -420,7 +447,10 @@
     <section class="module-section" id="section-6">
       <div class="module-section-header">
         <div class="module-section-icon icon-method">6</div>
-        <h2 class="module-section-title">Checklist projet O2C — 12 points avant de signer</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 6</div>
+          <h2>Checklist projet O2C — 12 points avant de signer</h2>
+        </div>
       </div>
 
       <div class="checklist-block">
@@ -444,36 +474,46 @@
       <p>Si une PA refuse de t'engager sur 3 ou plus de ces 12 points, regarde une autre PA. Le marché compte 120 acteurs immatriculés — tu as de la marge.</p>
     </section>
 
-    <section class="module-section" id="section-7">
+    <section class="module-section" id="ressources">
       <div class="module-section-header">
         <div class="module-section-icon icon-context">7</div>
-        <h2 class="module-section-title">Pour aller plus loin</h2>
+        <div class="module-section-title">
+          <div class="section-number">Section 7</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
       </div>
 
-      <h3>7.1 Modules CU complémentaires</h3>
-      <ul>
-        <li><a href="cu-023-devis-intelligent.html">CU-023 — Génération de devis intelligente</a> (l'amont du cycle O2C)</li>
-        <li><a href="cu-021-automatisation-factures.html">CU-021 — Automatisation factures fournisseurs</a> (le cycle Procure-to-Pay, miroir du O2C côté achats)</li>
-        <li><a href="cu-013-data-analytique.html">CU-013 — Data analytique</a> (KPI de pilotage trésorerie)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🔗 Modules complémentaires</h3>
+        <ul>
+          <li><a href="cu-023-devis-intelligent.html">Devis simples — porte d'entrée IA</a> — l'amont du cycle O2C</li>
+          <li><a href="cu-021-finance-augmentee.html">Finance &amp; comptabilité augmentées</a> — le cycle Procure-to-Pay, miroir du O2C côté achats</li>
+          <li><a href="cu-008-knowledge-base-rag.html">Knowledge base RAG</a> — comprendre le pattern RAG sur la documentation interne</li>
+        </ul>
+      </div>
 
-      <h3>7.2 Préalables associés</h3>
-      <ul>
-        <li><a href="../prealables/pr-07-build-vs-buy.html">PR-07 — Build vs Buy à l'ère de l'IA</a> (sur l'O2C, c'est SaaS sans débat — comprendre pourquoi)</li>
-        <li><a href="../prealables/pr-02-preables-data-si.html">PR-02 — Préalables data &amp; SI</a> (l'intégration ERP est le maillon faible)</li>
-        <li><a href="../prealables/pr-05-securite-ia.html">PR-05 — Sécurité IA</a> (scoring client = donnée sensible)</li>
-      </ul>
+      <div class="resources-cat">
+        <h3>🧱 Préalables associés</h3>
+        <ul>
+          <li><a href="../prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a> — sur l'O2C, c'est SaaS sans débat — comprendre pourquoi</li>
+          <li><a href="../prealables/pr-02-preables-data-si.html">Préalables data &amp; SI</a> — l'intégration ERP est le maillon faible</li>
+          <li><a href="../prealables/pr-05-securite-ia.html">Sécurité IA &amp; risques opérationnels</a> — scoring client = donnée sensible</li>
+        </ul>
+      </div>
 
-      <h3>7.3 Sources principales</h3>
-      <ul>
-        <li><a href="https://www.banque-france.fr/system/files/2025-07/ODP-2024.pdf" target="_blank" rel="noopener">Banque de France — Observatoire des Délais de Paiement 2024</a></li>
-        <li><a href="https://www.daf-mag.fr/tresorerie-1239/financement-de-la-tresorerie-2119/tresorerie-sous-tension-quand-lia-devient-un-levier-strategique-pour-les-directions-financieres-22812" target="_blank" rel="noopener">Daf-Mag — IA et trésorerie</a></li>
-        <li><a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">economie.gouv.fr — Plateformes agréées DGFiP</a></li>
-        <li><a href="https://www.urssaf.fr/accueil/actualites/facturation-electronique.html" target="_blank" rel="noopener">Urssaf — Facturation électronique 2026</a></li>
-        <li><a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank" rel="noopener">CNIL — AI Act premières Q-R</a></li>
-      </ul>
+      <div class="resources-cat">
+        <h3>📚 Sources et études</h3>
+        <ul>
+          <li><a href="https://www.banque-france.fr/system/files/2025-07/ODP-2024.pdf" target="_blank" rel="noopener">Banque de France — Observatoire des Délais de Paiement 2024</a><span class="resources-meta">DSO moyen PME, distribution sectorielle</span></li>
+          <li><a href="https://www.daf-mag.fr/tresorerie-1239/financement-de-la-tresorerie-2119/tresorerie-sous-tension-quand-lia-devient-un-levier-strategique-pour-les-directions-financieres-22812" target="_blank" rel="noopener">Daf-Mag — IA et trésorerie</a><span class="resources-meta">Patterns d'orchestration IA en DAF</span></li>
+          <li><a href="https://www.economie.gouv.fr/actualites/facturation-electronique-la-liste-des-101-premieres-plateformes-agreees-est-disponible" target="_blank" rel="noopener">economie.gouv.fr — Plateformes agréées DGFiP</a><span class="resources-meta">Liste officielle des PA</span></li>
+          <li><a href="https://www.urssaf.fr/accueil/actualites/facturation-electronique.html" target="_blank" rel="noopener">Urssaf — Facturation électronique 2026</a><span class="resources-meta">Calendrier officiel</span></li>
+          <li><a href="https://www.cnil.fr/fr/entree-en-vigueur-du-reglement-europeen-sur-lia-les-premieres-questions-reponses-de-la-cnil" target="_blank" rel="noopener">CNIL — AI Act premières Q-R</a><span class="resources-meta">Cadrage scoring client haut risque</span></li>
+        </ul>
+      </div>
     </section>
-  </main>
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">

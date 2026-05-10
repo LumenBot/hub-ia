@@ -4,7 +4,7 @@ Site pédagogique sur les usages de l'IA et des agents IA en environnements mét
 
 🌐 **Site en ligne** : https://lumenbot.github.io/hub-ia/
 
-## v3.5 — mai 2026
+## État courant — mai 2026
 
 Une base de référence opérationnelle, en accès libre, structurée en 4 niveaux complémentaires :
 
@@ -21,13 +21,13 @@ Les 25 modules sont regroupés en **6 familles métier** sur la home (Découvert
 hub-ia/
 ├── index.html              ← landing page (4 niveaux + 6 familles métier)
 ├── prealables.html         ← index des 7 préalables
-├── prealables/             ← une page par préalable (pr-01 à pr-06)
+├── prealables/             ← une page par préalable (pr-01 à pr-07)
 ├── architectures.html      ← 4 patterns + hybride + méthode de décision
-├── modules/                ← une page par cas d'usage (cu-001 à cu-022)
+├── modules/                ← une page par cas d'usage (cu-001 à cu-024 + cu-027 ; cu-025/026 réservés)
 ├── ressources.html         ← catalogue d'outils (83 fiches en 14 catégories)
 ├── css/                    ← design system (style.css + module-v3.css)
 ├── js/                     ← module-v3.js (TOC sticky, reading progress, scroll-spy)
-└── site-web-prep/          ← briefs, patches, rapports d'audit, mockups
+└── site-web-prep/          ← briefs, patches, rapports d'audit, RULES, mockups
 ```
 
 ## Stack
