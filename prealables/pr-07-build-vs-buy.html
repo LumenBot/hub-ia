@@ -87,6 +87,9 @@
   </style>
 </head>
 <body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
   <nav class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
@@ -116,8 +119,25 @@
     </div>
   </header>
 
-  <main>
-    <div class="reading-progress" id="readingProgress"></div>
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du préalable</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🎯</span>Ce qui a changé en 2025-2026</a></li>
+        <li><a href="#section-2"><span class="toc-icon">⚠️</span>La prise de réalité — scaling gap</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📦</span>Quand BUY reste le bon choix</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛠️</span>Quand BUILD redevient pertinent</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🔄</span>Le pattern hybride 2026</a></li>
+        <li><a href="#section-6"><span class="toc-icon">📊</span>Matrice de décision 6 critères</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚫</span>Sept écueils à éviter</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
 
     <section class="module-section" id="executive-summary">
       <div class="exec-summary">
@@ -128,28 +148,20 @@
 
         <div class="exec-takeaways">
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">📉</div>
-            <div class="exec-takeaway-content">
-              <strong>Le seuil de rentabilité du « build » s'est effondré.</strong> Un MVP qui demandait 4-6 mois à une ESN classique se prototype aujourd'hui en 6-10 semaines avec un dev IA-assisté. Le calcul total cost of ownership penche plus souvent vers le build que dans les années 2010.
-            </div>
+            <div class="exec-takeaway-num">1</div>
+              <p><strong>Le seuil de rentabilité du « build » s'est effondré.</strong> Un MVP qui demandait 4-6 mois à une ESN classique se prototype aujourd'hui en 6-10 semaines avec un dev IA-assisté. Le calcul total cost of ownership penche plus souvent vers le build que dans les années 2010.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">⚠️</div>
-            <div class="exec-takeaway-content">
-              <strong>Mais 95 % des projets IA en entreprise ne génèrent aucun ROI mesurable.</strong> La cause n'est pas la technologie — c'est l'absence de redesign de workflow, de gouvernance, et de pilotage métier. Si tu pars sur un build sans ces 3 ingrédients, tu vas dans les 95 %.
-            </div>
+            <div class="exec-takeaway-num">2</div>
+              <p><strong>Mais 95 % des projets IA en entreprise ne génèrent aucun ROI mesurable.</strong> La cause n'est pas la technologie — c'est l'absence de redesign de workflow, de gouvernance, et de pilotage métier. Si tu pars sur un build sans ces 3 ingrédients, tu vas dans les 95 %.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🎯</div>
-            <div class="exec-takeaway-content">
-              <strong>Le bon réflexe 2026 est hybride.</strong> SaaS pour les briques commodity (compta, paie, CRM standard), build léger IA-assisté pour les <strong>micro-applications métier</strong> spécifiques (workflows, intégrations, reporting custom). 78 % des entreprises anticipent davantage de builds en 2026 — sans abandonner leurs SaaS.
-            </div>
+            <div class="exec-takeaway-num">3</div>
+              <p><strong>Le bon réflexe 2026 est hybride.</strong> SaaS pour les briques commodity (compta, paie, CRM standard), build léger IA-assisté pour les <strong>micro-applications métier</strong> spécifiques (workflows, intégrations, reporting custom). 78 % des entreprises anticipent davantage de builds en 2026 — sans abandonner leurs SaaS.</p>
           </div>
           <div class="exec-takeaway">
-            <div class="exec-takeaway-icon">🛡️</div>
-            <div class="exec-takeaway-content">
-              <strong>Six critères suffisent pour décider en 15 minutes.</strong> Différenciation, volume, évolutivité, budget, compétences internes, délai. La grille en bas de page te permet d'arbitrer un cas concret. Si tu ne sais pas répondre à un critère, c'est déjà une réponse : tu n'es pas prêt à builder.
-            </div>
+            <div class="exec-takeaway-num">4</div>
+              <p><strong>Six critères suffisent pour décider en 15 minutes.</strong> Différenciation, volume, évolutivité, budget, compétences internes, délai. La grille en bas de page te permet d'arbitrer un cas concret. Si tu ne sais pas répondre à un critère, c'est déjà une réponse : tu n'es pas prêt à builder.</p>
           </div>
         </div>
 
@@ -457,7 +469,9 @@
         </ul>
       </div>
     </section>
-  </main>
+
+    </main>
+  </div>
 
   <footer class="footer">
     <div class="footer-inner">

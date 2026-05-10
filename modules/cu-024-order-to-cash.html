@@ -416,26 +416,192 @@
         </div>
       </div>
 
-      <div class="checklist-block">
-        <h3>Checklist d'éligibilité — à valider avant de signer ta PA</h3>
-        <ul>
-          <li><strong>PA agréée DGFiP</strong> ou interopérabilité native avec une PA agréée.</li>
-          <li><strong>Connecteur natif</strong> avec ton ERP / outil compta existant (test sandbox documenté).</li>
-          <li><strong>Conformité AI Act</strong> documentée par écrit pour le scoring client et la priorisation.</li>
-          <li><strong>Hébergement Europe</strong> (Frankfurt, Paris, Dublin) avec garanties contractuelles.</li>
-          <li><strong>RGPD</strong> : registre des traitements, durée de conservation, suppression sur demande.</li>
-          <li><strong>Cap de relance configurable</strong> (max 1 relance par 5 jours, exceptions top clients).</li>
-          <li><strong>Audit annuel des biais</strong> de scoring proposé en standard ou en option.</li>
-          <li><strong>Reporting de pilotage</strong> : DSO, taux de relance, taux de recouvrement, mensuel automatisé.</li>
-          <li><strong>Réversibilité</strong> : récupération de tes données et historique de factures à tout moment.</li>
-          <li><strong>Support FR</strong> avec SLA documenté (temps de réponse, escalade).</li>
-          <li><strong>Tarification claire</strong> : par utilisateur ou par volume de factures, pas de palier caché.</li>
-          <li><strong>Plan de migration</strong> depuis ton outil actuel : durée, accompagnement, garantie de continuité.</li>
-        </ul>
+      <p>Réponds aux 12 questions ci-dessous sur l'outil cible que tu envisages de signer (Plateforme Agréée DGFiP). Le résultat te donne un verdict sur la qualité du dossier + un plan d'action priorisé, exportable pour partage interne.</p>
+
+      <div class="diagnostic">
+        <form id="o2cChecklistForm">
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>1.</strong> Mon outil cible est <strong>PA agréée DGFiP</strong> ou interopérable nativement avec une PA agréée.</p>
+            <label class="diag-option"><input type="radio" name="q1" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q1" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>2.</strong> Mon ERP / outil compta a un <strong>connecteur natif</strong> documenté avec mon outil cible (test sandbox prévu).</p>
+            <label class="diag-option"><input type="radio" name="q2" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q2" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>3.</strong> La <strong>conformité AI Act</strong> est documentée par écrit pour le scoring client et la priorisation des relances.</p>
+            <label class="diag-option"><input type="radio" name="q3" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q3" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>4.</strong> L'<strong>hébergement Europe</strong> (Frankfurt, Paris, Dublin) est explicitement garanti par contrat.</p>
+            <label class="diag-option"><input type="radio" name="q4" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q4" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>5.</strong> Le dossier <strong>RGPD</strong> est complet : registre des traitements, durée de conservation, suppression sur demande.</p>
+            <label class="diag-option"><input type="radio" name="q5" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q5" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>6.</strong> Le <strong>cap de relance</strong> est configurable (max 1 relance / 5 jours, exceptions top clients).</p>
+            <label class="diag-option"><input type="radio" name="q6" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q6" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>7.</strong> Un <strong>audit annuel des biais</strong> de scoring est proposé en standard ou en option.</p>
+            <label class="diag-option"><input type="radio" name="q7" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q7" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>8.</strong> Un <strong>reporting de pilotage</strong> mensuel automatisé est inclus : DSO, taux de relance, taux de recouvrement.</p>
+            <label class="diag-option"><input type="radio" name="q8" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q8" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>9.</strong> La <strong>réversibilité</strong> est claire : récupération de tes données et de l'historique de factures à tout moment.</p>
+            <label class="diag-option"><input type="radio" name="q9" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q9" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>10.</strong> Le <strong>support en FR</strong> est documenté avec SLA (temps de réponse, escalade).</p>
+            <label class="diag-option"><input type="radio" name="q10" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q10" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>11.</strong> La <strong>tarification</strong> est claire (par utilisateur ou par volume de factures), sans palier caché.</p>
+            <label class="diag-option"><input type="radio" name="q11" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q11" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>12.</strong> Un <strong>plan de migration</strong> depuis mon outil actuel est fourni : durée, accompagnement, garantie de continuité.</p>
+            <label class="diag-option"><input type="radio" name="q12" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q12" value="0"><span>Non</span></label>
+          </div>
+
+          <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+            <button type="button" class="diag-submit" onclick="evaluateO2CChecklist()">Générer mon verdict O2C</button>
+            <button type="button" class="diag-submit" id="exportO2CBtn" style="display:none; background: var(--color-success);" onclick="exportO2CChecklist()">📥 Exporter en .txt</button>
+          </div>
+        </form>
+        <div class="diag-result" id="o2cChecklistResult"></div>
       </div>
 
-      <p>Si une PA refuse de t'engager sur 3 ou plus de ces 12 points, regarde une autre PA. Le marché compte 120 acteurs immatriculés — tu as de la marge.</p>
+      <p style="margin-top: var(--space-5);">Si une PA refuse de t'engager sur 3 points ou plus de cette checklist, regarde une autre PA. Le marché compte 120 acteurs immatriculés — tu as de la marge.</p>
     </section>
+
+    <script>
+      function evaluateO2CChecklist() {
+        const form = document.getElementById('o2cChecklistForm');
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        let total = 0;
+        const responses = [];
+        const labels = [
+          'PA agréée DGFiP ou interopérable',
+          'Connecteur natif ERP / outil compta',
+          'Conformité AI Act documentée par écrit',
+          'Hébergement Europe garanti par contrat',
+          'Dossier RGPD complet',
+          'Cap de relance configurable',
+          'Audit annuel des biais de scoring',
+          'Reporting de pilotage mensuel automatisé',
+          'Réversibilité données et historique',
+          'Support FR avec SLA documenté',
+          'Tarification claire sans palier caché',
+          'Plan de migration depuis outil actuel'
+        ];
+        for (let i = 1; i <= 12; i++) {
+          const v = parseInt(data.get('q' + i)) || 0;
+          total += v;
+          responses.push({ label: labels[i - 1], value: v });
+        }
+
+        let level, color, summary, plan;
+        if (total >= 10) {
+          level = '🟢 GO — l\'outil cible coche l\'essentiel';
+          color = '#16A34A';
+          summary = 'Tu as ' + total + '/12. L\'outil cible coche l\'essentiel — tu peux signer en exigeant que les ' + (12 - total) + ' points manquants soient ajoutés au contrat (annexe technique).';
+          const missing = responses.filter(r => r.value === 0).map(r => r.label);
+          plan = [
+            'Lister par écrit les points manquants : ' + (missing.length ? missing.join(' · ') : 'aucun'),
+            'Exiger leur ajout en annexe technique signée du contrat (formulation type : « Le prestataire s\'engage à fournir/activer X dans les 60 jours suivant signature »)',
+            'Planifier le test sandbox du connecteur ERP avant la mise en production',
+            'Cadrer le pilote sur un périmètre restreint (1 entité, 1 mois) avant industrialisation'
+          ];
+        } else if (total >= 7) {
+          level = '🟡 À MÛRIR — plusieurs points clés manquent';
+          color = '#F59E0B';
+          const missing = responses.filter(r => r.value === 0).map(r => r.label);
+          summary = 'Tu as ' + total + '/12. Plusieurs points clés manquent (' + missing.length + ' éléments manquants : ' + missing.slice(0, 4).join(' · ') + (missing.length > 4 ? '…' : '') + '). Exige les correctifs par écrit avant signature, ou compare avec une autre PA.';
+          plan = [
+            'Demander au prestataire un plan d\'action écrit pour les ' + missing.length + ' points manquants, avec date d\'engagement',
+            'Comparer en parallèle avec 1-2 autres PA agréées (le marché compte 120 acteurs)',
+            'Si le plan d\'action est crédible et borné dans le temps : négocier l\'ajout au contrat avec pénalités si non-respect',
+            'Sinon : changer d\'outil cible'
+          ];
+        } else {
+          level = '🔴 NO-GO — change d\'outil cible';
+          color = '#DC2626';
+          summary = 'Tu as ' + total + '/12. Plus de la moitié des points clés manquent — change d\'outil cible. Le marché compte 120 PA agréées, tu as de la marge pour trouver mieux.';
+          plan = [
+            'Arrêter la procédure en cours et reprendre la sélection à zéro',
+            'Consulter la liste officielle des 120 PA agréées sur economie.gouv.fr',
+            'Pré-qualifier 3-5 PA via cette même checklist 12 points avant de demander un devis',
+            'Privilégier les PA avec connecteur natif ERP existant pour limiter les coûts d\'intégration'
+          ];
+        }
+
+        const result = document.getElementById('o2cChecklistResult');
+        result.innerHTML = '<div style="text-align:center; padding: var(--space-5) 0;">'
+          + '<div style="font-size: 3rem; font-weight: 800; color: ' + color + '; line-height: 1;">'
+          + total + '<span style="font-size: 1.5rem; color: var(--color-text-soft);">/12</span></div>'
+          + '<div style="font-size: 1.0625rem; font-weight: 700; color: ' + color + '; margin: var(--space-2) 0;">' + level + '</div>'
+          + '</div><div class="diag-action" style="border-left-color: ' + color + ';">'
+          + '<p style="margin: 0 0 var(--space-3);">' + summary + '</p>'
+          + '<h4 style="margin: var(--space-3) 0 var(--space-2); color: ' + color + ';">Plan d\'action priorisé :</h4>'
+          + '<ol style="margin: 0; padding-left: var(--space-5);">'
+          + plan.map(p => '<li style="margin-bottom: var(--space-2);">' + p + '</li>').join('')
+          + '</ol></div>';
+        result.classList.add('show');
+        document.getElementById('exportO2CBtn').style.display = 'inline-flex';
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        try { localStorage.setItem('hubia_cu024_o2c', JSON.stringify({ total, level, summary, plan, responses })); } catch (e) {}
+      }
+
+      function exportO2CChecklist() {
+        const data = JSON.parse(localStorage.getItem('hubia_cu024_o2c') || '{}');
+        if (!data.total) return;
+        const lines = [
+          'Hub IA Learning Center — Checklist projet O2C (CU-024)',
+          'Date : ' + new Date().toLocaleString('fr-FR'),
+          '',
+          'Score : ' + data.total + '/12',
+          'Verdict : ' + data.level,
+          '',
+          'Synthèse :',
+          data.summary,
+          '',
+          'Plan d\'action priorisé :',
+          ...data.plan.map((p, i) => (i + 1) + '. ' + p),
+          '',
+          'Détail des réponses :',
+          ...data.responses.map(r => (r.value ? '✓' : '✗') + ' ' + r.label),
+          '',
+          '— Exporté depuis https://lumenbot.github.io/hub-ia/'
+        ];
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cu-024-checklist-o2c.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    </script>
 
     <section class="module-section" id="ressources">
       <div class="module-section-header">
