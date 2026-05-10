@@ -303,7 +303,7 @@
 
         <ol>
           <li><strong>Cartographier les appels entrants actuels.</strong> Quels sont les 5-10 motifs les plus fréquents ? Quel volume quotidien / horaire ? Quels appels sont systématiquement transmis à un humain (sensibles, complexes) ? Cette cartographie conditionne le périmètre fonctionnel de l'agent et les intentions cibles. Pour la majorité des PME : 5-10 intentions couvrent 80-90 % du flux.</li>
-          <li><strong>Définir la matrice d'auto-traitement vs escalade humain.</strong> Pour chaque motif identifié : auto-traitement par agent (RDV simple, FAQ standard) ou escalade humain (réclamation, négociation, sujet sensible). Cette matrice est l'équivalent voice de la matrice email du <a href="cu-013-workflow-email-crm.html" class="tool-link">CU-013 Workflow email-CRM</a>. <strong>Démarrer en mode prudent</strong> : 50-60 % auto, 40-50 % humain. Étendre après calibrage.</li>
+          <li><strong>Définir la matrice d'auto-traitement vs escalade humain.</strong> Pour chaque motif identifié : auto-traitement par agent (RDV simple, FAQ standard) ou escalade humain (réclamation, négociation, sujet sensible). Cette matrice est l'équivalent voice de la matrice email du module <a href="cu-013-workflow-email-crm.html">Workflow email-CRM</a>. <strong>Démarrer en mode prudent</strong> : 50-60 % auto, 40-50 % humain. Étendre après calibrage.</li>
           <li><strong>Choisir la plateforme : Vapi vs custom.</strong> <strong>Vapi.ai</strong> est la plateforme dev-first 2026 — déploiement en 1-2 semaines, tarif accessible PME (~0,10-0,20 € par minute), couvre tout le pipeline. Pour les structures qui veulent plus de contrôle ou de souveraineté EU, setup custom : Twilio (téléphonie) + Deepgram ou Voxtral (STT) + Claude/Mistral (LLM) + Cartesia ou ElevenLabs (TTS).</li>
           <li><strong>Configurer l'identité vocale.</strong> Voix synthétique cohérente avec ta marque (Cartesia / ElevenLabs ont des voix françaises naturelles). Phrase d'accueil claire : « Bonjour, vous êtes en ligne avec [Nom] de [Entreprise], comment puis-je vous aider ? ». <strong>Mention « cet appel est traité par un agent IA » obligatoire</strong> au début (transparence AI Act + RGPD).</li>
           <li><strong>Intégrer aux systèmes (CRM, agenda, base FAQ).</strong> Pour les RDV : connecteurs natifs Doctolib (médical), Maiia, Calendly, HubSpot Calendar. Pour les FAQ : base structurée (Notion, Airtable, ou base de connaissances dédiée). Pour le logging : CRM HubSpot/Pipedrive/Salesforce avec création d'activité par appel + transcription complète.</li>
@@ -353,7 +353,7 @@
 
         <h3>Conformité RGPD & AI Act</h3>
         <p>
-          <strong>Mention obligatoire en début d'appel</strong> : « cet appel est traité par un agent IA » (transparence AI Act risque limité + RGPD). <strong>Conservation des transcriptions</strong> : durée justifiée par finalité (typiquement 6-12 mois), inscrite au registre RGPD. <strong>Privilégier les solutions hébergées EU</strong> sur les conversations contenant des données sensibles (santé, demandes commerciales nominatives). Documenter l'usage dans le dispositif <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD & AI Act</a>.
+          <strong>Mention obligatoire en début d'appel</strong> : « cet appel est traité par un agent IA » (transparence AI Act risque limité + RGPD). <strong>Conservation des transcriptions</strong> : durée justifiée par finalité (typiquement 6-12 mois), inscrite au registre RGPD. <strong>Privilégier les solutions hébergées EU</strong> sur les conversations contenant des données sensibles (santé, demandes commerciales nominatives). Documenter l'usage dans le dispositif module <a href="cu-020-conformite-rgpd-ai-act.html">Conformité RGPD &amp; AI Act</a>.
         </p>
 
         <h3>Prérequis</h3>
@@ -508,7 +508,7 @@
 
         <h3>Sous-estimation de la conformité données sensibles</h3>
         <p>
-          Les conversations téléphoniques contiennent souvent des données sensibles (santé en médical, informations financières en banque, demandes commerciales nominatives). <strong>Privilégier les solutions hébergées EU</strong> (OVH téléphonie + Voxtral + Mistral). Documenter la durée de conservation des transcriptions dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>).
+          Les conversations téléphoniques contiennent souvent des données sensibles (santé en médical, informations financières en banque, demandes commerciales nominatives). <strong>Privilégier les solutions hébergées EU</strong> (OVH téléphonie + Voxtral + Mistral). Documenter la durée de conservation des transcriptions dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html">Conformité RGPD &amp; AI Act</a>).
         </p>
 
         <h3>Pas de routage humain crédible</h3>

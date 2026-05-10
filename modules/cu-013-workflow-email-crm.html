@@ -114,7 +114,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
-              <p><strong>Souveraineté EU obligatoire.</strong> Mistral ou solution gouvernée pour le contenu de réponse, particulièrement sur les données clients. RGPD documenté avant tout déploiement.</p>
+              <p><strong>Souveraineté EU obligatoire.</strong> <a href="../ressources.html#mistral" class="tool-link">Mistral</a> ou solution gouvernée pour le contenu de réponse, particulièrement sur les données clients. RGPD documenté avant tout déploiement.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
@@ -142,7 +142,7 @@
           </div>
 
           <div class="exec-when">
-            <strong>Quand ce module t'est utile :</strong> tu as une boîte avec 50+ emails/jour ; ton CRM (HubSpot, Pipedrive, Salesforce) a une API exploitable et est sous-utilisé pour le logging ; tu veux franchir le pas de l'IA agentique sur un cas concret à ROI mesurable ; tu acceptes une discipline éditoriale (matrice de règles + démarrage prudent + audit hebdo des classifications les premières semaines).
+            <strong>Quand ce module t'est utile :</strong> tu as une boîte avec 50+ emails/jour ; ton CRM (<a href="../ressources.html#hubspot" class="tool-link">HubSpot</a>, <a href="../ressources.html#pipedrive" class="tool-link">Pipedrive</a>, <a href="../ressources.html#salesforce" class="tool-link">Salesforce</a>) a une API exploitable et est sous-utilisé pour le logging ; tu veux franchir le pas de l'IA agentique sur un cas concret à ROI mesurable ; tu acceptes une discipline éditoriale (matrice de règles + démarrage prudent + audit hebdo des classifications les premières semaines).
           </div>
         </div>
       </section>
@@ -345,7 +345,7 @@
         </div>
 
         <ol>
-          <li><strong>Trigger sur email entrant.</strong> Connexion à Gmail (API native ou OAuth via Google Workspace), Outlook (Microsoft Graph API), ou mailbox métier (IMAP/POP3 standard). Trois modes : <em>webhook</em> en temps réel (le plus réactif, nécessite API), <em>polling</em> périodique (toutes les 5 min, plus simple à mettre en place), ou <em>intégration native</em> via plateforme tierce (AgentMail, Composio).</li>
+          <li><strong>Trigger sur email entrant.</strong> Connexion à Gmail (API native ou OAuth via Google Workspace), Outlook (Microsoft Graph API), ou mailbox métier (IMAP/POP3 standard). Trois modes : <em>webhook</em> en temps réel (le plus réactif, nécessite API), <em>polling</em> périodique (toutes les 5 min, plus simple à mettre en place), ou <em>intégration native</em> via plateforme tierce (AgentMail, <a href="../ressources.html#composio" class="tool-link">Composio</a>).</li>
           <li><strong>Classification par l'agent IA.</strong> Un modèle (Claude, GPT, Mistral) reçoit le contenu de l'email et le classifie selon ta typologie : spam, prospection commerciale, demande client, support, urgent, etc. Sortie structurée en JSON pour exploitation aval. Précision attendue : 95 %+ sur les types courants après calibrage de 2 à 4 semaines.</li>
           <li><strong>Extraction d'information.</strong> Pour les emails à conserver (non spam), un second appel modèle extrait les éléments structurés : nom, entreprise, fonction, demande exacte, budget mentionné, calendrier évoqué, contexte business. Sortie JSON structuré directement utilisable par le CRM.</li>
           <li><strong>Mise à jour CRM.</strong> Via l'API native du CRM (HubSpot, Salesforce, Pipedrive, Monday.com), création ou enrichissement de la fiche prospect/client : log de l'email avec résumé, mise à jour des champs (statut, score lead, dernière interaction), déclenchement éventuel d'automations CRM existantes (séquences nurturing, alertes commercial).</li>
@@ -390,7 +390,7 @@
             <div class="archi-flow-steps">
               <div class="archi-step is-human"><div class="archi-step-icon">✏️</div><div class="archi-step-content"><strong>Corrections humaines sur drafts</strong><small>Reformulations, ajustements de ton, ajouts d'info</small></div></div>
               <div class="archi-arrow">↓</div>
-              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>Mémoire d'exemples</strong><small>Vector store (Qdrant, Pinecone) ou few-shot context</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>Mémoire d'exemples</strong><small>Vector store (<a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>, <a href="../ressources.html#pinecone" class="tool-link">Pinecone</a>) ou few-shot context</small></div></div>
               <div class="archi-arrow">↓</div>
               <div class="archi-step is-agent"><div class="archi-step-icon">🎯</div><div class="archi-step-content"><strong>Ré-injection dans les prompts</strong><small>Classification + rédaction enrichies par les exemples passés</small></div></div>
               <div class="archi-arrow">↓</div>
@@ -401,7 +401,7 @@
 
         <h3>Plateformes email pour agents</h3>
         <p>
-          <a href="../ressources.html#agentmail" class="tool-link">AgentMail</a> est citée par la communauté ZHC Institute comme la référence pour donner à un agent une infrastructure email autonome — création de comptes à la volée, gestion native des réponses, suivi de threads. Particulièrement adaptée aux agents qui gèrent plusieurs identités email pour différents projets. <strong>Composio</strong> propose un connecteur Gmail + Outlook avec 3 000+ apps, plus généraliste mais très large. <strong>Gmail API</strong> ou <strong>Microsoft Graph API</strong> en direct, pour les setups custom avec plus de contrôle.
+          <a href="../ressources.html#agentmail" class="tool-link">AgentMail</a> est citée par la communauté ZHC Institute comme la référence pour donner à un agent une infrastructure email autonome — création de comptes à la volée, gestion native des réponses, suivi de threads. Particulièrement adaptée aux agents qui gèrent plusieurs identités email pour différents projets. <a href="../ressources.html#composio" class="tool-link"><strong>Composio</strong></a> propose un connecteur Gmail + Outlook avec 3 000+ apps, plus généraliste mais très large. <strong>Gmail API</strong> ou <strong>Microsoft Graph API</strong> en direct, pour les setups custom avec plus de contrôle.
         </p>
 
         <h3>Modèles de classification et rédaction</h3>

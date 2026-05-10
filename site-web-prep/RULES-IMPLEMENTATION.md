@@ -314,6 +314,53 @@ Le template de référence (`modules/_template-auto-diagnostic.html`) propose un
   Pour le cycle commercial sortant, voir <a href="cu-024-order-to-cash.html">Order-to-cash automation</a>.
   ```
 
+**Règle 1.5.6.1 — Pas de codes internes (CU-XXX, PR-XX, DEP-XX) en texte affiché** (NOUVELLE v1.5.2, post-audit jargon v3.7.2). Les codes `CU-001` à `CU-027`, `PR-01` à `PR-07`, `DEP-01` à `DEP-08` sont des **conventions internes** (briefs, RULES, file paths, commits, ids HTML). Ils **ne doivent jamais apparaître en clair côté lecteur** : ni en libellé de lien, ni dans le corps du texte, ni dans un `desc` JS injecté dans l'auto-diag, ni dans une cellule de tableau.
+
+  **Le lecteur cible (dirigeant PME/ETI non-IT) ne sait pas ce qu'est un « CU-020 » ou un « DEP-06 ».** Il a besoin de **noms parlants**.
+
+  ❌ **À proscrire** :
+  ```html
+  <a href="../deploiement/dep-06-inference-saas-self-hosted.html">DEP-06</a>
+  <a href="../deploiement/dep-06-inference-saas-self-hosted.html">DEP-06 Inférence SaaS vs self-hosted</a>
+  (cf. CU-017)
+  (cf. CU-020 méthode audit)
+  rester sur du multi-prompt classique (CU-001 à CU-011)
+  ```
+
+  ✅ **Pattern correct** : utiliser le **titre éditorial** de la cible avec lien intégré (et un dénominateur de navigation : « le module », « la fiche », « le préalable ») :
+  ```html
+  Voir la fiche <a href="../deploiement/dep-06-inference-saas-self-hosted.html">Inférence SaaS vs self-hosted</a>.
+  Voir le module <a href="../modules/cu-020-conformite-rgpd-ai-act.html">Conformité RGPD &amp; AI Act</a>.
+  Voir le préalable <a href="../prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a>.
+  (cf. <a href="cu-017-controle-qualite-vision.html">Contrôle qualité par vision</a>)
+  ```
+
+  **Exceptions tolérées** (codes restent admis car invisibles ou conventionnels) :
+  - Attributs HTML : `data-module="cu-027"`, `id="section-1bis"`
+  - Chemins de fichiers : `cu-020-conformite-rgpd-ai-act.html`
+  - Commentaires HTML / CSS / JS : `/* Bloc — spécifique CU-015 */`
+  - Signatures de fichiers exportés : `Plan généré par le module CU-008 du Hub IA`
+  - Titres administratifs internes (briefs, rapports de mission, historique RULES, commits)
+
+  **Procédure de vérification** avant clôture d'itération :
+  ```bash
+  # Codes en clair en dehors des liens et attributs (devrait être quasi-vide) :
+  grep -rEn '\b(CU|PR|DEP)-[0-9]+\b' modules/cu-*.html prealables/pr-*.html deploiement/dep-*.html \
+    | grep -vE 'href=|data-module|<style|<script|/\*|"CU-|cu-0[0-9]|dep-0[0-9]|pr-0[0-9]|onclick|content \+=|filename|id="|module CU-|"Auto-diagnostic'
+  ```
+
+**Règle 1.5.6.2 — Lien outil obligatoire sur la première mention significative par section** (NOUVELLE v1.5.2, post-audit renvois v3.7.2). Tout outil ayant une fiche dans `ressources.html` doit être lié à sa première mention significative dans chaque grande section (`module-section`) où il apparaît. Une « mention significative » est une mise en `<strong>`, une phrase de présentation/comparaison/recommandation, ou une mention d'architecture (« RAG sur Pinecone », « fine-tuning Mistral »).
+
+  **Pas besoin de lier toutes les occurrences** (sinon saturation visuelle) — la règle est : **1 lien par outil par section**, sur la mention la plus significative.
+
+  **Cas pratiques** :
+  - Énumération comparative (« Cursor, Claude Code, Windsurf ») : lier les 3 outils si c'est leur 1re apparition sur la page.
+  - Architecture technique (« stack RAG Pinecone + Cohere ») : lier Pinecone et Cohere s'ils ont une fiche.
+  - Cas client (« la PME utilise HubSpot ») : lier HubSpot à sa première occurrence pédagogique.
+  - Outils accessoires hors-sujet : laisser non lié (ex: une URL technique mentionnée en passant).
+
+  **Audit recommandé** : périodiquement, lancer un grep sur les noms commerciaux des fiches outils dans les modules pour détecter les mentions non liées et les corriger.
+
 **Cross-links obligatoires sur les paires/triplets sensibles** (codifiés v3.6.2) :
 - CU-015 ↔ CU-027 (asynchronicité agentique vs guide d'achat dev)
 - CU-021 ↔ CU-024 (compta fournisseur entrante vs cycle commercial sortant)
@@ -434,6 +481,10 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.2** — mai 2026, suite à v3.7.2 (audit jargon codes internes + audit renvois outils manquants, signalés par Cowork) :
+  - § 1.5.6.1 (NOUVELLE) : interdiction des **codes internes (CU-XXX, PR-XX, DEP-XX) en texte affiché**. Le lecteur cible (dirigeant PME/ETI non-IT) ne sait pas ce qu'est un « DEP-06 » ou un « CU-020 » : ces codes sont du jargon technique interne qui ne doit jamais sortir des fichiers. Pattern correct = titre éditorial avec lien intégré et dénominateur de navigation (« le module », « la fiche », « le préalable »). 45 occurrences de ce type corrigées en v3.7.2 (cu-008, cu-014, cu-015, cu-018, cu-021, cu-022, cu-023, cu-025, cu-027, pr-01, pr-02, pr-03, pr-05, pr-07, dep-01, dep-07). Procédure de vérification grep documentée.
+  - § 1.5.6.2 (NOUVELLE) : règle explicite **lien outil obligatoire sur la première mention significative par section**. Audit v3.7.2 a identifié 378 occurrences d'outils en clair non liées vers leur fiche `ressources.html#xxx`. Top 5 fichiers concentraient 128 hits (cu-013, pr-07, cu-021, cu-023, cu-027). Patches appliqués sur ces 5 fichiers. La règle codifie la pratique : 1 lien par outil par section sur la mention la plus significative — pas saturation.
+  - Bug fix collatéral : le module CU-023 pointait vers un fichier inexistant `cu-007-ia-rh.html` (lien cassé) — corrigé vers `cu-007-rh-cv-entretiens.html`.
 - **v1.5.1** — mai 2026, suite à v3.7.1 (correctifs post-merge v3.7) :
   - § 1.2.3 mis à jour : nav passe de 6 → **5 entrées** (Préalables / Architectures / **Modules** / **Déploiement** / Ressources). « À propos » retiré du navbar (la section reste accessible via le footer ou par scroll de la home). Modules et Déploiement intervertis pour mettre en avant le cœur de valeur (modules cas d'usage) avant la couche technique (déploiement). Décision Cowork v3.7.1 motivée par (a) le wrap visuel d'« À propos » sur deux lignes après ajout de Déploiement, (b) la priorité éditoriale sur les rubriques à forte densité de contenu.
   - § 1.2.5.1 (NOUVELLE) : règle anti-drift sur les blocs chiffrés multi-emplacements (`exec-stats`, `cat-divider-count`, `hero-stat-num`, badges, méta description, prose, takeaways). Erreur récurrente identifiée v3.6 / v3.7 / v3.7.1 : la grille `<div class="exec-stats">` de `ressources.html` § Synthèse a conservé `83 / 14` après que le hero badge et le h2 catalogue avaient été passés à `95 / 15`. Procédure obligatoire : `grep -n` exhaustif du chiffre courant **avant** clôture d'itération + cross-check du comptage réel via `grep -c`.

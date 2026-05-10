@@ -370,27 +370,27 @@
               <tr>
                 <td><strong>Harness</strong></td>
                 <td>OpenClaw (Hermes Agent en backup) — open-source, léger</td>
-                <td><a href="cu-027-dev-applicatif-ia.html">CU-027</a></td>
+                <td><a href="cu-027-dev-applicatif-ia.html">Faire développer une appli métier</a></td>
               </tr>
               <tr>
                 <td><strong>Brain (mémoire)</strong></td>
                 <td>GBrain (Karpathy LLM Wiki appliqué)</td>
-                <td><a href="cu-008-knowledge-base-rag.html#llm-wiki">CU-008 § LLM Wiki</a></td>
+                <td><a href="cu-008-knowledge-base-rag.html#llm-wiki">Knowledge base RAG, section LLM Wiki</a></td>
               </tr>
               <tr>
                 <td><strong>Skills par défaut</strong></td>
                 <td>ECC stack (~38 agents + 156 skills)</td>
-                <td><a href="cu-027-dev-applicatif-ia.html#section-1bis">CU-027 § ECC</a></td>
+                <td><a href="cu-027-dev-applicatif-ia.html#section-1bis">Faire développer une appli métier, section ECC</a></td>
               </tr>
               <tr>
                 <td><strong>Observabilité</strong></td>
                 <td>Langfuse, Helicone, Phoenix</td>
-                <td><a href="../deploiement/dep-05-agents-observabilite.html">DEP-05</a></td>
+                <td>fiche <a href="../deploiement/dep-05-agents-observabilite.html">Agents en production : observabilité</a></td>
               </tr>
               <tr>
                 <td><strong>Audit sécurité</strong></td>
                 <td>AgentShield + revue MCP</td>
-                <td><a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08</a></td>
+                <td>fiche <a href="../deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP</a></td>
               </tr>
             </tbody>
           </table>
@@ -1080,7 +1080,7 @@
       if (blockerNonRespected >= 1) {
         verdictClass = 'no-go';
         verdictTitle = '🛑 NO-GO — déploiement non recommandé';
-        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). L'architecture multi-agents est complexe à déployer et ingérable sans ces fondations. Traiter les gaps avant tout début, ou rester sur du multi-prompt classique (CU-001 à CU-011).`;
+        verdictSubtitle = `${blockerNonRespected} prérequis bloquant(s) non satisfait(s). L'architecture multi-agents est complexe à déployer et ingérable sans ces fondations. Traiter les gaps avant tout début, ou rester sur des cas d'usage IA standards en multi-prompt classique (modules de la famille Découverte ou Marketing &amp; croissance).`;
       } else if (blockerScore >= 8 && qualityScore >= 7) {
         verdictClass = 'go';
         verdictTitle = '✅ GO — déploiement progressif possible';

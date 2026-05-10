@@ -79,7 +79,7 @@
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
       <h1>🛠️ Faire développer une appli métier (sans être IT)</h1>
-      <p class="module-subtitle">Cadrage projet pour dirigeant PME non-IT qui veut faire développer une application métier sur mesure : choix du prestataire, scope MVP, sécurité, dette technique invisible, cadre juridique. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines via des outils comme <a href="../ressources.html#cursor"><strong>Cursor</strong></a>, <a href="../ressources.html#claude-code"><strong>Claude Code</strong></a>, Lovable ou Windsurf — mais 45 % du code généré par IA contient des failles, et la responsabilité du pilotage reste celle du dirigeant. Pour comprendre le pattern d'asynchronicité agentique sous-jacent (qui se transpose au-delà du dev), voir <a href="cu-015-stripe-minions.html">Asynchronicité agentique — cas Stripe Minions</a>.</p>
+      <p class="module-subtitle">Cadrage projet pour dirigeant PME non-IT qui veut faire développer une application métier sur mesure : choix du prestataire, scope MVP, sécurité, dette technique invisible, cadre juridique. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines via des outils comme <a href="../ressources.html#cursor" class="tool-link"><strong>Cursor</strong></a>, <a href="../ressources.html#claude-code" class="tool-link"><strong>Claude Code</strong></a>, <a href="../ressources.html#lovable" class="tool-link">Lovable</a> ou <a href="../ressources.html#windsurf" class="tool-link">Windsurf</a> — mais 45 % du code généré par IA contient des failles, et la responsabilité du pilotage reste celle du dirigeant. Pour comprendre le pattern d'asynchronicité agentique sous-jacent (qui se transpose au-delà du dev), voir <a href="cu-015-stripe-minions.html">Asynchronicité agentique — cas Stripe Minions</a>.</p>
     </div>
   </header>
 
@@ -108,7 +108,7 @@
       <div class="exec-summary">
         <div class="exec-summary-label">⚡ Synthèse rapide</div>
         <h2>Pourquoi cette page ?</h2>
-        <p>Tu es dirigeant d'une PME ou d'une ETI. Tu n'es pas développeur. Tu as identifié un besoin que les SaaS du marché ne couvrent pas : un workflow propre, une intégration spécifique, une micro-application métier. Jusqu'ici, faire développer demandait <strong>40-100 K€</strong> et <strong>6-12 mois</strong> via une ESN. La nouvelle génération d'outils de développement IA-assisté (Cursor, Claude Code, Lovable, Bolt, Windsurf, Replit Agent) change la donne — un POC sort en <strong>6-10 semaines</strong>, une app production-ready en <strong>4-7 mois</strong>. Mais un dirigeant non-IT qui se lance sans cadrage va droit dans le mur.</p>
+        <p>Tu es dirigeant d'une PME ou d'une ETI. Tu n'es pas développeur. Tu as identifié un besoin que les SaaS du marché ne couvrent pas : un workflow propre, une intégration spécifique, une micro-application métier. Jusqu'ici, faire développer demandait <strong>40-100 K€</strong> et <strong>6-12 mois</strong> via une ESN. La nouvelle génération d'outils de développement IA-assisté (<a href="../ressources.html#cursor" class="tool-link">Cursor</a>, <a href="../ressources.html#claude-code" class="tool-link">Claude Code</a>, <a href="../ressources.html#lovable" class="tool-link">Lovable</a>, <a href="../ressources.html#bolt-new" class="tool-link">Bolt</a>, <a href="../ressources.html#windsurf" class="tool-link">Windsurf</a>, <a href="../ressources.html#replit-agent" class="tool-link">Replit Agent</a>) change la donne — un POC sort en <strong>6-10 semaines</strong>, une app production-ready en <strong>4-7 mois</strong>. Mais un dirigeant non-IT qui se lance sans cadrage va droit dans le mur.</p>
         <p>Cette page te donne le panorama des outils 2026, le cadre juridique synthétisé, les écueils documentés, et la checklist sécurité minimale à exiger d'un prestataire vibe coding.</p>
 
         <div class="exec-takeaways">
@@ -193,13 +193,13 @@
             <td>Démo / POC</td>
           </tr>
           <tr>
-            <td><strong>Bolt.new</strong></td>
+            <td><a href="../ressources.html#bolt-new" class="tool-link"><strong>Bolt.new</strong></a></td>
             <td>Prototype démo, frontend-first</td>
             <td>Démo client / pitch investisseur</td>
             <td>Démo</td>
           </tr>
           <tr>
-            <td><strong>v0 (Vercel)</strong></td>
+            <td><a href="../ressources.html#v0" class="tool-link"><strong>v0 (Vercel)</strong></a></td>
             <td>UI generation, Next.js natif</td>
             <td>Pages marketing, interfaces ciblées</td>
             <td>Démo / Production light</td>
@@ -254,21 +254,21 @@
       <p>Au-delà du panorama général, deux ruptures économiques majeures redéfinissent en 2026 ce qu'il est possible de faire avec un budget PME.</p>
 
       <h3>1. La rupture Kimi K2.6</h3>
-      <p><strong>Kimi K2.6</strong> (Moonshot AI, sortie 2026, open-source) bouleverse l'économie du coding agentique : <strong>0,80 $/M tokens en input, 3,60 $/M tokens en output</strong>, contre 5 $/M et 25 $/M pour Claude Opus 4.7. Performance proche d'Opus sur SWE-Bench, Terminal-Bench et agentic coding (~75-90 %). Disponible via Together.ai, Modal Labs, Fireworks AI, Groq.</p>
-      <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir <a href="../deploiement/dep-06-inference-saas-self-hosted.html">DEP-06 Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
+      <p><a href="../ressources.html#kimi" class="tool-link"><strong>Kimi K2.6</strong></a> (Moonshot AI, sortie 2026, open-source) bouleverse l'économie du coding agentique : <strong>0,80 $/M tokens en input, 3,60 $/M tokens en output</strong>, contre 5 $/M et 25 $/M pour Claude Opus 4.7. Performance proche d'Opus sur SWE-Bench, Terminal-Bench et agentic coding (~75-90 %). Disponible via Together.ai, Modal Labs, Fireworks AI, Groq.</p>
+      <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir la fiche <a href="../deploiement/dep-06-inference-saas-self-hosted.html">Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
 
       <h3>2. ECC (Everything Claude Code) — l'écosystème open-source qui remplace une équipe</h3>
       <p><strong>ECC</strong> est devenu en 2026 le standard de qui pilote un projet de dev applicatif IA-assisté : 38 agents spécialisés (planner, security-reviewer, typescript-reviewer, etc.), 156 skills réutilisables, 72 commandes slash, et <strong>AgentShield</strong> — audit sécurité gratuit (1 282 tests, 102 règles).</p>
-      <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
+      <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
 
       <h3>3. Le pattern Garry Tan — Fat Skills / Thin Harness</h3>
-      <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir <a href="cu-014-multi-agents.html">CU-014 Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
+      <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir le module <a href="cu-014-multi-agents.html">Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
 
       <h3>4. Trois questions à poser à ton prestataire en 2026</h3>
       <ol>
         <li><strong>« Tu utilises quoi comme modèle de base ? »</strong> — si la réponse est « Opus uniquement », demander pourquoi pas Kimi K2.6 sur les cas non complexes (économie 80-90 %).</li>
         <li><strong>« Tu utilises ECC ou un équivalent ? »</strong> — si non, demander quel framework de skills/agents est utilisé. Sans framework, le coût de maintenance va exploser.</li>
-        <li><strong>« Tu lances AgentShield avant chaque mise en prod ? »</strong> — si non, exiger qu'un audit sécurité soit fait. Voir <a href="../deploiement/dep-08-securite-agents-mcp.html">DEP-08 Sécurité agents et MCP</a>.</li>
+        <li><strong>« Tu lances AgentShield avant chaque mise en prod ? »</strong> — si non, exiger qu'un audit sécurité soit fait. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP</a>.</li>
       </ol>
     </section>
 
@@ -594,7 +594,7 @@
       <p>Tu définis le besoin métier en clair : qui va utiliser, pour quoi faire, quel KPI mesurable (gain de temps, gain de marge, taux de conversion). Pas de ligne de code écrite à ce stade. Si tu n'arrives pas à formuler le KPI, le projet n'est pas mûr.</p>
 
       <h3>Étape 2 — Choix du prestataire (semaine 2-3)</h3>
-      <p>Sélectionne un prestataire IA-natif sérieux, vérifie ses références récentes (qui utilisent Cursor / Claude Code / Windsurf en prod), demande un cas équivalent au tien. Exige la checklist sécurité section 4 dans le devis. Compare 2-3 propositions.</p>
+      <p>Sélectionne un prestataire IA-natif sérieux, vérifie ses références récentes (qui utilisent <a href="../ressources.html#cursor" class="tool-link">Cursor</a> / <a href="../ressources.html#claude-code" class="tool-link">Claude Code</a> / <a href="../ressources.html#windsurf" class="tool-link">Windsurf</a> en prod), demande un cas équivalent au tien. Exige la checklist sécurité section 4 dans le devis. Compare 2-3 propositions.</p>
 
       <h3>Étape 3 — POC sur 6-10 semaines</h3>
       <p>Premier livrable : un POC fonctionnel. Pas un produit. Un POC sert à <strong>valider que la valeur métier est là</strong>, pas à mettre en prod. Si le POC ne valide pas le KPI, tu arrêtes — tu n'auras perdu que le coût du POC.</p>
