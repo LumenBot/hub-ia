@@ -342,7 +342,7 @@
 
         <h3>Solutions clés en main spécialisées finance</h3>
         <p>
-          <strong>Pennylane</strong> est la référence française pour les TPE-PME — comptabilité native + IA d'extraction intégrée. <strong>Qonto</strong> propose une couche IA croissante sur la gestion bancaire et la facturation. <strong>Medius</strong> (international) est positionné sur les ETI avec workflow approbation factures. <strong>MIA</strong> et <strong>Justai.fr</strong> sont des solutions françaises émergentes spécialisées sur l'extraction factures pour PME.
+          <a href="../ressources.html#pennylane" class="tool-link"><strong>Pennylane</strong></a> est la référence française pour les TPE-PME — comptabilité native + IA d'extraction intégrée. <strong>Qonto</strong> propose une couche IA croissante sur la gestion bancaire et la facturation. <strong>Medius</strong> (international) est positionné sur les ETI avec workflow approbation factures. <strong>MIA</strong> et <strong>Justai.fr</strong> sont des solutions françaises émergentes spécialisées sur l'extraction factures pour PME.
         </p>
 
         <h3>Orchestration</h3>
@@ -357,7 +357,7 @@
 
         <h3>Conformité RGPD & sécurité</h3>
         <p>
-          Les données fournisseurs incluent souvent des données personnelles (RIB, n° SIRET, contacts). <strong>Privilégier les solutions hébergées EU</strong> (Pennylane, Qonto, Mistral) sur ces flux. Documenter les traitements dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD & AI Act</a>). Le sujet n'est pas anodin : un cabinet d'expertise comptable a déjà été sanctionné par la CNIL en 2024 pour traitement non conforme de données fournisseurs via un LLM cloud non-EU.
+          Les données fournisseurs incluent souvent des données personnelles (RIB, n° SIRET, contacts). <strong>Privilégier les solutions hébergées EU</strong> (Pennylane, Qonto, Mistral) sur ces flux. Documenter les traitements dans le registre RGPD (cf. module <a href="cu-020-conformite-rgpd-ai-act.html">Conformité RGPD &amp; AI Act</a>). Le sujet n'est pas anodin : un cabinet d'expertise comptable a déjà été sanctionné par la CNIL en 2024 pour traitement non conforme de données fournisseurs via un LLM cloud non-EU.
         </p>
 
         <h3>Prérequis</h3>
@@ -374,7 +374,7 @@
         </div>
 
         <p>
-          Inspiré d'un retour d'expérience France Num. PME de services 35 salariés, ~250 factures fournisseurs/mois, ERP Pennylane en place, 1 comptable interne saturée + 1 DAF. Objectif : libérer du temps sur les tâches répétitives et fiabiliser la prévision cash.
+          Inspiré d'un retour d'expérience France Num. PME de services 35 salariés, ~250 factures fournisseurs/mois, ERP <a href="../ressources.html#pennylane" class="tool-link">Pennylane</a> en place, 1 comptable interne saturée + 1 DAF. Objectif : libérer du temps sur les tâches répétitives et fiabiliser la prévision cash.
         </p>
 
         <div class="case-deep-actor">
@@ -507,7 +507,7 @@
 
         <h3>Souveraineté EU sous-estimée</h3>
         <p>
-          Les données fournisseurs incluent souvent des données personnelles (RIB, contacts, contrats). <strong>Utiliser ChatGPT ou Claude API standard (cloud US) sur ces données pose un problème RGPD réel</strong>. La CNIL a déjà sanctionné un cabinet d'expertise comptable en 2024 sur ce sujet. Privilégier Mistral, Pennylane intégré, ou solutions on-premise pour les flux sensibles. Documenter dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020</a>).
+          Les données fournisseurs incluent souvent des données personnelles (RIB, contacts, contrats). <strong>Utiliser ChatGPT ou Claude API standard (cloud US) sur ces données pose un problème RGPD réel</strong>. La CNIL a déjà sanctionné un cabinet d'expertise comptable en 2024 sur ce sujet. Privilégier Mistral, Pennylane intégré, ou solutions on-premise pour les flux sensibles. Documenter dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html">Conformité RGPD &amp; AI Act</a>).
         </p>
 
         <h3>Détection d'anomalies trop bruyante</h3>
@@ -789,7 +789,7 @@
 
       // Toujours
       actions.push({ prio: 'haute', titre: 'Sécuriser RGPD + souveraineté EU sur les données fournisseurs',
-        desc: 'Les RIB, contrats et données fournisseurs sont des données personnelles. Privilégier Mistral, Pennylane intégré, ou solution on-premise. Inscrire au registre RGPD (cf. CU-020 Conformité).' });
+        desc: 'Les RIB, contrats et données fournisseurs sont des données personnelles. Privilégier Mistral, Pennylane intégré, ou solution on-premise. Inscrire au registre RGPD (cf. module Conformité RGPD &amp; AI Act).' });
 
       actions.push({ prio: 'moyenne', titre: 'Plan de calibrage progressif sur 6-8 semaines',
         desc: 'Mode prudent au démarrage (100 % validation comptable), montée progressive vers 50 % → 70 % → 85 % d\'auto-validation. Audit hebdo des erreurs les 4 premières semaines.' });
