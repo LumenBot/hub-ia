@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.2 (mai 2026)
+**Version :** 1.3 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -187,23 +187,37 @@ Cette section formalise le pattern HTML / CSS / JS attendu pour **tout nouveau m
       …
 
       <!-- 7. Pour aller plus loin (id="ressources" obligatoire — pas "section-7") -->
+      <!-- Schéma A — externes UNIQUEMENT (cf. règle 1.5.5) -->
       <section class="module-section" id="ressources">
         <div class="module-section-header">…</div>
-        <div class="resources-cat">
-          <h3>🔗 Modules complémentaires</h3>
-          <ul>…</ul>                                          <!-- noms métier, pas codes CU-XX -->
+        <!-- Callout d'aiguillage vers la bibliographie transverse -->
+        <div class="callout callout-info">
+          Pour le panorama complet des outils, retrouve les fiches détaillées sur la
+          <a href="../ressources.html#bibliographie">page Ressources du Hub</a>.
         </div>
         <div class="resources-cat">
-          <h3>🧱 Préalables associés</h3>
-          <ul>…</ul>
-        </div>
-        <div class="resources-cat">
-          <h3>📚 Sources et études</h3>
+          <h3>📰 Articles de fond</h3>
           <ul>
             <li><a href="…" target="_blank" rel="noopener">…</a><span class="resources-meta">…</span></li>
           </ul>
         </div>
+        <div class="resources-cat">
+          <h3>🎓 Tutoriels &amp; cas pratiques</h3>
+          <ul>…</ul>
+        </div>
+        <div class="resources-cat">
+          <h3>📚 Documentation officielle &amp; études</h3>
+          <ul>…</ul>
+        </div>
+        <div class="resources-cat">
+          <h3>👥 Communautés &amp; veille</h3>
+          <ul>…</ul>
+        </div>
       </section>
+      <!-- Les renvois INTERNES (modules complémentaires, préalables, fiches outils, architectures)
+           vivent dans le CORPS du module au fil du texte (cf. règle 1.5.6),
+           PAS dans cette section finale. -->
+
 
     </main>
   </div>
@@ -233,15 +247,63 @@ Si une page introduit un composant nouveau (ex : `.timeline-block`, `.tool-table
 - ❌ **Pas de `<main>` direct sans `module-layout`** : tout module / fiche doit avoir la sidebar TOC sticky.
 - ❌ **Pas d'`id="section-7"` pour la dernière section** : utiliser `id="ressources"` (cohérent avec le pattern et les renvois inter-pages).
 - ❌ **Pas de `.exec-takeaway-icon` (emoji texte) au lieu de `.exec-takeaway-num`** : le pattern de référence utilise des numéros 1-2-3-4, pas des icônes émoji.
-- ❌ **Pas de `<style>` inline qui redéfinit `.exec-summary`, `.exec-takeaway`, `.alert-block`, `.checklist-block`** : ces composants sont centralisés.
+- ❌ **Pas de `<style>` inline qui redéfinit `.exec-summary`, `.exec-takeaway`, `.alert-block`, `.checklist-block`, `.stat-block`, `.tool-table`, `.pull-quote`, `.arch-callout`** : ces composants sont centralisés (ou doivent l'être). Si un composant nouveau apparaît sur 2+ modules, **migration obligatoire vers `module-v3.css`** dans le commit qui l'introduit la 2ème fois (renforcé v1.3 suite v3.6.2).
 - ❌ **Pas de h1 sans emoji ouvrant** sur les modules / fiches PR (ex : `<h1>Order-to-cash automation</h1>` doit devenir `<h1>💸 Order-to-cash automation</h1>`).
 - ❌ **Pas de balise `<a>` dans le contenu d'une card cliquable de la home** (le navigateur ferme la card prématurément). Si une source doit être citée, la mettre sur la page CU dédiée.
+- ❌ **Pas de couleurs hardcodées** dans les `<style>` inline (`#1e3a8a`, `#dc2626`, etc.) : utiliser exclusivement les variables CSS du design system (`--color-primary`, `--color-surface`, `--color-warning`, `--color-success`, etc.). Sinon, le design system perd sa cohérence (ajout v1.3).
+- ❌ **Pas de section nommée « Auto-diagnostic » sans form interactif + génération de plan + export** (cf. règle 1.5.5). Si la section ne respecte pas ces 3 propriétés, la nommer autrement (« Checklist d'éligibilité », « Récapitulatif »).
+- ❌ **Pas de récapitulatif des renvois internes (modules, préalables, fiches outils, architectures) dans la section finale `id="ressources"`** : ces renvois vivent dans le corps du module, contextualisés (cf. règle 1.5.6). La section finale est réservée aux ressources externes (Schéma A : Articles / Tutoriels / Documentation / Communautés + callout vers `ressources.html#bibliographie`).
 
-**Règle 1.5.4 — Rôle de Cowork vs Claude Code**. Pour éviter les désynchronisations de canal :
+**Règle 1.5.4 — Rôle de Cowork vs Claude Code (mise à jour v1.3, suite à v3.6.2)**. Pour éliminer définitivement les désynchronisations de canal :
 
-- **Cowork (production de mockup)** : produit le contenu éditorial, le sourcing et la matière. Doit suivre le pattern HTML 1.5.1 dès le mockup. Ne déforme pas le squelette de référence.
-- **Claude Code (intégration)** : valide la conformité du mockup au pattern 1.5.1 **avant** de copier le fichier dans le repo. Si le mockup dévie (ex : pas de `module-layout`, codes `CU-XX` visibles, `<style>` inline qui redéfinit les composants centralisés, lien `axes.html` cassé), Claude Code corrige avant intégration et le signale dans le commit.
-- **Référence visuelle commune** : `modules/cu-008-knowledge-base-rag.html` est le module canonique de référence pour la structure complète (TOC + executive summary + sections numérotées + auto-diagnostic JS + Pour aller plus loin avec `.resources-cat`). Tout nouveau module doit s'aligner sur sa structure.
+- **Cowork = matière éditoriale en MD structuré uniquement.** Cowork produit le contenu éditorial, le sourcing, les gloses, les structures narratives, les écueils, les checklists métier, les instructions précises sur les composants à utiliser (« ici un `.alert-block`, ici un `.diagnostic` 8 questions »). **Cowork ne produit PLUS de mockup HTML** depuis v3.6.2. Cette règle est née du constat que les mockups Cowork dérivaient systématiquement du pattern de référence (v3.6 → v3.6.1 → v3.6.2).
+- **Claude Code = construction HTML conforme.** Claude Code construit le HTML des nouveaux modules à partir du gabarit canonique `modules/cu-008-knowledge-base-rag.html` et de la matière éditoriale MD fournie par Cowork. Claude Code valide la conformité au pattern 1.5.1 et au CSS centralisé (1.5.2) avant d'intégrer. Tout commit qui déroge doit le signaler explicitement.
+- **Référence visuelle commune** : `modules/cu-008-knowledge-base-rag.html` est le module canonique de référence pour la structure complète (TOC + executive summary + sections numérotées + auto-diagnostic JS + Pour aller plus loin avec `.resources-cat` Schéma A). Tout nouveau module doit s'aligner sur sa structure.
+
+**Règle 1.5.5 — Format auto-diagnostic standard (NOUVELLE v1.3)**. La section auto-diagnostic d'un module CU peut être personnalisée selon le sujet (échelle de positionnement, prérequis bloquants, scoring de maturité, verdict GO/NO-GO, etc.) — mais doit respecter **3 propriétés non négociables** :
+
+1. **Form interactif** : `<form>` avec inputs (radio, checkbox, textarea, select) — pas de checklist statique non interactive.
+2. **Génération d'un plan d'action** : un bouton qui produit dynamiquement (en JS) un plan personnalisé sur la base des réponses de l'utilisateur. Pas seulement un score.
+3. **Export téléchargeable** : un bouton qui exporte le plan en `.txt` ou `.md` — l'utilisateur doit pouvoir partir avec son livrable. Sauvegarde en `localStorage` recommandée pour la persistance entre visites.
+
+Le template de référence (`modules/_template-auto-diagnostic.html`) propose un format normalisé en 5 questions (positionnement / cas concret / frein / premier pas / indicateur), utilisable tel quel pour les modules N1-N3. Pour les modules N3-N4 plus avancés (CU-008, CU-013), un format custom est acceptable tant que les 3 propriétés ci-dessus sont respectées.
+
+**Anti-pattern à proscrire** : checklist statique en `<ul>` à compter manuellement, sans interactivité ni export (cas CU-023 v3.6.0 — corrigé en v3.6.2).
+
+**Si la section ne respecte pas les 3 propriétés**, elle ne doit PAS être nommée « Auto-diagnostic ». Choisir un nom plus juste : « Checklist d'éligibilité », « Checklist projet », « Récapitulatif ». L'utilisateur doit savoir ce qu'il obtient.
+
+**Règle 1.5.6 — Renvois internes contextualisés (NOUVELLE v1.3)**. Les renvois vers d'autres ressources internes du Hub (autres modules CU, préalables PR, fiches outils de `ressources.html`, page Architectures) **vivent dans le CORPS du module**, au fil du texte, contextualisés à l'endroit où ils sont pertinents. Ils **ne doivent PAS** être récapitulés dans la section finale `id="ressources"` (qui est réservée aux ressources externes — cf. règle 1.5.5 et squelette HTML 1.5.1 mis à jour v1.3).
+
+**Patterns de renvoi obligatoires** :
+
+- **Vers une fiche outil de `ressources.html`** : à la première mention en `<strong>` d'un outil ayant une fiche dans la page Ressources, ajouter un lien vers son ancre :
+  ```html
+  L'écosystème <a href="../ressources.html#cursor"><strong>Cursor</strong></a> permet…
+  ```
+  Liste indicative d'ancres existantes : `#cursor`, `#claude-code`, `#claude`, `#pinecone`, `#n8n`, `#dify`, `#mistral`, `#perplexity`, `#notebooklm`, etc. (vérifier dans `ressources.html` les `id` de chaque `<article class="tool-card">`).
+
+- **Vers un préalable** : quand un module mentionne un cadrage transverse (organisation, data, sécurité, formation), renvoyer au préalable correspondant :
+  ```html
+  Pour cadrer ta maturité organisationnelle avant de te lancer, lis
+  <a href="../prealables/pr-01-maturite-organisationnelle.html">le préalable Maturité organisationnelle</a>.
+  ```
+
+- **Vers la page Architectures** : pour les modules sensibles (RH, juridique, financier, sécurité), renvoyer aux patterns d'architecture pertinents :
+  ```html
+  Architecture recommandée : <a href="../architectures.html#a3">A3 (open-source cloud souverain)</a>
+  ou <a href="../architectures.html#a4">A4 (on-premise)</a>.
+  ```
+
+- **Vers un module complémentaire** : dans le sous-titre hero ou dans le corps :
+  ```html
+  Pour le cycle commercial sortant, voir <a href="cu-024-order-to-cash.html">Order-to-cash automation</a>.
+  ```
+
+**Cross-links obligatoires sur les paires/triplets sensibles** (codifiés v3.6.2) :
+- CU-015 ↔ CU-027 (asynchronicité agentique vs guide d'achat dev)
+- CU-021 ↔ CU-024 (compta fournisseur entrante vs cycle commercial sortant)
+- CU-001 ↔ CU-011 ↔ CU-012 (triptyque veille progressif)
+- CU-005 ↔ CU-023 (déjà en place, à préserver)
 
 ---
 
@@ -357,6 +419,12 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.3** — mai 2026, suite à l'audit éditorial conjoint Cowork + Claude Code et à l'itération corrective v3.6.2 :
+  - § 1.5.1 (squelette HTML) : section finale `id="ressources"` refondue en **Schéma A** — 4 sous-rubriques **toutes externes uniquement** (Articles de fond / Tutoriels / Documentation officielle / Communautés) + callout vers `ressources.html#bibliographie`. Suppression des sous-rubriques internes (Modules complémentaires, Préalables associés) qui mélangeaient les niveaux.
+  - § 1.5.3 (anti-patterns) renforcée : ajout de `.stat-block`, `.tool-table`, `.pull-quote`, `.arch-callout` à la liste des composants centralisés à ne pas redéfinir ; règle de **migration obligatoire vers `module-v3.css` dès la 2ème utilisation** ; interdiction des **couleurs hardcodées** ; interdiction de nommer « Auto-diagnostic » une section qui n'est pas interactive ; interdiction des **renvois internes dans la section finale ressources** (qui restent dans le corps).
+  - § 1.5.4 (rôles Cowork/Claude Code) clarifiée : **Cowork ne produit plus de mockup HTML**, uniquement de la matière éditoriale en MD structuré. Claude Code construit le HTML à partir de la canonique CU-008 + matière MD Cowork. Cette règle clôt définitivement le cycle de désynchronisation v3.6 → v3.6.1 → v3.6.2.
+  - § 1.5.5 (NOUVELLE) : Format auto-diagnostic standard — 3 propriétés non négociables (form interactif + génération plan + export). Format custom toléré sous ces conditions.
+  - § 1.5.6 (NOUVELLE) : Renvois internes contextualisés dans le corps — patterns obligatoires vers fiches outils (`ressources.html#xxx`), préalables, architectures, modules complémentaires. Cross-links codifiés sur paires sensibles (CU-015↔CU-027, CU-021↔CU-024, triptyque veille).
 - **v1.2** — mai 2026, suite à v3.6.1 (harmonisation des modules CU-023/024/027 produits par Cowork qui déviaient du pattern de référence) :
   - § 1.5 ajoutée : pattern structurel obligatoire pour tout module CU et toute fiche PR (squelette HTML, composants CSS de référence, anti-patterns interdits, rôles Cowork ↔ Claude Code).
   - Nouvelle référence canonique : `modules/cu-008-knowledge-base-rag.html` est le gabarit visuel.
