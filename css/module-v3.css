@@ -645,3 +645,120 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
   .tool-grid { grid-template-columns: 1fr; }
   .tool-index-cat { padding: var(--space-4); }
 }
+
+/* ============================================================
+   COMPOSANTS MUTUALISÉS — migration v3.6.2
+   Anciennement définis en <style> inline sur CU-023/024/027 + PR-04/06.
+   Centralisés ici avec variables du design system (RULES § 1.4.4 / 1.5.2).
+   ============================================================ */
+
+/* alert-block — encart d'alerte rouge (ex : 5 écueils, anti-patterns critiques) */
+.alert-block {
+  background: #FEF2F2;
+  border-left: 4px solid var(--color-danger);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  border-radius: var(--radius-md);
+}
+.alert-block h3 { color: #991B1B; margin-top: 0; }
+.alert-block-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #B86E1A;
+  margin-bottom: var(--space-2);
+}
+.alert-block-title {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+/* checklist-block — encart vert avec cases à cocher (ex : checklist d'éligibilité) */
+.checklist-block {
+  background: #ECFDF5;
+  border: 1px solid #6EE7B7;
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  margin: var(--space-5) 0;
+}
+.checklist-block h3 { color: #065F46; margin-top: 0; }
+.checklist-block ul { list-style: none; padding-left: 0; }
+.checklist-block ul li {
+  padding-left: var(--space-6);
+  position: relative;
+  margin-bottom: var(--space-3);
+}
+.checklist-block ul li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  color: #059669;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* stat-block — encart bleu marine plein (ex : statistique mise en valeur, chiffre choc) */
+.stat-block {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: white;
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+  text-align: center;
+}
+.stat-block-num,
+.stat-block-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #FFD600;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.stat-block-label {
+  font-size: 1rem;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+.stat-block-source {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+  margin-top: var(--space-3);
+  font-style: italic;
+}
+
+/* tool-table — tableau comparatif d'outils (header bleu marine, lignes alternées) */
+.tool-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-5) 0;
+  font-size: 0.9375rem;
+}
+.tool-table th {
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-3);
+  text-align: left;
+  font-weight: 600;
+}
+.tool-table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.tool-table tr:nth-child(even) { background: var(--color-bg); }
+
+/* arch-callout — encart bleu marine de recommandation d'architecture (modules sensibles) */
+.arch-callout {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-left: 4px solid var(--color-primary);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+.arch-callout-icon { font-size: 1.5rem; flex-shrink: 0; }

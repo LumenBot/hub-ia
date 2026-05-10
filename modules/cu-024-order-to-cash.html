@@ -11,17 +11,10 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .arch-callout {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      border-left: 4px solid #1e3a8a;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 6px;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .arch-callout-icon { font-size: 1.5rem; }
+    /* Composants single-use spécifiques à ce module (timeline réglementaire,
+       table plateformes agréées, cartes d'étapes du cycle O2C).
+       Les composants mutualisés (.arch-callout, .checklist-block, .alert-block)
+       sont dans module-v3.css. */
     .timeline-block {
       background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
       border: 2px solid #f59e0b;
@@ -91,36 +84,6 @@
       margin-right: 0.75rem;
     }
     .stage-card h3 { display: inline; vertical-align: middle; }
-    .checklist-block {
-      background: #ecfdf5;
-      border: 1px solid #6ee7b7;
-      padding: 1.5rem;
-      border-radius: 12px;
-      margin: 2rem 0;
-    }
-    .checklist-block h3 { color: #065f46; margin-top: 0; }
-    .checklist-block ul { list-style: none; padding-left: 0; }
-    .checklist-block ul li {
-      padding-left: 2rem;
-      position: relative;
-      margin-bottom: 0.6rem;
-    }
-    .checklist-block ul li::before {
-      content: "☐";
-      position: absolute;
-      left: 0;
-      color: #059669;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    .alert-block {
-      background: #fef2f2;
-      border-left: 4px solid #dc2626;
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 6px;
-    }
-    .alert-block h3 { color: #991b1b; margin-top: 0; }
   </style>
 </head>
 <body>
