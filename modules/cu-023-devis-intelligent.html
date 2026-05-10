@@ -293,26 +293,156 @@
         </div>
       </div>
 
-      <p>Réponds aux 8 questions ci-dessous. Compte le nombre de OUI. Si tu en as 6 ou plus, tu peux y aller. Si tu en as moins de 4, mieux vaut consolider d'abord.</p>
+      <p>Réponds aux 8 questions ci-dessous. Le résultat te donne un plan d'action priorisé selon ton profil, exportable pour partage interne.</p>
 
-      <div class="checklist-block">
-        <h3>Auto-diagnostic en 8 questions</h3>
-        <ul>
-          <li><strong>1.</strong> Mon équipe commerciale produit régulièrement plus de 10 propositions par mois.</li>
-          <li><strong>2.</strong> J'ai déjà un CRM ou un outil de gestion qui propose une couche IA en standard ou en option.</li>
-          <li><strong>3.</strong> Mon catalogue produits / services est numérisé et tenu à jour.</li>
-          <li><strong>4.</strong> Mes conditions générales de vente sont stabilisées, validées juridiquement et accessibles dans un format réutilisable.</li>
-          <li><strong>5.</strong> J'ai défini une grille de remise avec des plafonds clairs (seuil au-delà duquel la remise demande une validation manager).</li>
-          <li><strong>6.</strong> Mes commerciaux acceptent l'idée d'une assistance IA sur leur quotidien (pas de rejet culturel).</li>
-          <li><strong>7.</strong> Je peux mesurer mes deux KPI cibles : temps moyen de production d'un devis, taux de signature.</li>
-          <li><strong>8.</strong> Je suis prêt à dédier un manager pendant 3-6 mois pour piloter le déploiement et mesurer le ROI.</li>
-        </ul>
+      <div class="diagnostic">
+        <form id="devisDiagForm">
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>1.</strong> Mon équipe commerciale produit régulièrement plus de 10 propositions par mois.</p>
+            <label class="diag-option"><input type="radio" name="q1" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q1" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>2.</strong> J'ai déjà un CRM ou un outil de gestion qui propose une couche IA en standard ou en option.</p>
+            <label class="diag-option"><input type="radio" name="q2" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q2" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>3.</strong> Mon catalogue produits / services est numérisé et tenu à jour.</p>
+            <label class="diag-option"><input type="radio" name="q3" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q3" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>4.</strong> Mes conditions générales de vente sont stabilisées, validées juridiquement et accessibles dans un format réutilisable.</p>
+            <label class="diag-option"><input type="radio" name="q4" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q4" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>5.</strong> J'ai défini une grille de remise avec des plafonds clairs (seuil au-delà duquel la remise demande une validation manager).</p>
+            <label class="diag-option"><input type="radio" name="q5" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q5" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>6.</strong> Mes commerciaux acceptent l'idée d'une assistance IA sur leur quotidien (pas de rejet culturel).</p>
+            <label class="diag-option"><input type="radio" name="q6" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q6" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>7.</strong> Je peux mesurer mes deux KPI cibles : temps moyen de production d'un devis, taux de signature.</p>
+            <label class="diag-option"><input type="radio" name="q7" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q7" value="0"><span>Non</span></label>
+          </div>
+          <div class="diag-question">
+            <p class="diag-question-label"><strong>8.</strong> Je suis prêt à dédier un manager pendant 3-6 mois pour piloter le déploiement et mesurer le ROI.</p>
+            <label class="diag-option"><input type="radio" name="q8" value="1" required><span>Oui</span></label>
+            <label class="diag-option"><input type="radio" name="q8" value="0"><span>Non</span></label>
+          </div>
+          <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+            <button type="button" class="diag-submit" onclick="evaluateDevisDiag()">Générer mon plan d'action</button>
+            <button type="button" class="diag-submit" id="exportDevisBtn" style="display:none; background: var(--color-success);" onclick="exportDevisDiag()">📥 Exporter en .txt</button>
+          </div>
+        </form>
+        <div class="diag-result" id="devisDiagResult"></div>
       </div>
-
-      <p><strong>6 OUI ou plus :</strong> active la fonction IA de ton outil actuel ce mois-ci. Donne-toi 60 jours de mesure avant de tirer un bilan.</p>
-      <p><strong>4-5 OUI :</strong> tu peux y aller mais il manque un ou deux fondamentaux. Stabilise les NON avant de lancer.</p>
-      <p><strong>Moins de 4 OUI :</strong> consolide d'abord. Le devis IA ne réparera pas un catalogue désordonné, des CGV instables, ou une équipe commerciale en rejet de l'IA. Lis le préalable <a href="../prealables/pr-01-maturite-organisationnelle.html">PR-01 maturité organisationnelle</a>.</p>
     </section>
+
+    <script>
+      function evaluateDevisDiag() {
+        const form = document.getElementById('devisDiagForm');
+        if (!form.reportValidity()) return;
+        const data = new FormData(form);
+        let total = 0;
+        const responses = [];
+        const labels = [
+          'Volume > 10 propositions/mois',
+          'Couche IA disponible dans CRM/ERP existant',
+          'Catalogue produits / services à jour',
+          'CGV stabilisées et réutilisables',
+          'Grille de remise avec plafonds',
+          'Acceptation culturelle de l\'IA par l\'équipe commerciale',
+          'Capacité de mesurer temps de production + taux signature',
+          'Manager disponible 3-6 mois pour piloter'
+        ];
+        for (let i = 1; i <= 8; i++) {
+          const v = parseInt(data.get('q' + i));
+          total += v;
+          responses.push({ label: labels[i - 1], value: v });
+        }
+
+        let level, color, summary, plan;
+        if (total >= 6) {
+          level = '🟢 Tu es prêt — active maintenant';
+          color = '#16A34A';
+          summary = 'Tu as ' + total + ' OUI sur 8. Les fondamentaux sont en place — active la fonction IA de ton outil ce mois-ci. Donne-toi 60 jours de mesure avant de tirer un bilan.';
+          plan = [
+            'Semaine 1 : briefer ton équipe commerciale, activer la fonction IA dans le CRM/ERP, paramétrer le catalogue + CGV.',
+            'Semaines 2-4 : 5 à 10 devis pilotes avec le commercial le plus expérimenté. Mesure systématique du temps + retour qualitatif.',
+            'Mois 2 : ouverture à toute l\'équipe avec un point d\'étape mensuel sur les 2 KPI.',
+            'Mois 3 : bilan ROI. Si ×2 sur le temps et +10 % sur le closing → industrialiser. Sinon : audit des freins.'
+          ];
+        } else if (total >= 4) {
+          level = '🟡 Tu peux y aller — mais comble les manques d\'abord';
+          color = '#F59E0B';
+          const missing = responses.filter(r => r.value === 0).map(r => r.label);
+          summary = 'Tu as ' + total + ' OUI sur 8. Il manque ' + missing.length + ' fondamentaux : ' + missing.join(' · ') + '. Stabilise les NON avant de lancer pour ne pas amplifier le désordre.';
+          plan = [
+            'Semaines 1-3 : remédier aux ' + missing.length + ' fondamentaux manquants identifiés ci-dessus.',
+            'Semaine 4 : valider à nouveau les 8 critères → tu dois être à 6+/8.',
+            'Semaines 5-8 : pilote sur 5 devis avec le commercial le plus expérimenté.',
+            'Mois 3-4 : bilan ROI et décision d\'industrialiser ou non.'
+          ];
+        } else {
+          level = '🔴 Consolide d\'abord — pas le bon moment';
+          color = '#DC2626';
+          summary = 'Tu as ' + total + ' OUI sur 8. Le devis IA ne réparera pas un catalogue désordonné, des CGV instables, ou une équipe commerciale en rejet de l\'IA. Consolide d\'abord les fondamentaux organisationnels.';
+          plan = [
+            'Mois 1-2 : lecture du préalable Maturité organisationnelle pour cadrer la transformation. Identifier le sponsor exécutif.',
+            'Mois 2-3 : consolider catalogue + CGV + grille remise. Mesurer le baseline (temps + taux signature).',
+            'Mois 4 : refaire le diagnostic. Cible 6+/8 avant de relancer.',
+            'Mois 5+ : si toujours bloqué, lire aussi Build vs Buy à l\'ère de l\'IA pour requestionner ton approche.'
+          ];
+        }
+
+        const result = document.getElementById('devisDiagResult');
+        result.innerHTML = '<div style="text-align:center; padding: var(--space-5) 0;"><div style="font-size: 3rem; font-weight: 800; color: ' + color + '; line-height: 1;">' + total + '<span style="font-size: 1.5rem; color: var(--color-text-soft);">/8</span></div><div style="font-size: 1.0625rem; font-weight: 700; color: ' + color + '; margin: var(--space-2) 0;">' + level + '</div></div><div class="diag-action" style="border-left-color: ' + color + ';"><p style="margin: 0 0 var(--space-3);">' + summary + '</p><h4 style="margin: var(--space-3) 0 var(--space-2); color: ' + color + ';">Plan d\'action priorisé :</h4><ol style="margin: 0; padding-left: var(--space-5);">' + plan.map(p => '<li style="margin-bottom: var(--space-2);">' + p + '</li>').join('') + '</ol></div>';
+        result.classList.add('show');
+        document.getElementById('exportDevisBtn').style.display = 'inline-flex';
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Persist
+        try { localStorage.setItem('hubia_cu023_diag', JSON.stringify({ total: total, level: level, summary: summary, plan: plan, responses: responses })); } catch (e) {}
+      }
+
+      function exportDevisDiag() {
+        const data = JSON.parse(localStorage.getItem('hubia_cu023_diag') || '{}');
+        if (!data.total) return;
+        const lines = [
+          'Hub IA Learning Center — Auto-diagnostic Devis simples (CU-023)',
+          'Date : ' + new Date().toLocaleString('fr-FR'),
+          '',
+          'Score : ' + data.total + '/8',
+          'Verdict : ' + data.level,
+          '',
+          'Synthèse :',
+          data.summary,
+          '',
+          'Plan d\'action priorisé :',
+          ...data.plan.map((p, i) => (i + 1) + '. ' + p),
+          '',
+          'Détail des réponses :',
+          ...data.responses.map(r => (r.value ? '✓' : '✗') + ' ' + r.label),
+          '',
+          '— Exporté depuis https://lumenbot.github.io/hub-ia/'
+        ];
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cu-023-auto-diag-devis.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    </script>
 
     <section class="module-section" id="section-6">
       <div class="module-section-header">
