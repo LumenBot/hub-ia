@@ -1,246 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!--
+  ═══════════════════════════════════════════════════════════════════════════
+  TEMPLATE ÉTUDE DE CAS — Hub IA Learning Center (mai 2026, RULES v1.3)
+  ═══════════════════════════════════════════════════════════════════════════
+
+  Ce template suit le même squelette HTML que _template-auto-diagnostic.html
+  (RULES § 1.5.1) — la seule différence est le contenu : une étude de cas
+  approfondie + checklist projet (renommée selon le sujet : 'Checklist
+  d'éligibilité', 'Checklist projet', 'Checklist sécurité prestataire'…) au
+  lieu d'un auto-diagnostic interactif.
+
+  Référence canonique pour étude de cas : modules/cu-016-maintenance-predictive.html
+  (cas type Alfi Technologies + checklist 12 points typique).
+
+  Pattern HTML obligatoire (cf. _template-auto-diagnostic.html pour le squelette
+  détaillé) :
+
+  - Reading progress + nav 5 entrées + hero (badges axe + niveau + type + temps
+    + h1 emoji + subtitle)
+  - module-layout 2 colonnes (sidebar TOC sticky + main)
+  - executive-summary (gradient + 4 takeaways num + stats + when)
+  - Sections numérotées avec section-number ('Le contexte', 'Le cas chiffré',
+    'Architecture', 'Étude de cas approfondie', 'Pièges à éviter', 'Plan
+    d'action', 'Checklist projet')
+  - id='ressources' Schéma A externes uniquement (4 sous-rubriques + callout
+    bibliographie)
+  - footer + script module-v3.js
+
+  IMPORTANT — Différence vs auto-diagnostic :
+  - Le badge type est 'Étude de cas + checklist' (pas 'Auto-diagnostic')
+  - La section dédiée s'appelle 'Checklist projet' / 'Checklist d'éligibilité' /
+    'Checklist sécurité prestataire' — PAS 'Auto-diagnostic' (RULES § 1.5.5).
+  - Cette checklist peut rester en format statique (.checklist-block <ul>) si
+    elle ne respecte pas les 3 propriétés de l'auto-diag (form + plan + export).
+
+  USAGE Claude Code :
+  1. Copier _template-auto-diagnostic.html comme base (squelette identique).
+  2. Remplacer le badge type par '📋 Étude de cas + checklist'.
+  3. Remplacer le bloc 'Auto-diagnostic interactif' par une checklist statique
+     en .checklist-block (12-15 points d'éligibilité contractuels typiques).
+  4. Retirer le <script> evaluateAutoDiag() / exportAutoDiag() — pas nécessaire.
+  5. Ajouter une section 'Étude de cas approfondie' avec .case-deep-actor pour
+     présenter le cas-école (acteur, contexte, dispositif, résultats sourcés).
+  6. Le reste suit RULES § 1.5.1 strictement.
+
+  Ce fichier est un README/guide d'usage, pas un template HTML utilisable
+  directement — copier _template-auto-diagnostic.html et adapter selon les
+  consignes ci-dessus.
+  ═══════════════════════════════════════════════════════════════════════════
+-->
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[TITRE MODULE] — Hub IA — Learning Center</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Template Étude de cas — guide d'usage</title>
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    /* Styles spécifiques au format étude de cas */
-    .case-study { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-7); margin: var(--space-7) auto; max-width: var(--max-width-narrow); }
-    .case-study h2 { color: var(--color-primary); }
-    .case-context { background: var(--color-n3-bg-subtle); border-left: 4px solid var(--color-n3-border); padding: var(--space-5); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: var(--space-6); }
-    .case-context-title { font-weight: 700; color: var(--color-n3-fg); margin-bottom: var(--space-2); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .checklist { margin-top: var(--space-6); }
-    .checklist-section { margin-bottom: var(--space-6); }
-    .checklist-section h3 { color: var(--color-primary-light); margin-bottom: var(--space-3); font-size: 1.125rem; }
-    .checklist-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: var(--space-2); cursor: pointer; transition: all var(--transition-fast); }
-    .checklist-item:hover { background: var(--color-bg); border-color: var(--color-primary-light); }
-    .checklist-item input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
-    .checklist-item-content { flex: 1; }
-    .checklist-item-title { font-weight: 600; margin-bottom: var(--space-1); }
-    .checklist-item-desc { font-size: 0.875rem; color: var(--color-text-soft); }
-    .checklist-summary { margin-top: var(--space-5); padding: var(--space-5); background: var(--color-n1-bg-subtle); border-left: 4px solid var(--color-success); border-radius: 0 var(--radius-md) var(--radius-md) 0; display: none; }
-    .checklist-summary.show { display: block; }
-    .verdict-bar { display: flex; height: 12px; border-radius: var(--radius-full); overflow: hidden; margin: var(--space-3) 0; background: var(--color-border); }
-    .verdict-fill { background: linear-gradient(90deg, var(--color-success), var(--color-primary-light)); height: 100%; transition: width var(--transition-slow); }
-    .case-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); flex-wrap: wrap; }
-  </style>
 </head>
 <body>
-
-  <nav class="nav scrolled" id="nav">
-    <div class="nav-inner">
-      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
-      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
-      <div class="nav-links">
-        <a href="../index.html#modules" class="nav-link">Modules</a>
-        <a href="../ressources.html" class="nav-link">Ressources</a>
-        <a href="../index.html#a-propos" class="nav-link">À propos</a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="module-hero">
-    <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
-        Retour aux modules
-      </a>
-      <div class="module-badges">
-        <span class="card-badge n3">🔴 Industrialisation</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">[AXE]</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min — étude de cas</span>
-      </div>
-      <h1>[EMOJI] [Titre du module]</h1>
-      <p class="module-subtitle">[Promesse pédagogique courte — niveau builder]</p>
-    </div>
-  </header>
-
-  <article class="module-content">
-    <h2>Le cas</h2>
-    <p>[Description du cas concret réel ou réaliste]</p>
-
-    <h2>L'architecture</h2>
-    <p>[Description technique détaillée du fonctionnement]</p>
-
-    <h2>Stack technique</h2>
-    <p>[Outils, plateformes, API, infrastructure]</p>
-
-    <h2>Indicateurs et ROI documentés</h2>
-    <p>[Chiffres si disponibles, sinon "non documenté"]</p>
-
-    <h2>Limites et points de vigilance</h2>
-    <p>[Pièges, conformité, prérequis]</p>
-  </article>
-
-  <!-- ÉTUDE DE CAS — Checklist d'éligibilité -->
-  <section class="case-study" id="case-study">
-
-    <div class="case-context">
-      <div class="case-context-title">📋 Étude de cas — Évaluation d'éligibilité</div>
-      <p style="margin-bottom:0;">
-        Au lieu d'un quiz, on te propose une <strong>checklist d'éligibilité</strong> pour évaluer si ton organisation est prête à déployer ce cas d'usage. Coche ce qui est applicable à ta situation. Le score final donne une indication de maturité — pas un verdict définitif.
-      </p>
-    </div>
-
-    <div class="checklist">
-
-      <!-- Bloc Prérequis -->
-      <div class="checklist-section">
-        <h3>1. Prérequis techniques</h3>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Prérequis 1 critique]</div>
-            <div class="checklist-item-desc">[Description courte de la condition]</div>
-          </div>
-        </label>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Prérequis 2 critique]</div>
-            <div class="checklist-item-desc">[Description courte]</div>
-          </div>
-        </label>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Prérequis 3 souhaitable]</div>
-            <div class="checklist-item-desc">[Description courte]</div>
-          </div>
-        </label>
-      </div>
-
-      <!-- Bloc Compétences -->
-      <div class="checklist-section">
-        <h3>2. Compétences mobilisables</h3>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Compétence 1]</div>
-            <div class="checklist-item-desc">[Description]</div>
-          </div>
-        </label>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Compétence 2]</div>
-            <div class="checklist-item-desc">[Description]</div>
-          </div>
-        </label>
-      </div>
-
-      <!-- Bloc Conditions de réussite -->
-      <div class="checklist-section">
-        <h3>3. Conditions de réussite organisationnelles</h3>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="2">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Condition 1]</div>
-            <div class="checklist-item-desc">[Description]</div>
-          </div>
-        </label>
-
-        <label class="checklist-item">
-          <input type="checkbox" data-weight="1">
-          <div class="checklist-item-content">
-            <div class="checklist-item-title">[Condition 2]</div>
-            <div class="checklist-item-desc">[Description]</div>
-          </div>
-        </label>
-      </div>
-
-      <div class="case-actions">
-        <button type="button" class="quiz-submit" onclick="evaluateChecklist()">Évaluer mon éligibilité</button>
-      </div>
-
-    </div>
-
-    <div class="checklist-summary" id="caseSummary"></div>
-
-  </section>
-
-  <!-- POUR ALLER PLUS LOIN -->
-  <section class="module-content">
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="...">Acteur territorial à contacter</a></li>
-      <li><a href="...">Dispositif de financement applicable</a></li>
-    </ul>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
-        <span class="footer-title">Hub IA — Learning Center</span>
-      </div>
-      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
-      <div class="footer-links">
-        <a href="../index.html#a-propos">À propos</a>
-        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const moduleId = '[CU-XXX]'; // À remplacer
-
-    function evaluateChecklist() {
-      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
-      let total = 0;
-      let scored = 0;
-
-      checkboxes.forEach(cb => {
-        const weight = parseInt(cb.dataset.weight, 10) || 1;
-        total += weight;
-        if (cb.checked) scored += weight;
-      });
-
-      const percent = Math.round((scored / total) * 100);
-      let verdict, advice;
-
-      if (percent >= 75) {
-        verdict = '✅ Éligibilité forte';
-        advice = 'Ton organisation présente la majorité des conditions pour déployer ce cas d\'usage. Prochaine étape recommandée : sélectionner un partenaire d\'intégration et structurer un POC sur 2-3 mois.';
-      } else if (percent >= 50) {
-        verdict = '⚠️ Éligibilité partielle';
-        advice = 'Plusieurs prérequis sont en place mais des écarts subsistent. Avant de lancer un POC, identifier et combler les 2-3 écarts les plus structurants. Un accompagnement (Cluster ENACT, EDIH, intégrateur territorial) peut accélérer la mise à niveau.';
-      } else {
-        verdict = '🔄 Maturité à construire';
-        advice = 'Les prérequis pour un déploiement direct ne sont pas encore réunis. Cela ne veut pas dire « jamais » — cela veut dire « pas tout de suite ». Commencer par les modules de niveau N1-N3 et N4-N6, puis réévaluer dans 6-12 mois.';
-      }
-
-      const summary = document.getElementById('caseSummary');
-      summary.innerHTML = `
-        <h3 style="margin-bottom:var(--space-3); color:var(--color-primary);">${verdict}</h3>
-        <p style="margin-bottom:var(--space-2);"><strong>Score d'éligibilité :</strong> ${scored}/${total} (${percent}%)</p>
-        <div class="verdict-bar"><div class="verdict-fill" style="width:${percent}%"></div></div>
-        <p>${advice}</p>
-      `;
-      summary.classList.add('show');
-      summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true,
-        score: scored,
-        total: total,
-        percent: percent,
-        date: new Date().toISOString()
-      }));
-    }
-  </script>
-
+  <main style="max-width: 800px; margin: var(--space-7) auto; padding: 0 var(--space-5);">
+    <h1>Template Étude de cas — guide d'usage</h1>
+    <p>Ce fichier est un guide d'usage pour Claude Code. Voir le commentaire HTML en tête pour le pattern à suivre.</p>
+    <p><strong>Pour produire un nouveau module CU étude de cas + checklist :</strong></p>
+    <ol>
+      <li>Copier <code>_template-auto-diagnostic.html</code> comme base (le squelette HTML est identique).</li>
+      <li>Remplacer le badge <code>📋 Auto-diagnostic</code> par <code>📋 Étude de cas + checklist</code>.</li>
+      <li>Remplacer la section auto-diagnostic interactive par une checklist statique en <code>.checklist-block</code> (12-15 points d'éligibilité contractuels typiques).</li>
+      <li>Retirer les fonctions JS <code>evaluateAutoDiag()</code> et <code>exportAutoDiag()</code> — non nécessaires pour une checklist statique.</li>
+      <li>Ajouter une section <strong>« Étude de cas approfondie »</strong> avec <code>.case-deep-actor</code> (acteur, contexte, dispositif, résultats sourcés).</li>
+      <li>Le reste suit RULES § 1.5.1 strictement (nav, hero, module-layout, executive-summary, sections numérotées, id="ressources" Schéma A, footer, script).</li>
+    </ol>
+    <p>Référence canonique pour ce format : <a href="cu-016-maintenance-predictive.html">CU-016 Maintenance prédictive</a> (cas Alfi Technologies + checklist 12 points typique).</p>
+  </main>
 </body>
 </html>
