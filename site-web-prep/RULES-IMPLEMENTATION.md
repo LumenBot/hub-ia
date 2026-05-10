@@ -45,13 +45,18 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 | Nombre de fiches Déploiement DEP | 8 (DEP-01 → DEP-08, nouvelle section v3.7) | deploiement.html, home, à propos |
 | Nombre de fiches outils | 95 (83 + 12 nouvelles + 2 mises à jour v3.7) | ressources.html, à propos, hero ressources |
 | Nombre de patterns d'architecture | 4 + 1 hybride | architectures.html, à propos |
-| Nombre d'entrées nav | 6 (Préalables / Architectures / Déploiement / Modules / Ressources / À propos) | toutes pages |
+| Nombre d'entrées nav | 5 (Préalables / Architectures / Modules / Déploiement / Ressources) — ordre depuis v3.7.1 ; « À propos » retiré du navbar (la section reste accessible via le footer ou par scroll de la home) | toutes pages |
 | Nombre de familles métier (modules) | 6 (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) | home |
 | Échelle complexité | 4 niveaux (⭐ Initiation / ⭐⭐ Opérationnel / ⭐⭐⭐ Avancé / ⭐⭐⭐⭐ Expert) | home (filtre), badges modules |
 
 **Règle 1.2.4** — Les statistiques macro (95 % MIT NANDA, +270 % Microsoft / Sigma, 76 % France Num, ×5 productivité PwC, 77 000 offres PwC, 3,7× IDC Copilot, consensus 70-95 % Gartner / McKinsey / Deloitte) sont synchronisées sur leurs lieux d'apparition (home + PR-01 + PR-02 + PR-04). Toute modification d'un chiffre macro déclenche une vérification cross-pages.
 
 **Règle 1.2.5** — **Cohérence intra-page des chiffres affichés**. Sur une même page, les chiffres déclarés doivent être cohérents entre eux. Ex : si l'accroche dit « catalogue étendu à 83 fiches en 14 catégories », la grille de stats juste en dessous ne peut pas afficher « 76 Deep-dives · 90+ Outils indexés · 13 Catégories ». Toute stat affichée doit être identique aux comptages réels (vérifier par grep le nombre d'éléments avant de figer une stat).
+
+**Règle 1.2.5.1 — Tous les blocs chiffrés d'une page doivent être patchés ensemble (anti-drift)**. Erreur récurrente identifiée v3.6, v3.7 et v3.7.1 : sur `ressources.html`, le hero badge et le h2 du catalogue sont mis à jour (`95 fiches · 15 catégories`), mais la grille `<div class="exec-stats">` de la section Synthèse conserve les anciens nombres en clair (`<div class="exec-stat-num">83</div>` + `14`). Les chiffres dans `exec-stats`, `card-badge`, `hero-stat-num`, `cat-divider-count`, prose narrative, méta description, takeaways texte sont **tous des points d'apparition à patcher** lorsqu'un total change. Avant de figer une itération :
+- Lancer `grep -n '<chiffre-courant>\b' page.html` pour repérer **toutes** les occurrences ;
+- Ne jamais supposer qu'une mise à jour ponctuelle (badge, h2, meta) suffit — les `exec-stat-num` et `cat-divider-count` sont des anti-patterns récurrents oubliés ;
+- Cross-checker via `grep -c 'tool-card" id='` (ou équivalent par type d'entité) le comptage réel et l'aligner partout.
 
 **Règle 1.2.6** — **Pas de versioning interne sur le front**. Les mentions « V3.5 », « v3.6 », « itération v3.x » sont des conventions internes (commits, briefs, RULES). Elles **ne doivent jamais apparaître côté UX visible** (badges, accroches, descriptions). Le site est un produit publié, pas un changelog. Pour signaler une nouveauté côté front, préférer une formulation neutre : « catégorie récente », « nouveauté 2026 », ou pas de marqueur du tout. Le versioning reste dans `git log` et dans les briefs internes.
 
@@ -429,6 +434,9 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.1** — mai 2026, suite à v3.7.1 (correctifs post-merge v3.7) :
+  - § 1.2.3 mis à jour : nav passe de 6 → **5 entrées** (Préalables / Architectures / **Modules** / **Déploiement** / Ressources). « À propos » retiré du navbar (la section reste accessible via le footer ou par scroll de la home). Modules et Déploiement intervertis pour mettre en avant le cœur de valeur (modules cas d'usage) avant la couche technique (déploiement). Décision Cowork v3.7.1 motivée par (a) le wrap visuel d'« À propos » sur deux lignes après ajout de Déploiement, (b) la priorité éditoriale sur les rubriques à forte densité de contenu.
+  - § 1.2.5.1 (NOUVELLE) : règle anti-drift sur les blocs chiffrés multi-emplacements (`exec-stats`, `cat-divider-count`, `hero-stat-num`, badges, méta description, prose, takeaways). Erreur récurrente identifiée v3.6 / v3.7 / v3.7.1 : la grille `<div class="exec-stats">` de `ressources.html` § Synthèse a conservé `83 / 14` après que le hero badge et le h2 catalogue avaient été passés à `95 / 15`. Procédure obligatoire : `grep -n` exhaustif du chiffre courant **avant** clôture d'itération + cross-check du comptage réel via `grep -c`.
 - **v1.5** — mai 2026, suite à v3.7 (expansion éditoriale majeure : nouvelle section Déploiement + CU-025 + 5 enrichissements + 14 fiches outils) :
   - § 1.2.3 (glossaire chiffres-clés) actualisé v3.7 : 25 → 26 modules CU (CU-025 ajouté, CU-026 réservé v3.8) ; 83 → 95 fiches outils (12 nouvelles : Pennylane, Sellsy, Axonaut, PandaDoc, Esker, Sidetrade, Tacton, Lovable, Bolt.new, v0, Replit Agent, Windsurf ; 2 mises à jour : Kimi K2 → K2.6 et GitHub Copilot Workspace) ; 5 → 6 entrées de nav (ajout « Déploiement » entre Architectures et Modules) ; ajout d'une nouvelle ligne « Nombre de fiches Déploiement DEP : 8 (DEP-01 → DEP-08) ».
   - Le pattern HTML obligatoire RULES § 1.5.1 s'applique aux fiches DEP avec les mêmes principes que les PR (cadrage transverse). Les fiches DEP suivent le squelette des préalables (sections numérotées, executive summary, sticky TOC, Schéma A pour les ressources finales).
