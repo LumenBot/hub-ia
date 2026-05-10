@@ -150,7 +150,7 @@
         </div>
 
         <div class="exec-when">
-          <strong>Quand ce module est utile :</strong> tu as fait le diagnostic <a href="../prealables/pr-07-build-vs-buy.html">build vs buy</a> et tu pars sur un build. Tu cherches un prestataire ou tu veux cadrer un dev IA-assisté en interne. Tu veux comprendre les écueils avant de signer.
+          <strong>Quand ce module est utile :</strong> tu as fait le diagnostic <a href="../prealables/pr-07-build-vs-buy.html" class="tool-link">build vs buy</a> et tu pars sur un build. Tu cherches un prestataire ou tu veux cadrer un dev IA-assisté en interne. Tu veux comprendre les écueils avant de signer.
         </div>
       </div>
     </section>
@@ -159,7 +159,7 @@
       <span class="arch-callout-icon">⚙️</span>
       <div>
         <strong>Architecture recommandée :</strong> A2 (propriétaire managé EU) ou A3 (open-source cloud souverain) selon la sensibilité de ta donnée. A4 (on-premise) si données très sensibles.<br>
-        <small>Voir <a href="../architectures.html">les 4 patterns d'architecture</a> et le <a href="../architectures.html#decision">tableau de décision</a>.</small>
+        <small>Voir <a href="../architectures.html" class="tool-link">les 4 patterns d'architecture</a> et le <a href="../architectures.html#decision" class="tool-link">tableau de décision</a>.</small>
       </div>
     </div>
 
@@ -255,20 +255,20 @@
 
       <h3>1. La rupture Kimi K2.6</h3>
       <p><a href="../ressources.html#kimi" class="tool-link"><strong>Kimi K2.6</strong></a> (Moonshot AI, sortie 2026, open-source) bouleverse l'économie du coding agentique : <strong>0,80 $/M tokens en input, 3,60 $/M tokens en output</strong>, contre 5 $/M et 25 $/M pour Claude Opus 4.7. Performance proche d'Opus sur SWE-Bench, Terminal-Bench et agentic coding (~75-90 %). Disponible via Together.ai, Modal Labs, Fireworks AI, Groq.</p>
-      <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir la fiche <a href="../deploiement/dep-06-inference-saas-self-hosted.html">Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
+      <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir la fiche <a href="../deploiement/dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
 
       <h3>2. ECC (Everything Claude Code) — l'écosystème open-source qui remplace une équipe</h3>
       <p><strong>ECC</strong> est devenu en 2026 le standard de qui pilote un projet de dev applicatif IA-assisté : 38 agents spécialisés (planner, security-reviewer, typescript-reviewer, etc.), 156 skills réutilisables, 72 commandes slash, et <strong>AgentShield</strong> — audit sécurité gratuit (1 282 tests, 102 règles).</p>
-      <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
+      <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
 
       <h3>3. Le pattern Garry Tan — Fat Skills / Thin Harness</h3>
-      <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir le module <a href="cu-014-multi-agents.html">Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
+      <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir le module <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
 
       <h3>4. Trois questions à poser à ton prestataire en 2026</h3>
       <ol>
         <li><strong>« Tu utilises quoi comme modèle de base ? »</strong> — si la réponse est « Opus uniquement », demander pourquoi pas Kimi K2.6 sur les cas non complexes (économie 80-90 %).</li>
         <li><strong>« Tu utilises ECC ou un équivalent ? »</strong> — si non, demander quel framework de skills/agents est utilisé. Sans framework, le coût de maintenance va exploser.</li>
-        <li><strong>« Tu lances AgentShield avant chaque mise en prod ? »</strong> — si non, exiger qu'un audit sécurité soit fait. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html">Sécurité agents et MCP</a>.</li>
+        <li><strong>« Tu lances AgentShield avant chaque mise en prod ? »</strong> — si non, exiger qu'un audit sécurité soit fait. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents et MCP</a>.</li>
       </ol>
     </section>
 
@@ -388,7 +388,7 @@
             <label class="diag-option"><input type="radio" name="q6" value="0"><span>Non</span></label>
           </div>
           <div class="diag-question">
-            <p class="diag-question-label"><strong>7.</strong> L'<strong>hébergement en Europe</strong> est garanti (idéalement souverain — voir <a href="../architectures.html">architectures</a>).</p>
+            <p class="diag-question-label"><strong>7.</strong> L'<strong>hébergement en Europe</strong> est garanti (idéalement souverain — voir <a href="../architectures.html" class="tool-link">architectures</a>).</p>
             <label class="diag-option"><input type="radio" name="q7" value="1" required><span>Oui</span></label>
             <label class="diag-option"><input type="radio" name="q7" value="0"><span>Non</span></label>
           </div>
@@ -616,7 +616,7 @@
       </div>
 
       <div class="callout callout-info">
-        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie">page Ressources du Hub</a>.
+        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources du Hub</a>.
       </div>
 
       <div class="resources-cat">

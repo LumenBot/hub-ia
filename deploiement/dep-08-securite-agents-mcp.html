@@ -195,14 +195,14 @@
         <h4>Défense 4 — Cap des permissions outils</h4>
         <ul>
           <li>Principe de moindre privilège : un agent commercial n'a pas accès aux outils RH</li>
-          <li>Filtrer les outils disponibles selon contexte (cf. <a href="dep-03-context-engineering-couts.html">DEP-03</a>)</li>
+          <li>Filtrer les outils disponibles selon contexte (cf. <a href="dep-03-context-engineering-couts.html" class="tool-link">DEP-03</a>)</li>
           <li>Sandbox les outils dangereux (exécution code, accès filesystem)</li>
         </ul>
 
         <h4>Défense 5 — Monitoring anomalies</h4>
         <ul>
           <li>Tracker les patterns inhabituels (ex : agent qui appelle un outil rarement utilisé, qui accède à des données massives)</li>
-          <li>Alerter sur les requêtes suspectes (cf. <a href="dep-05-agents-observabilite.html">DEP-05 Observabilité</a>)</li>
+          <li>Alerter sur les requêtes suspectes (cf. <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05 Observabilité</a>)</li>
         </ul>
       </section>
 
@@ -387,7 +387,7 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
             <h4>Jours 16-23 — Garde-fous prompt injection</h4>
             <ul>
               <li>Déployer NeMo Guardrails (open-source) ou Lakera Guard (SaaS)</li>
-              <li>Tester avec dataset de stress test (cf. <a href="dep-07-evaluation-qualite.html">DEP-07</a>)</li>
+              <li>Tester avec dataset de stress test (cf. <a href="dep-07-evaluation-qualite.html" class="tool-link">DEP-07</a>)</li>
               <li>Implémenter validation outputs avant exécution outils sensibles</li>
             </ul>
           </div>
@@ -398,7 +398,7 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
           <div>
             <h4>Jours 24-30 — Monitoring et procédures</h4>
             <ul>
-              <li>Tracker anomalies dans observabilité (cf. <a href="dep-05-agents-observabilite.html">DEP-05</a>)</li>
+              <li>Tracker anomalies dans observabilité (cf. <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05</a>)</li>
               <li>Définir procédure réponse incident (qui contacte qui, quoi débrancher)</li>
               <li>Audit AgentShield mensuel récurrent (calendrier)</li>
             </ul>
@@ -425,7 +425,7 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
           <li>Supervision humaine permanente</li>
           <li>Audit annuel par organisme notifié</li>
         </ul>
-        <p>→ Voir <a href="../prealables/pr-05-securite-ia.html">PR-05 Sécurité IA</a> et <a href="../modules/cu-020-conformite-rgpd-ai-act.html">CU-020 Conformité RGPD &amp; AI Act</a>.</p>
+        <p>→ Voir <a href="../prealables/pr-05-securite-ia.html" class="tool-link">PR-05 Sécurité IA</a> et <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">CU-020 Conformité RGPD &amp; AI Act</a>.</p>
 
         <h3>7.2 RGPD pour les agents IA</h3>
         <ul>
@@ -454,7 +454,7 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
         </div>
 
         <div class="callout callout-info">
-          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (sécurité agents, MCP, cadres réglementaires) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage sécurité.</p>
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (sécurité agents, MCP, cadres réglementaires) sont centralisées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage sécurité.</p>
         </div>
 
         <div class="resources-cat">
