@@ -11,101 +11,42 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/module-v3.css">
   <style>
-    .arch-callout {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      border-left: 4px solid #1e3a8a;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 6px;
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .arch-callout-icon { font-size: 1.5rem; }
-    .tool-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      font-size: 0.95rem;
-    }
-    .tool-table th {
-      background: #1e3a8a;
-      color: white;
-      padding: 0.75rem;
-      text-align: left;
-      font-weight: 600;
-    }
-    .tool-table td {
-      padding: 0.75rem;
-      border-bottom: 1px solid #e2e8f0;
-      vertical-align: top;
-    }
-    .tool-table tr:nth-child(even) { background: #f8fafc; }
-    .alert-block {
-      background: #fef2f2;
-      border-left: 4px solid #dc2626;
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
-      border-radius: 6px;
-    }
-    .alert-block h3 { color: #991b1b; margin-top: 0; }
+    /* Composants single-use spécifiques à ce module (incident-card pour
+       l'illustration Tea App, legal-grid pour le cadre juridique synthétisé).
+       Les composants mutualisés (.arch-callout, .tool-table, .alert-block,
+       .checklist-block) sont dans module-v3.css. */
     .incident-card {
-      background: #fff7ed;
-      border: 2px solid #fb923c;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      border-radius: 12px;
+      background: #FFF7ED;
+      border: 2px solid #FB923C;
+      padding: var(--space-5);
+      margin: var(--space-6) 0;
+      border-radius: var(--radius-md);
     }
     .incident-card-label {
       display: inline-block;
-      background: #ea580c;
+      background: #EA580C;
       color: white;
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-    }
-    .checklist-block {
-      background: #ecfdf5;
-      border: 1px solid #6ee7b7;
-      padding: 1.5rem;
-      border-radius: 12px;
-      margin: 2rem 0;
-    }
-    .checklist-block h3 { color: #065f46; margin-top: 0; }
-    .checklist-block ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .checklist-block ul li {
-      padding-left: 2rem;
-      position: relative;
-      margin-bottom: 0.6rem;
-    }
-    .checklist-block ul li::before {
-      content: "☐";
-      position: absolute;
-      left: 0;
-      color: #059669;
-      font-weight: bold;
-      font-size: 1.2rem;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-3);
     }
     .legal-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
+      gap: var(--space-4);
+      margin: var(--space-5) 0;
     }
     .legal-card {
       background: white;
-      border: 1px solid #e2e8f0;
-      padding: 1.25rem;
-      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      padding: var(--space-5);
+      border-radius: var(--radius-md);
     }
-    .legal-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .legal-card h4 { margin: 0 0 0.5rem; color: #1e3a8a; }
+    .legal-card-icon { font-size: 1.5rem; margin-bottom: var(--space-2); }
+    .legal-card h4 { margin: 0 0 var(--space-2); color: var(--color-primary); }
   </style>
 </head>
 <body>
@@ -137,8 +78,8 @@
         <span class="card-badge">📋 Étude de cas + checklist</span>
         <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
       </div>
-      <h1>🛠️ Développement applicatif métier IA-assisté</h1>
-      <p class="module-subtitle">L'IA générative a fait basculer le rapport de force entre la PME et le développement logiciel. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines avec Cursor, Claude Code, Lovable ou Windsurf. Mais 45 % du code généré par IA contient des failles. Voici comment piloter sans être IT, et sans finir comme Tea App en juillet 2025.</p>
+      <h1>🛠️ Faire développer une appli métier (sans être IT)</h1>
+      <p class="module-subtitle">Cadrage projet pour dirigeant PME non-IT qui veut faire développer une application métier sur mesure : choix du prestataire, scope MVP, sécurité, dette technique invisible, cadre juridique. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines via des outils comme <a href="../ressources.html#cursor"><strong>Cursor</strong></a>, <a href="../ressources.html#claude-code"><strong>Claude Code</strong></a>, Lovable ou Windsurf — mais 45 % du code généré par IA contient des failles, et la responsabilité du pilotage reste celle du dirigeant. Pour comprendre le pattern d'asynchronicité agentique sous-jacent (qui se transpose au-delà du dev), voir <a href="cu-015-stripe-minions.html">Asynchronicité agentique — cas Stripe Minions</a>.</p>
     </div>
   </header>
 
@@ -472,41 +413,48 @@
 
     <section class="module-section" id="ressources">
       <div class="module-section-header">
-        <div class="module-section-icon icon-context">7</div>
+        <div class="module-section-icon icon-resources">7</div>
         <div class="module-section-title">
           <div class="section-number">Section 7</div>
           <h2>Pour aller plus loin</h2>
         </div>
       </div>
 
+      <div class="callout callout-info">
+        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie">page Ressources du Hub</a>.
+      </div>
+
       <div class="resources-cat">
-        <h3>🧱 Préalables associés</h3>
+        <h3>📰 Articles de fond</h3>
         <ul>
-          <li><a href="../prealables/pr-07-build-vs-buy.html">Build vs Buy à l'ère de l'IA</a> — à lire avant ce module si pas encore fait</li>
-          <li><a href="../prealables/pr-06-qualite-code-ia.html">Qualité du code IA</a> — les 7 alertes terrain et les garde-fous techniques</li>
-          <li><a href="../prealables/pr-05-securite-ia.html">Sécurité IA &amp; risques opérationnels</a> — cadrage et checklist générale</li>
-          <li><a href="../architectures.html">Architectures de déploiement</a> — 4 patterns + hybride pour choisir où héberger ton app</li>
+          <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a><span class="resources-meta">Analyse de l'incident Tea App, juillet 2025</span></li>
+          <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a><span class="resources-meta">Comparatif terrain des outils 2025</span></li>
         </ul>
       </div>
 
       <div class="resources-cat">
-        <h3>🔗 Modules complémentaires</h3>
+        <h3>🎓 Tutoriels &amp; cas pratiques</h3>
         <ul>
-          <li><a href="cu-008-knowledge-base-rag.html">Knowledge base RAG</a> — cas typique de build léger sur un savoir-faire propre</li>
-          <li><a href="cu-014-multi-agents.html">Multi-agents par fonction</a> — architecture agentique avancée</li>
-          <li><a href="cu-015-stripe-minions.html">Agents codeurs (cas Stripe Minions)</a> — angle développeur professionnel, complémentaire de ce module</li>
+          <li>Démos officielles par éditeur : chaînes YouTube de Cursor, Claude Code, Lovable, Bolt.new, v0, Replit, Windsurf — sections « Build with us » et « Customer stories ».</li>
+          <li>Tutoriels d'éditeur : la documentation officielle de chaque outil propose des walk-through pas à pas adaptés au profil non-développeur (Lovable, Bolt en particulier).</li>
         </ul>
       </div>
 
       <div class="resources-cat">
-        <h3>📚 Sources et études</h3>
+        <h3>📚 Documentation officielle &amp; études</h3>
         <ul>
           <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">Cloud Security Alliance — Vibe Coding Security (2025)</a><span class="resources-meta">Risques sécurité du code généré par IA</span></li>
           <li><a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">GitHub — Copilot productivity research</a><span class="resources-meta">Mesures d'impact dev assisté par IA</span></li>
           <li><a href="https://arxiv.org/abs/2512.11922" target="_blank" rel="noopener">arXiv 2512.11922 — Vibe Coding in Practice</a><span class="resources-meta">Étude académique sur les patterns de dev IA-assisté</span></li>
-          <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a><span class="resources-meta">Analyse de l'incident Tea App, juillet 2025</span></li>
-          <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a><span class="resources-meta">Comparatif terrain des outils 2025</span></li>
           <li><a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations-pour-accompagner-une-innovation-responsable" target="_blank" rel="noopener">CNIL — IA et RGPD</a><span class="resources-meta">Recommandations conformité applicables</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>👥 Communautés &amp; veille</h3>
+        <ul>
+          <li>Communautés francophones de dirigeants no-code / IA-assisté : Le Wagon, Contournement, OuiNonIA, BuildersTribe — partages d'expérience entre dirigeants PME sur les premiers projets dev IA-assisté.</li>
+          <li>Veille sécurité du code généré par IA : Cloud Security Alliance, OWASP Top 10 for LLM Applications, ENISA AI Security Briefings.</li>
         </ul>
       </div>
     </section>

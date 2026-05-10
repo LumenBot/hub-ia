@@ -1,232 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!--
+  ═══════════════════════════════════════════════════════════════════════════
+  TEMPLATE QUIZ — Hub IA Learning Center (mai 2026, RULES v1.3)
+  ═══════════════════════════════════════════════════════════════════════════
+
+  Format quiz multi-choix avec correction immédiate. Réservé aux modules
+  d'initiation (⭐ Niveau 1) qui sensibilisent sans engager de plan d'action.
+
+  Note : aucun module récent n'utilise ce format (les modules N1 actuels —
+  CU-001 à CU-004 — utilisent le format auto-diagnostic). Ce template est
+  conservé pour usage éventuel futur.
+
+  Pattern HTML obligatoire (cf. _template-auto-diagnostic.html pour le squelette
+  détaillé conforme RULES § 1.5.1) :
+
+  - Reading progress + nav 5 entrées + hero (badges axe + niveau ⭐ + type
+    '📝 Quiz' + temps + h1 emoji + subtitle)
+  - module-layout 2 colonnes
+  - executive-summary
+  - Sections numérotées (typiquement 3-5 sections : contexte, exemples
+    pratiques, pièges, quiz, ressources)
+  - Section quiz interactif avec 5-10 questions multi-choix, correction
+    immédiate, score final
+  - id='ressources' Schéma A externes uniquement
+  - footer + script module-v3.js
+
+  USAGE Claude Code :
+  1. Copier _template-auto-diagnostic.html comme base (squelette identique).
+  2. Remplacer le badge type par '📝 Quiz'.
+  3. Remplacer la section auto-diagnostic par une section quiz : <form> avec
+     5-10 questions à choix multiples, bouton 'Vérifier mes réponses', résultat
+     immédiat (questions justes en vert, fausses en rouge avec explication).
+  4. Adapter evaluateAutoDiag() en evaluateQuiz() — pas besoin d'export.txt
+     pour un quiz pédagogique court.
+
+  Ce fichier est un README/guide d'usage. Pour produire un module quiz, copier
+  _template-auto-diagnostic.html et adapter selon les consignes ci-dessus.
+  ═══════════════════════════════════════════════════════════════════════════
+-->
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[TITRE DU MODULE] — Hub IA — Learning Center</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Template Quiz — guide d'usage</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-
-  <!-- NAVBAR -->
-  <nav class="nav scrolled" id="nav">
-    <div class="nav-inner">
-      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
-      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
-      <div class="nav-links">
-        <a href="../index.html#modules" class="nav-link">Modules</a>
-        <a href="../ressources.html" class="nav-link">Ressources</a>
-        <a href="../index.html#a-propos" class="nav-link">À propos</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO MODULE -->
-  <header class="module-hero">
-    <div class="module-hero-inner">
-      <a href="../index.html#modules" class="module-back">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
-        Retour aux modules
-      </a>
-      <div class="module-badges">
-        <!-- Badge niveau : ajuster classe (n1 / n2 / n3) et libellé -->
-        <a href="../index.html?niveau=n1#modules" class="card-badge n1">🟢 Fondamentaux</a>
-        <!-- Badge axe : remplacer la classe (axe-a/b/c/d/e/agentique) et le libellé -->
-        <a href="../index.html?axe=a#modules" class="card-badge axe-a">[🚀 Productivité]</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">10 min de lecture</span>
-      </div>
-      <h1>[EMOJI] [TITRE DU MODULE]</h1>
-      <p class="module-subtitle">
-        [SOUS-TITRE / PROMESSE PÉDAGOGIQUE EN 1 À 2 PHRASES]
-      </p>
-    </div>
-  </header>
-
-  <!-- CONTENU PÉDAGOGIQUE -->
-  <article class="module-content">
-
-    <h2>Ce que tu vas comprendre</h2>
-    <ul>
-      <li>[OBJECTIF PÉDAGOGIQUE 1]</li>
-      <li>[OBJECTIF PÉDAGOGIQUE 2]</li>
-      <li>[OBJECTIF PÉDAGOGIQUE 3]</li>
-      <li>[OBJECTIF PÉDAGOGIQUE 4]</li>
-    </ul>
-
-    <h2>Le contexte</h2>
-    <p>
-      [PARAGRAPHE D'INTRODUCTION CONTEXTUALISANT LE SUJET — chiffre clé Bpifrance / MIT / Goodweek si pertinent]
-    </p>
-
-    <blockquote>
-      [CITATION OU IDÉE FORTE EN ENCADRÉ]
-    </blockquote>
-
-    <h2>Comment ça fonctionne</h2>
-    <p>
-      [EXPLICATION DU MÉCANISME OU DES OUTILS]
-    </p>
-
-    <h3>1. [OUTIL OU SOUS-CONCEPT 1]</h3>
-    <p>
-      <strong>[ACCROCHE COURTE]</strong> [DESCRIPTION ET CAS D'USAGE]
-    </p>
-
-    <h3>2. [OUTIL OU SOUS-CONCEPT 2]</h3>
-    <p>
-      <strong>[ACCROCHE COURTE]</strong> [DESCRIPTION ET CAS D'USAGE]
-    </p>
-
-    <h3>3. [OUTIL OU SOUS-CONCEPT 3]</h3>
-    <p>
-      <strong>[ACCROCHE COURTE]</strong> [DESCRIPTION ET CAS D'USAGE]
-    </p>
-
-    <h2>Cas d'usage typiques</h2>
-    <ul>
-      <li><strong>[CAS 1]</strong> : [DESCRIPTION COURTE]</li>
-      <li><strong>[CAS 2]</strong> : [DESCRIPTION COURTE]</li>
-      <li><strong>[CAS 3]</strong> : [DESCRIPTION COURTE]</li>
-      <li><strong>[CAS 4]</strong> : [DESCRIPTION COURTE]</li>
-    </ul>
-
-    <h2>Les pièges à éviter</h2>
-
-    <h3>[PIÈGE 1 — ex. Hallucinations]</h3>
-    <p>
-      [EXPLICATION + RECOMMANDATION CONCRÈTE]
-    </p>
-
-    <h3>[PIÈGE 2 — ex. Confidentialité]</h3>
-    <p>
-      [EXPLICATION + RECOMMANDATION CONCRÈTE]
-    </p>
-
-    <h3>[PIÈGE 3]</h3>
-    <p>
-      [EXPLICATION + RECOMMANDATION CONCRÈTE]
-    </p>
-
-    <h2>Pour aller plus loin</h2>
-    <ul>
-      <li><a href="cu-NNN-slug.html">Module suivant — [TITRE]</a> : [JUSTIFICATION 1 LIGNE]</li>
-      <li><a href="cu-NNN-slug.html">Module connexe — [TITRE]</a> : [JUSTIFICATION 1 LIGNE]</li>
-    </ul>
-
-  </article>
-
-  <!-- QUIZ -->
-  <section class="quiz" id="quiz">
-    <h2>Quiz — 5 questions</h2>
-
-    <form id="quizForm">
-
-      <div class="quiz-question">
-        <div class="quiz-question-title">1. [ÉNONCÉ DE LA QUESTION 1] ?</div>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> [OPTION A]</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> [OPTION B]</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> [OPTION C]</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="d"> [OPTION D]</label>
-      </div>
-
-      <div class="quiz-question">
-        <div class="quiz-question-title">2. [ÉNONCÉ DE LA QUESTION 2] ?</div>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> [OPTION A]</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> [OPTION B]</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> [OPTION C]</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="d"> [OPTION D]</label>
-      </div>
-
-      <div class="quiz-question">
-        <div class="quiz-question-title">3. [ÉNONCÉ DE LA QUESTION 3] ?</div>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> [OPTION A]</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> [OPTION B]</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> [OPTION C]</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="d"> [OPTION D]</label>
-      </div>
-
-      <div class="quiz-question">
-        <div class="quiz-question-title">4. [ÉNONCÉ DE LA QUESTION 4] ?</div>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"> [OPTION A]</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="b"> [OPTION B]</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="c"> [OPTION C]</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="d"> [OPTION D]</label>
-      </div>
-
-      <div class="quiz-question">
-        <div class="quiz-question-title">5. [ÉNONCÉ DE LA QUESTION 5] ?</div>
-        <label class="quiz-option"><input type="radio" name="q5" value="a"> [OPTION A]</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="b"> [OPTION B]</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="c"> [OPTION C]</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="d"> [OPTION D]</label>
-      </div>
-
-      <button type="button" class="quiz-submit" onclick="validateQuiz()">
-        Valider mon quiz
-      </button>
-
-    </form>
-
-    <div class="quiz-result" id="quizResult"></div>
-
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
-        <span class="footer-title">Hub IA — Learning Center</span>
-      </div>
-      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
-      <div class="footer-links">
-        <a href="../index.html#a-propos">À propos</a>
-        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
-        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // À adapter pour chaque module : bonnes réponses + identifiant.
-    const correctAnswers = { q1: 'a', q2: 'a', q3: 'a', q4: 'a', q5: 'a' };
-    const moduleId = 'cu-NNN';
-
-    function validateQuiz() {
-      const form = document.getElementById('quizForm');
-      const result = document.getElementById('quizResult');
-      let score = 0;
-      const total = 5;
-
-      for (const q in correctAnswers) {
-        const selected = form.querySelector(`input[name="${q}"]:checked`);
-        if (selected && selected.value === correctAnswers[q]) score++;
-      }
-
-      let message;
-      if (score === total) {
-        message = `🎉 <strong>Score parfait : ${score}/${total}</strong><br>Tu as bien intégré les concepts du module. Tu peux passer au suivant.`;
-      } else if (score >= 3) {
-        message = `✅ <strong>Score : ${score}/${total}</strong><br>Bonne maîtrise. Revois les questions ratées si tu veux consolider.`;
-      } else {
-        message = `📖 <strong>Score : ${score}/${total}</strong><br>Une relecture du module est conseillée avant de passer au suivant.`;
-      }
-
-      result.innerHTML = message;
-      result.classList.add('show');
-      result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      localStorage.setItem('hubia_' + moduleId, JSON.stringify({
-        completed: true,
-        score: score,
-        total: total,
-        date: new Date().toISOString()
-      }));
-    }
-  </script>
-
+  <main style="max-width: 800px; margin: var(--space-7) auto; padding: 0 var(--space-5);">
+    <h1>Template Quiz — guide d'usage</h1>
+    <p>Format quiz multi-choix réservé aux modules d'initiation (⭐ Niveau 1). Aucun module récent n'utilise ce format. Ce template est conservé pour usage éventuel futur.</p>
+    <p><strong>Pour produire un nouveau module CU quiz :</strong></p>
+    <ol>
+      <li>Copier <code>_template-auto-diagnostic.html</code> comme base (le squelette HTML est identique : nav 5 entrées, hero, module-layout, executive-summary, sections numérotées, id="ressources" Schéma A, footer, script).</li>
+      <li>Remplacer le badge type par <code>📝 Quiz</code>.</li>
+      <li>Remplacer la section auto-diagnostic par une section quiz : <code>&lt;form&gt;</code> avec 5-10 questions à choix multiples, bouton « Vérifier mes réponses », correction immédiate (vert/rouge + explication).</li>
+      <li>Adapter <code>evaluateAutoDiag()</code> en <code>evaluateQuiz()</code> — l'export téléchargeable n'est pas nécessaire pour un quiz pédagogique court.</li>
+    </ol>
+    <p>Voir le commentaire HTML en tête de ce fichier pour les détails du pattern.</p>
+  </main>
 </body>
 </html>
