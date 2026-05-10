@@ -81,7 +81,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">2</div>
-              <p><strong>La distinction clé : evals (avant déploiement) vs observabilité (après).</strong> Les evals répondent à « est-ce que la sortie est bonne ? » avec des datasets golden. L'observabilité (cf. <a href="dep-05-agents-observabilite.html">DEP-05</a>) répond à « qu'est-ce qui se passe en prod en ce moment ? ». Les deux sont nécessaires et complémentaires.</p>
+              <p><strong>La distinction clé : evals (avant déploiement) vs observabilité (après).</strong> Les evals répondent à « est-ce que la sortie est bonne ? » avec des datasets golden. L'observabilité (cf. <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05</a>) répond à « qu'est-ce qui se passe en prod en ce moment ? ». Les deux sont nécessaires et complémentaires.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
@@ -131,7 +131,7 @@
         </ol>
 
         <h3>1.2 Le cycle « prompt → eval → improve → repeat »</h3>
-        <p>C'est le cycle de référence du LLMOps moderne (cf. <a href="dep-03-context-engineering-couts.html">DEP-03</a> sur la gouvernance prompts) :</p>
+        <p>C'est le cycle de référence du LLMOps moderne (cf. <a href="dep-03-context-engineering-couts.html" class="tool-link">DEP-03</a> sur la gouvernance prompts) :</p>
         <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
 Prompt v1 → Run sur golden → Score
    ↓
@@ -250,7 +250,7 @@ Comparer Score v2 vs v1 → Garder si amélioration
           </thead>
           <tbody>
             <tr><td><strong>Phoenix Arize</strong></td><td>Eval + tracing OSS, open-source</td><td>Référence open-source 2026</td></tr>
-            <tr><td><strong>Langfuse</strong></td><td>Eval + observabilité (cf. fiche <a href="dep-05-agents-observabilite.html">Agents en production : observabilité</a>)</td><td>Eval intégrée à l'observabilité</td></tr>
+            <tr><td><strong>Langfuse</strong></td><td>Eval + observabilité (cf. fiche <a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a>)</td><td>Eval intégrée à l'observabilité</td></tr>
             <tr><td><strong>DeepEval</strong></td><td>Bibliothèque Python eval pure</td><td>Bien pour tests automatisés CI</td></tr>
             <tr><td><strong>PromptBench (Microsoft)</strong></td><td>Eval suite robustness</td><td>Pour stress test</td></tr>
             <tr><td><strong>Eleuther LM Eval Harness</strong></td><td>Standard eval communauté open</td><td>Pour benchmarks modèles</td></tr>
@@ -289,7 +289,7 @@ Comparer Score v2 vs v1 → Garder si amélioration
         <p>À chaque modification (nouveau prompt, nouveau modèle, nouvelle pipeline RAG) : <strong>run automatique sur le golden</strong> + comparaison avec la baseline. Si dégradation &gt; seuil défini → bloquer le déploiement.</p>
 
         <h3>5.2 Workflow type CI/CD pour LLM</h3>
-        <p>Pour la phase production runtime, voir <a href="dep-05-agents-observabilite.html">DEP-05 Agents en production</a>.</p>
+        <p>Pour la phase production runtime, voir <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05 Agents en production</a>.</p>
         <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
 Modification (PR) → Trigger CI
    ↓
@@ -337,7 +337,7 @@ Monitor en prod (cf. fiche Observabilité)
 
         <h3>6.3 Outils</h3>
         <ul>
-          <li><strong>LiteLLM gateway</strong> (cf. <a href="dep-06-inference-saas-self-hosted.html">DEP-06</a>) supporte le routage A/B nativement</li>
+          <li><strong>LiteLLM gateway</strong> (cf. <a href="dep-06-inference-saas-self-hosted.html" class="tool-link">DEP-06</a>) supporte le routage A/B nativement</li>
           <li><strong>Statsig</strong>, <strong>Eppo</strong>, <strong>Optimizely</strong> : plateformes A/B testing établies</li>
         </ul>
       </section>
@@ -411,7 +411,7 @@ Monitor en prod (cf. fiche Observabilité)
         </div>
 
         <div class="callout callout-info">
-          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (eval et observabilité LLM) sont centralisées sur la <a href="../ressources.html#bibliographie">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage évaluation.</p>
+          <p>📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (eval et observabilité LLM) sont centralisées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce cadrage évaluation.</p>
         </div>
 
         <div class="resources-cat">
