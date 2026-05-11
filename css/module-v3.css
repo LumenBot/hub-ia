@@ -375,12 +375,29 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
 .exec-summary p,
 .exec-summary li,
 .exec-summary td,
+.exec-summary h2,
+.exec-summary h3,
+.exec-summary h4,
+.exec-summary strong,
 .exec-summary span:not(.exec-summary-label):not(.exec-stat-num):not(.exec-takeaway-num),
 .case-deep-final p,
 .case-deep-final li,
+.case-deep-final h2,
+.case-deep-final h3,
+.case-deep-final h4,
+.case-deep-final strong,
 .archi-block p,
-.archi-block li {
+.archi-block li,
+.archi-block h3,
+.archi-block strong {
   color: inherit;
+}
+
+/* Re-force le jaune accent pour .exec-when h3 (titre « Cette page est utile si… »)
+   — la cascade .module-main h3 { color: var(--color-primary) } écrase sinon
+   .exec-when h3 par égalité de spécificité, plus la règle tardive gagne. */
+.exec-summary .exec-when h3 {
+  color: #FFD600;
 }
 
 /* Tool card — fiche outil deep-dive */

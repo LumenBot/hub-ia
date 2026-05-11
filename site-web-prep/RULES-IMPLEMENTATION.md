@@ -202,9 +202,30 @@ for fp in glob.glob('modules/cu-*.html') + glob.glob('prealables/pr-*.html') + g
         print(f'MISMATCH (numbered TOC): {fp}')
 ```
 
-**Règle 1.4.8 — Contraste lecture obligatoire sur fonds foncés** (NOUVELLE v1.5.9 — extension de v1.5.3 § 1.4.6). Sur les conteneurs à fond bleu foncé du design system (`.exec-summary`, `.case-deep-final`, `.archi-block`), aucun élément texte ne doit hériter ou recevoir une couleur sombre. Cela vaut :
-- pour les liens (`<a>`, `<a class="tool-link">`) — déjà traité v3.7.4
-- **pour TOUT contenu texte** (paragraphes, listes, cellules) — extension v3.7.10
+**Règle 1.4.8 — Contraste lecture obligatoire sur fonds foncés** (NOUVELLE v1.5.9 — extension de v1.5.3 § 1.4.6, élargie v1.5.10). Sur les conteneurs à fond bleu foncé du design system (`.exec-summary`, `.case-deep-final`, `.archi-block`), aucun élément texte ne doit hériter ou recevoir une couleur sombre. Cela vaut :
+- pour les liens (`<a>`, `<a class="tool-link">`) — traité v3.7.4
+- pour tout contenu texte simple (paragraphes, listes, cellules) — traité v3.7.10
+- **pour TOUS les headings (h2, h3, h4) et `<strong>`** — extension v3.7.11
+
+⚠️ **Cause racine du bug v3.7.11 — cascade CSS conflictuelle silencieuse** : la règle `.module-main h3 { color: var(--color-primary); }` (sélecteur générique, spécificité 0,0,1,1) écrasait `.exec-when h3 { color: #FFD600; }` (même spécificité 0,0,1,1) par règle de cascade « la dernière déclarée gagne en cas d'égalité ». Bug invisible à la lecture du CSS, visible seulement à l'inspection runtime ou à l'œil sur le rendu. Le fix v3.7.10 traitait `p`/`li`/`td` mais avait oublié les headings — d'où la persistance du contraste illisible sur le h3 « Cette page est utile si… ».
+
+**Audit cross-CSS obligatoire** : avant d'ajouter un nouveau composant sombre (ou un nouveau sélecteur global avec couleur dark), lister exhaustivement tous les sélecteurs CSS qui forcent une couleur dark via cascade depuis l'extérieur des conteneurs sombres :
+```python
+import re
+with open('css/module-v3.css') as f: css = f.read()
+with open('css/style.css') as f: css += f.read()
+pat = re.compile(r'([^{}\n]+){[^}]*color:\s*var\(--color-(?:primary|text[^)]*)\)', re.MULTILINE)
+for m in pat.finditer(css):
+    sel = m.group(1).strip()
+    if any(c in sel for c in ['.exec-summary', '.case-deep-final', '.archi-block', 'module-toc', 'card-', 'nav-', 'footer']):
+        continue
+    # Test if selector matches a child element type used inside dark containers
+    for tag in ['h1','h2','h3','h4','p','li','td','strong']:
+        if re.search(rf'\b{tag}\b', sel):
+            print(f'⚠️ {sel} cibles {tag} — risque cascade dans conteneur sombre')
+            break
+```
+Tout hit doit être contrebalancé par une surcharge explicite dans `.exec-summary` / `.case-deep-final` / `.archi-block`.
 
 Bug observé v3.7.10 sur 3 modules (cu-001, cu-011, cu-012) : un `<p style="…color: var(--color-text-soft)">` était inséré dans `.exec-when` (lui-même dans `.exec-summary`), produisant un texte gris foncé sur fond bleu foncé — quasiment illisible.
 
@@ -645,6 +666,10 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.10** — mai 2026, suite à v3.7.11 (deux bugs persistants signalés par Cowork malgré 2 itérations précédentes de fix) :
+  - § 1.4.8 élargie (post-mortem) : le contraste défensif v3.7.10 traitait `p`/`li`/`td` mais a **oublié les headings et `<strong>`**. Bug observé : le h3 « Cette page est utile si… » dans `.exec-when` héritait de `.module-main h3 { color: var(--color-primary) }` par cascade conflictuelle silencieuse — même spécificité, dernière règle gagne. Extension v3.7.11 : `h2`/`h3`/`h4`/`strong` ajoutés à la liste `color: inherit` dans `.exec-summary`, `.case-deep-final`, `.archi-block` + override `.exec-summary .exec-when h3 { color: #FFD600 }`. Script d'audit cross-CSS documenté pour détecter les cascades conflictuelles.
+  - § 1.5.6.1 enrichie (post-mortem jargon) : les scripts de patch jargon v3.7.2 et v3.7.9 utilisaient des **listes manuelles de patterns explicites** (45 et 11 remplacements 1:1) sans regex agressive systématique. Résultat : 14 jargons résiduels (`<a>CODE Titre</a>` avec titre tronqué qui ne matchait pas la liste manuelle). Extension v3.7.11 : adoption d'une **regex universelle** `<a [^>]+>(CU-\d+|PR-\d+|DEP-\d+)\s+([^<]+?)</a>` qui strippe le préfixe code de TOUT label, indépendamment du titre. À lancer à chaque clôture d'itération. + 3 jargons en texte brut hors `<a>` patchés au cas par cas.
+  - **Leçon transverse** : un fix piloté par un cas signalé ne résout que ce cas — pas la classe de bugs. Adopter systématiquement une **regex agressive cross-site** OU un **script d'audit automatisé** pour chaque règle RULES qui contraint une structure cross-fichiers.
 - **v1.5.9** — mai 2026, suite à v3.7.10 (contraste résiduel + sommaires hétérogènes, signalés par Cowork) :
   - § 1.4.7 (NOUVELLE) : format canonique du sommaire = **emoji + titre court**. 18 fichiers convertis depuis le format numbered (`<nav class="module-toc-nav">` avec `<a>1. Le contexte</a>`) vers le format emoji canonique (`<ul class="module-toc-list">` avec `<li><a><span class="toc-icon">🧭</span>Le contexte</a></li>`). Bibliothèque d'emojis canoniques par type de section documentée. Script de vérification grep documenté.
   - § 1.4.8 (NOUVELLE) : contraste lecture étendu à TOUT contenu texte sur fonds foncés (pas seulement les liens). Bug observé sur 3 modules (cu-001, cu-011, cu-012) : `<p style="…color: var(--color-text-soft)">` dans `.exec-when` → texte gris foncé sur fond bleu foncé illisible. Fix double appliqué : (a) patch des 3 inline styles, (b) règle CSS défensive `!important` pour neutraliser les inline styles dark dans `.exec-summary`, `.case-deep-final`, `.archi-block` + héritage `color: inherit` sur p/li/td.
