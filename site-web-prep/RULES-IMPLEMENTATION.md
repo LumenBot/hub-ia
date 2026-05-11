@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.5 (mai 2026)
+**Version :** 1.5.13 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -693,6 +693,13 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.13** — mai 2026, suite à v3.7.14 (nettoyage technique sur les 3 priorités du rapport d'état post-v3.7) :
+  - Aucune nouvelle règle structurelle introduite — itération de nettoyage uniquement.
+  - Correctifs appliqués v3.7.14 :
+    - `_template-auto-diagnostic.html` aligné sur nav 5 entrées canoniques v3.7+ (retrait « À propos », ajout « Déploiement ») + callout intro section finale aligné sur § 1.5.1.2.
+    - 19 renvois internes retirés des sections finales `<section id="ressources">` des 6 préalables PR-01 à PR-06 (anti-pattern § 1.5.6 RULES v1.3 jamais nettoyé sur les PR). 10 renvois orphelins déplacés dans le corps avec contextualisation éditoriale ; 9 renvois déjà présents dans le corps simplement supprimés.
+    - Variantes thématiques `.case-deep-actor.warm` (ambre / N2) et `.case-deep-actor.cool` (bleu pâle / primary) centralisées dans `module-v3.css` (utilisent les variables `--color-n2-*` et `--color-primary` du design system). Migration de 10 occurrences WARM + 1 COOL — scope élargi vs rapport d'état post-v3.7 qui n'en mentionnait que 3 (le grep du rapport ratait 7 cas — l'audit exhaustif v3.7.14 a corrigé l'inventaire).
+  - En-tête `Version : 1.5` mis à jour en `Version : 1.5.13` pour cohérence avec l'historique.
 - **v1.5.12** — mai 2026, suite à v3.7.13 (sommaires avec emoji fallback 📌 signalés par Cowork sur architectures.html) :
   - § 1.4.7 enrichie : le format canonique du sommaire exige un **emoji contextuel** sur chaque entrée. L'emoji fallback `📌` indique un mapping titre→emoji manqué par le convertisseur v3.7.10 et doit être remplacé par un emoji aligné sur le contenu de la section.
   - Audit cross-site : 31 entrées en emoji fallback détectées sur 12 pages (architectures.html : 7 entrées, pr-04 : 6, pr-01 : 5, autres modules : 1-2 chacun). Toutes patchées avec des emojis contextuels (☁️ SaaS, 🏢 propriétaire managé, 🇪🇺 souverain EU, 🔒 on-premise, 🔄 hybride, 📊 tableau, 🎯 méthode, 🚨 typologie risques, 🇫🇷 spécificité française, etc.).
