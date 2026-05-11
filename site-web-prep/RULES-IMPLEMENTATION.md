@@ -150,6 +150,88 @@ Anti-exemple historique : le bloc « Maturité opérationnelle — N1-N3 quiz / 
 
 **Règle 1.4.6** — La sticky TOC + scroll-spy + reading progress bar sont actifs sur tous les modules CU, tous les PR, et la page Architectures. Si un de ces composants ne fonctionne pas sur une page, c'est un bug bloquant.
 
+**Règle 1.4.7 — Format canonique du sommaire : emoji + titre court** (NOUVELLE v1.5.9). Le sommaire (`<aside class="module-toc">`) de tous les modules / préalables / fiches DEP / page Architectures doit suivre **un seul format unifié emoji-style** :
+
+```html
+<aside class="module-toc">
+  <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+  <div class="module-toc-label">Sommaire</div>
+  <ul class="module-toc-list" id="tocList">
+    <li><a href="#section-1"><span class="toc-icon">🧭</span>Le contexte</a></li>
+    <li><a href="#section-2"><span class="toc-icon">📡</span>Les signaux qui comptent</a></li>
+    …
+  </ul>
+</aside>
+```
+
+❌ **Anti-pattern observé v3.7.10 sur 18 pages** : variante numérotée sans emoji `<a href="#section-1">1. Le contexte</a>` dans un `<nav class="module-toc-nav">`, créant une hétérogénéité UX (24 pages emoji-style vs 18 pages numérotées). La version emoji est **plus visuelle, plus mémorable et plus accessible** — elle est retenue comme canonique.
+
+**Bibliothèque d'emojis canoniques** par type de section (à utiliser pour cohérence cross-modules) :
+
+| Section | Emoji |
+|---|---|
+| Synthèse rapide / L'essentiel | ⚡ |
+| Ce que tu sauras faire | 🎯 |
+| Le contexte / Ce qui a changé | 🧭 |
+| Comment ça fonctionne / Schéma / Architecture | 🛠️ |
+| Étapes en détail | 📋 |
+| Stack et outils / Panorama outils | ⚙️ |
+| Cas d'étude / Étude de cas / RetEx | 🎯 ou 📊 |
+| Pièges à éviter / Écueils / Troubleshooting | ⚠️ |
+| Auto-diagnostic / Checklist d'éligibilité | 🔎 |
+| Pour aller plus loin / Ressources | 📚 |
+| Plan d'action 30 jours | 🚀 |
+| Quiz | ✅ |
+| Coût / ROI / Financement | 💰 ou 💸 |
+| Cadre juridique / Conformité / RGPD / AI Act | ⚖️ |
+| Sécurité / Garde-fous | 🛡️ |
+| Multi-agents / IA agentique | 🤖 |
+| Veille / Signaux / Alertes | 🔭 ou 📡 |
+| Vision industrielle / Contrôle qualité | 👁️ |
+| Maintenance / Capteurs | 🔧 |
+| Newsletter / Email / CRM | ✉️ |
+| Pattern Fat Skills / architecture compounding | 🧱 |
+
+**Procédure de vérification** : avant clôture d'itération, lancer le script d'audit suivant pour s'assurer qu'aucune page n'utilise la variante numérotée :
+```python
+import re, glob
+for fp in glob.glob('modules/cu-*.html') + glob.glob('prealables/pr-*.html') + glob.glob('deploiement/dep-*.html') + ['architectures.html']:
+    s = open(fp).read()
+    m = re.search(r'<aside class="module-toc">.*?</aside>', s, re.DOTALL)
+    if m and '<ul class="module-toc-list"' not in m.group(0):
+        print(f'MISMATCH (numbered TOC): {fp}')
+```
+
+**Règle 1.4.8 — Contraste lecture obligatoire sur fonds foncés** (NOUVELLE v1.5.9 — extension de v1.5.3 § 1.4.6). Sur les conteneurs à fond bleu foncé du design system (`.exec-summary`, `.case-deep-final`, `.archi-block`), aucun élément texte ne doit hériter ou recevoir une couleur sombre. Cela vaut :
+- pour les liens (`<a>`, `<a class="tool-link">`) — déjà traité v3.7.4
+- **pour TOUT contenu texte** (paragraphes, listes, cellules) — extension v3.7.10
+
+Bug observé v3.7.10 sur 3 modules (cu-001, cu-011, cu-012) : un `<p style="…color: var(--color-text-soft)">` était inséré dans `.exec-when` (lui-même dans `.exec-summary`), produisant un texte gris foncé sur fond bleu foncé — quasiment illisible.
+
+**Fix double appliqué v3.7.10** :
+1. **Patcher les 3 inline styles** (retirer `color: var(--color-text-soft)`)
+2. **Règle CSS défensive** dans `module-v3.css` pour neutraliser les inline styles dark à l'intérieur des conteneurs sombres :
+   ```css
+   .exec-summary [style*="color: var(--color-text"],
+   .exec-summary [style*="color: var(--color-primary"],
+   .case-deep-final [style*="color: var(--color-text"],
+   .case-deep-final [style*="color: var(--color-primary"],
+   .archi-block [style*="color: var(--color-text"],
+   .archi-block [style*="color: var(--color-primary"] {
+     color: rgba(255, 255, 255, 0.88) !important;
+   }
+   .exec-summary p, .exec-summary li, .exec-summary td,
+   .case-deep-final p, .case-deep-final li,
+   .archi-block p, .archi-block li {
+     color: inherit;
+   }
+   ```
+
+**Procédure de vérification** : lancer le script Python d'audit suivant pour détecter tout texte dark inline dans un conteneur sombre :
+```python
+# Cf. § 1.4.8 — script complet dans la procédure d'audit (à exécuter avant clôture d'itération)
+```
+
 ### 1.5 Pattern structurel obligatoire pour tout module CU et toute fiche PR
 
 Cette section formalise le pattern HTML / CSS / JS attendu pour **tout nouveau module CU et toute nouvelle fiche PR**. Toute production Cowork (mockup) ou Claude Code (intégration) doit s'y conformer. Ce pattern est non négociable — il garantit la cohérence visuelle et la maintenabilité du site.
@@ -563,6 +645,9 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.9** — mai 2026, suite à v3.7.10 (contraste résiduel + sommaires hétérogènes, signalés par Cowork) :
+  - § 1.4.7 (NOUVELLE) : format canonique du sommaire = **emoji + titre court**. 18 fichiers convertis depuis le format numbered (`<nav class="module-toc-nav">` avec `<a>1. Le contexte</a>`) vers le format emoji canonique (`<ul class="module-toc-list">` avec `<li><a><span class="toc-icon">🧭</span>Le contexte</a></li>`). Bibliothèque d'emojis canoniques par type de section documentée. Script de vérification grep documenté.
+  - § 1.4.8 (NOUVELLE) : contraste lecture étendu à TOUT contenu texte sur fonds foncés (pas seulement les liens). Bug observé sur 3 modules (cu-001, cu-011, cu-012) : `<p style="…color: var(--color-text-soft)">` dans `.exec-when` → texte gris foncé sur fond bleu foncé illisible. Fix double appliqué : (a) patch des 3 inline styles, (b) règle CSS défensive `!important` pour neutraliser les inline styles dark dans `.exec-summary`, `.case-deep-final`, `.archi-block` + héritage `color: inherit` sur p/li/td.
 - **v1.5.8** — mai 2026, suite à v3.7.9 (jargon DEP-XX résiduel + 2 schémas `<pre>` text-art peu lisibles dans `dep-07-evaluation-qualite.html`, signalés par Cowork) :
   - § 1.5.3 enrichie : interdiction des `<pre>` text-art pour représenter un flux fonctionnel. Pattern correct = composant pipeline visuel `<div class="pipeline-flow">` avec étapes numérotées, branches colorées, flèches CSS.
   - Correctif appliqué v3.7.9 :

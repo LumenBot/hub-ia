@@ -63,22 +63,20 @@
 
     <!-- Sticky sidebar TOC -->
     <aside class="module-toc">
-      <div class="module-toc-header">
-        <span class="module-toc-title">📑 Sommaire</span>
-        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
-      </div>
-      <nav class="module-toc-nav" id="tocNav">
-        <a href="#executive-summary" class="active">Synthèse rapide</a>
-        <a href="#section-1">1. Le contexte</a>
-        <a href="#section-2">2. Les signaux qui comptent</a>
-        <a href="#section-3">3. Comment ça fonctionne</a>
-        <a href="#section-4">4. Étapes en détail</a>
-        <a href="#section-5">5. Outils par usage</a>
-        <a href="#section-6">6. Cas d'étude guidé</a>
-        <a href="#section-7">7. Pièges à éviter</a>
-        <a href="#section-8">8. Auto-diagnostic</a>
-        <a href="#ressources">9. Pour aller plus loin</a>
-      </nav>
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>Synthèse rapide</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Le contexte</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📡</span>Les signaux qui comptent</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🛠️</span>Comment ça fonctionne</a></li>
+        <li><a href="#section-4"><span class="toc-icon">📋</span>Étapes en détail</a></li>
+        <li><a href="#section-5"><span class="toc-icon">⚙️</span>Outils par usage</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🎯</span>Cas d'étude guidé</a></li>
+        <li><a href="#section-7"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#section-8"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
     </aside>
 
     <main class="module-main">
@@ -132,7 +130,7 @@
 
           <div class="exec-when">
             <strong>Quand ce module t'est utile :</strong> tu apprends régulièrement les mouvements concurrents avec retard ; tu reçois aujourd'hui 50 alertes/semaine que tu ne lis plus ; tu veux structurer une veille exploitable sans dédier 5 heures hebdo à la lecture ; tu pilotes une activité avec 8-12 concurrents directs identifiés et un commercial qui remonte des surprises clients.
-            <p style="margin-top: var(--space-3); font-size: 0.9375rem; color: var(--color-text-soft);">
+            <p style="margin-top: var(--space-3); font-size: 0.9375rem;">
               <strong>Si tu n'as pas encore acquis le réflexe de recherche IA individuel :</strong> commence par <a href="cu-001-recherche-veille.html" class="tool-link">Recherche &amp; veille augmentée</a>, le premier jalon du triptyque progressif sur la veille (réflexe ponctuel → système permanent ciblé → système agentique sur cas pivot).
             </p>
           </div>
