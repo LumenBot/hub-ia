@@ -61,6 +61,7 @@
         <li><a href="#section-4"><span class="toc-icon">🛠️</span>Panorama outils 2026</a></li>
         <li><a href="#section-5"><span class="toc-icon">📊</span>KPI à monitorer</a></li>
         <li><a href="#section-6"><span class="toc-icon">⚖️</span>DevOps vs MLOps vs LLMOps</a></li>
+        <li><a href="#section-6bis"><span class="toc-icon">⚡</span>Bottleneck data plane (AAFLOW)</a></li>
         <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
         <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
       </ul>
@@ -372,6 +373,45 @@
         </table>
 
         <p>→ Implication : les outils LLMOps (observabilité, eval, garde-fous) sont <strong>différents</strong> des outils DevOps. Ne pas tenter de tout faire avec Datadog ou Prometheus.</p>
+      </section>
+
+      <!-- 6bis. LE NOUVEAU BOTTLENECK — DATA PLANE VS LLM CALL -->
+      <section class="module-section" id="section-6bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">⚡</div>
+          <h2 class="module-section-title">Le nouveau bottleneck — data plane vs LLM call</h2>
+        </div>
+
+        <p>Jusqu'en 2025, le focus dominant sur les agents IA en production était <strong>le LLM call</strong> : optimiser les prompts, le caching, le choix de modèle. En 2026, un nouveau constat émerge : <strong>les bottlenecks d'un système agentic en production ne sont plus dans le LLM, mais dans le data plane</strong> (sérialisation, coordination, transit de données entre composants).</p>
+
+        <h3>Le pattern AAFLOW — runtime distribué agentique</h3>
+        <p>Un nouveau framework apparu en 2026 illustre cette tendance : <a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> propose un <strong>unified distributed runtime</strong> pour les pipelines agentic :</p>
+        <ul>
+          <li><strong>Zero-copy serialization</strong> sur Apache Arrow / Cylon (pas de désérialisation/sérialisation entre les étapes)</li>
+          <li><strong>Operator abstraction</strong> (chaque étape du pipeline est un opérateur composable)</li>
+          <li><strong>Resource-deterministic scheduling</strong> (planification déterministe, pas best-effort)</li>
+          <li><strong>Speedup pipeline jusqu'à 4,64×</strong> documenté sur des benchmarks publics</li>
+        </ul>
+
+        <h3>L'appel à plus de « system engineering »</h3>
+        <p>Le message émergent en 2026 dans la communauté technique : <strong>le context engineering est devenu mature, le system engineering reste le défi</strong>. Les agents en production échouent souvent non pas parce que le prompt est mauvais, mais parce que la coordination entre composants (retrieval → reranking → tool call → génération → action externe) est mal architecturée.</p>
+
+        <p><strong>Implication pour la PME</strong> : si ton agent est lent ou cher en production, ne commence pas par changer de modèle. Audite d'abord le data plane :</p>
+        <ul>
+          <li>Combien de fois tes données sont-elles sérialisées/désérialisées dans le pipeline ?</li>
+          <li>Combien de hops réseau y a-t-il entre le user et la réponse finale ?</li>
+          <li>Combien de tool calls successifs ?</li>
+          <li>Y a-t-il des aller-retours redondants ?</li>
+        </ul>
+
+        <h3>Outils 2026 à connaître</h3>
+        <ul>
+          <li><a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> — runtime distribué agentique avec zero-copy Apache Arrow</li>
+          <li><a href="../ressources.html#langgraph" class="tool-link">LangGraph</a> (déjà très répandu) — gère la coordination mais pas l'optimisation data plane</li>
+          <li><strong>Ray</strong> (framework Python) — pour scaler les pipelines agentic horizontalement</li>
+        </ul>
+
+        <p>Pour le panorama coût-vs-performance complet (inférence SaaS vs self-hosted, optimisation des appels LLM), voir la fiche <a href="dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a>.</p>
       </section>
 
       <!-- 7. PLAN D'ACTION -->

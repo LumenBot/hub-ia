@@ -310,6 +310,34 @@
         <div class="callout callout-info">
           <strong>Implication pour les PME qui démarrent un RAG :</strong> ne pas sauter directement sur Pinecone + embeddings + reranking si ton corpus est petit et stable. Tester d'abord l'approche LLM Wiki — souvent suffisante, beaucoup moins coûteuse, beaucoup plus simple à maintenir. L'usage personnel par un dirigeant est traité dans le module <a href="cu-025-knowledge-management-dirigeant.html" class="tool-link">Knowledge management IA-augmenté pour dirigeant</a>.
         </div>
+
+        <h3>Le pattern LLM Wiki post-Karpathy — l'écosystème de mai 2026</h3>
+
+        <p>Depuis le gist initial de Karpathy (avril 2026), un <strong>écosystème de forks open-source</strong> s'est développé, qui introduit des patterns complémentaires :</p>
+
+        <ul>
+          <li><strong>Persistent memory</strong> : la mémoire de l'agent persiste entre les sessions et entre les utilisateurs (avec gestion de droits).</li>
+          <li><strong>Self-maintaining KB</strong> : la base de connaissances se met à jour automatiquement quand de nouveaux documents sont ingérés (synthèses regénérées).</li>
+          <li><strong>Contradiction detection</strong> : le système identifie automatiquement les contradictions entre nouveaux contenus et synthèses existantes, et alerte.</li>
+          <li><strong>Multi-agent vaults</strong> : plusieurs agents spécialisés partagent et enrichissent un vault commun.</li>
+          <li><strong>Sleep consolidation</strong> : pattern inspiré du sommeil humain — la base se consolide « hors ligne » pendant les périodes creuses (regénération de synthèses, déduplication, archivage).</li>
+          <li><strong>Graph-based layers</strong> : couche graph (nœuds/relations) ajoutée par-dessus la base markdown pour requêtes structurelles.</li>
+          <li><strong>MCP local-first</strong> : intégration MCP servers locaux pour la souveraineté.</li>
+          <li><strong>Self-healing knowledge graphs</strong> : le graph détecte les liens manquants ou incohérents et les corrige.</li>
+        </ul>
+
+        <p>Pour une PME qui démarre, la fiche outil <a href="../ressources.html#beever-atlas" class="tool-link">Beever Atlas</a> est un fork open-source qui matérialise plusieurs de ces principes. L'écosystème est encore en effervescence — plusieurs alternatives sont à benchmarker selon ton corpus.</p>
+
+        <h3>3 questions à se poser avant de choisir LLM Wiki vs RAG classique</h3>
+        <ol>
+          <li><strong>Volume du corpus</strong> : &lt; 100 K tokens stable et structuré → LLM Wiki potentiellement plus efficace. Volume large et hétérogène → RAG hybride toujours plus pertinent.</li>
+          <li><strong>Évolutivité</strong> : tu prévois d'ingérer en continu ? Le LLM Wiki s'enrichit naturellement par synthèse, le RAG nécessite une re-indexation systématique.</li>
+          <li><strong>Qualité des inputs</strong> : le LLM Wiki dépend très fortement de la qualité des inputs. Inputs structurés (manuels, procédures) → résultats qualité. Inputs hétérogènes (web, YouTube, X crawl) → bruit. Signal documenté en mai 2026 par la communauté technique.</li>
+        </ol>
+
+        <div class="pull-quote">
+          💡 Heuristique pratique 2026 — <strong>itérer cheapest-first</strong>. Sur un projet RAG, l'instinct est souvent de prendre « le modèle le plus puissant ». L'inverse est plus rentable : optimiser le retrieval → améliorer les embeddings → puis seulement augmenter la taille du modèle. Cas documenté sur un dataset d'enchères : un embedding open-source classé #130 MTEB a battu les embeddings OpenAI (+11 % qualité, 240× plus rapide, gratuit). Le pattern complet d'itération en production est détaillé dans la fiche <a href="../deploiement/dep-02-rag-architecture-prod.html" class="tool-link">RAG en production</a>.
+        </div>
       </section>
 
       <!-- 5. ÉTAPES -->

@@ -83,6 +83,7 @@
         <li><a href="#section-4"><span class="toc-icon">📋</span>Étapes en détail</a></li>
         <li><a href="#section-5"><span class="toc-icon">⚙️</span>Stack technique</a></li>
         <li><a href="#section-6"><span class="toc-icon">⚠️</span>Troubleshooting</a></li>
+        <li><a href="#section-6bis"><span class="toc-icon">🪪</span>Agent = employé (principe 2026)</a></li>
         <li><a href="#section-7"><span class="toc-icon">🎯</span>Étude de cas SoloDevCo</a></li>
         <li><a href="#section-8"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
         <li><a href="#section-9"><span class="toc-icon">🔎</span>Checklist d'éligibilité</a></li>
@@ -567,6 +568,58 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <!-- 6bis. PRINCIPE ÉMERGENT 2026 — AGENT COMME EMPLOYÉ -->
+      <section class="module-section" id="section-6bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">🪪</div>
+          <h2 class="module-section-title">Principe émergent 2026 — l'agent comme employé</h2>
+        </div>
+
+        <p>Jusqu'en 2025, le discours dominant sur les agents IA était <strong>techno-centré</strong> : « comment construire ? quelle architecture ? quel framework ? ». En 2026, un nouveau cadrage émerge, contre-courant et plus mature : <strong>traiter l'agent IA comme un employé</strong>. Cela signifie :</p>
+
+        <ul>
+          <li><strong>Une tâche claire et bornée</strong> : un agent ≠ un employé multifonction. Chaque agent a un périmètre de responsabilité défini.</li>
+          <li><strong>Des droits de décision explicites</strong> : que peut décider l'agent seul ? Que doit-il faire valider par un humain ? Que doit-il escalader ?</li>
+          <li><strong>Des points d'escalade documentés</strong> : quand l'agent est en doute, à qui escalade-t-il ?</li>
+          <li><strong>Une évaluation périodique</strong> : KPI agent comme KPI employé (taux de succès, satisfaction utilisateur, coût, qualité des sorties).</li>
+          <li><strong>Des contrôles</strong> : audit des décisions (échantillonnage), revue qualité, garde-fous techniques.</li>
+          <li><strong>Onboarding et offboarding</strong> : un agent qui démarre doit être briefé (système prompt, exemples, contraintes). Un agent qui sort doit être archivé proprement.</li>
+        </ul>
+
+        <h3>Pourquoi ce framing fonctionne</h3>
+        <ol>
+          <li><strong>Il rend la gouvernance lisible pour les non-IT</strong> : le dirigeant comprend mieux « cet agent fait le travail d'un junior commercial » que « ce système est un graphe LangGraph avec des nœuds tool-call ».</li>
+          <li><strong>Il force la discipline managériale</strong> : si tu traites un agent comme un employé, tu dois lui définir un périmètre, des objectifs, des KPI. Cela évite le « projet IA flou » qui finit en abandon.</li>
+          <li><strong>Il prépare la conformité réglementaire</strong> : l'AI Act exige une supervision humaine (Article 14) et une traçabilité des décisions. Le pattern « agent = employé » colle naturellement à ces obligations.</li>
+        </ol>
+
+        <h3>Grille de gouvernance type — 8 dimensions à formaliser par agent</h3>
+        <div class="decision-matrix">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Question à formaliser</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Tâche</strong></td><td>Quelle est la mission unique de cet agent ?</td></tr>
+              <tr><td><strong>Droits de décision</strong></td><td>Que peut-il décider seul ?</td></tr>
+              <tr><td><strong>Points d'escalade</strong></td><td>À qui adresse-t-il les cas qui sortent de son périmètre ?</td></tr>
+              <tr><td><strong>KPI</strong></td><td>Comment mesure-t-on sa performance ? À quelle fréquence ?</td></tr>
+              <tr><td><strong>Audit</strong></td><td>Qui revoit ses décisions ? À quelle fréquence ?</td></tr>
+              <tr><td><strong>Versions</strong></td><td>Comment gère-t-on l'évolution de son prompt / modèle / outils ?</td></tr>
+              <tr><td><strong>Onboarding</strong></td><td>Quel briefing initial ?</td></tr>
+              <tr><td><strong>Offboarding</strong></td><td>Comment archiver son travail si l'agent est désactivé ?</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-info" style="margin: var(--space-5) 0;">
+          <p style="margin: 0;">📘 Le module <a href="cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a> approfondit ce sujet : étude de cas Klarna complète, framework opérationnel détaillé dimension par dimension, auto-diagnostic interactif, pattern d'escalade <em>confidence-based routing</em>, et cadre réglementaire (Article 14 AI Act, Article 22 RGPD, jurisprudence Moffatt v. Air Canada). Le présent module CU-014 reste centré sur l'<strong>architecture multi-agents</strong> ; CU-026 traite du <strong>management</strong> des agents en production. Voir aussi le préalable <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA &amp; risques opérationnels</a> et le module <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>.</p>
         </div>
       </section>
 
