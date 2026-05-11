@@ -114,6 +114,16 @@
 
 /* Cas d'étude approfondi (N7-N8) et guidé (N1-N3) */
 .case-deep-actor { background: var(--color-n1-bg-subtle); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-5); border-left: 4px solid var(--color-success); border-radius: var(--radius-md); }
+
+/* Variantes thématiques du bloc « Contexte » des études de cas — centralisées
+   v3.7.14 (migration des styles inline hardcodés sur 10 modules WARM + 1 COOL).
+   - .warm : ambre / N2 — accent attention modéré (cf. cu-001 à cu-010)
+   - .cool : bleu pâle — accent neutre / contexte technique (cf. cu-008) */
+.case-deep-actor.warm { background: var(--color-n2-bg); border-left-color: var(--color-n2-border); }
+.case-deep-actor.warm .case-deep-actor-label { color: var(--color-n2-fg); }
+.case-deep-actor.cool { background: #F0F4FA; border-left-color: var(--color-primary); }
+.case-deep-actor.cool .case-deep-actor-label { color: var(--color-primary); }
+
 .case-deep-actor-label { font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--color-success); margin-bottom: var(--space-2); }
 .case-deep-actor-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-2); margin-top: var(--space-3); font-size: 0.875rem; }
 .case-deep-actor-meta-item { background: white; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
