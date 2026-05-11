@@ -65,20 +65,18 @@
   <div class="module-layout">
 
     <aside class="module-toc">
-      <div class="module-toc-header">
-        <span class="module-toc-title">📑 Sommaire</span>
-        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
-      </div>
-      <nav class="module-toc-nav" id="tocNav">
-        <a href="#executive-summary" class="active">Synthèse rapide</a>
-        <a href="#section-1">1. Le constat 70-95 % d'échec</a>
-        <a href="#section-2">2. 4 causes structurelles</a>
-        <a href="#section-3">3. Modèle 5R™ Cnam-Dejoux</a>
-        <a href="#section-4">4. Avantage PME / ETI agiles</a>
-        <a href="#section-5">5. Auto-évaluation maturité</a>
-        <a href="#section-diag-projet-en-cours">5bis. Diagnostic projet en cours</a>
-        <a href="#ressources">6. Pour aller plus loin</a>
-      </nav>
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>Synthèse rapide</a></li>
+        <li><a href="#section-1"><span class="toc-icon">📌</span>Le constat 70-95 % d'échec</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📌</span>4 causes structurelles</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📌</span>Modèle 5R™ Cnam-Dejoux</a></li>
+        <li><a href="#section-4"><span class="toc-icon">📌</span>Avantage PME / ETI agiles</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📌</span>Auto-évaluation maturité</a></li>
+        <li><a href="#section-diag-projet-en-cours"><span class="toc-icon">🔎</span>5bis. Diagnostic projet en cours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
     </aside>
 
     <main class="module-main">

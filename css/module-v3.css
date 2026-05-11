@@ -353,6 +353,36 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
   text-decoration-color: #FFD600;
 }
 
+/* Surcharge défensive : sur fond bleu foncé, tout style inline qui force
+   une couleur sombre du design system (text, text-soft, primary, primary-light)
+   doit être neutralisé. Bug récurrent observé v3.7.9 sur 3 modules
+   (cu-001, cu-011, cu-012) où un <p style="...color: var(--color-text-soft)">
+   était inséré dans .exec-when à l'intérieur de .exec-summary → texte gris
+   foncé sur fond bleu foncé, illisible. */
+.exec-summary [style*="color: var(--color-text"],
+.exec-summary [style*="color: var(--color-primary"],
+.exec-summary [style*="color:var(--color-text"],
+.exec-summary [style*="color:var(--color-primary"],
+.case-deep-final [style*="color: var(--color-text"],
+.case-deep-final [style*="color: var(--color-primary"],
+.archi-block [style*="color: var(--color-text"],
+.archi-block [style*="color: var(--color-primary"] {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* Renforce l'héritage white pour les enfants standards des conteneurs sombres,
+   au cas où un futur composant introduirait une couleur héritée non-blanche. */
+.exec-summary p,
+.exec-summary li,
+.exec-summary td,
+.exec-summary span:not(.exec-summary-label):not(.exec-stat-num):not(.exec-takeaway-num),
+.case-deep-final p,
+.case-deep-final li,
+.archi-block p,
+.archi-block li {
+  color: inherit;
+}
+
 /* Tool card — fiche outil deep-dive */
 .tool-card {
   background: white;

@@ -10,6 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Pipeline visuel pour cycles « prompt → eval → improve » et CI/CD eval — single-use scoped à cette fiche */
+    .pipeline-flow { display: grid; gap: var(--space-2); margin: var(--space-5) 0; padding: var(--space-5); background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+    .pipeline-step { display: grid; grid-template-columns: 36px 1fr; gap: var(--space-3); align-items: center; padding: var(--space-3) var(--space-4); background: white; border-radius: var(--radius-sm); border-left: 3px solid var(--color-primary); }
+    .pipeline-step-num { background: var(--color-primary); color: white; width: 28px; height: 28px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.875rem; }
+    .pipeline-step-content { font-size: 0.9375rem; line-height: 1.4; }
+    .pipeline-step-content strong { color: var(--color-primary); }
+    .pipeline-arrow { text-align: center; color: var(--color-primary); font-size: 1.25rem; margin: -4px 0; opacity: 0.55; }
+    .pipeline-step.branch-yes { border-left-color: #5C8C5C; }
+    .pipeline-step.branch-no { border-left-color: #C82A2A; }
+    .pipeline-step.branch-yes .pipeline-step-num { background: #5C8C5C; }
+    .pipeline-step.branch-no .pipeline-step-num { background: #C82A2A; }
+  </style>
 </head>
 <body>
 
@@ -81,7 +94,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">2</div>
-              <p><strong>La distinction clé : evals (avant déploiement) vs observabilité (après).</strong> Les evals répondent à « est-ce que la sortie est bonne ? » avec des datasets golden. L'observabilité (cf. <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05</a>) répond à « qu'est-ce qui se passe en prod en ce moment ? ». Les deux sont nécessaires et complémentaires.</p>
+              <p><strong>La distinction clé : evals (avant déploiement) vs observabilité (après).</strong> Les evals répondent à « est-ce que la sortie est bonne ? » avec des datasets golden. L'observabilité (cf. la fiche <a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a>) répond à « qu'est-ce qui se passe en prod en ce moment ? ». Les deux sont nécessaires et complémentaires.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
@@ -131,16 +144,28 @@
         </ol>
 
         <h3>1.2 Le cycle « prompt → eval → improve → repeat »</h3>
-        <p>C'est le cycle de référence du LLMOps moderne (cf. <a href="dep-03-context-engineering-couts.html" class="tool-link">DEP-03</a> sur la gouvernance prompts) :</p>
-        <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
-Prompt v1 → Run sur golden → Score
-   ↓
-Analyse erreurs → Identification patterns
-   ↓
-Prompt v2 → Run sur golden → Score
-   ↓
-Comparer Score v2 vs v1 → Garder si amélioration
-        </pre>
+        <p>C'est le cycle de référence du LLMOps moderne (cf. la fiche <a href="dep-03-context-engineering-couts.html" class="tool-link">Context engineering &amp; coûts</a> sur la gouvernance prompts) :</p>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">1</div>
+            <div class="pipeline-step-content"><strong>Prompt v1</strong> — run sur le dataset golden → score initial</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">2</div>
+            <div class="pipeline-step-content"><strong>Analyse des erreurs</strong> — identification des patterns récurrents de défaillance</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">3</div>
+            <div class="pipeline-step-content"><strong>Prompt v2</strong> — corrections appliquées, re-run sur golden → score actualisé</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">4</div>
+            <div class="pipeline-step-content"><strong>Comparaison v2 vs v1</strong> — on garde la version qui améliore le score, sinon retour à v1</div>
+          </div>
+        </div>
         <p>→ Sans dataset golden et scoring automatique, ce cycle est impossible.</p>
       </section>
 
@@ -263,7 +288,7 @@ Comparer Score v2 vs v1 → Garder si amélioration
             <tr><th>Outil</th><th>Rôle</th><th>Coût typique PME</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>Comet Opik</strong></td><td>Eval + observabilité (déjà cité DEP-05)</td><td>Free tier puis ~50-200 €/mois</td></tr>
+            <tr><td><strong>Comet Opik</strong></td><td>Eval + observabilité (cf. fiche Observabilité)</td><td>Free tier puis ~50-200 €/mois</td></tr>
             <tr><td><strong>LangSmith</strong></td><td>Eval intégrée à LangChain</td><td>~30-200 €/mois</td></tr>
             <tr><td><strong>Patronus AI</strong></td><td>Eval enterprise spécialisé</td><td>Devis</td></tr>
             <tr><td><strong>Braintrust</strong></td><td>Eval-first SaaS</td><td>Free tier puis variable</td></tr>
@@ -290,20 +315,41 @@ Comparer Score v2 vs v1 → Garder si amélioration
 
         <h3>5.2 Workflow type CI/CD pour LLM</h3>
         <p>Pour la phase production runtime, voir <a href="dep-05-agents-observabilite.html" class="tool-link">DEP-05 Agents en production</a>.</p>
-        <pre style="background: var(--color-bg); padding: var(--space-4); border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); overflow-x: auto;">
-Modification (PR) → Trigger CI
-   ↓
-Run golden eval (50-200 cas)
-   ↓
-Comparer scores vs main branch
-   ↓
-Si dégradation &gt; 5% → bloquer merge
-Si amélioration ≥ 0% → autoriser merge
-   ↓
-Deploy
-   ↓
-Monitor en prod (cf. fiche Observabilité)
-        </pre>
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">1</div>
+            <div class="pipeline-step-content"><strong>Modification (PR)</strong> — un développeur ouvre une pull request sur le code ou les prompts → déclenche le pipeline CI</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">2</div>
+            <div class="pipeline-step-content"><strong>Run de l'eval golden</strong> — exécution automatique des 50-200 cas du dataset de référence</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">3</div>
+            <div class="pipeline-step-content"><strong>Comparaison des scores</strong> — confrontation des résultats de la PR avec ceux de la branche <code>main</code></div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step branch-no">
+            <div class="pipeline-step-num">✗</div>
+            <div class="pipeline-step-content"><strong>Si dégradation &gt; 5 %</strong> → <strong>blocage automatique du merge</strong>, retour développeur</div>
+          </div>
+          <div class="pipeline-step branch-yes">
+            <div class="pipeline-step-num">✓</div>
+            <div class="pipeline-step-content"><strong>Si amélioration ou stabilité</strong> → autorisation du merge sur la branche principale</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">4</div>
+            <div class="pipeline-step-content"><strong>Déploiement</strong> en production</div>
+          </div>
+          <div class="pipeline-arrow">↓</div>
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">5</div>
+            <div class="pipeline-step-content"><strong>Monitoring en production</strong> — cf. la fiche <a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a></div>
+          </div>
+        </div>
 
         <h3>5.3 Outils CI/CD compatibles</h3>
         <ul>
@@ -337,7 +383,7 @@ Monitor en prod (cf. fiche Observabilité)
 
         <h3>6.3 Outils</h3>
         <ul>
-          <li><strong>LiteLLM gateway</strong> (cf. <a href="dep-06-inference-saas-self-hosted.html" class="tool-link">DEP-06</a>) supporte le routage A/B nativement</li>
+          <li><strong>LiteLLM gateway</strong> (cf. la fiche <a href="dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a>) supporte le routage A/B nativement</li>
           <li><strong>Statsig</strong>, <strong>Eppo</strong>, <strong>Optimizely</strong> : plateformes A/B testing établies</li>
         </ul>
       </section>

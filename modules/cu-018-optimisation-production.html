@@ -72,24 +72,22 @@
 
     <!-- Sticky sidebar TOC -->
     <aside class="module-toc">
-      <div class="module-toc-header">
-        <span class="module-toc-title">📑 Sommaire</span>
-        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
-      </div>
-      <nav class="module-toc-nav" id="tocNav">
-        <a href="#executive-summary" class="active">Synthèse rapide</a>
-        <a href="#section-1">1. Le contexte</a>
-        <a href="#section-2">2. Les 3 axes + territoire</a>
-        <a href="#section-3">3. Architecture</a>
-        <a href="#section-4">4. Étapes en détail</a>
-        <a href="#section-5">5. Stack technique</a>
-        <a href="#section-6">6. Financements</a>
-        <a href="#section-7">7. Troubleshooting</a>
-        <a href="#section-8">8. Étude de cas TransformCo</a>
-        <a href="#section-9">9. Pièges à éviter</a>
-        <a href="#section-10">10. Checklist d'éligibilité</a>
-        <a href="#ressources">11. Pour aller plus loin</a>
-      </nav>
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>Synthèse rapide</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Le contexte</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📌</span>Les 3 axes + territoire</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📌</span>Architecture</a></li>
+        <li><a href="#section-4"><span class="toc-icon">📋</span>Étapes en détail</a></li>
+        <li><a href="#section-5"><span class="toc-icon">⚙️</span>Stack technique</a></li>
+        <li><a href="#section-6"><span class="toc-icon">💰</span>Financements</a></li>
+        <li><a href="#section-7"><span class="toc-icon">⚠️</span>Troubleshooting</a></li>
+        <li><a href="#section-8"><span class="toc-icon">🎯</span>Étude de cas TransformCo</a></li>
+        <li><a href="#section-9"><span class="toc-icon">⚠️</span>Pièges à éviter</a></li>
+        <li><a href="#section-10"><span class="toc-icon">🔎</span>Checklist d'éligibilité</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
     </aside>
 
     <main class="module-main">
@@ -446,17 +444,17 @@
 
         <h3>Caractérisation matière fine — vision foundation models</h3>
         <p>
-          Pour la caractérisation matière en amont du solveur (qualité-grume bois, défauts visuels métal, irrégularités textile), deux foundation models open-source ont émergé comme références 2026 et baissent significativement le ticket d'entrée. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, 0,7 B paramètres, MIT) unifie détection + segmentation + captioning en un seul modèle compact, performant en zero-shot et déployable sur edge. <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) ajoute la segmentation pixel-perfect en temps réel — particulièrement utile pour caractériser des géométries irrégulières (nœuds dans une grume, défauts de tissage). Pipeline canonique pour PME : Florence-2 pour pré-classer le flux + SAM 2 pour la segmentation fine, avant ingestion dans le solveur d'optimisation.
+          Pour la caractérisation matière en amont du solveur (défauts visuels sur tôle ou pièce moulée, irrégularités textile, qualité de panneau, hétérogénéités matière), deux foundation models open-source ont émergé comme références 2026 et baissent significativement le ticket d'entrée. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, 0,7 B paramètres, MIT) unifie détection + segmentation + captioning en un seul modèle compact, performant en zero-shot et déployable sur edge. <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) ajoute la segmentation pixel-perfect en temps réel — particulièrement utile pour caractériser des géométries irrégulières (défauts de tissage, fissures sur pièce coulée, nœuds dans un panneau). Pipeline canonique pour PME : Florence-2 pour pré-classer le flux + SAM 2 pour la segmentation fine, avant ingestion dans le solveur d'optimisation.
         </p>
 
-        <h3>Partenaires d'intégration et écosystème territorial</h3>
+        <h3>Partenaires d'intégration et écosystème R&D mobilisable</h3>
         <p>
-          Pour le tissu industriel du Grand Est : <strong>Atsora Solutions</strong> (alumni QFC) couvre la dimension supervision data process et IA industrielle. Côté académique : <strong>ENSTIB</strong>, <strong>LERMAB</strong> et <strong>CRAN</strong> à Nancy sont des partenaires R&D de premier plan, particulièrement sur la filière bois. La <strong>Fondation Excellence Campus Bois</strong> (créée déc. 2025) avec mécènes Piveteau, Poujoulat et Cadwork est un levier institutionnel direct. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orientation et accompagnement.
+          La recherche opérationnelle industrielle s'appuie sur un paysage scientifique français et européen dense. Sur le volet généraliste (ordonnancement, nesting, supply chain) : <strong>Mines ParisTech (CMA)</strong>, <strong>Mines Saint-Étienne (LIMOS)</strong>, <strong>INSA Lyon (DISP)</strong>, <strong>INSA Toulouse (LAAS-CNRS)</strong>, <strong>Centrale Nantes (LS2N)</strong>, <strong>Centrale Lille (CRIStAL)</strong>, <strong>IMT Atlantique</strong>, <strong>CentraleSupélec (LGI)</strong>. Sur les filières spécialisées : <strong>ENSAIT</strong> (textile), <strong>IPC</strong> (plasturgie, Oyonnax), <strong>CETIM</strong> (mécanique), <strong>Centre Technique du Papier</strong>, <strong>ENSTIB / LERMAB / CRAN</strong> (bois et automatique, Lorraine). Côté instituts : <strong>IRT SystemX</strong> (Saclay), <strong>IRT Jules Verne</strong> (Nantes, manufacturing), <strong>IRT Saint Exupéry</strong> (Toulouse), <strong>CEA Tech / List</strong>, <strong>Inria</strong>, instituts <strong>3IA</strong> (PRAIRIE, MIAI, ANITI). Côté intégrateurs PME/ETI, plusieurs ESN spécialisées (Neovision, Atsora Solutions et alumni QFC, Aquila Data Enabler, Saagie, etc.) couvrent la supervision data, l'IA industrielle et l'intégration ERP/MES/CFAO. Les pôles de compétitivité (Systematic, Minalogic, EMC2, NextMove, IAR) et les clusters régionaux IA servent de guichets d'entrée.
         </p>
 
         <h3>Prérequis</h3>
         <p>
-          Caractérisation fine de la matière première — souvent un préalable d'instrumentation (vision IA en amont, cf. <a href="cu-017-controle-qualite-vision.html" class="tool-link">Contrôle qualité par vision</a>). Compétence en recherche opérationnelle en interne ou via partenariat académique (ENSTIB, LERMAB, CRAN sont accessibles via la voie partenariat R&D). Intégration ERP + MES + CFAO maîtrisée. Budget initial significatif : 80 à 400 K€ pour un système robuste, intégré et calibré, accessible aux PME et ETI avec cofinancement public.
+          Caractérisation fine de la matière première — souvent un préalable d'instrumentation (vision IA en amont, cf. <a href="cu-017-controle-qualite-vision.html" class="tool-link">Contrôle qualité par vision</a>). Compétence en recherche opérationnelle en interne, via prestataire spécialisé ou via partenariat académique (selon la filière : Mines ParisTech, INSA, Centrale, IMT, CETIM, IPC, ENSAIT, ENSTIB/LERMAB/CRAN, etc.). Intégration ERP + MES + CFAO maîtrisée. Budget initial significatif : 80 à 400 K€ pour un système robuste, intégré et calibré, accessible aux PME et ETI avec cofinancement public.
         </p>
       </section>
 
@@ -469,16 +467,29 @@
 
         <div class="funding-box">
           <h3>💰 Cofinancement public + R&D jusqu'à 60-75 %</h3>
-          <p style="margin: 0 0 var(--space-3);">L'optimisation production IA est éligible à plusieurs dispositifs publics qui peuvent cofinancer jusqu'à <strong>50-70 %</strong> du déploiement, particulièrement attractifs pour les ETI du Grand Est :</p>
+          <p style="margin: 0 0 var(--space-3);">L'optimisation production IA est éligible à plusieurs dispositifs publics et instruments R&D qui peuvent cofinancer jusqu'à <strong>50-75 %</strong> du déploiement. Le panorama est national et européen :</p>
+          <p style="margin: var(--space-3) 0 var(--space-2); font-weight: 700; color: var(--color-primary);">Volet national — France 2030 et dispositifs Bpifrance</p>
           <ul>
-            <li><strong>DECARB IND (France 2030)</strong> — l'optimisation matière et énergie réduit directement l'empreinte carbone. Subvention jusqu'à 30 % HT, particulièrement adapté à ce type de déploiement.</li>
-            <li><strong>Climaxion EIT (Région Grand Est)</strong> — soutien spécifique à l'écologie industrielle et à l'efficacité matière. Pertinent quand la dimension environnementale est forte.</li>
-            <li><strong>Région Grand Est Compétitivité</strong> — soutien à la transformation digitale industrielle, taux de financement client final pouvant atteindre 70 %.</li>
-            <li><strong>Pionniers IA (Bpifrance)</strong> — bourse d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
-            <li><strong>CIR / CII</strong> — sur la partie R&D et innovation du déploiement (modélisation custom, partenariats académiques avec ENSTIB / LERMAB / CRAN).</li>
-            <li><strong>Partenariats R&D ENSTIB / LERMAB / CRAN</strong> — pour la filière bois, montage de projets en CIFRE ou conventions de recherche permet de mobiliser un doctorant ou un ingénieur de recherche pour la modélisation, à coût partagé. Peut diviser par 2 le coût initial de modélisation.</li>
+            <li><strong>France 2030 — Stratégie IA</strong> et appels « IA & numérique pour l'industrie » — guichets nationaux pour les déploiements IA structurants en PME/ETI.</li>
+            <li><strong>DECARB IND (France 2030)</strong> — l'optimisation matière et énergie réduit directement l'empreinte carbone. Subvention jusqu'à 30 % HT.</li>
+            <li><strong>Bpifrance Build Up</strong>, <strong>Bourse French Tech Émergence</strong>, <strong>Aide au Développement Deep Tech</strong> — instruments mobilisables sur les volets technologiques et déploiement.</li>
+            <li><strong>Pionniers IA / Génération IA (Bpifrance)</strong> — bourses d'amorçage IA pour les premiers déploiements significatifs en PME et ETI.</li>
+            <li><strong>CIR / CII / JEI</strong> — Crédit Impôt Recherche, Crédit Impôt Innovation et statut Jeune Entreprise Innovante sur la partie R&D et innovation du déploiement (modélisation custom, partenariats académiques).</li>
           </ul>
-          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>Pour les industriels du tissu industriel filière bois (Grand Est, notamment Vosges), le cumul DECARB IND + Climaxion EIT + partenariat ENSTIB/LERMAB en CIFRE permet typiquement d'atteindre 60-75 % de financement public+R&D, avec une durée de modélisation accélérée de 6 à 12 mois grâce à la mobilisation académique.</em></p>
+          <p style="margin: var(--space-3) 0 var(--space-2); font-weight: 700; color: var(--color-primary);">Volet partenariats R&D</p>
+          <ul>
+            <li><strong>Dispositif CIFRE (ANRT)</strong> — convention industrielle de formation par la recherche : mobiliser un doctorant en optimisation industrielle co-encadré par un laboratoire (Mines ParisTech, INSA, Centrale, IMT, ENSTIB/LERMAB/CRAN, etc.) et l'entreprise. Cofinancement ANRT ~14 K€/an pendant 3 ans, peut diviser par 2 le coût initial de modélisation.</li>
+            <li><strong>IRT (Funding industriel)</strong> — SystemX, Jules Verne, Saint Exupéry, M2P portent des programmes collaboratifs sur l'industrie 4.0 et l'optimisation.</li>
+            <li><strong>Programmes pôles de compétitivité</strong> — Systematic, Minalogic, EMC2, NextMove, IAR montent des projets collaboratifs FUI / appel régional.</li>
+          </ul>
+          <p style="margin: var(--space-3) 0 var(--space-2); font-weight: 700; color: var(--color-primary);">Volet régional et européen</p>
+          <ul>
+            <li><strong>Soutiens régionaux à la transformation digitale industrielle</strong> — toutes les régions disposent de guichets compétitivité industrielle ; en Grand Est par exemple, <strong>Climaxion EIT</strong> (écologie industrielle, efficacité matière) et les soutiens régionaux à la transformation digitale. Équivalents dans toutes les régions françaises.</li>
+            <li><strong>Horizon Europe</strong> (clusters Digital et Manufacturing) — projets collaboratifs européens, taux de financement 70-100 % selon volet recherche / innovation.</li>
+            <li><strong>EIC Accelerator</strong> — instrument européen pour les PME/ETI deeptech, jusqu'à 2,5 M€ subvention + equity.</li>
+            <li><strong>EIT Manufacturing</strong> — communauté européenne dédiée au manufacturing avancé, montage de projets, accès au réseau de partenaires industriels.</li>
+          </ul>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;"><em>L'empilement type pour une PME/ETI industrielle (cofinancement public + R&D) combine généralement : un dispositif France 2030 ou régional côté déploiement (~30 %), un CIR/CII ou statut JEI sur la R&D (~30 % des coûts éligibles), et un partenariat CIFRE ou convention de recherche pour la modélisation. Cumulé, on atteint typiquement 60-75 % de financement effectif, avec une durée de modélisation accélérée de 6 à 12 mois grâce à la mobilisation académique.</em></p>
         </div>
       </section>
 
@@ -503,7 +514,7 @@
               <tr>
                 <td>Solveur qui ne converge pas dans le temps imparti</td>
                 <td>Problème mal formulé, trop de variables, contraintes redondantes</td>
-                <td>Re-formulation mathématique avec partenaire académique (ENSTIB, LERMAB, CRAN). Décomposition du problème en sous-problèmes. Passage à des métaheuristiques (recuit simulé, algorithmes génétiques) qui acceptent des solutions sous-optimales en temps borné.</td>
+                <td>Re-formulation mathématique avec un partenaire académique spécialisé en RO (Mines ParisTech, INSA, Centrale, IMT, LIMOS, LERMAB/CRAN, etc.). Décomposition du problème en sous-problèmes. Passage à des métaheuristiques (recuit simulé, algorithmes génétiques) qui acceptent des solutions sous-optimales en temps borné.</td>
               </tr>
               <tr>
                 <td>Caractérisation matière insuffisante</td>
@@ -539,28 +550,28 @@
       <section class="module-section" id="section-8">
         <div class="module-section-header">
           <div class="module-section-icon icon-case">8</div>
-          <h2 class="module-section-title">Étude de cas — BoisCo, scierie 65 personnes</h2>
+          <h2 class="module-section-title">Étude de cas — TransformCo, ETI industrielle de transformation matière</h2>
         </div>
 
         <p>
-          Une société fictive mais réaliste, inspirée du tissu scierie du Grand Est (filière bois Vosges-Lorraine). 5 étapes décortiquées sur un déploiement de 16 mois en partenariat avec ENSTIB. Compte 75 minutes pour assimiler en profondeur, ou 25 minutes en survol.
+          Une société fictive mais réaliste, représentative du tissu PME/ETI industrielles de transformation matière en France. Le scénario décrit ci-dessous se transpose à l'identique à une fonderie qui optimise son schéma de coulée, à une fabrique textile qui réorganise son déroulement de rouleau, à une plasturgie qui optimise le découpage de panneau, ou à une scierie qui optimise le débit de grume. 5 étapes décortiquées sur un déploiement de 16 mois avec partenariat académique en optimisation industrielle. Compte 75 minutes pour assimiler en profondeur, ou 25 minutes en survol.
         </p>
 
         <div class="case-deep-actor">
           <div class="case-deep-actor-label">L'acteur</div>
-          <p style="margin: 0;">BoisCo — scierie de 65 personnes basée dans les Vosges, spécialisée en bois techniques pour la construction. Production de ~25 000 m³/an de bois transformés à partir de grumes locales. Coût matière première : ~60 % du coût total. Optimisation actuelle du débit grume par opérateur expérimenté qui choisit le mode de débit visuellement — performance proche de l'optimum local mais sans exploration combinatoire complète. Ambition : déployer un système IA + RO pour optimiser le débit, en partenariat R&D avec l'ENSTIB.</p>
+          <p style="margin: 0;">TransformCo — ETI industrielle de transformation matière, 60-80 personnes, sur l'un des cœurs de métier suivants (découpe tôle, plasturgie/panneaux, textile/habillement, papier-carton, scierie/panneaux bois, ou fonderie). Coût matière première : ~55-65 % du coût total. Optimisation actuelle confiée à un opérateur expérimenté qui choisit le placement ou la séquence visuellement — performance proche de l'optimum local mais sans exploration combinatoire complète. Ambition : déployer un système IA + RO pour optimiser la transformation matière, en s'appuyant sur un partenariat R&D avec un laboratoire académique en optimisation industrielle (CIFRE ou convention de recherche).</p>
           <div class="case-deep-actor-meta">
             <div class="case-deep-actor-meta-item">
               <div class="case-deep-actor-meta-label">Effectif</div>
-              <strong>65 personnes</strong>
+              <strong>60-80 personnes</strong>
             </div>
             <div class="case-deep-actor-meta-item">
-              <div class="case-deep-actor-meta-label">Volume annuel</div>
-              <strong>25 000 m³</strong>
+              <div class="case-deep-actor-meta-label">Profil</div>
+              <strong>ETI transformation matière</strong>
             </div>
             <div class="case-deep-actor-meta-item">
               <div class="case-deep-actor-meta-label">Coût matière</div>
-              <strong>~60 % coût total</strong>
+              <strong>~55-65 % coût total</strong>
             </div>
             <div class="case-deep-actor-meta-item">
               <div class="case-deep-actor-meta-label">Cible gain matière</div>
@@ -572,15 +583,15 @@
         <div class="case-deep-step">
           <div class="case-deep-step-num">1</div>
           <div class="case-deep-step-content">
-            <h3>Cartographie + montage partenariat ENSTIB + dossier financement (mois 1-3)</h3>
-            <p>Le directeur de production de BoisCo prend contact avec l'ENSTIB via le réseau Quest for Change. Co-construction d'un projet R&D avec le LERMAB et le CRAN pour formaliser le problème de débit grume optimal en programme mathématique. <strong>Montage d'une CIFRE</strong> (Convention Industrielle de Formation par la Recherche) avec un doctorant en optimisation industrielle, encadré par Hind Bril El Haouzi. En parallèle, dossier de financement DECARB IND + Climaxion EIT + Région Grand Est Compétitivité monté avec un Startup Manager du réseau QFC. Sélection de Cadwork comme partenaire technique CFAO.</p>
+            <h3>Cartographie + montage partenariat académique + dossier financement (mois 1-3)</h3>
+            <p>Le directeur de production de TransformCo prend contact avec un laboratoire académique en optimisation industrielle, via son pôle de compétitivité ou le réseau Quest for Change. Selon la filière, l'écosystème mobilisable diffère : Mines ParisTech ou LIMOS pour la mécanique générale, INSA Lyon (DISP) pour la plasturgie, ENSAIT pour le textile, IPC pour la plasturgie spécialisée, CETIM pour la mécanique, ENSTIB/LERMAB/CRAN pour le bois. Co-construction d'un projet R&D pour formaliser le problème combinatoire en programme mathématique. <strong>Montage d'une CIFRE</strong> (Convention Industrielle de Formation par la Recherche) avec un doctorant en optimisation industrielle. En parallèle, dossier de financement combinant France 2030 / DECARB IND, soutien régional à la transformation digitale industrielle et CIR — monté avec un Startup Manager du réseau QFC. Sélection d'un éditeur CFAO adapté à la filière (Lectra pour le textile, Radan ou SigmaNEST pour la tôle, Cadwork pour le bois, etc.).</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              Pas d'IA à cette étape — partenariat académique CIFRE + dossiers financement + sélection partenaire technique
+              Pas d'IA à cette étape — partenariat académique CIFRE + dossiers financement + sélection partenaire technique CFAO de la filière
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
-              CIFRE actée avec un doctorant ENSTIB/CRAN sur 3 ans (coût partagé : ~30 K€/an pour BoisCo, le reste financé par l'ANRT et la Région). Cofinancement public 60 % obtenu sur le volet déploiement (DECARB IND 25 % + Climaxion 15 % + Région 20 %). Investissement net BoisCo : ~80 K€ sur 200 K€ total + ~90 K€ CIFRE 3 ans.
+              CIFRE actée avec un doctorant en RO sur 3 ans (coût partagé : ~30 K€/an pour TransformCo, le reste financé par l'ANRT et la Région). Cofinancement public ~60 % obtenu sur le volet déploiement (DECARB IND ou France 2030 25 % + soutien régional ~15 % + autres dispositifs 20 %). Investissement net TransformCo : ~80 K€ sur 200 K€ total + ~90 K€ CIFRE 3 ans.
             </div>
           </div>
         </div>
@@ -588,15 +599,15 @@
         <div class="case-deep-step">
           <div class="case-deep-step-num">2</div>
           <div class="case-deep-step-content">
-            <h3>Caractériser finement les grumes par vision IA (mois 4-9)</h3>
-            <p>Installation par Atsora Solutions d'un système de caractérisation grume en entrée de scierie : 4 caméras industrielles + scanner 3D pour mesurer dimensions, défauts (nœuds, fissures), géométrie réelle. Modèle vision IA entraîné par le doctorant sur 8 000 grumes annotées par des opérateurs expérimentés. Sortie : pour chaque grume, un fichier de caractérisation détaillé exploitable par le solveur de débit. <strong>Phase critique : 6 mois de calibrage</strong> avant fiabilité suffisante.</p>
+            <h3>Caractériser finement la matière par vision IA (mois 4-9)</h3>
+            <p>Installation par un intégrateur spécialisé (type Neovision, Atsora Solutions, Aquila Data Enabler) d'un système de caractérisation matière en entrée de production. Les capteurs et le pipeline dépendent de la filière : 4 caméras industrielles + scanner 3D pour mesurer dimensions, défauts et géométrie réelle d'une grume ou d'un coil tôle ; capteurs de viscosité et caméra pour un polymère ; mesure largeur et défauts au déroulement pour un rouleau textile ; spectro pour une matière agroalimentaire. Modèle vision IA entraîné par le doctorant sur 8 000 unités matière annotées par des opérateurs expérimentés. Sortie : pour chaque unité matière entrante, un fichier de caractérisation détaillé exploitable par le solveur. <strong>Phase critique : 6 mois de calibrage</strong> avant fiabilité suffisante.</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              4× caméras industrielles Basler + scanner 3D Faro → modèle vision YOLO + segmentation custom → fichier de caractérisation grume au format standard Cadwork → ingestion solveur
+              4× caméras industrielles Basler + capteurs spécialisés filière + scanner 3D → modèle vision YOLO + segmentation custom (couplable à <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> / <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a>) → fichier de caractérisation matière au format standard CFAO → ingestion solveur
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
-              Caractérisation automatique de chaque grume en ~30 secondes (vs 2-3 min visuelle opérateur, et avec une précision supérieure sur les défauts internes). 8 000 grumes annotées dans la base d'apprentissage. Précision caractérisation : 91 % sur les défauts critiques après 6 mois de calibrage.
+              Caractérisation automatique de chaque unité matière en ~30 secondes (vs 2-3 min visuelle opérateur, et avec une précision supérieure sur les défauts non visibles à l'œil). 8 000 unités annotées dans la base d'apprentissage. Précision caractérisation : 91 % sur les défauts critiques après 6 mois de calibrage.
             </div>
           </div>
         </div>
@@ -604,15 +615,15 @@
         <div class="case-deep-step">
           <div class="case-deep-step-num">3</div>
           <div class="case-deep-step-content">
-            <h3>Modéliser le problème de débit en MILP avec ENSTIB (mois 7-12, en parallèle)</h3>
-            <p>Le doctorant CIFRE formalise le problème de débit grume optimal en programme MILP : variables de décision (mode de débit, séquences de coupe), fonction objectif (maximisation rendement matière + minimisation temps de débit), contraintes (capacité scie, demande clients, contraintes esthétiques produits). Implémentation dans <a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a> en première version pour validation, basculement vers <a href="../ressources.html#cplex" class="tool-link">CPLEX</a> pour les volumes industriels. Co-développement avec l'équipe production de BoisCo pour intégrer les contraintes implicites.</p>
+            <h3>Modéliser le problème en MILP avec le laboratoire partenaire (mois 7-12, en parallèle)</h3>
+            <p>Le doctorant CIFRE formalise le problème d'optimisation matière en programme MILP : variables de décision (placement, mode de découpe, séquences), fonction objectif (maximisation rendement matière + minimisation temps de production), contraintes (capacité machines, demande clients, contraintes qualité/esthétique). Implémentation dans <a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a> en première version pour validation, basculement vers <a href="../ressources.html#cplex" class="tool-link">CPLEX</a> ou Gurobi pour les volumes industriels. Co-développement avec l'équipe production de TransformCo pour intégrer les contraintes implicites du chef d'atelier.</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              Modèle MILP formalisé par doctorant ENSTIB/CRAN → implémentation Python OR-Tools (V1) → migration CPLEX (V2 production) → intégration Cadwork via API
+              Modèle MILP formalisé par doctorant en RO → implémentation Python OR-Tools (V1) → migration CPLEX / Gurobi (V2 production) → intégration CFAO via API (Lectra, Radan, Cadwork ou équivalent selon filière)
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
-              Modèle MILP fonctionnel résolvant le débit grume optimal en ~30 secondes (acceptable pour le rythme scierie). Co-publication scientifique avec l'ENSTIB sur le modèle. Les contraintes implicites du chef de production progressivement intégrées (4 itérations sur 5 mois).
+              Modèle MILP fonctionnel résolvant le problème en ~30 secondes (acceptable pour le rythme atelier). Co-publication scientifique avec le laboratoire partenaire. Les contraintes implicites du chef de production progressivement intégrées (4 itérations sur 5 mois).
             </div>
           </div>
         </div>
@@ -621,10 +632,10 @@
           <div class="case-deep-step-num">4</div>
           <div class="case-deep-step-content">
             <h3>Déployer en mode augmenté avec validation humaine (mois 13-15)</h3>
-            <p>Passage en production avec mode augmenté : pour chaque grume entrante, le système propose un plan de débit optimal au chef d'atelier sur tablette, qui valide ou ajuste avant lancement de la coupe. Intégration au système Cadwork CFAO de la scierie pour transmission directe vers les machines de coupe automatisées. <strong>Le chef d'atelier garde la main</strong> et peut overrider sur les cas atypiques. Communication interne : les premiers gains documentés (« le système a identifié un mode de débit que je n'avais pas envisagé ») construisent la confiance.</p>
+            <p>Passage en production avec mode augmenté : pour chaque unité matière entrante, le système propose un plan optimisé au chef d'atelier sur tablette, qui valide ou ajuste avant lancement. Intégration au système CFAO de l'atelier pour transmission directe vers les machines (CNC, laser plasma, presse à découper, machine de coupe textile, etc., selon filière). <strong>Le chef d'atelier garde la main</strong> et peut overrider sur les cas atypiques. Communication interne : les premiers gains documentés (« le système a identifié un placement / un mode opératoire que je n'avais pas envisagé ») construisent la confiance.</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              Tablette opérateur en zone d'entrée scierie → suggestion plan de débit + visualisation 3D → validation/ajustement chef atelier → transmission Cadwork → machine de coupe automatisée
+              Tablette opérateur en zone d'entrée → suggestion plan optimisé + visualisation 2D/3D → validation/ajustement chef atelier → transmission CFAO → machine de production automatisée
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
@@ -637,14 +648,14 @@
           <div class="case-deep-step-num">5</div>
           <div class="case-deep-step-content">
             <h3>Régime stabilisé et bilan 16 mois (mois 16+)</h3>
-            <p>Le système entre en régime de croisière. Maintenance ~1 jour/mois pour le directeur de production (revue dashboard, analyse des cas où l'override a apporté un gain — pour enrichir le modèle). Le doctorant CIFRE continue ses travaux sur la prochaine extension : intégration des contraintes énergétiques temps réel (consommation des machines selon la séquence de coupe). <strong>Sur les 4 derniers mois en régime stabilisé</strong> : gain matière de +8.5 points stabilisé, gain temps de débit de +6 % (effet secondaire bénéfique non visé initialement).</p>
+            <p>Le système entre en régime de croisière. Maintenance ~1 jour/mois pour le directeur de production (revue dashboard, analyse des cas où l'override a apporté un gain — pour enrichir le modèle). Le doctorant CIFRE continue ses travaux sur la prochaine extension : intégration des contraintes énergétiques temps réel (consommation des machines selon la séquence). <strong>Sur les 4 derniers mois en régime stabilisé</strong> : gain matière de +8,5 points stabilisé, gain temps de production de +6 % (effet secondaire bénéfique non visé initialement).</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              Système stable → ré-entraînement trimestriel → reporting mensuel direction → travaux R&D ENSTIB extension contraintes énergétiques → publication scientifique 2 prévue
+              Système stable → ré-entraînement trimestriel → reporting mensuel direction → travaux R&D laboratoire extension contraintes énergétiques → publication scientifique 2 prévue
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
-              ROI sur 16 mois : ~600 K€ d'économies matière cumulées vs 80 K€ d'investissement net + 40 K€ CIFRE 1ère année. <strong>ROI atteint en 7 mois</strong> sur le périmètre instrumenté. Et le partenariat ENSTIB/CRAN crée un actif scientifique structurant (publications, formation continue d'apprentis).
+              ROI sur 16 mois : ~600 K€ d'économies matière cumulées vs 80 K€ d'investissement net + 40 K€ CIFRE 1ère année. <strong>ROI atteint en 7 mois</strong> sur le périmètre instrumenté. Le partenariat académique crée un actif scientifique structurant (publications, formation continue d'apprentis).
             </div>
           </div>
         </div>
@@ -652,7 +663,7 @@
         <div class="case-deep-final">
           <div class="case-deep-final-label">✓ Bilan 16 mois</div>
           <p>
-            BoisCo a gagné 8.5 points de rendement matière, soit ~600 K€ d'économies cumulées sur 16 mois pour un investissement net de 80 K€ + 40 K€ CIFRE année 1. ROI atteint en 7 mois. <strong>Plus important encore : le partenariat ENSTIB/LERMAB/CRAN</strong> a créé un actif scientifique structurant — formation continue, publications, doctorant qui devient ingénieur recherche après thèse, accès privilégié à l'écosystème scientifique territorial. C'est un cas démonstratif que les industriels du Grand Est peuvent mobiliser leur écosystème scientifique pour des projets IA industriels avec un ROI supérieur à un déploiement purement commercial.
+            TransformCo a gagné 8,5 points de rendement matière, soit ~600 K€ d'économies cumulées sur 16 mois pour un investissement net de 80 K€ + 40 K€ CIFRE année 1. ROI atteint en 7 mois. <strong>Plus important encore : le partenariat académique en optimisation industrielle</strong> a créé un actif scientifique structurant — formation continue, publications, doctorant qui devient ingénieur recherche après thèse, accès durable à l'écosystème scientifique national. Le scénario démontre qu'une PME/ETI industrielle de transformation matière — quelle que soit sa filière (métal, plastique, textile, papier-carton, bois, agroalimentaire) — peut mobiliser l'écosystème scientifique français pour des projets IA industriels avec un ROI supérieur à un déploiement purement commercial.
           </p>
         </div>
       </section>
@@ -671,7 +682,7 @@
 
         <h3>Caractérisation matière insuffisante</h3>
         <p>
-          Un système ne peut optimiser que ce qu'il connaît précisément. <strong>Sans caractérisation fine de la matière première</strong> (essence, densité, défauts pour le bois ; largeur réelle, défauts pour le textile), l'optimisation reste théorique et ne se matérialise pas en gains concrets. Investir d'abord dans la caractérisation amont (cf. <a href="cu-017-controle-qualite-vision.html" class="tool-link">Contrôle qualité par vision</a>) avant de scaler l'optimisation. C'est la bonne séquence.
+          Un système ne peut optimiser que ce qu'il connaît précisément. <strong>Sans caractérisation fine de la matière première</strong> (planéité et défauts pour la tôle ; largeur réelle et défauts pour le textile ; viscosité et humidité pour le polymère ; essence, densité, défauts pour le bois), l'optimisation reste théorique et ne se matérialise pas en gains concrets. Investir d'abord dans la caractérisation amont (cf. <a href="cu-017-controle-qualite-vision.html" class="tool-link">Contrôle qualité par vision</a>) avant de scaler l'optimisation. C'est la bonne séquence.
         </p>
 
         <h3>Complexité d'intégration ERP/MES/CFAO</h3>
@@ -689,9 +700,9 @@
           Un chef d'atelier ou un chef de production qui se sent dépossédé de son expertise rejette le système. <strong>Positionner explicitement le système comme augmentation, pas remplacement</strong> — il valide, il ajuste sur les cas atypiques, il garde la main. Communiquer les cas où le système identifie des optima qu'il n'aurait pas trouvés (exploration combinatoire massive). Intégrer ses retours dans le ré-entraînement du modèle pour qu'il voie son expertise capitalisée.
         </p>
 
-        <h3>Sous-utilisation de l'écosystème territorial</h3>
+        <h3>Sous-utilisation de l'écosystème scientifique</h3>
         <p>
-          Pour les industriels du Grand Est et grand-estois, c'est l'un des cas où l'<strong>écosystème scientifique territorial</strong> peut diviser par 2 le coût initial de modélisation. ENSTIB, LERMAB, CRAN sont accessibles via partenariats R&D, CIFRE, conventions de recherche. La Fondation Excellence Campus Bois ouvre des opportunités directes. Le Cluster IA Grand Est ENACT propose un guichet PME. <strong>Ne pas mobiliser cet écosystème, c'est laisser sur la table une partie significative de la valeur</strong>.
+          C'est l'un des cas où l'<strong>écosystème scientifique français</strong> peut diviser par 2 le coût initial de modélisation. Selon la filière et la nature du problème, plusieurs laboratoires sont accessibles via partenariats R&D, CIFRE ou conventions de recherche : Mines ParisTech, Mines Saint-Étienne (LIMOS), INSA Lyon (DISP) et Toulouse (LAAS), Centrale Nantes (LS2N), Centrale Lille, IMT Atlantique, CentraleSupélec, ENSAIT (textile), IPC (plasturgie), CETIM (mécanique), ENSTIB/LERMAB/CRAN (bois), instituts IRT (SystemX, Jules Verne, Saint Exupéry), CEA Tech, Inria, instituts 3IA. Les pôles de compétitivité (Systematic, Minalogic, EMC2, NextMove, IAR) et clusters IA régionaux servent de guichets pour orienter vers le bon laboratoire. <strong>Ne pas mobiliser cet écosystème, c'est laisser sur la table une partie significative de la valeur</strong>.
         </p>
       </section>
 
@@ -727,7 +738,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>2. Caractérisation matière en amont (vision IA ou capteurs)</strong>
-                  <small>Pour les cas bois/panneaux/textile/métal : caractérisation fine indispensable. Sans cela, optimisation théorique.</small>
+                  <small>Pour les cas découpe métal / plasturgie / textile / papier-carton / panneaux bois : caractérisation fine indispensable. Sans cela, optimisation théorique.</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>
@@ -763,7 +774,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>5. Compétence en recherche opérationnelle accessible</strong>
-                  <small>En interne, via prestataire spécialisé, ou via partenariat académique (ENSTIB, LERMAB, CRAN, autre université).</small>
+                  <small>En interne, via prestataire spécialisé, ou via partenariat académique (Mines ParisTech, INSA, Centrale, IMT, CETIM, IPC, ENSAIT, ENSTIB/LERMAB/CRAN selon la filière).</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="b5" value="2"><span>Oui</span></label>
@@ -791,8 +802,8 @@
 
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
-                  <strong>7. Mobilisation possible de l'écosystème scientifique territorial</strong>
-                  <small>ENSTIB, LERMAB, CRAN pour la filière bois, ou autres labos selon filière. CIFRE, conventions de recherche envisageables.</small>
+                  <strong>7. Mobilisation possible de l'écosystème scientifique</strong>
+                  <small>Laboratoire académique mobilisable selon filière (Mines ParisTech, INSA, Centrale, IMT, CETIM, IPC, ENSAIT, ENSTIB/LERMAB/CRAN, IRT, Inria, 3IA). CIFRE, conventions de recherche envisageables.</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="q2" value="2"><span>Oui</span></label>
@@ -816,7 +827,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>9. Plan de financement cofinancé monté</strong>
-                  <small>DECARB IND + Climaxion EIT + Région Grand Est + CIR/CII éventuel. Cofinancement typique 50-70 %.</small>
+                  <small>France 2030 (DECARB IND, IA), soutiens régionaux compétitivité, Bpifrance Build Up / Pionniers IA, CIR/CII/JEI, Horizon Europe / EIC selon le projet. Cofinancement typique 50-75 %.</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="q4" value="2"><span>Oui</span></label>
@@ -906,11 +917,11 @@
             </li>
             <li>
               <a href="https://www.industrie-techno.com" target="_blank" rel="noopener">L'Usine Nouvelle / Industrie & Technologies</a>
-              <span class="resources-meta">Presse française spécialisée — retours d'expérience industriels français sur l'optimisation</span>
+              <span class="resources-meta">Presse française spécialisée — retours d'expérience industriels sur l'optimisation</span>
             </li>
             <li>
               <a href="https://hal.science" target="_blank" rel="noopener">HAL — archive ouverte recherche française</a>
-              <span class="resources-meta">Publications scientifiques sur l'industrie 4.0 et l'optimisation industrielle (LERMAB, CRAN, ENSTIB)</span>
+              <span class="resources-meta">Publications scientifiques en optimisation industrielle (LIMOS, LAAS, LS2N, CRAN, LERMAB, etc.)</span>
             </li>
             <li>
               <a href="https://hbr.org/topic/subject/operations-management" target="_blank" rel="noopener">Harvard Business Review — Operations Management</a>
@@ -927,8 +938,8 @@
               <span class="resources-meta">YouTube — solveur open source de référence, tutoriels complets</span>
             </li>
             <li>
-              <a href="https://www.youtube.com/results?search_query=cadwork+nesting+optimization+wood" target="_blank" rel="noopener">Cadwork — nesting filière bois</a>
-              <span class="resources-meta">YouTube — solution clé en main filière bois, démos d'usage</span>
+              <a href="https://www.youtube.com/results?search_query=lectra+nesting+optimization+textile" target="_blank" rel="noopener">Lectra — nesting textile</a>
+              <span class="resources-meta">YouTube — solution clé en main filière textile, démos d'usage</span>
             </li>
             <li>
               <a href="https://www.youtube.com/results?search_query=autodesk+fusion+generative+design+tutorial" target="_blank" rel="noopener">Autodesk Fusion Generative Design</a>
@@ -949,8 +960,8 @@
               <span class="resources-meta">Solveur open source de référence pour la recherche opérationnelle</span>
             </li>
             <li>
-              <a href="https://www.cadwork.com" target="_blank" rel="noopener">Cadwork — solution filière bois</a>
-              <span class="resources-meta">Référence CFAO et nesting pour la filière bois, mécène de l'ENSTIB</span>
+              <a href="https://www.gurobi.com" target="_blank" rel="noopener">Gurobi Optimizer</a>
+              <span class="resources-meta">Solveur commercial enterprise, leader sur la performance MILP</span>
             </li>
             <li>
               <a href="https://www.lectra.com" target="_blank" rel="noopener">Lectra — solution textile</a>
@@ -964,23 +975,39 @@
         </div>
 
         <div class="resources-cat">
-          <h3>💬 Écosystème territorial</h3>
+          <h3>💬 Écosystème R&D français et européen</h3>
           <ul>
             <li>
-              <a href="https://enstib.univ-lorraine.fr" target="_blank" rel="noopener">ENSTIB — École Nationale Supérieure des Technologies et Industries du Bois</a>
-              <span class="resources-meta">École de référence filière bois à Épinal, partenariats R&D possibles</span>
+              <a href="https://www.minesparis.psl.eu" target="_blank" rel="noopener">Mines ParisTech (CMA, CAOR)</a>
+              <span class="resources-meta">Référence française en recherche opérationnelle et optimisation industrielle</span>
             </li>
             <li>
-              <a href="https://lermab.univ-lorraine.fr" target="_blank" rel="noopener">LERMAB — Laboratoire Bois</a>
-              <span class="resources-meta">Laboratoire de recherche sur le matériau bois, partenariats R&D possibles</span>
+              <a href="https://www.insa-lyon.fr" target="_blank" rel="noopener">INSA Lyon (DISP) et INSA Toulouse (LAAS-CNRS)</a>
+              <span class="resources-meta">Laboratoires de référence sur l'ordonnancement et la planification production</span>
             </li>
             <li>
-              <a href="https://cran.univ-lorraine.fr" target="_blank" rel="noopener">CRAN — Centre de Recherche en Automatique de Nancy</a>
-              <span class="resources-meta">Recherche en automatique et industrie 4.0, partenariats CIFRE possibles</span>
+              <a href="https://www.ec-nantes.fr" target="_blank" rel="noopener">Centrale Nantes (LS2N) — IRT Jules Verne</a>
+              <span class="resources-meta">Recherche en manufacturing avancé et optimisation industrielle</span>
             </li>
             <li>
-              <a href="https://www.bpifrance.fr/nos-actualites" target="_blank" rel="noopener">Bpifrance — Pionniers IA et France 2030</a>
+              <a href="https://www.irt-systemx.fr" target="_blank" rel="noopener">IRT SystemX — Saclay</a>
+              <span class="resources-meta">Ingénierie système et optimisation, programmes industriels collaboratifs</span>
+            </li>
+            <li>
+              <a href="https://www.cetim.fr" target="_blank" rel="noopener">CETIM (mécanique) · IPC (plasturgie) · ENSAIT (textile)</a>
+              <span class="resources-meta">Centres techniques spécialisés par filière, partenariats R&D PME/ETI</span>
+            </li>
+            <li>
+              <a href="https://www.bpifrance.fr/nos-actualites" target="_blank" rel="noopener">Bpifrance — Pionniers IA, France 2030, Build Up</a>
               <span class="resources-meta">Dispositifs nationaux mobilisables pour le cofinancement</span>
+            </li>
+            <li>
+              <a href="https://eic.ec.europa.eu" target="_blank" rel="noopener">EIC Accelerator et Horizon Europe</a>
+              <span class="resources-meta">Programmes européens — clusters Digital et Manufacturing, EIT Manufacturing</span>
+            </li>
+            <li>
+              <a href="https://www.anrt.asso.fr" target="_blank" rel="noopener">ANRT — Dispositif CIFRE</a>
+              <span class="resources-meta">Conventions Industrielles de Formation par la Recherche — mobiliser un doctorant en RO</span>
             </li>
           </ul>
         </div>
@@ -1070,11 +1097,11 @@
       } else if (blockerScore >= 8 && qualityScore >= 7) {
         verdictClass = 'go';
         verdictTitle = '✅ GO — déploiement structuré possible';
-        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Engager le projet avec partenariat académique ENSTIB / LERMAB / CRAN si filière bois, en démarrant par l'axe au gain le plus mesurable (typiquement nesting).";
+        verdictSubtitle = "Tous les prérequis bloquants sont satisfaits, et les critères de qualité sont au rendez-vous. Engager le projet avec un partenariat académique adapté à la filière (Mines ParisTech, INSA, Centrale, IMT, CETIM, IPC, ENSAIT, ENSTIB/LERMAB/CRAN, etc.), en démarrant par l'axe au gain le plus mesurable (typiquement nesting).";
       } else {
         verdictClass = 'warmup';
         verdictTitle = '⚠️ À MÛRIR — pilote périmétré possible';
-        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lancer un pilote sur 1 axe (nesting), avec mobilisation partielle de l'écosystème scientifique territorial, et consolider en parallèle les fondations (caractérisation matière, audit contraintes implicites).";
+        verdictSubtitle = "Les prérequis bloquants sont couverts mais des critères de qualité méritent d'être renforcés. Lancer un pilote sur 1 axe (nesting), avec mobilisation partielle de l'écosystème scientifique (laboratoire académique en RO adapté à la filière), et consolider en parallèle les fondations (caractérisation matière, audit contraintes implicites).";
       }
 
       const date = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });

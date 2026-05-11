@@ -61,17 +61,15 @@
   <div class="module-layout">
 
     <aside class="module-toc">
-      <div class="module-toc-header">
-        <span class="module-toc-title">📑 Sommaire</span>
-        <button class="module-toc-toggle" onclick="toggleToc()" aria-label="Replier le sommaire">−</button>
-      </div>
-      <nav class="module-toc-nav" id="tocNav">
-        <a href="#executive-summary" class="active">Synthèse rapide</a>
-        <a href="#section-1">1. Productivité ×3 documentée</a>
-        <a href="#section-2">2. 7 alertes terrain</a>
-        <a href="#section-3">3. 7 garde-fous opérationnels</a>
-        <a href="#ressources">4. Pour aller plus loin</a>
-      </nav>
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>Synthèse rapide</a></li>
+        <li><a href="#section-1"><span class="toc-icon">📌</span>Productivité ×3 documentée</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📡</span>7 alertes terrain</a></li>
+        <li><a href="#section-3"><span class="toc-icon">📌</span>7 garde-fous opérationnels</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
     </aside>
 
     <main class="module-main">
@@ -119,7 +117,7 @@
         </div>
 
         <p>
-          Les agents codeurs autonomes représentent l'évolution la plus radicale du métier de développeur depuis 30 ans. Stripe Minions (1000+ PR/semaine, cf. <a href="../modules/cu-015-stripe-minions.html" class="tool-link">CU-015</a>), Claude Code, Cursor Composer, Aider, Devin, GitHub Copilot Workspace — tous documentent des gains de productivité massifs : un développeur expérimenté qui maîtrise ces outils peut produire en 5 jours ce qu'il faisait en 15 en mode classique. Le gain est réel et reproductible.
+          Les agents codeurs autonomes représentent l'évolution la plus radicale du métier de développeur depuis 30 ans. Stripe Minions (1000+ PR/semaine, cf. le module <a href="../modules/cu-015-stripe-minions.html" class="tool-link">Asynchronicité agentique — cas Stripe Minions</a>), Claude Code, Cursor Composer, Aider, Devin, GitHub Copilot Workspace — tous documentent des gains de productivité massifs : un développeur expérimenté qui maîtrise ces outils peut produire en 5 jours ce qu'il faisait en 15 en mode classique. Le gain est réel et reproductible.
         </p>
 
         <div class="pull-quote">
