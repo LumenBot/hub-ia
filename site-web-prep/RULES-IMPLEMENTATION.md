@@ -558,8 +558,35 @@ Si le script retourne une ligne `MISMATCH`, soit (a) renommer la card pour qu'el
 
 À exécuter **avant** push. Une PR qui n'a pas validé cette checklist doit être amendée.
 
+**⚡ Garde-fou automatisé — script `audit-global.py`** (NOUVELLE v1.5.11). Pour transformer les règles ci-dessous en garantie opérationnelle, un script Python regroupe **toutes** les vérifications structurelles RULES sur l'ensemble du site :
+
+```bash
+python3 site-web-prep/audit-global.py
+```
+
+Il sort un rapport `site-web-prep/audit-rapport.md` listant chaque écart par règle. Code retour : `0` si clean, `1` si hits. Couvre 13 règles (v1.5.11) :
+1. Cohérence numérique cross-site (modules, préalables, fiches DEP, fiches outils)
+2. Cohérence intra-page (badges / exec-stats / prose / sommaire catégories ↔ DOM)
+3. Pas de versioning interne front-visible (« v3.X »)
+4. Pas de biais sectoriel ou territorial dominant (> 60 % filière, > 30 % Grand Est)
+5. Structure canonique `module-section-header` (icône + titre uniquement)
+6. Callout intro « Pour aller plus loin » avec `margin-bottom`
+7. Pas de codes internes CU/PR/DEP en texte affiché (labels `<a>` ou prose)
+8. (réservé pour futur audit lien outil obligatoire)
+9. Cohérence card index ↔ contenu réel (label `card-quiz` vs livrables effectifs)
+10. Format canonique sommaire (emoji + titre court, pas `<nav class="module-toc-nav">`)
+11. Contraste lecture sur fonds foncés (pas d'inline `color: var(--color-text/primary)` dans `.exec-summary` etc.)
+12. Pas de placeholders STASH résiduels (post-bulk-patch)
+13. Pas d'octets NUL (\x00) dans le HTML (post-bulk-patch)
+
+**Le script doit retourner 0 hit avant tout merge.** Ce garde-fou remplace la vérification manuelle « cas par cas » qui a laissé passer 14 jargons résiduels (v3.7.2 → v3.7.9) et des bugs de contraste (v3.7.4 → v3.7.10).
+
+À chaque nouvelle règle structurelle introduite dans RULES, **ajouter sa fonction d'audit** dans `audit-global.py` (et inscrire la nouvelle entrée à la liste numérotée ci-dessus).
+
 ```
 ☐ J'ai lu RULES-IMPLEMENTATION.md en intégralité avant de commencer.
+
+☐ Audit global : `python3 site-web-prep/audit-global.py` retourne 0 hit.
 
 ☐ Sourcing : tous mes nouveaux chiffres ont une source datée et vérifiable.
 ☐ Sourcing : aucune statistique inventée, aucune citation fictive.
@@ -666,6 +693,13 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.11** — mai 2026, suite à v3.7.12 (création du garde-fou automatisé + 2 fix ressources signalés par Cowork) :
+  - **Nouveau script `site-web-prep/audit-global.py`** — regroupe 13 vérifications RULES (cohérence numérique, intra-page, versioning, biais, structure header, callout margin, jargon CU/PR/DEP, card↔contenu, sommaire canonique, contraste dark, STASH résiduels, NUL bytes). Produit `audit-rapport.md` markdown. Doit retourner 0 hit avant merge. § 2 mise à jour avec procédure d'usage.
+  - Correctifs v3.7.12 appliqués sur ressources.html :
+    - Sommaire : 13 → 15 entrées (ajout `cat-navigateurs` et `cat-compta-o2c` oubliées lors des extensions v3.5 et v3.7).
+    - 4e exec-takeaway reformulé : retrait des marqueurs d'évolution (« récente », « renforcement ») au profit d'un état des lieux statique listant les 15 catégories actives.
+    - Mention résiduelle « v3.4 » dans pr-07 (§ Quand BUILD redevient pertinent) supprimée → reformulée en « documenté en RetEx PME ».
+  - Premier audit-rapport.md : 0 hit cross-site. Le site est conforme à toutes les règles RULES vérifiables automatiquement.
 - **v1.5.10** — mai 2026, suite à v3.7.11 (deux bugs persistants signalés par Cowork malgré 2 itérations précédentes de fix) :
   - § 1.4.8 élargie (post-mortem) : le contraste défensif v3.7.10 traitait `p`/`li`/`td` mais a **oublié les headings et `<strong>`**. Bug observé : le h3 « Cette page est utile si… » dans `.exec-when` héritait de `.module-main h3 { color: var(--color-primary) }` par cascade conflictuelle silencieuse — même spécificité, dernière règle gagne. Extension v3.7.11 : `h2`/`h3`/`h4`/`strong` ajoutés à la liste `color: inherit` dans `.exec-summary`, `.case-deep-final`, `.archi-block` + override `.exec-summary .exec-when h3 { color: #FFD600 }`. Script d'audit cross-CSS documenté pour détecter les cascades conflictuelles.
   - § 1.5.6.1 enrichie (post-mortem jargon) : les scripts de patch jargon v3.7.2 et v3.7.9 utilisaient des **listes manuelles de patterns explicites** (45 et 11 remplacements 1:1) sans regex agressive systématique. Résultat : 14 jargons résiduels (`<a>CODE Titre</a>` avec titre tronqué qui ne matchait pas la liste manuelle). Extension v3.7.11 : adoption d'une **regex universelle** `<a [^>]+>(CU-\d+|PR-\d+|DEP-\d+)\s+([^<]+?)</a>` qui strippe le préfixe code de TOUT label, indépendamment du titre. À lancer à chaque clôture d'itération. + 3 jargons en texte brut hors `<a>` patchés au cas par cas.
