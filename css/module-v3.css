@@ -330,6 +330,29 @@ a.tool-link {
 }
 a.tool-link:hover { text-decoration-color: var(--color-primary); }
 
+/* Surcharge contraste : sur fond bleu foncé (exec-summary, case-deep-final,
+   archi-block, callouts sombres), le bleu primary devient illisible. On
+   force la couleur d'accent jaune du design system (#FFD600) — cohérent
+   avec exec-summary-label, exec-takeaway-num, exec-stat-num. */
+.exec-summary a,
+.exec-summary a.tool-link,
+.case-deep-final a,
+.case-deep-final a.tool-link,
+.archi-block a,
+.archi-block a.tool-link {
+  color: #FFD600;
+  text-decoration-color: rgba(255, 214, 0, 0.45);
+}
+.exec-summary a:hover,
+.exec-summary a.tool-link:hover,
+.case-deep-final a:hover,
+.case-deep-final a.tool-link:hover,
+.archi-block a:hover,
+.archi-block a.tool-link:hover {
+  color: #FFE055;
+  text-decoration-color: #FFD600;
+}
+
 /* Tool card — fiche outil deep-dive */
 .tool-card {
   background: white;
