@@ -844,7 +844,7 @@
             <h3>Orchestration / no-code</h3>
             <p>Connecter les LLM aux outils existants (CRM, email, base de données) sans (trop) coder.</p>
           </div>
-          <div class="cat-divider-count">5 fiches</div>
+          <div class="cat-divider-count">6 fiches</div>
         </div>
 
         <article class="tool-card" id="n8n">
@@ -1135,6 +1135,63 @@
           </div>
         </article>
 
+        <article class="tool-card" id="beever-atlas">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#FEF3C7,#F59E0B);color:#78350F;">🐝</div>
+            <div class="tool-meta">
+              <div class="tool-badges">
+                <span class="tool-badge open">Open-source</span>
+                <span class="tool-badge cat">LLM Wiki (fork)</span>
+                <span class="tool-badge maturity">Émergent · 2026</span>
+                <span class="tool-badge cost-freemium">🟡 Freemium</span>
+                <span class="tool-badge complexity-2">🛠️🛠️ Setup léger</span>
+              </div>
+              <h3>Beever Atlas</h3>
+              <p class="tool-tagline">Fork open-source du pattern LLM Wiki popularisé par Andrej Karpathy en avril 2026. Implémentation pratique d'<code>ingest → synthesize → evolve</code> avec persistent memory, contradiction detection et multi-agent vaults.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Le pattern LLM Wiki propose une rupture architecturale par rapport au RAG classique : la base de connaissances devient vivante, les LLM la mettent à jour à chaque ingestion (synthèses, contradictions, évolutions). Beever Atlas est l'un des forks open-source qui matérialise cette vision en mai 2026. Signal faible à confirmer — l'écosystème de forks post-Karpathy est en pleine effervescence et plusieurs alternatives sont à benchmarker.</p>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Quand l'utiliser</div>
+                <ul>
+                  <li>PME explorant le pattern LLM Wiki sur un corpus interne stable et de taille moyenne</li>
+                  <li>Cas d'usage knowledge management évolutif (manuel produit, FAQ, procédures qui évoluent)</li>
+                  <li>Volonté de contribuer à l'écosystème open-source du LLM Wiki</li>
+                </ul>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Quand ne pas</div>
+                <ul>
+                  <li>Corpus très large et hétérogène → RAG hybride toujours plus pertinent</li>
+                  <li>Besoin d'un produit mature production-ready (le projet est très récent)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tool-block">
+              <div class="tool-block-label">Modèle économique</div>
+              <p>Logiciel <strong>gratuit</strong> (open-source). Coût modèle LLM backend (Claude, GPT, Mistral, etc.).</p>
+            </div>
+            <div class="tool-block tool-block-modules">
+              <div class="tool-block-label">Cas d'usage dans nos modules</div>
+              <ul>
+                <li><a href="modules/cu-008-knowledge-base-rag.html" class="tool-link">Knowledge base RAG</a> · pattern LLM Wiki post-Karpathy</li>
+              </ul>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Alternatives</div>
+                <p>Autres forks LLM Wiki (écosystème en pleine effervescence) · RAG classique (Pinecone, Qdrant, ChromaDB).</p>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Pour aller plus loin</div>
+                <p><em>URL officielle à renseigner depuis le repo GitHub de référence du projet (projet émergent 2026).</em></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <!-- ============ Multi-agents & ML frameworks ============ -->
         <div class="cat-divider" id="cat-multi-agents">
           <div class="cat-divider-icon">🤖</div>
@@ -1142,7 +1199,7 @@
             <h3>Multi-agents &amp; ML frameworks</h3>
             <p>Frameworks pour construire des chaînes d'agents ou entraîner des modèles custom.</p>
           </div>
-          <div class="cat-divider-count">9 fiches</div>
+          <div class="cat-divider-count">11 fiches</div>
         </div>
 
         <article class="tool-card" id="langgraph">
@@ -1692,6 +1749,124 @@
               <div class="tool-block">
                 <div class="tool-block-label">Alternatives</div>
                 <p>Operator (OpenAI) · CrewAI · AutoGen.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" id="hermes-agent">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#1E293B,#475569);color:#FBBF24;">🪽</div>
+            <div class="tool-meta">
+              <div class="tool-badges">
+                <span class="tool-badge open">Open-source</span>
+                <span class="tool-badge cat">Agent IA auto-améliorant</span>
+                <span class="tool-badge maturity">Émergent · 2026</span>
+                <span class="tool-badge cost-freemium">🟡 Freemium</span>
+                <span class="tool-badge complexity-3">🛠️🛠️🛠️ Avancé</span>
+              </div>
+              <h3>Hermes Agent <span class="tool-vendor">par NousResearch</span></h3>
+              <p class="tool-tagline">Agent IA open-source auto-améliorant avec mémoire persistante multi-niveaux, génération de skills à la volée et compatibilité multi-modèles. L'alternative souveraine aux agents SaaS US pour les setups agentic complexes.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Hermes Agent combine plusieurs caractéristiques avancées rares dans un seul framework open-source : mémoire persistante (court-terme, long-terme, épisodique), génération de skills à la volée (l'agent apprend de nouveaux comportements en cours de mission), accès à une machine dédiée (sandbox d'exécution), et compatibilité multi-modèles (OpenRouter, modèles locaux via Ollama ou vLLM). Pour une PME qui veut éviter le lock-in éditeur, c'est un candidat sérieux.</p>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Quand l'utiliser</div>
+                <ul>
+                  <li>PME ou ETI avec équipe technique interne capable de self-hoster</li>
+                  <li>Cas d'usage agentic complexes nécessitant une évolution continue</li>
+                  <li>Besoin de souveraineté forte (alternatives aux agents SaaS US)</li>
+                </ul>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Quand ne pas</div>
+                <ul>
+                  <li>Cas agentic simple (1-3 agents séquentiels) → CrewAI plus accessible</li>
+                  <li>Pas de profil technique interne pour opérer</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tool-block">
+              <div class="tool-block-label">Modèle économique</div>
+              <p>Logiciel <strong>gratuit</strong> (open-source). Coût modèle backend variable (OpenRouter, modèle local, etc.).</p>
+            </div>
+            <div class="tool-block tool-block-modules">
+              <div class="tool-block-label">Cas d'usage dans nos modules</div>
+              <ul>
+                <li><a href="modules/cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a></li>
+                <li><a href="modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a></li>
+                <li><a href="deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a></li>
+              </ul>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Alternatives</div>
+                <p>LangGraph · CrewAI · AutoGen · OpenClaw.</p>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Pour aller plus loin</div>
+                <p><a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">hermes-agent.nousresearch.com</a></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" id="aaflow">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#0F172A,#1E40AF);color:#FBBF24;">⚡</div>
+            <div class="tool-meta">
+              <div class="tool-badges">
+                <span class="tool-badge open">Open-source</span>
+                <span class="tool-badge cat">Runtime distribué agentique</span>
+                <span class="tool-badge maturity">Émergent · 2026</span>
+                <span class="tool-badge cost-free">🟢 Gratuit</span>
+                <span class="tool-badge complexity-3">🛠️🛠️🛠️ Avancé</span>
+              </div>
+              <h3>AAFLOW</h3>
+              <p class="tool-tagline">Unified distributed runtime pour pipelines agentic basé sur Apache Arrow + Cylon. Zero-copy serialization, scheduling resource-deterministic, speedup pipeline jusqu'à 4,64× documenté.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Le constat 2026 dans la communauté technique : les bottlenecks d'un système agentic en production ne sont plus dans le LLM, mais dans le data plane (sérialisation, coordination, transit entre composants). AAFLOW propose une approche zero-copy sur Apache Arrow / Cylon, une abstraction par opérateurs composables, et un scheduling déterministe. Outil de niche pour les déploiements à fort volume où l'optimisation du data plane devient critique.</p>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Quand l'utiliser</div>
+                <ul>
+                  <li>PME ayant déployé des pipelines agentic complexes en production avec problèmes de latence ou de coût</li>
+                  <li>ETI avec équipe data engineering interne capable d'opérer</li>
+                  <li>Volume de requêtes significatif justifiant l'investissement infrastructure</li>
+                </ul>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Quand ne pas</div>
+                <ul>
+                  <li>Cas agentic simple (1-3 agents séquentiels) → LangGraph standard suffit</li>
+                  <li>Pas d'équipe DevOps / data engineering interne</li>
+                  <li>Volume de requêtes modéré (l'effort d'intégration ne se rentabilise pas)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tool-block">
+              <div class="tool-block-label">Modèle économique</div>
+              <p><strong>Gratuit</strong> (open-source). Coûts : infrastructure distribuée nécessaire (cluster compute).</p>
+            </div>
+            <div class="tool-block tool-block-modules">
+              <div class="tool-block-label">Cas d'usage dans nos modules</div>
+              <ul>
+                <li><a href="deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a> · bottlenecks data plane</li>
+                <li><a href="deploiement/dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a> · optimisation de production</li>
+              </ul>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Alternatives</div>
+                <p>LangGraph (coordination sans optimisation data plane) · Ray (scaling horizontal Python).</p>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Pour aller plus loin</div>
+                <p><em>URL officielle à renseigner depuis le repo GitHub de référence du projet (projet émergent 2026).</em></p>
               </div>
             </div>
           </div>
@@ -2988,7 +3163,7 @@
             <h3>Productivité &amp; contenu</h3>
             <p>Recherche augmentée, transcription réunion, contenu, traduction — boîte à outils du knowledge worker.</p>
           </div>
-          <div class="cat-divider-count">7 fiches</div>
+          <div class="cat-divider-count">8 fiches</div>
         </div>
 
         <article class="tool-card" id="perplexity">
@@ -3345,6 +3520,65 @@
               <div class="tool-block">
                 <div class="tool-block-label">Alternatives</div>
                 <p>Notion AI · Asana Intelligence · Monday AI.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool-card" id="supersplat">
+          <header class="tool-card-header">
+            <div class="tool-logo" style="background:linear-gradient(135deg,#DBEAFE,#7C3AED);color:#FFFFFF;">🪄</div>
+            <div class="tool-meta">
+              <div class="tool-badges">
+                <span class="tool-badge open">Open-source</span>
+                <span class="tool-badge cat">Visualisation 3D no-code</span>
+                <span class="tool-badge maturity">Émergent · 2025-2026</span>
+                <span class="tool-badge cost-free">🟢 Gratuit</span>
+                <span class="tool-badge complexity-1">🛠️ Plug-and-play</span>
+              </div>
+              <h3>SuperSplat <span class="tool-vendor">par PlayCanvas</span></h3>
+              <p class="tool-tagline">Éditeur open-source dans le navigateur pour 3D Gaussian Splats. Transforme un scan smartphone en modèle 3D interactif consultable en browser. Coût ~200 $ vs 15 K$ pour une prestation 3D professionnelle classique.</p>
+            </div>
+          </header>
+          <div class="tool-body">
+            <p><strong>Pourquoi ça compte.</strong> Les 3D Gaussian Splats ont rendu accessible la 3D interactive aux PME : à partir d'un simple scan smartphone d'un objet ou d'un lieu, on obtient un modèle 3D consultable directement dans un navigateur, sans installation ni expertise 3D. SuperSplat est l'éditeur open-source de référence (par PlayCanvas) pour préparer, nettoyer et publier ces scans. Cas d'usage typiques en PME : visite virtuelle d'un gîte, présentation immobilière, valorisation d'un atelier industriel, formation outillée.</p>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Quand l'utiliser</div>
+                <ul>
+                  <li>PME tourisme : visite virtuelle d'un gîte, d'un site touristique</li>
+                  <li>PME immobilier : présentation immersive d'un bien</li>
+                  <li>PME industrielle : présentation d'un atelier, d'un poste, d'une formation</li>
+                  <li>Communication / marketing : valorisation visuelle de l'entreprise</li>
+                </ul>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Quand ne pas</div>
+                <ul>
+                  <li>3D métier précise (CAO, plans techniques) → outils dédiés (Cadwork, TopSolid)</li>
+                  <li>Qualité photogrammétrique professionnelle → studios spécialisés</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tool-block">
+              <div class="tool-block-label">Modèle économique</div>
+              <p><strong>Gratuit</strong> (open-source, browser-based, pas de cloud requis). Coût marginal : ~200 $ pour matériel de scan optionnel (un smartphone récent suffit dans la plupart des cas).</p>
+            </div>
+            <div class="tool-block tool-block-modules">
+              <div class="tool-block-label">Cas d'usage dans nos modules</div>
+              <ul>
+                <li><a href="modules/cu-009-content-repurposing.html" class="tool-link">Content repurposing</a> · valorisation de contenu visuel</li>
+                <li><a href="modules/cu-019-newsletter-locale.html" class="tool-link">Newsletter locale</a> · enrichir une newsletter avec une expérience immersive</li>
+              </ul>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-block">
+                <div class="tool-block-label">Alternatives</div>
+                <p>Luma AI (mobile-first, freemium) · Polycam (mobile + web, freemium) · Studios 3D classiques (prestation 5-50 K€).</p>
+              </div>
+              <div class="tool-block">
+                <div class="tool-block-label">Pour aller plus loin</div>
+                <p><a href="https://superspl.at/" target="_blank" rel="noopener">superspl.at</a></p>
               </div>
             </div>
           </div>
