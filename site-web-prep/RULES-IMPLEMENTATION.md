@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.5.13 (mai 2026)
+**Version :** 1.5.14 (mai 2026)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -40,10 +40,10 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 
 | Chiffre | Valeur courante (mai 2026, v3.7) | Lieux d'apparition |
 |---|---|---|
-| Nombre de modules CU | 26 (CU-001 → CU-025 + CU-027 ; CU-026 réservé v3.8) | home, page modules, à propos, méta |
+| Nombre de modules CU | 27 (CU-001 → CU-027) | home, page modules, à propos, méta |
 | Nombre de préalables PR | 7 (PR-01 → PR-07) | prealables.html, home, à propos |
 | Nombre de fiches Déploiement DEP | 8 (DEP-01 → DEP-08, nouvelle section v3.7) | deploiement.html, home, à propos |
-| Nombre de fiches outils | 95 (83 + 12 nouvelles + 2 mises à jour v3.7) | ressources.html, à propos, hero ressources |
+| Nombre de fiches outils | 99 (95 + 4 nouvelles v3.8 : Hermes Agent, SuperSplat, AAFLOW, Beever Atlas) | ressources.html, à propos, hero ressources |
 | Nombre de patterns d'architecture | 4 + 1 hybride | architectures.html, à propos |
 | Nombre d'entrées nav | 5 (Préalables / Architectures / Modules / Déploiement / Ressources) — ordre depuis v3.7.1 ; « À propos » retiré du navbar (la section reste accessible via le footer ou par scroll de la home) | toutes pages |
 | Nombre de familles métier (modules) | 6 (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) | home |
@@ -693,6 +693,10 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.14** — itération v3.8 (expansion réglementaire et nouveau module) :
+  - Glossaire § 1.2.3 : 26 → 27 modules (CU-026 Gouvernance des agents IA ajouté), 95 → 99 fiches outils (4 nouvelles : Hermes Agent, SuperSplat, AAFLOW, Beever Atlas).
+  - Aucune nouvelle règle structurelle introduite. RULES reste à 1.5.X tant que pas d'évolution structurelle (refactor majeur attendu en v1.6).
+  - Patches v3.8 livrés en parallèle : 6 patches réglementaires (AI Act Article 50 + Omnibus VII + facturation électronique sur CU-002/009/010/019/020/024), 4 enrichissements techniques (CU-008 LLM Wiki forks, CU-014 agent=employé, DEP-02 Stitch/Evaluate/Iterate, DEP-05 data plane), 2 actualisations chiffrées (PR-01 causes orga 80-95 %, PR-04 Baromètre France Num 2025).
 - **v1.5.13** — mai 2026, suite à v3.7.14 (nettoyage technique sur les 3 priorités du rapport d'état post-v3.7) :
   - Aucune nouvelle règle structurelle introduite — itération de nettoyage uniquement.
   - Correctifs appliqués v3.7.14 :
