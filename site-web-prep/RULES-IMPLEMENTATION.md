@@ -283,6 +283,50 @@ Le template de référence (`modules/_template-auto-diagnostic.html`) propose un
 
 **Précision (ajout v1.4) — cohérence card index ↔ contenu réel** : si une card de la home promet « Étude de cas + checklist », le module doit livrer **les deux**. Si le module ne contient qu'une checklist (sans étude de cas formelle), la card doit dire « Checklist projet » ou équivalent. Si le module contient un cas pédagogique (incident documenté, contre-exemple), la card peut dire « Cas pédagogique + checklist ». Toute désynchronisation card ↔ contenu détectée est un bug bloquant à corriger immédiatement.
 
+**Précision (ajout v1.5.6) — audit de cohérence card ↔ contenu automatisé**. Le bug récurrent observé sur CU-024 / CU-027 (v3.6.3) puis CU-025 (v3.7.7) suit toujours le même schéma : la card promet un livrable nominal (étude de cas, auto-diag) qui n'est pas effectivement présent dans le module. Pour prévenir la récurrence, **lancer le script d'audit suivant à chaque clôture d'itération** :
+
+```python
+import re, glob, os
+with open('index.html') as f: home = f.read()
+card_re = re.compile(
+    r'<a href="modules/(cu-\d+-[a-z0-9-]+)\.html"[^>]*>.*?<span class="card-quiz">([^<]+)</span>',
+    re.DOTALL
+)
+for m in card_re.finditer(home):
+    cu_id, label = m.group(1), m.group(2).strip()
+    fp = f'modules/{cu_id}.html'
+    if not os.path.exists(fp): continue
+    s = open(fp).read()
+    flags = []
+    if re.search(r'case-deep-step|case-deep-final|<h2[^>]*>[^<]*(?:[Éé]tude de cas|RetEx|Mise en situation)', s):
+        flags.append('CASE')
+    if re.search(r'<h2[^>]*>[^<]*Auto-diagnostic', s) or 'id="diagnostic"' in s:
+        flags.append('AUTO-DIAG')
+    if re.search(r'<h2[^>]*>[^<]*[Qq]uiz', s):
+        flags.append('QUIZ')
+    if 'checklist-block' in s or re.search(r'<h2[^>]*>[^<]*[Cc]hecklist', s):
+        flags.append('CHECKLIST')
+    if re.search(r'<h2[^>]*>[^<]*(?:[Pp]lan d.action|[Pp]lan 30 jours)', s):
+        flags.append('PLAN')
+    if 'incident-card' in s or re.search(r'<h2[^>]*>[^<]*[Ii]ncident', s):
+        flags.append('INCIDENT')
+    label_l = label.lower()
+    expected = []
+    if 'étude de cas' in label_l or 'etude de cas' in label_l: expected.append('CASE')
+    if 'auto-diagnostic' in label_l: expected.append('AUTO-DIAG')
+    if 'quiz' in label_l: expected.append('QUIZ')
+    if 'checklist' in label_l: expected.append('CHECKLIST')
+    if 'plan' in label_l: expected.append('PLAN')
+    if 'cas pédagogique' in label_l: expected.append('INCIDENT')
+    missing = [e for e in expected if e not in flags]
+    if missing:
+        print(f'MISMATCH {cu_id}: label="{label}" missing={missing} actual={flags}')
+```
+
+Si le script retourne une ligne `MISMATCH`, soit (a) renommer la card pour qu'elle reflète le contenu réel, soit (b) ajouter le contenu manquant au module. **Jamais laisser tel quel** : la card est la promesse, le module est la livraison — un dirigeant trompé deux fois ne revient plus.
+
+**Pour CU-025 (v3.7.7)** : la card promettait « Étude de cas + plan d'action » mais le module contient en réalité une **architecture détaillée en 4 layers** + un **plan d'action 30 jours** + des **retours communautaires convergents** (5 retours croisés cités), pas une étude de cas formelle. Label corrigé en « **Architecture + plan d'action** » (sur la card home + le badge hero du module) — descriptif et précis. Les retours communautaires restent un bloc de validation pédagogique, pas un cas d'étude au sens canonique du Hub (cf. CU-008, CU-014, CU-015 qui ont chacun une étude de cas formelle structurée en `case-deep-step` / `case-deep-final`).
+
 **Règle 1.5.6 — Renvois internes contextualisés (NOUVELLE v1.3)**. Les renvois vers d'autres ressources internes du Hub (autres modules CU, préalables PR, fiches outils de `ressources.html`, page Architectures) **vivent dans le CORPS du module**, au fil du texte, contextualisés à l'endroit où ils sont pertinents. Ils **ne doivent PAS** être récapitulés dans la section finale `id="ressources"` (qui est réservée aux ressources externes — cf. règle 1.5.5 et squelette HTML 1.5.1 mis à jour v1.3).
 
 **Patterns de renvoi obligatoires** :
@@ -481,6 +525,9 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.6** — mai 2026, suite à v3.7.7 (mismatch card ↔ contenu sur CU-025, signalé par Cowork) :
+  - § 1.5 enrichie (audit cohérence automatisé) — script Python documenté pour détecter les mismatches card / contenu sur l'ensemble des modules. Couvre 6 livrables canoniques : CASE (étude de cas formelle), AUTO-DIAG (auto-diagnostic interactif), QUIZ, CHECKLIST, PLAN (plan d'action), INCIDENT (cas pédagogique). Le script doit retourner 0 ligne MISMATCH à chaque clôture d'itération.
+  - Correctif appliqué v3.7.7 : CU-025 « Knowledge management IA-augmenté pour dirigeant » — label card et badge hero mis à jour de « Étude de cas + plan d'action » → « **Architecture + plan d'action** ». Le module n'a pas d'étude de cas formelle (`case-deep-step` / `case-deep-final`) mais une architecture détaillée en 4 layers + un plan d'action 30 jours + des retours communautaires convergents (5 retours croisés cités). Le nouveau label est descriptif et précis.
 - **v1.5.5** — mai 2026, suite à v3.7.6 (callout intro de la section « Pour aller plus loin » sans `margin-bottom`, signalé par Cowork sur cu-023 « Devis simples ») :
   - § 1.5.1.2 (NOUVELLE) — **Le callout intro de la section finale `id="ressources"` doit toujours porter le style `margin-bottom: var(--space-5)`**. Ce callout sert de pont visuel entre le titre de la section (« Pour aller plus loin ») et la première sous-rubrique (`📰 Articles de fond`, `🎓 Tutoriels`, etc.). Sans `margin-bottom`, le callout est collé au titre h3 suivant — pas de respiration, le tout devient illisible.
 
