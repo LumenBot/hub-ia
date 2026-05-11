@@ -481,6 +481,58 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.4** — mai 2026, suite à v3.7.5 (callout `Bibliographie transverse` mal imbriqué dans le `module-section-header` sur 8 modules, signalé par Cowork) :
+  - § 1.5.1.1 (NOUVELLE) — **Structure canonique stricte du `<div class="module-section-header">`**. Le `module-section-header` est un conteneur de **mise en page horizontale** (flex / grid) qui aligne **l'icône à gauche et le titre à droite**. Il accepte **uniquement** les enfants suivants, dans cet ordre :
+    1. `<div class="module-section-icon ...">…</div>` — icône numérotée ou thématique
+    2. **Une seule de ces variantes** pour le titre :
+       - `<h2 class="module-section-title">…</h2>` — variante compacte
+       - `<div class="module-section-title"><div class="section-number">Section N</div><h2>…</h2></div>` — variante avec numéro de section
+    Tout autre contenu (paragraphes, callouts, listes, tables, blocs introductifs) **doit être placé APRÈS** la balise `</div>` qui ferme le `module-section-header`, comme enfant direct du `<section class="module-section">`.
+
+    ❌ **Anti-pattern observé en v3.7.5** (8 modules concernés) :
+    ```html
+    <section class="module-section" id="ressources">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">9</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+        <div class="callout callout-info">…Bibliographie transverse…</div>  <!-- ❌ -->
+      </div>
+      …
+    </section>
+    ```
+    Le callout aspiré dans la grille horizontale du header se retrouve sur la même ligne que le titre, créant un layout illisible (callout sur la 3e colonne du grid).
+
+    ✅ **Pattern correct** :
+    ```html
+    <section class="module-section" id="ressources">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">9</div>
+        <h2 class="module-section-title">Pour aller plus loin</h2>
+      </div>
+
+      <div class="callout callout-info" style="margin-bottom: var(--space-5);">…</div>
+
+      <div class="resources-cat">…</div>
+    </section>
+    ```
+
+    **Règle de prévention** : à chaque création / patch d'une section, vérifier par grep que **rien d'autre** que l'icône et le titre n'est imbriqué dans `module-section-header` :
+    ```bash
+    # Détecte les enfants suspects dans module-section-header :
+    python3 -c "
+    import re, glob
+    pat = re.compile(r'<div class=\"module-section-header\">(.*?)</div>\s*(?=<)', re.DOTALL)
+    for fp in glob.glob('modules/cu-*.html') + glob.glob('prealables/pr-*.html') + glob.glob('deploiement/dep-*.html'):
+        s = open(fp).read()
+        for m in pat.finditer(s):
+            body = re.sub(r'<div class=\"module-section-icon[^\"]*\">[^<]*</div>', '', m.group(1))
+            body = re.sub(r'<(h2|div) class=\"module-section-title\".*?</\1>', '', body, flags=re.DOTALL)
+            body = re.sub(r'<h2>[^<]*</h2>', '', body)
+            if body.strip():
+                print(f'{fp} : leftover = {body.strip()[:80]}')
+    "
+    ```
+  - Correctif appliqué v3.7.5 : 8 modules patchés (cu-011, cu-012, cu-013, cu-014, cu-015, cu-017, cu-018, cu-019). Callout `Bibliographie transverse` déplacé hors du header avec style normalisé `margin-bottom: var(--space-5)`.
 - **v1.5.3** — mai 2026, suite à v3.7.4 (deux bugs critiques post-v3.7.3 signalés par Cowork) :
   - § 1.4.5 (NOUVELLE) — **Tout script qui patche en bulk plusieurs fichiers HTML est interdit s'il s'appuie sur des placeholders textuels (`STASH0`, `STASH1`, etc.) sans contrôle d'intégrité post-écriture**. Bug observé en v3.7.3 : un script Python ajoutait `class="tool-link"` à des liens internes en stashant temporairement les régions `<nav>`, `<footer>`, `<aside>`, `<header>` pour les exclure du patch. Le pattern `<aside class="module-toc">` d'`architectures.html` et de 17 autres pages contient un `<nav class="module-toc-nav">` imbriqué. Le `<nav>` interne a été stashé en premier (placeholder `\x00STASH1\x00`), puis le `<aside>` entier (contenant déjà ce placeholder) a été stashé à son tour. À la restauration (boucle `for key, val in placeholders.items()`), le placeholder STASH1 du nav interne a été restauré AVANT le STASH du aside qui le contenait textuellement — résultat : le `<aside>` restauré contenait `<aside ...> ...\x00STASH1\x00... </aside>` que la boucle ne pouvait plus remplacer (la clé avait déjà été consommée). Les octets nuls ont en outre survécu à l'écriture, corrompant 18 fichiers.
     **Règle de prévention obligatoire** :
