@@ -70,6 +70,7 @@
         <li><a href="#executive-summary"><span class="toc-icon">⚡</span>Synthèse rapide</a></li>
         <li><a href="#section-1"><span class="toc-icon">🧭</span>Le contexte</a></li>
         <li><a href="#section-2"><span class="toc-icon">⚖️</span>4 niveaux de risque AI Act</a></li>
+        <li><a href="#section-art50"><span class="toc-icon">📣</span>Article 50 — Transparence et labellisation</a></li>
         <li><a href="#section-3"><span class="toc-icon">🏗️</span>Architecture du dispositif</a></li>
         <li><a href="#section-4"><span class="toc-icon">🗺️</span>Cartographie Shadow AI</a></li>
         <li><a href="#section-5"><span class="toc-icon">⚖️</span>Articulation RGPD ↔ AI Act</a></li>
@@ -212,6 +213,49 @@
         <p>
           <strong>Implication clé pour la PME</strong> : sur 23 usages typiques, <strong>1 à 2 sont haut risque</strong> (souvent en RH ou crédit), <strong>3 à 5 sont à risque limité</strong> (chatbots clients, contenu généré), et <strong>tout le reste est risque minimal</strong>. L'effort de mise en conformité doit être calibré en conséquence : ne pas traiter un assistant rédactionnel personnel comme un système haut risque, ne pas traiter un agent RH comme un usage anodin.
         </p>
+      </section>
+
+      <!-- 2bis. AI ACT ARTICLE 50 — TRANSPARENCE ET LABELLISATION -->
+      <section class="module-section" id="section-art50">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-warning">⚖️</div>
+          <h2 class="module-section-title">AI Act Article 50 — Transparence et obligations de labellisation</h2>
+        </div>
+
+        <p>L'Article 50 du règlement européen sur l'IA (AI Act) impose <strong>deux obligations de transparence</strong> distinctes, applicables à <strong>tous les acteurs</strong> (pas seulement aux systèmes haut-risque) :</p>
+
+        <ol>
+          <li><strong>Informer l'utilisateur qu'il interagit avec un système d'IA</strong> lorsque ce n'est pas évident (chatbot, agent vocal, assistant en ligne).</li>
+          <li><strong>Labelliser les contenus générés ou substantiellement modifiés par l'IA</strong> (texte, image, audio, vidéo) afin que le public puisse les identifier comme synthétiques.</li>
+        </ol>
+
+        <p><strong>Application</strong> : 2 août 2026.</p>
+
+        <h3>État de la consultation publique (mai 2026)</h3>
+        <p>Les <strong>draft guidelines pour l'implémentation de l'Article 50</strong> ont été publiées par la Commission européenne le <strong>8 mai 2026</strong>. Elles sont en consultation publique : tout acteur concerné peut soumettre des observations. La date de fin initialement annoncée par la Commission était fixée début juin 2026 — à vérifier au moment où tu lis ce module (la consultation peut avoir évolué).</p>
+
+        <h3>Le paquet Omnibus VII — simplification adoptée le 7 mai 2026</h3>
+        <p>Le <strong>paquet de simplification Omnibus VII</strong> a fait l'objet d'un accord politique entre Parlement et Conseil le <strong>7 mai 2026</strong>. Il apporte trois nouveautés :</p>
+        <ul>
+          <li><strong>Allègement administratif</strong> pour les acteurs non haut-risque (moins de documentation à produire pour les usages à risque limité ou minimal).</li>
+          <li><strong>Clarification des interactions</strong> entre l'AI Act et d'autres règlements (notamment Machinery Regulation pour les machines connectées).</li>
+          <li><strong>Interdiction explicite des applications dites de « nudification »</strong> (génération d'images dénudées non consenties).</li>
+        </ul>
+        <p>L'adoption formelle d'Omnibus VII est prévue avant l'application de l'AI Act haut-risque (2 août 2026).</p>
+
+        <h3>Le watermarking technique reporté au 2 décembre 2026</h3>
+        <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+          <p style="margin:0;">Une nouveauté significative d'Omnibus VII : <strong>l'obligation technique de watermarking cryptographique</strong> des contenus générés par IA est <strong>reportée au 2 décembre 2026</strong>. La <strong>labellisation visuelle/textuelle reste obligatoire au 2 août</strong> (mention type « rédigé avec assistance IA », « visuel généré par IA »), mais l'aspect cryptographique du watermarking bénéficie d'un délai supplémentaire.</p>
+        </div>
+
+        <h3>Implication concrète pour la PME — 3 actions avant le 2 août 2026</h3>
+        <ol>
+          <li><strong>Auditer ses interactions avec l'IA</strong> : tout chatbot, assistant vocal ou agent doit annoncer clairement qu'il s'agit d'une IA dès la première interaction. Concerne les modules <a href="cu-006-leads-chatbot.html" class="tool-link">Leads &amp; chatbots</a> et <a href="cu-022-voicebot-accueil.html" class="tool-link">Voicebot accueil</a>.</li>
+          <li><strong>Identifier les contenus générés par IA</strong> : tout email rédigé par IA et envoyé à un tiers, tout visuel ou audio généré, doit être labellisé. Concerne les modules <a href="cu-002-assistant-redactionnel.html" class="tool-link">Assistant rédactionnel</a>, <a href="cu-009-content-repurposing.html" class="tool-link">Content repurposing</a>, <a href="cu-010-pipeline-contenu-social.html" class="tool-link">Pipeline contenu social</a>, <a href="cu-019-newsletter-locale.html" class="tool-link">Newsletter locale</a>.</li>
+          <li><strong>Documenter la conformité</strong> : tenir un registre interne des usages IA en contact avec le public (clients, fournisseurs, candidats). Pour la dimension sécurité opérationnelle, voir le préalable <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA &amp; risques opérationnels</a>.</li>
+        </ol>
+
+        <p>Pour les architectures multi-agents qui interagissent avec le public, l'Article 50 impose une transparence cascadée — chaque agent en frontline doit s'annoncer. Voir le module <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a> pour le pattern d'architecture.</p>
       </section>
 
       <!-- 3. ARCHITECTURE DU DISPOSITIF -->
@@ -841,6 +885,14 @@
             <li>
               <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — texte officiel européen</a>
               <span class="resources-meta">Commission européenne — règlement adopté 2024, entrée en application progressive</span>
+            </li>
+            <li>
+              <a href="https://digital-strategy.ec.europa.eu/en/library/draft-guidelines-implementation-transparency-obligations-certain-ai-systems-under-article-50-ai-act" target="_blank" rel="noopener">Commission européenne — Draft guidelines Article 50 (8 mai 2026)</a>
+              <span class="resources-meta">Draft en consultation publique — transparence + labellisation contenus générés</span>
+            </li>
+            <li>
+              <a href="https://www.consilium.europa.eu/en/press/press-releases/2026/05/07/artificial-intelligence-council-and-parliament-agree-to-simplify-and-streamline-rules/" target="_blank" rel="noopener">Conseil de l'UE — Accord Omnibus VII (7 mai 2026)</a>
+              <span class="resources-meta">Accord politique simplification AI Act + watermarking reporté au 2 décembre 2026</span>
             </li>
             <li>
               <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Intelligence artificielle</a>
