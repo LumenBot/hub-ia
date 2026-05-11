@@ -481,6 +481,47 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.5** — mai 2026, suite à v3.7.6 (callout intro de la section « Pour aller plus loin » sans `margin-bottom`, signalé par Cowork sur cu-023 « Devis simples ») :
+  - § 1.5.1.2 (NOUVELLE) — **Le callout intro de la section finale `id="ressources"` doit toujours porter le style `margin-bottom: var(--space-5)`**. Ce callout sert de pont visuel entre le titre de la section (« Pour aller plus loin ») et la première sous-rubrique (`📰 Articles de fond`, `🎓 Tutoriels`, etc.). Sans `margin-bottom`, le callout est collé au titre h3 suivant — pas de respiration, le tout devient illisible.
+
+    ❌ **Anti-pattern observé en v3.7.6** (12 fichiers concernés : cu-023, cu-024, cu-027, pr-07, dep-01 à dep-08 sauf dep-04 inclus) :
+    ```html
+    <div class="callout callout-info">
+      Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="...">page Ressources du Hub</a>.
+    </div>
+    <div class="resources-cat">
+      <h3>📰 Articles de fond</h3>
+      …
+    </div>
+    ```
+
+    ✅ **Pattern correct** :
+    ```html
+    <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+      <p style="margin:0;">📚 <strong>Bibliographie transverse&nbsp;:</strong> …</p>
+    </div>
+    <div class="resources-cat">
+      <h3>📰 Articles de fond</h3>
+      …
+    </div>
+    ```
+
+    **Pourquoi `style` inline ?** Le bloc `.callout` du design system n'a pas de `margin-bottom` standard (les espacements sont définis par le contexte). Sur la section finale, l'espacement avant `resources-cat` est nécessaire ; le style inline `var(--space-5)` est tolérable car single-use et utilise une variable du design system (RULES § 1.5.3 admet `style="..."` ponctuel qui utilise les `var(--space-X)`).
+
+    **Règle de prévention** : vérifier par grep que **tout `<div class="callout callout-info">` qui précède directement un `<div class="resources-cat">`** porte un attribut `style` avec `margin-bottom` :
+    ```bash
+    python3 -c "
+    import re, glob
+    for fp in glob.glob('modules/cu-*.html') + glob.glob('prealables/pr-*.html') + glob.glob('deploiement/dep-*.html'):
+        s = open(fp).read()
+        for m in re.finditer(r'<div class=\"callout callout-info\"([^>]*)>', s):
+            after = s[m.end():m.end()+1500]
+            if re.search(r'</div>\s*<div class=\"resources-cat\">', after):
+                if 'margin' not in m.group(1):
+                    print(f'{fp}: callout intro sans margin')
+    "
+    ```
+  - Correctif appliqué v3.7.6 : 12 callouts patchés (cu-023, cu-024, cu-027, pr-07, dep-01, dep-02, dep-03, dep-04, dep-05, dep-06, dep-07, dep-08) — ajout de `style="margin-bottom: var(--space-5);"` au tag d'ouverture.
 - **v1.5.4** — mai 2026, suite à v3.7.5 (callout `Bibliographie transverse` mal imbriqué dans le `module-section-header` sur 8 modules, signalé par Cowork) :
   - § 1.5.1.1 (NOUVELLE) — **Structure canonique stricte du `<div class="module-section-header">`**. Le `module-section-header` est un conteneur de **mise en page horizontale** (flex / grid) qui aligne **l'icône à gauche et le titre à droite**. Il accepte **uniquement** les enfants suivants, dans cet ordre :
     1. `<div class="module-section-icon ...">…</div>` — icône numérotée ou thématique
