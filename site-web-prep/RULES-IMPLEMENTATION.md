@@ -481,6 +481,36 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.3** — mai 2026, suite à v3.7.4 (deux bugs critiques post-v3.7.3 signalés par Cowork) :
+  - § 1.4.5 (NOUVELLE) — **Tout script qui patche en bulk plusieurs fichiers HTML est interdit s'il s'appuie sur des placeholders textuels (`STASH0`, `STASH1`, etc.) sans contrôle d'intégrité post-écriture**. Bug observé en v3.7.3 : un script Python ajoutait `class="tool-link"` à des liens internes en stashant temporairement les régions `<nav>`, `<footer>`, `<aside>`, `<header>` pour les exclure du patch. Le pattern `<aside class="module-toc">` d'`architectures.html` et de 17 autres pages contient un `<nav class="module-toc-nav">` imbriqué. Le `<nav>` interne a été stashé en premier (placeholder `\x00STASH1\x00`), puis le `<aside>` entier (contenant déjà ce placeholder) a été stashé à son tour. À la restauration (boucle `for key, val in placeholders.items()`), le placeholder STASH1 du nav interne a été restauré AVANT le STASH du aside qui le contenait textuellement — résultat : le `<aside>` restauré contenait `<aside ...> ...\x00STASH1\x00... </aside>` que la boucle ne pouvait plus remplacer (la clé avait déjà été consommée). Les octets nuls ont en outre survécu à l'écriture, corrompant 18 fichiers.
+    **Règle de prévention obligatoire** :
+    1. Tout script bulk qui stash des régions HTML imbriquées (`<nav>` ↔ `<aside>`, `<header>` ↔ `<section>`, etc.) doit utiliser un parseur HTML (BeautifulSoup, lxml) plutôt que des regex.
+    2. Si un script regex doit être utilisé, **restaurer les placeholders dans l'ordre inverse de stash** (LIFO) pour éviter la cascade.
+    3. **Test obligatoire post-écriture** : `grep -l $'\x00' [files]` + `grep -l 'STASH[0-9]' [files]` doit renvoyer vide avant clôture du patch. Cf. snippet de vérif :
+       ```python
+       for fp in files:
+           with open(fp, 'rb') as f:
+               data = f.read()
+           assert b'\x00' not in data, f"NUL bytes in {fp}"
+           assert b'STASH' not in data, f"Stash residual in {fp}"
+       ```
+    4. Toujours **prévisualiser le diff sur 1-2 fichiers** avant d'appliquer en bulk sur 40+ fichiers.
+  - § 1.4.6 (NOUVELLE) — **Tout nouveau style de lien (`a.tool-link`, `.crit-build a`, etc.) doit être audité contre tous les conteneurs à fond foncé du design system**. Bug observé en v3.7.3 : la classe `a.tool-link` (couleur `var(--color-primary)` = #1F3864 bleu foncé) a été ajoutée à 344 liens internes — y compris à l'intérieur de `.exec-summary` (gradient #1F3864 → #2E5395, fond bleu foncé) — créant un contraste **bleu sur bleu illisible**. Mêmes conteneurs à risque : `.case-deep-final`, `.archi-block`, `.compare-table th`, `.trouble-table th`.
+    **Règle de prévention obligatoire** :
+    1. Avant de finaliser un nouveau style de lien (ou de couleur de texte), **lister tous les conteneurs à fond foncé** du design system : `grep -nE 'background:.*(#1F3864\|#2E5395\|#1F2937\|#1E3A8A\|gradient.*135deg)' css/*.css`.
+    2. **Définir une surcharge explicite** pour chacun (color jaune accent `#FFD600` ou blanc selon le pattern). Pattern canonique appliqué en v3.7.4 :
+       ```css
+       .exec-summary a, .exec-summary a.tool-link,
+       .case-deep-final a, .case-deep-final a.tool-link,
+       .archi-block a, .archi-block a.tool-link {
+         color: #FFD600;
+         text-decoration-color: rgba(255, 214, 0, 0.45);
+       }
+       ```
+    3. **Test visuel manuel** : ouvrir au moins un module avec exec-summary et vérifier que les liens internes sont lisibles avant de cliquer « commit ».
+  - Correctifs appliqués v3.7.4 :
+    - 18 sommaires (TOC) restaurés à leur contenu d'origine depuis `HEAD~1` (`architectures.html` + 11 modules CU + 6 préalables PR concernés par le pattern `<nav>` imbriqué dans `<aside class="module-toc">`).
+    - Surcharge CSS contraste ajoutée dans `module-v3.css` § 322+ couvrant `.exec-summary`, `.case-deep-final`, `.archi-block`.
 - **v1.5.2** — mai 2026, suite à v3.7.2 (audit jargon codes internes + audit renvois outils manquants, signalés par Cowork) :
   - § 1.5.6.1 (NOUVELLE) : interdiction des **codes internes (CU-XXX, PR-XX, DEP-XX) en texte affiché**. Le lecteur cible (dirigeant PME/ETI non-IT) ne sait pas ce qu'est un « DEP-06 » ou un « CU-020 » : ces codes sont du jargon technique interne qui ne doit jamais sortir des fichiers. Pattern correct = titre éditorial avec lien intégré et dénominateur de navigation (« le module », « la fiche », « le préalable »). 45 occurrences de ce type corrigées en v3.7.2 (cu-008, cu-014, cu-015, cu-018, cu-021, cu-022, cu-023, cu-025, cu-027, pr-01, pr-02, pr-03, pr-05, pr-07, dep-01, dep-07). Procédure de vérification grep documentée.
   - § 1.5.6.2 (NOUVELLE) : règle explicite **lien outil obligatoire sur la première mention significative par section**. Audit v3.7.2 a identifié 378 occurrences d'outils en clair non liées vers leur fiche `ressources.html#xxx`. Top 5 fichiers concentraient 128 hits (cu-013, pr-07, cu-021, cu-023, cu-027). Patches appliqués sur ces 5 fichiers. La règle codifie la pratique : 1 lien par outil par section sur la mention la plus significative — pas saturation.
