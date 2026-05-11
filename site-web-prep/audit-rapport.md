@@ -3,9 +3,9 @@
 **Total hits** : 0
 
 **Comptages réels** :
-- modules : 26
+- modules : 27
 - prealables : 7
 - fiches_dep : 8
-- fiches_outils : 95
+- fiches_outils : 99
 
 ✅ Aucun écart détecté.

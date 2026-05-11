@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gouvernance des agents IA — Hub IA — Learning Center</title>
+  <meta name="description" content="91 % des organisations utilisent des agents IA, 10 % seulement ont une gouvernance dédiée. Étude de cas Klarna, framework 7 dimensions, auto-diagnostic interactif et plan 30 jours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+  <style>
+    /* Composants single-use scopés (cf. RULES § 1.4.4) :
+       - .conf-grid / .conf-card  → section 5.2 grille 3 zones de confiance
+       - .timeline-block / .timeline-step → section 7 plan 30 jours
+       Pas de réutilisation cross-module ⇒ pas de factorisation centralisée. */
+
+    .conf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-5) 0;
+    }
+    .conf-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      border: 1px solid var(--color-border);
+      border-top: 5px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .conf-card.green { border-top-color: var(--color-success, #16A34A); background: linear-gradient(180deg, #F0FAF0 0%, #FFFFFF 60%); }
+    .conf-card.yellow { border-top-color: #E8A55C; background: linear-gradient(180deg, #FFF8EE 0%, #FFFFFF 60%); }
+    .conf-card.red { border-top-color: #C82A2A; background: linear-gradient(180deg, #FFF1F1 0%, #FFFFFF 60%); }
+    .conf-card-label {
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-soft);
+    }
+    .conf-card-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--color-text);
+    }
+    .conf-card-conf {
+      font-size: 0.875rem;
+      color: var(--color-text-soft);
+      font-style: italic;
+    }
+    .conf-card-action {
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      margin-top: var(--space-2);
+    }
+
+    .timeline-block {
+      display: grid;
+      gap: var(--space-4);
+      margin: var(--space-5) 0;
+      position: relative;
+    }
+    .timeline-step {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      border-left: 4px solid var(--color-primary);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-primary);
+    }
+    .timeline-step-label {
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+    .timeline-step h3 {
+      margin: 0 0 var(--space-2);
+      font-size: 1.0625rem;
+      color: var(--color-text);
+    }
+    .timeline-step ul {
+      margin: var(--space-2) 0 0;
+      padding-left: var(--space-5);
+    }
+    .timeline-step li {
+      margin-bottom: var(--space-2);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress"><div class="reading-progress-bar" id="readingProgress"></div></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <a href="../index.html" class="nav-logo-link" aria-label="Quest for Change — accueil"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="nav-logo-large"></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link nav-link-active">Modules</a>
+        <a href="../deploiement.html" class="nav-link">Déploiement</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../index.html#modules" class="module-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Retour aux modules
+      </a>
+      <div class="module-badges">
+        <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
+        <a href="../index.html?niveau=n3#modules" class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</a>
+        <span class="card-badge">📋 Étude de cas + framework + auto-diagnostic</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+      </div>
+      <h1>🪪 Gouvernance des agents IA</h1>
+      <p class="module-subtitle">
+        91 % des organisations utilisent des agents IA. 10 % seulement ont une gouvernance dédiée. Traiter les agents comme des employés débutants : tâche bornée, droits explicites, escalade documentée, évaluation périodique. Le pattern managérial qui sépare les 5 % qui réussissent des 95 % qui échouent.
+      </p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du module</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Le shift de framing 2026</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📍</span>La leçon Klarna</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🛠️</span>Framework — 7 dimensions</a></li>
+        <li><a href="#section-4"><span class="toc-icon">⚖️</span>Cadre réglementaire</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🚦</span>Pattern d'escalade</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+      <!-- TAG ARCHITECTURES -->
+      <div class="callout callout-info" style="margin: var(--space-4) 0;">
+        <p>
+          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : tout déploiement d'agent en production avec accès à des données métier ou des outils internes relève d'<strong>A3 (souveraineté contrôlée) ou A4 (souveraineté forte)</strong>. Un agent connecté à un CRM, un ERP ou un système de tickets doit être tracé, auditable et révocable. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
+        </p>
+      </div>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="module-section" id="executive-summary" style="border-bottom: none; padding-top: 0;">
+        <div class="exec-summary">
+          <div class="exec-summary-label">⚡ L'essentiel à retenir en 90 secondes</div>
+          <h2>Le défi n'est plus de construire l'agent — c'est de le gouverner</h2>
+
+          <div class="exec-takeaways">
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">1</div>
+              <p><strong>L'écart entre usage et gouvernance est aujourd'hui béant.</strong> 91 % des organisations utilisent des agents IA, 10 % seulement ont une gouvernance dédiée (Okta, avril 2026). Gartner prévoit que <strong>plus de 40 % des projets agentic seront annulés d'ici fin 2027</strong>. La gouvernance n'est plus un nice-to-have, c'est le facteur de survie du projet.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">2</div>
+              <p><strong>Le cas Klarna est la leçon fondatrice.</strong> Février 2024 : Klarna annonce que son agent IA fait le travail de 700 ETP (2,3 millions de chats/mois, CSAT au niveau humain). 2025 : Klarna réembauche publiquement des humains pour traiter les cas complexes. <strong>Pattern documenté</strong> : l'agent matche les humains sur les tâches simples, mais s'effondre sur les cas nuancés à forte exposition.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">3</div>
+              <p><strong>Le pattern « agent = employé » est le bon framing 2026.</strong> Identité dédiée, périmètre de mission unique et borné, permissions <em>least-privilege</em> + <em>just-in-time</em>, manager humain identifié, <em>kill switch</em> instantané, évaluation périodique sur KPI agent (containment rate, escalation accuracy, cost per interaction). <strong>Sept dimensions à formaliser</strong> pour chaque agent en production.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">4</div>
+              <p><strong>La jurisprudence rend l'entreprise responsable des décisions de ses agents.</strong> L'arrêt Moffatt v. Air Canada (février 2024) a tranché : un chatbot n'est pas une entité légale séparée, l'entreprise est responsable de ce qu'il dit. En France, l'article 22 RGPD impose une intervention humaine « significative ». L'AI Act (article 14) exige une supervision humaine effective sur les systèmes haut-risque dès le <strong>2 août 2026</strong>.</p>
+            </div>
+          </div>
+
+          <div class="exec-stats">
+            <div class="exec-stat"><div class="exec-stat-num">91 % / 10 %</div><div class="exec-stat-label">Usage vs gouvernance dédiée</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">&gt; 40 %</div><div class="exec-stat-label">Projets agentic annulés d'ici 2027</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">23 %</div><div class="exec-stat-label">Organisations passant l'agentique à l'échelle</div></div>
+            <div class="exec-stat"><div class="exec-stat-num">40 %</div><div class="exec-stat-label">RFP IA en UE citant ISO/IEC 42001 mi-2026</div></div>
+          </div>
+
+          <div class="exec-when">
+            <h3>Cette page est utile si…</h3>
+            <ul>
+              <li>Tu as <strong>déployé un agent IA en production</strong> (chatbot, agent commercial, automatisation) ou tu t'apprêtes à le faire</li>
+              <li>Tu te demandes <strong>qui est responsable</strong> si l'agent se trompe, et comment <strong>évaluer sa performance</strong> dans la durée</li>
+              <li>Tu cherches à clarifier <strong>quand l'agent doit escalader</strong> à un humain, et comment <strong>l'auditer</strong> en pratique</li>
+              <li>Tu veux un <strong>framework opérationnel applicable en PME</strong>, pas une doctrine théorique</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1 — LE SHIFT DE FRAMING -->
+      <section class="module-section" id="section-1">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🧭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 1</div>
+            <h2>Le shift de framing 2026 — l'agent comme employé</h2>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-block-num">91 % / 10 %</div>
+          <div class="stat-block-label">Organisations utilisant des agents IA vs organisations ayant une gouvernance dédiée. L'écart est béant — et c'est sur cet écart que les projets dérapent.</div>
+          <div class="stat-block-source">Source : Okta, relayé par Fortune, avril 2026.</div>
+        </div>
+
+        <h3>1.1 Pourquoi le framing techno-centré ne suffit plus</h3>
+        <p>Jusqu'en 2025, le discours dominant sur les agents IA était <strong>techno-centré</strong> : « comment construire ? quelle architecture ? quel framework ? quel modèle backend ? ». Cette vision était nécessaire pour démarrer, elle ne suffit plus en production.</p>
+
+        <p>Le constat 2026 : les organisations qui réussissent leurs déploiements d'agents IA ont en commun un changement de posture. Elles ne pilotent pas leurs agents comme des logiciels. Elles les pilotent <strong>comme des employés débutants</strong> :</p>
+        <ul>
+          <li>À qui on confie une mission claire</li>
+          <li>À qui on accorde des droits limités au démarrage, élargis avec la confiance</li>
+          <li>Qu'on briefe avec des exemples et des contre-exemples</li>
+          <li>Qu'on supervise et qu'on évalue</li>
+          <li>Qu'on peut « licencier » (désactiver, archiver) si nécessaire</li>
+        </ul>
+
+        <h3>1.2 Trois raisons documentées qui font fonctionner ce framing</h3>
+        <ol>
+          <li><strong>Il rend la gouvernance lisible pour les non-IT.</strong> Un dirigeant non-technique comprend immédiatement « cet agent fait le travail d'un junior commercial » plutôt que « ce système est un graphe orchestré avec des nœuds <em>tool-call</em> asynchrones ». La conversation devient possible avec les RH, les juristes, les opérationnels.</li>
+          <li><strong>Il force la discipline managériale.</strong> Si tu traites un agent comme un employé, tu dois lui définir un périmètre, des objectifs, des KPI. Cela évite le « projet IA flou » qui finit en abandon dans 40 % des cas (Gartner, 2025).</li>
+          <li><strong>Il prépare la conformité réglementaire.</strong> L'AI Act exige une supervision humaine effective (article 14, applicable au 2 août 2026 sur les systèmes haut-risque). L'article 22 RGPD impose qu'une décision significative ne soit pas 100 % automatisée. Le pattern « agent = employé » colle naturellement à ces obligations.</li>
+        </ol>
+
+        <h3>1.3 Ce que ça veut dire concrètement</h3>
+        <p>Le framing « agent = employé » se traduit en <strong>7 dimensions à formaliser</strong> pour chaque agent en production. C'est l'objet de la section 3 de ce module. Pour les architectures multi-agents où plusieurs « employés IA » coopèrent, voir aussi le module <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a>.</p>
+      </section>
+
+      <!-- SECTION 2 — KLARNA -->
+      <section class="module-section" id="section-2">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">📍</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 2</div>
+            <h2>La leçon Klarna — étude de cas fondatrice</h2>
+          </div>
+        </div>
+
+        <div class="case-deep-actor warm">
+          <div class="case-deep-actor-label">Cas pédagogique fondateur — Klarna (fintech suédoise)</div>
+          <p style="margin: 0;">
+            <strong>Klarna</strong> — fintech suédoise spécialisée dans le <em>buy now, pay later</em>. Déploiement d'un agent IA en partenariat avec OpenAI sur le support client.
+          </p>
+          <div class="case-deep-actor-meta">
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Volume traité (fév. 2024)</div>
+              <strong>2,3 M chats/mois</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Équivalent ETP</div>
+              <strong>700 ETP</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Gain annoncé</div>
+              <strong>40 M$/an</strong>
+            </div>
+            <div class="case-deep-actor-meta-item">
+              <div class="case-deep-actor-meta-label">Temps moyen résolution</div>
+              <strong>−82 %</strong>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-3); font-size: 0.9375rem;">
+            <strong>Bilan factuel 2025</strong> : Klarna réembauche publiquement des humains pour le service client. Le chatbot reste actif sur les requêtes simples (recherche de commande, modification d'adresse, FAQ) mais les <strong>cas complexes — litiges, soupçons de fraude, négociations commerciales, situations émotionnelles — sont systématiquement réorientés vers des humains</strong>. Le PDG Sebastian Siemiatkowski explique le revirement : la dégradation de la qualité sur les cas nuancés a affecté la réputation, et le coût caché (clients mécontents, contentieux) a fini par dépasser les économies réalisées.
+          </p>
+          <p style="margin: 0; font-size: 0.8125rem; color: var(--color-text-soft); font-style: italic;">
+            Sources : communiqué Klarna février 2024 ; Customer Experience Dive 2025 ; analyses de presse 2025-2026.
+          </p>
+        </div>
+
+        <h3>2.1 Février 2024 — l'annonce qui a marqué le marché</h3>
+        <p>En février 2024, Klarna publie un communiqué qui fait le tour du monde : son agent IA gère désormais <strong>deux tiers du support client</strong>, soit <strong>2,3 millions de conversations en un mois</strong>, équivalent au travail de <strong>700 ETP</strong>, avec un score de satisfaction client (CSAT) au niveau des agents humains. Klarna chiffre le gain à 40 millions de dollars par an. Le récit séduit : voici la preuve que l'IA peut remplacer massivement le support client humain. Le marché s'enflamme.</p>
+
+        <h3>2.2 2025 — le retour de bâton</h3>
+        <p>En 2025, Klarna communique discrètement un changement de stratégie : l'entreprise <strong>réembauche publiquement des humains</strong> pour le service client. Le chatbot reste actif sur les requêtes simples, mais les cas complexes (litiges, soupçons de fraude, négociations, situations émotionnelles) sont systématiquement réorientés vers des humains. Le pattern de déploiement a changé : l'agent ne remplace plus, il <strong>assiste et trie</strong>, et l'humain reprend la main sur les cas à forte exposition.</p>
+
+        <h3>2.3 Les 4 leçons fondatrices du cas Klarna</h3>
+        <ol>
+          <li><strong>L'agent matche les humains sur les tâches simples, s'effondre sur les cas nuancés.</strong> Le test de production révèle un seuil de complexité au-delà duquel la performance s'effondre, alors que les benchmarks initiaux étaient impressionnants. Sans gouvernance qui anticipe ce seuil (par escalade automatique), tu paies en réputation.</li>
+          <li><strong>Le coût caché de l'erreur d'un agent est asymétrique.</strong> Sur 100 tickets traités correctement, l'agent te fait gagner du temps. Sur 1 ticket traité catastrophiquement (insulte client, mauvaise information juridique, traitement inéquitable), tu perds en réputation, en contentieux, en confiance. La balance n'est pas linéaire.</li>
+          <li><strong>Le « 700 ETP remplacés » était une <em>vanity metric</em>.</strong> Le bon KPI n'est pas « combien d'humains ai-je remplacés », c'est « quel est le gain net (économies − coûts cachés) sur 12 mois ». Klarna a appris la leçon publiquement.</li>
+          <li><strong>Le retour en arrière est honorable.</strong> Klarna a communiqué ouvertement sur son revirement. C'est devenu un cas pédagogique de référence en 2026, plutôt qu'un échec caché. La transparence sur les ajustements protège la crédibilité long terme.</li>
+        </ol>
+
+        <h3>2.4 Ce que tu retiens en tant que dirigeant</h3>
+        <p>Avant tout déploiement d'agent IA en production, <strong>anticipe le seuil de complexité au-delà duquel l'agent doit escalader</strong>. Définis les KPI de coût net (pas seulement les économies brutes). Prévois un mécanisme de retour en arrière sans perte de face. Le cas Klarna n'est pas un cas d'échec — c'est un cas de gouvernance ajustée en cours de route, ce qui est précisément ce que demande la production.</p>
+
+        <div class="pull-quote">
+          💡 <strong>Signal rouge.</strong> Si ton projet d'agent en production ne prévoit pas explicitement « comment on fait machine arrière sans perdre la face », c'est qu'il n'a pas été pensé comme un projet managérial — mais comme un coup marketing.
+        </div>
+      </section>
+
+      <!-- SECTION 3 — FRAMEWORK 7 DIMENSIONS -->
+      <section class="module-section" id="section-3">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🛠️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3</div>
+            <h2>Le framework opérationnel — 7 dimensions à formaliser par agent</h2>
+          </div>
+        </div>
+
+        <p>Pour chaque agent en production, formaliser ces 7 dimensions. C'est ton <strong>contrat agent ↔ entreprise</strong>, l'équivalent d'une fiche de poste. Le tableau ci-dessous donne la grille de lecture ; le détail dimension par dimension suit.</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Dimension</th>
+              <th>Question à formaliser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Tâche</strong></td>
+              <td>Quelle est la mission unique de cet agent ? Périmètre fonctionnel borné, pas multi-rôles.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Droits de décision</strong></td>
+              <td>Que peut-il décider seul ? Quelles décisions doivent être validées par un humain ?</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Points d'escalade</strong></td>
+              <td>À qui adresse-t-il les cas qui sortent de son périmètre ? Quel SLA d'escalade ?</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>KPI</strong></td>
+              <td>Comment mesure-t-on sa performance ? À quelle fréquence ? Avec quel seuil d'alerte ?</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Audit</strong></td>
+              <td>Qui revoit ses décisions ? À quelle fréquence ? Sur quel échantillon ?</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>Versions</strong></td>
+              <td>Comment gère-t-on l'évolution de son prompt / modèle / outils ? Tests de non-régression ?</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><strong>Onboarding / Offboarding</strong></td>
+              <td>Quel briefing initial (système prompt, exemples, contraintes) ? Comment archiver son travail si l'agent est désactivé ?</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3.1 Dimension 1 — Tâche</h3>
+        <p>Une mission <strong>unique et bornée</strong>, formulée comme on rédigerait une fiche de poste pour un employé débutant. Mauvais exemple : « assistant commercial polyvalent ». Bon exemple : « qualification des leads entrants via formulaire web, scoring sur 5 critères définis, transmission au commercial humain pour les leads scorés ≥ 4/5 ».</p>
+        <p>Le test : si tu peux résumer la mission en une phrase claire, c'est bon. Si tu hésites entre 3 missions, l'agent va dériver. Pour les architectures où plusieurs agents spécialisés coopèrent au lieu d'un agent unique surchargé, voir <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a>.</p>
+
+        <h3>3.2 Dimension 2 — Droits de décision</h3>
+        <p>Trois niveaux à distinguer :</p>
+        <ul>
+          <li><strong>Décisions autonomes</strong> : l'agent décide et agit sans validation. Réservées aux décisions à faible enjeu et à fort volume (ex : envoyer un accusé de réception, marquer un ticket comme « résolu » après confirmation utilisateur).</li>
+          <li><strong>Décisions avec garde-fous</strong> : l'agent décide mais avec des règles strictes (ex : peut accorder une remise jusqu'à X %, au-delà = validation manager).</li>
+          <li><strong>Décisions à valider</strong> : l'agent prépare une recommandation, un humain valide avant action (ex : envoyer une réponse de litige, supprimer un compte client).</li>
+        </ul>
+        <p>Principe de <strong>moindre privilège</strong> : commencer restrictif, élargir progressivement avec la preuve de la performance.</p>
+
+        <h3>3.3 Dimension 3 — Points d'escalade</h3>
+        <p>Pour chaque cas où l'agent atteint sa limite (manque de confiance, cas non prévu, demande hors périmètre), définir explicitement :</p>
+        <ul>
+          <li><strong>À qui</strong> il escalade (un humain identifié, un autre agent spécialisé, une file d'attente)</li>
+          <li><strong>Quel SLA</strong> est attendu (sous 5 min ? 1 h ? 24 h ?)</li>
+          <li><strong>Quel format de transmission</strong> (résumé du contexte, historique de la conversation, raison de l'escalade)</li>
+        </ul>
+        <p>L'escalade silencieuse (l'agent renvoie « je ne peux pas vous aider » sans transmission) est le pire des cas — c'est l'utilisateur qui doit recommencer son parcours.</p>
+
+        <h3>3.4 Dimension 4 — KPI agent</h3>
+        <p>Trois familles de KPI à suivre :</p>
+        <ul>
+          <li><strong>Performance opérationnelle</strong> : <em>containment rate</em> (% de cas résolus sans escalade), temps moyen de résolution, taux d'escalade.</li>
+          <li><strong>Qualité</strong> : taux de satisfaction utilisateur, taux de modification post-hoc des décisions de l'agent (signal de mauvaise calibration), taux d'erreur détecté en audit.</li>
+          <li><strong>Coût</strong> : coût par interaction, coût total mensuel, coût par cas escaladé.</li>
+        </ul>
+        <p>Cible opérationnelle pratique 2026 : <strong>10-15 % de cas en revue humaine</strong>. Si moins, l'agent est probablement trop autonome (risque d'erreurs cachées). Si plus, l'agent est mal calibré (à reformer ou redéployer).</p>
+
+        <div class="pull-quote">
+          💡 <strong>Signal rouge.</strong> Taux de modification chronique &gt; 20 % des décisions de l'agent. Cela signifie que les humains corrigent systématiquement l'agent — il faut le reformer (nouveaux exemples, prompt revu, modèle changé).
+        </div>
+
+        <h3>3.5 Dimension 5 — Audit</h3>
+        <p>Qui revoit les décisions de l'agent ? À quelle fréquence ? Sur quel échantillon ? Trois patterns d'audit :</p>
+        <ul>
+          <li><strong>Audit continu</strong> : revue de chaque décision (pour les cas haut-risque uniquement, ex : décisions financières &gt; X €).</li>
+          <li><strong>Audit échantillonné</strong> : revue d'un échantillon représentatif (10-20 % des décisions, par exemple chaque semaine).</li>
+          <li><strong>Audit déclenché</strong> : revue à la demande (sur réclamation utilisateur, sur signal anormal détecté en monitoring).</li>
+        </ul>
+        <p>L'audit n'est pas optionnel. Il est exigé par l'AI Act (article 14) sur les systèmes haut-risque, et par la jurisprudence (cf. arrêt Moffatt v. Air Canada en section 4).</p>
+
+        <h3>3.6 Dimension 6 — Versions</h3>
+        <p>Un agent évolue : tu changes son prompt, tu changes le modèle backend (par exemple de Claude Sonnet 4.6 à Sonnet 4.7), tu ajoutes un outil. <strong>Chaque changement est une nouvelle version</strong>. À documenter :</p>
+        <ul>
+          <li>Numéro de version (v1.0, v1.1, etc.)</li>
+          <li>Date de mise en production</li>
+          <li>Description du changement</li>
+          <li>Test de non-régression sur un dataset <em>golden</em> (cf. <a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue et qualité IA</a>)</li>
+          <li>Plan de rollback si la nouvelle version dégrade la performance</li>
+        </ul>
+        <p>Sans ce versioning, tu ne sais pas pourquoi ton agent a brutalement changé de comportement. Avec, tu peux revenir en arrière en quelques minutes.</p>
+
+        <h3>3.7 Dimension 7 — Onboarding et offboarding</h3>
+        <p><strong>Onboarding</strong> : briefing initial de l'agent avant mise en production. Inclut :</p>
+        <ul>
+          <li>Système prompt complet</li>
+          <li>Exemples positifs (« voici une bonne réponse à cette question »)</li>
+          <li>Contre-exemples (« voici une réponse à ne pas donner »)</li>
+          <li>Contraintes explicites (« tu ne donnes jamais de conseil juridique sans renvoyer à notre service juridique »)</li>
+        </ul>
+        <p><strong>Offboarding</strong> : si l'agent est désactivé (changement de mission, abandon du projet), comment archiver proprement ? Que devient l'historique de ses décisions ? Comment les utilisateurs sont-ils informés ?</p>
+        <p>Souvent négligé. C'est pourtant ce qui distingue une organisation mature d'une organisation qui empile des agents fantômes en production.</p>
+      </section>
+
+      <!-- SECTION 4 — CADRE RÉGLEMENTAIRE -->
+      <section class="module-section" id="section-4">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">⚖️</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4</div>
+            <h2>Le cadre réglementaire à connaître</h2>
+          </div>
+        </div>
+
+        <p>La gouvernance d'agents IA n'est plus seulement une bonne pratique managériale — elle devient une obligation réglementaire. Quatre textes structurent le paysage 2026. Pour un déroulé complet sur l'AI Act et le RGPD appliqués à l'IA, voir <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>. Pour la sécurité technique des agents (secrets, périmètre d'accès, audit), voir <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA</a>.</p>
+
+        <h3>4.1 EU AI Act — Article 14 (supervision humaine)</h3>
+        <p>L'AI Act exige une <strong>supervision humaine effective</strong> sur les systèmes d'IA haut-risque (recrutement, scoring crédit, biométrie, infrastructures critiques, etc.). Applicable au <strong>2 août 2026</strong>.</p>
+        <p>« Supervision humaine effective » signifie concrètement :</p>
+        <ul>
+          <li>Une personne physique identifiée capable d'intervenir</li>
+          <li>Une compréhension suffisante du fonctionnement du système pour détecter les anomalies</li>
+          <li>Un mécanisme d'arrêt rapide</li>
+          <li>Des contrôles documentés</li>
+        </ul>
+        <p>Pas de validation-réflexe (un humain qui clique « OK » sans lire) : la supervision doit être <strong>significative</strong>.</p>
+
+        <h3>4.2 RGPD — Article 22 (décision automatisée)</h3>
+        <p>L'article 22 du RGPD interdit qu'une <strong>décision produisant des effets juridiques</strong> ou des <strong>effets significatifs similaires</strong> sur une personne soit prise <strong>uniquement</strong> sur la base d'un traitement automatisé.</p>
+        <p>Cas concret : un agent IA qui rejette automatiquement une candidature, qui refuse un crédit, qui suspend un compte utilisateur, sans intervention humaine, est en infraction. Une intervention humaine <strong>significative</strong> est requise.</p>
+
+        <h3>4.3 Jurisprudence — Moffatt v. Air Canada (février 2024)</h3>
+        <p>Le BC Civil Resolution Tribunal a tranché : <strong>un chatbot n'est pas une entité légale séparée</strong>. L'entreprise est responsable de ce que dit son chatbot. Air Canada a été condamnée à honorer les engagements pris par son chatbot, même si ces engagements contredisaient sa politique tarifaire officielle.</p>
+        <p>Implication : tout ce que ton agent dit ou décide engage ton entreprise, comme si c'était dit ou décidé par un employé. La défense « c'est l'IA qui a dit ça » n'est pas recevable.</p>
+
+        <h3>4.4 Frameworks de référence à connaître</h3>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Émetteur</th>
+              <th>Apport pour ta gouvernance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>NIST AI RMF + GenAI Profile</strong></td>
+              <td>NIST (gouvernement américain)</td>
+              <td>Référentiel risques + 4 fonctions <em>Govern / Map / Measure / Manage</em>. Gratuit, public.</td>
+            </tr>
+            <tr>
+              <td><strong>NIST Agentic AI Profile</strong></td>
+              <td>CSA Labs (en lien NIST)</td>
+              <td>Spécifique aux agents autonomes. <em>Public draft</em> 2026.</td>
+            </tr>
+            <tr>
+              <td><strong>ISO/IEC 42001</strong></td>
+              <td>ISO/IEC</td>
+              <td>38 contrôles certifiables. Devient standard contractuel : 40 % des RFP IA en UE le mentionnent mi-2026.</td>
+            </tr>
+            <tr>
+              <td><strong>Recommandations CNIL IA</strong></td>
+              <td>CNIL (France)</td>
+              <td>Application du RGPD au développement IA + chaîne de responsabilités.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- SECTION 5 — PATTERN D'ESCALADE -->
+      <section class="module-section" id="section-5">
+        <div class="module-section-header">
+          <div class="module-section-icon warning">🚦</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 5</div>
+            <h2>Le pattern d'escalade — <em>confidence-based routing</em></h2>
+          </div>
+        </div>
+
+        <h3>5.1 Le pattern qui s'impose en 2026</h3>
+        <p>Le pattern managérial le plus mature qui émerge en 2026 : <strong><em>confidence-based routing</em> + <em>tiered escalation</em></strong>. Plutôt que d'opposer « agent autonome » et « agent supervisé », l'agent <strong>mesure sa propre confiance</strong> sur chaque décision et <strong>route automatiquement</strong> selon le niveau de confiance.</p>
+
+        <h3>5.2 Trois zones de confiance</h3>
+        <p>Cible opérationnelle : 70-85 % zone verte, 10-15 % zone jaune, 5-15 % zone rouge.</p>
+
+        <div class="conf-grid">
+          <div class="conf-card green">
+            <div class="conf-card-label">🟢 Zone verte</div>
+            <h4 class="conf-card-title">Autonomie loggée</h4>
+            <div class="conf-card-conf">Confiance haute (&gt; 80 %)</div>
+            <p class="conf-card-action">L'agent agit en autonomie. Décision tracée pour audit, mais pas de validation humaine en amont.</p>
+          </div>
+          <div class="conf-card yellow">
+            <div class="conf-card-label">🟡 Zone jaune</div>
+            <h4 class="conf-card-title">Validation rapide</h4>
+            <div class="conf-card-conf">Confiance moyenne (50-80 %)</div>
+            <p class="conf-card-action">L'agent prépare la décision, un humain la valide sous 1 h. Bon ratio qualité / vitesse pour les cas intermédiaires.</p>
+          </div>
+          <div class="conf-card red">
+            <div class="conf-card-label">🔴 Zone rouge</div>
+            <h4 class="conf-card-title">Escalade immédiate</h4>
+            <div class="conf-card-conf">Confiance basse (&lt; 50 %)</div>
+            <p class="conf-card-action">L'agent escalade immédiatement et formule la question pour le bon humain. Pas de tentative de réponse au hasard.</p>
+          </div>
+        </div>
+
+        <h3>5.3 Mesurer la confiance — comment faire en pratique</h3>
+        <p>Plusieurs approches concrètes, souvent combinées :</p>
+        <ul>
+          <li><strong><em>Self-reported confidence</em></strong> : demander à l'agent de scorer sa propre réponse (l'agent donne sa réponse + un score 1-10 + une justification).</li>
+          <li><strong><em>Multi-model voting</em></strong> : faire générer plusieurs versions par plusieurs modèles, mesurer la cohérence.</li>
+          <li><strong><em>Rule-based triggers</em></strong> : escalade automatique si certains mots-clés apparaissent (ex : « litige », « urgent », « réclamation », « avocat »).</li>
+          <li><strong><em>External signals</em></strong> : si l'utilisateur a déjà eu des escalades précédentes ou est sur un compte sensible, escalade par défaut.</li>
+        </ul>
+
+        <h3>5.4 Outils 2026</h3>
+        <ul>
+          <li><strong>LangGraph <code>interrupt()</code></strong> — permet à un agent d'orchestration de demander une intervention humaine au milieu de son exécution.</li>
+          <li><strong>Patterns d'orchestration Anthropic</strong> — documentés dans les <em>Claude Engineering</em> blog posts.</li>
+          <li><strong><a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a></strong> (NousResearch) — agent open-source avec gestion native de l'escalade.</li>
+        </ul>
+      </section>
+
+      <!-- SECTION 6 — AUTO-DIAGNOSTIC -->
+      <section class="module-section" id="section-6">
+        <div class="module-section-header">
+          <div class="module-section-icon danger">🔎</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 6</div>
+            <h2>Auto-diagnostic — où en es-tu sur la gouvernance de tes agents ?</h2>
+          </div>
+        </div>
+
+        <p>Réponds aux 8 questions ci-dessous pour chaque agent en production (ou en projet). Le diagnostic génère un verdict en 3 niveaux et un plan d'action priorisé sur les dimensions manquantes, exportable en <code>.txt</code> pour partage interne.</p>
+
+        <div class="diagnostic">
+          <form id="govDiagForm">
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>1. Tâche bornée :</strong> la mission de mon agent tient-elle en une phrase claire, sans ambiguïté ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q1" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q1" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q1" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>2. Droits explicites :</strong> ai-je formalisé les 3 niveaux de décision (autonome / avec garde-fous / à valider) pour cet agent ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q2" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q2" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q2" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>3. Escalade documentée :</strong> ai-je défini à qui l'agent escalade, sous quel SLA, dans quel format ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q3" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q3" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q3" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>4. KPI agent :</strong> est-ce que je mesure <em>containment rate</em>, taux d'escalade, satisfaction utilisateur, coût par interaction ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q4" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q4" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q4" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>5. Audit régulier :</strong> ai-je planifié un audit échantillonné des décisions de l'agent (au minimum mensuel) ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q5" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q5" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q5" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>6. Versioning :</strong> tiens-je un registre des versions de l'agent (prompt, modèle, outils), avec tests de non-régression ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q6" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q6" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q6" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>7. Manager humain identifié :</strong> y a-t-il une personne nommée (pas une équipe vague) qui « manage » cet agent au quotidien ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q7" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q7" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q7" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div class="diag-question">
+              <p class="diag-question-label"><strong>8. Conformité :</strong> ma gouvernance respecte-t-elle l'article 14 AI Act (supervision humaine effective) et l'article 22 RGPD (intervention humaine significative) ?</p>
+              <div class="diag-options">
+                <label class="diag-option"><input type="radio" name="q8" value="2" required><span>Oui</span></label>
+                <label class="diag-option"><input type="radio" name="q8" value="1"><span>Partiel</span></label>
+                <label class="diag-option"><input type="radio" name="q8" value="0"><span>Non</span></label>
+              </div>
+            </div>
+
+            <div style="margin-top: var(--space-5); display: flex; gap: var(--space-3); flex-wrap: wrap;">
+              <button type="button" class="diag-submit" onclick="evaluateGovDiag()">📊 Générer mon plan d'action gouvernance</button>
+              <button type="button" class="diag-submit" id="exportGovBtn" style="display:none; background: var(--color-success, #16A34A);" onclick="exportGovDiag()">📥 Exporter en .txt</button>
+            </div>
+          </form>
+          <div class="diag-result" id="govDiagResult"></div>
+        </div>
+
+        <script>
+          (function () {
+            var DIMENSIONS = [
+              {
+                key: 'q1',
+                label: 'Tâche bornée',
+                reco: "Reformule la mission de l'agent en une phrase unique de fiche de poste (« qualification des leads scorés ≥ 4/5 et transmission au commercial »). Si tu hésites entre plusieurs missions, scinde en plusieurs agents spécialisés."
+              },
+              {
+                key: 'q2',
+                label: 'Droits de décision explicites',
+                reco: "Formalise les 3 niveaux : décisions autonomes (faible enjeu, fort volume) — décisions avec garde-fous (règles plafonnées) — décisions à valider (recommandation + validation humaine). Démarre restrictif, élargis avec la preuve de performance."
+              },
+              {
+                key: 'q3',
+                label: 'Points d\'escalade documentés',
+                reco: "Pour chaque cas hors périmètre, définis : à qui (humain identifié, agent spécialisé, file), quel SLA (5 min / 1 h / 24 h), quel format de transmission (résumé contexte + historique + raison). Bannis l'escalade silencieuse."
+              },
+              {
+                key: 'q4',
+                label: 'KPI agent suivis',
+                reco: "Mets en monitoring 3 familles : opérationnel (containment rate, temps de résolution, taux d'escalade), qualité (satisfaction, taux de modification post-hoc, taux d'erreur audit), coût (par interaction, mensuel, par escalade). Cible : 10-15 % de cas en revue humaine."
+              },
+              {
+                key: 'q5',
+                label: 'Audit régulier planifié',
+                reco: "Choisis le pattern adapté au risque : audit continu pour les décisions haut-risque (financières > X €), échantillonné (10-20 % chaque semaine) en régime courant, déclenché sur réclamation ou signal anormal. Obligation réglementaire AI Act article 14."
+              },
+              {
+                key: 'q6',
+                label: 'Versioning et tests de non-régression',
+                reco: "Documente pour chaque release : version, date, description, test sur dataset golden (voir module Évaluation continue et qualité IA), plan de rollback. Sans ce registre, un changement brutal de comportement de l'agent n'est plus diagnosticable."
+              },
+              {
+                key: 'q7',
+                label: 'Manager humain identifié',
+                reco: "Nomme une personne physique (pas une équipe) qui « manage » l'agent au quotidien : valide les versions, lit les audits, escalade au sponsor exécutif en cas de dérive. Sans ce manager nommé, l'agent devient orphelin et dérive en 6-12 mois."
+              },
+              {
+                key: 'q8',
+                label: 'Conformité AI Act + RGPD',
+                reco: "Vérifie article 14 AI Act (supervision humaine effective, mécanisme d'arrêt, contrôles documentés — applicable 2 août 2026) et article 22 RGPD (pas de décision juridiquement significative 100 % automatisée). Voir module Conformité RGPD & AI Act."
+              }
+            ];
+
+            var lastState = null;
+
+            window.evaluateGovDiag = function () {
+              var form = document.getElementById('govDiagForm');
+              if (!form.reportValidity()) return;
+              var data = new FormData(form);
+              var total = 0;
+              var oui = 0;
+              var responses = [];
+              for (var i = 0; i < DIMENSIONS.length; i++) {
+                var dim = DIMENSIONS[i];
+                var raw = data.get(dim.key);
+                var v = parseInt(raw, 10);
+                total += v;
+                if (v === 2) oui++;
+                responses.push({ label: dim.label, value: v, reco: dim.reco });
+              }
+
+              var level, color, summary;
+              if (oui >= 7) {
+                level = '🟢 GOUVERNANCE MATURE';
+                color = 'var(--color-success, #16A34A)';
+                summary = 'Tu as ' + oui + ' OUI sur 8. Ton agent est en production avec un cadre opérationnel solide. Maintiens la rigueur, audite trimestriellement, et étends progressivement le périmètre avec la preuve de performance.';
+              } else if (oui >= 4) {
+                level = '🟡 GOUVERNANCE EN CONSTRUCTION';
+                color = '#B86E1A';
+                summary = 'Tu as ' + oui + ' OUI sur 8. Ton agent fonctionne mais des angles morts existent. Priorise les dimensions manquantes avant de scaler — c\'est typiquement à cette étape que les projets dérapent silencieusement.';
+              } else {
+                level = '🔴 GOUVERNANCE INSUFFISANTE';
+                color = '#C82A2A';
+                summary = 'Tu as ' + oui + ' OUI sur 8. Risque significatif (réputationnel, juridique, financier). Suspends l\'extension du périmètre de l\'agent et formalise les dimensions manquantes en urgence avant tout nouveau déploiement.';
+              }
+
+              var manquants = responses.filter(function (r) { return r.value < 2; });
+
+              var html = '';
+              html += '<div style="text-align:center; padding: var(--space-5) 0;">';
+              html += '<div style="font-size: 3rem; font-weight: 800; color: ' + color + '; line-height: 1;">' + oui + '<span style="font-size: 1.5rem; color: var(--color-text-soft);"> OUI / 8</span></div>';
+              html += '<div style="font-size: 1.0625rem; font-weight: 700; color: ' + color + '; margin: var(--space-2) 0;">' + level + '</div>';
+              html += '<div style="font-size: 0.875rem; color: var(--color-text-soft);">Score total pondéré : ' + total + ' / 16</div>';
+              html += '</div>';
+              html += '<div class="diag-action" style="border-left-color: ' + color + ';"><p style="margin: 0;">' + summary + '</p></div>';
+
+              if (manquants.length === 0) {
+                html += '<div class="diag-action" style="border-left-color: var(--color-success, #16A34A);"><h4 style="color: var(--color-success, #16A34A);">Aucune dimension manquante</h4><p style="margin: 0;">Les 8 dimensions sont en place. Garde la rigueur dans la durée : la dérive d\'un agent gouverné survient quand le manager nommé change ou que l\'audit est suspendu « provisoirement ».</p></div>';
+              } else {
+                html += '<h3 style="color: ' + color + '; margin: var(--space-5) 0 var(--space-3);">Dimensions à consolider — recommandations</h3>';
+                manquants.forEach(function (r, idx) {
+                  var prio = r.value === 0 ? 'haute' : 'moyenne';
+                  html += '<div class="diag-action"><span class="diag-action-prio ' + prio + '">Priorité ' + prio + '</span>';
+                  html += '<h4>' + (idx + 1) + '. ' + r.label + ' ' + (r.value === 0 ? '— statut : NON' : '— statut : Partiel') + '</h4>';
+                  html += '<p>' + r.reco + '</p></div>';
+                });
+              }
+
+              var result = document.getElementById('govDiagResult');
+              result.innerHTML = html;
+              result.classList.add('show');
+              document.getElementById('exportGovBtn').style.display = 'inline-flex';
+              result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+              lastState = {
+                oui: oui,
+                total: total,
+                level: level,
+                summary: summary,
+                responses: responses,
+                manquants: manquants,
+                date: new Date().toISOString()
+              };
+              try { localStorage.setItem('hubia_cu026_gov', JSON.stringify(lastState)); } catch (e) {}
+            };
+
+            window.exportGovDiag = function () {
+              var state = lastState;
+              if (!state) {
+                try { state = JSON.parse(localStorage.getItem('hubia_cu026_gov') || 'null'); } catch (e) { state = null; }
+              }
+              if (!state) return;
+
+              var lines = [
+                'Hub IA — Learning Center — Auto-diagnostic Gouvernance des agents IA',
+                'Date : ' + new Date(state.date).toLocaleString('fr-FR'),
+                '',
+                'Score : ' + state.oui + ' OUI / 8  (pondéré ' + state.total + ' / 16)',
+                'Verdict : ' + state.level,
+                '',
+                'Synthèse :',
+                state.summary,
+                '',
+                'Détail des 8 dimensions :'
+              ];
+              var labelByValue = { 2: 'OUI    ', 1: 'Partiel', 0: 'NON    ' };
+              state.responses.forEach(function (r) {
+                lines.push('  [' + labelByValue[r.value] + '] ' + r.label);
+              });
+              lines.push('');
+              if (state.manquants && state.manquants.length) {
+                lines.push('Plan d\'action priorisé — dimensions à consolider :');
+                state.manquants.forEach(function (r, i) {
+                  lines.push('');
+                  lines.push((i + 1) + '. ' + r.label + ' (' + (r.value === 0 ? 'NON' : 'Partiel') + ')');
+                  lines.push('   ' + r.reco);
+                });
+              } else {
+                lines.push('Aucune dimension manquante — maintien de la rigueur dans la durée recommandé.');
+              }
+              lines.push('');
+              lines.push('— Exporté depuis le Hub IA — Learning Center (questforchange.eu)');
+
+              var blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+              var url = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = url;
+              a.download = 'auto-diag-gouvernance-agents-ia.txt';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            };
+
+            // Hydratation depuis localStorage si déjà rempli
+            try {
+              var saved = JSON.parse(localStorage.getItem('hubia_cu026_gov') || 'null');
+              if (saved && saved.responses) { lastState = saved; }
+            } catch (e) {}
+          })();
+        </script>
+      </section>
+
+      <!-- SECTION 7 — PLAN 30 JOURS -->
+      <section class="module-section" id="section-7">
+        <div class="module-section-header">
+          <div class="module-section-icon success">🚀</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7</div>
+            <h2>Plan d'action 30 jours pour structurer la gouvernance</h2>
+          </div>
+        </div>
+
+        <p>Un déroulé en quatre semaines pour passer d'une situation « agents déployés sans cadre » à « gouvernance opérationnelle ». S'applique aussi bien à un agent unique qu'à un parc d'agents existant.</p>
+
+        <div class="timeline-block">
+
+          <div class="timeline-step">
+            <div class="timeline-step-label">Jours 1-7 — Inventaire</div>
+            <h3>Cartographier tous les agents en production ou en projet</h3>
+            <ul>
+              <li>Lister tous les agents IA déployés ou en projet dans l'entreprise (y compris les agents « cachés » dans des outils SaaS activés par défaut).</li>
+              <li>Pour chaque agent : qui est responsable ? quel périmètre ? quels KPI suivis (s'ils existent) ?</li>
+              <li>Identifier les agents prioritaires (impact business le plus fort, exposition réglementaire la plus élevée).</li>
+            </ul>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-step-label">Jours 8-14 — Formalisation des 7 dimensions</div>
+            <h3>Remplir le contrat agent ↔ entreprise pour chaque agent prioritaire</h3>
+            <ul>
+              <li>Pour chaque agent prioritaire, remplir les 7 dimensions de la section 3 (tâche, droits, escalade, KPI, audit, versions, onboarding/offboarding).</li>
+              <li>Nommer un <strong>manager humain identifié</strong> pour chaque agent (une personne physique, pas une équipe).</li>
+              <li>Documenter les points d'escalade : qui, quel SLA, quel format de transmission.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-step-label">Jours 15-21 — Mise en place du suivi</div>
+            <h3>Instrumenter les KPI et planifier l'audit</h3>
+            <ul>
+              <li>Définir les KPI de chaque agent et les mettre en monitoring continu. Voir <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production : observabilité</a> pour le détail des KPI techniques et organisationnels.</li>
+              <li>Construire un dataset <em>golden</em> pour l'évaluation continue. Voir <a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue et qualité IA</a>.</li>
+              <li>Planifier le rythme d'audit (mensuel minimum) et le nommer dans le calendrier du manager identifié.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-step">
+            <div class="timeline-step-label">Jours 22-30 — Audit et ajustement</div>
+            <h3>Premier audit et plan d'ajustement</h3>
+            <ul>
+              <li>Premier audit échantillonné des décisions de chaque agent prioritaire (10-20 % de l'échantillon, sur 30 jours glissants).</li>
+              <li>Identifier les écarts : taux de modification &gt; 20 %, escalades manquées, biais détectés, dérive de coût.</li>
+              <li>Plan d'ajustement : reformer l'agent (nouveaux exemples, prompt revu), revoir les droits, élargir le périmètre d'escalade, ou désactiver si le coût net est négatif.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="callout callout-info" style="margin-top: var(--space-5);">
+          <p style="margin: 0;"><strong>📍 Repère pratique.</strong> 30 jours suffisent pour structurer la gouvernance d'un parc de 1 à 5 agents en PME. Au-delà (10+ agents, plusieurs entités, secteur régulé), prévoir un comité de gouvernance trimestriel et un référentiel partagé (typiquement aligné sur ISO/IEC 42001).</p>
+        </div>
+      </section>
+
+      <!-- SECTION FINALE — RESSOURCES (Schéma A externes uniquement) -->
+      <section class="module-section" id="ressources">
+        <div class="module-section-header">
+          <div class="module-section-icon purple">📚</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Pour aller plus loin</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+          <p style="margin:0;">📚 <strong>Bibliographie transverse&nbsp;:</strong> les ressources de fond (études Bpifrance, AI Act, communautés, newsletters) sont centralisées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources → Bibliographie</a>. Cette section ne liste que les ressources spécifiques à ce module.</p>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📰 Articles de fond</h4>
+          <ul>
+            <li><a href="https://fortune.com/2026/04/13/ai-agents-governance-identity-risk-okta/" target="_blank" rel="noopener">Fortune — AI agents are acting like employees, but company structures still treat them like software (avril 2026)</a><span class="resources-meta">Le constat 91 % usage / 10 % gouvernance — Okta</span></li>
+            <li><a href="https://www.raconteur.net/technology/autonomous-ai-agents-2026-the-new-rules-for-business-governance" target="_blank" rel="noopener">Raconteur — Autonomous AI agents 2026: the new rules for business governance</a><span class="resources-meta">Synthèse des règles émergentes de gouvernance</span></li>
+            <li><a href="https://www.customerexperiencedive.com/news/klarna-reinvests-human-talent-customer-service-AI-chatbot/747586/" target="_blank" rel="noopener">CX Dive — Klarna reinvests in human talent for customer service</a><span class="resources-meta">Cas pédagogique fondateur — retour humain sur cas complexes</span></li>
+            <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The State of AI 2025</a><span class="resources-meta">Données scaling agents — 23 % à l'échelle, 39 % en expérimentation</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>🎓 Tutoriels &amp; cas pratiques</h4>
+          <ul>
+            <li><a href="https://www.snowflake.com/en/blog/ai-agent-identity-governance-enterprise-trust/" target="_blank" rel="noopener">Snowflake — The AI Agent Identity Problem</a><span class="resources-meta">Pattern identité dédiée pour agents (vs service account partagé)</span></li>
+            <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic Engineering — Building effective agents</a><span class="resources-meta">Patterns techniques d'orchestration en production</span></li>
+            <li><a href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">LangGraph — Human-in-the-loop avec <code>interrupt()</code></a><span class="resources-meta">Documentation du pattern d'escalade vers humain en cours d'exécution</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>📚 Documentation officielle &amp; études</h4>
+          <ul>
+            <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI Risk Management Framework</a><span class="resources-meta">Référentiel gouvernement américain — 4 fonctions Govern / Map / Measure / Manage</span></li>
+            <li><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf" target="_blank" rel="noopener">NIST AI 600-1 — Generative AI Profile (PDF)</a><span class="resources-meta">12 risques GenAI documentés</span></li>
+            <li><a href="https://labs.cloudsecurityalliance.org/agentic/agentic-nist-ai-rmf-profile-v1/" target="_blank" rel="noopener">CSA Labs — NIST AI RMF Agentic Profile</a><span class="resources-meta">Profil spécifique aux agents autonomes (draft 2026)</span></li>
+            <li><a href="https://lelab.bpifrance.fr/" target="_blank" rel="noopener">Bpifrance Le Lab — IA dans les PME et ETI françaises</a><span class="resources-meta">Données adoption IA en PME / ETI 2025</span></li>
+            <li><a href="https://www.cnil.fr/" target="_blank" rel="noopener">CNIL — Recommandations IA et RGPD</a><span class="resources-meta">Application française du RGPD au développement IA</span></li>
+            <li><a href="https://decisions.civilresolutionbc.ca/" target="_blank" rel="noopener">Moffatt v. Air Canada — Civil Resolution Tribunal (février 2024)</a><span class="resources-meta">Jurisprudence fondatrice sur la responsabilité d'entreprise pour son chatbot</span></li>
+          </ul>
+        </div>
+
+        <div class="resources-cat">
+          <h4>👥 Communautés &amp; veille</h4>
+          <ul>
+            <li><a href="https://www.anthropic.com/discord" target="_blank" rel="noopener">Anthropic Discord</a><span class="resources-meta">Échanges sur les patterns d'agents en production</span></li>
+            <li><a href="https://forum.langchain.com/" target="_blank" rel="noopener">LangChain Forum</a><span class="resources-meta">Communauté technique active sur les architectures d'agents</span></li>
+            <li><a href="https://reddit.com/r/LocalLLaMA" target="_blank" rel="noopener">r/LocalLLaMA</a><span class="resources-meta">Communauté self-host LLM et agents open-source</span></li>
+          </ul>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo"><span class="footer-title">Hub IA — Learning Center</span></div>
+      <p class="footer-text">Un programme du réseau Quest for Change · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+
+</body>
+</html>

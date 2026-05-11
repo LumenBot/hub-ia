@@ -61,6 +61,7 @@
         <li><a href="#section-4"><span class="toc-icon">📊</span>Tableau de décision RAG</a></li>
         <li><a href="#section-5"><span class="toc-icon">💾</span>Choix vector DB</a></li>
         <li><a href="#section-6"><span class="toc-icon">⚠️</span>Les 5 écueils typiques</a></li>
+        <li><a href="#section-6bis"><span class="toc-icon">🔄</span>Cycle Stitch → Evaluate → Iterate</a></li>
         <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 60 jours</a></li>
         <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
       </ul>
@@ -296,6 +297,44 @@
             <li><strong>Construire un RAG sans eval pipeline</strong> : impossible de mesurer si une modif améliore ou dégrade.</li>
           </ol>
         </div>
+      </section>
+
+      <!-- 6bis. CYCLE D'ITÉRATION CONTINUE STITCH / EVALUATE / ITERATE -->
+      <section class="module-section" id="section-6bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">🔄</div>
+          <h2 class="module-section-title">Le cycle d'itération continue — Stitch, Evaluate, Iterate</h2>
+        </div>
+
+        <p>Constat largement documenté en 2026 : <strong>rien sur les leaderboards ne prédit la performance d'un RAG sur tes données spécifiques</strong>. Les benchmarks publics (MTEB, BEIR, etc.) testent sur des datasets génériques. Sur ton corpus métier, l'écart entre la performance benchmark et la performance réelle peut être significatif.</p>
+
+        <p><strong>Implication pratique</strong> : tu ne peux pas choisir ton stack RAG sur la base des leaderboards. Tu dois <strong>itérer sur tes données réelles</strong>.</p>
+
+        <h3>Le cycle Stitch → Evaluate → Iterate</h3>
+        <ol>
+          <li><strong>Stitch</strong> : assembler une première version du pipeline (chunking + embeddings + retrieval + reranking + génération) avec des choix par défaut raisonnables. Ne pas chercher l'optimum dès le départ.</li>
+          <li><strong>Evaluate</strong> : évaluer la performance sur un <strong>eval set réel</strong> (50-200 cas représentatifs de tes données et requêtes), avec un <strong>LLM Judge aligné sur le feedback humain</strong> (calibrer le LLM Judge sur 10-20 cas annotés humain).</li>
+          <li><strong>Iterate</strong> : modifier un seul composant à la fois (changer d'embedding, ajuster le chunking, ajouter un reranker, etc.), réévaluer, comparer.</li>
+        </ol>
+
+        <h3>RetEx documenté — embeddings open-source qui battent OpenAI</h3>
+        <p>Cas documenté mai 2026 : sur un dataset d'enchères, un embedding open-source classé <strong>#130 sur le leaderboard MTEB</strong> a battu les embeddings d'OpenAI (#1 du leaderboard) :</p>
+        <ul>
+          <li><strong>+11 % de qualité</strong> (mesurée sur l'eval set spécifique au dataset)</li>
+          <li><strong>240× plus rapide</strong> (latence par requête)</li>
+          <li><strong>Gratuit</strong> (vs coût API OpenAI)</li>
+        </ul>
+
+        <p><strong>Leçon</strong> : les leaderboards ne prédisent pas la performance sur tes données. L'eval set sur ton corpus est le seul juge fiable.</p>
+
+        <h3>Implication pour la PME</h3>
+        <ul>
+          <li><strong>Construire son eval set</strong> est l'investissement le plus rentable d'un projet RAG en production. Coût : 1-3 jours de travail manuel pour annoter 50-200 cas. ROI : permanent (tout choix futur s'évalue dessus).</li>
+          <li><strong>Itérer cheapest-first</strong> : changer le chunking ou ajouter un reranker coûte moins cher que changer le modèle de génération. Le réflexe « plus gros modèle » est souvent le plus coûteux et le moins efficace.</li>
+          <li><strong>LLM Judge aligné</strong> : utiliser un LLM (Claude, GPT) comme juge automatisé pour scorer les sorties contre les attendus, mais <strong>calibrer ce juge sur 10-20 cas annotés humain</strong> pour vérifier qu'il reproduit ton jugement.</li>
+        </ul>
+
+        <p>Le détail du dataset golden et du LLM Judge calibré est traité dans la fiche <a href="dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue et qualité IA</a>. Pour le pattern LLM Wiki comme alternative au RAG classique, voir le module <a href="../modules/cu-008-knowledge-base-rag.html" class="tool-link">Knowledge base RAG</a>.</p>
       </section>
 
       <!-- 7. PLAN D'ACTION -->
