@@ -392,7 +392,8 @@ def audit_card_content_coherence():
 # ============================================================
 
 def audit_sommaire_canonique():
-    """Tous les sommaires doivent utiliser <ul class='module-toc-list'> avec toc-icon."""
+    """Tous les sommaires doivent utiliser <ul class='module-toc-list'> avec toc-icon,
+    et chaque entrée doit avoir un emoji contextuel (pas le fallback 📌)."""
     hits = []
     for fp in list_module_files() + list_prealable_files() + list_dep_files() + [os.path.join(ROOT, 'architectures.html')]:
         s = read(fp)
@@ -408,6 +409,31 @@ def audit_sommaire_canonique():
                 'line': line,
                 'issue': "Sommaire non emoji-style (<nav class=\"module-toc-nav\"> au lieu de <ul class=\"module-toc-list\">)",
             })
+            continue
+        # Détecte l'emoji fallback 📌 (mapping incomplet du convertisseur v3.7.10)
+        fallback_count = toc.count('<span class="toc-icon">📌</span>')
+        if fallback_count > 0:
+            line = s[:m.start()].count('\n') + 1
+            hits.append({
+                'rule': '10 — Sommaire fallback',
+                'file': rel(fp),
+                'line': line,
+                'issue': f"{fallback_count} entrée(s) avec emoji fallback 📌 — mapping titre→emoji incomplet, remplacer par un emoji contextuel",
+            })
+        # Détecte la répétition excessive du même emoji (>3 fois dans le même TOC = mapping pauvre)
+        icons = re.findall(r'<span class="toc-icon">([^<]+)</span>', toc)
+        from collections import Counter
+        cnt = Counter(icons)
+        for emo, n in cnt.items():
+            # Tolérer 🎯 qui est légitimement utilisé pour "Ce que tu sauras faire" ET "Cas d'étude"
+            if n >= 4 and emo != '🎯':
+                line = s[:m.start()].count('\n') + 1
+                hits.append({
+                    'rule': '10 — Sommaire répétition emoji',
+                    'file': rel(fp),
+                    'line': line,
+                    'issue': f"Emoji {emo} utilisé {n} fois dans le sommaire — varier pour gain visuel",
+                })
     return hits
 
 
