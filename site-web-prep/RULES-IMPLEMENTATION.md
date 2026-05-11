@@ -693,6 +693,11 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.12** — mai 2026, suite à v3.7.13 (sommaires avec emoji fallback 📌 signalés par Cowork sur architectures.html) :
+  - § 1.4.7 enrichie : le format canonique du sommaire exige un **emoji contextuel** sur chaque entrée. L'emoji fallback `📌` indique un mapping titre→emoji manqué par le convertisseur v3.7.10 et doit être remplacé par un emoji aligné sur le contenu de la section.
+  - Audit cross-site : 31 entrées en emoji fallback détectées sur 12 pages (architectures.html : 7 entrées, pr-04 : 6, pr-01 : 5, autres modules : 1-2 chacun). Toutes patchées avec des emojis contextuels (☁️ SaaS, 🏢 propriétaire managé, 🇪🇺 souverain EU, 🔒 on-premise, 🔄 hybride, 📊 tableau, 🎯 méthode, 🚨 typologie risques, 🇫🇷 spécificité française, etc.).
+  - `audit-global.py` règle 10 enrichie : détecte (a) format non-emoji-style, (b) emoji fallback 📌 résiduel, (c) répétition excessive d'un même emoji (>3, tolère 🎯 pour 2 usages canoniques distincts).
+  - Premier audit-rapport.md après fix : 0 hit cross-site.
 - **v1.5.11** — mai 2026, suite à v3.7.12 (création du garde-fou automatisé + 2 fix ressources signalés par Cowork) :
   - **Nouveau script `site-web-prep/audit-global.py`** — regroupe 13 vérifications RULES (cohérence numérique, intra-page, versioning, biais, structure header, callout margin, jargon CU/PR/DEP, card↔contenu, sommaire canonique, contraste dark, STASH résiduels, NUL bytes). Produit `audit-rapport.md` markdown. Doit retourner 0 hit avant merge. § 2 mise à jour avec procédure d'usage.
   - Correctifs v3.7.12 appliqués sur ressources.html :
