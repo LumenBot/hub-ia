@@ -1,0 +1,286 @@
+"""Tests pour audit-md-rag.py (5 règles v1).
+
+Exécution : pytest rag/code/audit/test_audit_md_rag.py -v
+"""
+
+from __future__ import annotations
+
+import importlib.util
+import os
+import sys
+import textwrap
+
+import pytest
+
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+SCRIPT_PATH = os.path.join(HERE, "audit-md-rag.py")
+
+
+def _load_module():
+    spec = importlib.util.spec_from_file_location("audit_md_rag", SCRIPT_PATH)
+    mod = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(mod)
+    return mod
+
+
+audit_md_rag = _load_module()
+
+
+# ============================================================
+# Fixtures : un MD conforme + plusieurs MD non conformes
+# ============================================================
+
+CONFORME = textwrap.dedent("""\
+---
+code: cu-001
+titre: "Recherche & veille"
+type: module-cu
+axe: B
+niveau: 1
+tags: [veille, recherche]
+version: 3.8.2
+last_updated: 2026-05-11
+glosaire_termes: [veille, rag]
+derives: ["[[cu-008]]"]
+public_cible: [dirigeant, ops]
+---
+
+# Recherche & veille
+
+## Vue d'ensemble
+
+Module pédagogique simple. 95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).
+
+Voir aussi [[cu-008|Knowledge base RAG]].
+
+## Méthodologie
+
+Démarche en trois temps. Section autonome lisible isolément.
+""")
+
+
+def write_md(tmp_path, name: str, content: str) -> str:
+    fp = tmp_path / name
+    fp.write_text(content, encoding="utf-8")
+    return str(fp)
+
+
+@pytest.fixture
+def vault_conforme(tmp_path):
+    write_md(tmp_path, "cu-001.md", CONFORME)
+    cu008 = CONFORME.replace("code: cu-001", "code: cu-008").replace("# Recherche & veille", "# Knowledge base RAG").replace('titre: "Recherche & veille"', 'titre: "Knowledge base RAG"').replace("[[cu-008|Knowledge base RAG]]", "[[cu-001]]")
+    write_md(tmp_path, "cu-008.md", cu008)
+    return str(tmp_path)
+
+
+# ============================================================
+# Tests par règle
+# ============================================================
+
+class TestR1Frontmatter:
+    def test_conforme_zero_hit(self, vault_conforme):
+        files = audit_md_rag.list_md_files(vault_conforme)
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(files[0], vault_conforme, codes)
+        r1_hits = [h for h in result["hits"] if h.startswith("R1")]
+        assert r1_hits == [], f"R1 hits inattendus: {r1_hits}"
+
+    def test_absent(self, tmp_path):
+        fp = write_md(tmp_path, "bad.md", "# Sans frontmatter\n\nContenu.")
+        files = [fp]
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R1" in h and ("absent" in h or "invalide" in h) for h in result["hits"])
+
+    def test_champ_manquant(self, tmp_path):
+        md = CONFORME.replace("public_cible: [dirigeant, ops]\n", "")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("public_cible" in h and "R1" in h for h in result["hits"])
+
+    def test_champ_vide(self, tmp_path):
+        md = CONFORME.replace("tags: [veille, recherche]", "tags: []")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R1" in h and "tags" in h for h in result["hits"])
+
+    def test_type_invalide(self, tmp_path):
+        md = CONFORME.replace("type: module-cu", "type: bogus")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R1" in h and "bogus" in h for h in result["hits"])
+
+
+class TestR2H1:
+    def test_conforme(self, vault_conforme):
+        files = audit_md_rag.list_md_files(vault_conforme)
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(files[0], vault_conforme, codes)
+        assert [h for h in result["hits"] if h.startswith("R2")] == []
+
+    def test_aucun_h1(self, tmp_path):
+        md = CONFORME.replace("# Recherche & veille\n", "")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R2" in h and "aucun H1" in h for h in result["hits"])
+
+    def test_h1_multiple(self, tmp_path):
+        md = CONFORME + "\n# Deuxième H1\n\nBoom.\n"
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R2" in h and "2 H1" in h for h in result["hits"])
+
+    def test_h1_mismatch_titre(self, tmp_path):
+        md = CONFORME.replace("# Recherche & veille", "# Autre chose")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R2" in h and "!=" in h for h in result["hits"])
+
+
+class TestR3Chunking:
+    def test_section_courte_ok(self, vault_conforme):
+        files = audit_md_rag.list_md_files(vault_conforme)
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(files[0], vault_conforme, codes)
+        assert [h for h in result["hits"] if h.startswith("R3")] == []
+
+    def test_section_h2_trop_longue(self, tmp_path):
+        long_text = ("mot " * 700).strip()
+        md = CONFORME.replace(
+            "Démarche en trois temps. Section autonome lisible isolément.",
+            long_text,
+        )
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R3" in h and "subdiviser" in h for h in result["hits"])
+
+    def test_h2_long_avec_h3_courts_ok(self, tmp_path):
+        body = CONFORME + textwrap.dedent("""
+
+        ## Grande section
+
+        ### Sous-section A
+
+        Contenu court A.
+
+        ### Sous-section B
+
+        Contenu court B.
+        """)
+        fp = write_md(tmp_path, "ok.md", body)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert [h for h in result["hits"] if h.startswith("R3")] == []
+
+
+class TestR4Wikilinks:
+    def test_cible_existante_ok(self, vault_conforme):
+        files = audit_md_rag.list_md_files(vault_conforme)
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(files[0], vault_conforme, codes)
+        assert [h for h in result["hits"] if h.startswith("R4")] == []
+
+    def test_cible_inexistante(self, tmp_path):
+        md = CONFORME.replace("[[cu-008|Knowledge base RAG]]", "[[cu-999]]")
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R4" in h and "cu-999" in h for h in result["hits"])
+
+    def test_lien_vers_glossaire_ok(self, tmp_path):
+        md = CONFORME.replace("[[cu-008|Knowledge base RAG]]", "[[glossaire#rag]]")
+        fp = write_md(tmp_path, "ok.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert [h for h in result["hits"] if h.startswith("R4")] == []
+
+
+class TestR6ChiffresSources:
+    def test_chiffre_source_ok(self, vault_conforme):
+        files = audit_md_rag.list_md_files(vault_conforme)
+        codes = audit_md_rag.vault_codes(files)
+        result = audit_md_rag.audit_file(files[0], vault_conforme, codes)
+        assert [h for h in result["hits"] if h.startswith("R6")] == []
+
+    def test_chiffre_orphelin(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "95 % des projets GenAI échouent, ce qui est notable.",
+        )
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert any("R6" in h and "95" in h for h in result["hits"])
+
+    def test_chiffre_avec_lien_markdown_ok(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "70 % des dirigeants attendent l'IA [étude Gartner](https://gartner.com).",
+        )
+        fp = write_md(tmp_path, "ok.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
+        assert [h for h in result["hits"] if h.startswith("R6")] == []
+
+
+# ============================================================
+# Tests d'intégration : main() + exit code
+# ============================================================
+
+class TestMainExitCode:
+    def test_exit_zero_si_clean(self, vault_conforme, capsys):
+        rc = audit_md_rag.main(["--vault", vault_conforme])
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "CLEAN" in out
+
+    def test_exit_one_si_hits(self, tmp_path, capsys):
+        write_md(tmp_path, "broken.md", "# Sans frontmatter\n\nVide.")
+        rc = audit_md_rag.main(["--vault", str(tmp_path)])
+        assert rc == 1
+        out = capsys.readouterr().out
+        assert "broken.md" in out
+
+    def test_rapport_fichier(self, vault_conforme, tmp_path):
+        report_path = tmp_path / "report.txt"
+        rc = audit_md_rag.main(["--vault", vault_conforme, "--report", str(report_path)])
+        assert rc == 0
+        assert "CLEAN" in report_path.read_text(encoding="utf-8")
+
+    def test_vault_vide_sans_md(self, tmp_path, capsys):
+        rc = audit_md_rag.main(["--vault", str(tmp_path)])
+        assert rc == 0
+
+
+# ============================================================
+# Tests unitaires des helpers
+# ============================================================
+
+class TestHelpers:
+    def test_split_frontmatter_present(self):
+        fm, body = audit_md_rag.split_frontmatter(CONFORME)
+        assert fm is not None
+        assert fm["code"] == "cu-001"
+        assert body.startswith("# Recherche")
+
+    def test_split_frontmatter_absent(self):
+        fm, body = audit_md_rag.split_frontmatter("# Pas de frontmatter\n\nContent")
+        assert fm is None
+
+    def test_estimate_tokens(self):
+        assert audit_md_rag.estimate_tokens("un deux trois quatre cinq") == 6
+
+    def test_split_sections(self):
+        body = "# H1\n\nIntro.\n\n## A\n\nTexte A.\n\n## B\n\n### B1\n\nTexte B1.\n"
+        sections = audit_md_rag.split_sections(body)
+        levels = [s[0] for s in sections]
+        assert levels == ["h1", "h2", "h2", "h3"]
