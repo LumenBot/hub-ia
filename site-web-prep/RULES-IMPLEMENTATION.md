@@ -60,6 +60,42 @@ Les LLM (Claude Code, Cowork, autres) ont tendance à dériver sur ces trois axe
 
 **Règle 1.2.6** — **Pas de versioning interne sur le front**. Les mentions « V3.5 », « v3.6 », « itération v3.x » sont des conventions internes (commits, briefs, RULES). Elles **ne doivent jamais apparaître côté UX visible** (badges, accroches, descriptions). Le site est un produit publié, pas un changelog. Pour signaler une nouveauté côté front, préférer une formulation neutre : « catégorie récente », « nouveauté 2026 », ou pas de marqueur du tout. Le versioning reste dans `git log` et dans les briefs internes.
 
+**Règle 1.2.7 — Pas de biais sectoriel ou territorial dominant** (NOUVELLE v1.5.7). Le Hub IA cible **les dirigeants PME/ETI du réseau Quest for Change**, qui opère principalement sur le Grand Est mais cherche à rayonner plus largement. Les modules doivent rester **agnostiques en termes de filière et de territoire** : on cite des exemples diversifiés sans pousser un secteur ou un écosystème territorial spécifique comme cas dominant.
+
+**Seuils de détection** : sur un module donné (hors étude de cas qui peut légitimement ancrer un cas client), un compte par grep des marqueurs sectoriels/territoriaux ne doit pas saturer sur **une seule filière** (> 60-70 % du total des marqueurs) ni sur **un seul écosystème territorial** (> 30 % des occurrences territoriales).
+
+❌ **Anti-pattern observé v3.7.7 sur CU-018** : 277 marqueurs sectoriels/territoriaux dont 110 mentions « bois » (40 %), 92 mentions de l'écosystème R&D Grand Est (ENSTIB / LERMAB / CRAN / ENACT), 34 mentions territoriales (Vosges / Grand Est / Lorraine). Un industriel hors filière bois ou hors Grand Est ne se reconnaissait pas dans le module.
+
+✅ **Pattern correct** :
+- Pour les exemples sectoriels : citer **au moins 3-4 filières** comparables (bois, textile, métallurgie, plasturgie, agroalimentaire selon le sujet) en parallèle.
+- Pour les écosystèmes R&D : citer **plusieurs laboratoires français/européens** par filière (ENSTIB / LERMAB pour le bois, Mines ParisTech / Centrale pour la mécanique, INSA Lyon pour la plasturgie, CEA Tech transverse, IRT SystemX / Saint Exupéry / Jules Verne, etc.). Le Grand Est peut rester cité comme **un exemple parmi d'autres**, jamais comme « atout territorial unique » ou « avantage compétitif structurant ».
+- Pour les dispositifs de financement : citer un panorama national/européen (France 2030, CIR/JEI, BPI Build Up, EIC Accelerator, Horizon Europe) plutôt qu'un fléchage régional exclusif (Climaxion, Région Grand Est seuls).
+- L'étude de cas peut être positionnée dans une filière concrète (cohérence narrative) mais doit **mentionner explicitement la transposabilité** à 2-3 autres filières via une phrase du type : « Pattern comparable à ce qu'on observe en fonderie, plasturgie ou textile ».
+
+**Procédure de vérification** :
+```bash
+# Audit biais sectoriel/territorial — à lancer sur tout module avant clôture
+python3 -c "
+import re
+sectors = {
+    'bois': r'\b(?:bois|grume|scieri|menuiseri|panneau|charpent|ENSTIB|LERMAB)\b',
+    'textile': r'\b(?:textile|tissu|filature|tissage|Lectra)\b',
+    'métal': r'\b(?:métallurg|tôle|profilé|forge|fonderi)\b',
+    'plasturgie': r'\b(?:plastur|moulage|injection)\b',
+    'agroalim': r'\b(?:agroaliment|laiteri|fromager|brasseri|abattoir)\b',
+}
+import sys
+s = open(sys.argv[1]).read()
+counts = {k: len(re.findall(p, s, re.I)) for k, p in sectors.items()}
+total = sum(counts.values())
+if total > 30:
+    for k, n in counts.items():
+        share = n/total*100
+        flag = '⚠️' if share > 60 else ''
+        print(f'{k}: {n} ({share:.0f}%) {flag}')
+" modules/cu-018-...html
+```
+
 ### 1.3 Niveau de langue & terminologie
 
 **Règle 1.3.1** — Public cible : dirigeant PME/ETI **non-IT**, profil 40-65 ans, formation gestion ou technique métier. Vocabulaire de référence : celui qu'on entend dans une CCI ou une chambre de métiers, pas dans une conférence DevOps.
@@ -525,6 +561,9 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.7** — mai 2026, suite à v3.7.8 (biais sectoriel/territorial massif sur CU-018, signalé par Cowork) :
+  - § 1.2.7 (NOUVELLE) : interdiction du biais sectoriel ou territorial dominant. Le Hub IA cible le réseau QFC qui rayonne au-delà du Grand Est ; un module doit rester agnostique en termes de filière (citer 3-4 filières comparables en parallèle) et de territoire (panorama national/européen des écosystèmes R&D et dispositifs de financement). Seuils : > 60-70 % des marqueurs sectoriels sur une seule filière, ou > 30 % sur un seul écosystème territorial = bug bloquant. Procédure de vérification grep documentée.
+  - Correctif appliqué v3.7.8 : CU-018 « Optimisation production » refondue éditorialement. Avant : 110 mentions bois (40 % des marqueurs), 92 mentions ENSTIB/LERMAB/CRAN, 34 mentions Grand Est/Vosges, étude de cas exclusive BoisCo scierie Vosges. Après : équilibrage multi-filière (bois, textile, métallurgie, plasturgie, agroalim), élargissement à un panorama d'écosystèmes R&D français/européens, étude de cas repositionnée en cas industriel transverse.
 - **v1.5.6** — mai 2026, suite à v3.7.7 (mismatch card ↔ contenu sur CU-025, signalé par Cowork) :
   - § 1.5 enrichie (audit cohérence automatisé) — script Python documenté pour détecter les mismatches card / contenu sur l'ensemble des modules. Couvre 6 livrables canoniques : CASE (étude de cas formelle), AUTO-DIAG (auto-diagnostic interactif), QUIZ, CHECKLIST, PLAN (plan d'action), INCIDENT (cas pédagogique). Le script doit retourner 0 ligne MISMATCH à chaque clôture d'itération.
   - Correctif appliqué v3.7.7 : CU-025 « Knowledge management IA-augmenté pour dirigeant » — label card et badge hero mis à jour de « Étude de cas + plan d'action » → « **Architecture + plan d'action** ». Le module n'a pas d'étude de cas formelle (`case-deep-step` / `case-deep-final`) mais une architecture détaillée en 4 layers + un plan d'action 30 jours + des retours communautaires convergents (5 retours croisés cités). Le nouveau label est descriptif et précis.

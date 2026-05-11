@@ -85,7 +85,7 @@
         <a href="#section-5">5. Stack technique</a>
         <a href="#section-6">6. Financements</a>
         <a href="#section-7">7. Troubleshooting</a>
-        <a href="#section-8">8. Étude de cas BoisCo</a>
+        <a href="#section-8">8. Étude de cas TransformCo</a>
         <a href="#section-9">9. Pièges à éviter</a>
         <a href="#section-10">10. Checklist d'éligibilité</a>
         <a href="#ressources">11. Pour aller plus loin</a>
@@ -100,7 +100,7 @@
           <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
           <h2>Pourquoi ce module ?</h2>
           <p>
-            Pour beaucoup d'industriels, la matière première représente 40 à 70 % du coût de production. Coupler recherche opérationnelle (solveurs MILP, métaheuristiques) et IA (apprentissage des contraintes implicites, generative design) permet de gagner 10 à 30 points sur les chutes matière, 10 à 20 % sur le temps de production. Cas central pour les filières industrielles du Grand Est (bois, panneaux, textile, mécanique) avec un atout territorial majeur : l'écosystème scientifique ENSTIB / LERMAB / CRAN qui peut diviser par 2 le coût initial de modélisation.
+            Pour beaucoup d'industriels de transformation matière, la matière première représente 40 à 70 % du coût de production. Coupler recherche opérationnelle (solveurs MILP, métaheuristiques) et IA (apprentissage des contraintes implicites, generative design) permet de gagner 10 à 30 points sur les chutes matière, 10 à 20 % sur le temps de production. Cas central pour les filières où la découpe/transformation est combinatoire : métallurgie (tôles, profilés), plasturgie (panneaux, pièces injectées), textile (rouleaux), papier-carton, agroalimentaire (découpe matière), bois (panneaux, grumes). Un partenariat R&D avec un laboratoire académique en optimisation industrielle (CIFRE, conventions de recherche) peut typiquement diviser par 2 le coût initial de modélisation.
           </p>
 
           <div class="exec-takeaways">
@@ -110,7 +110,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">2</div>
-              <p><strong>Démarrer par le nesting.</strong> Pour la majorité des ETI bois/panneaux et textile, c'est l'axe au gain le plus mesurable et au périmètre de données le plus simple. Étendre ensuite vers ordonnancement et paramétrage.</p>
+              <p><strong>Démarrer par le nesting.</strong> Pour la majorité des ETI textile, métal, plasturgie, papier-carton, bois, c'est l'axe au gain le plus mesurable et au périmètre de données le plus simple. Étendre ensuite vers ordonnancement et paramétrage.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
@@ -118,7 +118,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
-              <p><strong>Mobiliser l'écosystème scientifique territorial.</strong> ENSTIB / LERMAB / CRAN, Fondation Excellence Campus Bois, CIFRE. Peut diviser par 2 le coût initial de modélisation.</p>
+              <p><strong>Mobiliser un partenariat académique sur la RO.</strong> Mines ParisTech, INSA Lyon/Toulouse, Centrale Nantes, IMT, ENSTIB/LERMAB/CRAN, CEA Tech, IRT SystemX/Jules Verne — selon la filière, l'écosystème mobilisable diffère. CIFRE ou convention de recherche : peut diviser par 2 le coût initial de modélisation.</p>
             </div>
           </div>
 
@@ -142,7 +142,7 @@
           </div>
 
           <div class="exec-when">
-            <strong>Quand ce module t'est utile :</strong> tu pilotes une scierie, un fabricant de panneaux bois, une industrie textile, mécanique ou agroalimentaire avec un coût matière ≥40 % du coût total ; tu as déjà ou peux installer une caractérisation matière (vision IA, capteurs) ; ton ERP/MES/CFAO est intégrable ; tu peux mobiliser une compétence en recherche opérationnelle (interne ou via partenariat académique ENSTIB / LERMAB / CRAN) ; tu acceptes une phase de modélisation longue (4-12 mois pour intégrer les contraintes implicites).
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une PME ou ETI industrielle de transformation matière (découpe métal, plasturgie, textile, papier-carton, agroalimentaire, bois, mécanique) avec un coût matière ≥40 % du coût total ; tu as déjà ou peux installer une caractérisation matière (vision IA, capteurs) ; ton ERP/MES/CFAO est intégrable ; tu peux mobiliser une compétence en recherche opérationnelle (interne, prestataire spécialisé ou partenariat académique) ; tu acceptes une phase de modélisation longue (4-12 mois pour intégrer les contraintes implicites).
           </div>
         </div>
       </section>
@@ -155,7 +155,7 @@
         </div>
 
         <p>
-          Pour beaucoup d'industriels, <strong>la matière première représente 40 à 70 % du coût de production</strong> — particulièrement en filière bois (grumes, panneaux), textile (rouleaux), métal (tôles, profilés), papier-carton et agroalimentaire. Or les méthodes traditionnelles d'optimisation de placement et d'ordonnancement plafonnent rapidement : <strong>les opérateurs expérimentés font des choix proches de l'optimum local</strong>, mais incapables d'explorer la combinatoire complète de problèmes à 10⁶ ou 10¹² possibilités. Une chute de 5 à 10 points sur un coût matière de plusieurs millions d'euros par an est massive.
+          Pour beaucoup d'industriels, <strong>la matière première représente 40 à 70 % du coût de production</strong> — particulièrement en métallurgie (tôles, profilés, fonderie), plasturgie (panneaux, injection), textile (rouleaux), papier-carton, agroalimentaire (découpe matière première) et bois (grumes, panneaux). Or les méthodes traditionnelles d'optimisation de placement et d'ordonnancement plafonnent rapidement : <strong>les opérateurs expérimentés font des choix proches de l'optimum local</strong>, mais incapables d'explorer la combinatoire complète de problèmes à 10⁶ ou 10¹² possibilités. Une chute de 5 à 10 points sur un coût matière de plusieurs millions d'euros par an est massive.
         </p>
         <p>
           L'optimisation industrielle moderne combine deux mondes complémentaires. La <strong>recherche opérationnelle</strong> (RO) — solveurs MILP, programmation par contraintes, métaheuristiques — résout les problèmes combinatoires NP-difficiles avec des garanties d'optimalité. L'<strong>intelligence artificielle</strong> — deep learning, generative design, IA générative — apporte la capacité de prendre en compte des contraintes implicites (qualité matière variable, défauts, esthétique), d'apprendre les patterns récurrents, et d'accélérer les solveurs sur des problèmes répétitifs.
@@ -166,7 +166,7 @@
         </div>
 
         <p>
-          C'est un cas particulièrement pivot pour le <strong>tissu industriel du Grand Est et grand-estois</strong>. Les filières bois et panneaux (Egger Rambervillers, NS-Weisrock, scieries du Grand Est), textile (Linvosges, Bleu Forêt, Garnier-Thiebaut) et industrie mécanique (Numalliance et autres) sont précisément les bénéficiaires naturels.
+          C'est un cas particulièrement pivot pour <strong>le tissu PME/ETI industriel français</strong>, tous territoires confondus. Les bénéficiaires naturels couvrent un large éventail de filières : découpe métal (tôlerie, chaudronnerie, fonderie), plasturgie (panneaux PVC/PMMA, pièces injectées), textile (placement sur rouleau, habillement technique), papier-carton (découpe d'emballages), agroalimentaire (rendement matière en découpe primaire), bois et panneaux, ou encore mécanique de précision (gammes complexes à ordonnancer).
         </p>
 
         <div class="roi-box">
@@ -193,22 +193,22 @@
         </div>
       </section>
 
-      <!-- 2. LES 3 AXES + TERRITOIRE -->
+      <!-- 2. LES 3 AXES + ÉCOSYSTÈMES R&D -->
       <section class="module-section" id="section-2">
         <div class="module-section-header">
           <div class="module-section-icon icon-list">2</div>
-          <h2 class="module-section-title">Les 3 axes d'optimisation + atout territorial unique</h2>
+          <h2 class="module-section-title">Les 3 axes d'optimisation + écosystèmes R&D mobilisables</h2>
         </div>
 
         <p>
-          Trois axes d'optimisation industrielle sont éligibles au pattern IA + RO. Pour la majorité des ETI du Grand Est, démarrer par le nesting (placement) est la voie la plus directe vers le gain mesurable.
+          Trois axes d'optimisation industrielle sont éligibles au pattern IA + RO. Pour la majorité des PME/ETI de transformation matière, démarrer par le nesting (placement) est la voie la plus directe vers le gain mesurable.
         </p>
 
         <div class="axes-grid">
           <div class="axes-card">
             <div class="axes-card-icon">📐</div>
             <div class="axes-card-title">Nesting / placement</div>
-            <div class="axes-card-desc">Placement optimal des pièces sur la matière première (panneaux bois, rouleaux textile, tôles métalliques) pour minimiser les chutes.</div>
+            <div class="axes-card-desc">Placement optimal des pièces sur la matière première (tôles métalliques, panneaux plastiques ou bois, rouleaux textile, plaques de carton) pour minimiser les chutes.</div>
             <div class="axes-card-gain">Gain typique : -10 à -30 % de chutes matière</div>
           </div>
           <div class="axes-card">
@@ -226,22 +226,22 @@
         </div>
 
         <p>
-          <strong>Recommandation par défaut</strong> : démarrer sur l'axe où le gain attendu est le plus mesurable et le périmètre de données le plus simple — pour la filière bois/panneaux et textile, c'est presque toujours le nesting (placement). Étendre ensuite vers l'ordonnancement et le paramétrage machine quand la culture data est installée.
+          <strong>Recommandation par défaut</strong> : démarrer sur l'axe où le gain attendu est le plus mesurable et le périmètre de données le plus simple — pour la majorité des industriels de transformation matière (métal, plastique, textile, carton, bois), c'est presque toujours le nesting (placement). Étendre ensuite vers l'ordonnancement et le paramétrage machine quand la culture data est installée.
         </p>
 
         <div class="territorial-box">
-          <h3>🌲 Atout territorial Grand Est — l'écosystème scientifique de la filière bois</h3>
+          <h3>🔬 Écosystèmes R&D mobilisables — un paysage français et européen riche</h3>
           <p>
-            Le Grand Est dispose d'<strong>un écosystème scientifique de premier plan sur l'optimisation industrielle filière bois</strong>, concentré autour de l'axe Épinal–Nancy. Rare en France, il constitue un avantage compétitif structurant pour les industriels du réseau Quest for Change accompagnés sur ces sujets.
+            La recherche opérationnelle appliquée à l'industrie est un domaine scientifique mature en France et en Europe. <strong>Un partenariat académique sur la modélisation initiale (CIFRE, convention de recherche, projet collaboratif) peut typiquement diviser par 2 le coût initial</strong> et accélérer le déploiement de 6 à 12 mois. Le bon laboratoire dépend de la filière et de la nature du problème.
           </p>
           <p>
-            L'<strong>ENSTIB</strong> (École Nationale Supérieure des Technologies et Industries du Bois) à Épinal forme les ingénieurs spécialistes de la filière. Le <strong>LERMAB</strong> (Laboratoire d'Études et de Recherche sur le Matériau Bois) couvre la science des matériaux. Le <strong>CRAN</strong> (Centre de Recherche en Automatique de Nancy) couvre l'automatique et l'industrie 4.0. Hind Bril El Haouzi, chercheure ENSTIB/CRAN, est une référence sur l'industrie 4.0 × filière bois.
+            <strong>Recherche opérationnelle et industrie 4.0 généralistes</strong> : <strong>Mines ParisTech (CMA)</strong>, <strong>Mines Saint-Étienne (LIMOS)</strong>, <strong>INSA Lyon (DISP)</strong>, <strong>INSA Toulouse (LAAS-CNRS)</strong>, <strong>Centrale Nantes (LS2N)</strong>, <strong>Centrale Lille (CRIStAL)</strong>, <strong>IMT Atlantique</strong>, <strong>ECP / CentraleSupélec (LGI)</strong>, <strong>Université de Lorraine (CRAN)</strong> — couvrent l'ordonnancement, le nesting et l'optimisation combinatoire au plus haut niveau.
           </p>
           <p>
-            Côté infrastructure : la <strong>Fondation Excellence Campus Bois</strong> (créée en décembre 2025 à l'ENSTIB) avec mécènes Piveteau, Poujoulat et <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> ouvre des opportunités directes de partenariat sur l'optimisation industrielle bois. Le <strong>Cluster IA Grand Est ENACT</strong> propose un guichet PME pour orienter et accompagner les projets.
+            <strong>Filières spécialisées</strong> : <strong>ENSTIB / LERMAB</strong> (bois et matériaux biosourcés, Épinal–Nancy), <strong>ENSAIT</strong> (textile, Roubaix), <strong>ESITPA / AgroParisTech</strong> (agroalimentaire), <strong>CETIM</strong> (mécanique et procédés), <strong>IPC</strong> (plasturgie, Oyonnax), <strong>Centre Technique du Papier (CTP)</strong>. Côté instituts de recherche technologique : <strong>IRT SystemX</strong> (Saclay, ingénierie système et optimisation), <strong>IRT Jules Verne</strong> (Nantes, manufacturing avancé), <strong>IRT Saint Exupéry</strong> (Toulouse, embarqué), <strong>CEA Tech / List</strong> (industrie 4.0). Réseau IA national : <strong>Inria</strong>, <strong>3IA</strong> (PRAIRIE, MIAI, ANITI, 3IA Côte d'Azur).
           </p>
           <p>
-            Pour un industriel du Grand Est (et particulièrement de la filière bois), mobiliser ces ressources territoriales (laboratoire académique partenaire pour la R&D, fondation pour le sourcing technologique, cluster pour l'orientation) <strong>peut typiquement diviser par 2 le coût initial de modélisation</strong> et accélérer le déploiement de 6 à 12 mois.
+            <strong>Niveau européen</strong> : programmes <strong>Horizon Europe</strong> (clusters Digital et Manufacturing), <strong>EIT Manufacturing</strong>, <strong>Fraunhofer IPK / IML</strong> (Allemagne), <strong>VTT</strong> (Finlande). Pour les PME/ETI, les clusters et pôles de compétitivité régionaux (Systematic, Minalogic, EMC2, IAR, NextMove, ENACT en Grand Est, etc.) servent de guichet d'entrée pour orienter vers le bon partenaire R&D.
           </p>
         </div>
       </section>
@@ -275,7 +275,7 @@
             <text x="110" y="95" text-anchor="middle" font-size="10" fill="#666" font-style="italic">depuis ERP / MES</text>
 
             <rect x="20" y="115" width="180" height="60" rx="10" fill="#E8F0FE" stroke="#2E5395" stroke-width="2"/>
-            <text x="110" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">🪵 MATIÈRE EN STOCK</text>
+            <text x="110" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1F3864">🧱 MATIÈRE EN STOCK</text>
             <text x="110" y="157" text-anchor="middle" font-size="11" fill="#333">Caractéristiques fines</text>
             <text x="110" y="170" text-anchor="middle" font-size="10" fill="#666" font-style="italic">vision IA + capteurs</text>
 
@@ -365,10 +365,10 @@
         </div>
 
         <ol>
-          <li><strong>Choisir l'axe d'optimisation prioritaire.</strong> Pour la majorité des ETI bois/panneaux et textile, le nesting (placement) est le point de départ naturel — gain mesurable rapidement, périmètre de données simple, intégration CFAO standard. Pour l'industrie mécanique avec gammes complexes, l'ordonnancement peut être plus rentable. Cartographier le coût matière et le coût opérationnel pour décider objectivement.</li>
-          <li><strong>Caractériser finement la matière première.</strong> Le talon d'Achille de l'optimisation industrielle : un système ne peut optimiser que ce qu'il connaît précisément. Pour le bois, caractérisation par <strong>vision IA</strong> des grumes et panneaux (essence, densité, défauts, géométrie). Pour le textile, mesure des largeurs réelles et défauts au déroulement. Sans cette caractérisation, l'optimisation reste théorique et ne se matérialise pas.</li>
-          <li><strong>Modéliser le problème en programme mathématique.</strong> Formulation MILP (Mixed Integer Linear Programming) ou programmation par contraintes pour la majorité des cas industriels. Variables de décision (placement, séquence), fonction objectif (minimisation chutes ou temps), contraintes (capacité machines, délais clients, compatibilité essences). Cette étape demande une compétence en recherche opérationnelle — où le partenariat avec ENSTIB / LERMAB / CRAN devient pertinent.</li>
-          <li><strong>Choisir le solveur adapté à la complexité.</strong> Pour les problèmes simples (quelques centaines de variables), <a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a> de Google (open source) suffit. Pour les gros problèmes industriels, <a href="../ressources.html#cplex" class="tool-link">IBM CPLEX</a> ou <a href="../ressources.html#xpress" class="tool-link">FICO Xpress</a> (commerciaux, performants). Pour les solutions clés en main filières, <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> (bois, mécène ENSTIB), <a href="../ressources.html#topsolid" class="tool-link">TopSolid</a> (multi-filière), <a href="../ressources.html#lectra" class="tool-link">Lectra</a> (textile) intègrent solveur + interface utilisateur + intégration CFAO.</li>
+          <li><strong>Choisir l'axe d'optimisation prioritaire.</strong> Pour la majorité des PME/ETI de découpe matière (tôlerie, plasturgie, textile, papier-carton, panneaux bois), le nesting (placement) est le point de départ naturel — gain mesurable rapidement, périmètre de données simple, intégration CFAO standard. Pour l'industrie mécanique avec gammes complexes, ou l'agroalimentaire avec contraintes de DLC, l'ordonnancement peut être plus rentable. Cartographier le coût matière et le coût opérationnel pour décider objectivement.</li>
+          <li><strong>Caractériser finement la matière première.</strong> Le talon d'Achille de l'optimisation industrielle : un système ne peut optimiser que ce qu'il connaît précisément. Pour la tôle métallique, mesure des défauts de planéité et inclusions par vision ; pour le textile, largeurs réelles et défauts au déroulement ; pour la plasturgie, viscosité et taux d'humidité du polymère ; pour le bois, caractérisation des grumes et panneaux (essence, densité, défauts, géométrie). Sans cette caractérisation amont, l'optimisation reste théorique et ne se matérialise pas.</li>
+          <li><strong>Modéliser le problème en programme mathématique.</strong> Formulation MILP (Mixed Integer Linear Programming) ou programmation par contraintes pour la majorité des cas industriels. Variables de décision (placement, séquence), fonction objectif (minimisation chutes ou temps), contraintes (capacité machines, délais clients, compatibilité matière). Cette étape demande une compétence en recherche opérationnelle — où un partenariat académique (Mines ParisTech, INSA Lyon/Toulouse, Centrale Nantes, IMT, ENSTIB/LERMAB/CRAN selon la filière) devient pertinent.</li>
+          <li><strong>Choisir le solveur adapté à la complexité.</strong> Pour les problèmes simples (quelques centaines de variables), <a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a> de Google (open source) suffit. Pour les gros problèmes industriels, <a href="../ressources.html#cplex" class="tool-link">IBM CPLEX</a>, <a href="../ressources.html#xpress" class="tool-link">FICO Xpress</a> ou <strong>Gurobi</strong> (commerciaux, performants). Pour les solutions clés en main filières : <a href="../ressources.html#lectra" class="tool-link">Lectra</a> (textile, habillement), <a href="../ressources.html#topsolid" class="tool-link">TopSolid</a> (mécanique, multi-filière), <strong>Radan / SigmaNEST</strong> (tôlerie métallique), <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> (bois et construction) — intégrant solveur + interface utilisateur + intégration CFAO.</li>
           <li><strong>Coupler avec l'IA pour les contraintes implicites.</strong> Là où la pure RO atteint ses limites : qualité matière variable, défauts, esthétique, préférences opérateur. Un modèle IA (deep learning sur historique) apprend ces contraintes implicites et les injecte dans la fonction objectif du solveur. Generative design (Autodesk Fusion) pour les pièces complexes. Cette couche est ce qui fait la différence entre l'optimisation classique et l'optimisation IA moderne.</li>
           <li><strong>Intégrer dans la chaîne de production existante.</strong> Couplage avec l'<strong>ERP</strong> (ordres de fabrication, stocks matière), le <strong>MES</strong> (état machines, suivi production), la <strong>CFAO</strong> (Conception et Fabrication Assistées par Ordinateur — output direct vers les machines de coupe). Sans cette intégration, le système produit un plan théorique mais non exécuté. Souvent le vrai coût technique du déploiement.</li>
           <li><strong>Validation humaine avant lancement.</strong> Le chef de production valide le plan généré, peut ajuster sur des contraintes implicites non capturées, lance l'exécution. <strong>L'expérience opérateur reste précieuse</strong> sur les cas atypiques — le système ne remplace pas, il augmente.</li>
@@ -400,7 +400,7 @@
             <div class="archi-branches" style="padding-left:0; margin-bottom:var(--space-3);">
               <div class="archi-branch"><div class="archi-branch-icon">🛠️</div><div><strong><a href="../ressources.html#or-tools" class="tool-link">OR-Tools</a></strong><small>Google, open-source</small></div></div>
               <div class="archi-branch"><div class="archi-branch-icon">💼</div><div><strong><a href="../ressources.html#cplex" class="tool-link">CPLEX</a> · <a href="../ressources.html#xpress" class="tool-link">Xpress</a></strong><small>Commerciaux, gros problèmes</small></div></div>
-              <div class="archi-branch"><div class="archi-branch-icon">🪵</div><div><strong>Solutions filières</strong><small><a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> (bois) · <a href="../ressources.html#lectra" class="tool-link">Lectra</a> (textile)</small></div></div>
+              <div class="archi-branch"><div class="archi-branch-icon">🏭</div><div><strong>Solutions filières</strong><small><a href="../ressources.html#lectra" class="tool-link">Lectra</a> (textile) · Radan (tôle) · <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> (bois)</small></div></div>
             </div>
             <p style="margin:0 0 var(--space-3); font-size:0.8125rem; font-weight:700; color:var(--color-primary);">INTELLIGENCE ARTIFICIELLE</p>
             <div class="archi-branches" style="padding-left:0;">
@@ -431,7 +431,7 @@
 
         <h3>Solutions filières clés en main</h3>
         <p>
-          <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> est la référence pour la filière bois et construction — utilisé largement par les industriels du panneau, mécène de la Fondation Excellence Campus Bois (ENSTIB). <a href="../ressources.html#topsolid" class="tool-link">TopSolid</a> couvre multi-filières (bois, métal) avec une approche CFAO intégrée. <a href="../ressources.html#lectra" class="tool-link">Lectra</a> est la référence textile — placement sur rouleaux, optimisation matière. <strong>Hexagon</strong> propose des solutions enterprise sur la métrologie et l'optimisation industrielle.
+          <a href="../ressources.html#lectra" class="tool-link">Lectra</a> est la référence pour le textile et l'habillement — placement sur rouleau, optimisation matière, intégrée aux chaînes CFAO mode et habillement technique. Pour la <strong>tôlerie métallique et la chaudronnerie</strong>, <strong>Radan</strong> (Hexagon) et <strong>SigmaNEST</strong> sont les références sur le nesting tôle, plasma et laser. <a href="../ressources.html#topsolid" class="tool-link">TopSolid</a> couvre la mécanique multi-filières avec une approche CFAO intégrée. <strong>Sescoi</strong>, <strong>Edgecam</strong> ou <strong>Mastercam</strong> sont également largement déployés en mécanique de précision. Pour la plasturgie et l'injection, <strong>Moldflow</strong> (Autodesk) et <strong>Sigmasoft</strong> couvrent la simulation et l'optimisation de schéma. <a href="../ressources.html#cadwork" class="tool-link">Cadwork</a> reste la référence pour la filière bois et construction.
         </p>
 
         <h3>Solveurs d'optimisation</h3>
