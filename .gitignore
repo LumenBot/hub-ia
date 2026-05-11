@@ -1,0 +1,7 @@
+rag/code/.env
+rag/code/**/__pycache__/
+rag/code/**/.pytest_cache/
+rag/code/vector_store/
+rag/code/node_modules/
+rag/code/.wrangler/
+rag/code/.venv/
