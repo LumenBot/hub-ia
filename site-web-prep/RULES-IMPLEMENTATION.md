@@ -296,6 +296,8 @@ Si une page introduit un composant nouveau (ex : `.timeline-block`, `.tool-table
 - ❌ **Pas d'espacements en valeurs absolues** (`padding: 1.5rem`, `margin: 2rem`, etc.) dans les `<style>` inline : utiliser les variables `var(--space-1)` à `var(--space-9)` du design system. Cohérence avec la grille d'espacement et facilité de refactorisation future (ajout v1.4 suite à proposition Claude Code v3.6.2).
 - ❌ **Pas de section nommée « Auto-diagnostic » sans form interactif + génération de plan + export** (cf. règle 1.5.5). Si la section ne respecte pas ces 3 propriétés, la nommer autrement (« Checklist d'éligibilité », « Récapitulatif »).
 - ❌ **Pas de récapitulatif des renvois internes (modules, préalables, fiches outils, architectures) dans la section finale `id="ressources"`** : ces renvois vivent dans le corps du module, contextualisés (cf. règle 1.5.6). La section finale est réservée aux ressources externes (Schéma A : Articles / Tutoriels / Documentation / Communautés + callout vers `ressources.html#bibliographie`).
+- ❌ **Pas de `<pre>` text-art pour représenter un flux fonctionnel** (étapes liées par flèches → / ↓ / ⬇). Le `<pre>` impose une police monospace et un rendu « code brut » qui ressemble à un terminal — alors qu'il s'agit en réalité d'un **schéma fonctionnel**, qui mérite une représentation visuelle structurée. Ajout v1.5.8 suite à v3.7.9 (2 schémas mal rendus dans `dep-07-evaluation-qualite.html`).
+  Pattern correct : utiliser un composant **pipeline visuel** avec étapes numérotées, branches Yes/No colorées et flèches CSS — un `<div class="pipeline-flow">` avec des `<div class="pipeline-step">` enchaînés et des `<div class="pipeline-arrow">↓</div>` entre les étapes. Si le composant n'est utilisé qu'une ou deux fois sur une page, il peut rester scopé en `<style>` local de la fiche (RULES § 1.4.4 single-use autorisé). Au-delà, migrer vers `module-v3.css`.
 
 **Règle 1.5.4 — Rôle de Cowork vs Claude Code (mise à jour v1.3, suite à v3.6.2)**. Pour éliminer définitivement les désynchronisations de canal :
 
@@ -561,6 +563,12 @@ Maintainer du référentiel : Blaise Cavalli — blaise.cavalli@questforchange.e
 
 Historique :
 - **v1.0** — 9 mai 2026 : création.
+- **v1.5.8** — mai 2026, suite à v3.7.9 (jargon DEP-XX résiduel + 2 schémas `<pre>` text-art peu lisibles dans `dep-07-evaluation-qualite.html`, signalés par Cowork) :
+  - § 1.5.3 enrichie : interdiction des `<pre>` text-art pour représenter un flux fonctionnel. Pattern correct = composant pipeline visuel `<div class="pipeline-flow">` avec étapes numérotées, branches colorées, flèches CSS.
+  - Correctif appliqué v3.7.9 :
+    - dep-07 : 2 `<pre>` text-art (cycle prompt-eval-improve + workflow CI/CD) refondus en composants `pipeline-flow` lisibles.
+    - 11 jargons DEP-XX / CU-XXX / PR-XX résiduels patchés (label-seul, en clair) dans dep-06, dep-07, dep-08, cu-021, pr-06, pr-07. Audit v3.7.2 n'avait pas tout ratissé — la vérif grep documentée en § 1.5.6.1 doit être lancée plus largement.
+    - 1 lien cassé corrigé : `cu-014-veille-strategique.html` (n'existe pas) → `cu-014-multi-agents.html` dans pr-07.
 - **v1.5.7** — mai 2026, suite à v3.7.8 (biais sectoriel/territorial massif sur CU-018, signalé par Cowork) :
   - § 1.2.7 (NOUVELLE) : interdiction du biais sectoriel ou territorial dominant. Le Hub IA cible le réseau QFC qui rayonne au-delà du Grand Est ; un module doit rester agnostique en termes de filière (citer 3-4 filières comparables en parallèle) et de territoire (panorama national/européen des écosystèmes R&D et dispositifs de financement). Seuils : > 60-70 % des marqueurs sectoriels sur une seule filière, ou > 30 % sur un seul écosystème territorial = bug bloquant. Procédure de vérification grep documentée.
   - Correctif appliqué v3.7.8 : CU-018 « Optimisation production » refondue éditorialement. Avant : 110 mentions bois (40 % des marqueurs), 92 mentions ENSTIB/LERMAB/CRAN, 34 mentions Grand Est/Vosges, étude de cas exclusive BoisCo scierie Vosges. Après : équilibrage multi-filière (bois, textile, métallurgie, plasturgie, agroalim), élargissement à un panorama d'écosystèmes R&D français/européens, étude de cas repositionnée en cas industriel transverse.
