@@ -11,6 +11,27 @@
 
 ## Entrées
 
+### 2026-05-12 (clôture bis) — Claude Code Hub IA Plateforme — S1bis Lot S1b.3 partiel (RAPPORT + PR)
+
+**Contexte :** Blaise demande l'ouverture de la PR pour resynchronisation locale et partage avec Cowork, sans attendre l'exécution de S1b.2 (clés API toujours absentes). RAPPORT-CC-S1bis produit en marquant explicitement S1b.2 non exécuté (§3 et §4). PR ouverte avec le titre canonique du brief §4.
+
+**Actions menées :**
+- Production du `rag-prep/briefs/RAPPORT-CC-S1bis.md` en 9 sections conformes au brief §4. Sections 3, 4, 5 dûment marquées « Non exécuté — clés API absentes ». Écarts résiduels (5) + propositions d'amendement (4) + recommandations S2 (6) + liste commits S1 + S1bis détaillés.
+- STATUS-RAG mis à jour : S1bis L1.16c marqué ✅ partiel (RAPPORT + PR livrés, S1b.2 reste à exécuter en session future).
+- Ouverture PR vers `main` avec titre canonique : « feat(rag): Sprint S1 + S1bis - pipeline RAG complet + vault initial (10 fichiers MD, 62+ tests) ». Branche source : `claude/execute-pilot-batches-mBSIp`. Description PR pointe vers le RAPPORT, liste les commits S1 et S1bis, signale les 9 fichiers MD effectifs (écart 9 vs 10), mention non-application Lot 2 par D-012-bis et de S1b.2 en attente clés API.
+
+**Décisions structurantes prises :** aucune.
+
+**Reste à faire :**
+- Blaise pull le clone Git, partage le contenu avec Cowork, valide manuellement la PR côté GitHub.
+- En session future Claude Code Plateforme : exécution S1b.2 dès clés API disponibles (ingest réel sur 9 MD + 10 queries + eval), extension du rapport en S1ter ou ajout d'une annexe au RAPPORT-CC-S1bis.
+
+**Blockers :**
+- Aucun pour le partage avec Cowork.
+- Persiste : clés API absentes pour exécution S1b.2 future.
+
+---
+
 ### 2026-05-12 (clôture) — Claude Code Hub IA Plateforme — S1bis Lot S1b.1 (audit vault réel) + pause clés API
 
 **Contexte :** vault initial (9 fichiers MD effectivement déposés — voir écart §5 du rapport audit) reçu sur la branche `claude/execute-pilot-batches-mBSIp` via les commits `668934e` (vault) et `fd0df0b` (sync gouvernance). Brief `BRIEF-CC-S1bis-validation-end-to-end.md` lu. SPEC v1.2 (R9 + R10) + 27 décisions intégrées au préalable.

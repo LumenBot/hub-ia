@@ -55,8 +55,9 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.15 | Transmission brief CC-S1bis à Claude Code Plateforme | ✅ Fait | Blaise |
 | L1.16a | S1bis Lot S1b.1 — audit-md-rag sur vault réel + rapport classifié | ✅ Fait (150 écarts bruts, 0 violation éditoriale réelle après classification) | Claude Code Plateforme |
 | L1.16b | S1bis Lot S1b.2 — validation end-to-end (ingest + retrieval + génération + eval) | ⏸ En pause (clés API absentes dans session) | Claude Code Plateforme |
-| L1.16c | S1bis Lot S1b.3 — RAPPORT-CC-S1bis + ouverture PR | ⏸ En pause (conditionnel à L1.16b) | Claude Code Plateforme |
+| L1.16c | S1bis Lot S1b.3 — RAPPORT-CC-S1bis + ouverture PR | ✅ Partiel (RAPPORT + PR livrés sans S1b.2 — §3/§4 marqués non exécutés) | Claude Code Plateforme |
 | L1.17 | Merge PR par Blaise après validation manuelle | ⏳ En attente | Blaise |
+| L1.18 | S1ter — exécution S1b.2 différée (ingest + queries + eval) dès clés API | ⏳ Reporté session future | Claude Code Plateforme |
 
 ---
 
