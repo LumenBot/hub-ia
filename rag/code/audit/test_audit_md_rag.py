@@ -9,6 +9,7 @@ import importlib.util
 import os
 import sys
 import textwrap
+from datetime import date
 
 import pytest
 
@@ -63,7 +64,8 @@ Démarche en trois temps. Section autonome lisible isolément.
 
 
 def write_md(tmp_path, name: str, content: str) -> str:
-    fp = tmp_path / name
+    from pathlib import Path
+    fp = Path(str(tmp_path)) / name
     fp.write_text(content, encoding="utf-8")
     return str(fp)
 
@@ -489,3 +491,191 @@ class TestD029WhitelistR4:
         assert rc == 0
         out = capsys.readouterr().out
         assert "warning" in out.lower() or "⚠" in out
+
+
+# ============================================================
+# Bloc B (S2.1) — R5 glossaire + R7 nommage + R8 versioning git
+# ============================================================
+
+GLOSSAIRE_AVEC_TERMES = textwrap.dedent("""\
+---
+code: glossaire
+titre: "Glossaire canonique du Hub IA"
+type: transverse
+axe: transverse
+niveau: 1
+tags: [glossaire]
+version: 3.8.4
+last_updated: 2026-05-11
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Glossaire canonique du Hub IA
+
+## RAG
+
+Retrieval-Augmented Generation.
+
+## Fine-tuning
+
+Modification des poids du modèle.
+
+## Embeddings
+
+Représentation vectorielle.
+""")
+
+
+class TestR5Glossaire:
+    """R5 — terme du glossaire utilisé en clair → warning (déduplication)."""
+
+    @pytest.fixture
+    def vault_avec_glossaire(self, tmp_path):
+        write_md(tmp_path, "glossaire.md", GLOSSAIRE_AVEC_TERMES)
+        return str(tmp_path)
+
+    def _ctx(self, vault):
+        files = audit_md_rag.list_md_files(vault)
+        return audit_md_rag.AuditContext(
+            vault_codes=audit_md_rag.vault_codes(files),
+            glossaire_terms=audit_md_rag.load_glossaire_terms(vault),
+        )
+
+    def test_load_glossaire_terms_extrait_h2(self, vault_avec_glossaire):
+        terms = audit_md_rag.load_glossaire_terms(vault_avec_glossaire)
+        assert "rag" in terms
+        assert "fine-tuning" in terms
+        assert "embeddings" in terms
+
+    def test_terme_en_clair_genere_warning(self, vault_avec_glossaire):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche en trois temps. On parle ici de Fine-tuning et d'embeddings.",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [w for w in result["warnings"] if w.startswith("R5")]
+        terms_signaled = {w for w in r5_warnings if "fine-tuning" in w.lower() or "embeddings" in w.lower()}
+        assert len(terms_signaled) == 2  # dédupliqué par terme
+
+    def test_terme_via_wikilink_pas_warning(self, vault_avec_glossaire):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche citant [[glossaire#fine-tuning]] et [[glossaire#embeddings]].",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [
+            w for w in result["warnings"]
+            if w.startswith("R5") and ("fine-tuning" in w.lower() or "embeddings" in w.lower())
+        ]
+        assert r5_warnings == []
+
+    def test_r5_n_est_pas_appliquee_au_glossaire_lui_meme(self, vault_avec_glossaire):
+        fp = os.path.join(vault_avec_glossaire, "glossaire.md")
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [w for w in result["warnings"] if w.startswith("R5")]
+        assert r5_warnings == []
+
+    def test_r5_warnings_pas_erreurs(self, vault_avec_glossaire):
+        """R5 produit des warnings, jamais des erreurs (première itération SPEC §10)."""
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche, et Fine-tuning sont mentionnés.",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_errors = [h for h in result["errors"] if h.startswith("R5")]
+        assert r5_errors == []
+
+
+class TestR7Nommage:
+    """R7 — conformité du nom de fichier."""
+
+    @pytest.mark.parametrize("name", [
+        "cu-001.md", "cu-008.md", "pr-07.md", "dep-02.md", "a1.md",
+        "outils-vector-db.md", "outils-llm-gateway.md",
+        "glossaire.md",
+        "transverse-test.md", "vigilance-hallucinations.md",
+        "pattern-llm-wiki.md", "chiffres-macro-2026.md",
+        "methodologie-prompt-engineering.md", "cadrage-ai-act.md",
+    ])
+    def test_noms_conformes(self, tmp_path, name):
+        fp = write_md(tmp_path, name, CONFORME)
+        result = audit_md_rag.check_r7_nommage(fp)
+        assert result.errors == [], f"{name} devrait être valide"
+
+    @pytest.mark.parametrize("name", [
+        "Module_001.md",        # underscore + casse
+        "MaFiche.md",
+        "cu_001.md",            # underscore
+        "test.md",               # pas de famille
+        "cu-001.markdown",       # mauvaise extension
+        "outils.md",             # outils sans catégorie
+    ])
+    def test_noms_non_conformes(self, tmp_path, name):
+        fp = write_md(tmp_path, name, CONFORME)
+        result = audit_md_rag.check_r7_nommage(fp)
+        assert any("R7" in e for e in result.errors), f"{name} devrait déclencher R7"
+
+
+class TestR8Versioning:
+    """R8 — last_updated vs git mtime, tolérance 7 jours."""
+
+    def test_parse_last_updated_iso_string(self):
+        d = audit_md_rag._parse_last_updated("2026-05-12")
+        assert d == date(2026, 5, 12)
+
+    def test_parse_last_updated_date_object(self):
+        d = audit_md_rag._parse_last_updated(date(2026, 5, 12))
+        assert d == date(2026, 5, 12)
+
+    def test_parse_last_updated_invalide(self):
+        assert audit_md_rag._parse_last_updated("pas une date") is None
+        assert audit_md_rag._parse_last_updated(None) is None
+
+    def test_skip_si_git_indisponible(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: None,
+        )
+        assert result.errors == []
+
+    def test_ecart_acceptable_pas_erreur(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        # last_updated du CONFORME = 2026-05-11 ; git = 2026-05-12 → 1 jour
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: date(2026, 5, 12),
+        )
+        assert result.errors == []
+
+    def test_ecart_excessif_erreur(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        # last_updated = 2026-05-11 ; git = 2026-06-15 → 35 jours
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: date(2026, 6, 15),
+        )
+        assert any("R8" in e and "35 jours" in e for e in result.errors)
+
+    def test_last_updated_invalide_erreur(self, tmp_path):
+        md = CONFORME.replace("last_updated: 2026-05-11", "last_updated: invalid-date")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        fm, _ = audit_md_rag.split_frontmatter(md)
+        ctx = audit_md_rag.AuditContext()
+        result = audit_md_rag.check_r8_versioning(fp, fm, ctx)
+        assert any("R8" in e and "non parseable" in e for e in result.errors)

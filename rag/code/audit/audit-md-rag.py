@@ -127,9 +127,8 @@ SOURCE_MARKERS = re.compile(
 WIKILINK_PATTERN = re.compile(r"\[\[([^\]\|#]+)(?:#[^\]\|]+)?(?:\|[^\]]+)?\]\]")
 
 R7_NAME_SCHEMAS = [
-    re.compile(r"^(cu|pr|dep)-\d{3}\.md$"),       # cu-008.md, pr-07.md, dep-02.md (3 digits attendus)
-    re.compile(r"^(cu|pr|dep)-\d{2}\.md$"),        # forme à 2 digits aussi tolérée (pr-07.md, dep-02.md)
-    re.compile(r"^a\d+\.md$"),                     # a1.md, a4.md
+    re.compile(r"^(cu|pr|dep)-\d{2,3}\.md$"),      # cu-001, cu-008, pr-07, dep-02
+    re.compile(r"^a\d+\.md$"),                     # a1.md, a4.md (architectures)
     re.compile(r"^outils-[a-z0-9][a-z0-9-]*\.md$"),
     re.compile(r"^glossaire\.md$"),
     re.compile(
@@ -496,6 +495,134 @@ def check_r4_wikilinks(fp: str, body: str, ctx: AuditContext) -> RuleResult:
 
 
 # ============================================================
+# Règle R5 — Termes du glossaire utilisés via wikilink (warning v2)
+# ============================================================
+
+# Termes courts ou polysémiques qu'on exclut de R5 (trop bruyants, ou
+# usage générique acceptable en prose).
+R5_TERMS_EXCLUDED = {"api"}
+
+
+def _strip_wikilinks(text: str) -> str:
+    """Retire toutes les portées de wikilinks `[[...]]` pour ne chercher
+    R5 que dans le texte hors-wikilink."""
+    return WIKILINK_PATTERN.sub(" ", text)
+
+
+def check_r5_glossaire(fp: str, fm: dict | None, body: str, ctx: AuditContext) -> RuleResult:
+    """Warning si un terme du glossaire apparaît en clair (hors wikilink)
+    dans un module. Déduplication par terme par fichier pour éviter le bruit.
+
+    Première itération en warning seulement (cf. brief §4 Bloc B).
+    Le glossaire lui-même est exempté (il définit les termes).
+    """
+    res = RuleResult()
+    if not ctx.glossaire_terms or not fm:
+        return res
+    if str(fm.get("code", "")).strip().lower() == "glossaire":
+        return res
+
+    body_clean = _strip_wikilinks(body)
+    flagged: set[str] = set()
+    for term in ctx.glossaire_terms:
+        term_lower = term.lower()
+        if term_lower in R5_TERMS_EXCLUDED:
+            continue
+        if term_lower in flagged:
+            continue
+        # word boundary insensible à la casse
+        pattern = re.compile(r"\b" + re.escape(term) + r"\b", re.IGNORECASE)
+        if pattern.search(body_clean):
+            flagged.add(term_lower)
+            res.add_warning(
+                f"R5: terme `{term}` cité en clair — préférer `[[glossaire#{slugify(term)}]]`"
+            )
+    return res
+
+
+# ============================================================
+# Règle R7 — Conformité du nom de fichier
+# ============================================================
+
+def check_r7_nommage(fp: str) -> RuleResult:
+    res = RuleResult()
+    base = os.path.basename(fp)
+    if not any(pat.match(base) for pat in R7_NAME_SCHEMAS):
+        res.add_error(
+            f"R7: nom de fichier `{base}` non conforme aux schémas autorisés "
+            f"(cu-NNN.md, pr-NN.md, dep-NN.md, aN.md, outils-*.md, glossaire.md, "
+            f"transverse-/vigilance-/pattern-/methodologie-/chiffres-macro-/cadrage-/"
+            f"calendrier-/gouvernance-/strategie-*.md)"
+        )
+    return res
+
+
+# ============================================================
+# Règle R8 — Versioning git : last_updated cohérent avec git log
+# ============================================================
+
+def get_git_mtime(fp: str, repo_root: str | None = None) -> date | None:
+    """Retourne la date Unix de la dernière modif git d'un fichier, ou None
+    si git absent, fichier non versionné, ou pas dans un repo.
+
+    Cette fonction est volontairement séparée pour permettre le mockage en test.
+    """
+    try:
+        cmd = ["git", "log", "-1", "--format=%ct", "--", fp]
+        kwargs = {}
+        if repo_root and os.path.isdir(repo_root):
+            kwargs["cwd"] = repo_root
+        out = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, **kwargs).decode().strip()
+        if not out:
+            return None
+        ts = int(out)
+        return datetime.fromtimestamp(ts, tz=timezone.utc).date()
+    except (FileNotFoundError, subprocess.CalledProcessError, ValueError):
+        return None
+
+
+def _parse_last_updated(value) -> date | None:
+    """Parse une valeur YAML last_updated en `date`. Tolérant aux types pyyaml
+    (datetime.date ou str ISO ou datetime.datetime)."""
+    if isinstance(value, date):
+        return value if not isinstance(value, datetime) else value.date()
+    if isinstance(value, str):
+        try:
+            return datetime.strptime(value.strip(), "%Y-%m-%d").date()
+        except ValueError:
+            return None
+    return None
+
+
+def check_r8_versioning(fp: str, fm: dict | None, ctx: AuditContext,
+                       git_mtime_func=None) -> RuleResult:
+    """Vérifie que last_updated est cohérent avec la dernière modif git
+    (écart toléré : 7 jours)."""
+    res = RuleResult()
+    if not fm or "last_updated" not in fm:
+        return res  # R1 signale déjà l'absence du champ
+    declared = _parse_last_updated(fm["last_updated"])
+    if declared is None:
+        res.add_error(
+            f"R8: last_updated `{fm['last_updated']}` non parseable (format YYYY-MM-DD attendu)"
+        )
+        return res
+
+    func = git_mtime_func or get_git_mtime
+    git_date = func(fp, ctx.repo_root)
+    if git_date is None:
+        return res  # git absent ou fichier non versionné — skip silencieux
+
+    delta = abs((git_date - declared).days)
+    if delta > R8_LAST_UPDATED_TOLERANCE_DAYS:
+        res.add_error(
+            f"R8: last_updated `{declared}` vs dernière modif git `{git_date}` "
+            f"— écart {delta} jours (> {R8_LAST_UPDATED_TOLERANCE_DAYS})"
+        )
+    return res
+
+
+# ============================================================
 # Règle R6 — Chiffres sourcés (R6 étendu : reconnaît wikilinks transverses)
 # ============================================================
 
@@ -548,7 +675,10 @@ def audit_file(fp: str, vault: str, ctx: AuditContext | set[str]) -> dict:
     total.merge(check_r2_h1(fp, fm, body))
     total.merge(check_r3_chunking(fp, body))
     total.merge(check_r4_wikilinks(fp, body, ctx))
+    total.merge(check_r5_glossaire(fp, fm, body, ctx))
     total.merge(check_r6_chiffres(fp, body))
+    total.merge(check_r7_nommage(fp))
+    total.merge(check_r8_versioning(fp, fm, ctx))
 
     return {
         "file": rel(fp, vault),
