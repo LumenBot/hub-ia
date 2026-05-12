@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fine-tuning : quand y aller, quand ne pas — Hub IA Learning Center</title>
-  <meta name="description" content="Le fine-tuning est devenu accessible (LoRA / QLoRA sur 1 GPU). Mais pour 80 % des cas PME, un bon prompt + RAG suffit largement. Voici quand le fine-tuning est vraiment justifié.">
+  <meta name="description" content="Le fine-tuning de SLM 1B-8B est le palier opérationnel 2026 pour les PME — guide pratique stack et heuristiques. Avant d'acheter un GPU : 7-10 modèles SLM fine-tunés avec succès.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
       <div class="module-badges">
         <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">19 min de lecture</span>
       </div>
       <h1>🎓 Fine-tuning : quand y aller, quand ne pas</h1>
       <p class="module-subtitle">Le fine-tuning est devenu accessible (LoRA / QLoRA sur 1 GPU). Mais pour 80 % des cas PME, un bon prompt + RAG suffit largement. Voici quand le fine-tuning est vraiment justifié.</p>
@@ -59,6 +59,7 @@
         <li><a href="#section-2"><span class="toc-icon">✅</span>Les 3 cas justifiés</a></li>
         <li><a href="#section-3"><span class="toc-icon">⚠️</span>Les 5 cas à éviter</a></li>
         <li><a href="#section-4"><span class="toc-icon">🛠️</span>LoRA et QLoRA en pratique</a></li>
+        <li><a href="#section-4bis"><span class="toc-icon">🧪</span>SLM 1B-8B en 2026</a></li>
         <li><a href="#section-5"><span class="toc-icon">📊</span>La discipline data</a></li>
         <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 60 jours</a></li>
         <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
@@ -89,6 +90,10 @@
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
               <p><strong>LoRA / QLoRA = standard pratique 2026.</strong> Plutôt que de fine-tuner les milliards de paramètres d'un modèle, on entraîne uniquement de petites matrices d'adaptation (LoRA = Low-Rank Adaptation). Coût typique : 50 à 500 € de GPU + 1-3 semaines de travail data + entraînement. Délai total raisonnable : 1-2 mois.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">5</div>
+              <p><strong>Le palier opérationnel 2026, c'est le fine-tuning de SLM 1B-8B sur compute cloud.</strong> Heuristique de discipline budgétaire&nbsp;: ne pas acheter de GPU avant d'avoir fine-tuné 7-10 modèles SLM avec succès. Un cycle complet (collecte data → SFT → eval → déploiement local) est faisable en 4-6 semaines pour 200-500&nbsp;€ de compute. Voir <a href="#section-4bis" class="tool-link">section 4bis</a>.</p>
             </div>
           </div>
 
@@ -161,7 +166,7 @@
 
         <h3>2.3 Réduction du coût d'inférence</h3>
         <p>Pour un cas d'usage à <strong>très haut volume</strong> (millions de requêtes/mois), fine-tuner un petit modèle (7B-13B) peut <strong>surpasser un gros modèle générique</strong> sur ton cas spécifique, à un coût d'inférence 10× moindre.</p>
-        <p><strong>Exemple type</strong> : classification automatique de tickets support (10 catégories métier). Un Mistral 7B fine-tuné peut atteindre 95 % de précision contre 92 % pour Claude Sonnet, à 10× moins cher en inférence.</p>
+        <p><strong>Exemple type</strong> : classification automatique de tickets support (10 catégories métier). Un <a href="../ressources.html#mistral" class="tool-link">Mistral 7B</a> fine-tuné peut atteindre 95 % de précision contre 92 % pour <a href="../ressources.html#claude" class="tool-link">Claude</a> Sonnet, à 10× moins cher en inférence.</p>
       </section>
 
       <!-- 3. CAS À ÉVITER -->
@@ -202,7 +207,7 @@
         <p><strong>QLoRA</strong> : variante qui ajoute une quantization (compression 4-bit) du modèle de base, divisant encore par 4 la mémoire requise.</p>
 
         <h3>4.2 Coût et délai typiques pour une PME</h3>
-        <p>Pour fine-tuner un Mistral 7B ou Llama 8B en LoRA sur tes données :</p>
+        <p>Pour fine-tuner un Mistral 7B ou <a href="../ressources.html#llama" class="tool-link">Llama 8B</a> en LoRA sur tes données :</p>
         <ul>
           <li><strong>Préparation données</strong> : 1-3 semaines (le plus long en PME)</li>
           <li><strong>Entraînement</strong> : 2-12 heures sur une GPU A100/H100 (Vast.ai, Runpod, Lambda Labs)</li>
@@ -219,6 +224,64 @@
           <li><strong>Axolotl</strong> : framework wrapper pour fine-tuning à l'échelle</li>
           <li><strong>Together.ai, Modal Labs, Lambda Labs</strong> : plateformes managed pour fine-tuning sans gérer l'infra</li>
         </ul>
+      </section>
+
+      <!-- 4bis. SLM 1B-8B EN 2026 -->
+      <section class="module-section" id="section-4bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">4bis</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 4bis</div>
+            <h2>Le palier opérationnel 2026 — fine-tuner avant 27B</h2>
+          </div>
+        </div>
+
+        <h3>Le palier opérationnel — fine-tuner avant 27B</h3>
+        <p>En 2025, le discours dominant sur le fine-tuning était&nbsp;: « si vous avez moins de 50K exemples de qualité, n'y allez pas ». En 2026, ce discours évolue avec l'émergence d'un palier intermédiaire <strong>réellement accessible aux PME</strong>&nbsp;: le fine-tuning de <strong>petits modèles (SLM, 1B-8B paramètres)</strong> avant d'envisager les modèles 27B+ ou les frontier models.</p>
+
+        <p><strong>Heuristique opérationnelle 2026</strong> (formalisée notamment par @cjzafir, mai 2026, 1 875 likes)&nbsp;:</p>
+
+        <div class="pull-quote">
+          <p>Ne pas acheter de GPU avant d'avoir fine-tuné 7-10 modèles SLM avec succès.</p>
+        </div>
+
+        <p>L'intuition&nbsp;: avant d'investir 5-15&nbsp;K€ dans une carte GPU, l'équipe doit <strong>avoir prouvé sa capacité</strong> à itérer sur un fine-tuning et à mesurer un gain réel. Sinon, le GPU dort dans un placard et la dette technique s'installe.</p>
+
+        <h3 style="margin-top: var(--space-5);">La stack pratique 2026 pour fine-tuner sans GPU local</h3>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>Brique</th><th>Outil recommandé</th><th>Coût</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Compute</strong></td><td>Colab Pro / WebGPU / A100 cloud à la demande</td><td>~0,60 $/h sur A100</td></tr>
+            <tr><td><strong>Modèles instruct + notebooks</strong></td><td>Unsloth (huggingface.co/unsloth)</td><td>Gratuit, open-source</td></tr>
+            <tr><td><strong>Méthode SFT</strong></td><td>Supervised Fine-Tuning sur dataset propre</td><td>Coût compute uniquement</td></tr>
+            <tr><td><strong>Méthodes RL</strong></td><td>GRPO / DPO / PPO selon objectif</td><td>Coût compute uniquement</td></tr>
+            <tr><td><strong>Adaptation paramétrique</strong></td><td>LoRA / QLoRA (déjà couvert section 4)</td><td>Économie de RAM ×4</td></tr>
+            <tr><td><strong>Quantization</strong></td><td>8 bits, 4 bits, GPTQ, AWQ</td><td>Réduction taille ×2 à ×4</td></tr>
+            <tr><td><strong>Inférence locale</strong></td><td>llama.cpp (CPU + GPU léger)</td><td>Gratuit, déploiement on-prem</td></tr>
+            <tr><td><strong>Optimisation contexte</strong></td><td>KV cache + prompt cache</td><td>Économie tokens 30-50&nbsp;%</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Lecture pour la PME</strong>&nbsp;: un cycle complet (collecte data → SFT → eval → déploiement local) sur un modèle 7B est faisable en <strong>4-6 semaines</strong> avec un junior data scientist + 200-500&nbsp;€ de compute cloud. C'est l'ordre de grandeur qui rend le fine-tuning <strong>réellement éligible</strong> au plan IA d'une PME en 2026.</p>
+
+        <h3 style="margin-top: var(--space-5);">Le ROI métier observé</h3>
+        <p>Données de marché 2026&nbsp;: <strong>les entreprises paient 50&nbsp;K€+ pour des modèles personnalisés sur leurs données</strong> (sources&nbsp;: annonces sociétés de services IA spécialisées, mai 2026). Cette valorisation reflète&nbsp;:</p>
+
+        <ul>
+          <li>L'absence d'alternative équivalente côté SaaS (pas de fine-tuning Claude / <a href="../ressources.html#gpt" class="tool-link">GPT-4</a> à 100&nbsp;K exemples métier dans la plupart des cas)</li>
+          <li>La valeur du <strong>on-premise</strong> (souveraineté, confidentialité, RGPD)</li>
+          <li>La pérennité (le modèle fine-tuné devient un actif de l'entreprise, pas un abonnement)</li>
+        </ul>
+
+        <p><strong>Implication stratégique</strong>&nbsp;: pour une PME qui a 6-12 mois d'historique IA et un cas d'usage métier mature, internaliser une compétence de fine-tuning SLM peut représenter un <strong>ROI direct supérieur à un abonnement SaaS sur 18 mois</strong>. La condition&nbsp;: avoir validé le cas d'usage <strong>avant</strong> d'investir dans le fine-tuning.</p>
+
+        <div class="callout callout-warn" style="margin-top: var(--space-5);">
+          <p>⚠️ <strong>Signal faible 2026 à surveiller — l'émergence des « Expert Language Models » (ELMs)&nbsp;:</strong> un déplacement progressif du marché des « frontier models 1T+ paramètres » vers des <strong>Expert Language Models</strong> de 5-15B paramètres, fine-tunés sur des données métier. Hypothèse&nbsp;: la prochaine vague de différenciation IA en entreprise ne viendra pas de qui a accès au plus gros modèle, mais de qui maîtrise <strong>son propre modèle spécialisé</strong>.</p>
+          <p style="margin-top: var(--space-3);"><strong>Implication PME&nbsp;:</strong> si cette tendance se confirme dans 12-18 mois, la stack 2027 PME pourrait être <strong>SLM/ELM on-premise + privacy-first</strong> plutôt que SaaS frontier. À surveiller.</p>
+        </div>
       </section>
 
       <!-- 5. DISCIPLINE DATA -->
@@ -315,6 +378,11 @@
             </ul>
           </div>
         </div>
+
+        <div class="case-deep-final">
+          <div class="case-deep-final-label">📏 Règle de discipline budgétaire</div>
+          <p>Avant tout investissement GPU local (5-15&nbsp;K€), exiger <strong>7-10 cycles SLM 1B-8B fine-tunés avec succès</strong> sur compute cloud (Colab Pro / A100 à la demande). Cf. <a href="#section-4bis" class="tool-link">section 4bis</a>. Cette règle évite que le GPU dorme dans un placard pendant que la dette technique s'installe.</p>
+        </div>
       </section>
 
       <!-- RESSOURCES -->
@@ -336,6 +404,7 @@
             <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — 5 must-know LLM fine-tuning techniques</a><span class="resources-meta">Pilier 4 LLM Engineering Roadmap</span></li>
             <li><a href="https://huggingface.co/blog/peft" target="_blank" rel="noopener">Hugging Face Blog — PEFT Methods</a><span class="resources-meta">Référence pédagogique LoRA</span></li>
             <li><a href="https://magazine.sebastianraschka.com/" target="_blank" rel="noopener">Sebastian Raschka — Practical fine-tuning</a><span class="resources-meta">Newsletter technique de référence</span></li>
+            <li><a href="https://x.com/cjzafir" target="_blank" rel="noopener">Compte X @cjzafir — guide pratique fine-tuning SLM 1B-8B</a><span class="resources-meta">Heuristique « 7-10 modèles avant tout investissement GPU » (mai 2026, 1 875 likes, 226 RT)</span></li>
           </ul>
         </div>
 

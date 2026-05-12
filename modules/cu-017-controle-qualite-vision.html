@@ -153,7 +153,7 @@
         </p>
 
         <div class="pull-quote">
-          Le contrôle qualité par vision IA n'est pas un sujet technologique nouveau — il existe depuis 20 ans dans l'industrie lourde via des systèmes Cognex ou Keyence. Ce qui change avec l'IA générative et les modèles de vision moderne (deep learning), c'est que <strong>le pattern devient accessible aux PME et ETI</strong> sur des défauts complexes auparavant difficiles à automatiser.
+          Le contrôle qualité par vision IA n'est pas un sujet technologique nouveau — il existe depuis 20 ans dans l'industrie lourde via des systèmes <a href="../ressources.html#cognex" class="tool-link">Cognex</a> ou Keyence. Ce qui change avec l'IA générative et les modèles de vision moderne (deep learning), c'est que <strong>le pattern devient accessible aux PME et ETI</strong> sur des défauts complexes auparavant difficiles à automatiser.
         </div>
 
         <p>
@@ -340,7 +340,7 @@
           <li><strong>Choisir la ligne et les types de défauts à détecter.</strong> Cartographier les défauts qualité actuels et leur fréquence : quels défauts coûtent le plus (en rebut, en retours clients, en réputation), lesquels sont les plus difficiles à détecter par l'humain. Démarrer sur 1 ligne pivot et 5 à 10 catégories de défauts max — ne pas viser l'exhaustivité au démarrage.</li>
           <li><strong>Sélectionner les capteurs et l'éclairage.</strong> Choix critique car il conditionne la qualité du dataset. <strong>Caméra couleur standard</strong> pour défauts visibles classiques (taches, déchirures), <strong>caméra hyperspectrale</strong> pour défauts non visibles (composition, humidité, températures), <strong>caméra ligne haute fréquence</strong> pour les flux continus (bobines, panneaux), <strong>vision 3D</strong> pour les contrôles dimensionnels précis. L'éclairage est aussi important que la caméra : éclairage rasant pour les défauts de surface, éclairage diffus pour minimiser les ombres, UV/IR pour défauts non visibles à l'œil.</li>
           <li><strong>Constituer le dataset d'entraînement.</strong> Le talon d'Achille du déploiement. Pour chaque catégorie de défaut, viser <strong>plusieurs centaines à plusieurs milliers d'images annotées</strong>. Pour les défauts rares (1 sur 10 000 pièces), trois approches : collecte longue durée (plusieurs mois), génération synthétique par augmentation de données, génération de défauts artificiels en conditions contrôlées (production volontaire de pièces défectueuses pour la base d'apprentissage).</li>
-          <li><strong>Entraîner et valider les modèles.</strong> Pour la vision industrielle, modèles deep learning de référence : <a href="../ressources.html#yolo-opencv" class="tool-link">YOLO</a> pour la détection multi-classes en temps réel, <a href="../ressources.html#mask-rcnn" class="tool-link">Mask R-CNN</a> pour la segmentation précise des défauts, <strong>EfficientNet</strong> ou <strong>Vision Transformers</strong> pour la classification fine. Pour les ETI sans équipe data, les solutions du marché (Cognex VisionPro Deep Learning, Landing AI) proposent des modèles pré-entraînés à fine-tuner sur le dataset de l'industriel.</li>
+          <li><strong>Entraîner et valider les modèles.</strong> Pour la vision industrielle, modèles deep learning de référence : <a href="../ressources.html#yolo-opencv" class="tool-link">YOLO</a> pour la détection multi-classes en temps réel, <a href="../ressources.html#mask-rcnn" class="tool-link">Mask R-CNN</a> pour la segmentation précise des défauts, <strong>EfficientNet</strong> ou <strong>Vision Transformers</strong> pour la classification fine. Pour les ETI sans équipe data, les solutions du marché (Cognex VisionPro Deep Learning, <a href="../ressources.html#landing-ai" class="tool-link">Landing AI</a>) proposent des modèles pré-entraînés à fine-tuner sur le dataset de l'industriel.</li>
           <li><strong>Déployer en edge computing.</strong> L'inférence doit être ultra-rapide (millisecondes) pour suivre la cadence de ligne. Calculateur edge type <strong>NVIDIA Jetson</strong> ou GPU serveur on-site pour latence minimale. Cloud distant exclu pour les analyses temps réel critiques. Le modèle tourne en local, l'envoi cloud ne concerne que les données agrégées et le ré-entraînement périodique.</li>
           <li><strong>Intégrer au flux de production.</strong> Connexion au PLC (automate programmable industriel) via protocoles OPC UA, Modbus ou Profinet pour déclencher les actions automatiques : éjection mécanique de la pièce NOK, marquage des cas AMBIGU, alerte à l'opérateur, ralentissement de ligne si taux de défauts dérive. Connexion au MES (Manufacturing Execution System) pour traçabilité et reporting qualité.</li>
           <li><strong>Calibrer en shadow mode puis production progressive.</strong> 4-8 semaines de shadow mode obligatoires : le modèle alerte mais ne déclenche pas l'éjection automatique — ses sorties sont confrontées au contrôle humain pour calibrer la précision. Une fois la précision validée (&gt;95 % sur les défauts critiques), basculement en mode production avec garde-fous sur le taux de rejet (alerte si dépassement de seuil anormal).</li>
@@ -370,7 +370,7 @@
             <div class="archi-flow-steps">
               <div class="archi-step is-agent"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Edge computing</strong><small>NVIDIA Jetson · GPU serveur on-site · latence millisecondes pour suivre la cadence ligne</small></div></div>
               <div class="archi-arrow">↓</div>
-              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Modèles deep learning</strong><small>YOLO · Mask R-CNN · ViT (Vision Transformer)</small></div></div>
+              <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Modèles deep learning</strong><small><a href="../ressources.html#yolo-opencv" class="tool-link">YOLO</a> · <a href="../ressources.html#mask-rcnn" class="tool-link">Mask R-CNN</a> · ViT (Vision Transformer)</small></div></div>
             </div>
           </div>
           <div class="archi-flow-section">
@@ -420,7 +420,7 @@
 
         <h3>Foundation models vision (2024-2026)</h3>
         <p>
-          Deux modèles open-source ont émergé comme références 2026 et rendent la vision industrielle accessible aux PME sans équipe ML lourde. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, MIT) est un vision-language foundation model compact (0,7 B paramètres) qui unifie détection, segmentation, captioning et grounding en un seul réseau — performant en zero-shot, fine-tunable en quelques heures, déployable sur edge (NVIDIA Jetson). <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) est le standard de fait pour la segmentation pixel-perfect en temps réel, avec extension vidéo cohérente frame-par-frame. Pipeline canonique : Florence-2 pour la détection + SAM 2 pour la segmentation fine des défauts identifiés.
+          Deux modèles open-source ont émergé comme références 2026 et rendent la vision industrielle accessible aux PME sans équipe ML lourde. <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> (Microsoft, MIT) est un vision-language foundation model compact (0,7 B paramètres) qui unifie détection, segmentation, captioning et grounding en un seul réseau — performant en zero-shot, fine-tunable en quelques heures, déployable sur edge (NVIDIA Jetson). <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> (Meta, Apache 2.0) est le standard de fait pour la segmentation pixel-perfect en temps réel, avec extension vidéo cohérente frame-par-frame. Pipeline canonique : <a href="../ressources.html#florence-2" class="tool-link">Florence-2</a> pour la détection + <a href="../ressources.html#sam-2" class="tool-link">SAM 2</a> pour la segmentation fine des défauts identifiés.
         </p>
 
         <h3>Hardware industriel</h3>
@@ -556,7 +556,7 @@
           <div class="case-deep-step-num">1</div>
           <div class="case-deep-step-content">
             <h3>Cartographier les défauts et monter le dossier de financement (mois 1-2)</h3>
-            <p>Le directeur de production, le responsable qualité et le chef de ligne identifient ensemble 8 catégories de défauts critiques : nœuds mal positionnés (40 % des cas), fissures de surface (25 %), déformations (15 %), défauts colorimétriques (10 %), 4 catégories rares (10 % cumul). Pour chaque catégorie, historique des 3 dernières années consolidé via leur GPAO. En parallèle, montage d'un dossier de cofinancement Région Grand Est Compétitivité + Pionniers IA + DECARB IND avec un consultant. Sélection de NIN-IA comme partenaire d'intégration après benchmark de 4 prestataires (avec étape démo sur quelques échantillons).</p>
+            <p>Le directeur de production, le responsable qualité et le chef de ligne identifient ensemble 8 catégories de défauts critiques : nœuds mal positionnés (40 % des cas), fissures de surface (25 %), déformations (15 %), défauts colorimétriques (10 %), 4 catégories rares (10 % cumul). Pour chaque catégorie, historique des 3 dernières années consolidé via leur GPAO. En parallèle, montage d'un dossier de cofinancement Région Grand Est Compétitivité + Pionniers IA + DECARB IND avec un consultant. Sélection de <a href="../ressources.html#nin-ia" class="tool-link">NIN-IA</a> comme partenaire d'intégration après benchmark de 4 prestataires (avec étape démo sur quelques échantillons).</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
               Pas d'IA à cette étape — atelier équipe + extraction GPAO + dossiers financement
@@ -787,7 +787,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>8. Intégrateur spécialisé identifié</strong>
-                  <small>NIN-IA, Atsora Solutions, Cognex, Keyence, Landing AI. Pas de DIY pour ce niveau de complexité industrielle.</small>
+                  <small>NIN-IA, Atsora Solutions, Cognex, <a href="../ressources.html#keyence" class="tool-link">Keyence</a>, Landing AI. Pas de DIY pour ce niveau de complexité industrielle.</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="q3" value="2"><span>Oui</span></label>

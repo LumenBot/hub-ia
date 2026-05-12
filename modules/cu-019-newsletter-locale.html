@@ -103,7 +103,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
-              <p><strong>Coût ultra-bas.</strong> 11 USD de domaine, Beehiiv gratuit jusqu'à 2 500 abonnés, quelques dizaines d'euros d'inférence par mois. Ratio investissement / valeur exceptionnel.</p>
+              <p><strong>Coût ultra-bas.</strong> 11 USD de domaine, <a href="../ressources.html#beehiiv" class="tool-link">Beehiiv</a> gratuit jusqu'à 2 500 abonnés, quelques dizaines d'euros d'inférence par mois. Ratio investissement / valeur exceptionnel.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
@@ -287,7 +287,7 @@
 
         <ol>
           <li><strong>Définir la cible et la voix.</strong> Public visé (territoire, secteur, profils), sources de référence (5 à 15 médias et sites prioritaires), ton (formel, direct, humour, technique), format (3 sections type, longueur cible). C'est le brief stratégique qui conditionne tout le reste.</li>
-          <li><strong>Constituer la base anti-doublons.</strong> Chaque article ingéré est indexé dans un vector store léger (Pinecone, Qdrant ou Postgres avec embeddings). Évite de re-publier le même contenu et permet à l'agent dédoublonnage de filtrer en temps réel.</li>
+          <li><strong>Constituer la base anti-doublons.</strong> Chaque article ingéré est indexé dans un vector store léger (<a href="../ressources.html#pinecone" class="tool-link">Pinecone</a>, <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> ou Postgres avec embeddings). Évite de re-publier le même contenu et permet à l'agent dédoublonnage de filtrer en temps réel.</li>
           <li><strong>Configurer les 5 sub-agents.</strong> Agent 1 scrape les sources (Scrapling pour les sites résistants, RSS pour les sources accommodantes, API publiques quand disponibles). Agent 2 vérifie l'unicité contre la base. Agent 3 produit un résumé de chaque article retenu. Agent 4 propose un angle éditorial cohérent avec la ligne définie. Agent 5 assemble le draft final dans le format newsletter.</li>
           <li><strong>Curation humaine.</strong> <strong>Étape obligatoire — non automatisable</strong>. L'humain valide la sélection, ajuste le ton, ajoute la voix personnelle, supprime les sections faibles, ajoute parfois un édito d'introduction. Compte 1 à 2 heures par newsletter. C'est le différenciateur qualité.</li>
           <li><strong>Publication via Beehiiv.</strong> Beehiiv est gratuit jusqu'à 2 500 abonnés et propose une API pour automatiser la publication. Substack et Buttondown sont des alternatives selon ton positionnement (Substack pour le grand public, Buttondown pour la souveraineté).</li>
@@ -309,7 +309,7 @@
 
         <h3>Orchestration des 5 agents</h3>
         <p>
-          <a href="../ressources.html#n8n" class="tool-link">n8n</a> en self-hosted reste la solution la plus pragmatique pour orchestrer la chaîne — souveraineté, coût zéro, flexibilité totale. <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> ou des frameworks custom (LangChain, LangGraph) sont des alternatives pour les setups très spécifiques. <a href="../ressources.html#make" class="tool-link">Make</a> (ex-Integromat) est une option no-code avec un coût mensuel mais une mise en place plus rapide.
+          <a href="../ressources.html#n8n" class="tool-link">n8n</a> en self-hosted reste la solution la plus pragmatique pour orchestrer la chaîne — souveraineté, coût zéro, flexibilité totale. <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> ou des frameworks custom (LangChain, <a href="../ressources.html#langgraph" class="tool-link">LangGraph</a>) sont des alternatives pour les setups très spécifiques. <a href="../ressources.html#make" class="tool-link">Make</a> (ex-Integromat) est une option no-code avec un coût mensuel mais une mise en place plus rapide.
         </p>
 
         <h3>Scraping et collecte de sources (Agent 1)</h3>
@@ -319,7 +319,7 @@
 
         <h3>Base anti-doublons (Agent 2)</h3>
         <p>
-          <strong>Pinecone</strong> ou <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> pour un vector store managé. <strong>Postgres</strong> avec extension pgvector pour une solution self-hosted sur infrastructure existante. <strong>ChromaDB</strong> pour un démarrage rapide en local.
+          <strong>Pinecone</strong> ou <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> pour un vector store managé. <strong>Postgres</strong> avec extension <a href="../ressources.html#pgvector" class="tool-link">pgvector</a> pour une solution self-hosted sur infrastructure existante. <strong><a href="../ressources.html#chromadb" class="tool-link">ChromaDB</a></strong> pour un démarrage rapide en local.
         </p>
 
         <h3>Plateforme newsletter</h3>
@@ -334,7 +334,7 @@
 
         <h3>Prérequis</h3>
         <p>
-          Une définition claire de la ligne éditoriale (sans cela, la newsletter devient générique et son taux d'ouverture chute en 4-6 semaines). 1 à 2 heures par semaine de curation humaine garanties — c'est le coût récurrent non négociable. Une compétence basique d'orchestration n8n, ou un prestataire d'intégration capable de monter le setup en 2 à 4 jours. Un budget initial très faible (11 USD de domaine + frais d'inférence quelques dizaines d'euros par mois selon volume).
+          Une définition claire de la ligne éditoriale (sans cela, la newsletter devient générique et son taux d'ouverture chute en 4-6 semaines). 1 à 2 heures par semaine de curation humaine garanties — c'est le coût récurrent non négociable. Une compétence basique d'orchestration <a href="../ressources.html#n8n" class="tool-link">n8n</a>, ou un prestataire d'intégration capable de monter le setup en 2 à 4 jours. Un budget initial très faible (11 USD de domaine + frais d'inférence quelques dizaines d'euros par mois selon volume).
         </p>
       </section>
 
@@ -383,7 +383,7 @@
         <div class="case-deep-step">
           <div class="case-deep-step-num">3</div>
           <div class="case-deep-step-content">
-            <h3>Configurer les 5 sub-agents avec n8n + Claude</h3>
+            <h3>Configurer les 5 sub-agents avec n8n + <a href="../ressources.html#claude" class="tool-link">Claude</a></h3>
             <p>Configure un workflow <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> en self-hosted (ou en mode no-code dans Make si plus rapide à mettre en place). Architecture :</p>
             <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-size: 0.9375rem;">
               <strong>Agent 1 (scrape)</strong> : lit tes 5-15 sources via RSS et Scrapling chaque jour.<br>
@@ -393,7 +393,7 @@
               <strong>Agent 5 (assemblage)</strong> : Claude met en forme le draft complet selon ton template.
             </p>
             <span class="case-deep-tech">🛠️ n8n self-hosted</span>
-            <span class="case-deep-tech">🛠️ Claude / Mistral</span>
+            <span class="case-deep-tech">🛠️ Claude / <a href="../ressources.html#mistral" class="tool-link">Mistral</a></span>
             <span class="case-deep-tech">🛠️ Qdrant (vector store)</span>
             <div class="case-deep-result">
               <strong>Output :</strong> une chaîne automatique qui produit chaque vendredi un draft complet de newsletter, prêt pour la curation humaine.

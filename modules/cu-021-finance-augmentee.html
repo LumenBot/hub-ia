@@ -76,7 +76,7 @@
       <!-- TAG ARCHITECTURES -->
       <div class="callout callout-warn" style="margin: var(--space-4) 0;">
         <p>
-          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : <strong>A2 ou A3 recommandés</strong> — les factures fournisseurs incluent des données personnelles (RIB, contacts, contrats). <strong>A1 (SaaS public) sous condition stricte</strong> avec engagement no-training et data residency EU. <strong>Mistral Cloud EU</strong> ou solutions intégrées <strong>Pennylane / Qonto</strong> sont les options pragmatiques. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
+          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : <strong>A2 ou A3 recommandés</strong> — les factures fournisseurs incluent des données personnelles (RIB, contacts, contrats). <strong>A1 (SaaS public) sous condition stricte</strong> avec engagement no-training et data residency EU. <strong>Mistral Cloud EU</strong> ou solutions intégrées <strong><a href="../ressources.html#pennylane" class="tool-link">Pennylane</a> / Qonto</strong> sont les options pragmatiques. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
         </p>
       </div>
 
@@ -86,7 +86,7 @@
           <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 90 secondes</div>
           <h2>Pourquoi ce module ?</h2>
           <p>
-            La fonction comptable et financière en PME est un des plus gros gisements de productivité IA documentés en 2026. Le bloc « extraction factures + rapprochement + prévision cash + détection anomalies » couvre 60 à 80 % du temps d'un service comptable PME, avec un ROI médian France Num à 155 % la 1ʳᵉ année et un retour terrain Batibig (BTP) qui détecte 110 K€ de sur-facturation pour 20 K€ d'investissement. Stack accessible (Claude/GPT + n8n/Make + ERP standard), précision OCR+LLM 92-98 %, déploiement 6-12 semaines.
+            La fonction comptable et financière en PME est un des plus gros gisements de productivité IA documentés en 2026. Le bloc « extraction factures + rapprochement + prévision cash + détection anomalies » couvre 60 à 80 % du temps d'un service comptable PME, avec un ROI médian France Num à 155 % la 1ʳᵉ année et un retour terrain Batibig (BTP) qui détecte 110 K€ de sur-facturation pour 20 K€ d'investissement. Stack accessible (<a href="../ressources.html#claude" class="tool-link">Claude</a>/GPT + <a href="../ressources.html#n8n" class="tool-link">n8n</a>/Make + ERP standard), précision OCR+LLM 92-98 %, déploiement 6-12 semaines.
           </p>
 
           <div class="exec-takeaways">
@@ -311,7 +311,7 @@
         <ol>
           <li><strong>Cartographier le flux factures actuel.</strong> Combien de factures fournisseurs par mois ? Combien de fournisseurs récurrents (qui représentent typiquement 70-80 % du volume) ? Combien de temps consomme la saisie aujourd'hui ? Quel ERP est en place et expose-t-il une API ? Cet audit prend 2-3 heures et conditionne tout le reste.</li>
           <li><strong>Choisir l'OCR robuste adapté à tes documents.</strong> Pour les factures structurées (PDF natifs), <strong>Mistral Document AI</strong> ou <strong>Anthropic Vision</strong> via Claude suffisent. Pour les factures scannées ou photographiées, ajouter une couche <strong>Mindee</strong> ou <strong>Tesseract</strong> en pré-traitement. Précision attendue après calibrage : 92-98 % sur les fournisseurs récurrents, 85-92 % sur les fournisseurs occasionnels.</li>
-          <li><strong>Configurer le LLM extracteur.</strong> Prompt système qui définit le schéma JSON de sortie : fournisseur, n° facture, date, montant HT, TVA, montant TTC, lignes de détail, imputation comptable suggérée. Few-shot avec 5-10 exemples calibrés sur tes formats. <strong>Claude</strong> excelle sur l'extraction structurée nuancée. <strong>Mistral Large</strong> est l'option souveraine EU recommandée sur les données fournisseurs sensibles (cf. module <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>).</li>
+          <li><strong>Configurer le LLM extracteur.</strong> Prompt système qui définit le schéma JSON de sortie : fournisseur, n° facture, date, montant HT, TVA, montant TTC, lignes de détail, imputation comptable suggérée. Few-shot avec 5-10 exemples calibrés sur tes formats. <strong>Claude</strong> excelle sur l'extraction structurée nuancée. <strong><a href="../ressources.html#mistral" class="tool-link">Mistral Large</a></strong> est l'option souveraine EU recommandée sur les données fournisseurs sensibles (cf. module <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>).</li>
           <li><strong>Définir les règles d'auto-validation.</strong> Auto-validation pour les fournisseurs récurrents avec écart prix < 5 % vs historique. Sinon escalade au comptable. Cap typique : 70-85 % du flux en auto, 15-30 % en validation humaine. <strong>Démarrer en mode prudent (50 % auto)</strong>, augmenter progressivement après calibrage.</li>
           <li><strong>Intégrer à l'ERP via API native.</strong> <strong>Pennylane</strong> et <strong>Qonto</strong> ont les API les plus accessibles pour PME. <strong>Sage 100</strong> et <strong>Cegid</strong> ont des connecteurs dédiés. <strong>EBP</strong> et <strong>Odoo</strong> exposent des API REST. Pour les ERP plus anciens, intermédier via une couche <strong>n8n</strong> ou <strong>Make</strong>.</li>
           <li><strong>Boucle d'apprentissage continu.</strong> Chaque correction humaine sur une imputation ou un fournisseur enrichit la base de règles. Au bout de 6-8 semaines de calibrage, le taux d'auto-validation passe typiquement de 50 % à 75-85 %.</li>
@@ -345,7 +345,7 @@
 
         <h3>Orchestration</h3>
         <p>
-          <a href="../ressources.html#n8n" class="tool-link">n8n</a> en self-hosted reste la solution recommandée pour la souveraineté des données financières. <a href="../ressources.html#make" class="tool-link">Make</a> est l'alternative cloud rapide à mettre en place. <strong>Zapier</strong> peut suffire pour des volumes limités (≤ 100 factures/mois). Pour les structures plus mâtures, <strong>LangChain</strong> ou <strong>LangGraph</strong> permettent des workflows custom multi-agents.
+          <a href="../ressources.html#n8n" class="tool-link">n8n</a> en self-hosted reste la solution recommandée pour la souveraineté des données financières. <a href="../ressources.html#make" class="tool-link">Make</a> est l'alternative cloud rapide à mettre en place. <strong>Zapier</strong> peut suffire pour des volumes limités (≤ 100 factures/mois). Pour les structures plus mâtures, <strong>LangChain</strong> ou <strong><a href="../ressources.html#langgraph" class="tool-link">LangGraph</a></strong> permettent des workflows custom multi-agents.
         </p>
 
         <h3>Intégration ERP / comptabilité</h3>
@@ -505,7 +505,7 @@
 
         <h3>Souveraineté EU sous-estimée</h3>
         <p>
-          Les données fournisseurs incluent souvent des données personnelles (RIB, contacts, contrats). <strong>Utiliser ChatGPT ou Claude API standard (cloud US) sur ces données pose un problème RGPD réel</strong>. La CNIL a déjà sanctionné un cabinet d'expertise comptable en 2024 sur ce sujet. Privilégier Mistral, Pennylane intégré, ou solutions on-premise pour les flux sensibles. Documenter dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>).
+          Les données fournisseurs incluent souvent des données personnelles (RIB, contacts, contrats). <strong>Utiliser <a href="../ressources.html#gpt" class="tool-link">ChatGPT</a> ou Claude API standard (cloud US) sur ces données pose un problème RGPD réel</strong>. La CNIL a déjà sanctionné un cabinet d'expertise comptable en 2024 sur ce sujet. Privilégier Mistral, Pennylane intégré, ou solutions on-premise pour les flux sensibles. Documenter dans le registre RGPD (cf. <a href="cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a>).
         </p>
 
         <h3>Détection d'anomalies trop bruyante</h3>

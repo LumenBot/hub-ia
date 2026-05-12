@@ -99,7 +99,7 @@
           <div class="exec-summary-label">⚡ Synthèse rapide — l'essentiel en 2 minutes</div>
           <h2>Pourquoi ce module ?</h2>
           <p>
-            Sortir d'un usage erratique de ChatGPT pour structurer une organisation virtuelle d'agents spécialisés. Le pattern canonique : 1 humain + 1 orchestrateur central + N agents fonctionnels (Sales, Marketing, Writer, Developer) avec mémoire partagée et dashboard unifié. C'est le cas-école d'architecture agentique pure — complexe à déployer, mais transformateur dans la durée. Le pattern complémentaire du <em>hardening</em> (transformer chaque tâche récurrente en workflow réutilisable) est ce qui crée l'actif organisationnel sur 12+ mois.
+            Sortir d'un usage erratique de <a href="../ressources.html#gpt" class="tool-link">ChatGPT</a> pour structurer une organisation virtuelle d'agents spécialisés. Le pattern canonique : 1 humain + 1 orchestrateur central + N agents fonctionnels (Sales, Marketing, Writer, Developer) avec mémoire partagée et dashboard unifié. C'est le cas-école d'architecture agentique pure — complexe à déployer, mais transformateur dans la durée. Le pattern complémentaire du <em>hardening</em> (transformer chaque tâche récurrente en workflow réutilisable) est ce qui crée l'actif organisationnel sur 12+ mois.
           </p>
 
           <div class="exec-takeaways">
@@ -141,7 +141,7 @@
           </div>
 
           <div class="exec-when">
-            <strong>Quand ce module t'est utile :</strong> tu es un solopreneur ou une équipe restreinte saturée multi-casquettes ; tu veux structurer une organisation virtuelle qui scale ; tu disposes d'une compétence Python (CrewAI, LangGraph) ou d'un prestataire d'intégration ; tu acceptes 20-30h de débogage initial pour stabiliser le système ; tu vises un usage soutenu (pas ad-hoc, sinon rester sur du multi-prompt classique).
+            <strong>Quand ce module t'est utile :</strong> tu es un solopreneur ou une équipe restreinte saturée multi-casquettes ; tu veux structurer une organisation virtuelle qui scale ; tu disposes d'une compétence Python (<a href="../ressources.html#crewai" class="tool-link">CrewAI</a>, <a href="../ressources.html#langgraph" class="tool-link">LangGraph</a>) ou d'un prestataire d'intégration ; tu acceptes 20-30h de débogage initial pour stabiliser le système ; tu vises un usage soutenu (pas ad-hoc, sinon rester sur du multi-prompt classique).
           </div>
         </div>
       </section>
@@ -185,31 +185,31 @@
             <div class="agent-card-icon">💼</div>
             <div class="agent-card-title">Agent Sales</div>
             <div class="agent-card-perim">Qualification de prospects, séquences de prospection, suivi pipeline, mise à jour CRM.</div>
-            <div class="agent-card-tools">Stack : LinkedIn / Apollo / HubSpot, prompts spécialisés BANT</div>
+            <div class="agent-card-tools">Stack : LinkedIn / Apollo / <a href="../ressources.html#hubspot" class="tool-link">HubSpot</a>, prompts spécialisés BANT</div>
           </div>
           <div class="agent-card">
             <div class="agent-card-icon">📢</div>
             <div class="agent-card-title">Agent Marketing</div>
             <div class="agent-card-perim">Production de contenus, gestion calendrier éditorial, analyse performance, repurposing.</div>
-            <div class="agent-card-tools">Stack : Buffer / Typefully / Beehiiv, accès analytics</div>
+            <div class="agent-card-tools">Stack : Buffer / Typefully / <a href="../ressources.html#beehiiv" class="tool-link">Beehiiv</a>, accès analytics</div>
           </div>
           <div class="agent-card">
             <div class="agent-card-icon">✍️</div>
             <div class="agent-card-title">Agent Writer</div>
             <div class="agent-card-perim">Rédaction longue, ré-écriture, ton et style, traduction. Prompts calibrés voix de marque.</div>
-            <div class="agent-card-tools">Stack : Claude (long-form) / Mistral / DeepL Pro</div>
+            <div class="agent-card-tools">Stack : <a href="../ressources.html#claude" class="tool-link">Claude</a> (long-form) / Mistral / <a href="../ressources.html#deepl" class="tool-link">DeepL Pro</a></div>
           </div>
           <div class="agent-card">
             <div class="agent-card-icon">⚙️</div>
             <div class="agent-card-title">Agent Developer</div>
             <div class="agent-card-perim">Génération de code, automatisations, intégrations API, scripts maintenance, debug.</div>
-            <div class="agent-card-tools">Stack : Claude Code / Cursor / GitHub Copilot</div>
+            <div class="agent-card-tools">Stack : <a href="../ressources.html#claude-code" class="tool-link">Claude Code</a> / <a href="../ressources.html#cursor" class="tool-link">Cursor</a> / GitHub Copilot</div>
           </div>
           <div class="agent-card" style="border-top-color: #4A3A8C;">
             <div class="agent-card-icon">🧭</div>
             <div class="agent-card-title">Agent Orchestrateur</div>
             <div class="agent-card-perim">Routage des demandes vers l'agent compétent, déclenchement cron jobs, escalade humain.</div>
-            <div class="agent-card-tools">Stack : LangGraph / OpenClaw / n8n custom</div>
+            <div class="agent-card-tools">Stack : LangGraph / <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> / <a href="../ressources.html#n8n" class="tool-link">n8n</a> custom</div>
           </div>
         </div>
       </section>
@@ -340,7 +340,7 @@
         <p>Pour une PME qui construit un système multi-agents (cas d'usage de ce module) :</p>
         <ul>
           <li><strong>Ne pas réinventer un framework custom</strong> : LangChain est lourd, suffit rarement, et la maintenance s'effondre au-delà de 5-6 agents.</li>
-          <li><strong>Utiliser un harness léger</strong> : OpenClaw, Hermes Agent ou ECC (Everything Claude Code) — open-source, lisibles, modifiables.</li>
+          <li><strong>Utiliser un harness léger</strong> : OpenClaw, <a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a> ou ECC (Everything Claude Code) — open-source, lisibles, modifiables.</li>
           <li><strong>Construire des skills focalisées</strong> : une skill = une compétence claire, testée, documentée en markdown.</li>
           <li><strong>« Skillifier » les workflows répétés</strong> : à chaque fois qu'un workflow est repris ≥ 3 fois, le transformer en skill réutilisable.</li>
         </ul>
@@ -388,7 +388,7 @@
               </tr>
               <tr>
                 <td><strong>Audit sécurité</strong></td>
-                <td>AgentShield + revue MCP</td>
+                <td>AgentShield + revue <a href="../ressources.html#mcp" class="tool-link">MCP</a></td>
                 <td>fiche <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents et MCP</a></td>
               </tr>
             </tbody>
@@ -408,9 +408,9 @@
           <li><strong>Cartographier les fonctions à augmenter.</strong> Avant tout déploiement technique, identifier les 3 à 5 fonctions de l'organisation où un agent dédié apporterait de la valeur. Pour un solopreneur ou une équipe restreinte, le quatuor canonique Sales / Marketing / Writer / Developer est un point de départ éprouvé. Pour une PME plus structurée, il peut être plus pertinent de démarrer sur 2-3 agents bien ciblés (par exemple : agent commercial entrant, agent administratif, agent communication).</li>
           <li><strong>Définir les périmètres non chevauchants.</strong> Chaque agent doit avoir des responsabilités strictement délimitées. Sinon on observe des duplications (deux agents font la même chose) ou des oublis (aucun ne s'en charge). Discipline d'écriture des prompts indispensable : prompt système qui définit explicitement « Tu es responsable de X et Y. Tu ne fais pas Z (c'est l'agent Marketing). Si une demande hors périmètre arrive, tu la rediriges vers l'orchestrateur. »</li>
           <li><strong>Configurer le canal d'interaction par agent.</strong> Un canal Discord, Slack ou Telegram par agent. L'humain communique avec l'agent dédié sur son canal — ce qui maintient la traçabilité (historique structuré par fonction) et évite la confusion entre périmètres. Le canal devient aussi le journal des actions de l'agent, consultable a posteriori.</li>
-          <li><strong>Mettre en place la mémoire partagée.</strong> Vector store (Qdrant, Pinecone) ou base SQL (Postgres) accessible à tous les agents. C'est ce qui permet à l'agent Sales de savoir ce que l'agent Marketing a publié hier, à l'agent Writer d'utiliser les leads qualifiés du Sales pour rédiger une newsletter ciblée, à l'agent Developer de connaître les automatisations existantes. Sans mémoire partagée, chaque agent travaille en silo et le système ne capitalise pas.</li>
+          <li><strong>Mettre en place la mémoire partagée.</strong> Vector store (<a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>, <a href="../ressources.html#pinecone" class="tool-link">Pinecone</a>) ou base SQL (Postgres) accessible à tous les agents. C'est ce qui permet à l'agent Sales de savoir ce que l'agent Marketing a publié hier, à l'agent Writer d'utiliser les leads qualifiés du Sales pour rédiger une newsletter ciblée, à l'agent Developer de connaître les automatisations existantes. Sans mémoire partagée, chaque agent travaille en silo et le système ne capitalise pas.</li>
           <li><strong>Déployer l'orchestrateur central.</strong> Un agent supplémentaire dont la mission est le routage et la gestion des cron jobs. Il reçoit les demandes humaines de haut niveau (« prépare-moi la stratégie de la semaine »), décompose en sous-tâches, route chaque sous-tâche vers l'agent compétent, agrège les résultats. Pour les tâches récurrentes (audit hebdomadaire de la pipeline commerciale, génération de la newsletter du lundi), il déclenche les cron jobs sans intervention humaine.</li>
-          <li><strong>Construire le dashboard unifié.</strong> Solution custom ou outil de project management standard (Notion, Linear, ClickUp). Le dashboard agrège les tâches de tous les agents, donne la vision d'ensemble, permet le pilotage humain. C'est le tableau de bord de l'organisation virtuelle.</li>
+          <li><strong>Construire le dashboard unifié.</strong> Solution custom ou outil de project management standard (Notion, Linear, <a href="../ressources.html#clickup-brain" class="tool-link">ClickUp</a>). Le dashboard agrège les tâches de tous les agents, donne la vision d'ensemble, permet le pilotage humain. C'est le tableau de bord de l'organisation virtuelle.</li>
           <li><strong>Activer le hardening progressif.</strong> Pour chaque tâche confiée à un agent plus de 3 fois, instruction explicite de transformer cette tâche en workflow réutilisable et de la documenter dans la bibliothèque interne. Au fil des mois, l'organisation accumule un actif de skills opérationnels qui devient le vrai différenciateur de la durée.</li>
           <li><strong>Maintenir la gouvernance humain-dans-la-boucle.</strong> Pour toute action à conséquence externe (envoi commercial, engagement contractuel, opération financière, publication publique), ne jamais laisser un agent agir sans validation humaine. L'orchestrateur identifie ces actions sensibles et déclenche systématiquement une demande de validation.</li>
         </ol>
@@ -469,20 +469,20 @@
 
         <h3>Frameworks d'orchestration multi-agents</h3>
         <p>
-          <a href="../ressources.html#langgraph" class="tool-link">LangGraph</a> (extension de LangChain) est aujourd'hui la référence pour les architectures multi-agents avec mémoire partagée et handoff explicites entre agents. Maîtrise Python requise. <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> est cité majoritairement par la communauté ZHC Institute — émergence récente, accessible, bien documentée pour les patterns canoniques. <a href="../ressources.html#crewai" class="tool-link">CrewAI</a> est une alternative plus accessible, orientée « équipes d'agents », avec des abstractions plus haut niveau. <strong>Dify</strong> et <strong>Flowise</strong> sont des options no-code/low-code intéressantes pour démarrer sans dev complet.
+          <a href="../ressources.html#langgraph" class="tool-link">LangGraph</a> (extension de LangChain) est aujourd'hui la référence pour les architectures multi-agents avec mémoire partagée et handoff explicites entre agents. Maîtrise Python requise. <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> est cité majoritairement par la communauté ZHC Institute — émergence récente, accessible, bien documentée pour les patterns canoniques. <a href="../ressources.html#crewai" class="tool-link">CrewAI</a> est une alternative plus accessible, orientée « équipes d'agents », avec des abstractions plus haut niveau. <strong><a href="../ressources.html#dify" class="tool-link">Dify</a></strong> et <strong><a href="../ressources.html#flowise" class="tool-link">Flowise</a></strong> sont des options no-code/low-code intéressantes pour démarrer sans dev complet.
         </p>
 
         <h3>SDK officiels des éditeurs (2026)</h3>
         <p>
-          En complément des frameworks open-source, les éditeurs publient leurs propres SDK : <strong>Claude Agent SDK</strong> (Anthropic — qualité référence, écosystème MCP natif), <strong>OpenAI Agents SDK</strong> (écosystème large, AGENTS.md), et <a href="../ressources.html#mistral-agents" class="tool-link">Mistral Agents SDK</a> (alternative souveraine 🇫🇷🇪🇺 — articulation native avec Mistral Large, Document AI, Voxtral). Pour les structures avec exigence souveraineté EU, le Mistral SDK est la voie à privilégier.
+          En complément des frameworks open-source, les éditeurs publient leurs propres SDK : <strong>Claude Agent SDK</strong> (Anthropic — qualité référence, écosystème MCP natif), <strong>OpenAI Agents SDK</strong> (écosystème large, AGENTS.md), et <a href="../ressources.html#mistral-agents" class="tool-link">Mistral Agents SDK</a> (alternative souveraine 🇫🇷🇪🇺 — articulation native avec <a href="../ressources.html#mistral" class="tool-link">Mistral Large</a>, Document AI, <a href="../ressources.html#voxtral" class="tool-link">Voxtral</a>). Pour les structures avec exigence souveraineté EU, le Mistral SDK est la voie à privilégier.
         </p>
 
-        <h3>Standards d'interopérabilité — MCP &amp; A2A</h3>
+        <h3>Standards d'interopérabilité — MCP &amp; <a href="../ressources.html#a2a" class="tool-link">A2A</a></h3>
         <p>
-          Deux standards ouverts structurent désormais la communication des agents en 2026. <a href="../ressources.html#mcp" class="tool-link">MCP (Model Context Protocol)</a>, donné par Anthropic à la Linux Foundation en décembre 2025, est devenu « le USB-C des agents » : standard cross-vendor adopté par Claude, OpenAI, Mistral et tous les frameworks majeurs (LangGraph, CrewAI, AutoGen). Il standardise l'appel d'outils — un serveur MCP expose des capabilities consommables par n'importe quel client. <a href="../ressources.html#a2a" class="tool-link">A2A (Agent2Agent)</a>, publié par Google, est complémentaire : il standardise la communication agent-agent (handoff, négociation, consensus) pour faire collaborer des agents de vendors différents. Construire avec ces 2 standards prépare l'interopérabilité B2B agentique à venir.
+          Deux standards ouverts structurent désormais la communication des agents en 2026. <a href="../ressources.html#mcp" class="tool-link">MCP (Model Context Protocol)</a>, donné par Anthropic à la Linux Foundation en décembre 2025, est devenu « le USB-C des agents » : standard cross-vendor adopté par Claude, OpenAI, Mistral et tous les frameworks majeurs (LangGraph, CrewAI, <a href="../ressources.html#autogen" class="tool-link">AutoGen</a>). Il standardise l'appel d'outils — un serveur MCP expose des capabilities consommables par n'importe quel client. <a href="../ressources.html#a2a" class="tool-link">A2A (Agent2Agent)</a>, publié par Google, est complémentaire : il standardise la communication agent-agent (handoff, négociation, consensus) pour faire collaborer des agents de vendors différents. Construire avec ces 2 standards prépare l'interopérabilité B2B agentique à venir.
         </p>
 
-        <h3>Automatisation GUI — Computer Use</h3>
+        <h3>Automatisation GUI — <a href="../ressources.html#computer-use" class="tool-link">Computer Use</a></h3>
         <p>
           <a href="../ressources.html#computer-use" class="tool-link">Anthropic Computer Use</a> (production en 2026) permet à Claude d'interagir directement avec une interface graphique (cliquer, taper, naviguer). C'est l'évolution naturelle de la RPA traditionnelle vers une RPA pilotée par LLM, beaucoup plus flexible. Cas d'usage : agent administratif autonome (saisie multi-systèmes), automatisation desktop sur des outils sans API exposée. À prévoir en sandbox sécurisé.
         </p>
@@ -499,7 +499,7 @@
 
         <h3>Mémoire partagée</h3>
         <p>
-          <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> ou <strong>Pinecone</strong> pour le vector store (recherche sémantique sur historique). <strong>Postgres</strong> avec extension pgvector pour une solution self-hosted intégrée. <strong>Notion DB</strong> ou <strong>Airtable</strong> pour des structures plus accessibles avec interface humaine — mais moins performant à grande échelle.
+          <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> ou <strong>Pinecone</strong> pour le vector store (recherche sémantique sur historique). <strong>Postgres</strong> avec extension <a href="../ressources.html#pgvector" class="tool-link">pgvector</a> pour une solution self-hosted intégrée. <strong>Notion DB</strong> ou <strong>Airtable</strong> pour des structures plus accessibles avec interface humaine — mais moins performant à grande échelle.
         </p>
 
         <h3>Dashboard unifié</h3>
@@ -514,7 +514,7 @@
 
         <h3>Prérequis</h3>
         <p>
-          Compétence dev Python intermédiaire (ou prestataire d'intégration mobilisable type NIN-IA, Spinalia). Capacité à définir clairement les périmètres de chaque agent — sans cela, double-emploi ou conflits permanents. Budget d'inférence anticipé (typiquement 100 à 500 €/mois selon volume). Discipline opérationnelle : le pattern n'est rentable qu'avec une utilisation soutenue dans le temps. Pour un usage ad-hoc, rester sur du multi-prompt ChatGPT/Claude classique.
+          Compétence dev Python intermédiaire (ou prestataire d'intégration mobilisable type <a href="../ressources.html#nin-ia" class="tool-link">NIN-IA</a>, <a href="../ressources.html#spinalia" class="tool-link">Spinalia</a>). Capacité à définir clairement les périmètres de chaque agent — sans cela, double-emploi ou conflits permanents. Budget d'inférence anticipé (typiquement 100 à 500 €/mois selon volume). Discipline opérationnelle : le pattern n'est rentable qu'avec une utilisation soutenue dans le temps. Pour un usage ad-hoc, rester sur du multi-prompt ChatGPT/Claude classique.
         </p>
       </section>
 

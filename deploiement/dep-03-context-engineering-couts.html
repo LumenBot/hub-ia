@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Context engineering et coût par requête — Hub IA Learning Center</title>
-  <meta name="description" content="Le prompt caching Anthropic réduit de 90 % le coût des input tokens cachés. Mais 40 % des employés reçoivent du « workslop » qui coûte 9 M$/an dans une entreprise de 10 000 personnes.">
+  <meta name="description" content="Du prompt engineering au harness engineering : les 8 leviers opérationnels pour qu'un agent IA tienne en production sans dériver en coût ni en qualité.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
       <div class="module-badges">
         <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">18 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">21 min de lecture</span>
       </div>
       <h1>💰 Context engineering et coût par requête</h1>
       <p class="module-subtitle">Le prompt caching Anthropic réduit de 90 % le coût des input tokens cachés. Mais 40 % des employés reçoivent du « workslop » qui coûte 9 M$/an dans une entreprise de 10 000 personnes. Le coût IA n'est pas seulement le prix du token.</p>
@@ -58,6 +58,7 @@
         <li><a href="#section-1"><span class="toc-icon">💾</span>Prompt caching</a></li>
         <li><a href="#section-2"><span class="toc-icon">⚠️</span>Le workslop documenté</a></li>
         <li><a href="#section-3"><span class="toc-icon">🧩</span>Gestion du contexte</a></li>
+        <li><a href="#section-3bis"><span class="toc-icon">🎛️</span>Du context au harness</a></li>
         <li><a href="#section-4"><span class="toc-icon">⚖️</span>Choix de modèle stratégique</a></li>
         <li><a href="#section-5"><span class="toc-icon">📊</span>Tableau récap des leviers</a></li>
         <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
@@ -88,7 +89,11 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
-              <p><strong>Le choix de modèle est devenu un arbitrage stratégique.</strong> Kimi K2.6 (open-source, chinois) est 8-10x moins cher que Claude Opus 4.7 pour ~75 % de la qualité. Pour 80 % des cas d'usage PME, un modèle moyen suffit largement. Garder Opus pour 20 % de cas réellement complexes.</p>
+              <p><strong>Le choix de modèle est devenu un arbitrage stratégique.</strong> <a href="../ressources.html#kimi" class="tool-link">Kimi K2.6</a> (open-source, chinois) est 8-10x moins cher que <a href="../ressources.html#claude" class="tool-link">Claude</a> Opus 4.7 pour ~75 % de la qualité. Pour 80 % des cas d'usage PME, un modèle moyen suffit largement. Garder Opus pour 20 % de cas réellement complexes.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">5</div>
+              <p><strong>Le harness engineering est l'évolution naturelle du context engineering.</strong> Mai 2026 marque le passage du « comment je formule mon prompt&nbsp;? » au « quel est le système d'exécution qui rend mon agent fiable, économique et observable sur la durée&nbsp;? ». 8 leviers opérationnels à arbitrer dès la mise en production (voir section 3bis).</p>
             </div>
           </div>
 
@@ -211,7 +216,7 @@
         </div>
 
         <h3>3.2 Le coût des tools et schemas dans un agent</h3>
-        <p>Quand on construit un agent avec MCP servers (Model Context Protocol) ou tool calling :</p>
+        <p>Quand on construit un agent avec MCP servers (<a href="../ressources.html#mcp" class="tool-link">Model Context Protocol</a>) ou tool calling :</p>
         <ul>
           <li>Une JSON schema complexe = <strong>500+ tokens</strong> par outil</li>
           <li>90 outils disponibles = <strong>50 000+ tokens avant la première interaction utilisateur</strong></li>
@@ -234,6 +239,56 @@
         </ul>
       </section>
 
+      <!-- 3bis. DU CONTEXT AU HARNESS -->
+      <section class="module-section" id="section-3bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-flow">3bis</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3bis</div>
+            <h2>Du context engineering au harness engineering</h2>
+          </div>
+        </div>
+
+        <h3>Le shift conceptuel 2026</h3>
+        <p>Le <strong>prompt engineering</strong> (2023-2024) a centré l'attention sur la formulation des instructions. Le <strong>context engineering</strong> (2025-2026, traité dans les sections précédentes) a élargi le périmètre à la gestion du contexte injecté dans le modèle. <strong>Mai 2026 marque un nouveau palier</strong>&nbsp;: l'émergence du <strong>harness engineering</strong> comme discipline englobante.</p>
+
+        <div class="pull-quote">
+          <p>Le harness, c'est tout ce qui entoure l'appel LLM&nbsp;: orchestration, tools, loops, guardrails, observabilité, fallback. Le prompt n'est plus qu'un composant parmi d'autres.</p>
+        </div>
+
+        <p>Le terme s'impose dans la communauté builders (concept formalisé notamment par @akshay_pachaar et Anthropic Engineering en mai 2026, publication « Effective harnesses for long-running agents »). Le shift est <strong>stratégique</strong>&nbsp;: on ne réfléchit plus en termes de « comment je formule mon prompt&nbsp;? » mais en termes de <strong>« quel est le système d'exécution qui rend mon agent fiable, économique et observable sur la durée&nbsp;? »</strong>.</p>
+
+        <h3 style="margin-top: var(--space-5);">Checklist opérationnelle PME — les 8 leviers du harness</h3>
+        <p>Une PME qui industrialise un agent ou un pipeline IA doit formaliser <strong>8 leviers</strong>&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>#</th><th>Levier</th><th>Question opérationnelle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Prompt caching vs semantic caching</strong></td><td>Quels prompts ré-utilise-t-on tel quel (caching exact)&nbsp;? Quels appels acceptent une similarité sémantique (caching approximé)&nbsp;?</td></tr>
+            <tr><td>2</td><td><strong>KV cache à l'échelle</strong></td><td>Est-ce que la stack supporte le KV cache pour les conversations longues&nbsp;? Quel impact sur la latence&nbsp;?</td></tr>
+            <tr><td>3</td><td><strong>Speculative decoding vs quantization</strong></td><td>Pour réduire la latence&nbsp;: un petit modèle qui propose et un gros qui valide (speculative)&nbsp;? Ou un gros modèle quantifié (8 bits, 4 bits)&nbsp;?</td></tr>
+            <tr><td>4</td><td><strong>LLM-as-judge + human evals</strong></td><td>Quels critères sont évalués par un LLM juge (cohérence, format, factualité)&nbsp;? Quels critères restent sur évaluation humaine (jugement métier, ton, conformité)&nbsp;?</td></tr>
+            <tr><td>5</td><td><strong>Cost attribution par feature</strong></td><td>Combien coûte chaque feature produit par mois&nbsp;? Par utilisateur&nbsp;? Par requête&nbsp;?</td></tr>
+            <tr><td>6</td><td><strong>Agent guardrails &amp; loop budgets</strong></td><td>Combien de tools un agent peut-il appeler avant escalade&nbsp;? Combien de tokens max par session&nbsp;? Quels patterns d'output sont interdits&nbsp;?</td></tr>
+            <tr><td>7</td><td><strong>Model routing</strong></td><td>Quel modèle traite quel type de requête&nbsp;? Sur quels critères&nbsp;? (coût, latence, qualité, sensibilité)</td></tr>
+            <tr><td>8</td><td><strong>Graceful fallback</strong></td><td>Que se passe-t-il quand le modèle principal est indisponible ou répond mal&nbsp;? Y a-t-il un fallback testé&nbsp;?</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Implication pour la PME</strong>&nbsp;: ces 8 leviers ne sont <strong>pas</strong> à mettre en place tous d'un coup. Mais ils doivent être <strong>listés et arbitrés</strong> dès que l'agent passe en production. Une PME qui n'a pas tranché sur ces 8 questions opère « au feeling » — ce qui marche en POC, pas en production.</p>
+
+        <h3 style="margin-top: var(--space-5);">Lien avec le pattern Code Execution with MCP</h3>
+        <p>L'un des patterns les plus efficaces du harness 2026 est le <strong>Code Execution with MCP</strong> publié par Anthropic Engineering. Il s'agit de transformer l'agent en exécuteur de code Python qui appelle les MCP tools localement, traite les données dans le sandbox, et ne renvoie au modèle que les données strictement nécessaires.</p>
+
+        <div class="callout callout-info">
+          <p>📉 <strong>Bénéfice mesuré&nbsp;:</strong> réduction de <strong>60-80 %</strong> de la consommation de tokens sur les workflows longs (15+ steps), avec amélioration de la latence à la clé.</p>
+        </div>
+
+        <p>Pattern documenté en détail dans la fiche <a href="dep-05-agents-observabilite.html#section-8" class="tool-link">Agents en production §8.3 (Code Execution with MCP)</a>. À considérer comme <strong>brique d'optimisation du levier 6</strong> (loop budgets) et du levier 5 (cost attribution). Cartographie macro complémentaire dans la même fiche <a href="dep-05-agents-observabilite.html#section-8" class="tool-link">Agents en production §8.1 (9-layer architecture)</a>.</p>
+      </section>
+
       <!-- 4. CHOIX DE MODÈLE -->
       <section class="module-section" id="section-4">
         <div class="module-section-header">
@@ -247,8 +302,8 @@
         <h3>4.1 La règle 80/20 du choix de modèle</h3>
         <p>Pour la majorité des cas d'usage PME :</p>
         <ul>
-          <li><strong>80 % des requêtes</strong> sont gérables par un modèle moyen (Claude Sonnet, GPT-4 mini, Mistral Medium, Kimi K2.6)</li>
-          <li><strong>20 % des requêtes</strong> complexes nécessitent un modèle haut de gamme (Claude Opus, GPT-4 Turbo)</li>
+          <li><strong>80 % des requêtes</strong> sont gérables par un modèle moyen (Claude Sonnet, GPT-4 mini, <a href="../ressources.html#mistral" class="tool-link">Mistral Medium</a>, Kimi K2.6)</li>
+          <li><strong>20 % des requêtes</strong> complexes nécessitent un modèle haut de gamme (Claude Opus, <a href="../ressources.html#gpt" class="tool-link">GPT-4 Turbo</a>)</li>
         </ul>
         <p>Coût typique :</p>
         <ul>
@@ -353,6 +408,14 @@
           </div>
         </div>
 
+        <div class="case-deep-step">
+          <div class="case-deep-step-num">4</div>
+          <div>
+            <h4>Synthèse harness — les 8 leviers à arbitrer</h4>
+            <p>Au-delà des 30 jours, formaliser les <a href="#section-3bis" class="tool-link">8 leviers du harness engineering (section 3bis)</a>&nbsp;: caching, KV cache, speculative vs quantization, LLM-as-judge, cost attribution, guardrails &amp; loop budgets, model routing, graceful fallback. Une PME qui n'a pas tranché sur ces 8 questions opère « au feeling »&nbsp;: ce qui marche en POC, pas en production.</p>
+          </div>
+        </div>
+
         <div class="case-deep-final">
           <div class="case-deep-final-label">✓ Économie typique attendue à 30 jours</div>
           <p><strong>40 à 70 % de la facture initiale.</strong> Ces ordres de grandeur sont reproductibles dès lors que les 3 premières optimisations (caching, filtrage outils, switch modèle) sont rigoureusement appliquées.</p>
@@ -378,6 +441,8 @@
             <li><a href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity" target="_blank" rel="noopener">HBR — AI-generated workslop is destroying productivity (sept. 2025)</a><span class="resources-meta">Étude BetterUp x Stanford</span></li>
             <li><a href="https://www.anthropic.com/news/prompt-caching" target="_blank" rel="noopener">Anthropic News — Prompt caching announcement</a><span class="resources-meta">Annonce officielle + benchmarks</span></li>
             <li><a href="https://www.newsletter.swirlai.com/p/state-of-context-engineering-in-2026" target="_blank" rel="noopener">Aurimas Griciūnas / SwirlAI — State of context engineering 2026</a><span class="resources-meta">Synthèse pratique</span></li>
+            <li><a href="https://x.com/akshay_pachaar" target="_blank" rel="noopener">Compte X @akshay_pachaar — thread harness engineering</a><span class="resources-meta">Formalisation du concept harness pour agents production (mai 2026, 2 233 likes)</span></li>
+            <li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener">Anthropic Engineering — Effective harnesses for long-running agents</a><span class="resources-meta">Publication de référence sur le harness 2026</span></li>
           </ul>
         </div>
 

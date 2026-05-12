@@ -82,7 +82,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">2</div>
-              <p><strong>Le vector DB n'est PAS la décision principale.</strong> Beaucoup de PME se trompent en passant 80 % du temps sur le choix Pinecone vs Qdrant. <strong>Le bon embedding model et le reranking pèsent 5-10x plus</strong> sur la qualité finale.</p>
+              <p><strong>Le vector DB n'est PAS la décision principale.</strong> Beaucoup de PME se trompent en passant 80 % du temps sur le choix <a href="../ressources.html#pinecone" class="tool-link">Pinecone</a> vs Qdrant. <strong>Le bon embedding model et le reranking pèsent 5-10x plus</strong> sur la qualité finale.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
@@ -128,7 +128,7 @@
         <ol>
           <li><strong>Le RAG dense pur plafonne sur les corpus métier réels.</strong> Quand le corpus contient des acronymes, des codes produits, des références techniques (numéros ATC, codes SKU, références ISO), l'embedding sémantique ne suffit plus. D'où la bascule massive vers le <strong>retrieval hybride</strong> (dense + sparse BM25 + reranking).</li>
           <li><strong>Le LLM Wiki d'Andrej Karpathy</strong> (gist GitHub avril 2026, 17 M de vues, 5 000 stars en quelques jours) propose une alternative radicale pour les petits corpus : pas de vector DB, pas de chunking, juste une base markdown maintenue par un LLM. <strong>95 % moins coûteux en tokens</strong> que le RAG vectoriel pour les bases &lt; 100K tokens stables.</li>
-          <li><strong>Les vector DB se sont commoditisés.</strong> Pinecone, Qdrant, Weaviate, Chroma, MongoDB Atlas Vector Search : 5+ acteurs solides, prix qui baissent, performances équivalentes sur la majorité des cas. Le débat n'est plus « lequel choisir » mais « comment l'utiliser correctement ».</li>
+          <li><strong>Les vector DB se sont commoditisés.</strong> Pinecone, <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>, Weaviate, Chroma, MongoDB Atlas Vector Search : 5+ acteurs solides, prix qui baissent, performances équivalentes sur la majorité des cas. Le débat n'est plus « lequel choisir » mais « comment l'utiliser correctement ».</li>
         </ol>
 
         <h3>1.2 La règle de décision en 30 secondes</h3>
@@ -192,7 +192,7 @@
         <p>Sept étapes à connaître (ton prestataire doit te les réciter sans hésiter) :</p>
         <ol>
           <li><strong>Chunking</strong> : découpage du corpus en passages de 256-1024 tokens avec overlap de 100 tokens</li>
-          <li><strong>Embedding</strong> : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, Mistral embed, Cohere embed)</li>
+          <li><strong>Embedding</strong> : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, <a href="../ressources.html#mistral" class="tool-link">Mistral</a> embed, Cohere embed)</li>
           <li><strong>Indexation</strong> : stockage des vecteurs + métadonnées dans le vector DB</li>
           <li><strong>Query rewriting</strong> : reformulation de la requête utilisateur pour optimiser la recherche</li>
           <li><strong>Retrieval hybride</strong> : recherche dense (vector similarity) <strong>+</strong> recherche sparse (BM25) en parallèle</li>
@@ -331,7 +331,7 @@
         <ul>
           <li><strong>Construire son eval set</strong> est l'investissement le plus rentable d'un projet RAG en production. Coût : 1-3 jours de travail manuel pour annoter 50-200 cas. ROI : permanent (tout choix futur s'évalue dessus).</li>
           <li><strong>Itérer cheapest-first</strong> : changer le chunking ou ajouter un reranker coûte moins cher que changer le modèle de génération. Le réflexe « plus gros modèle » est souvent le plus coûteux et le moins efficace.</li>
-          <li><strong>LLM Judge aligné</strong> : utiliser un LLM (Claude, GPT) comme juge automatisé pour scorer les sorties contre les attendus, mais <strong>calibrer ce juge sur 10-20 cas annotés humain</strong> pour vérifier qu'il reproduit ton jugement.</li>
+          <li><strong>LLM Judge aligné</strong> : utiliser un LLM (<a href="../ressources.html#claude" class="tool-link">Claude</a>, GPT) comme juge automatisé pour scorer les sorties contre les attendus, mais <strong>calibrer ce juge sur 10-20 cas annotés humain</strong> pour vérifier qu'il reproduit ton jugement.</li>
         </ul>
 
         <p>Le détail du dataset golden et du LLM Judge calibré est traité dans la fiche <a href="dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue et qualité IA</a>. Pour le pattern LLM Wiki comme alternative au RAG classique, voir le module <a href="../modules/cu-008-knowledge-base-rag.html" class="tool-link">Knowledge base RAG</a>.</p>

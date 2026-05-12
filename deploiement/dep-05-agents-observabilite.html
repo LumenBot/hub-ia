@@ -41,7 +41,7 @@
       <div class="module-badges">
         <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">28 min de lecture</span>
       </div>
       <h1>🔭 Agents en production : observabilité et garde-fous</h1>
       <p class="module-subtitle">89 % des organisations ont une forme d'observabilité pour leurs agents, 94 % parmi celles en prod. La qualité reste le blocker n°1 (32 %), la sécurité monte en n°2 (24,9 %). Voici le cadre opérationnel.</p>
@@ -63,6 +63,7 @@
         <li><a href="#section-6"><span class="toc-icon">⚖️</span>DevOps vs MLOps vs LLMOps</a></li>
         <li><a href="#section-6bis"><span class="toc-icon">⚡</span>Bottleneck data plane (AAFLOW)</a></li>
         <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#section-8"><span class="toc-icon">🏭</span>Production-grade 2026</a></li>
         <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
       </ul>
     </aside>
@@ -156,7 +157,7 @@
         <h3>2.1 Layer 1 — Logs LLM structurés</h3>
         <p>À chaque appel modèle, on log :</p>
         <ul>
-          <li>Modèle utilisé (Claude Sonnet, GPT-4, etc.)</li>
+          <li>Modèle utilisé (<a href="../ressources.html#claude" class="tool-link">Claude</a> Sonnet, <a href="../ressources.html#gpt" class="tool-link">GPT-4</a>, etc.)</li>
           <li>Tokens input / output</li>
           <li>Coût estimé</li>
           <li>Latence</li>
@@ -242,6 +243,10 @@
           <li>Patterns d'attaque connus (DAN, etc.)</li>
         </ul>
         <p>→ Outil : guard rails open-source (NeMo Guardrails, Lakera Guard, Rebuff).</p>
+
+        <div class="callout callout-info" style="margin-top: var(--space-5);">
+          <p>🧩 <strong>Complément output 2026&nbsp;:</strong> les garde-fous ci-dessus opèrent en amont (input + execution). Pour fermer le contrat côté sortie, voir le pattern <a href="#section-8" class="tool-link">gates machine-checkable TOML (§8.2)</a> — une gate impose à l'agent un livrable validé (artifact, longueur, sections, validation LLM) avant qu'une tâche puisse être marquée terminée.</p>
+        </div>
       </section>
 
       <!-- 4. PANORAMA OUTILS -->
@@ -288,6 +293,10 @@
         </ul>
         <p>→ Setup possible en 1-2 semaines.</p>
         <p>Pour le panorama complet, voir la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources du Hub</a>.</p>
+
+        <div class="callout callout-info" style="margin-top: var(--space-5);">
+          <p>🎛️ <strong>Frameworks de gates output (2026)&nbsp;:</strong> en complément des outils d'observabilité ci-dessus, des frameworks dédiés à la validation de sortie émergent : <strong>Guardrails AI</strong>, <strong>instructor</strong>, <strong>outlines</strong>. Ils s'intègrent au pattern <a href="#section-8" class="tool-link">gates machine-checkable (§8.2)</a> en automatisant la vérification du contrat de sortie (typage, structure, contraintes métier).</p>
+        </div>
       </section>
 
       <!-- 5. KPI -->
@@ -384,7 +393,7 @@
 
         <p>Jusqu'en 2025, le focus dominant sur les agents IA en production était <strong>le LLM call</strong> : optimiser les prompts, le caching, le choix de modèle. En 2026, un nouveau constat émerge : <strong>les bottlenecks d'un système agentic en production ne sont plus dans le LLM, mais dans le data plane</strong> (sérialisation, coordination, transit de données entre composants).</p>
 
-        <h3>Le pattern AAFLOW — runtime distribué agentique</h3>
+        <h3>Le pattern <a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> — runtime distribué agentique</h3>
         <p>Un nouveau framework apparu en 2026 illustre cette tendance : <a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> propose un <strong>unified distributed runtime</strong> pour les pipelines agentic :</p>
         <ul>
           <li><strong>Zero-copy serialization</strong> sur Apache Arrow / Cylon (pas de désérialisation/sérialisation entre les étapes)</li>
@@ -474,6 +483,169 @@
         </div>
       </section>
 
+      <!-- 8. PRODUCTION-GRADE 2026 -->
+      <section class="module-section" id="section-8">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">8</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 8</div>
+            <h2>Production-grade : 4 patterns industriels 2026</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p><strong>The demo is one file. Production is this.</strong></p>
+          <p>Quatre patterns sont sortis du buzz de la communauté builders en mai 2026. Ils ne sont pas exotiques&nbsp;: ils décrivent ce que <strong>les équipes qui ont passé la barre des 6 mois en production</strong> ont structuré dans leur stack. Si vous êtes en POC ou en pilote, regardez-les comme une cartographie de ce qui vous attend. Si vous êtes déjà en prod, utilisez-les comme grille d'audit.</p>
+        </div>
+
+        <p>Les 4 patterns se complètent&nbsp;:</p>
+        <ul>
+          <li><strong>9-layer production architecture</strong> — la cartographie macro (5 services + agents auto-correcting + sécurité + observabilité).</li>
+          <li><strong>Gates machine-checkable TOML</strong> — anti-pattern <em>overclaimed completeness</em>&nbsp;: forcer la conformité par contrat.</li>
+          <li><strong>Code Execution with <a href="../ressources.html#mcp" class="tool-link">MCP</a></strong> — agents qui chargent les tools à la demande, filtrent les données avant le modèle.</li>
+          <li><strong>Agent Skills</strong> — variante structurée du LLM Wiki appliquée aux compétences agent.</li>
+        </ul>
+
+        <h3>8.1 Le pattern « 9-layer production architecture »</h3>
+        <p><strong>Le constat</strong>&nbsp;: une démo d'agent tient dans un fichier Python de 200 lignes (un LLM call + un tool + un loop). En production, l'architecture explose en <strong>9 couches indépendantes</strong> parce que chaque dimension (mémoire, sécurité, observabilité, coût) devient un service à part entière.</p>
+        <p>Les 9 couches (proposées par @techNmak en référence à 7 cycles de production observés en 2026)&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>#</th><th>Couche</th><th>Fonction</th><th>Service typique</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><strong>RAG service</strong></td><td>Récupération de contexte par requête</td><td>Vector store + retriever</td></tr>
+            <tr><td>2</td><td><strong>Semantic cache</strong></td><td>Cache de réponses à requêtes sémantiquement proches</td><td>Redis vector / dedicated</td></tr>
+            <tr><td>3</td><td><strong>Memory service</strong></td><td>Mémoire long terme persistante (utilisateur, session, organisation)</td><td>KV store + summarization</td></tr>
+            <tr><td>4</td><td><strong>Query rewriter</strong></td><td>Réécriture de la requête utilisateur pour optimiser le retrieval</td><td>LLM léger ou rule-based</td></tr>
+            <tr><td>5</td><td><strong>Router</strong></td><td>Orientation de la requête vers le bon modèle / la bonne stack</td><td>Model router (coût / latence / qualité)</td></tr>
+            <tr><td>6</td><td><strong>Auto-correcting agents</strong></td><td>Document grader, decomposer, adaptive router — agents qui auto-évaluent leurs sorties</td><td><a href="../ressources.html#langgraph" class="tool-link">LangGraph</a> / patterns CRITIC</td></tr>
+            <tr><td>7</td><td><strong>Security layer 3 niveaux</strong></td><td>Input validation / content filtering / output sanitization</td><td>Guardrails AI, Lakera, etc.</td></tr>
+            <tr><td>8</td><td><strong>Observabilité par-stage</strong></td><td>Tracing distribué + cost-per-query + qualité par stage</td><td>LangSmith, Phoenix, Arize</td></tr>
+            <tr><td>9</td><td><strong>Cost attribution</strong></td><td>Imputation des coûts LLM par feature, par utilisateur, par requête</td><td>FinOps custom ou outillé</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Pourquoi ça compte pour une PME</strong>&nbsp;: une PME qui se lance ne peut pas (et ne doit pas) tout monter d'un coup. Mais elle doit savoir <strong>où elle est sur cette carte</strong> et <strong>quelle couche elle ajoutera ensuite</strong>. L'erreur la plus fréquente&nbsp;: empiler les fonctionnalités produit avant d'avoir l'observabilité (couche 8) et le routing (couche 5). Résultat&nbsp;: coûts qui dérivent, pas de visibilité sur la qualité.</p>
+
+        <h4>Heuristique de mise en place (ordre recommandé)</h4>
+        <ol>
+          <li><strong>Démarrer</strong>&nbsp;: couches 1 (RAG) + 6 (auto-correcting) + 8 (observabilité minimale).</li>
+          <li><strong>Scaler</strong>&nbsp;: ajouter 2 (semantic cache) + 5 (router) quand les coûts dépassent 500&nbsp;€/mois.</li>
+          <li><strong>Industrialiser</strong>&nbsp;: ajouter 3 (memory) + 4 (query rewriter) quand le produit a un usage régulier.</li>
+          <li><strong>Finaliser</strong>&nbsp;: 7 (sécurité 3 niveaux) + 9 (cost attribution) avant tout déploiement client externe.</li>
+        </ol>
+
+        <h3>8.2 Le pattern « Gates machine-checkable TOML »</h3>
+        <p><strong>Le constat</strong>&nbsp;: sur 7 cycles d'observation d'agents LLM en production, trois causes d'échec reviennent systématiquement&nbsp;:</p>
+        <ol>
+          <li><strong>Artifact manquant</strong> — l'agent dit qu'il a produit un livrable mais le fichier n'existe pas, ou est vide, ou est incomplet.</li>
+          <li><strong>Contrat ambigu</strong> — l'instruction donnée à l'agent autorise plusieurs interprétations, l'agent en choisit une qui passe les tests mais rate l'intention.</li>
+          <li><strong>Overclaimed completeness</strong> — l'agent déclare une tâche terminée alors qu'il a couvert 70&nbsp;% du périmètre. C'est l'anti-pattern le plus coûteux.</li>
+        </ol>
+
+        <p><strong>Le pattern correctif</strong>&nbsp;: poser des <strong>gates machine-checkable</strong> au format TOML <strong>dès le design</strong> de l'agent, avant la première ligne de code. Une gate est un contrat structuré que l'agent <strong>doit</strong> satisfaire pour qu'un livrable soit accepté.</p>
+
+        <p><strong>Exemple de gate TOML</strong>&nbsp;:</p>
+        <pre style="background: var(--color-bg-soft); border:1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); overflow-x:auto; font-size: 0.875rem; line-height: 1.6;"><code>[gate.cr_reunion]
+artifact_required = "fichier_md"
+min_length_chars = 1500
+required_sections = ["decisions", "actions", "prochains_rdv"]
+forbidden_phrases = ["selon mes informations", "je pense que"]
+validation_llm = "haiku"
+validation_prompt = "Le CR contient-il au moins 3 décisions et 5 actions assignées ?"</code></pre>
+
+        <p>L'agent ne peut <strong>pas</strong> marquer la tâche comme terminée tant que la gate n'est pas validée. Validation machine-checkable (parsing du fichier) + validation LLM-as-judge sur les critères qualitatifs.</p>
+
+        <h4>Implications pour la PME</h4>
+        <ul>
+          <li>À mettre en place pour <strong>tout agent en production qui produit un livrable</strong>.</li>
+          <li>Le surcoût de design est faible (1-2&nbsp;h par agent) mais le ROI est très élevé&nbsp;: 0&nbsp;% de livrables silencieusement incomplets.</li>
+          <li>Compatible avec les frameworks d'évaluation existants (LangSmith, Phoenix, custom evals).</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p>🛡️ <strong>Lien avec la section 3 (garde-fous obligatoires)&nbsp;:</strong> les gates TOML sont une <strong>forme de garde-fou</strong> mais opèrent en aval (output validation) là où <a href="#section-3" class="tool-link">la section 3</a> traite des garde-fous en amont (input + execution). Les deux sont complémentaires&nbsp;; aucun ne remplace l'autre.</p>
+        </div>
+
+        <h3>8.3 Le pattern « Code Execution with MCP »</h3>
+        <p><strong>Le constat</strong>&nbsp;: un agent qui orchestre des tools (API calls, requêtes DB, lectures de fichiers) consomme <strong>massivement</strong> des tokens à chaque step parce que les tools renvoient leurs résultats bruts dans le contexte du modèle. Sur un workflow à 15 steps, on peut facilement dépasser 80&nbsp;000 tokens de contexte rien que pour les outputs intermédiaires.</p>
+
+        <p><strong>Le pattern correctif</strong> (publié par Anthropic Engineering en mai 2026)&nbsp;: transformer l'agent en <strong>exécuteur de code Python</strong> qui appelle les MCP tools <strong>localement</strong>, traite les données dans le sandbox d'exécution, et ne renvoie au modèle <strong>que ce qui est strictement nécessaire</strong> pour la décision suivante.</p>
+
+        <p><strong>Le changement de paradigme</strong>&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr><th>Approche</th><th>Tools chargés</th><th>Données dans le contexte</th><th>Coût tokens</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Classique (tool calling)</td><td>Tous chargés au démarrage</td><td>Outputs bruts injectés à chaque step</td><td>Élevé</td></tr>
+            <tr><td><strong>Code Execution with MCP</strong></td><td>Chargés à la demande dans le code</td><td>Filtrés / agrégés avant injection</td><td>Réduit 60-80&nbsp;%</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Bénéfices observés</h4>
+        <ul>
+          <li><strong>Réduction tokens</strong> 60-80&nbsp;% sur workflows longs (15+ steps).</li>
+          <li><strong>Efficacité contextuelle</strong>&nbsp;: le modèle ne voit que les données pertinentes.</li>
+          <li><strong>Performance</strong>&nbsp;: moins de tokens = moins de latence.</li>
+        </ul>
+
+        <h4>Implications pour la PME</h4>
+        <ul>
+          <li>Particulièrement pertinent pour les agents qui traitent <strong>du volume de données</strong> (CRM, fichiers, logs).</li>
+          <li>Nécessite une exécution Python sandboxée — coût d'infra léger mais réel.</li>
+          <li>Intégration naturelle avec MCP servers existants (la couche reste compatible).</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p>🎛️ <strong>Lien avec le module Context engineering&nbsp;:</strong> ce pattern est <strong>l'application opérationnelle</strong> des principes de context engineering. Voir la fiche <a href="dep-03-context-engineering-couts.html#section-3bis" class="tool-link">Du context au harness — Context engineering &amp; coûts §3bis</a> pour la mise en perspective dans la stack harness 2026.</p>
+        </div>
+
+        <h3>8.4 Le pattern « Agent Skills »</h3>
+        <p><strong>Le constat</strong>&nbsp;: un agent généraliste qui doit accomplir des tâches très diverses devient rapidement ingérable. Soit le system prompt explose (10&nbsp;000+ tokens d'instructions), soit la qualité chute sur les tâches spécialisées.</p>
+
+        <p><strong>Le pattern correctif</strong> (publié par Anthropic Engineering en mai 2026)&nbsp;: les <strong>Agent Skills</strong> sont des <strong>dossiers organisés</strong> d'instructions, scripts et ressources que l'agent <strong>découvre et charge dynamiquement</strong> selon la tâche en cours.</p>
+
+        <p><strong>Structure type d'une Skill</strong>&nbsp;:</p>
+        <pre style="background: var(--color-bg-soft); border:1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); overflow-x:auto; font-size: 0.875rem; line-height: 1.6;"><code>skills/
+└── compta-export-tva/
+    ├── SKILL.md          # description + triggers + usage
+    ├── prompts/
+    │   ├── extract.md
+    │   └── validate.md
+    ├── scripts/
+    │   └── export_tva.py
+    └── examples/
+        └── exemple_q1_2026.json</code></pre>
+
+        <p>L'agent ne charge la Skill que <strong>quand sa description match</strong> la tâche utilisateur. Pour 50 Skills disponibles, seules 1 ou 2 sont chargées par requête → coût contextuel maîtrisé, qualité élevée sur chaque domaine.</p>
+
+        <h4>Liens conceptuels</h4>
+        <ul>
+          <li>C'est une <strong>variante structurée du LLM Wiki</strong> (voir le module <a href="../modules/cu-008-knowledge-base-rag.html" class="tool-link">Knowledge base interne RAG</a>) appliquée aux <strong>compétences agent</strong> plutôt qu'à la knowledge base.</li>
+          <li>Cohérent avec le principe « agent = employé » porté par les modules <a href="../modules/cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction métier</a> et <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>&nbsp;: chaque Skill = une compétence cadrée et documentée.</li>
+          <li>Pattern compatible avec le 9-layer (couche 6 auto-correcting agents peuvent invoquer des Skills).</li>
+        </ul>
+
+        <h4>Implications pour la PME</h4>
+        <ul>
+          <li>À envisager dès qu'un agent dépasse 5-10 cas d'usage distincts.</li>
+          <li>Coût de mise en place faible (organisation de fichiers + descriptions).</li>
+          <li>Permet une <strong>gouvernance lisible</strong>&nbsp;: chaque Skill peut être auditée, versionnée, désactivée indépendamment.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p>🏛️ <strong>Lien avec le module Gouvernance des agents IA&nbsp;:</strong> les Agent Skills s'inscrivent parfaitement dans ce framework de gouvernance — chaque Skill est une compétence avec son onboarding, ses KPI, son périmètre. Voir le module <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>.</p>
+        </div>
+
+        <div class="callout callout-info" style="margin-top: var(--space-6);">
+          <p><strong>Synthèse</strong>&nbsp;: la production en 2026, ce n'est plus une pipeline RAG bien réglée. C'est une <strong>stack en 9 couches</strong>, des <strong>gates contractuelles</strong> sur chaque livrable, une <strong>exécution de code</strong> qui filtre les données avant le modèle, et des <strong>compétences chargées dynamiquement</strong>. La barre s'est levée. La bonne nouvelle&nbsp;: aucun de ces 4 patterns n'exige une équipe de 20 ingénieurs. Tous sont accessibles à une PME outillée — à condition de les empiler dans le bon ordre.</p>
+        </div>
+      </section>
+
       <!-- RESSOURCES -->
       <section class="module-section" id="ressources">
         <div class="module-section-header">
@@ -493,6 +665,10 @@
             <li><a href="https://blog.langchain.dev/" target="_blank" rel="noopener">LangChain — State of Agent Engineering 2026</a><span class="resources-meta">Étude annuelle référence</span></li>
             <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Layers of observability in AI systems</a><span class="resources-meta">Pilier 8 LLM Engineering Roadmap</span></li>
             <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic Engineering — Building effective agents</a><span class="resources-meta">Patterns d'agents production-ready</span></li>
+            <li><a href="https://x.com/techNmak" target="_blank" rel="noopener">Compte X @techNmak — « The demo is one file. Production is this. »</a><span class="resources-meta">Thread architecture 9-layer (mai 2026, 2 739 likes, 370 RT)</span></li>
+            <li><a href="https://x.com/wernerk_au" target="_blank" rel="noopener">Compte X @wernerk_au — Audit 7 cycles LLM-agent + pattern gates TOML</a><span class="resources-meta">Mai 2026</span></li>
+            <li><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">Anthropic Engineering — Code Execution with MCP</a><span class="resources-meta">Réduction tokens 60-80 % sur workflows longs (mai 2026)</span></li>
+            <li><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener">Anthropic Engineering — Equipping agents for the real world with Agent Skills</a><span class="resources-meta">Compétences agent chargées dynamiquement (mai 2026)</span></li>
           </ul>
         </div>
 

@@ -93,7 +93,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">3</div>
-              <p><strong>Souveraineté EU obligatoire sur dossiers stratégiques.</strong> Mistral EU ou solution gouvernée (EthiqAIS, Goodweek) pour BP, plan financier, IP. Pas de cloud non souverain sur des données aussi sensibles.</p>
+              <p><strong>Souveraineté EU obligatoire sur dossiers stratégiques.</strong> Mistral EU ou solution gouvernée (<a href="../ressources.html#ethiqais" class="tool-link">EthiqAIS</a>, <a href="../ressources.html#goodweek" class="tool-link">Goodweek</a>) pour BP, plan financier, IP. Pas de cloud non souverain sur des données aussi sensibles.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
@@ -121,7 +121,7 @@
           </div>
 
           <div class="exec-when">
-            <strong>Quand ce module t'est utile :</strong> tu pilotes une startup deeptech, biotech ou industrielle avec 6+ candidatures/an cible ; tu accompagnes un portefeuille incubateur et veux outiller la veille AAP collective ; tu veux passer d'un mode artisanal (3-5 jours par dossier) à un mode industrialisé sans dégrader la qualité ; tu as les ressources pour un setup de 2-4 semaines avec compétence n8n ou framework Python multi-agents.
+            <strong>Quand ce module t'est utile :</strong> tu pilotes une startup deeptech, biotech ou industrielle avec 6+ candidatures/an cible ; tu accompagnes un portefeuille incubateur et veux outiller la veille AAP collective ; tu veux passer d'un mode artisanal (3-5 jours par dossier) à un mode industrialisé sans dégrader la qualité ; tu as les ressources pour un setup de 2-4 semaines avec compétence <a href="../ressources.html#n8n" class="tool-link">n8n</a> ou framework Python multi-agents.
             <p style="margin-top: var(--space-3); font-size: 0.9375rem;">
               <strong>Si tu n'as pas encore acquis le réflexe de recherche IA individuel :</strong> commence par <a href="cu-001-recherche-veille.html" class="tool-link">Recherche &amp; veille augmentée</a>, le premier jalon du triptyque progressif sur la veille (réflexe ponctuel → système permanent ciblé → système agentique sur cas pivot).
             </p>
@@ -275,10 +275,10 @@
         <ol>
           <li><strong>Constitution du dossier de référence d'entreprise.</strong> Avant tout déploiement agentique, consolider dans un référentiel unique : business plan à jour, deck investisseur, CVs détaillés de l'équipe fondatrice, plan de trésorerie sur 24 mois, descriptifs des projets R&D en cours, comptes annuels des 2 derniers exercices, propriété intellectuelle, parc client si pertinent. C'est la matière première sur laquelle l'Agent de drafting s'appuie via RAG.</li>
           <li><strong>Configuration de l'Agent 1 — Veille.</strong> Identifier les portails de référence (Bpifrance, France 2030, Aides-Territoires, Région Grand Est, ANR, ADEME, FEDER, AAP de filière selon le secteur). Configurer le scraping périodique (quotidien ou hebdomadaire selon densité), l'indexation dans une base structurée des AAP avec métadonnées (date d'ouverture, deadline, montants, secteur, stade, conditions d'éligibilité, géographie).</li>
-          <li><strong>Configuration de l'Agent 2 — Matching.</strong> Un modèle à raisonnement (Claude, GPT-4 / GPT-5) qui rapproche chaque nouvel AAP du profil de l'entreprise (secteur, stade, taille, intensité R&D, géographie, projets en cours). Sortie : une short-list priorisée avec un score de pertinence et les conditions d'éligibilité préqualifiées.</li>
+          <li><strong>Configuration de l'Agent 2 — Matching.</strong> Un modèle à raisonnement (<a href="../ressources.html#claude" class="tool-link">Claude</a>, <a href="../ressources.html#gpt" class="tool-link">GPT-4</a> / GPT-5) qui rapproche chaque nouvel AAP du profil de l'entreprise (secteur, stade, taille, intensité R&D, géographie, projets en cours). Sortie : une short-list priorisée avec un score de pertinence et les conditions d'éligibilité préqualifiées.</li>
           <li><strong>Validation humaine n°1 — Choix stratégique.</strong> Le dirigeant ou le SUM examine la short-list hebdomadaire (ou bi-mensuelle). Décision « postuler / ne pas postuler / suivre pour plus tard » par dispositif. <strong>C'est le moment d'arbitrage stratégique le plus important</strong> — éviter le piège de la candidature mécanique sur tout ce qui matche.</li>
           <li><strong>Configuration de l'Agent 3 — Drafting.</strong> Pour les AAP retenus, un assistant configuré sur le dossier de référence (RAG) produit les sections récurrentes du dossier : présentation société, équipe, contexte projet, objectifs, livrables, plan de financement, références. Sortie : un draft à 70 % rédigé, avec marqueurs explicites des sections nécessitant une rédaction humaine spécifique (différenciation, alignement avec critères pointus du dispositif).</li>
-          <li><strong>Configuration de l'Agent 4 — Submission helper.</strong> Pour les AAP avec API ou portail standardisé, l'agent compile le dossier final, peut pré-remplir les formulaires en ligne, et organise l'envoi des pièces jointes via AgentMail ou Composio. <strong>Ne jamais soumettre sans validation humaine n°2</strong>.</li>
+          <li><strong>Configuration de l'Agent 4 — Submission helper.</strong> Pour les AAP avec API ou portail standardisé, l'agent compile le dossier final, peut pré-remplir les formulaires en ligne, et organise l'envoi des pièces jointes via <a href="../ressources.html#agentmail" class="tool-link">AgentMail</a> ou Composio. <strong>Ne jamais soumettre sans validation humaine n°2</strong>.</li>
           <li><strong>Validation humaine n°2 — Relecture et signature.</strong> Le dirigeant relit, ajuste, ajoute la voix personnelle (notamment sur les sections d'argumentation différenciante), valide les chiffres, signe le dossier. Soumission effective.</li>
           <li><strong>Boucle d'apprentissage.</strong> Les AAP gagnés ou perdus alimentent une mémoire partagée entre les agents : quels formats ont fonctionné, quels critères ont été décisifs, quels arguments ont fait la différence. Le système se calibre au fil du temps.</li>
         </ol>
@@ -310,7 +310,7 @@
           <div class="archi-flow-section">
             <div class="archi-flow-section-label">✍️ Pipeline de drafting — à la demande, par AAP retenu</div>
             <div class="archi-flow-steps">
-              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>AAP retenu + dossier référence</strong><small>RAG sur Qdrant / Pinecone des dossiers passés</small></div></div>
+              <div class="archi-step is-store"><div class="archi-step-icon">📚</div><div class="archi-step-content"><strong>AAP retenu + dossier référence</strong><small>RAG sur <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> / <a href="../ressources.html#pinecone" class="tool-link">Pinecone</a> des dossiers passés</small></div></div>
               <div class="archi-arrow">↓</div>
               <div class="archi-step is-agent"><div class="archi-step-icon">📝</div><div class="archi-step-content"><strong>Agent 3 — drafting</strong><small>Prompts spécialisés par section (synopsis, méthodo, planning, budget)</small></div></div>
               <div class="archi-arrow">↓</div>
@@ -338,7 +338,7 @@
 
         <h3>Matching et drafting (Agents 2-3)</h3>
         <p>
-          <a href="../ressources.html#claude" class="tool-link">Claude</a> est largement plébiscité par la communauté ZHC pour la rédaction longue de candidatures — capacité à maintenir la cohérence sur des dossiers de 20-40 pages, ton professionnel adaptable. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste robuste pour le matching et la qualification d'éligibilité. <strong>Mistral Large</strong> est l'option à privilégier dès qu'il y a sensibilité — souveraineté EU, données stratégiques (BP, plan financier, IP). Pour les startups en levée ou les ETI sur dossiers Plan DeepTech, Mistral est souvent le choix par défaut.
+          <a href="../ressources.html#claude" class="tool-link">Claude</a> est largement plébiscité par la communauté ZHC pour la rédaction longue de candidatures — capacité à maintenir la cohérence sur des dossiers de 20-40 pages, ton professionnel adaptable. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste robuste pour le matching et la qualification d'éligibilité. <strong><a href="../ressources.html#mistral" class="tool-link">Mistral Large</a></strong> est l'option à privilégier dès qu'il y a sensibilité — souveraineté EU, données stratégiques (BP, plan financier, IP). Pour les startups en levée ou les ETI sur dossiers Plan DeepTech, Mistral est souvent le choix par défaut.
         </p>
 
         <h3>RAG sur dossier entreprise</h3>
@@ -393,7 +393,7 @@
               <tr>
                 <td>Soumission ratée par dépassement de quotas API</td>
                 <td>Agent 4 a tenté trop de soumissions consécutives sans rate limiting</td>
-                <td>Implémenter un rate limiting explicite (1 soumission par 5 min minimum), monitorer les quotas via Composio ou logs n8n.</td>
+                <td>Implémenter un rate limiting explicite (1 soumission par 5 min minimum), monitorer les quotas via <a href="../ressources.html#composio" class="tool-link">Composio</a> ou logs n8n.</td>
               </tr>
               <tr>
                 <td>Détection IA par le financeur (formulations trop génériques)</td>
@@ -607,7 +607,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>2. Compétence d'orchestration multi-agents disponible</strong>
-                  <small>n8n niveau avancé, ou framework Python (LangGraph, CrewAI), ou prestataire d'intégration mobilisable</small>
+                  <small>n8n niveau avancé, ou framework Python (<a href="../ressources.html#langgraph" class="tool-link">LangGraph</a>, <a href="../ressources.html#crewai" class="tool-link">CrewAI</a>), ou prestataire d'intégration mobilisable</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="b2" value="2"><span>Oui</span></label>

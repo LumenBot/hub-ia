@@ -74,7 +74,7 @@
       <!-- TAG ARCHITECTURES -->
       <div class="callout callout-info" style="margin: var(--space-4) 0;">
         <p>
-          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : dépend totalement de la sensibilité du corpus indexé. Documentation publique → <strong>A1 OK</strong>. Documentation interne stratégique (procédures, contrats, savoir-faire) → <strong>A3 ou A4</strong>. RAG juridique / compliance → <strong>Pleias-RAG</strong> (open-weight souverain) en A3 / A4. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
+          <strong>🏗️ Architectures recommandées pour ce cas d'usage</strong> : dépend totalement de la sensibilité du corpus indexé. Documentation publique → <strong>A1 OK</strong>. Documentation interne stratégique (procédures, contrats, savoir-faire) → <strong>A3 ou A4</strong>. RAG juridique / compliance → <strong><a href="../ressources.html#pleias-rag" class="tool-link">Pleias-RAG</a></strong> (open-weight souverain) en A3 / A4. Voir <a href="../architectures.html" class="tool-link">Architectures</a>.
         </p>
       </div>
 
@@ -99,7 +99,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
-              <p>Approche pragmatique en 3 voies : <strong>NotebookLM</strong> (gratuit, démarrage zone moindre risque), <strong>Dify/Flowise</strong> (open source structuré, souveraineté EU), <strong>Vectara/Glean</strong> (enterprise, au-delà de 30-50 personnes ou secteur régulé).</p>
+              <p>Approche pragmatique en 3 voies : <strong><a href="../ressources.html#notebooklm" class="tool-link">NotebookLM</a></strong> (gratuit, démarrage zone moindre risque), <strong><a href="../ressources.html#dify" class="tool-link">Dify</a>/<a href="../ressources.html#flowise" class="tool-link">Flowise</a></strong> (open source structuré, souveraineté EU), <strong>Vectara/Glean</strong> (enterprise, au-delà de 30-50 personnes ou secteur régulé).</p>
             </div>
           </div>
 
@@ -308,7 +308,7 @@
         </ul>
 
         <div class="callout callout-info">
-          <strong>Implication pour les PME qui démarrent un RAG :</strong> ne pas sauter directement sur Pinecone + embeddings + reranking si ton corpus est petit et stable. Tester d'abord l'approche LLM Wiki — souvent suffisante, beaucoup moins coûteuse, beaucoup plus simple à maintenir. L'usage personnel par un dirigeant est traité dans le module <a href="cu-025-knowledge-management-dirigeant.html" class="tool-link">Knowledge management IA-augmenté pour dirigeant</a>.
+          <strong>Implication pour les PME qui démarrent un RAG :</strong> ne pas sauter directement sur <a href="../ressources.html#pinecone" class="tool-link">Pinecone</a> + embeddings + reranking si ton corpus est petit et stable. Tester d'abord l'approche LLM Wiki — souvent suffisante, beaucoup moins coûteuse, beaucoup plus simple à maintenir. L'usage personnel par un dirigeant est traité dans le module <a href="cu-025-knowledge-management-dirigeant.html" class="tool-link">Knowledge management IA-augmenté pour dirigeant</a>.
         </div>
 
         <h3>Le pattern LLM Wiki post-Karpathy — l'écosystème de mai 2026</h3>
@@ -322,7 +322,7 @@
           <li><strong>Multi-agent vaults</strong> : plusieurs agents spécialisés partagent et enrichissent un vault commun.</li>
           <li><strong>Sleep consolidation</strong> : pattern inspiré du sommeil humain — la base se consolide « hors ligne » pendant les périodes creuses (regénération de synthèses, déduplication, archivage).</li>
           <li><strong>Graph-based layers</strong> : couche graph (nœuds/relations) ajoutée par-dessus la base markdown pour requêtes structurelles.</li>
-          <li><strong>MCP local-first</strong> : intégration MCP servers locaux pour la souveraineté.</li>
+          <li><strong><a href="../ressources.html#mcp" class="tool-link">MCP</a> local-first</strong> : intégration MCP servers locaux pour la souveraineté.</li>
           <li><strong>Self-healing knowledge graphs</strong> : le graph détecte les liens manquants ou incohérents et les corrige.</li>
         </ul>
 
@@ -352,8 +352,8 @@
         <ol>
           <li><strong>Collecte du corpus.</strong> Identifier les documents qui répondent réellement aux questions récurrentes de l'organisation : procédures, manuels qualité, base produit, contrats types, CR de comité. Pas besoin de tout ingérer — viser le corpus utile, pas exhaustif. Typiquement, 20 % des documents répondent à 80 % des questions.</li>
           <li><strong>Préparation.</strong> Découpage en chunks (morceaux de 200 à 800 mots), enrichissement avec des métadonnées (type de document, date, auteur, projet, niveau de confidentialité), nettoyage des éléments parasites (en-têtes, pieds de page, watermarks).</li>
-          <li><strong>Indexation vectorielle.</strong> Chaque chunk est encodé en vecteur via un modèle d'embedding (OpenAI, Mistral Embed, Cohere, ou modèles open source comme sentence-transformers) et stocké dans une base de données vectorielle (Pinecone, Weaviate, Qdrant, ChromaDB).</li>
-          <li><strong>Interrogation.</strong> Quand un collaborateur pose une question, le système recherche les chunks les plus pertinents via similarité sémantique, les transmet au modèle de génération (Claude, GPT, Mistral) avec la question, et produit une réponse en citant les sources.</li>
+          <li><strong>Indexation vectorielle.</strong> Chaque chunk est encodé en vecteur via un modèle d'embedding (OpenAI, Mistral Embed, Cohere, ou modèles open source comme sentence-transformers) et stocké dans une base de données vectorielle (Pinecone, Weaviate, <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>, <a href="../ressources.html#chromadb" class="tool-link">ChromaDB</a>).</li>
+          <li><strong>Interrogation.</strong> Quand un collaborateur pose une question, le système recherche les chunks les plus pertinents via similarité sémantique, les transmet au modèle de génération (<a href="../ressources.html#claude" class="tool-link">Claude</a>, GPT, Mistral) avec la question, et produit une réponse en citant les sources.</li>
           <li><strong>Mise à jour continue.</strong> Le système s'enrichit au fur et à mesure que de nouveaux documents sont ajoutés, soit manuellement, soit via une synchronisation automatique avec le Drive ou le Slack source.</li>
           <li><strong>Curation et gouvernance.</strong> Une personne (référent IA ou knowledge manager) supervise la qualité du corpus dans la durée : retire les documents obsolètes, corrige les contradictions identifiées par les utilisateurs, fait évoluer les droits d'accès.</li>
         </ol>
@@ -379,13 +379,13 @@
         <p><strong>Pinecone</strong> reste la référence cloud managée. <strong>Weaviate</strong> et <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a> proposent des alternatives self-hosted ou cloud, avec une bonne documentation et des intégrations larges. <strong>ChromaDB</strong> est le choix le plus simple pour un prototype local.</p>
 
         <h3>Modèles d'embedding et de génération</h3>
-        <p>Embedding : <strong>OpenAI</strong>, <strong>Mistral Embed</strong>, <strong>Cohere</strong>, ou modèles open source (sentence-transformers). Génération : <a href="../ressources.html#claude" class="tool-link">Claude</a> (excellent sur la nuance et le résumé), <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> (référence robuste), <a href="../ressources.html#mistral" class="tool-link">Mistral</a> (souveraineté EU). Pour les structures sensibles à la souveraineté, le combo Mistral Embed + Mistral Large dans une infrastructure EU est la voie la plus claire.</p>
+        <p>Embedding : <strong>OpenAI</strong>, <strong>Mistral Embed</strong>, <strong>Cohere</strong>, ou modèles open source (sentence-transformers). Génération : <a href="../ressources.html#claude" class="tool-link">Claude</a> (excellent sur la nuance et le résumé), <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> (référence robuste), <a href="../ressources.html#mistral" class="tool-link">Mistral</a> (souveraineté EU). Pour les structures sensibles à la souveraineté, le combo Mistral Embed + <a href="../ressources.html#mistral" class="tool-link">Mistral Large</a> dans une infrastructure EU est la voie la plus claire.</p>
 
         <h3>Alternatives souveraines RAG</h3>
         <p>Pour les structures avec exigences AI Act renforcées ou données sensibles, deux options 🇫🇷🇪🇺 émergentes méritent examen : <a href="../ressources.html#lucie" class="tool-link">Lucie / OpenLLM-France</a> (open-source francophone, financé France 2030) et <a href="../ressources.html#pleias-rag" class="tool-link">Pleias-RAG</a> (famille de SLM Pico/Nano/Small entraînés sur le Common Corpus 2T tokens domaine public — particulièrement adapté aux secteurs juridique et compliance avec citations sourcées natives).</p>
 
         <h3>Gouvernance multi-LLM</h3>
-        <p>Pour les structures qui veulent fédérer plusieurs LLM avec un cadre de gouvernance, <strong>Goodweek</strong> et <a href="../ressources.html#ethiqais" class="tool-link">EthiqAIS</a> (alumni QFC) proposent des couches de pilotage avec audit, droits d'accès et traçabilité.</p>
+        <p>Pour les structures qui veulent fédérer plusieurs LLM avec un cadre de gouvernance, <strong><a href="../ressources.html#goodweek" class="tool-link">Goodweek</a></strong> et <a href="../ressources.html#ethiqais" class="tool-link">EthiqAIS</a> (alumni QFC) proposent des couches de pilotage avec audit, droits d'accès et traçabilité.</p>
 
         <h3>Prérequis</h3>
         <p>Corpus documentaire au minimum organisable (pas forcément parfait — l'IA peut digérer du désordre, mais la qualité du résultat dépend du corpus), décision sur l'hébergement selon sensibilité, politique d'accès et confidentialité (qui peut interroger quoi), un référent identifié pour la curation dans la durée.</p>
@@ -584,7 +584,7 @@
         <div class="case-deep-actor">
           <div class="case-deep-actor-label">Cas type — Conseil aviation, ~25 personnes</div>
           <p style="margin: 0;">
-            <strong>Time to Fly</strong> (25 employés, 2,6 M€ CA, Roissy) — conseil aviation. Algorithme RAG (GPT-4) pour analyse documentaire de conformité réglementaire, jusqu'à 1 000 pages par audit.
+            <strong>Time to Fly</strong> (25 employés, 2,6 M€ CA, Roissy) — conseil aviation. Algorithme RAG (<a href="../ressources.html#gpt" class="tool-link">GPT-4</a>) pour analyse documentaire de conformité réglementaire, jusqu'à 1 000 pages par audit.
           </p>
           <div class="case-deep-actor-meta">
             <div class="case-deep-actor-meta-item">
