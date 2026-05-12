@@ -1,0 +1,272 @@
+[
+  {
+    "id": "q-001",
+    "question": "Qu'est-ce que la veille IA et comment la structurer dans une PME ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "veille",
+      "source",
+      "méthode"
+    ],
+    "cited_codes": [
+      "cu-001"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "veille",
+      "source"
+    ],
+    "concepts_missing": [
+      "méthode"
+    ],
+    "score_global": 1,
+    "answer_preview": "## La veille IA en PME : ce que c'est et comment la structurer  **Ce qu'est la veille augmentée par l'IA**  La veille IA (ou \"recherche augmentée\") consiste à utiliser des outils d'intelligence artificielle pour transformer une recherche d'"
+  },
+  {
+    "id": "q-002",
+    "question": "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "source",
+      "veille"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "pr-07"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "source",
+      "veille"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le contexte fourni ne contient pas de contenu dédié aux sources de veille sur l'actualité de l'IA générative en 2026 (blogs, newsletters, médias, podcasts, etc.). Les ex"
+  },
+  {
+    "id": "q-003",
+    "question": "Quelle est la différence entre RAG et fine-tuning ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "fine-tuning",
+      "mise à jour"
+    ],
+    "cited_codes": [
+      "cu-008"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "fine-tuning",
+      "mise à jour"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## RAG vs Fine-tuning : deux approches fondamentalement différentes  Le **RAG** (Retrieval-Augmented Generation — littéralement \"génération augmentée par recherche\") consiste à connecter un modèle de langage à une base documentaire externe "
+  },
+  {
+    "id": "q-004",
+    "question": "Comment fonctionne une knowledge base interne avec RAG ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "embedding",
+      "citation"
+    ],
+    "cited_codes": [
+      "cu-008"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "embedding",
+      "citation"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Comment fonctionne une knowledge base interne avec RAG ?  **RAG** (*Retrieval-Augmented Generation*) signifie littéralement « génération augmentée par récupération » : au lieu de demander au modèle d'IA de tout mémoriser, on lui donne ac"
+  },
+  {
+    "id": "q-005",
+    "question": "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "build",
+      "buy",
+      "coût"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "build",
+      "buy",
+      "coût"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Arbitrer entre construire en interne (Build) et acheter une solution du marché (Buy)  **Commencer par une prise de réalité indispensable**  Avant tout arbitrage, il faut intégrer une donnée structurante : 95 % des projets IA en entrepris"
+  },
+  {
+    "id": "q-006",
+    "question": "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "arbitrage",
+      "critère"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "arbitrage",
+      "critère"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Build vs Buy d'une plateforme IA en PME : les critères clés  ### Une décision structurée autour de 6 critères  Pour arbitrer en 15 minutes, le Hub IA recommande d'appliquer une matrice à 6 critères [pr-07] : **la différenciation** (votre"
+  },
+  {
+    "id": "q-007",
+    "question": "Comment mettre un système RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "production",
+      "évaluation",
+      "itération"
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "production",
+      "évaluation",
+      "itération"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Mettre un système RAG en production : la démarche structurée  La mise en production d'un RAG (Retrieval-Augmented Generation — système qui enrichit les réponses d'un LLM en allant chercher des passages pertinents dans vos documents) repo"
+  },
+  {
+    "id": "q-008",
+    "question": "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le cycle Stitch → Evaluate → Iterate  ### Pourquoi ce cycle existe-t-il ?  Le point de départ est un constat fondamental : les classements publics de modèles (les « leaderboards », c'est-à-dire les tableaux de comparaison des performance"
+  },
+  {
+    "id": "q-009",
+    "question": "Quelle vector database choisir pour démarrer un POC RAG ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "chromadb",
+      "vector"
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "cu-008"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chromadb",
+      "vector"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database choisir pour démarrer un POC RAG ?  Pour un POC (Proof of Concept — c'est-à-dire une première expérimentation pour valider la faisabilité avant d'industrialiser), la réponse dépend avant tout d'un seul critère : **"
+  },
+  {
+    "id": "q-010",
+    "question": "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Choisir son vector store : la grille de décision  Avant de comparer les outils, retenez le principe fondamental posé par le Hub IA : **la question \"quel vector store choisir ?\" est en réalité la mauvaise question**. Ce qui détermine la q"
+  }
+]
