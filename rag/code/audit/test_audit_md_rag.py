@@ -215,6 +215,8 @@ class TestR6ChiffresSources:
         assert [h for h in result["hits"] if h.startswith("R6")] == []
 
     def test_chiffre_orphelin(self, tmp_path):
+        """v2 : R6 émet désormais un warning (non bloquant), pas une erreur.
+        Le signal est conservé dans `warnings`."""
         md = CONFORME.replace(
             "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
             "95 % des projets GenAI échouent, ce qui est notable.",
@@ -222,7 +224,21 @@ class TestR6ChiffresSources:
         fp = write_md(tmp_path, "bad.md", md)
         codes = audit_md_rag.vault_codes([fp])
         result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
-        assert any("R6" in h and "95" in h for h in result["hits"])
+        # warning par défaut en v2
+        assert any("R6" in w and "95" in w for w in result["warnings"])
+        # plus dans errors par défaut
+        assert not any("R6" in h and "95" in h for h in result["hits"])
+
+    def test_chiffre_orphelin_strict_r6_redonne_erreur(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "95 % des projets GenAI échouent, ce qui est notable.",
+        )
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes, strict_r6=True)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any("R6" in e and "95" in e for e in result["errors"])
 
     def test_chiffre_avec_lien_markdown_ok(self, tmp_path):
         md = CONFORME.replace(
@@ -730,7 +746,8 @@ class TestR6Etendu:
         r6_errors = [e for e in result["errors"] if e.startswith("R6")]
         assert r6_errors == [], f"Le wikilink chiffres-macro devrait suffire comme source : {r6_errors}"
 
-    def test_chiffre_orphelin_sans_wikilink_garde_erreur_r6(self, tmp_path):
+    def test_chiffre_orphelin_sans_wikilink_garde_warning_r6(self, tmp_path):
+        """v2 : par défaut warning, pas erreur. Le signal est conservé."""
         md = CONFORME.replace(
             "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
             "95 % des projets GenAI échouent sans la moindre référence.",
@@ -738,7 +755,8 @@ class TestR6Etendu:
         fp = write_md(tmp_path, "cu-001.md", md)
         ctx = audit_md_rag.AuditContext(vault_codes=audit_md_rag.vault_codes([fp]))
         result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
-        assert any(e.startswith("R6") for e in result["errors"])
+        assert any(w.startswith("R6") for w in result["warnings"])
+        assert not any(e.startswith("R6") for e in result["errors"])
 
 
 class TestR9ChiffresMacro:
@@ -843,3 +861,133 @@ class TestR9ChiffresMacro:
         result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
         r9 = [w for w in result["warnings"] if w.startswith("R9")]
         assert r9 == []
+
+
+# ============================================================
+# Bloc D (S2.1) — R10 transposition fidèle valeurs numériques (warnings)
+# ============================================================
+
+MD_AVEC_TABLEAU = textwrap.dedent("""\
+---
+code: cu-test
+titre: "Test tableau"
+type: module-cu
+axe: B
+niveau: 1
+tags: [test]
+version: 3.8.2
+last_updated: 2026-05-11
+glosaire_termes: [test]
+derives: ["[[cu-001]]"]
+public_cible: [dirigeant]
+---
+
+# Test tableau
+
+## Matrice
+
+| Critère | Build | Buy |
+|---|---|---|
+| Volume | > 50 utilisateurs | < 20 utilisateurs |
+| Budget | 40-100 k€ | 50-200 €/mois |
+| Délai | 3-9 mois | < 6 mois |
+""")
+
+
+class TestR10Tableaux:
+    """R10 — comparaison MD tableau vs HTML source (warnings première itération)."""
+
+    def test_extract_tables_detecte_lignes_pipe(self):
+        body = MD_AVEC_TABLEAU
+        tables = audit_md_rag.extract_tables(body)
+        assert len(tables) == 1
+        assert "Volume" in tables[0]
+        assert "50-200 €/mois" in tables[0]
+
+    def test_extract_tables_vide_si_pas_de_pipe(self):
+        assert audit_md_rag.extract_tables("Pas de tableau ici.\n\nJuste du texte.") == []
+
+    def test_normalize_for_comparison(self):
+        assert audit_md_rag.normalize_for_comparison("40-100 K€") == "40-100k€"
+        assert audit_md_rag.normalize_for_comparison("3 – 9 mois") == "3-9mois"
+        assert audit_md_rag.normalize_for_comparison("1,8 h/jour") == "1.8h/jour"
+
+    def test_strip_html(self):
+        html = "<p>Le texte <strong>important</strong> contient 95 % de cas.</p>"
+        text = audit_md_rag.strip_html(html)
+        assert "Le texte" in text
+        assert "<p>" not in text
+        assert "95 %" in text
+
+    def test_find_html_source_existe(self, tmp_path):
+        # Simule la structure repo : repo_root/modules/cu-001-recherche-veille.html
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        target = modules / "cu-001-recherche-veille.html"
+        target.write_text("<html></html>", encoding="utf-8")
+        found = audit_md_rag.find_html_source("cu-001", str(tmp_path))
+        assert found == str(target)
+
+    def test_find_html_source_absent(self, tmp_path):
+        assert audit_md_rag.find_html_source("cu-999", str(tmp_path)) is None
+        # Famille inconnue → None
+        assert audit_md_rag.find_html_source("unknown-001", str(tmp_path)) is None
+
+    def test_r10_skip_si_pas_de_tableau(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert r10 == []
+
+    def test_r10_skip_si_html_absent(self, tmp_path):
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        # Pas de HTML source → skip silencieux
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert r10 == []
+
+    def test_r10_valeur_md_dans_html_pas_warning(self, tmp_path):
+        # MD avec tableau, HTML qui contient les mêmes valeurs.
+        # On respecte la convention HTML : &lt; pour les `<` dans le texte.
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        html = ("<table><tr>"
+                "<td>40-100 k€</td>"
+                "<td>50-200 €/mois</td>"
+                "<td>3-9 mois</td>"
+                "<td>&gt; 50 utilisateurs</td>"
+                "<td>&lt; 20 utilisateurs</td>"
+                "<td>&lt; 6 mois</td>"
+                "</tr></table>")
+        (modules / "cu-test-x.html").write_text(html, encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        # 0 warning : toutes les valeurs MD sont dans le HTML
+        assert r10 == [], f"Warnings inattendus : {r10}"
+
+    def test_r10_valeur_md_absente_html_warning(self, tmp_path):
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        # HTML ne contient PAS la fourchette « 40-100 k€ » du MD
+        html = '<p>Budget de 10 k€ minimum.</p>'
+        (modules / "cu-test-x.html").write_text(html, encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert any("40-100" in w or "40-100 k€" in w for w in r10), f"R10 devrait signaler 40-100 k€ : {r10}"
+
+    def test_r10_warnings_pas_erreurs(self, tmp_path):
+        """R10 produit des warnings, jamais des erreurs (première itération)."""
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        (modules / "cu-test-x.html").write_text("<p>vide</p>", encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10_errors = [e for e in result["errors"] if e.startswith("R10")]
+        assert r10_errors == []

@@ -179,6 +179,7 @@ class AuditContext:
     canonical_chiffres: list[dict] = field(default_factory=list)
     repo_root: str = REPO_ROOT
     strict_future: bool = False
+    strict_r6: bool = False  # si True, R6 reste en erreur (mode v1)
 
 
 # ============================================================
@@ -626,15 +627,24 @@ def check_r8_versioning(fp: str, fm: dict | None, ctx: AuditContext,
 # Règle R6 — Chiffres sourcés (R6 étendu : reconnaît wikilinks transverses)
 # ============================================================
 
-def check_r6_chiffres(fp: str, body: str) -> RuleResult:
+def check_r6_chiffres(fp: str, body: str, ctx: AuditContext | None = None) -> RuleResult:
     """R6 — chiffre statistique suivi (ou précédé) d'une source proche.
 
     Fenêtre symétrique de 200 caractères autour du chiffre : la source peut
     apparaître après (mention « Source : », URL, lien markdown) OU avant
     (cas typique d'un wikilink Obsidian `[[chiffres-macro-…|N %]]` où le
     chiffre est dans l'alias).
+
+    v2 : par défaut, R6 émet des **warnings** (non bloquants). De nombreux
+    chiffres pédagogiques du Hub (heuristiques techniques, règles 80/20,
+    impacts relatifs documentés par RetEx interne) n'ont pas de source
+    primaire externe — ils sont éditorialement acceptables sans
+    déréférencer la règle. L'option ``--strict-r6`` (ctx.strict_r6=True)
+    rétablit le comportement v1 (erreur). Les chiffres canoniques du Hub
+    sont couverts plus précisément par R9.
     """
     res = RuleResult()
+    strict = bool(ctx and ctx.strict_r6)
     for pat in NUMBER_PATTERNS:
         for m in pat.finditer(body):
             start = m.start()
@@ -642,7 +652,11 @@ def check_r6_chiffres(fp: str, body: str) -> RuleResult:
             window = body[max(0, start - 200):end + 200]
             if not SOURCE_MARKERS.search(window):
                 snippet = body[max(0, start - 20):start + 40].replace("\n", " ").strip()
-                res.add_error(f"R6: chiffre `{m.group(0)}` sans source proche — contexte: «{snippet}»")
+                msg = f"R6: chiffre `{m.group(0)}` sans source proche — contexte: «{snippet}»"
+                if strict:
+                    res.add_error(msg)
+                else:
+                    res.add_warning(msg)
     return res
 
 
@@ -709,10 +723,164 @@ def check_r9_chiffres_macro(fp: str, fm: dict | None, body: str, ctx: AuditConte
 
 
 # ============================================================
+# Règle R10 — Transposition fidèle des valeurs numériques des tableaux
+# ============================================================
+
+# Mapping famille de code → dossier HTML du Hub
+R10_HTML_DIRS = {
+    "cu": "modules",
+    "pr": "prealables",
+    "dep": "deploiement",
+}
+
+# Pattern numérique tolérant : entiers, décimaux (point ou virgule),
+# fourchettes (« 40-100 », « 30 à 40 », « 70–95 »), unités habituelles.
+R10_NUMBER_PATTERN = re.compile(
+    r"\d+(?:[.,]\d+)?"
+    r"(?:\s*(?:[-–]|à)\s*\d+(?:[.,]\d+)?)?"
+    r"(?:\s*(?:%|k€|K€|M€|€|mois|jours?|tokens|utilisateurs|heures?|h|min|sec))?",
+    re.IGNORECASE,
+)
+
+
+def find_html_source(code: str, repo_root: str) -> str | None:
+    """Retourne le chemin du HTML source associé à un code MD, ou None."""
+    parts = code.lower().split("-", 1)
+    if len(parts) < 2:
+        return None
+    family = parts[0]
+    sub_dir = R10_HTML_DIRS.get(family)
+    if not sub_dir:
+        return None
+    pattern = os.path.join(repo_root, sub_dir, f"{code}-*.html")
+    matches = glob.glob(pattern)
+    return matches[0] if matches else None
+
+
+def extract_tables(body: str) -> list[str]:
+    """Retourne les blocs de tableaux markdown (lignes commençant par `|`)."""
+    lines = body.splitlines()
+    tables: list[str] = []
+    current: list[str] = []
+    for line in lines:
+        if line.lstrip().startswith("|"):
+            current.append(line)
+        elif current:
+            tables.append("\n".join(current))
+            current = []
+    if current:
+        tables.append("\n".join(current))
+    return tables
+
+
+def normalize_for_comparison(s: str) -> str:
+    """Normalise une chaîne pour comparaison fuzzy : casse, espaces, tirets
+    unicode, séparateur décimal."""
+    s = s.lower()
+    s = s.replace("–", "-").replace("—", "-")
+    s = re.sub(r"\s+", "", s)
+    s = s.replace(",", ".")
+    return s
+
+
+def strip_html(html: str) -> str:
+    """Retire les balises HTML et décode les entités courantes.
+
+    Ordre important : (1) suppression des scripts/styles puis des balises,
+    (2) décodage des entités. L'inverse interpréterait `&lt;` comme un
+    début de balise.
+    """
+    text = re.sub(r"<script\b[^>]*>.*?</script>", " ", html, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<style\b[^>]*>.*?</style>", " ", text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = (text
+            .replace("&nbsp;", " ")
+            .replace("&lt;", "<")
+            .replace("&gt;", ">")
+            .replace("&amp;", "&")
+            .replace("&euro;", "€")
+            .replace("&#8364;", "€")
+            .replace("&#8211;", "–")
+            .replace("&#8212;", "—"))
+    text = re.sub(r"\s+", " ", text)
+    return text
+
+
+# Filtrage des fragments numériques triviaux qui sont des artefacts de syntaxe
+# markdown (numérotation de liste, parties d'URL) ou trop génériques pour être
+# qualifiables.
+R10_TRIVIAL_VALUE_PATTERN = re.compile(r"^[\d.,]+$")
+
+
+def check_r10_tableaux(fp: str, fm: dict | None, body: str, ctx: AuditContext) -> RuleResult:
+    """R10 — pour chaque tableau MD, comparer les valeurs numériques avec
+    celles présentes dans le HTML source correspondant. Signaler en warning
+    les valeurs MD absentes du HTML (fidélité de transposition).
+
+    Implémentation pragmatique en warning première itération (cf. brief §4
+    Bloc D et SPEC v1.2 R10). Imperfections acceptées : le HTML est plus
+    verbeux que le MD, certaines correspondances peuvent être ratées.
+    """
+    res = RuleResult()
+    if not fm:
+        return res
+    code = str(fm.get("code", "")).strip().lower()
+    if not code:
+        return res
+
+    tables = extract_tables(body)
+    if not tables:
+        return res
+
+    html_path = find_html_source(code, ctx.repo_root)
+    if not html_path or not os.path.exists(html_path):
+        return res  # pas de HTML source local → skip silencieux
+
+    try:
+        html_text = strip_html(read(html_path))
+    except Exception:
+        return res
+    html_norm = normalize_for_comparison(html_text)
+
+    flagged: set[str] = set()
+    for table in tables:
+        for m in R10_NUMBER_PATTERN.finditer(table):
+            value = m.group(0).strip()
+            if not value or value in flagged:
+                continue
+            # Filtrer les fragments triviaux : nombre seul sans unité, ou
+            # nombre trop court pour être qualifiable (ex. "1", "2.", "12")
+            if R10_TRIVIAL_VALUE_PATTERN.match(value) and len(value) <= 3:
+                continue
+            # Exiger une unité ou un nombre composé (fourchette) pour réduire
+            # le bruit sur les nombres en isolation
+            has_unit = bool(re.search(
+                r"%|€|mois|jours?|tokens|utilisateurs|heures?|h\b|min|sec|"
+                r"\d+\s*[-–]\s*\d+|\d+\s*à\s*\d+",
+                value, re.IGNORECASE,
+            ))
+            if not has_unit:
+                continue
+
+            norm = normalize_for_comparison(value)
+            if len(norm) < 2:
+                continue
+            if norm in html_norm:
+                continue
+            flagged.add(value)
+            res.add_warning(
+                f"R10: valeur tableau `{value}` non retrouvée dans le HTML source "
+                f"`{os.path.basename(html_path)}` (transposition à vérifier)"
+            )
+    return res
+
+
+# ============================================================
 # Orchestration
 # ============================================================
 
-def build_context(files: Iterable[str], vault: str, whitelist_path: str, strict_future: bool = False) -> AuditContext:
+def build_context(files: Iterable[str], vault: str, whitelist_path: str,
+                  strict_future: bool = False, strict_r6: bool = False) -> AuditContext:
     """Construit le contexte d'audit (codes vault + whitelist + glossaire + chiffres)."""
     files = list(files)
     return AuditContext(
@@ -724,6 +892,7 @@ def build_context(files: Iterable[str], vault: str, whitelist_path: str, strict_
         ),
         repo_root=REPO_ROOT,
         strict_future=strict_future,
+        strict_r6=strict_r6,
     )
 
 
@@ -746,10 +915,11 @@ def audit_file(fp: str, vault: str, ctx: AuditContext | set[str]) -> dict:
     total.merge(check_r3_chunking(fp, body))
     total.merge(check_r4_wikilinks(fp, body, ctx))
     total.merge(check_r5_glossaire(fp, fm, body, ctx))
-    total.merge(check_r6_chiffres(fp, body))
+    total.merge(check_r6_chiffres(fp, body, ctx))
     total.merge(check_r7_nommage(fp))
     total.merge(check_r8_versioning(fp, fm, ctx))
     total.merge(check_r9_chiffres_macro(fp, fm, body, ctx))
+    total.merge(check_r10_tableaux(fp, fm, body, ctx))
 
     return {
         "file": rel(fp, vault),
@@ -828,6 +998,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--strict", action="store_true", help="exit 1 dès première erreur")
     parser.add_argument("--strict-future", action="store_true",
                         help="transforme les warnings R4 (whitelist) en erreurs")
+    parser.add_argument("--strict-r6", action="store_true",
+                        help="restaure le comportement v1 de R6 : chiffre orphelin → erreur")
     parser.add_argument("--whitelist", default=DEFAULT_WHITELIST,
                         help="chemin du whitelist-wikilinks-futurs.md")
     args = parser.parse_args(argv)
@@ -847,7 +1019,9 @@ def main(argv: list[str] | None = None) -> int:
             print(report)
         return 0
 
-    ctx = build_context(files, vault, args.whitelist, strict_future=args.strict_future)
+    ctx = build_context(files, vault, args.whitelist,
+                        strict_future=args.strict_future,
+                        strict_r6=args.strict_r6)
     results = [audit_file(fp, vault, ctx) for fp in files]
     report = format_report(results, vault)
 
