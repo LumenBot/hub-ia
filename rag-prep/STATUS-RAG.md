@@ -51,9 +51,11 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.11 | Sprint S1 Claude Code Plateforme — 6 lots livrés, 62/62 tests verts | ✅ Fait | Claude Code Plateforme |
 | L1.12 | D-012-bis (MCP Obsidian reporté Phase 2) + D-027 (convention branches Claude Code) actées | ✅ Fait | Cowork |
 | L1.13 | Brief CC-S1bis produit (validation end-to-end + PR) | ✅ Fait | Cowork |
-| L1.14 | Transfert des 10 MD du vault Cowork-side vers branche Git | ⏳ En attente | Blaise |
-| L1.15 | Transmission brief CC-S1bis à Claude Code Plateforme | ⏳ En attente | Blaise |
-| L1.16 | Exécution S1bis (audit-md-rag réel + validation end-to-end + RAPPORT + PR) | ⏳ En attente | Claude Code Plateforme |
+| L1.14 | Transfert des 10 MD du vault Cowork-side vers branche Git | ✅ Fait (9 fichiers présents — écart 9 vs 10 à confirmer) | Blaise |
+| L1.15 | Transmission brief CC-S1bis à Claude Code Plateforme | ✅ Fait | Blaise |
+| L1.16a | S1bis Lot S1b.1 — audit-md-rag sur vault réel + rapport classifié | ✅ Fait (150 écarts bruts, 0 violation éditoriale réelle après classification) | Claude Code Plateforme |
+| L1.16b | S1bis Lot S1b.2 — validation end-to-end (ingest + retrieval + génération + eval) | ⏸ En pause (clés API absentes dans session) | Claude Code Plateforme |
+| L1.16c | S1bis Lot S1b.3 — RAPPORT-CC-S1bis + ouverture PR | ⏸ En pause (conditionnel à L1.16b) | Claude Code Plateforme |
 | L1.17 | Merge PR par Blaise après validation manuelle | ⏳ En attente | Blaise |
 
 ---
@@ -74,6 +76,9 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 
 ## Blockers actifs
 
+- **L1.16b/c** : clés `OPENAI_API_KEY` et `ANTHROPIC_API_KEY` absentes dans la session Claude Code Plateforme actuelle. Validation end-to-end + ouverture PR en pause jusqu'à fourniture des clés ou choix d'un mode dégradé documenté. Arbitrage Blaise demandé.
+- **Écart inventaire vault** : 9 fichiers présents vs 10 annoncés. Voir §5 du rapport `rag/eval/audit-report-s1bis.md`. À confirmer Blaise / Cowork.
+- **Arbitrage Cowork sur ~7 chiffres orphelins potentiels** signalés en catégorie D du rapport audit (essentiellement dep-02, outils-vector-db, glossaire).
 - **L1.14** : transfert des 10 MD du vault Cowork-side vers la branche Git `claude/execute-pilot-batches-mBSIp` par Blaise. Procédure documentée.
 - **L1.15** : transmission du `BRIEF-CC-S1bis-validation-end-to-end.md` à Claude Code Plateforme par Blaise.
 - Puis exécution autonome de S1bis par Claude Code Plateforme + PR ouverte + merge manuel par Blaise.

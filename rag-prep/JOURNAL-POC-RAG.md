@@ -11,6 +11,40 @@
 
 ## Entrées
 
+### 2026-05-12 (clôture) — Claude Code Hub IA Plateforme — S1bis Lot S1b.1 (audit vault réel) + pause clés API
+
+**Contexte :** vault initial (9 fichiers MD effectivement déposés — voir écart §5 du rapport audit) reçu sur la branche `claude/execute-pilot-batches-mBSIp` via les commits `668934e` (vault) et `fd0df0b` (sync gouvernance). Brief `BRIEF-CC-S1bis-validation-end-to-end.md` lu. SPEC v1.2 (R9 + R10) + 27 décisions intégrées au préalable.
+
+**Actions menées :**
+
+- **Lot S1b.1 — audit-md-rag.py sur vault réel** : exécuté sur `rag/content/` (9 fichiers). Sortie : 150 écarts détectés (R1 = 2, R4 = 83, R6 = 65, R2/R3 = 0).
+- **Analyse classifiée** des 150 écarts produite dans `rag/eval/audit-report-s1bis.md` :
+  - **A — 2 R1 faux positifs structurels** : `glossaire.md` a `glosaire_termes: []` et `derives: []` vides par construction (le glossaire est racine)
+  - **B — 83 R4 vault partiel** : wikilinks vers MD à produire en vagues 3+ (`cu-002`, `cu-011`, `pr-04`, `dep-07`, etc.) — attendu en S1 pilote, pas un écart de vault
+  - **C — ~58 R6 faux positifs R9** : chiffres dans alias de wikilink vers `chiffres-macro-2026.md`, l'audit v1 ne reconnaît pas le pattern wikilink comme source canonique
+  - **D — ~7 R6 candidats arbitrage Cowork** : chiffres dans glossaire et dep-02 sans wikilink explicite
+- **Dump brut conservé** en annexe : `rag/eval/audit-report-s1bis-raw.txt`.
+- **Discipline §7 brief respectée** : aucune modification des MD du vault par Claude Code ; aucune modification du code de l'audit non plus (évolutions scope v2, hors S1bis).
+- **Lot S1b.2 (validation end-to-end) en pause** : aucune clé `OPENAI_API_KEY` ni `ANTHROPIC_API_KEY` exposée dans l'environnement de session. Question posée à Blaise (via AskUserQuestion) : choix retenu = pause après S1b.1 jusqu'à instructions ultérieures.
+- **Lot S1b.3 (RAPPORT + PR) en pause** : conditionnel à S1b.2.
+
+**Écarts signalés à Blaise (synthèse) :**
+1. Écart d'inventaire vault : **9 fichiers** trouvés vs **10 annoncés** dans brief + STATUS. Hypothèse : pattern transverse anticipé non transféré ou coquille. À confirmer.
+2. Audit-md-rag v1 produit 150 écarts mais 0 violation éditoriale claire de SPEC v1.2 après classification. Recommandations détaillées pour audit v2 dans le rapport (exception R1 glossaire, R4 tolérante MD futurs, R6 reconnaît wikilinks canoniques, implémenter R5/R7/R8/R9/R10).
+3. Clés API absentes dans la session → S1b.2 et S1b.3 en attente.
+
+**Décisions structurantes prises :** aucune (S1bis = exécution, pas de décision structurelle).
+
+**Reste à faire :**
+- Blaise arbitre les ~7 chiffres orphelins potentiels (§3 catégorie D du rapport) avec Cowork.
+- Blaise confirme l'écart d'inventaire 9 vs 10.
+- Blaise fournit les clés API (ou choisit un mode dégradé) pour débloquer S1b.2 + S1b.3 + ouverture PR.
+
+**Blockers :**
+- Clés API absentes (OPENAI_API_KEY / ANTHROPIC_API_KEY) pour le Lot S1b.2.
+
+---
+
 ### 2026-05-12 (suite) — Cowork Hub IA Plateforme — Brief CC-S1bis + D-012-bis + D-027
 
 **Contexte :**
