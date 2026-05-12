@@ -111,6 +111,28 @@ Pour chaque fichier MD produit, on consigne :
 
 ---
 
+### `transverses/pattern-llm-wiki.md` (transverse — pattern architectural)
+
+**Titre** : Pattern LLM Wiki — alternative architecturale au RAG classique
+**Version** : 3.8.6
+**Date d'ajout au vault** : 2026-05-12 (S2.2 Lot A)
+**Angles thématiques principaux** :
+1. RAG classique stateless vs LLM Wiki synthèse persistante (différence en deux phrases)
+2. Tableau de décision par volume corpus (< 50K, 50K-100K, 100K-1M, > 1M, MAJ temps réel)
+3. Cas types pertinents PME (manuel produit, FAQ, procédures RH, doc projet)
+4. Coût-bénéfice mesuré (~95 % économie sur petits corpus, ~10-50 €/mois vs 150-300 €)
+5. 5 patterns post-Karpathy : persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation
+6. 3 questions à se poser avant de choisir LLM Wiki vs RAG classique
+
+**Mots-clés sémantiques** : LLM Wiki, Karpathy, RAG, synthèse persistante, base markdown, persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation
+
+**Recouvrements connus avec d'autres fichiers** :
+- `cu-008.md` (Knowledge base RAG) : sections « Au-delà du RAG classique » + « Patterns LLM Wiki post-Karpathy » remplacées par renvoi `[[pattern-llm-wiki]]` + résumé court (refactor S2.2 Lot A — élimine la duplication ~30-40 lignes confirmée en revue I-003).
+- `dep-02.md` (RAG en production) : section « LLM Wiki Karpathy — alternative crédible pour les petits corpus » remplacée par renvoi `[[pattern-llm-wiki]]` + résumé technique court.
+- À référencer aux futures productions : `cu-014` (Multi-agents — synergie pattern multi-agent vaults), `cu-025` (Knowledge management dirigeant — pattern proche).
+
+---
+
 ### `transverses/vigilance-confidentialite.md` (transverse — vigilance commune)
 
 **Titre** : Vigilance — confidentialité des données dans les outils IA

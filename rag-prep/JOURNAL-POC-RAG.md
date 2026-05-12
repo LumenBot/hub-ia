@@ -11,44 +11,37 @@
 
 ## Entrées
 
-### 2026-05-12 (S2.2 Lot C livré) — Claude Code Hub IA Plateforme — Métriques coût + pre-commit + system prompt enrichi
+### 2026-05-12 (S2.2 Lots A+B) — Cowork Hub IA Plateforme — pattern-llm-wiki produit + golden set étendu 30q
 
-**Contexte :** Sprint S2.2 ouvert. Allocation D-030 hybride : Cowork (Lots A et B en parallèle = pattern-llm-wiki + extension golden set 30q), Claude Code Plateforme (Lot C ici), Claude Code Desktop (Lot D eval extended). Lot C **indépendant** des Lots A/B/D — attaqué immédiatement sur signal de Blaise.
+**Contexte :** Claude Code Plateforme a livré le Lot C (commit `127de86`, 159/159 tests verts, 25 nouveaux tests S2.2, 0 $ API). PR S2.2 différée au Lot E. Blaise séquentiel : Cowork attaque Lots A et B maintenant. Alerte limite d'usage : priorisation efficace.
 
 **Actions menées :**
 
-- **Lot C.1 — Module `_cost.py`** : helper centralisé avec catalogue tarifaire (OpenAI embeddings, Claude Sonnet/Haiku 4.5/4.6 + variantes versionnées). API : `estimate_cost(model, in, out)`, `log_cost(...)`, `read_cost_log()`, `summarize_cost()`, `format_cost_summary()`. Format JSONL `{timestamp, script, model, tokens_in, tokens_out, cost_usd}`. Tolérant : modèle inconnu → 0 $, écriture impossible → fallback silencieux.
-- **Intégration `_cost.py`** dans :
-  - `ingestion/ingest.py` Embedder.embed() : log après `embeddings.create()`, lit `resp.usage.prompt_tokens`. Try/except pour ne jamais faire échouer l'ingestion.
-  - `backend/query.py` Embedder.embed_one() + Generator.generate() : log après chaque appel, lit `resp.usage.input_tokens` / `output_tokens` côté Anthropic.
-  - `eval/run_eval.py` : cumul affiché en fin via `_cost.format_cost_summary()` (visible utilisateur en fin d'eval).
-- `.gitignore` étendu pour `rag/code/.cost-log.jsonl`.
+**Lot A — Production `pattern-llm-wiki.md` + refactor cu-008/dep-02** :
+- `rag/content/transverses/pattern-llm-wiki.md` v3.8.6 produit (~120 lignes) : pattern Karpathy en 2 phrases, tableau de décision par volume corpus, cas types pertinents en PME, cas où pas pertinent, coût-bénéfice mesuré (~95 % économie), **5 patterns post-Karpathy** (persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation), 3 questions à se poser, implication PME.
+- `cu-008.md` v3.8.5 → v3.8.6 : sections « Au-delà du RAG classique » + « Patterns LLM Wiki post-Karpathy » remplacées par renvoi `[[pattern-llm-wiki]]` + synthèse courte (3-4 lignes). Réduction d'environ 30-40 lignes (recouvrement confirmé en revue I-003).
+- `dep-02.md` v3.8.4 → v3.8.6 : section « LLM Wiki Karpathy » remplacée par renvoi `[[pattern-llm-wiki]]` + synthèse technique courte.
+- `cartographie-rag.md` enrichie avec entrée pattern-llm-wiki + recouvrements documentés.
+- `whitelist-wikilinks-futurs.md` : entrée `pattern-llm-wiki` barrée (✅ produit S2.2 Lot A).
+- Champ `derives` de cu-008 et dep-02 enrichi avec `[[pattern-llm-wiki]]`.
 
-- **Lot C.2 — Pre-commit hook** : `.githooks/pre-commit` bash. Détecte si `rag/content/**.md` est stagé via `git diff --cached --name-only`. Si oui → exécute `audit-md-rag.py --vault rag/content` sur l'ensemble (pas seulement les fichiers stagés, à cause des dépendances cross-MD via R4). Bloque le commit sur erreur. README explicatif `.githooks/README.md` avec procédure d'activation (`git config core.hooksPath .githooks`).
+**Lot B — Extension golden set 10 → 30 questions** :
+- Production `rag-prep/extension-golden-set-s2.2.yaml` (20 nouvelles questions q-011 à q-030, format YAML aligné sur les 10 originales)
+- Répartition : 3 cu-001 + 3 cu-008 + 3 pr-07 + 3 dep-02 + 2 outils-vector-db + 4 transverses (1 par brique : vigilance-hallucinations, vigilance-confidentialite, chiffres-macro-2026, pattern-llm-wiki) + 2 cross-modules
+- Couverture du pattern-llm-wiki nouvellement produit (q-028) et du chiffre macro 21 % McKinsey (q-027)
+- À concaténer par Blaise à `rag/eval/questions.yaml`
 
-- **Lot C.3 — System prompt enrichi** : ajouts dans `SYSTEM_PROMPT` de `query.py` :
-  - Section dédiée « Briques transverses — sources canoniques privilégiées » mentionnant explicitement `chiffres-macro-2026`, `vigilance-*`, `pattern-*`, `glossaire`.
-  - Notion d'**autorité supérieure** des briques transverses sur les modules pour une mention équivalente (D-025).
-  - Section « Citations obligatoires » revue : format **préféré** wikilink Obsidian `[[code]]` ou `[[code#section]]`, format **accepté** crochets simples `[CODE]` pour rétro-compatibilité.
+**Décisions structurantes prises :** aucune (S2.2 = exécution).
 
-- **Lot C.4 — Tests +25** :
-  - `test_cost.py` (15 tests) : estimate_cost par modèle, modèle inconnu, modèle versionné, log append, plusieurs entrées, tolérance fs, read, log absent, lignes corrompues, summary cumul, summary vide, format lisible.
-  - `test_query.py` étendu (+7) : 5 sur prompt enrichi (mentions transverses, autorité canonique, wikilink Obsidian, rétro-compat crochets, extraction supporte les deux) + 2 sur instrumentation coût Generator (log JSONL avec usage, tolérance log inaccessible).
-  - `test_precommit_hook.py` (3 tests) : repo Git éphémère, hook bash invoqué via subprocess. Couvre : pas de MD stagé → exit 0, MD conforme → audit invoqué, MD sans frontmatter → exit 1 + message bloqué.
+**Reste à faire :**
+- Sync ascendante par Blaise : push pattern-llm-wiki + cu-008 + dep-02 + cartographie + whitelist + extension-golden-set
+- Concaténation du fichier extension à `rag/eval/questions.yaml` côté Git par Blaise
+- **Lot D (Claude Code Desktop)** : exécution eval extended sur les 30 questions du golden set sur le vault enrichi (10 fichiers MD avec pattern-llm-wiki)
+- **Lot E (Claude Code Plateforme)** : RAPPORT-CC-S2.2 + ouverture PR finale
 
-**Tests : 159/159 verts** (134 cumulés S1-S2.1 + 25 nouveaux S2.2 Lot C).
-
-**Décisions structurantes prises :** aucune (S2.2 Lot C = exécution).
-
-**Coût API consommé (cette session) :** 0,00 $ (allocation D-030 Plateforme respectée — refactor code + tests mockés exclusivement).
-
-**Reste à faire (par les autres acteurs) :**
-- Cowork — Lot A (production `pattern-llm-wiki.md` + refactor cu-008/dep-02).
-- Cowork — Lot B (20 nouvelles questions golden set, total 30).
-- Claude Code Desktop — Lot D (eval extended 30 questions sur vault enrichi, coût < 0,65 $).
-- Lot E (RAPPORT + PR) à la fin, par Plateforme ou Desktop selon arbitrage Blaise.
-
-**Blockers :** aucun pour Lot C (livré). Lot D bloqué tant que Lots A et B pas committés sur la branche.
+**Blockers :**
+- Sync ascendante + concaténation par Blaise avant Lot D.
+- Possible interruption Cowork (limite d'usage signalée).
 
 ---
 

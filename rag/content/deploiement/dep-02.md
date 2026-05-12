@@ -5,10 +5,10 @@ type: deploiement-dep
 axe: B
 niveau: 3
 tags: [rag, production, architecture, llm-wiki, hybride, embeddings, reranking, eval-set, chunking]
-version: 3.8.4
+version: 3.8.6
 last_updated: 2026-05-12
 glosaire_termes: [rag, vector-store, embeddings, chunk, llm, llm-wiki, hnsw, reranker, retrieval-hybride, eval-set, llm-as-judge, mteb]
-derives: ["[[cu-008]]", "[[pr-07]]", "[[dep-01]]", "[[dep-03]]", "[[dep-04]]", "[[dep-06]]", "[[dep-07]]", "[[outils-vector-db]]", "[[vigilance-hallucinations]]", "[[vigilance-confidentialite]]"]
+derives: ["[[cu-008]]", "[[pr-07]]", "[[dep-01]]", "[[dep-03]]", "[[dep-04]]", "[[dep-06]]", "[[dep-07]]", "[[outils-vector-db]]", "[[pattern-llm-wiki]]", "[[vigilance-hallucinations]]", "[[vigilance-confidentialite]]"]
 public_cible: [ops, r&d, tech]
 ---
 
@@ -55,16 +55,9 @@ Le tableau de décision plus bas donne la réponse architecturale.
 
 ## LLM Wiki Karpathy — alternative crédible pour les petits corpus
 
-**Le pattern en deux phrases.** Au lieu d'embedder ton corpus dans un vector DB et de retrieve des [[glossaire#chunk]]s à chaque requête, tu maintiens une base markdown structurée par un LLM. Quand tu ajoutes un document, le LLM met à jour les pages markdown affectées (synthèses, entités, contradictions). Quand un utilisateur pose une question, le LLM consulte directement les pages markdown pertinentes.
+Pattern documenté en détail dans la brique transverse [[pattern-llm-wiki]] (à consulter pour le tableau de décision par volume corpus, les cas types pertinents en PME, le coût-bénéfice mesuré ~95 % d'économie sur petits corpus, et les 5 patterns post-Karpathy : persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation).
 
-**Quand c'est pertinent** : manuel produit stable (documentation technique d'une machine industrielle) de 30K-80K tokens avec mises à jour trimestrielles ; FAQ métier (questions/réponses standardisées, < 50K tokens) ; procédures internes RH (règlement intérieur, processus de recrutement) ; documentation projet (cahier des charges, manuel d'intégration).
-
-**Quand ce n'est PAS pertinent** : volume > 200K tokens (le contexte LLM devient trop coûteux et lent) ; mises à jour temps réel (pas adapté) ; corpus très hétérogène (la maintenance markdown devient une charge).
-
-**Coût-bénéfice mesuré** pour une PME avec corpus de 50K tokens :
-- RAG vectoriel : ~150-300 €/mois (vector DB managé + embeddings + LLM)
-- LLM Wiki : ~10-50 €/mois (juste le LLM, pas de vector DB)
-- → Économie potentielle de 90 % sur les petits corpus.
+**Synthèse technique pour ce module** : pour un corpus < 100K tokens stable (manuel produit, FAQ, procédures RH), le LLM Wiki Karpathy ([[glossaire#llm-wiki]]) remplace avantageusement le RAG vectoriel — pas de vector DB, pas de chunking, base markdown maintenue par un LLM. Coût attendu ~10-50 €/mois vs 150-300 €/mois pour un RAG vectoriel équivalent. Au-delà de 100K tokens ou pour les mises à jour temps réel, basculer sur le RAG hybride détaillé ci-dessous.
 
 ## RAG hybride — anatomie d'une pipeline production
 

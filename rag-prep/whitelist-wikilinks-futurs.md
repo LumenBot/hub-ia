@@ -76,7 +76,7 @@
 
 | Code | Portée (rappel) | Priorité |
 |---|---|---|
-| `pattern-llm-wiki` | Pattern LLM Wiki Karpathy distillé + 5 patterns post-Karpathy | 🔴 Haute (recouvrement cu-008 ↔ dep-02) |
+| ~~`pattern-llm-wiki`~~ | ~~Pattern LLM Wiki Karpathy distillé + 5 patterns post-Karpathy~~ | ✅ **Produit S2.2 Lot A — retiré whitelist le 12 mai 2026** |
 | `pattern-eval-set-golden` | Méthodologie golden set + Stitch → Evaluate → Iterate + LLM-as-judge | 🟡 Moyenne (à coupler avec dep-07) |
 | `pattern-build-vs-buy` | Matrice 6 critères + 3 scénarios distillés | 🟢 Basse (à coupler avec module appelant) |
 | `methodologie-prompt-engineering` | 4 étapes universelles (question, contexte, vérification, itération) | 🟡 Moyenne |
