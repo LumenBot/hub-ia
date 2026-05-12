@@ -1,0 +1,72 @@
+# Golden set initial — sprint S1 (10 questions)
+#
+# 2 questions par unité pilote (CU-001, CU-008, PR-07, DEP-02, outils-vector-db).
+# Format minimaliste. Enrichissement à 30 questions prévu en S2.
+#
+# Champs :
+#   id              : identifiant stable
+#   question        : énoncé tel que posé à query.py
+#   expected_sources: codes attendus en citation (case-insensitive)
+#   expected_concepts: termes/notions devant apparaître dans la réponse
+#                      (matching sous-chaîne case-insensitive)
+#   unit            : unité pilote ciblée
+
+- id: q-001
+  question: "Qu'est-ce que la veille IA et comment la structurer dans une PME ?"
+  expected_sources: [cu-001]
+  expected_concepts: [veille, source, méthode]
+  unit: cu-001
+
+- id: q-002
+  question: "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?"
+  expected_sources: [cu-001]
+  expected_concepts: [source, veille]
+  unit: cu-001
+
+- id: q-003
+  question: "Quelle est la différence entre RAG et fine-tuning ?"
+  expected_sources: [cu-008]
+  expected_concepts: [retrieval, fine-tuning, mise à jour]
+  unit: cu-008
+
+- id: q-004
+  question: "Comment fonctionne une knowledge base interne avec RAG ?"
+  expected_sources: [cu-008]
+  expected_concepts: [retrieval, embedding, citation]
+  unit: cu-008
+
+- id: q-005
+  question: "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?"
+  expected_sources: [pr-07]
+  expected_concepts: [build, buy, coût]
+  unit: pr-07
+
+- id: q-006
+  question: "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?"
+  expected_sources: [pr-07]
+  expected_concepts: [arbitrage, critère]
+  unit: pr-07
+
+- id: q-007
+  question: "Comment mettre un système RAG en production ?"
+  expected_sources: [dep-02]
+  expected_concepts: [production, évaluation, itération]
+  unit: dep-02
+
+- id: q-008
+  question: "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?"
+  expected_sources: [dep-02]
+  expected_concepts: [stitch, evaluate, iterate]
+  unit: dep-02
+
+- id: q-009
+  question: "Quelle vector database choisir pour démarrer un POC RAG ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts: [chromadb, vector]
+  unit: outils-vector-db
+
+- id: q-010
+  question: "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts: [pinecone, qdrant, weaviate, chromadb]
+  unit: outils-vector-db

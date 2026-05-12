@@ -29,14 +29,71 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L0.10 | `BRIEF-CC-S1.md` rédigé pour le canal Claude Code Plateforme | ✅ Fait | Cowork |
 | L0.11 | Migration vers `rag-prep/` + D-024 actée (architecture de circulation Cowork ↔ Git ↔ Claude Code) | ✅ Fait | Cowork |
 | L0.12 | Push initial de `rag-prep/` sur le repo Git | ⏳ En attente | Blaise |
-| L0.13 | Création du canal Claude Code Hub IA Plateforme | ⏳ En attente | Blaise |
+| L0.13 | Création du canal Claude Code Hub IA Plateforme | ✅ Fait | Blaise |
+| L0.14 | Vague 1 MD pilotes produite (glossaire + outils-vector-db + cu-001) | ✅ Fait | Cowork |
+| L0.15 | Brief revue vague 1 + I-002 inscrit (sortie de S0, transition pré-vague 2) | ✅ Fait | Cowork |
+
+---
+
+| L0.16 | Transmission `BRIEF-COWORK-HUB-IA-REVUE-VAGUE-1.md` au couple 1 | ✅ Fait | Blaise |
+| L0.17 | Réception `RETOUR-I-002-REVUE-VAGUE-1.md` (3100 mots, 7 réponses) | ✅ Fait | Couple 1 |
+| L0.18 | Intégration retour I-002 : SPEC v1.1, D-025, 3 briques transverses, corrections cu-001, glossaire, archivage I-002 | ✅ Fait | Cowork |
+| L1.1 | Vague 2 — Enrichissement glossaire (eval-set, LLM-as-judge, reranker, retrieval-hybride, MTEB) | ✅ Fait | Cowork |
+| L1.2 | Vague 2 — Production cu-008.md (référence canonique D-017, 11 sections H2) | ✅ Fait | Cowork |
+| L1.3 | Vague 2 — Production pr-07.md (10 sections H2) | ✅ Fait | Cowork |
+| L1.4 | Vague 2 — Production dep-02.md (12 sections H2) | ✅ Fait | Cowork |
+| L1.5 | Vague 2 — Mise à jour cartographie-rag (3 nouvelles entrées détaillées) | ✅ Fait | Cowork |
+| L1.6 | Brief revue vague 2 + inscription I-003 | ✅ Fait | Cowork |
+| L1.7 | Transmission BRIEF-COWORK-HUB-IA-REVUE-VAGUE-2 au couple 1 | ⏳ En attente | Blaise |
+| L1.8 | Réception RETOUR-I-003-REVUE-VAGUE-2 (~2600 mots, 5 réponses structurées) | ✅ Fait | Couple 1 |
+| L1.9 | Intégration retour I-003 : SPEC v1.2 (R10), D-026, chiffres-macro étendu, matrice PR-07 alignée, wikilinks transverses, archivage I-003 | ✅ Fait | Cowork |
+| L1.10 | Inscription I-D-001 (descendant) : harmonisation matrice PR-07 HTML 6 vs 8 critères, à traiter par couple 1 | ✅ Fait | Cowork (inscription) — couple 1 (traitement) |
+| L1.11 | Sprint S1 Claude Code Plateforme — 6 lots livrés, 62/62 tests verts | ✅ Fait | Claude Code Plateforme |
+| L1.12 | D-012-bis (MCP Obsidian reporté Phase 2) + D-027 (convention branches Claude Code) actées | ✅ Fait | Cowork |
+| L1.13 | Brief CC-S1bis produit (validation end-to-end + PR) | ✅ Fait | Cowork |
+| L1.14 | Transfert des 10 MD du vault Cowork-side vers branche Git | ✅ Fait (9 fichiers présents — écart 9 vs 10 à confirmer) | Blaise |
+| L1.15 | Transmission brief CC-S1bis à Claude Code Plateforme | ✅ Fait | Blaise |
+| L1.16a | S1bis Lot S1b.1 — audit-md-rag sur vault réel + rapport classifié | ✅ Fait (150 écarts bruts, 0 violation éditoriale réelle après classification) | Claude Code Plateforme |
+| L1.16b | S1bis Lot S1b.2 — validation end-to-end (ingest + retrieval + génération + eval) | ⏸ En pause (clés API absentes dans session) | Claude Code Plateforme |
+| L1.16c | S1bis Lot S1b.3 — RAPPORT-CC-S1bis + ouverture PR | ✅ Partiel (RAPPORT + PR livrés sans S1b.2 — §3/§4 marqués non exécutés) | Claude Code Plateforme |
+| L1.17 | Merge PR par Blaise après validation manuelle | ⏳ En attente | Blaise |
+| L1.18 | S1ter — exécution S1b.2 différée (ingest + queries + eval) dès clés API | ⏳ Reporté session future | Claude Code Plateforme |
+
+---
+
+## Vague 1 + Vague 2 — bilan production MD
+
+**Vault `content/`** :
+- 1 glossaire canonique (`glossaire.md`, 23 termes après vague 2)
+- 1 fiche outils (`ressources/outils-vector-db.md`)
+- 3 briques transverses (`transverses/chiffres-macro-2026.md`, `vigilance-hallucinations.md`, `vigilance-confidentialite.md`)
+- 3 modules CU (`modules/cu-001.md`, `modules/cu-008.md` ← référence canonique D-017)
+- 1 préalable PR (`prealables/pr-07.md`)
+- 1 fiche déploiement DEP (`deploiement/dep-02.md`)
+
+**Total : 10 fichiers MD du vault**, ~1000 lignes de contenu MD production.
 
 ---
 
 ## Blockers actifs
 
-- **L0.12** : push initial de `rag-prep/` vers le clone Git puis le repo distant, par Blaise.
-- **L0.13** : création du canal Claude Code Hub IA Plateforme, transmission du brief S1 à ce nouveau canal.
+- **L1.16b/c** : clés `OPENAI_API_KEY` et `ANTHROPIC_API_KEY` absentes dans la session Claude Code Plateforme actuelle. Validation end-to-end + ouverture PR en pause jusqu'à fourniture des clés ou choix d'un mode dégradé documenté. Arbitrage Blaise demandé.
+- **Écart inventaire vault** : 9 fichiers présents vs 10 annoncés. Voir §5 du rapport `rag/eval/audit-report-s1bis.md`. À confirmer Blaise / Cowork.
+- **Arbitrage Cowork sur ~7 chiffres orphelins potentiels** signalés en catégorie D du rapport audit (essentiellement dep-02, outils-vector-db, glossaire).
+- **L1.14** : transfert des 10 MD du vault Cowork-side vers la branche Git `claude/execute-pilot-batches-mBSIp` par Blaise. Procédure documentée.
+- **L1.15** : transmission du `BRIEF-CC-S1bis-validation-end-to-end.md` à Claude Code Plateforme par Blaise.
+- Puis exécution autonome de S1bis par Claude Code Plateforme + PR ouverte + merge manuel par Blaise.
+- **Vague 3 à venir** (CU-026, CU-027, DEP-08) avec application D-026 (sondage Cowork Hub IA préalable sur 2-3 passages sensibles).
+
+## Vague 3 anticipée — modules N3/N4 à produire
+
+Trois briques transverses prioritaires à extraire AVANT ou EN PARALLÈLE de la vague 3 (recommandation Q4 du retour I-003) :
+
+| Brique transverse | Urgence | Modules concernés | Effort estimé |
+|---|---|---|---|
+| `pattern-llm-wiki.md` | 🔴 Haute (recouvrement déjà confirmé cu-008/dep-02) | cu-008, dep-02, cu-025, cu-014 | 1-2 h (distillation + refactor) |
+| `pattern-eval-set-golden.md` | 🟡 Moyenne (à coupler avec dep-07) | dep-02, dep-07, cu-026, cu-008 | 1-2 h avec dep-07 |
+| `pattern-build-vs-buy.md` | 🟢 Basse (à coupler avec module suivant qui s'y réfère) | pr-07, cu-024, cu-027, cu-014 | 1-2 h avec module appelant |
 
 ## Sprint suivant — S1 (pilote)
 

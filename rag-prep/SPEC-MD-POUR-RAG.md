@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1 minimaliste (8 règles essentielles)
-**Dernière mise à jour :** 11 mai 2026
+**Statut :** v1.2 (8 règles essentielles + R9 + R10 issue retour I-003 + section briques transverses)
+**Dernière mise à jour :** 12 mai 2026 (révision post-revue I-003 couple 1)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -116,6 +116,40 @@ Tout chiffre statistique ou citation directe doit être suivi de sa source daté
 
 ---
 
+## Règle 10 — Transposition fidèle des valeurs numériques dans les tableaux (issue I-003)
+
+Lors de la transposition d'un tableau HTML vers MD, toutes les **valeurs numériques** (seuils, fourchettes, pourcentages, montants, durées) doivent être transposées **textuellement à l'identique**, sans élargissement, raboutage, abandon de précision ou reformulation.
+
+**Exemples de dérives à éviter** (cas réels détectés en revue I-003 sur matrice PR-07) :
+- HTML : « < 20 utilisateurs » → MD : « < 20-30 utilisateurs » (élargissement)
+- HTML : « > 50 utilisateurs ou volume élevé » → MD : « > 30 utilisateurs ou usage quotidien massif » (abaissement seuil + reformulation)
+- HTML : « Budget initial 40-100 K€ + 20 %/an OK » → MD : « Capacité d'investissement initial 40-80 k€ » (perte du 20 %/an + plafond raboté)
+- HTML : « SaaS 50-200 €/mois suffit, ROI 6 mois » → MD : « Budget récurrent OK, pas de capacité d'investissement » (perte de la fourchette chiffrée + perte du ROI)
+- HTML : « 3-9 mois acceptables » → MD : « 6-12 mois acceptable » (décalage de fourchette)
+
+**Pourquoi cette discipline** : ces dérives ressemblent à des « corrections instinctives » qui semblent éditorialement bénignes (élargir pour sécuriser, perdre les chiffres précis pour ne pas s'engager). Mais elles cassent la cohérence cross-couche entre le HTML pédagogique (engageant chiffré) et le MD RAG (qui doit fournir des références exactes).
+
+**Validation** : audit-md-rag.py R10 (à implémenter en v2 post-S1) — pour chaque tableau MD, extraire les valeurs numériques (regex `\d+(?:\s*[-–]\s*\d+)?\s*(?:%|€|K€|k€|mois|jours|tokens|utilisateurs)?`), comparer aux valeurs extraites du HTML source correspondant, signaler tout écart numérique.
+
+---
+
+## Règle 9 — Citation textuelle des chiffres canoniques du Hub (issue I-002)
+
+Tout chiffre macro déjà cité dans le Hub IA (HTML source ou brique transverse `chiffres-macro-2026.md`) doit être **cité textuellement** dans un MD du vault, sans paraphrase. La reformulation paraphrastique d'un chiffre canonique change potentiellement son sens et crée une divergence cross-couche.
+
+**Exemple de dérive à éviter** (cas réel détecté en revue I-002) :
+- HTML source : « 67 % des dirigeants PME/TPE **ne savent pas par où commencer** avec l'IA »
+- MD initialement produit : « 67 % des dirigeants PME/TPE **n'ont pas commencé** avec l'IA »
+- Sens divergent : « ne savent pas par où commencer » = manque de méthode ; « n'ont pas commencé » = absence totale d'usage. Les deux ne mesurent pas la même chose.
+
+**Application pratique** :
+- Si le chiffre vit déjà dans `chiffres-macro-2026.md` (brique transverse) : wikilinker plutôt que reformuler — `[[chiffres-macro-2026#67-pourcent-bpifrance]]`
+- Si le chiffre n'est pas encore dans la brique transverse : citer textuellement le HTML source, et ajouter le chiffre dans la brique pour les usages futurs
+
+**Validation** : audit-md-rag.py R9 (à implémenter post-S1) — détecte les chiffres macro en clair dans un module (au lieu de wikilink vers `chiffres-macro-2026.md`).
+
+---
+
 ## Règle 8 — Versioning et `last_updated`
 
 À chaque modification substantielle d'un fichier MD :
@@ -128,20 +162,59 @@ Tout chiffre statistique ou citation directe doit être suivi de sa source daté
 
 ---
 
-## Anti-patterns identifiés a priori (à enrichir post-pilote)
+## Briques transverses — méthodologie d'extraction (issue I-002 Q7)
+
+Pour le RAG, certaines briques sémantiques (vigilances communes, patterns récurrents, chiffres macro, définitions étendues, méthodologies transverses) traversent de nombreux modules. Plutôt que de les dupliquer dans chaque module concerné, elles sont **extraites en fichiers transverses** dans `rag/content/transverses/` (ou `transverses/` du vault) et **référencées par wikilink** depuis les modules qui les mentionnent.
+
+**Pattern architectural validé (D-025)** : unité de base = module CU/PR/DEP, + extraction sélective de briques transverses dès qu'un concept apparaît dans **3+ modules**.
+
+**Critères d'éligibilité à l'extraction** :
+- Concept présent dans 3 modules ou plus
+- Concept indépendant sémantiquement (peut être indexé seul et servir une réponse autonome)
+- Concept stable dans le temps (peu d'évolution attendue) OU concept dont la mise à jour centralisée évite la dérive (ex. chiffres macro)
+
+**Catégories de briques transverses** (à enrichir au fil des productions) :
+- `vigilance-{slug}.md` — patterns de vigilance commune (hallucinations, confidentialité, dépendance vendor, etc.)
+- `pattern-{slug}.md` — patterns récurrents (build-vs-buy, rag-vs-fine-tuning, etc.)
+- `methodologie-{slug}.md` — méthodologies réutilisables (prompt engineering, eval, etc.)
+- `chiffres-macro-{annee}.md` — référentiel des chiffres canoniques du Hub
+- `cadrage-{slug}.md` — cadrages réglementaires ou stratégiques (AI Act, souveraineté EU, etc.)
+
+**3 risques à monitorer (issus de la revue I-002)** :
+1. **Dérive du référentiel de chiffres** : si `chiffres-macro-2026.md` n'est pas maintenu à jour à chaque évolution v3.X du Hub, les modules MD divergent silencieusement → audit régulier obligatoire à chaque itération éditoriale majeure
+2. **Duplication entre brain page et module** : risque qu'un module mentionne en clair un concept au lieu de wikilinker → audit-md-rag.py futur (R9 pour chiffres macro, à étendre)
+3. **Wikilinks cassés** : renommage d'une brique transverse casse silencieusement les wikilinks dans tous les modules qui y pointent → audit régulier des wikilinks orphelins (R4)
+
+---
+
+## Anti-patterns identifiés (enrichis post-revue I-002)
+
+### Anti-patterns d'a priori (v1)
 
 1. **Frontmatter incomplet ou champs vides** : `tags: []` est un signal de paresse, à éviter
 2. **Sections H2 dépassant 1000 tokens sans subdivision** : rend le chunk trop dilué
 3. **Wikilinks vers cibles inexistantes** : pollution du graphe, à corriger immédiatement
 4. **Définitions redondantes** : termes redéfinis localement au lieu d'être référencés au glossaire
-5. **Chiffres sans source ou sources non vérifiables** : alignement RULES couple 1 §1.1
+5. **Chiffres sans source ou sources non vérifiables** : alignement RULES couple 1 §A
 6. **Phrases narratives liantes** : « comme on vient de voir », « dans la suite de ce module » — rendent la section non autonome
+
+### Anti-patterns documentés post-revue I-002
+
+7. **AP-2 — Conversion monétaire ad-hoc** : convertir des prix € en $ (ou inverse) sans alignement avec le HTML source du Hub. Crée des incohérences cross-couche pour le public PME/ETI européen.
+   - *Exemple détecté* : « Perplexity Pro à 20 $/mois » dans le MD vs « 20 €/mois » dans le HTML.
+   - *Recommandation* : aligner systématiquement le MD sur les valeurs et devises du HTML.
+
+8. **AP-3 — Édulcoration d'éléments contextuels secondaires** : suppression de citations, certifications, références, acteurs nommés qui ajoutent du poids argumentatif au module.
+   - *Exemples détectés* : référence MIT 2025 absente du MD ; certifications ISO 27001 / SOC 2 du Chat Pro édulcorées en « garanties RGPD natives » (formulation plus vague).
+   - *Recommandation* : pendant la distillation, conserver explicitement les noms d'études / rapports cités, les certifications (ISO, SOC, SecNumCloud, etc.), les acteurs nommés (Bpifrance, France Num, MIT, McKinsey, etc.).
+
+9. **Reformulation paraphrastique d'un chiffre canonique** : passé en **règle stricte R9** (cf. plus haut), pas seulement anti-pattern.
 
 ---
 
 ## Validation par audit-md-rag.py (5 règles initiales en v1)
 
-Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à minima :
+Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à minima en v1 (5 règles) :
 
 1. **R1-frontmatter-complet** : les 10 champs du frontmatter sont présents et non vides
 2. **R2-h1-unique** : exactement un H1 par fichier, identique à `titre`
@@ -149,7 +222,13 @@ Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à 
 4. **R4-wikilinks-valides** : toutes les cibles de wikilinks existent dans le vault
 5. **R6-chiffres-sources** : tout chiffre numérique de pattern `%`, `×`, `k€`, `M€` est suivi à moins de 50 caractères d'une mention « Source : » ou d'un lien `[...](...)` ou d'une mention `URL`
 
-Les règles R5 (glossaire), R7 (nommage), R8 (versioning) sont validées manuellement dans v1, candidats à automatisation en v2.
+À ajouter en v2 (post-S1, alignement avec règles consolidées) :
+
+6. **R5-glossaire** : tout terme du glossaire utilisé dans un MD doit l'être via wikilink `[[glossaire#terme]]`, pas en clair
+7. **R7-nommage** : conformité au schéma `{type}-{numero}.md` ou `outils-{categorie}.md`
+8. **R8-versioning** : `last_updated` cohérent avec la dernière modification git (< 7 jours d'écart)
+9. **R9-chiffres-macro-canoniques** : tout chiffre macro du Hub (95 %, 67 %, 76 %, etc.) cité dans un MD doit l'être soit textuellement (avec source), soit via wikilink vers `chiffres-macro-2026.md`. Détection par regex et comparaison avec `chiffres-macro-2026.md` parsé.
+10. **R10-tableaux-numeriques-fideles** : pour chaque tableau MD, comparer les valeurs numériques extraites (regex sur seuils, fourchettes, montants, durées) avec celles du HTML source correspondant. Signaler tout écart numérique.
 
 ---
 
@@ -158,5 +237,7 @@ Les règles R5 (glossaire), R7 (nommage), R8 (versioning) sont validées manuell
 | Version | Date | Modification |
 |---|---|---|
 | v1 | 11 mai 2026 | Version initiale, 8 règles essentielles |
+| v1.1 | 11 mai 2026 | + R9 (citation textuelle chiffres canoniques, règle stricte issue retour I-002) ; + section méthodologique « briques transverses » (D-025) ; enrichissement anti-patterns (AP-2 conversion monétaire, AP-3 édulcoration contextuelle) ; ajout glose « On-premise » au glossaire (alignement RULES §C.2)|
+| v1.2 | 12 mai 2026 | + R10 (transposition fidèle des valeurs numériques dans les tableaux, règle stricte issue retour I-003) ; AP-4 promu en règle R10 plutôt qu'anti-pattern documenté ; audit R10 ajouté à la roadmap v2 audit-md-rag.py |
 
-**Évolution prévue** : enrichissement en v2 post-pilote S1 sur la base des écarts détectés.
+**Évolution prévue** : enrichissement en v2 post-pilote S1 sur la base des écarts détectés par les premières exécutions de `audit-md-rag.py`.
