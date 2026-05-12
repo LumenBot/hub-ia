@@ -77,7 +77,8 @@ Chiffres à canoniser :
 **Émetteur :** couple 1 (Cowork Hub IA — signalé par Blaise le 12 mai 2026)
 **Destinataire :** couple 2 (Cowork Hub IA Plateforme)
 **Date d'inscription :** 12 mai 2026 (renommé I-D-003 → I-D-004 suite à collision : un I-D-003 « Canonisation 3 nouveaux chiffres macro » existait déjà côté Git via run veille automatisée)
-**Statut :** ouvert (signal entrant — itération éditoriale couple 1 en cours)
+**Date de clôture :** 12 mai 2026 (acknowledgment couple 1 reçu — itération v3.9 terminée et mergée PR #46)
+**Statut :** ✅ **CLÔTURÉ** — itération v3.9 livrée, périmètre documenté, prochaines actions inscrites en plan reprise S2.
 
 **Contenu (résumé) :**
 Blaise a signalé une itération éditoriale du couple 1 en cours, prête à passer en production sur le site Hub IA HTML. Périmètre exact non communiqué à ce stade (vraisemblablement une vague v3.9 ou v4.0 incluant de nouveaux modules, des modifications de modules existants, et/ou des ajustements de référentiel RULES).

@@ -11,6 +11,73 @@
 
 ## Entrées
 
+### 2026-05-12 (reprise S2 post-v3.9) — Cowork Hub IA Plateforme — Intégration intégrale v3.9 + SPEC v1.4 + vague 3.5 anticipée
+
+**Contexte :** Itération couple 1 v3.9 livrée et mergée (PR #46). Message de passation reçu de Cowork Hub IA avec périmètre exact des changements HTML (4-5 modules patchés chirurgicalement) + 3 décisions structurantes à arbitrer (E règle « outil glossarié wikilinké », F scope vague 3, G acceptation sondage co-produit DEP-05 §8). Blaise valide les 3 recommandations Cowork en bloc.
+
+**Actions menées (6 livrables — étapes A-I) :**
+
+**Étape A — Rebaseline** : JOURNAL/STATUS/SYNC-INTER-CANAUX re-copiés depuis Git post-v3.9 vers Cowork-side (D-024 Option D rebaselining).
+
+**Étape B — Clôture I-D-004** : item « signal entrant v3.9 » archivé en items résolus suite à réception du message de passation. Date de clôture 12 mai 2026, statut ✅ CLÔTURÉ.
+
+**Étape C — Canonisation 6 chiffres macro** : bump `chiffres-macro-2026.md` v3.8.4 → **v3.8.5**. Ajout des 6 entrées :
+- 23 % organisations scalent un système agentique (McKinsey 2026)
+- 39 % organisations en phase d'expérimentation agentique (McKinsey 2026)
+- 74 % inexactitude risque hautement pertinent (McKinsey 2026)
+- 72 % cybersécurité risque hautement pertinent (McKinsey 2026)
+- 80 % entreprises >1 Md$ ayant supprimé des postes sans gain ROI mesuré (Gartner 2026)
+- 38 % grandes entreprises ayant nommé un Chief AI Officer (MIT Sloan 2026)
+
+`derives` enrichi avec `[[dep-05]]` (référence pour les chiffres agentiques). Référentiel macro passe de **16 à 22 chiffres canoniques**.
+
+**Étape D — Refactor `pr-07.md`** v3.8.4 → **v3.8.5** :
+- Ajout encart « Une troisième voie en 2026 — le fine-tuning SLM » après situation #5 BUILD, intégrant le pattern SLM 1B-8B + cycle 4-6 semaines + budget 200-500 €
+- Wikilink vers `[[dep-04]] §4bis` (SLM 1B-8B en 2026) pour le détail technique
+- `derives` enrichi avec `[[dep-04]]`
+
+**Étape E — Arbitrage règle « outil glossarié wikilinké »** : ✅ Acceptée mais reportée audit v3. Inscription dans roadmap SPEC v1.4 comme **R11** (cf. SPEC §Validation v3). Application différée à audit v3 quand 5+ fichiers `outils-*.md` seront dans le vault (actuellement 1 seul).
+
+**Étape F — Décision scope vague 3** : ✅ Scénario 2 acté — Vague 3 inchangée (CU-026/CU-027/DEP-08) + nouvelle **Vague 3.5** (S2.5) pour les 4 modules patchés v3.9 (DEP-03/DEP-04/DEP-05/PR-04) qui n'existent pas encore dans le vault.
+
+**Étape G — Acceptation sondage co-produit DEP-05 §8** : ✅ Acceptée. Proposition du couple 1 sur le passage le plus dense techniquement (4 patterns industriels 2026). À activer au démarrage de la vague 3.5.
+
+**Étape H — Production SPEC v1.4** :
+- Bump SPEC v1.3 → v1.4
+- §R6 enrichi : codification « R6 warning par défaut » (P1)
+- §Validation enrichi : documentation `--strict-future` + `--strict-r6` (P3)
+- Roadmap audit v3 : R5 v3 « première occurrence seulement » (P2 reportée) + **R11 « outil glossarié wikilinké »** (E reporté audit v3, inspiré couple 1 v3.9 Règle I.1)
+- Historique versions mis à jour avec ligne v1.4
+
+**Étape I — Update STATUS + JOURNAL + cartographie-rag** :
+- Sprint S2 marqué « reprise post-v3.9 livrée »
+- Tableau sous-sprints enrichi avec S2.5 vague 3.5 (4 modules patchés v3.9)
+- Plan d'action 4 étapes mis à jour avec scope élargi
+- I-D-003 (canonisation 6 chiffres) marqué traité
+- I-D-004 archivé en items résolus
+
+**Décisions structurantes prises :**
+- SPEC v1.3 → v1.4 (codification R6 warning, options strict documentées, R11 roadmap)
+- Scope vague 3 acté : Vague 3 + Vague 3.5 (Scénario 2)
+
+**Bilan global post-v3.9 :**
+- Vault : 9 fichiers MD inchangé, pr-07 bumpé v3.8.5 (refactor mineur encart SLM)
+- Référentiel macro : 22 chiffres canoniques (vs 16 pré-v3.9)
+- SPEC : v1.4 actée (10 règles + 9 anti-patterns + R11 roadmap)
+- Décisions actées : 30 (inchangé)
+- Items inter-canaux : 4 archivés (I-001, I-002, I-003 canonisation, I-D-004) + 2 descendants ouverts (I-D-001 matrice PR-07, I-D-002 heuristiques DEP-02)
+- Coût total Sprint S1 + S2 : ~0,30 $ API sur 8 $ crédits
+
+**Reste à faire :**
+- Sync ascendante de tout ce batch vers Git par Blaise
+- Reprise sprint S2.2 (finalisation `DRAFT-BRIEF-CC-S2.2.md` + transmission Claude Code Plateforme)
+- Suite séquentielle : S2.2 → S2.3 → S2.5 (vague 3.5 v3.9)
+
+**Blockers :**
+- Aucun. Sprint S2 prêt à enchaîner S2.2.
+
+---
+
 ### 2026-05-12 (pause S2 post-S2.1) — Cowork Hub IA Plateforme — Drafts S2.2/S2.3 + arbitrages SPEC v1.4 + pause itération couple 1
 
 **Contexte :**

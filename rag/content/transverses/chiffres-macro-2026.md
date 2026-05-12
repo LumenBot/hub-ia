@@ -5,10 +5,10 @@ type: transverse
 axe: transverse
 niveau: 2
 tags: [chiffres, statistiques, marche-ia, adoption, roi, sourcing]
-version: 3.8.4
+version: 3.8.5
 last_updated: 2026-05-12
 glosaire_termes: [llm, rag, fine-tuning]
-derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]"]
+derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]", "[[dep-05]]"]
 public_cible: [dirigeant, ops, r&d, tech, transverse]
 ---
 
@@ -81,6 +81,54 @@ Mesure le « gap entre adoption et transformation » : la majorité des organisa
 Argument central pour les patterns de [[glossaire#rag]] et de knowledge management. Un RAG bien déployé réduit ce temps de 50-70 %. Pour une équipe de 20 personnes : plusieurs centaines d'heures redéployables par mois sur des tâches à valeur ajoutée.
 
 **Modules concernés** : [[cu-001]] (recherche & veille augmentée), [[cu-008]] (Knowledge base RAG), [[cu-025]] (Knowledge management IA-augmenté pour dirigeant), [[pr-04]] (Marché IA & emploi).
+
+## 23 % — organisations qui scalent un système agentique (McKinsey 2026)
+
+**23 % des organisations scalent un système agentique en production.** Source : McKinsey, State of AI Trust 2026.
+
+Mesure le passage du POC à la production scaled sur les systèmes agentiques (multi-agents, agents avec outils, agents en boucle). Complémentaire du 39 % en phase d'expérimentation ci-dessous : ensemble = 62 % d'organisations engagées dans une démarche agentique.
+
+**Modules concernés** : [[pr-04]] (Marché IA & emploi, §2ter v3.9), [[cu-014]] (Multi-agents par fonction), [[cu-026]] (Gouvernance agents IA), [[dep-05]] (Agents en production, §8 v3.9).
+
+## 39 % — organisations en phase d'expérimentation agentique (McKinsey 2026)
+
+**39 % des organisations sont en phase d'expérimentation sur des systèmes agentiques** (POC, pilotes, premiers tests). Source : McKinsey, State of AI Trust 2026.
+
+Pendant nécessaire du 23 % qui scalent. Indique le funnel d'adoption agentique : 39 % testent, 23 % scalent. Conversion ~60 % entre expérimentation et scaling — relativement élevée vs cycles IA classiques.
+
+**Modules concernés** : [[pr-04]] §2ter, [[cu-026]], [[dep-05]] §8.
+
+## 74 % — inexactitude identifiée comme risque hautement pertinent (McKinsey 2026)
+
+**74 % des organisations identifient l'inexactitude (hallucinations, erreurs factuelles) comme un risque hautement pertinent dans leurs déploiements IA.** Source : McKinsey, State of AI Trust 2026.
+
+Premier risque cité, devant la cybersécurité (72 %). Justifie l'attention portée aux patterns de mitigation (RAG avec citations, eval pipelines, garde-fous). Renvoie à [[vigilance-hallucinations]] pour la discipline complète.
+
+**Modules concernés** : [[pr-04]] §2ter, [[pr-05]] (Sécurité IA), [[vigilance-hallucinations]], [[dep-07]] (Évaluation continue).
+
+## 72 % — cybersécurité identifiée comme risque hautement pertinent (McKinsey 2026)
+
+**72 % des organisations identifient la cybersécurité comme un risque hautement pertinent dans leurs déploiements IA.** Source : McKinsey, State of AI Trust 2026.
+
+Deuxième risque cité, juste après l'inexactitude (74 %). Concerne les vecteurs d'attaque spécifiques à l'IA : injection de prompt, exfiltration via outils, escalade de privilèges agents, etc. Renvoie à [[pr-05]] et [[dep-08]] (Sécurité agents et MCP).
+
+**Modules concernés** : [[pr-04]] §2ter, [[pr-05]], [[dep-08]], [[vigilance-confidentialite]].
+
+## 80 % — entreprises >1 Md$ ayant supprimé des postes sans gain ROI mesuré (Gartner 2026)
+
+**80 % des entreprises de plus d'1 milliard $ de chiffre d'affaires ont supprimé des postes liés à l'IA sans avoir mesuré de gain ROI documenté.** Source : Gartner, mai 2026 (relayé via @Srini_Pa).
+
+Chiffre fort sur le paradoxe « emplois supprimés vs ROI prouvé » dans les grandes entreprises. À utiliser avec contexte (la suppression peut anticiper un ROI futur). Renvoie au pattern [[chiffres-macro-2026#95-pourcent-projets-genai-sans-roi-mesurable-mit-nanda-2025|95 % MIT NANDA]] qui mesure le même phénomène sous un autre angle.
+
+**Modules concernés** : [[pr-04]] §2ter, [[pr-01]] (Maturité organisationnelle), [[cu-020]] (Conformité RGPD/AI Act — dimension RH).
+
+## 38 % — grandes entreprises ayant nommé un Chief AI Officer ou équivalent (MIT Sloan 2026)
+
+**38 % des grandes entreprises ont nommé un Chief AI Officer ou équivalent en 2026.** Source : MIT Sloan, Davenport & Bean, mai 2026.
+
+Indicateur de gouvernance IA institutionnalisée. Permet d'apprécier la maturité organisationnelle (lien avec [[chiffres-macro-2026#21-pourcent-organisations-ia-ayant-redesigne-leurs-workflows-mckinsey-2025|21 % McKinsey workflows redesignés]] : la gouvernance institutionnelle précède en général le redesign opérationnel).
+
+**Modules concernés** : [[pr-04]] §2ter, [[pr-01]], [[cu-026]] (Gouvernance agents IA).
 
 ## 90 % — cas PME où le RAG bat le fine-tuning (Hub IA Learning Center)
 

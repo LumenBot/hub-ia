@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (S2.1 mergé PR #45, S2 mis en pause — itération couple 1 en cours)
-**Sprint en cours :** **PAUSE SPRINT S2** en attente de fin d'itération couple 1 (signal entrant I-D-004 inscrit dans SYNC-INTER-CANAUX). S2.2 préparé en DRAFT, reprise dès fin itération couple 1.
+**Dernière mise à jour :** 12 mai 2026 (post-itération couple 1 v3.9 — intégration intégrale + SPEC v1.4 actée)
+**Sprint en cours :** **Reprise sprint S2** — étapes A-I post-v3.9 livrées, SPEC v1.4 actée, vague 3.5 anticipée. S2.2 à transmettre (DRAFT à finaliser).
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -100,10 +100,25 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ **Mergé PR #45** (134/134 tests verts, vault audit 0 erreur + 183 warnings catégorisés) |
 | **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟡 **DRAFT préparé** (`rag-prep/briefs/DRAFT-BRIEF-CC-S2.2.md`) — reprise post-itération couple 1 |
 | **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | 🟡 **DRAFT sondage préalable préparé** (`rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md`) — reprise post-S2.2 |
+| **S2.5** (nouvelle — issue v3.9) | **Vague 3.5** modules patchés v3.9 : `dep-03.md`, `dep-04.md`, `dep-05.md`, `pr-04.md` | Cowork + Cowork Hub IA (sondage co-produit DEP-05 §8) + Desktop pour eval | 🟡 **À cadrer post-S2.3** — les 4 modules n'existent pas encore dans le vault, production intégrale (pas refactor) |
 
-## Pause sprint S2 — actée 12 mai 2026
+## Reprise sprint S2 — post-itération couple 1 v3.9 — étapes A-I livrées
 
-**Cause** : itération éditoriale couple 1 en cours (signal entrant I-D-003 inscrit dans SYNC-INTER-CANAUX). Reprise sprint S2 dès notification de fin d'itération couple 1.
+**Cause de reprise** : itération couple 1 v3.9 terminée et mergée (PR #46). Message de passation reçu. Sprint S2 reprend avec intégration intégrale du périmètre v3.9.
+
+**Bilan étapes A-I (production Cowork 12 mai post-passation v3.9)** :
+
+| Étape | Livrable | Statut |
+|---|---|---|
+| A | Rebaseline JOURNAL/STATUS/SYNC depuis Git post-v3.9 | ✅ Fait |
+| B | Clôture I-D-004 dans SYNC-INTER-CANAUX | ✅ Fait |
+| C | Canonisation 6 chiffres macro 2026 dans `chiffres-macro-2026.md` v3.8.5 (I-D-003 traité) | ✅ Fait |
+| D | Refactor `pr-07.md` v3.8.5 — intégration encart « troisième voie 2026 — fine-tuning SLM » | ✅ Fait |
+| E | Arbitrage règle « outil glossarié wikilinké » → reporté audit v3 (R11 roadmap) | ✅ Fait |
+| F | Décision scope : **Scénario 2** — Vague 3 inchangée (CU-026/CU-027/DEP-08) + nouvelle **Vague 3.5** (DEP-03/DEP-04/DEP-05/PR-04) | ✅ Fait |
+| G | Acceptation proposition couple 1 — sondage co-produit DEP-05 §8 (à activer vague 3.5) | ✅ Fait |
+| H | Production SPEC v1.4 (3 arbitrages + roadmap audit v3 enrichie) | ✅ Fait |
+| I | Update STATUS + JOURNAL + cartographie-rag | 🟡 En cours (this commit) |
 
 **Plan d'action documenté à la reprise** (4 étapes) :
 

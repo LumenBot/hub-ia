@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.3 (8 règles essentielles + R9 + R10 + exception R1 glossaire + politique wikilinks futurs)
-**Dernière mise à jour :** 12 mai 2026 (révision post-S1bis Claude Code Plateforme)
+**Statut :** v1.4 (8 règles + R9 + R10 + exception R1 + politique whitelist + R6 warning par défaut codifié + options strict documentées)
+**Dernière mise à jour :** 12 mai 2026 (révision post-S2.1 Claude Code Plateforme + intégration v3.9 couple 1)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -123,6 +123,12 @@ Tout chiffre statistique ou citation directe doit être suivi de sa source daté
 ```
 
 **Anti-pattern** : citations sans source, ou source vague (« selon une étude »).
+
+### v1.4 — Mode par défaut R6 = warning (codification post-S2.1)
+
+R6 signale par défaut un **warning** (non bloquant en CI standard) pour les chiffres orphelins, afin de tolérer les heuristiques pédagogiques internes au Hub (impacts relatifs documentés par RetEx interne, fourchettes techniques sans source primaire publique, formulations marketing acceptables type « 80 % entreprises ont Postgres »). Cette codification consacre la convention déjà appliquée empiriquement par Claude Code Plateforme audit v2 (cf. RAPPORT-CC-S2.1 §5 P1, validée par arbitrage Cowork SPEC v1.4).
+
+Le **mode strict** (R6 → erreur bloquante) est activable via `audit-md-rag.py --strict-r6` quand Cowork veut durcir la CI (typiquement post-vague 3 ou pour audit ponctuel pré-publication).
 
 ---
 
@@ -257,6 +263,20 @@ Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à 
 12. **R4 tolérante aux wikilinks vers MD planifiés** (D-029) : lire `rag-prep/whitelist-wikilinks-futurs.md` au démarrage de l'audit. Wikilinks vers codes whitelistés → warnings (pas erreurs). Wikilinks vers codes ni dans le vault ni dans la whitelist → erreurs réelles.
 13. **R6 reconnaît les wikilinks canoniques comme source** : étendre `SOURCE_MARKERS` pour matcher `\[\[chiffres-macro-\d{4}[^\]]+\]\]` et plus généralement les wikilinks vers `transverses/*`. Convergence opérationnelle R6 ↔ R9.
 
+### Options CLI de l'audit v2 (implémentées en S2.1, documentées en SPEC v1.4)
+
+L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour ajuster le niveau de strictness :
+
+- **`--strict-future`** : transforme les warnings R4 « wikilink vers code whitelisté » en erreurs bloquantes. À activer en CI quand la whitelist doit être maintenue stricte (typiquement post-vague 3 ou pré-publication).
+- **`--strict-r6`** : transforme les warnings R6 « chiffre orphelin » en erreurs bloquantes. À activer pour un audit éditorial ponctuel ou en CI durcie.
+
+**Combinaison courante pré-publication** : `audit-md-rag.py --strict-future --strict-r6` pour audit strict (0 warnings tolérés).
+
+### Roadmap audit v3 (post-vague 3, à activer selon RetEx d'usage)
+
+14. **R5 v3 « première occurrence seulement »** : R5 v2 actuelle (S2.1) signale toute occurrence d'un terme glossaire utilisé en clair (51 warnings observés). Évolution prévue en audit v3 : ne signaler que la première occurrence par fichier MD, pour encourager le wikilink initial sans saturer le texte de wikilinks répétés. Mise en œuvre conditionnelle à un RetEx post-vague 3 confirmant le besoin.
+15. **R11 — outil glossarié doit wikilinker vers sa fiche** (inspiré couple 1 v3.9 Règle I.1 « cross-site outils ») : toute mention dans un MD d'un outil ayant sa propre fiche `outils-{categorie}.md` doit la wikilinker à sa première occurrence dans le fichier. Application différée à audit v3, après que 5+ fichiers `outils-*.md` soient produits dans le vault (actuellement 1 seul : `outils-vector-db.md`).
+
 ---
 
 ## Historique des versions
@@ -267,5 +287,6 @@ Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à 
 | v1.1 | 11 mai 2026 | + R9 (citation textuelle chiffres canoniques, règle stricte issue retour I-002) ; + section méthodologique « briques transverses » (D-025) ; enrichissement anti-patterns (AP-2 conversion monétaire, AP-3 édulcoration contextuelle) ; ajout glose « On-premise » au glossaire (alignement RULES §C.2)|
 | v1.2 | 12 mai 2026 | + R10 (transposition fidèle des valeurs numériques dans les tableaux, règle stricte issue retour I-003) ; AP-4 promu en règle R10 plutôt qu'anti-pattern documenté ; audit R10 ajouté à la roadmap v2 audit-md-rag.py |
 | v1.3 | 12 mai 2026 | + Exception structurelle R1 pour fichiers racines transverses (D-028, issue S1bis catégorie A) ; + Politique des wikilinks vers MD planifiés (D-029, issue S1bis catégorie B) ; roadmap audit v2 enrichie de 3 évolutions (exception R1, R4 tolérante, R6 reconnaît wikilinks canoniques) |
+| v1.4 | 12 mai 2026 | + Codification R6 warning par défaut (issue RAPPORT-CC-S2.1 §5 P1 — convention déjà appliquée empiriquement par Claude Code Plateforme audit v2) ; + Documentation des options `--strict-future` et `--strict-r6` (issue P3) ; + Roadmap audit v3 enrichie : R5 v3 « première occurrence seulement » (P2 reportée audit v3) et R11 « outil glossarié wikilinké » (inspiré couple 1 v3.9 Règle I.1 cross-site outils, application différée audit v3) |
 
 **Évolution prévue** : enrichissement en v2 post-pilote S1 sur la base des écarts détectés par les premières exécutions de `audit-md-rag.py`.
