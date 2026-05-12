@@ -21,6 +21,7 @@ def _load_module():
     spec = importlib.util.spec_from_file_location("audit_md_rag", SCRIPT_PATH)
     mod = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
+    sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
     return mod
 
@@ -284,3 +285,207 @@ class TestHelpers:
         sections = audit_md_rag.split_sections(body)
         levels = [s[0] for s in sections]
         assert levels == ["h1", "h2", "h2", "h3"]
+
+
+# ============================================================
+# Bloc A (S2.1) — D-028 exception R1 + D-029 whitelist R4
+# ============================================================
+
+GLOSSAIRE_RACINE = textwrap.dedent("""\
+---
+code: glossaire
+titre: "Glossaire canonique du Hub IA"
+type: transverse
+axe: transverse
+niveau: 1
+tags: [glossaire, definitions]
+version: 3.8.4
+last_updated: 2026-05-11
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Glossaire canonique du Hub IA
+
+## RAG
+
+Définition.
+""")
+
+CHIFFRES_MACRO_RACINE = textwrap.dedent("""\
+---
+code: chiffres-macro-2026
+titre: "Chiffres macro IA — référentiel canonique 2026"
+type: transverse
+axe: transverse
+niveau: 2
+tags: [chiffres]
+version: 3.8.4
+last_updated: 2026-05-12
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Chiffres macro IA — référentiel canonique 2026
+
+## 95 % — projets GenAI sans ROI (MIT NANDA 2025)
+
+**95 % des projets GenAI** (Source : MIT NANDA 2025).
+""")
+
+
+class TestD028ExceptionR1:
+    """D-028 : glosaire_termes et derives peuvent être vides pour les fichiers
+    racines transverses (glossaire.md, chiffres-macro-*.md)."""
+
+    def test_glossaire_avec_champs_vides_ne_genere_pas_erreur_r1(self, tmp_path):
+        fp = write_md(tmp_path, "glossaire.md", GLOSSAIRE_RACINE)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r1_glosaire_errors = [
+            h for h in result["errors"]
+            if h.startswith("R1") and ("glosaire_termes" in h or "derives" in h)
+        ]
+        assert r1_glosaire_errors == [], f"R1 ne devrait pas signaler les champs vides : {r1_glosaire_errors}"
+
+    def test_chiffres_macro_avec_champs_vides_ne_genere_pas_erreur_r1(self, tmp_path):
+        fp = write_md(tmp_path / "transverses" if False else tmp_path, "chiffres-macro-2026.md", CHIFFRES_MACRO_RACINE)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r1_glosaire_errors = [
+            h for h in result["errors"]
+            if h.startswith("R1") and ("glosaire_termes" in h or "derives" in h)
+        ]
+        assert r1_glosaire_errors == []
+
+    def test_module_ordinaire_avec_champs_vides_garde_erreur_r1(self, tmp_path):
+        """L'exception D-028 NE doit PAS s'appliquer aux modules ordinaires."""
+        md = CONFORME.replace("derives: [\"[[cu-008]]\"]", "derives: []")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(h.startswith("R1") and "derives" in h for h in result["errors"])
+
+    def test_transverse_non_racine_garde_erreur_r1(self, tmp_path):
+        """Un transverse ordinaire (vigilance-..., pattern-...) ne bénéficie pas de l'exception."""
+        md = CONFORME.replace("code: cu-001", "code: vigilance-test")\
+                     .replace("type: module-cu", "type: transverse")\
+                     .replace("axe: B", "axe: transverse")\
+                     .replace("derives: [\"[[cu-008]]\"]", "derives: []")
+        fp = write_md(tmp_path, "vigilance-test.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(h.startswith("R1") and "derives" in h for h in result["errors"])
+
+    def test_helper_is_r1_exception_glossaire(self):
+        fm = {"code": "glossaire", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm, "glosaire_termes") is True
+        assert audit_md_rag._is_r1_exception(fm, "derives") is True
+        assert audit_md_rag._is_r1_exception(fm, "tags") is False
+
+    def test_helper_is_r1_exception_chiffres_macro(self):
+        fm = {"code": "chiffres-macro-2026", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm, "derives") is True
+        # variantes d'année autorisées par préfixe
+        fm2 = {"code": "chiffres-macro-2027", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm2, "derives") is True
+
+
+class TestD029WhitelistR4:
+    """D-029 : wikilinks vers MD planifiés (whitelisted) génèrent un warning
+    plutôt qu'une erreur."""
+
+    @pytest.fixture
+    def whitelist_path(self, tmp_path_factory):
+        # whitelist hors du vault pour éviter qu'elle soit auditée
+        wl = tmp_path_factory.mktemp("wl") / "whitelist.md"
+        wl.write_text(textwrap.dedent("""\
+            # whitelist
+
+            | Code | Titre | Vague |
+            |---|---|---|
+            | `cu-002` | Assistant rédactionnel | 3 |
+            | `cu-014` | Multi-agents | 3 |
+            | `pr-04` | Marché IA | 3 |
+        """), encoding="utf-8")
+        return str(wl)
+
+    def test_load_whitelist_parse_codes(self, whitelist_path):
+        codes = audit_md_rag.load_whitelist(whitelist_path)
+        assert codes == {"cu-002", "cu-014", "pr-04"}
+
+    def test_load_whitelist_fichier_absent_retourne_set_vide(self, tmp_path):
+        codes = audit_md_rag.load_whitelist(str(tmp_path / "introuvable.md"))
+        assert codes == set()
+
+    def test_wikilink_whitelisted_genere_warning_pas_erreur(self, tmp_path, whitelist_path):
+        # MD qui pointe vers cu-014 (whitelisted), pas dans le vault
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014|Multi-agents]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r4_errors = [h for h in result["errors"] if h.startswith("R4")]
+        r4_warnings = [h for h in result["warnings"] if h.startswith("R4")]
+        assert r4_errors == [], f"cu-014 whitelisted ne doit pas être en erreur : {r4_errors}"
+        assert any("cu-014" in w for w in r4_warnings)
+
+    def test_wikilink_inconnu_reste_erreur(self, tmp_path, whitelist_path):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-999]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-999]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any("cu-999" in h for h in result["errors"])
+
+    def test_strict_future_transforme_warning_en_erreur(self, tmp_path, whitelist_path):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+            strict_future=True,
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r4_errors = [h for h in result["errors"] if "cu-014" in h]
+        r4_warnings = [h for h in result["warnings"] if "cu-014" in h]
+        assert r4_errors  # erreur en mode strict
+        assert "strict-future" in r4_errors[0]
+        assert r4_warnings == []
+
+    def test_main_strict_future_flag_active_durcissement(self, tmp_path, whitelist_path, capsys):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        write_md(tmp_path, "cu-001.md", md)
+        rc = audit_md_rag.main([
+            "--vault", str(tmp_path),
+            "--whitelist", whitelist_path,
+            "--strict-future",
+        ])
+        assert rc == 1
+        out = capsys.readouterr().out
+        assert "cu-014" in out
+
+    def test_main_sans_strict_future_warning_non_bloquant(self, tmp_path, whitelist_path, capsys):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        write_md(tmp_path, "cu-001.md", md)
+        rc = audit_md_rag.main([
+            "--vault", str(tmp_path),
+            "--whitelist", whitelist_path,
+        ])
+        # 0 erreur (warning seulement) ⇒ exit code 0
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "warning" in out.lower() or "⚠" in out
