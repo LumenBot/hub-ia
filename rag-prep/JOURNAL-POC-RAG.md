@@ -11,6 +11,45 @@
 
 ## Entrées
 
+### 2026-05-12 (ouverture S2.1) — Cowork Hub IA Plateforme — D-030 actée + brief CC-S2.1 produit
+
+**Contexte :** Sprint S1 définitivement clos (merge PR #44). Question ouverte de Blaise sur l'adoption de Claude Code Desktop. Réponse Blaise : D-030 validée, Node.js + Claude Code Desktop installés sur le Mac de Blaise.
+
+**Actions menées :**
+
+**1. Décision structurante D-030 actée** : architecture Claude Code hybride. Claude Code Plateforme (web) pour cadrage/code/tests mockés. Claude Code Desktop (local) pour exécutions avec secrets. Allocation au cas par cas dans chaque brief sprint.
+
+**2. Découpage S2 en 3 sous-sprints S2.1 / S2.2 / S2.3** (au lieu d'un seul gros brief 7 lots) :
+- **S2.1** : Audit-md-rag v2 — prérequis aux autres lots S2. Claude Code Plateforme seul (pas d'API). 5 blocs A-E.
+- **S2.2** (à venir) : Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook. Cowork + Claude Code Plateforme + Desktop pour eval.
+- **S2.3** (à venir) : Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production Cowork ↔ Cowork Hub IA (sondage préalable D-026). Cowork + Desktop pour eval post-production.
+
+**3. Brief CC-S2.1 produit** : `rag-prep/briefs/BRIEF-CC-S2.1-audit-v2.md` (~2000 mots, cible D-021 respectée). 5 blocs structurés :
+- Bloc A : Exception R1 (D-028) + Whitelist R4 (D-029)
+- Bloc B : R5 glossaire + R7 nommage + R8 versioning git
+- Bloc C : R6 étendu (reconnaît wikilinks transverses comme source) + R9 chiffres macro canoniques (parse chiffres-macro-2026.md)
+- Bloc D : R10 tableaux numériques fidèles (le plus complexe, peut rester en warning première itération)
+- Bloc E : Exécution audit v2 sur vault réel + RAPPORT-CC-S2.1 + PR
+
+**4. Estimation effort S2.1** : ~6-7,5 h Claude Code Plateforme. **Coût API : 0 $** (refactor code + tests, pas d'appel API).
+
+**5. Résultat attendu post-audit v2** : sur le vault de 9 fichiers, **0 erreurs** au lieu des 150 écarts S1bis (qui étaient majoritairement des faux positifs liés à audit v1 non aligné SPEC v1.2/v1.3). Quelques warnings tolérés (R10 imparfaite, chiffres catégorie D arbitrés acceptables).
+
+**Décisions structurantes prises :**
+- D-030 — Architecture Claude Code hybride (Plateforme + Desktop)
+
+**Reste à faire :**
+- Push de cette entrée JOURNAL + STATUS + DECISIONS étendu (D-030) vers Git par Blaise
+- Transmission `BRIEF-CC-S2.1-audit-v2.md` à Claude Code Plateforme
+- Exécution S2.1 par Claude Code Plateforme + ouverture PR
+- Merge final S2.1 par Blaise
+- Production brief CC-S2.2 (post-S2.1 merge)
+
+**Blockers :**
+- Transmission brief par Blaise.
+
+---
+
 ### 2026-05-12 (clôture sprint S1) — Cowork + Blaise — S1c.2 exécuté localement avec succès + merge PR #44
 
 **Contexte :**

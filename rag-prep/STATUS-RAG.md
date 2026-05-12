@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (post-merge PR #44, sprint S1 définitivement clôturé)
-**Sprint en cours :** **Aucun** — cadrage S2 à ouvrir (Vague 3 modules denses + audit-md-rag v2 + 3 briques transverses anticipées)
+**Dernière mise à jour :** 12 mai 2026 (S2.1 ouvert — audit v2)
+**Sprint en cours :** **S2.1 — Audit-md-rag v2** (prérequis aux S2.2 et S2.3) — brief produit, à transmettre à Claude Code Plateforme
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -89,9 +89,15 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 
 **Aucun.** Sprint S1 définitivement clôturé. Pipeline RAG fonctionnelle, validée empiriquement par eval 10/10 sources retrouvées.
 
-## Sprint S2 — cadrage à ouvrir
+## Sprint S2 — découpé en 3 sous-sprints (S2.1, S2.2, S2.3) — séquencement acté
 
-**Acteurs anticipés** : Cowork + Claude Code Plateforme + Blaise (éventuellement Claude Code Desktop si D-030 actée).
+**D-030 actée** : architecture Claude Code hybride. Allocation au cas par cas dans chaque brief.
+
+| Sous-sprint | Périmètre | Allocation D-030 | Statut |
+|---|---|---|---|
+| **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | 🟡 Brief produit, à transmettre |
+| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | À cadrer post-S2.1 |
+| **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | À cadrer post-S2.2 |
 
 **Livrables Sprint S2 anticipés (à valider via brief CC-S2)** :
 
