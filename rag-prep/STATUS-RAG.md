@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (S2.1 livré — audit v2 sur vault → 0 erreur)
-**Sprint en cours :** **S2.1 livré par Claude Code Plateforme** — PR ouverte, en attente merge Blaise. S2.2 prêt à démarrer post-merge.
+**Dernière mise à jour :** 12 mai 2026 (S2.1 mergé PR #45, S2 mis en pause — itération couple 1 en cours)
+**Sprint en cours :** **PAUSE SPRINT S2** en attente de fin d'itération couple 1 (signal entrant I-D-004 inscrit dans SYNC-INTER-CANAUX). S2.2 préparé en DRAFT, reprise dès fin itération couple 1.
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -87,7 +87,9 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 
 ## Blockers actifs
 
-**Aucun.** Sprint S1 définitivement clôturé. Pipeline RAG fonctionnelle, validée empiriquement par eval 10/10 sources retrouvées.
+**Pause sprint S2 actée** en attente de fin d'itération couple 1 (signal I-D-003). Aucun blocker côté couple 2.
+
+**Reprise attendue** : à la notification Blaise de fin d'itération couple 1 (Cowork Hub IA + Claude Code Hub IA livrent leur PR éditoriale sur main du repo `hub-ia`).
 
 ## Sprint S2 — découpé en 3 sous-sprints (S2.1, S2.2, S2.3) — séquencement acté
 
@@ -95,9 +97,20 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 
 | Sous-sprint | Périmètre | Allocation D-030 | Statut |
 |---|---|---|---|
-| **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ Livré (PR à merger — 134/134 tests verts, vault audit 0 erreur) |
-| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | À cadrer post-S2.1 |
-| **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | À cadrer post-S2.2 |
+| **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ **Mergé PR #45** (134/134 tests verts, vault audit 0 erreur + 183 warnings catégorisés) |
+| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟡 **DRAFT préparé** (`rag-prep/briefs/DRAFT-BRIEF-CC-S2.2.md`) — reprise post-itération couple 1 |
+| **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | 🟡 **DRAFT sondage préalable préparé** (`rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md`) — reprise post-S2.2 |
+
+## Pause sprint S2 — actée 12 mai 2026
+
+**Cause** : itération éditoriale couple 1 en cours (signal entrant I-D-003 inscrit dans SYNC-INTER-CANAUX). Reprise sprint S2 dès notification de fin d'itération couple 1.
+
+**Plan d'action documenté à la reprise** (4 étapes) :
+
+1. **Synchronisation avec couple 1** : réception notification fin d'itération via Blaise (liste des fichiers HTML créés/modifiés). Identification des impacts sur la couche MD (nouvelle vague à produire ? refactor existants ? évolution RULES ?). Mise à jour `whitelist-wikilinks-futurs.md` si nouveaux codes apparaissent.
+2. **SPEC v1.4** : production des 3 arbitrages Cowork préparés dans `rag-prep/briefs/ARBITRAGE-COWORK-SPEC-v1.4.md` (P1 codifier R6 warning par défaut ✅, P2 R5 v3 reporté audit v3 ✅, P3 documenter options strict ✅). Effort 30-45 min.
+3. **Sprint S2.2** : finalisation `DRAFT-BRIEF-CC-S2.2.md` (§6/§7/§8 prudence + checklist + fichiers de référence) → transmission Claude Code Plateforme. 4 lots A→E, ~7-10 h split entre Cowork/Plateforme/Desktop.
+4. **Sprint S2.3** : transmission `DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md` au couple 1 (9 passages sensibles cu-026/cu-027/dep-08). Production des 3 modules denses après réception sondage. Eval post-production sur vault élargi (12-13 fichiers).
 
 **Livrables Sprint S2 anticipés (à valider via brief CC-S2)** :
 

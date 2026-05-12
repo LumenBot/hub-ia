@@ -11,6 +11,64 @@
 
 ## Entrées
 
+### 2026-05-12 (pause S2 post-S2.1) — Cowork Hub IA Plateforme — Drafts S2.2/S2.3 + arbitrages SPEC v1.4 + pause itération couple 1
+
+**Contexte :**
+- Sprint S2.1 livré par Claude Code Plateforme (PR #45 mergée sur main). Bilan : 134/134 tests verts, 0 erreur sur vault, 183 warnings catégorisés.
+- **3 propositions d'amendement SPEC v1.4** soulevées dans RAPPORT-CC-S2.1 §5 (P1 R6 warning par défaut, P2 R5 v3 « première occurrence », P3 documenter options strict).
+- Blaise signale une **itération éditoriale couple 1 en cours**, prête à passer en production sur le site Hub IA HTML. Sprint S2 mis en pause jusqu'à fin itération couple 1 pour permettre la synchronisation éditoriale.
+
+**Actions menées (5 livrables documentés sans exécution) :**
+
+**1. Rebaseline Cowork-side** : JOURNAL + STATUS + RAPPORT-CC-S2.1 + audit-report-s2.1 re-copiés depuis le clone Git vers Cowork-side (D-024 Option D rebaselining post-merge PR #45).
+
+**2. Arbitrage Cowork des 3 propositions SPEC v1.4** : `rag-prep/briefs/ARBITRAGE-COWORK-SPEC-v1.4.md` produit (~1000 mots). Verdict Cowork :
+- **P1 — R6 warning par défaut** : ✅ Accepter. Codification de la convention déjà appliquée empiriquement.
+- **P2 — R5 v3 « première occurrence »** : ✅ Accepter MAIS reporter à audit v3. Laisser R5 v2 tourner pendant S2.2/S2.3 pour collecter des données.
+- **P3 — Documenter `--strict-future` et `--strict-r6`** : ✅ Accepter.
+
+À valider par Blaise, puis production SPEC v1.4 à la reprise (30-45 min effort).
+
+**3. DRAFT BRIEF-CC-S2.2** : `rag-prep/briefs/DRAFT-BRIEF-CC-S2.2.md` (~1500 mots). 4 lots A→E avec allocation D-030 hybride :
+- Lot A — Production `pattern-llm-wiki.md` + refactor cu-008/dep-02 (Cowork, 2-3 h)
+- Lot B — Extension golden set 10 → 30 questions (Cowork, 1-2 h)
+- Lot C — Métriques de coût + pre-commit hook + system prompt enrichi (Claude Code Plateforme, 2-3 h)
+- Lot D — Eval extended sur vault enrichi (Claude Code Desktop, 30 min + ~0,30-0,50 $ API)
+- Lot E — RAPPORT + PR (1 h)
+- **Effort total estimé** : 7-10 h split.
+- **DRAFT** — §6/§7/§8 prudence + checklist + fichiers de référence à compléter à la reprise.
+
+**4. DRAFT SONDAGE COWORK HUB IA pré-S2.3** : `rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md` (~1500 mots). **Premier exercice de la convention D-026 en mode sondage préalable** (au lieu de revue a posteriori comme I-002/I-003). 9 passages sensibles identifiés sur les 3 modules denses :
+- CU-026 : cas Klarna, framework 7 dimensions, pattern « agent = employé »
+- CU-027 : stack ECC + chiffre « 8-10× », pattern AMETRA, niveaux d'autonomie outils
+- DEP-08 : risques MCP servers, cadre AgentShield, cas-école sécurité
+
+À transmettre à Cowork Hub IA à la reprise post-itération couple 1.
+
+**5. Inscription I-D-004 dans SYNC-INTER-CANAUX** (renommé depuis I-D-003 suite à collision avec un I-D-003 existant côté Git « Canonisation 3 nouveaux chiffres macro » issu d'une run veille) : signal entrant « nouvelle itération éditoriale couple 1 en cours ». Convention « couple 1 tranche, couple 2 s'aligne » réaffirmée. Action attendue couple 2 à la reprise : recevoir notification + identifier impacts MD + reprendre sprint S2.
+
+**6. Mise en pause STATUS** : sprint S2 acté en pause, plan d'action documenté en 4 étapes à exécuter à la reprise (sync couple 1, SPEC v1.4, S2.2, S2.3).
+
+**Décisions structurantes prises :** aucune. 3 arbitrages préparés en draft (SPEC v1.4) à valider à la reprise.
+
+**Bilan global Sprint S1 + S2.1 (clôturés)** :
+- Vault : 9 fichiers MD, 107 chunks indexés
+- Code : pipeline RAG complète + audit v2, 134/134 tests verts
+- Eval : 10/10 sources retrouvées (S1c.2) + 0 erreur audit (S2.1)
+- Référentiel : 30 décisions, SPEC v1.3 (10 règles + 9 anti-patterns), whitelist 69 codes
+- Coordination : 3 items archivés (I-001, I-002, I-003) + 3 descendants ouverts (I-D-001, I-D-002, I-D-003)
+- Coût total : ~0,30 $ API sur 8 $ de crédits
+
+**Reste à faire :**
+- Push de cette entrée JOURNAL + STATUS + SYNC-INTER-CANAUX + 3 nouveaux drafts vers Git par Blaise
+- **PAUSE** — itération couple 1 en cours
+- Reprise dès notification Blaise de fin d'itération couple 1
+
+**Blockers :**
+- Aucun. Pause souple, sprint S2 reprend dès le go Blaise post-itération couple 1.
+
+---
+
 ### 2026-05-12 (S2.1 livraison) — Claude Code Hub IA Plateforme — Audit-md-rag v2 aligné SPEC v1.3 (5 blocs)
 
 **Contexte :** Sprint S2.1 ouvert par Blaise (BRIEF-CC-S2.1-audit-v2). Allocation D-030 : Claude Code Plateforme seul (refactor code + tests + exécution audit sur vault, aucun appel API externe). Cible brief §4 Bloc E : 0 erreur sur le vault de 9 fichiers.

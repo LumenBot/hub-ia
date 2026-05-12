@@ -1,7 +1,7 @@
 # SYNC-INTER-CANAUX.md — Coordination couple 1 ↔ couple 2
 
-**Statut :** v0 (initial)
-**Dernière mise à jour :** 11 mai 2026
+**Statut :** v2
+**Dernière mise à jour :** 12 mai 2026
 **Garant transverse :** Blaise Cavalli
 
 > **Rôle :** matérialiser les flux de coordination entre le couple 1 (Cowork Hub IA + Claude Code Hub IA — production éditoriale) et le couple 2 (Cowork Hub IA Plateforme + Claude Code Hub IA Plateforme — développement RAG).
@@ -45,6 +45,58 @@ Le couple 1 doit être informé quand :
 ---
 
 ### Items descendants (couple 1 → couple 2)
+
+#### I-D-003 — Canonisation 3 nouveaux chiffres macro 2026 (issus run veille 2026-05-12)
+
+**Émetteur :** couple 1 (Cowork Hub IA — Lot B v3.9 PR-04)
+**Destinataire :** couple 2 (Cowork Hub IA Plateforme)
+**Date d'inscription :** 12 mai 2026
+**Statut :** ouvert (à traiter par couple 2 — bump `chiffres-macro-2026.md`)
+
+**Contenu (résumé) :**
+La revue veille `pistes-cumulatives.md` run 2026-05-12 a remonté **6 nouveaux chiffres institutionnels macro** à canoniser dans `transverses/chiffres-macro-2026.md` côté RAG. Ces chiffres seront intégrés dans PR-04 §2ter (Lot B v3.9 Hub HTML) et auront probablement un recouvrement avec CU-026 (gouvernance agents), DEP-05 (production agents) et PR-01 (maturité orga) — donc canonisation R9 plutôt que reformulation à chaque module.
+
+Chiffres à canoniser :
+1. **23 % organisations scalent un système agentique** — McKinsey State of AI Trust 2026
+2. **39 % organisations en phase d'expérimentation agentique** — McKinsey State of AI Trust 2026
+3. **74 % identifient l'inexactitude comme risque hautement pertinent** — McKinsey State of AI Trust 2026
+4. **72 % identifient la cybersécurité comme risque hautement pertinent** — McKinsey State of AI Trust 2026
+5. **80 % entreprises >1 Md$ ont supprimé des postes sans gain ROI mesuré** — Gartner via @Srini_Pa (mai 2026)
+6. **38 % grandes entreprises ont nommé un Chief AI Officer ou équivalent** — MIT Sloan Davenport & Bean (mai 2026)
+
+**Action attendue côté couple 2 :** bump `chiffres-macro-2026.md` (probable v3.8.4) avec les 6 chiffres. Sourcer chacun précisément. Anticiper les wikilinks à venir depuis vague 3 (CU-026, DEP-05) et tout module PR-XX produit ensuite.
+
+**Impact côté couple 1 :** dès que `chiffres-macro-2026.md` est mis à jour côté plateforme, signal post-itération v3.9 Hub HTML pour bénéficier du référentiel canonique côté MD RAG. Le HTML PR-04 §2ter cite directement les sources (pas de wikilink, c'est un site web public), pas de dépendance bloquante.
+
+**Priorité :** moyenne. Pas bloquant pour v3.9 Hub HTML mais conditionne la cohérence inter-canaux dès la vague 3 RAG.
+
+---
+
+#### I-D-004 — Signal entrant : nouvelle itération éditoriale couple 1 en cours
+
+**Émetteur :** couple 1 (Cowork Hub IA — signalé par Blaise le 12 mai 2026)
+**Destinataire :** couple 2 (Cowork Hub IA Plateforme)
+**Date d'inscription :** 12 mai 2026 (renommé I-D-003 → I-D-004 suite à collision : un I-D-003 « Canonisation 3 nouveaux chiffres macro » existait déjà côté Git via run veille automatisée)
+**Statut :** ouvert (signal entrant — itération éditoriale couple 1 en cours)
+
+**Contenu (résumé) :**
+Blaise a signalé une itération éditoriale du couple 1 en cours, prête à passer en production sur le site Hub IA HTML. Périmètre exact non communiqué à ce stade (vraisemblablement une vague v3.9 ou v4.0 incluant de nouveaux modules, des modifications de modules existants, et/ou des ajustements de référentiel RULES).
+
+**Action attendue côté couple 2 (à la reprise post-itération couple 1) :**
+1. **Recevoir la notification de fin d'itération** via Blaise (avec la liste précise des fichiers HTML créés/modifiés)
+2. **Identifier les impacts** sur la couche MD :
+   - Nouveaux modules HTML → production MD parallèle requise (vague 4 du vault ?)
+   - Modules HTML modifiés → refactor MD associé requis (versions à bumper)
+   - Évolution RULES → alignement éventuel SPEC v1.4 (en plus des arbitrages SPEC v1.4 déjà préparés post-S2.1)
+3. **Reprise sprint S2** avec adaptation du séquencement S2.2 / S2.3 selon les nouveautés
+4. **Si nouvelle entrée whitelist** (modules à produire en vague 4) → mise à jour `whitelist-wikilinks-futurs.md`
+
+**Convention « couple 1 tranche, couple 2 s'aligne »** : l'itération couple 1 fait foi. Couple 2 adapte sans contester.
+
+**Trace temporelle :**
+- 12 mai 2026 — inscription dans SYNC-INTER-CANAUX (item ouvert, sprint S2 mis en pause par Cowork)
+
+---
 
 #### I-D-002 — Sources primaires manquantes sur heuristiques techniques DEP-02 HTML
 
@@ -253,3 +305,5 @@ Mise à jour SYNC-INTER-CANAUX.md côté canal émetteur (clôture + archivage)
 | Version | Date | Modification |
 |---|---|---|
 | v0 | 11 mai 2026 | Initialisation + I-001 (opportunité refonte RULES v1.6 couple 1) |
+| v1 | 12 mai 2026 | Clôtures I-001, I-002, I-003 + ouvertures I-D-001 et I-D-002 (descendants couple 1) |
+| v2 | 12 mai 2026 | Ouverture I-D-003 (descendant couple 1 → couple 2 : canonisation 6 chiffres macro issus du run veille 2026-05-12, intégrés dans Lot B v3.9 PR-04) |
