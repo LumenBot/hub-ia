@@ -11,6 +11,57 @@
 
 ## Entrées
 
+### 2026-05-12 (clôture sprint S1) — Cowork + Blaise — S1c.2 exécuté localement avec succès + merge PR #44
+
+**Contexte :**
+- Sprint S1ter en cours, Lot S1c.1 livré par Claude Code Plateforme (python-dotenv + helper `_env.py`), Lot S1c.2 différé en exécution locale par Blaise (faute d'accès aux clés API depuis session web Claude Code Plateforme).
+- Blaise a exécuté S1c.2 en local sur son Mac : setup venv, install `requirements.txt`, vérification `_env.py` charge les clés correctement, lancement `ingest.py` puis `run_eval.py`.
+
+**Actions menées :**
+
+**1. Exécution locale S1c.2 — résultats exceptionnels :**
+- **Ingestion** : 9 fichiers MD du vault → **107 chunks créés** (plus dense que les 30-60 attendus, dû à la granularité fine par section H2 sur les modules denses cu-008 et dep-02 qui ont 11-12 sections chacun). Coût OpenAI : quasi-nul (~0,001 $ pour l'embedding initial).
+- **Re-indexation incrémentale validée** : 2e exécution `ingest.py` retourne `new=0 skipped=107` — mécanisme de hash + version frontmatter opérationnel.
+- **Eval golden set** : `run_eval.py` a tourné ~3-5 min sur les 10 questions. Résultat :
+  - **Sources attendues retrouvées : 10/10** (cible ≥ 8/10 largement dépassée)
+  - **Concepts attendus pleinement couverts : 9/10**
+  - **Score global : 10/10**
+  - ✅ Critère brief §9 atteint
+- **Observations qualitatives notables** :
+  - **q-002** : le système refuse honnêtement (« Je n'ai pas de réponse documentée dans le Hub IA pour cette question ») — comportement RAG idéal, pas d'hallucination. Application opérationnelle de [[vigilance-hallucinations]].
+  - **q-009 et q-010** : sources « bonus » légitimes (chunks proches sémantiquement, cu-008 et dep-02 cités en complément d'outils-vector-db).
+  - **q-001** : seul concept « méthode » absent — implicite dans la réponse, pas un raté.
+- **Coût total S1c.2** : ~0,30 $ Anthropic + ~0,001 $ OpenAI = **~0,30 $ total**. Largement sous plafonds durcis brief S1ter (0,50 $ / 0,10 $) et sous crédits disponibles (3 $ / 5 $).
+
+**2. Push des artefacts par Blaise :**
+- `rag/eval/eval-report-s1ter.md` (5565 bytes) + `rag/eval/eval-report-s1ter.json` (7749 bytes) commités sur la branche `claude/execute-pilot-batches-mBSIp`.
+- Commit message : `feat(rag): S1c.2 exécuté localement — eval 10/10 sources retrouvées, 9/10 concepts couverts`.
+
+**3. Merge de la PR #44 par Blaise côté GitHub.**
+- **Sprint S1 définitivement clôturé.**
+- Tip de main : `9bef8c4` post-merge PR #44.
+
+**Décisions structurantes prises :** aucune dans cette entrée. Décision **D-030** envisagée dans la prochaine session (sur l'adoption de Claude Code Desktop pour les exécutions locales futures — question ouverte de Blaise).
+
+**Bilan global Sprint S1 (S1 + S1bis + S1ter + S1c.2 local) :**
+- **Pipeline RAG complète fonctionnelle** : audit-md-rag.py v1 + ingestion ChromaDB (incrémentale) + backend query Claude Sonnet 4.6 + golden set 10 questions + run_eval.
+- **Vault initial validé empiriquement** : 9 fichiers MD, 107 chunks, retrieval 10/10 sur le golden set.
+- **Discipline éditoriale prouvée** : 0 violation éditoriale claire SPEC v1.2/v1.3 sur le vault après deux revues couple 1 (I-002, I-003).
+- **Coût total Sprint S1** (toutes sessions confondues) : ~0,30 $ — largement sous tous les plafonds.
+- **Tests** : 67/67 verts (62 originaux S1 + 5 nouveaux S1ter).
+- **Référentiel mature** : 29 décisions actées (D-001 à D-029), SPEC v1.3 (10 règles + R9/R10 + 9 anti-patterns), whitelist wikilinks futurs (69 codes), cartographie-rag enrichi.
+- **Coordination inter-canaux rôdée** : 3 items archivés (I-001, I-002, I-003) + 2 items descendants ouverts (I-D-001, I-D-002).
+
+**Reste à faire :**
+- Arbitrage Claude Code Desktop (D-030 à acter ou non) — question ouverte de Blaise
+- Cadrage du Sprint S2 : audit-md-rag v2 (prio haute, recommandation RAPPORT-CC-S1ter §7), vague 3 modules MD (CU-026, CU-027, DEP-08), 3 briques transverses anticipées (pattern-llm-wiki en tête)
+- Push de cette entrée JOURNAL + STATUS clôturé + cadrage S2 vers Git par Blaise
+
+**Blockers :**
+- Aucun. Sprint S1 livré dans les temps, hackathon de septembre toujours dans la trajectoire.
+
+---
+
 ### 2026-05-12 (S1ter livraison) — Claude Code Hub IA Plateforme — Lot S1c.1 livré + S1c.2 différé local + PR ouverte
 
 **Contexte :** Sprint S1ter ouvert par Blaise. Pull origin/main fast-forward de la branche `claude/execute-pilot-batches-mBSIp` pour récupérer le brief S1ter, la SPEC v1.3, la whitelist wikilinks futurs et les commits Cowork post-S1bis.

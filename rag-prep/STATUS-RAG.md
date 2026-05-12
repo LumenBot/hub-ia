@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026
-**Sprint en cours :** S1ter (clôture définitive S1) — Lot S1c.1 livré, S1c.2 différé exécution locale Blaise, S1c.3 partiel livré (RAPPORT + PR)
+**Dernière mise à jour :** 12 mai 2026 (post-merge PR #44, sprint S1 définitivement clôturé)
+**Sprint en cours :** **Aucun** — cadrage S2 à ouvrir (Vague 3 modules denses + audit-md-rag v2 + 3 briques transverses anticipées)
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -66,7 +66,8 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.24a | S1ter Lot S1c.1 — python-dotenv + tests + sanity check | ✅ Fait (67/67 tests verts, commit `9f0b341`) | Claude Code Plateforme |
 | L1.24b | S1ter Lot S1c.2 — validation end-to-end (ingest réel + 10 queries + eval) | ⏸ Différé exécution locale Blaise (`.env` jamais synchronisé vers session web — par construction D-013) | Blaise (exécution) + Claude Code (analyse post-push si besoin) |
 | L1.24c | S1ter Lot S1c.3 — RAPPORT-CC-S1ter + ouverture PR | ✅ Partiel (RAPPORT + PR livrés, §3/§4/§5 marqués « exécution locale Blaise ») | Claude Code Plateforme |
-| L1.25 | Merge final PR S1ter par Blaise — clôture définitive sprint S1 | ⏳ En attente | Blaise |
+| L1.24d | **S1c.2 exécution locale Blaise** — ingest réel + 10 queries + run_eval | ✅ Fait (10/10 sources retrouvées, 9/10 concepts couverts, 107 chunks créés, coût ~0,30 $) | Blaise |
+| L1.25 | Merge final PR #44 par Blaise — **clôture définitive sprint S1** | ✅ Fait (commit `9bef8c4` sur main) | Blaise |
 
 ---
 
@@ -86,9 +87,36 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 
 ## Blockers actifs
 
-- **L1.20** : sync ascendante des fichiers de gouvernance vers le clone Git puis push (SPEC v1.3, whitelist-wikilinks-futurs.md, DECISIONS étendu D-028/D-029, JOURNAL/STATUS/cartographie-rag/SYNC à jour, chiffres-macro-2026 v3.8.4, glossaire v3.8.4, cu-008 v3.8.5).
-- **L1.21** : création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) par Blaise.
-- **Écart inventaire vault confirmé corrigé** : 9 fichiers réels, mes décomptes précédents annonçaient « 10 » par erreur (correction propagée dans STATUS).
+**Aucun.** Sprint S1 définitivement clôturé. Pipeline RAG fonctionnelle, validée empiriquement par eval 10/10 sources retrouvées.
+
+## Sprint S2 — cadrage à ouvrir
+
+**Acteurs anticipés** : Cowork + Claude Code Plateforme + Blaise (éventuellement Claude Code Desktop si D-030 actée).
+
+**Livrables Sprint S2 anticipés (à valider via brief CC-S2)** :
+
+| # | Livrable | Acteur principal | Priorité |
+|---|---|---|---|
+| L2.1 | Audit-md-rag v2 (implémenter D-028 exception R1 + D-029 whitelist + R6 reconnaît wikilinks canoniques + R5/R7/R8/R9/R10) | Claude Code Plateforme | 🔴 Haute (avant production vague 3) |
+| L2.2 | Brique transverse `pattern-llm-wiki.md` (urgent — recouvrement cu-008 ↔ dep-02 confirmé) | Cowork + co-production Cowork Hub IA (D-026) | 🔴 Haute |
+| L2.3 | Vague 3 modules denses : `cu-026.md` (Gouvernance agents IA), `cu-027.md` (Faire développer une appli), `dep-08.md` (Sécurité agents et MCP) | Cowork + co-production Cowork Hub IA (D-026 sondage préalable) | 🟡 Moyenne |
+| L2.4 | Brique transverse `pattern-eval-set-golden.md` (couplée avec dep-07 à produire) | Cowork | 🟡 Moyenne |
+| L2.5 | Extension golden set 10 → 30 questions | Cowork + Claude Code Plateforme | 🟡 Moyenne |
+| L2.6 | Métriques de coût instrumentées dans `query.py` et `ingest.py` | Claude Code Plateforme | 🟢 Basse |
+| L2.7 | Pre-commit hook audit-md-rag sur `rag/content/` | Claude Code Plateforme | 🟢 Basse |
+| L2.8 | Enrichissement system prompt query.py (briques transverses + whitelist) | Claude Code Plateforme | 🟢 Basse |
+
+**Question ouverte avant cadrage S2** : D-030 — adoption Claude Code Desktop pour exécutions locales ?
+
+## Bilan global Sprint S1 (clôturé)
+
+- **Vault** : 9 fichiers MD, 107 chunks indexés, ~1100 lignes contenu
+- **Code** : pipeline RAG complète (audit + ingestion + backend + eval), 67/67 tests verts
+- **Eval** : 10/10 sources retrouvées, 9/10 concepts couverts sur golden set initial
+- **Référentiel** : 29 décisions actées, SPEC v1.3 (10 règles + 9 anti-patterns), whitelist 69 codes
+- **Coordination** : 3 items inter-canaux archivés, 2 descendants ouverts vers couple 1
+- **Coût total** : ~0,30 $ API consommés sur 8 $ de crédits disponibles
+- **Hackathon de septembre** : trajectoire respectée, S2 peut démarrer immédiatement
 - **Arbitrage Cowork des 7 chiffres orphelins catégorie D résolu** : 1 canonisation (90 %), 1 item descendant I-D-002 inscrit pour le couple 1, 5 chiffres conservés tel quel (acceptables ou faux positifs R6).
 - **Vague 3 à venir** (CU-026, CU-027, DEP-08) avec application D-026 (sondage Cowork Hub IA préalable sur 2-3 passages sensibles). Voir aussi production prioritaire de `pattern-llm-wiki.md` (recouvrement cu-008 ↔ dep-02 confirmé).
 
