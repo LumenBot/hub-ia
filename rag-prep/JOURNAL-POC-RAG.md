@@ -11,6 +11,35 @@
 
 ## Entrées
 
+### 2026-05-12 (clôture étape C + brief S1ter) — Cowork Hub IA Plateforme — Brief CC-S1ter produit
+
+**Contexte :**
+- Étape C (production des artefacts post-S1bis) terminée et synchronisée côté Git par Blaise (PR `feature/post-s1bis-spec-v1.3-d028-d029` ouverte vers main).
+- Blaise a généré les clés API Anthropic (3 $ crédit, sans renouvellement) + OpenAI (5 $ crédit, sans renouvellement). Fichier `.env` correctement placé dans `rag/code/.env` avec permissions `-rw-------` et confirmé gitignored.
+
+**Actions menées :**
+- Production du `BRIEF-CC-S1ter-validation-end-to-end-avec-cles.md` (~1800 mots, dans la cible D-021)
+- 3 lots structurés :
+  - **Lot S1c.1** : ajout `python-dotenv` au code (option propre actée par Blaise) — refactor mineur pour lecture automatique du `.env`
+  - **Lot S1c.2** : validation end-to-end réelle (ingest sur 9 MD + 10 queries + eval) — ce qui était S1b.2 du brief précédent, désormais débloqué
+  - **Lot S1c.3** : RAPPORT-CC-S1ter + ouverture nouvelle PR
+- Plafonds API durcis pour S1ter compte tenu des crédits limités : alerte > 0,50 $ Anthropic (vs 1 $ S1bis), alerte > 0,10 $ OpenAI (vs 0,30 $ S1bis)
+- Critères de succès maintenus : ≥ 8/10 questions avec sources attendues, ≥ 50 % concepts attendus, coût total < 0,60 $
+
+**Décisions structurantes prises :**
+- Aucune (S1ter = exécution, pas de décision structurelle attendue)
+
+**Reste à faire :**
+- Blaise effectue **L1.20** (sync ascendante de ce brief vers Git) si pas déjà fait
+- Blaise transmet le `BRIEF-CC-S1ter-validation-end-to-end-avec-cles.md` à Claude Code Plateforme
+- Claude Code Plateforme exécute les 3 lots + ouvre la PR
+- Validation manuelle de la PR par Blaise côté GitHub
+
+**Blockers :**
+- Transmission du brief par Blaise à Claude Code Plateforme.
+
+---
+
 ### 2026-05-12 (post-S1bis intégration) — Cowork Hub IA Plateforme — Étapes B + C (arbitrage rapport audit + SPEC v1.3 + D-028/D-029)
 
 **Contexte :**

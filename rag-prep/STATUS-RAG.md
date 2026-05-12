@@ -61,8 +61,10 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.19 | Étape B (arbitrage catégorie D) + Étape C (SPEC v1.3 + D-028/D-029 + whitelist + 4e canonisation chiffres-macro 90 % + refactor wikilinks + I-D-002 + correctifs 9 vs 10) | ✅ Fait | Cowork |
 | L1.20 | Sync rag-prep côté Git (push de SPEC v1.3, whitelist, DECISIONS étendu, JOURNAL/STATUS/cartographie/SYNC, chiffres-macro v3.8.4, glossaire v3.8.4, cu-008 v3.8.5) | ⏳ À faire | Blaise |
 | L1.21 | Création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) | ⏳ À faire | Blaise |
-| L1.22 | Brief CC-S1ter pour reprendre S1b.2 (validation end-to-end + nouvelle PR/extension RAPPORT) | ⏳ À faire après L1.20 | Cowork |
-| L1.23 | Exécution S1ter par Claude Code Plateforme + extension PR ou nouvelle PR | ⏳ À faire | Claude Code Plateforme |
+| L1.22 | Brief CC-S1ter produit (3 lots S1c.1 python-dotenv + S1c.2 validation end-to-end + S1c.3 RAPPORT + PR) | ✅ Fait | Cowork |
+| L1.23 | Transmission `BRIEF-CC-S1ter-validation-end-to-end-avec-cles.md` à Claude Code Plateforme | ⏳ À faire | Blaise |
+| L1.24 | Exécution S1ter par Claude Code Plateforme + ouverture nouvelle PR | ⏳ À faire | Claude Code Plateforme |
+| L1.25 | Merge final PR S1ter par Blaise — clôture définitive sprint S1 | ⏳ À faire | Blaise |
 
 ---
 
