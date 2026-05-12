@@ -11,6 +11,33 @@
 
 ## Entrées
 
+### 2026-05-12 — Claude Code Hub IA Plateforme — Sprint S1 (Lots 1, 3, 4, 5, 6)
+
+**Branche :** `claude/execute-pilot-batches-mBSIp` (assignée par Blaise — substitue `feature/rag-s1-pilote` proposée dans le brief).
+
+**Actions menées :**
+
+- **Lot 1 — Scaffold rag/** : arborescence complète créée (`content/`, `code/{ingestion,backend,audit,eval}`, `eval/`, `docs/`), `README.md` + `docs/ARCHITECTURE.md` + `requirements.txt` + `.env.example`, `.gitignore` racine étendu (vector_store, .env, __pycache__, .pytest_cache, node_modules, .wrangler, .venv). `.gitkeep` ajoutés pour préserver la structure des dossiers vides.
+- **Lot 2 — MCP Obsidian** : non exécuté en session autonome (configuration locale de l'environnement Claude Code, hors scope du clone Git). À faire par Blaise localement.
+- **Lot 3 — audit-md-rag.py v1** : 5 règles (R1-frontmatter, R2-h1-unique, R3-chunking, R4-wikilinks, R6-chiffres-sources). Style aligné sur `site-web-prep/audit-global.py`. 26 tests pytest, 100 % verts.
+- **Lot 4 — ingest.py** : chunking par section H2 (D-011) avec subdivision H3 si >800 tokens, frontmatter injecté en tête, embeddings OpenAI text-embedding-3-small (D-007), store ChromaDB local (D-006), re-indexation incrémentale par `content_hash` (SHA-256) + purge des chunks orphelins. 14 tests pytest, 100 % verts (FakeStore + FakeEmbedder, zéro appel API).
+- **Lot 5 — query.py** : CLI backend S1 (Cloudflare Worker reporté à S3 — D-008). Pipeline embed→retrieve top-k=5→Claude Sonnet 4.6 (D-005) avec system prompt structuré (ton Hub IA, citations obligatoires, refus d'invention, refus explicite si CONTEXTE vide). 12 tests pytest, 100 % verts.
+- **Lot 6 — golden set + run_eval.py** : 10 questions (2 par unité pilote) + golden-answers (critères qualitatifs). Script d'eval matche sources citées + concepts attendus, exit code 0 si ≥8/10 sources retrouvées. 10 tests pytest, 100 % verts.
+
+**Suite totale tests :** 62/62 verts (`pytest rag/code/`).
+
+**Décisions structurantes prises :** aucune (toutes les décisions d'architecture mobilisées sont des décisions S0 déjà actées D-005 à D-024).
+
+**Reste à faire — coordination :**
+- Blaise déclenche Lot 2 localement (config MCP Obsidian côté Claude Code).
+- Cowork produit les 5 MD pilotes ; Blaise les copie vers `rag-prep/content-drafts/` puis Claude Code les migre vers `rag/content/`.
+- Une fois le vault peuplé : rejouer `audit-md-rag.py` sur les 5 MD → signaler les écarts à Cowork ; lancer `ingest.py` (coût estimé < 0,05 $) ; rejouer le golden set via `run_eval.py` ; sondage manuel Blaise.
+
+**Blockers :**
+- Aucun blocker bloquant. Écart résiduel : impossible de valider le pipeline end-to-end avant que les MD pilotes soient déposés (dépendance Cowork × Blaise).
+
+---
+
 ### 2026-05-11 (tardive) — Cowork Hub IA Plateforme — Migration vers rag-prep/ et D-024
 
 **Actions menées :**

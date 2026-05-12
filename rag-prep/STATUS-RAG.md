@@ -1,9 +1,35 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 11 mai 2026
-**Sprint en cours :** S0 — Cadrage
-**Période :** mi-mai → début juin 2026 (3 semaines)
-**Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
+**Dernière mise à jour :** 12 mai 2026
+**Sprint en cours :** S1 — Pilote (côté Claude Code Plateforme : Lots 1, 3, 4, 5, 6 livrés ; Lot 2 délégué à Blaise ; côté Cowork : production des 5 MD pilotes en cours)
+**Période :** juin 2026 (3 semaines)
+**Acteurs mobilisés :** Claude Code Hub IA Plateforme + Cowork Hub IA Plateforme + Blaise
+
+---
+
+## Avancement S1 (couple 2)
+
+| # | Livrable | Statut | Acteur |
+|---|---|---|---|
+| L1.1 | 5 MD pilotes (CU-001, CU-008, PR-07, DEP-02, outils-vector-db) | ⏳ En cours | Cowork |
+| L1.2 | `glossaire.md` v1 | ⏳ En cours | Cowork |
+| L1.3 | Infrastructure `rag/` | ✅ Fait (Lot 1) | Claude Code |
+| L1.4 | `audit-md-rag.py` v1 + tests | ✅ Fait (Lot 3, 26 tests verts) | Claude Code |
+| L1.5 | Pipeline ingestion ChromaDB + tests + incrémental | ✅ Fait (Lot 4, 14 tests verts) | Claude Code |
+| L1.6 | Backend CLI retrieval + Claude Sonnet 4.6 + tests | ✅ Fait (Lot 5, 12 tests verts) | Claude Code |
+| L1.7 | Golden set 10 questions + run_eval.py + tests | ✅ Fait (Lot 6, 10 tests verts) | Claude Code |
+| L1.8 | Rapport mission S1 | ✅ Fait (`briefs/RAPPORT-CC-S1.md`) | Claude Code |
+| Lot 2 | Config MCP Obsidian côté Claude Code | ⏳ Local (Blaise) | Blaise |
+
+**Suite tests `rag/code/` :** 62/62 verts.
+
+**Branche développement :** `claude/execute-pilot-batches-mBSIp` (assignée par Blaise — substitue `feature/rag-s1-pilote` proposée dans le brief).
+
+---
+
+## Sprint précédent — S0 (clôturé)
+
+**Sprint S0 (cadrage) :** terminé. Décisions D-001 à D-024 actées. 6 fichiers de gouvernance + briefs livrés. Push initial de `rag-prep/` effectué par Blaise (commit `ba7ff99`).
 
 ---
 
