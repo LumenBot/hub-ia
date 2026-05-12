@@ -679,3 +679,167 @@ class TestR8Versioning:
         ctx = audit_md_rag.AuditContext()
         result = audit_md_rag.check_r8_versioning(fp, fm, ctx)
         assert any("R8" in e and "non parseable" in e for e in result.errors)
+
+
+# ============================================================
+# Bloc C (S2.1) — R6 étendu + R9 chiffres macro canoniques
+# ============================================================
+
+CHIFFRES_MACRO_FULL = textwrap.dedent("""\
+---
+code: chiffres-macro-2026
+titre: "Chiffres macro IA — référentiel canonique 2026"
+type: transverse
+axe: transverse
+niveau: 2
+tags: [chiffres]
+version: 3.8.4
+last_updated: 2026-05-12
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Chiffres macro IA — référentiel canonique 2026
+
+## 95 % — projets GenAI sans ROI (MIT NANDA 2025)
+
+Source : MIT NANDA 2025.
+
+## 67 % — dirigeants PME/TPE (Bpifrance 2025)
+
+Source : Bpifrance Le Lab 2025.
+
+## 21 % — organisations IA ayant redesigné leurs workflows (McKinsey 2025)
+
+Source : McKinsey 2025.
+""")
+
+
+class TestR6Etendu:
+    """R6 — wikilink vers chiffres-macro-* reconnu comme source canonique."""
+
+    def test_chiffre_sourcé_par_wikilink_transverse_ok(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "[[chiffres-macro-2026#95-pourcent-mit-nanda|95 % des projets GenAI sans ROI]] (MIT NANDA 2025).",
+        )
+        fp = write_md(tmp_path, "cu-001.md", md)
+        ctx = audit_md_rag.AuditContext(vault_codes=audit_md_rag.vault_codes([fp]))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r6_errors = [e for e in result["errors"] if e.startswith("R6")]
+        assert r6_errors == [], f"Le wikilink chiffres-macro devrait suffire comme source : {r6_errors}"
+
+    def test_chiffre_orphelin_sans_wikilink_garde_erreur_r6(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "95 % des projets GenAI échouent sans la moindre référence.",
+        )
+        fp = write_md(tmp_path, "cu-001.md", md)
+        ctx = audit_md_rag.AuditContext(vault_codes=audit_md_rag.vault_codes([fp]))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(e.startswith("R6") for e in result["errors"])
+
+
+class TestR9ChiffresMacro:
+    """R9 — chiffre canonique du Hub cité en clair → warning."""
+
+    @pytest.fixture
+    def vault_avec_chiffres(self, tmp_path):
+        transverses = tmp_path / "transverses"
+        transverses.mkdir()
+        (transverses / "chiffres-macro-2026.md").write_text(CHIFFRES_MACRO_FULL, encoding="utf-8")
+        return str(tmp_path)
+
+    def _ctx(self, vault):
+        files = audit_md_rag.list_md_files(vault)
+        return audit_md_rag.AuditContext(
+            vault_codes=audit_md_rag.vault_codes(files),
+            canonical_chiffres=audit_md_rag.load_canonical_chiffres(
+                os.path.join(vault, "transverses", "chiffres-macro-2026.md")
+            ),
+        )
+
+    def test_load_canonical_chiffres(self, vault_avec_chiffres):
+        chiffres = audit_md_rag.load_canonical_chiffres(
+            os.path.join(vault_avec_chiffres, "transverses", "chiffres-macro-2026.md")
+        )
+        values = [c["value"] for c in chiffres]
+        assert "95 %" in values or "95 %" in [c["value"] for c in chiffres]
+        assert "67 %" in values
+        assert "21 %" in values
+
+    def test_chiffre_macro_en_clair_warning(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "On observe que 67 % des PME/TPE peinent à démarrer. Démarche en trois temps.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67" in w]
+        assert r9_warnings, f"R9 devrait signaler 67 % en clair : {result['warnings']}"
+
+    def test_chiffre_macro_wikilinké_pas_warning(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Comme [[chiffres-macro-2026#67-pourcent-bpifrance|67 % des PME]] l'illustrent.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67 %" in w]
+        assert r9_warnings == [], f"Le wikilink devrait suffire : {r9_warnings}"
+
+    def test_r9_skip_sur_chiffres_macro_lui_meme(self, vault_avec_chiffres):
+        """Le fichier chiffres-macro-2026.md lui-même contient les chiffres en clair :
+        c'est la source canonique, R9 doit le skip."""
+        fp = os.path.join(vault_avec_chiffres, "transverses", "chiffres-macro-2026.md")
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9_warnings == []
+
+    def test_r9_skip_sur_glossaire(self, vault_avec_chiffres):
+        """Le glossaire est aussi exempté de R9 pour éviter le bruit
+        si une définition contient un chiffre macro."""
+        glossaire_md = GLOSSAIRE_AVEC_TERMES.replace(
+            "Retrieval-Augmented Generation.",
+            "Retrieval-Augmented Generation. 95 % des cas PME couverts.",
+        )
+        glossaire_fp = write_md(vault_avec_chiffres, "glossaire.md", glossaire_md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(glossaire_fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9_warnings == []
+
+    def test_r9_deduplication_par_chiffre(self, vault_avec_chiffres):
+        """Plusieurs occurrences du même chiffre → 1 seul warning."""
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Pour 67 % des PME, c'est un défi. Et 67 % le confirment encore. Et toujours 67 %.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67" in w]
+        assert len(r9_warnings) == 1
+
+    def test_r9_pas_d_erreurs_seulement_warnings(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Selon nous, 21 % des organisations ont redesigné. Démarche.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_errors = [e for e in result["errors"] if e.startswith("R9")]
+        assert r9_errors == []
+
+    def test_r9_contexte_sans_chiffres_canoniques_skip(self, tmp_path):
+        """Si chiffres-macro-2026.md n'existe pas, R9 ne fait rien."""
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        ctx = audit_md_rag.AuditContext(canonical_chiffres=[])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r9 = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9 == []

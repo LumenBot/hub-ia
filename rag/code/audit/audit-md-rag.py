@@ -627,14 +627,84 @@ def check_r8_versioning(fp: str, fm: dict | None, ctx: AuditContext,
 # ============================================================
 
 def check_r6_chiffres(fp: str, body: str) -> RuleResult:
+    """R6 — chiffre statistique suivi (ou précédé) d'une source proche.
+
+    Fenêtre symétrique de 200 caractères autour du chiffre : la source peut
+    apparaître après (mention « Source : », URL, lien markdown) OU avant
+    (cas typique d'un wikilink Obsidian `[[chiffres-macro-…|N %]]` où le
+    chiffre est dans l'alias).
+    """
     res = RuleResult()
     for pat in NUMBER_PATTERNS:
         for m in pat.finditer(body):
             start = m.start()
-            window = body[start:start + 200]
+            end = m.end()
+            window = body[max(0, start - 200):end + 200]
             if not SOURCE_MARKERS.search(window):
                 snippet = body[max(0, start - 20):start + 40].replace("\n", " ").strip()
                 res.add_error(f"R6: chiffre `{m.group(0)}` sans source proche — contexte: «{snippet}»")
+    return res
+
+
+# ============================================================
+# Règle R9 — Chiffres macro canoniques cités via wikilink (warning v2)
+# ============================================================
+
+# Fenêtre (en caractères) de proximité dans laquelle un wikilink vers
+# chiffres-macro-2026 est considéré comme « citant » le chiffre détecté.
+R9_PROXIMITY_WINDOW = 200
+
+R9_WIKILINK_PATTERN = re.compile(r"\[\[chiffres-macro-\d{4}[^\]]*\]\]")
+
+
+def _normalize_chiffre_value(value: str) -> str:
+    """Normalise une valeur pour la recherche regex tolérante (espaces,
+    casse, séparateurs).  Ex : ``«1,8 h/jour»`` → motif tolérant les
+    variations d'espacement."""
+    # On échappe les caractères regex, puis on rend les espaces tolérants.
+    escaped = re.escape(value.strip())
+    return re.sub(r"\\\s+", r"\\s*", escaped)
+
+
+def check_r9_chiffres_macro(fp: str, fm: dict | None, body: str, ctx: AuditContext) -> RuleResult:
+    """Warning si un chiffre canonique du Hub (extrait de chiffres-macro-2026.md)
+    apparaît en clair dans un module sans wikilink vers chiffres-macro-2026.md
+    à proximité.
+
+    Première itération en warning (cf. brief §4 Bloc C). La détection est
+    pragmatique : déduplication par chiffre par fichier pour limiter le bruit.
+    """
+    res = RuleResult()
+    if not ctx.canonical_chiffres or not fm:
+        return res
+    code = str(fm.get("code", "")).strip().lower()
+    if code.startswith("chiffres-macro-") or code == "glossaire":
+        return res  # le référentiel lui-même + glossaire
+
+    flagged: set[str] = set()
+    for chiffre in ctx.canonical_chiffres:
+        value = chiffre["value"]
+        if value.lower() in flagged:
+            continue
+        try:
+            value_pattern = re.compile(_normalize_chiffre_value(value), re.IGNORECASE)
+        except re.error:
+            continue
+        for m in value_pattern.finditer(body):
+            start = m.start()
+            end = m.end()
+            window_start = max(0, start - R9_PROXIMITY_WINDOW)
+            window_end = end + R9_PROXIMITY_WINDOW
+            window = body[window_start:window_end]
+            if R9_WIKILINK_PATTERN.search(window):
+                continue  # source canonique citée à proximité
+            flagged.add(value.lower())
+            snippet = body[max(0, start - 20):start + 40].replace("\n", " ").strip()
+            res.add_warning(
+                f"R9: chiffre macro `{value}` cité en clair — préférer "
+                f"`[[chiffres-macro-2026#{chiffre['slug']}]]` (contexte: «{snippet}»)"
+            )
+            break  # 1 warning par chiffre canonique
     return res
 
 
@@ -679,6 +749,7 @@ def audit_file(fp: str, vault: str, ctx: AuditContext | set[str]) -> dict:
     total.merge(check_r6_chiffres(fp, body))
     total.merge(check_r7_nommage(fp))
     total.merge(check_r8_versioning(fp, fm, ctx))
+    total.merge(check_r9_chiffres_macro(fp, fm, body, ctx))
 
     return {
         "file": rel(fp, vault),
