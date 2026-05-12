@@ -1,0 +1,105 @@
+# Golden answers — sprint S1
+#
+# Pour chaque question du golden set : critères qualitatifs attendus dans la
+# réponse. Pas de réponse textuelle figée (la prose Claude varie) : on évalue
+# par présence de concepts + citation des bonnes sources + qualité jugée par
+# Blaise au sondage manuel (critère §9 du brief).
+#
+# Format :
+#   id            : matche questions.yaml
+#   must_cover    : éléments factuels qui DOIVENT être présents
+#   must_not      : anti-pattern (extrapolation, invention, omission)
+#   manual_score  : note Blaise (1-5) saisie a posteriori (laisser vide en S1)
+#   notes         : commentaire libre
+
+- id: q-001
+  must_cover:
+    - "Définition de la veille IA"
+    - "Méthodologie ou cadence proposée"
+    - "Au moins une typologie de sources"
+  must_not:
+    - "Invention de noms de newsletters / podcasts non documentés dans le Hub"
+  manual_score:
+  notes: ""
+
+- id: q-002
+  must_cover:
+    - "Au moins 2 sources concrètes citées par CU-001"
+  must_not:
+    - "Chiffres orphelins (sans source datée)"
+  manual_score:
+  notes: ""
+
+- id: q-003
+  must_cover:
+    - "RAG : injection de contexte récupéré au moment de la requête"
+    - "Fine-tuning : modification des poids du modèle"
+    - "Critère de choix : fraîcheur, traçabilité, coût"
+  must_not:
+    - "Confusion RAG / fine-tuning"
+  manual_score:
+  notes: ""
+
+- id: q-004
+  must_cover:
+    - "Étapes : indexation → retrieval → génération"
+    - "Citation des sources dans la réponse"
+  must_not:
+    - "Omettre l'étape d'évaluation"
+  manual_score:
+  notes: ""
+
+- id: q-005
+  must_cover:
+    - "Au moins 3 critères d'arbitrage (coût, time-to-value, gouvernance, etc.)"
+    - "Cas où le build est pertinent / cas où le buy est pertinent"
+  must_not:
+    - "Recommandation unilatérale sans contexte"
+  manual_score:
+  notes: ""
+
+- id: q-006
+  must_cover:
+    - "Liste structurée de critères"
+    - "Mention budget / compétences disponibles"
+  must_not:
+    - "Hors-sujet (passage en mode produit générique)"
+  manual_score:
+  notes: ""
+
+- id: q-007
+  must_cover:
+    - "Pipeline : ingestion → vector store → backend → frontend"
+    - "Observabilité / évaluation continue"
+  must_not:
+    - "Promesse irréaliste sur la mise en production"
+  manual_score:
+  notes: ""
+
+- id: q-008
+  must_cover:
+    - "Stitch : assembler la chaîne RAG"
+    - "Evaluate : golden set / métriques"
+    - "Iterate : boucle d'amélioration"
+  must_not:
+    - "Omission d'une des trois étapes"
+  manual_score:
+  notes: ""
+
+- id: q-009
+  must_cover:
+    - "Recommandation ChromaDB pour POC"
+    - "Justification (gratuit, simple, embarqué)"
+  must_not:
+    - "Recommander une solution payante sans justification"
+  manual_score:
+  notes: ""
+
+- id: q-010
+  must_cover:
+    - "Comparatif des 4 outils mentionnés"
+    - "Critères : volume, hébergement, prix, maturité"
+  must_not:
+    - "Confusion entre les outils"
+  manual_score:
+  notes: ""
