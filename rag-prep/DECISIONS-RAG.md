@@ -41,6 +41,7 @@
 | D-012-bis | 12 mai 2026 | MCP Obsidian reporté à Phase 2 (gain marginal en Phase 1, valeur réelle en LLM Wiki layer) | Actée |
 | D-028 | 12 mai 2026 | Exception structurelle R1 pour fichiers racines transverses (champs `glosaire_termes` et `derives` peuvent être vides par construction) — issue S1bis catégorie A | Actée |
 | D-029 | 12 mai 2026 | Politique des wikilinks vers MD planifiés mais non encore produits : whitelist `rag-prep/whitelist-wikilinks-futurs.md` lue par audit v2, warnings au lieu d'erreurs — issue S1bis catégorie B | Actée |
+| D-030 | 12 mai 2026 | Architecture Claude Code hybride : Claude Code Plateforme (web) pour cadrage/code/tests mockés, Claude Code Desktop (local) pour exécutions avec secrets. Allocation au cas par cas dans chaque brief sprint. | Actée |
 
 ---
 
@@ -531,6 +532,33 @@ public_cible: [dirigeant, ops, r&d]
 - Compatible avec D-024 (le clone Git reste source de vérité, le sondage passe par les conventions de coordination inter-canaux légères type SYNC-INTER-CANAUX item-mini)
 
 **Trace :** revue I-003 Q5 par Cowork Hub IA — 12 mai 2026.
+
+---
+
+## D-030 — Architecture Claude Code hybride (Plateforme web + Desktop local)
+
+**Date :** 12 mai 2026
+**Statut :** Actée
+
+**Contexte :** Sprint S1ter a révélé une limite structurelle de Claude Code Plateforme (session web) : pas d'accès au filesystem local ni aux clés API stockées dans `rag/code/.env`. Conséquence : Lot S1c.2 (validation end-to-end avec ingest + queries + eval) a dû être exécuté manuellement par Blaise en local après livraison du code par Claude Code Plateforme. Friction acceptable une fois, ingérable si elle se répète à chaque sprint avec exécution locale.
+
+**Décision :** adopter une **architecture Claude Code hybride** :
+
+| Outillage | Domaine d'usage | Justification |
+|---|---|---|
+| **Claude Code Plateforme** (session web) | Cadrage, écriture de code, refactor, tests automatisés avec mocks, ouvertures de PR | Sessions asynchrones longues, isolation environnement, pas d'accès aux secrets |
+| **Claude Code Desktop** (local, sur Mac de Blaise) | Exécutions locales avec accès `.env`, ingestion RAG, queries réelles, debug, eval intermédiaires | Accès filesystem direct, lecture native du `.env`, pas de friction de transmission de secrets |
+
+**Allocation au cas par cas dans chaque brief sprint** : chaque brief CC-SX précise quel outillage Claude Code est attendu (ou les deux, avec un split lot par lot).
+
+**Conséquences :**
+- Installation initiale de Claude Code Desktop sur le Mac de Blaise (étape one-shot, ~10-15 min après installation Node.js si pas déjà présent)
+- Les futurs briefs (CC-S2 et au-delà) intègrent le choix d'outillage dans leurs métadonnées
+- Pas de remplacement de Claude Code Plateforme — complémentarité
+- Sécurité préservée : aucun secret transite via le clone Git (D-013 et D-024 respectées)
+- Réduction du nombre de sprints « différés en local » comme S1c.2
+
+**Trace :** retour Sprint S1ter (Lot S1c.2 différé) + question ouverte de Blaise — 12 mai 2026.
 
 ---
 
