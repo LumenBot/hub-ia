@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (post-itération couple 1 v3.9 — intégration intégrale + SPEC v1.4 actée)
-**Sprint en cours :** **Reprise sprint S2** — étapes A-I post-v3.9 livrées, SPEC v1.4 actée, vague 3.5 anticipée. S2.2 à transmettre (DRAFT à finaliser).
+**Dernière mise à jour :** 12 mai 2026 (S2.2 ouvert — brief finalisé, à transmettre)
+**Sprint en cours :** **S2.2 — Brique pattern-llm-wiki + extension golden set + métriques + pre-commit** (BRIEF-CC-S2.2 v1 prêt à transmettre, allocation D-030 hybride Cowork + Plateforme + Desktop)
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -98,7 +98,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | Sous-sprint | Périmètre | Allocation D-030 | Statut |
 |---|---|---|---|
 | **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ **Mergé PR #45** (134/134 tests verts, vault audit 0 erreur + 183 warnings catégorisés) |
-| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟡 **DRAFT préparé** (`rag-prep/briefs/DRAFT-BRIEF-CC-S2.2.md`) — reprise post-itération couple 1 |
+| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟡 **BRIEF v1 finalisé** (`rag-prep/briefs/BRIEF-CC-S2.2.md`, 238 lignes, 5 lots A→E) — à transmettre |
 | **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | 🟡 **DRAFT sondage préalable préparé** (`rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md`) — reprise post-S2.2 |
 | **S2.5** (nouvelle — issue v3.9) | **Vague 3.5** modules patchés v3.9 : `dep-03.md`, `dep-04.md`, `dep-05.md`, `pr-04.md` | Cowork + Cowork Hub IA (sondage co-produit DEP-05 §8) + Desktop pour eval | 🟡 **À cadrer post-S2.3** — les 4 modules n'existent pas encore dans le vault, production intégrale (pas refactor) |
 

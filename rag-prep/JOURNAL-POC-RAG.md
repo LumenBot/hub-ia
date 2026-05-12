@@ -11,6 +11,41 @@
 
 ## Entrées
 
+### 2026-05-12 (S2.2 ouverture) — Cowork Hub IA Plateforme — BRIEF-CC-S2.2 finalisé + transmis
+
+**Contexte :** Intégration v3.9 livrée et pushée sur main (commit `3db01a0`). Reprise du sprint S2.2 — finalisation du draft S2.2 préparé pendant la pause.
+
+**Actions menées :**
+
+1. **Rebaseline post-push v3.9** : JOURNAL + STATUS re-copiés depuis Git vers Cowork-side (D-024).
+2. **Finalisation du DRAFT-BRIEF-CC-S2.2** :
+   - Sections §6 (règles de prudence S2.2) ajoutées : 6 règles spécifiques au sprint, dont plafonds API durcis pour Lot D (eval extended sur 30 questions : alerte > 0,50 $ Anthropic + > 0,15 $ OpenAI)
+   - §7 (décisions de NE PAS faire) : 7 items explicites (pas de production modules, pas de portage TS, pas de canonisation chiffres, etc.)
+   - §8 (validation finale) : checklist détaillée par lot (5 lots A→E), avec critères de succès quantifiés (≥ 24/30 sources retrouvées, coût < 0,65 $)
+   - §9 (fichiers de référence) : pointage vers SPEC v1.4, 22 chiffres-macro v3.8.5, briques transverses produites
+3. **Renommage** : `DRAFT-BRIEF-CC-S2.2.md` → `BRIEF-CC-S2.2.md` (238 lignes, ~2200 mots — légère dépassement cible D-021 acceptable vu la densité du sprint mixte 3 acteurs D-030)
+4. **Statut bumpé** en tête : « v1 finalisé post-v3.9 + SPEC v1.4 — prêt à transmettre »
+
+**Allocation D-030 (rappel)** :
+- Lot A — Cowork : `pattern-llm-wiki.md` + refactor cu-008/dep-02 (2-3 h)
+- Lot B — Cowork : extension golden set 10 → 30 questions (1-2 h)
+- Lot C — Claude Code Plateforme : métriques coût + pre-commit hook + system prompt enrichi (2-3 h)
+- Lot D — Claude Code Desktop : eval extended sur vault enrichi (30 min + ~0,30-0,50 $)
+- Lot E — Claude Code Plateforme ou Desktop : RAPPORT + PR (1 h)
+- **Total** : ~7-10 h split, coût ~0,30-0,50 $
+
+**Décisions structurantes prises :** aucune (S2.2 = exécution, pas de décision structurelle).
+
+**Reste à faire :**
+- Sync ascendante du `BRIEF-CC-S2.2.md` + JOURNAL + STATUS vers Git par Blaise
+- Transmission du brief à Claude Code Plateforme (Lots A et B en parallèle Cowork — démarrage immédiat possible côté Cowork)
+- Coordination séquentielle : Lots A (Cowork) → Lots C (Plateforme) → Lot B (Cowork) → Lot D (Desktop) → Lot E (rapport)
+
+**Blockers :**
+- Aucun. Transmission brief par Blaise.
+
+---
+
 ### 2026-05-12 (reprise S2 post-v3.9) — Cowork Hub IA Plateforme — Intégration intégrale v3.9 + SPEC v1.4 + vague 3.5 anticipée
 
 **Contexte :** Itération couple 1 v3.9 livrée et mergée (PR #46). Message de passation reçu de Cowork Hub IA avec périmètre exact des changements HTML (4-5 modules patchés chirurgicalement) + 3 décisions structurantes à arbitrer (E règle « outil glossarié wikilinké », F scope vague 3, G acceptation sondage co-produit DEP-05 §8). Blaise valide les 3 recommandations Cowork en bloc.
