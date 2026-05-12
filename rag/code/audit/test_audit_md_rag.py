@@ -9,6 +9,7 @@ import importlib.util
 import os
 import sys
 import textwrap
+from datetime import date
 
 import pytest
 
@@ -21,6 +22,7 @@ def _load_module():
     spec = importlib.util.spec_from_file_location("audit_md_rag", SCRIPT_PATH)
     mod = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
+    sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
     return mod
 
@@ -62,7 +64,8 @@ Démarche en trois temps. Section autonome lisible isolément.
 
 
 def write_md(tmp_path, name: str, content: str) -> str:
-    fp = tmp_path / name
+    from pathlib import Path
+    fp = Path(str(tmp_path)) / name
     fp.write_text(content, encoding="utf-8")
     return str(fp)
 
@@ -212,6 +215,8 @@ class TestR6ChiffresSources:
         assert [h for h in result["hits"] if h.startswith("R6")] == []
 
     def test_chiffre_orphelin(self, tmp_path):
+        """v2 : R6 émet désormais un warning (non bloquant), pas une erreur.
+        Le signal est conservé dans `warnings`."""
         md = CONFORME.replace(
             "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
             "95 % des projets GenAI échouent, ce qui est notable.",
@@ -219,7 +224,21 @@ class TestR6ChiffresSources:
         fp = write_md(tmp_path, "bad.md", md)
         codes = audit_md_rag.vault_codes([fp])
         result = audit_md_rag.audit_file(fp, str(tmp_path), codes)
-        assert any("R6" in h and "95" in h for h in result["hits"])
+        # warning par défaut en v2
+        assert any("R6" in w and "95" in w for w in result["warnings"])
+        # plus dans errors par défaut
+        assert not any("R6" in h and "95" in h for h in result["hits"])
+
+    def test_chiffre_orphelin_strict_r6_redonne_erreur(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "95 % des projets GenAI échouent, ce qui est notable.",
+        )
+        fp = write_md(tmp_path, "bad.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes, strict_r6=True)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any("R6" in e and "95" in e for e in result["errors"])
 
     def test_chiffre_avec_lien_markdown_ok(self, tmp_path):
         md = CONFORME.replace(
@@ -284,3 +303,691 @@ class TestHelpers:
         sections = audit_md_rag.split_sections(body)
         levels = [s[0] for s in sections]
         assert levels == ["h1", "h2", "h2", "h3"]
+
+
+# ============================================================
+# Bloc A (S2.1) — D-028 exception R1 + D-029 whitelist R4
+# ============================================================
+
+GLOSSAIRE_RACINE = textwrap.dedent("""\
+---
+code: glossaire
+titre: "Glossaire canonique du Hub IA"
+type: transverse
+axe: transverse
+niveau: 1
+tags: [glossaire, definitions]
+version: 3.8.4
+last_updated: 2026-05-11
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Glossaire canonique du Hub IA
+
+## RAG
+
+Définition.
+""")
+
+CHIFFRES_MACRO_RACINE = textwrap.dedent("""\
+---
+code: chiffres-macro-2026
+titre: "Chiffres macro IA — référentiel canonique 2026"
+type: transverse
+axe: transverse
+niveau: 2
+tags: [chiffres]
+version: 3.8.4
+last_updated: 2026-05-12
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Chiffres macro IA — référentiel canonique 2026
+
+## 95 % — projets GenAI sans ROI (MIT NANDA 2025)
+
+**95 % des projets GenAI** (Source : MIT NANDA 2025).
+""")
+
+
+class TestD028ExceptionR1:
+    """D-028 : glosaire_termes et derives peuvent être vides pour les fichiers
+    racines transverses (glossaire.md, chiffres-macro-*.md)."""
+
+    def test_glossaire_avec_champs_vides_ne_genere_pas_erreur_r1(self, tmp_path):
+        fp = write_md(tmp_path, "glossaire.md", GLOSSAIRE_RACINE)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r1_glosaire_errors = [
+            h for h in result["errors"]
+            if h.startswith("R1") and ("glosaire_termes" in h or "derives" in h)
+        ]
+        assert r1_glosaire_errors == [], f"R1 ne devrait pas signaler les champs vides : {r1_glosaire_errors}"
+
+    def test_chiffres_macro_avec_champs_vides_ne_genere_pas_erreur_r1(self, tmp_path):
+        fp = write_md(tmp_path / "transverses" if False else tmp_path, "chiffres-macro-2026.md", CHIFFRES_MACRO_RACINE)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r1_glosaire_errors = [
+            h for h in result["errors"]
+            if h.startswith("R1") and ("glosaire_termes" in h or "derives" in h)
+        ]
+        assert r1_glosaire_errors == []
+
+    def test_module_ordinaire_avec_champs_vides_garde_erreur_r1(self, tmp_path):
+        """L'exception D-028 NE doit PAS s'appliquer aux modules ordinaires."""
+        md = CONFORME.replace("derives: [\"[[cu-008]]\"]", "derives: []")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(h.startswith("R1") and "derives" in h for h in result["errors"])
+
+    def test_transverse_non_racine_garde_erreur_r1(self, tmp_path):
+        """Un transverse ordinaire (vigilance-..., pattern-...) ne bénéficie pas de l'exception."""
+        md = CONFORME.replace("code: cu-001", "code: vigilance-test")\
+                     .replace("type: module-cu", "type: transverse")\
+                     .replace("axe: B", "axe: transverse")\
+                     .replace("derives: [\"[[cu-008]]\"]", "derives: []")
+        fp = write_md(tmp_path, "vigilance-test.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(vault_codes=codes)
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(h.startswith("R1") and "derives" in h for h in result["errors"])
+
+    def test_helper_is_r1_exception_glossaire(self):
+        fm = {"code": "glossaire", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm, "glosaire_termes") is True
+        assert audit_md_rag._is_r1_exception(fm, "derives") is True
+        assert audit_md_rag._is_r1_exception(fm, "tags") is False
+
+    def test_helper_is_r1_exception_chiffres_macro(self):
+        fm = {"code": "chiffres-macro-2026", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm, "derives") is True
+        # variantes d'année autorisées par préfixe
+        fm2 = {"code": "chiffres-macro-2027", "type": "transverse"}
+        assert audit_md_rag._is_r1_exception(fm2, "derives") is True
+
+
+class TestD029WhitelistR4:
+    """D-029 : wikilinks vers MD planifiés (whitelisted) génèrent un warning
+    plutôt qu'une erreur."""
+
+    @pytest.fixture
+    def whitelist_path(self, tmp_path_factory):
+        # whitelist hors du vault pour éviter qu'elle soit auditée
+        wl = tmp_path_factory.mktemp("wl") / "whitelist.md"
+        wl.write_text(textwrap.dedent("""\
+            # whitelist
+
+            | Code | Titre | Vague |
+            |---|---|---|
+            | `cu-002` | Assistant rédactionnel | 3 |
+            | `cu-014` | Multi-agents | 3 |
+            | `pr-04` | Marché IA | 3 |
+        """), encoding="utf-8")
+        return str(wl)
+
+    def test_load_whitelist_parse_codes(self, whitelist_path):
+        codes = audit_md_rag.load_whitelist(whitelist_path)
+        assert codes == {"cu-002", "cu-014", "pr-04"}
+
+    def test_load_whitelist_fichier_absent_retourne_set_vide(self, tmp_path):
+        codes = audit_md_rag.load_whitelist(str(tmp_path / "introuvable.md"))
+        assert codes == set()
+
+    def test_wikilink_whitelisted_genere_warning_pas_erreur(self, tmp_path, whitelist_path):
+        # MD qui pointe vers cu-014 (whitelisted), pas dans le vault
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014|Multi-agents]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r4_errors = [h for h in result["errors"] if h.startswith("R4")]
+        r4_warnings = [h for h in result["warnings"] if h.startswith("R4")]
+        assert r4_errors == [], f"cu-014 whitelisted ne doit pas être en erreur : {r4_errors}"
+        assert any("cu-014" in w for w in r4_warnings)
+
+    def test_wikilink_inconnu_reste_erreur(self, tmp_path, whitelist_path):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-999]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-999]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any("cu-999" in h for h in result["errors"])
+
+    def test_strict_future_transforme_warning_en_erreur(self, tmp_path, whitelist_path):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        codes = audit_md_rag.vault_codes([fp])
+        ctx = audit_md_rag.AuditContext(
+            vault_codes=codes,
+            whitelist_codes=audit_md_rag.load_whitelist(whitelist_path),
+            strict_future=True,
+        )
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r4_errors = [h for h in result["errors"] if "cu-014" in h]
+        r4_warnings = [h for h in result["warnings"] if "cu-014" in h]
+        assert r4_errors  # erreur en mode strict
+        assert "strict-future" in r4_errors[0]
+        assert r4_warnings == []
+
+    def test_main_strict_future_flag_active_durcissement(self, tmp_path, whitelist_path, capsys):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        write_md(tmp_path, "cu-001.md", md)
+        rc = audit_md_rag.main([
+            "--vault", str(tmp_path),
+            "--whitelist", whitelist_path,
+            "--strict-future",
+        ])
+        assert rc == 1
+        out = capsys.readouterr().out
+        assert "cu-014" in out
+
+    def test_main_sans_strict_future_warning_non_bloquant(self, tmp_path, whitelist_path, capsys):
+        md = CONFORME.replace("[[cu-008]]", "[[cu-014]]").replace("[[cu-008|Knowledge base RAG]]", "[[cu-014]]")
+        write_md(tmp_path, "cu-001.md", md)
+        rc = audit_md_rag.main([
+            "--vault", str(tmp_path),
+            "--whitelist", whitelist_path,
+        ])
+        # 0 erreur (warning seulement) ⇒ exit code 0
+        assert rc == 0
+        out = capsys.readouterr().out
+        assert "warning" in out.lower() or "⚠" in out
+
+
+# ============================================================
+# Bloc B (S2.1) — R5 glossaire + R7 nommage + R8 versioning git
+# ============================================================
+
+GLOSSAIRE_AVEC_TERMES = textwrap.dedent("""\
+---
+code: glossaire
+titre: "Glossaire canonique du Hub IA"
+type: transverse
+axe: transverse
+niveau: 1
+tags: [glossaire]
+version: 3.8.4
+last_updated: 2026-05-11
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Glossaire canonique du Hub IA
+
+## RAG
+
+Retrieval-Augmented Generation.
+
+## Fine-tuning
+
+Modification des poids du modèle.
+
+## Embeddings
+
+Représentation vectorielle.
+""")
+
+
+class TestR5Glossaire:
+    """R5 — terme du glossaire utilisé en clair → warning (déduplication)."""
+
+    @pytest.fixture
+    def vault_avec_glossaire(self, tmp_path):
+        write_md(tmp_path, "glossaire.md", GLOSSAIRE_AVEC_TERMES)
+        return str(tmp_path)
+
+    def _ctx(self, vault):
+        files = audit_md_rag.list_md_files(vault)
+        return audit_md_rag.AuditContext(
+            vault_codes=audit_md_rag.vault_codes(files),
+            glossaire_terms=audit_md_rag.load_glossaire_terms(vault),
+        )
+
+    def test_load_glossaire_terms_extrait_h2(self, vault_avec_glossaire):
+        terms = audit_md_rag.load_glossaire_terms(vault_avec_glossaire)
+        assert "rag" in terms
+        assert "fine-tuning" in terms
+        assert "embeddings" in terms
+
+    def test_terme_en_clair_genere_warning(self, vault_avec_glossaire):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche en trois temps. On parle ici de Fine-tuning et d'embeddings.",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [w for w in result["warnings"] if w.startswith("R5")]
+        terms_signaled = {w for w in r5_warnings if "fine-tuning" in w.lower() or "embeddings" in w.lower()}
+        assert len(terms_signaled) == 2  # dédupliqué par terme
+
+    def test_terme_via_wikilink_pas_warning(self, vault_avec_glossaire):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche citant [[glossaire#fine-tuning]] et [[glossaire#embeddings]].",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [
+            w for w in result["warnings"]
+            if w.startswith("R5") and ("fine-tuning" in w.lower() or "embeddings" in w.lower())
+        ]
+        assert r5_warnings == []
+
+    def test_r5_n_est_pas_appliquee_au_glossaire_lui_meme(self, vault_avec_glossaire):
+        fp = os.path.join(vault_avec_glossaire, "glossaire.md")
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_warnings = [w for w in result["warnings"] if w.startswith("R5")]
+        assert r5_warnings == []
+
+    def test_r5_warnings_pas_erreurs(self, vault_avec_glossaire):
+        """R5 produit des warnings, jamais des erreurs (première itération SPEC §10)."""
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Démarche, et Fine-tuning sont mentionnés.",
+        )
+        fp = write_md(vault_avec_glossaire, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_glossaire)
+        result = audit_md_rag.audit_file(fp, vault_avec_glossaire, ctx)
+        r5_errors = [h for h in result["errors"] if h.startswith("R5")]
+        assert r5_errors == []
+
+
+class TestR7Nommage:
+    """R7 — conformité du nom de fichier."""
+
+    @pytest.mark.parametrize("name", [
+        "cu-001.md", "cu-008.md", "pr-07.md", "dep-02.md", "a1.md",
+        "outils-vector-db.md", "outils-llm-gateway.md",
+        "glossaire.md",
+        "transverse-test.md", "vigilance-hallucinations.md",
+        "pattern-llm-wiki.md", "chiffres-macro-2026.md",
+        "methodologie-prompt-engineering.md", "cadrage-ai-act.md",
+    ])
+    def test_noms_conformes(self, tmp_path, name):
+        fp = write_md(tmp_path, name, CONFORME)
+        result = audit_md_rag.check_r7_nommage(fp)
+        assert result.errors == [], f"{name} devrait être valide"
+
+    @pytest.mark.parametrize("name", [
+        "Module_001.md",        # underscore + casse
+        "MaFiche.md",
+        "cu_001.md",            # underscore
+        "test.md",               # pas de famille
+        "cu-001.markdown",       # mauvaise extension
+        "outils.md",             # outils sans catégorie
+    ])
+    def test_noms_non_conformes(self, tmp_path, name):
+        fp = write_md(tmp_path, name, CONFORME)
+        result = audit_md_rag.check_r7_nommage(fp)
+        assert any("R7" in e for e in result.errors), f"{name} devrait déclencher R7"
+
+
+class TestR8Versioning:
+    """R8 — last_updated vs git mtime, tolérance 7 jours."""
+
+    def test_parse_last_updated_iso_string(self):
+        d = audit_md_rag._parse_last_updated("2026-05-12")
+        assert d == date(2026, 5, 12)
+
+    def test_parse_last_updated_date_object(self):
+        d = audit_md_rag._parse_last_updated(date(2026, 5, 12))
+        assert d == date(2026, 5, 12)
+
+    def test_parse_last_updated_invalide(self):
+        assert audit_md_rag._parse_last_updated("pas une date") is None
+        assert audit_md_rag._parse_last_updated(None) is None
+
+    def test_skip_si_git_indisponible(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: None,
+        )
+        assert result.errors == []
+
+    def test_ecart_acceptable_pas_erreur(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        # last_updated du CONFORME = 2026-05-11 ; git = 2026-05-12 → 1 jour
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: date(2026, 5, 12),
+        )
+        assert result.errors == []
+
+    def test_ecart_excessif_erreur(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        fm, _ = audit_md_rag.split_frontmatter(CONFORME)
+        ctx = audit_md_rag.AuditContext()
+        # last_updated = 2026-05-11 ; git = 2026-06-15 → 35 jours
+        result = audit_md_rag.check_r8_versioning(
+            fp, fm, ctx,
+            git_mtime_func=lambda fp, repo_root: date(2026, 6, 15),
+        )
+        assert any("R8" in e and "35 jours" in e for e in result.errors)
+
+    def test_last_updated_invalide_erreur(self, tmp_path):
+        md = CONFORME.replace("last_updated: 2026-05-11", "last_updated: invalid-date")
+        fp = write_md(tmp_path, "cu-001.md", md)
+        fm, _ = audit_md_rag.split_frontmatter(md)
+        ctx = audit_md_rag.AuditContext()
+        result = audit_md_rag.check_r8_versioning(fp, fm, ctx)
+        assert any("R8" in e and "non parseable" in e for e in result.errors)
+
+
+# ============================================================
+# Bloc C (S2.1) — R6 étendu + R9 chiffres macro canoniques
+# ============================================================
+
+CHIFFRES_MACRO_FULL = textwrap.dedent("""\
+---
+code: chiffres-macro-2026
+titre: "Chiffres macro IA — référentiel canonique 2026"
+type: transverse
+axe: transverse
+niveau: 2
+tags: [chiffres]
+version: 3.8.4
+last_updated: 2026-05-12
+glosaire_termes: []
+derives: []
+public_cible: [dirigeant, ops, r&d, tech, transverse]
+---
+
+# Chiffres macro IA — référentiel canonique 2026
+
+## 95 % — projets GenAI sans ROI (MIT NANDA 2025)
+
+Source : MIT NANDA 2025.
+
+## 67 % — dirigeants PME/TPE (Bpifrance 2025)
+
+Source : Bpifrance Le Lab 2025.
+
+## 21 % — organisations IA ayant redesigné leurs workflows (McKinsey 2025)
+
+Source : McKinsey 2025.
+""")
+
+
+class TestR6Etendu:
+    """R6 — wikilink vers chiffres-macro-* reconnu comme source canonique."""
+
+    def test_chiffre_sourcé_par_wikilink_transverse_ok(self, tmp_path):
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "[[chiffres-macro-2026#95-pourcent-mit-nanda|95 % des projets GenAI sans ROI]] (MIT NANDA 2025).",
+        )
+        fp = write_md(tmp_path, "cu-001.md", md)
+        ctx = audit_md_rag.AuditContext(vault_codes=audit_md_rag.vault_codes([fp]))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r6_errors = [e for e in result["errors"] if e.startswith("R6")]
+        assert r6_errors == [], f"Le wikilink chiffres-macro devrait suffire comme source : {r6_errors}"
+
+    def test_chiffre_orphelin_sans_wikilink_garde_warning_r6(self, tmp_path):
+        """v2 : par défaut warning, pas erreur. Le signal est conservé."""
+        md = CONFORME.replace(
+            "95 % des projets GenAI échouent (Source : MIT Sloan / NANDA, août 2025, [URL](https://example.com)).",
+            "95 % des projets GenAI échouent sans la moindre référence.",
+        )
+        fp = write_md(tmp_path, "cu-001.md", md)
+        ctx = audit_md_rag.AuditContext(vault_codes=audit_md_rag.vault_codes([fp]))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        assert any(w.startswith("R6") for w in result["warnings"])
+        assert not any(e.startswith("R6") for e in result["errors"])
+
+
+class TestR9ChiffresMacro:
+    """R9 — chiffre canonique du Hub cité en clair → warning."""
+
+    @pytest.fixture
+    def vault_avec_chiffres(self, tmp_path):
+        transverses = tmp_path / "transverses"
+        transverses.mkdir()
+        (transverses / "chiffres-macro-2026.md").write_text(CHIFFRES_MACRO_FULL, encoding="utf-8")
+        return str(tmp_path)
+
+    def _ctx(self, vault):
+        files = audit_md_rag.list_md_files(vault)
+        return audit_md_rag.AuditContext(
+            vault_codes=audit_md_rag.vault_codes(files),
+            canonical_chiffres=audit_md_rag.load_canonical_chiffres(
+                os.path.join(vault, "transverses", "chiffres-macro-2026.md")
+            ),
+        )
+
+    def test_load_canonical_chiffres(self, vault_avec_chiffres):
+        chiffres = audit_md_rag.load_canonical_chiffres(
+            os.path.join(vault_avec_chiffres, "transverses", "chiffres-macro-2026.md")
+        )
+        values = [c["value"] for c in chiffres]
+        assert "95 %" in values or "95 %" in [c["value"] for c in chiffres]
+        assert "67 %" in values
+        assert "21 %" in values
+
+    def test_chiffre_macro_en_clair_warning(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "On observe que 67 % des PME/TPE peinent à démarrer. Démarche en trois temps.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67" in w]
+        assert r9_warnings, f"R9 devrait signaler 67 % en clair : {result['warnings']}"
+
+    def test_chiffre_macro_wikilinké_pas_warning(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Comme [[chiffres-macro-2026#67-pourcent-bpifrance|67 % des PME]] l'illustrent.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67 %" in w]
+        assert r9_warnings == [], f"Le wikilink devrait suffire : {r9_warnings}"
+
+    def test_r9_skip_sur_chiffres_macro_lui_meme(self, vault_avec_chiffres):
+        """Le fichier chiffres-macro-2026.md lui-même contient les chiffres en clair :
+        c'est la source canonique, R9 doit le skip."""
+        fp = os.path.join(vault_avec_chiffres, "transverses", "chiffres-macro-2026.md")
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9_warnings == []
+
+    def test_r9_skip_sur_glossaire(self, vault_avec_chiffres):
+        """Le glossaire est aussi exempté de R9 pour éviter le bruit
+        si une définition contient un chiffre macro."""
+        glossaire_md = GLOSSAIRE_AVEC_TERMES.replace(
+            "Retrieval-Augmented Generation.",
+            "Retrieval-Augmented Generation. 95 % des cas PME couverts.",
+        )
+        glossaire_fp = write_md(vault_avec_chiffres, "glossaire.md", glossaire_md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(glossaire_fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9_warnings == []
+
+    def test_r9_deduplication_par_chiffre(self, vault_avec_chiffres):
+        """Plusieurs occurrences du même chiffre → 1 seul warning."""
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Pour 67 % des PME, c'est un défi. Et 67 % le confirment encore. Et toujours 67 %.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_warnings = [w for w in result["warnings"] if w.startswith("R9") and "67" in w]
+        assert len(r9_warnings) == 1
+
+    def test_r9_pas_d_erreurs_seulement_warnings(self, vault_avec_chiffres):
+        md = CONFORME.replace(
+            "Démarche en trois temps.",
+            "Selon nous, 21 % des organisations ont redesigné. Démarche.",
+        )
+        fp = write_md(vault_avec_chiffres, "cu-001.md", md)
+        ctx = self._ctx(vault_avec_chiffres)
+        result = audit_md_rag.audit_file(fp, vault_avec_chiffres, ctx)
+        r9_errors = [e for e in result["errors"] if e.startswith("R9")]
+        assert r9_errors == []
+
+    def test_r9_contexte_sans_chiffres_canoniques_skip(self, tmp_path):
+        """Si chiffres-macro-2026.md n'existe pas, R9 ne fait rien."""
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        ctx = audit_md_rag.AuditContext(canonical_chiffres=[])
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r9 = [w for w in result["warnings"] if w.startswith("R9")]
+        assert r9 == []
+
+
+# ============================================================
+# Bloc D (S2.1) — R10 transposition fidèle valeurs numériques (warnings)
+# ============================================================
+
+MD_AVEC_TABLEAU = textwrap.dedent("""\
+---
+code: cu-test
+titre: "Test tableau"
+type: module-cu
+axe: B
+niveau: 1
+tags: [test]
+version: 3.8.2
+last_updated: 2026-05-11
+glosaire_termes: [test]
+derives: ["[[cu-001]]"]
+public_cible: [dirigeant]
+---
+
+# Test tableau
+
+## Matrice
+
+| Critère | Build | Buy |
+|---|---|---|
+| Volume | > 50 utilisateurs | < 20 utilisateurs |
+| Budget | 40-100 k€ | 50-200 €/mois |
+| Délai | 3-9 mois | < 6 mois |
+""")
+
+
+class TestR10Tableaux:
+    """R10 — comparaison MD tableau vs HTML source (warnings première itération)."""
+
+    def test_extract_tables_detecte_lignes_pipe(self):
+        body = MD_AVEC_TABLEAU
+        tables = audit_md_rag.extract_tables(body)
+        assert len(tables) == 1
+        assert "Volume" in tables[0]
+        assert "50-200 €/mois" in tables[0]
+
+    def test_extract_tables_vide_si_pas_de_pipe(self):
+        assert audit_md_rag.extract_tables("Pas de tableau ici.\n\nJuste du texte.") == []
+
+    def test_normalize_for_comparison(self):
+        assert audit_md_rag.normalize_for_comparison("40-100 K€") == "40-100k€"
+        assert audit_md_rag.normalize_for_comparison("3 – 9 mois") == "3-9mois"
+        assert audit_md_rag.normalize_for_comparison("1,8 h/jour") == "1.8h/jour"
+
+    def test_strip_html(self):
+        html = "<p>Le texte <strong>important</strong> contient 95 % de cas.</p>"
+        text = audit_md_rag.strip_html(html)
+        assert "Le texte" in text
+        assert "<p>" not in text
+        assert "95 %" in text
+
+    def test_find_html_source_existe(self, tmp_path):
+        # Simule la structure repo : repo_root/modules/cu-001-recherche-veille.html
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        target = modules / "cu-001-recherche-veille.html"
+        target.write_text("<html></html>", encoding="utf-8")
+        found = audit_md_rag.find_html_source("cu-001", str(tmp_path))
+        assert found == str(target)
+
+    def test_find_html_source_absent(self, tmp_path):
+        assert audit_md_rag.find_html_source("cu-999", str(tmp_path)) is None
+        # Famille inconnue → None
+        assert audit_md_rag.find_html_source("unknown-001", str(tmp_path)) is None
+
+    def test_r10_skip_si_pas_de_tableau(self, tmp_path):
+        fp = write_md(tmp_path, "cu-001.md", CONFORME)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert r10 == []
+
+    def test_r10_skip_si_html_absent(self, tmp_path):
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        # Pas de HTML source → skip silencieux
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert r10 == []
+
+    def test_r10_valeur_md_dans_html_pas_warning(self, tmp_path):
+        # MD avec tableau, HTML qui contient les mêmes valeurs.
+        # On respecte la convention HTML : &lt; pour les `<` dans le texte.
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        html = ("<table><tr>"
+                "<td>40-100 k€</td>"
+                "<td>50-200 €/mois</td>"
+                "<td>3-9 mois</td>"
+                "<td>&gt; 50 utilisateurs</td>"
+                "<td>&lt; 20 utilisateurs</td>"
+                "<td>&lt; 6 mois</td>"
+                "</tr></table>")
+        (modules / "cu-test-x.html").write_text(html, encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        # 0 warning : toutes les valeurs MD sont dans le HTML
+        assert r10 == [], f"Warnings inattendus : {r10}"
+
+    def test_r10_valeur_md_absente_html_warning(self, tmp_path):
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        # HTML ne contient PAS la fourchette « 40-100 k€ » du MD
+        html = '<p>Budget de 10 k€ minimum.</p>'
+        (modules / "cu-test-x.html").write_text(html, encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10 = [w for w in result["warnings"] if w.startswith("R10")]
+        assert any("40-100" in w or "40-100 k€" in w for w in r10), f"R10 devrait signaler 40-100 k€ : {r10}"
+
+    def test_r10_warnings_pas_erreurs(self, tmp_path):
+        """R10 produit des warnings, jamais des erreurs (première itération)."""
+        modules = tmp_path / "modules"
+        modules.mkdir()
+        (modules / "cu-test-x.html").write_text("<p>vide</p>", encoding="utf-8")
+        fp = write_md(tmp_path, "cu-test.md", MD_AVEC_TABLEAU)
+        ctx = audit_md_rag.AuditContext(repo_root=str(tmp_path))
+        result = audit_md_rag.audit_file(fp, str(tmp_path), ctx)
+        r10_errors = [e for e in result["errors"] if e.startswith("R10")]
+        assert r10_errors == []

@@ -11,6 +11,41 @@
 
 ## Entrées
 
+### 2026-05-12 (S2.1 livraison) — Claude Code Hub IA Plateforme — Audit-md-rag v2 aligné SPEC v1.3 (5 blocs)
+
+**Contexte :** Sprint S2.1 ouvert par Blaise (BRIEF-CC-S2.1-audit-v2). Allocation D-030 : Claude Code Plateforme seul (refactor code + tests + exécution audit sur vault, aucun appel API externe). Cible brief §4 Bloc E : 0 erreur sur le vault de 9 fichiers.
+
+**Actions menées :**
+
+- **Bloc A — D-028 (exception R1 transverses) + D-029 (whitelist R4)** : refactor structurel (RuleResult errors/warnings dataclass), AuditContext, build_context() centralisé. Exception R1 pour `glossaire.md` + `chiffres-macro-*.md`. Loader load_whitelist() parse les 69 codes whitelistés. R4 distingue 3 cas (vault → OK, whitelist → warning, inconnu → erreur). Option CLI `--strict-future`. 13 nouveaux tests. Commit `a7a6463`.
+- **Bloc B — R5 + R7 + R8** : R5 glossaire (warning, déduplication par terme), R7 nommage (regex schémas), R8 versioning git (`git log -1 --format=%ct`, mockable via `git_mtime_func`). 32 nouveaux tests. Commit `1136af4`.
+- **Bloc C — R6 étendu + R9** : SOURCE_MARKERS étendue (wikilinks `[[chiffres-macro-YYYY*]]` reconnus comme sources), fenêtre R6 symétrique [-200, +200] chars. R9 charge les 16 chiffres canoniques de `chiffres-macro-2026.md` et signale en warning ceux cités en clair sans wikilink à proximité. 10 nouveaux tests. Commit `1357cb4`.
+- **Bloc D — R10 + R6 warning par défaut** : R10 mappe famille code → HTML (cu/pr/dep), normalise valeurs MD vs HTML stripping/decoding, signale en warning les valeurs MD absentes du HTML source. R6 bascule en **warning par défaut** (option `--strict-r6` rétablit le comportement v1) — décision motivée par l'étape B post-S1bis qui a classifié 42 chiffres pédagogiques comme acceptables. 12 nouveaux tests. Commit `7af1d04`.
+- **Bloc E — Exécution + RAPPORT + PR** : audit-report-s2.1.md exporté (217 lignes), 0 erreur, 183 warnings catégorisés. RAPPORT-CC-S2.1.md produit en 7 sections. Commit + push + PR.
+
+**Résultat audit v2 sur vault réel** :
+- Fichiers : 9
+- **Erreurs : 0** ✅ (vs 150 écarts bruts en audit v1 / S1bis)
+- Warnings : 183 (R4=84 vault partiel, R5=51 termes glossaire, R6=42 chiffres pédagogiques, R9=5 chiffres macro en clair, R10=1).
+- Exit code : 0.
+
+**Suite tests** : 134/134 verts (67 S1+S1bis+S1ter + 67 nouveaux S2.1).
+
+**Décisions structurantes prises :** aucune (S2.1 = exécution).
+
+**Propositions d'amendement SPEC v1.3 → v1.4** (à arbitrer par Cowork) : codifier R6 en warning par défaut, R5 v3 première occurrence, documenter `--strict-future` et `--strict-r6`.
+
+**Coût API S2.1 (cette session) :** 0,00 $.
+
+**Reste à faire :**
+- Validation manuelle PR par Blaise côté GitHub puis merge.
+- S2.2 — production vague 3 (CU-026, CU-027, DEP-08) avec D-026 co-production légère.
+- S2.3 — pipeline RAG enrichi.
+
+**Blockers :** aucun pour la PR.
+
+---
+
 ### 2026-05-12 (ouverture S2.1) — Cowork Hub IA Plateforme — D-030 actée + brief CC-S2.1 produit
 
 **Contexte :** Sprint S1 définitivement clos (merge PR #44). Question ouverte de Blaise sur l'adoption de Claude Code Desktop. Réponse Blaise : D-030 validée, Node.js + Claude Code Desktop installés sur le Mac de Blaise.
