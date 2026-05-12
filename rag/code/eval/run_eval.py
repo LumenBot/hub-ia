@@ -32,6 +32,10 @@ import os
 import sys
 from dataclasses import asdict, dataclass
 
+# Chargement automatique de rag/code/.env (S1ter Lot S1c.1)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _env  # noqa: F401  # side-effect: load_env() au moment de l'import
+
 try:
     import yaml
 except ImportError:

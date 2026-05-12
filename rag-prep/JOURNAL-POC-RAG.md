@@ -11,6 +11,39 @@
 
 ## Entrées
 
+### 2026-05-12 (S1ter livraison) — Claude Code Hub IA Plateforme — Lot S1c.1 livré + S1c.2 différé local + PR ouverte
+
+**Contexte :** Sprint S1ter ouvert par Blaise. Pull origin/main fast-forward de la branche `claude/execute-pilot-batches-mBSIp` pour récupérer le brief S1ter, la SPEC v1.3, la whitelist wikilinks futurs et les commits Cowork post-S1bis.
+
+**Constat clé d'environnement :** le `.env` Mac de Blaise contient les clés API (gitignored par construction — D-013), mais cette session Claude Code Plateforme web n'y a pas accès (le fichier n'a jamais transité par le clone Git, pas plus sa copie). Aucune clé n'est exposée en variables d'environnement non plus (seul `ANTHROPIC_BASE_URL` est défini, sans clé).
+
+**Actions menées :**
+
+- **Lot S1c.1 — python-dotenv** : livré intégralement.
+  - Helper `rag/code/_env.py` centralisé : `load_env(path=None)` lit `rag/code/.env`, tolérant absence fichier + absence python-dotenv, `override=False` pour ne pas écraser les vars d'env CI.
+  - `import _env` ajouté en tête de `ingest.py`, `query.py`, `run_eval.py` (avant tout import openai/anthropic).
+  - `requirements.txt` étendu (`python-dotenv>=1.0.0`).
+  - `.env.example` commenté pour expliciter le mécanisme.
+  - 5 nouveaux tests dans `rag/code/test_env.py` : chargement valide, fichier absent silencieux, `override=False` protège vars existantes, import tolérant, sanity check « 3 scripts importent _env ».
+  - **67/67 tests verts** (62 originaux + 5 nouveaux). Sanity du critère brief validé : `python -c "from ingestion import ingest..."` n'échoue plus sans clés exposées.
+- **Lot S1c.2 — validation end-to-end** : différé à exécution locale par Blaise. `AskUserQuestion` posée (4 options) → réponse Blaise : « python-dotenv suffit dans cette session, l'exécution end-to-end est l'amélioration code attendue ; S1c.2 sera lancé en local ». Procédure d'exécution complète documentée dans le RAPPORT §3 + §4 (`ingest.py` → 30-60 chunks → 10 queries → `run_eval.py`).
+- **Lot S1c.3 — RAPPORT + PR** : livré partiellement.
+  - `rag-prep/briefs/RAPPORT-CC-S1ter.md` produit en 8 sections conforme brief §4. Sections §3, §4, §5 explicitement marquées « exécution locale Blaise — résultats attendus ». §6 Apprentissages + §7 reco S2 enrichis (priorité audit-md-rag v2 avec D-028/D-029/R5-R10, métriques coût, pre-commit hook, system prompt enrichi briques transverses).
+  - PR ouverte avec titre canonique demandé : `feat(rag): Sprint S1ter - validation end-to-end + python-dotenv + clôture définitive S1`. Description PR précise explicitement le périmètre livré (S1c.1) vs différé local (S1c.2).
+
+**Décisions structurantes prises :** aucune (S1ter = exécution, pas de décision structurelle).
+
+**Coût API S1ter (cette session) :** 0,00 $. Plafonds durcis brief §7 (0,50 $ Anthropic / 0,10 $ OpenAI) intacts.
+
+**Reste à faire :**
+- Blaise pull la branche en local, exécute S1c.2 (ingest réel + 10 queries + run_eval), push les artefacts `rag/eval/queries-s1ter-output.md` + `rag/eval/eval-report-s1ter.md`. Possible enrichissement ultérieur du RAPPORT par une session S1quad si besoin de commentaire sur les résultats.
+- Validation manuelle PR par Blaise côté GitHub puis merge vers main.
+
+**Blockers :**
+- Aucun pour la PR. Persiste : `.env` jamais synchronisé vers la session web (par construction sécurité D-013) — l'exécution réelle est forcément locale.
+
+---
+
 ### 2026-05-12 (clôture étape C + brief S1ter) — Cowork Hub IA Plateforme — Brief CC-S1ter produit
 
 **Contexte :**
