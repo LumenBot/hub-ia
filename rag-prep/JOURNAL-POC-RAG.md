@@ -11,6 +11,67 @@
 
 ## Entrées
 
+### 2026-05-12 (post-S1bis intégration) — Cowork Hub IA Plateforme — Étapes B + C (arbitrage rapport audit + SPEC v1.3 + D-028/D-029)
+
+**Contexte :**
+- Blaise a mergé la PR #42 (sprint S1 + S1bis), pulled localement (commit `d48b61f` sur main).
+- Rebaselining Cowork-side fait : JOURNAL + STATUS + RAPPORT-CC-S1 + RAPPORT-CC-S1bis re-copiés depuis le clone Git vers Cowork-side (D-024 Option D rebaselining).
+- Lecture intégrale du `rag-prep/briefs/RAPPORT-CC-S1bis.md` (~6 KB, 9 sections) + `rag/eval/audit-report-s1bis.md` (~6 KB, 7 sections + annexe).
+
+**Étape B — Arbitrage catégorie D (chiffres orphelins potentiels) :**
+
+7 cas analysés (cf. §3 audit-report-s1bis.md). Verdict :
+- **1 canonisation** : « 90 % cas PME où le RAG bat le fine-tuning » → ajout au référentiel `chiffres-macro-2026.md` (4e canonisation après les 3 issues d'I-002 + I-003)
+- **1 item descendant inscrit** : I-D-002 (Sources primaires manquantes sur heuristiques techniques DEP-02 HTML — 30-40 % embedding, 10-30 % reranking, 5-10 % vector DB)
+- **5 chiffres conservés tel quel** : +11 % MTEB sourcé par RetEx mai 2026 (faux positif R6 audit v1), 80 % entreprises Postgres + 99,99 % Pinecone (affirmations marché acceptables)
+
+Verdict Claude Code Plateforme confirmé : 0 violation éditoriale claire de SPEC v1.2 sur le vault. Les 150 écarts bruts sont des limitations de l'audit v1 antérieur à SPEC v1.2.
+
+**Étape C — Production des artefacts (10 livrables) :**
+
+**Bloc 1 — Référentiel SPEC v1.3 + 2 nouvelles décisions :**
+- `SPEC-MD-POUR-RAG.md` bumpée v1.2 → v1.3 : ajout section « Exception structurelle pour fichiers racines transverses » avant R1, ajout « Politique des wikilinks vers MD planifiés » en §R4, enrichissement roadmap audit v2 (3 évolutions : exception R1, R4 tolérante, R6 reconnaît wikilinks canoniques)
+- **D-028** actée : exception structurelle R1 pour fichiers racines transverses (glossaire.md notamment ; `glosaire_termes` et `derives` peuvent être vides par construction)
+- **D-029** actée : politique des wikilinks vers MD planifiés via whitelist `rag-prep/whitelist-wikilinks-futurs.md`
+
+**Bloc 2 — Whitelist wikilinks futurs :**
+- Production `rag-prep/whitelist-wikilinks-futurs.md` v1 : 69 codes whitelistés couvrant vagues 3 à 5 (25 modules CU, 6 préalables PR, 7 DEP, 5 architectures, 8 brain pages transverses, 16 catégories outils). Lue par audit-md-rag v2 au démarrage. Procédure de maintenance : à chaque nouveau MD produit, retirer son code de la whitelist.
+
+**Bloc 3 — Référentiel chiffres macro étendu :**
+- `chiffres-macro-2026.md` bumpé v3.8.3 → v3.8.4 : ajout entrée « 90 % cas PME où le RAG bat le fine-tuning » (4e canonisation, post-S1bis)
+- Champ `derives` enrichi (ajout `dep-04` qui développera fine-tuning détail)
+
+**Bloc 4 — Refactor wikilinks dans vault :**
+- `glossaire.md` v3.8.3 → v3.8.4 : définition Fine-tuning wikilinké vers `chiffres-macro-2026#90-pourcent-cas-pme...` (R9 SPEC v1.2 appliquée a posteriori) + bump footer
+- `cu-008.md` v3.8.4 → v3.8.5 : 2 occurrences du « 90 % » wikilinkées vers `chiffres-macro-2026#90-pourcent-cas-pme...` (essentiel à retenir + recommandation par défaut)
+
+**Bloc 5 — Inscription item descendant + cartographie :**
+- `SYNC-INTER-CANAUX.md` : inscription **I-D-002** (heuristiques techniques DEP-02 sans source primaire dans HTML — à traiter par couple 1 en prochaine itération éditoriale, priorité basse)
+- `cartographie-rag.md` : entrée chiffres-macro-2026 mise à jour (bump v3.8.4, 16 chiffres canoniques, ajout angles thématiques RAG et transformation)
+
+**Bloc 6 — Correctifs comptage 9 vs 10 :**
+- `STATUS-RAG.md` : section « Bilan production MD » corrigée (« 9 fichiers MD du vault », correction post-S1bis explicitement notée — mes décomptes précédents annonçaient « 10 » par erreur). L1.14 corrigé.
+
+**Décisions structurantes prises :**
+- D-028 — Exception structurelle R1 pour fichiers racines transverses
+- D-029 — Politique des wikilinks vers MD planifiés (whitelist)
+
+**Reste à faire (clôture étape C) :**
+- Blaise effectue **L1.20** : sync ascendante des fichiers de gouvernance vers le clone Git puis push (SPEC v1.3, whitelist, DECISIONS, JOURNAL/STATUS/cartographie/SYNC, chiffres-macro v3.8.4, glossaire v3.8.4, cu-008 v3.8.5)
+- Blaise effectue **L1.21** : création du `.env` local avec clés API
+- Cowork produit le **BRIEF-CC-S1ter** pour reprendre S1b.2 (validation end-to-end + extension RAPPORT ou nouvelle PR)
+
+**Apprentissages clés capitalisés (étape B+C) :**
+- L'audit-md-rag.py v1 fonctionne mais ne couvre pas R9/R10 (introduites en SPEC v1.2). Priorité audit v2 confirmée pour S2.
+- La whitelist wikilinks futurs est un mécanisme léger et efficace pour gérer le vault construit par vagues. À maintenir en discipline d'entretien permanent.
+- Le pattern « rebaselining D-024 avant édition Cowork » s'est vérifié utile (JOURNAL et STATUS contenaient les entrées CC à intégrer).
+- L'erreur de comptage 9 vs 10 répétée pendant plusieurs sessions Cowork souligne l'utilité d'un script `rag/code/audit/inventory.py` (recommandation Proposition 3 de CC-S1bis).
+
+**Blockers :**
+- L1.20 (sync ascendante Git + push par Blaise) + L1.21 (création .env clés API).
+
+---
+
 ### 2026-05-12 (clôture bis) — Claude Code Hub IA Plateforme — S1bis Lot S1b.3 partiel (RAPPORT + PR)
 
 **Contexte :** Blaise demande l'ouverture de la PR pour resynchronisation locale et partage avec Cowork, sans attendre l'exécution de S1b.2 (clés API toujours absentes). RAPPORT-CC-S1bis produit en marquant explicitement S1b.2 non exécuté (§3 et §4). PR ouverte avec le titre canonique du brief §4.

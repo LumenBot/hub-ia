@@ -39,6 +39,8 @@
 | D-026 | 12 mai 2026 | Co-production légère obligatoire avec Cowork Hub IA sur modules N3/N4 (sondage AVANT production sur passages sensibles) — issue revue I-003 Q5 | Actée |
 | D-027 | 12 mai 2026 | Convention de nommage des branches Claude Code Plateforme : `claude/execute-{slug}-{hash}` accepté par défaut, pas de rename imposé | Actée |
 | D-012-bis | 12 mai 2026 | MCP Obsidian reporté à Phase 2 (gain marginal en Phase 1, valeur réelle en LLM Wiki layer) | Actée |
+| D-028 | 12 mai 2026 | Exception structurelle R1 pour fichiers racines transverses (champs `glosaire_termes` et `derives` peuvent être vides par construction) — issue S1bis catégorie A | Actée |
+| D-029 | 12 mai 2026 | Politique des wikilinks vers MD planifiés mais non encore produits : whitelist `rag-prep/whitelist-wikilinks-futurs.md` lue par audit v2, warnings au lieu d'erreurs — issue S1bis catégorie B | Actée |
 
 ---
 
@@ -418,6 +420,53 @@ public_cible: [dirigeant, ops, r&d]
 - 3 risques à monitorer (cf. SPEC v1.1 section « Briques transverses ») : dérive référentiel chiffres, duplication brain page/module, wikilinks cassés
 
 **Trace :** revue I-002 Q7 par Cowork Hub IA — 11 mai 2026.
+
+---
+
+## D-028 — Exception structurelle R1 pour fichiers racines transverses
+
+**Date :** 12 mai 2026
+**Statut :** Actée
+
+**Contexte :** S1bis Lot S1b.1 a détecté 2 écarts R1 sur `glossaire.md` (`glosaire_termes: []` et `derives: []` vides). Diagnostic Claude Code Plateforme : faux positifs structurels — le glossaire est la **racine du système de termes** par construction (il ne référence pas un autre glossaire, et il ne dérive d'aucun module ; les modules le réfèrent). R1 v1 trop stricte sur cette catégorie de fichiers.
+
+**Décision :** acter une exception structurelle à R1 limitée aux fichiers racines transverses :
+- `glossaire.md` (`code: glossaire`, `type: transverse`) : `glosaire_termes` et `derives` peuvent être vides
+- Briques transverses « pures » (qui ne dérivent pas d'un module identifié) : `derives` peut être vide
+
+**Anti-pattern interdit** : utiliser cette exception pour laisser vides des champs dans des fichiers ordinaires (modules CU, préalables PR, fiches DEP, fiches outils). Exception strictement limitée.
+
+**Conséquences :**
+- SPEC-MD-POUR-RAG v1.3 inscrit l'exception structurelle en section dédiée avant R1
+- audit-md-rag v2 (roadmap) reconnaîtra cette exception (cf. SPEC §Validation v2)
+- 2 écarts S1bis catégorie A désormais valides après audit v2
+
+**Trace :** rapport `rag/eval/audit-report-s1bis.md` §1 + arbitrage Cowork — 12 mai 2026.
+
+---
+
+## D-029 — Politique des wikilinks vers MD planifiés mais non encore produits
+
+**Date :** 12 mai 2026
+**Statut :** Actée
+
+**Contexte :** S1bis Lot S1b.1 a détecté 83 écarts R4 sur des wikilinks vers MD à produire dans les vagues futures (cu-002, pr-04, dep-07, etc.). Le vault est construit par vagues successives, donc les premiers modules font légitimement référence à des modules à produire ensuite. R4 v1 trop stricte sur cette catégorie.
+
+**Décision :** introduire une **whitelist des wikilinks vers MD planifiés** dans `rag-prep/whitelist-wikilinks-futurs.md` (côté gouvernance, hors vault). Politique d'application :
+1. La whitelist liste les codes de fichiers planifiés mais pas encore produits
+2. audit-md-rag v2 lit la whitelist au démarrage
+3. Wikilinks vers codes **whitelistés** → warnings (pas erreurs bloquantes)
+4. Wikilinks vers codes **ni dans le vault ni dans la whitelist** → erreurs réelles (wikilink cassé)
+5. À chaque nouveau MD produit, retirer son code de la whitelist (entretien)
+
+**Conséquences :**
+- SPEC-MD-POUR-RAG v1.3 inscrit la politique en §R4
+- audit-md-rag v2 (roadmap) lira la whitelist (cf. SPEC §Validation v2 point 12)
+- 83 écarts S1bis catégorie B reclassés en warnings après audit v2
+- Production immédiate de `whitelist-wikilinks-futurs.md` initial avec les codes attendus (cf. cartographie-rag et anticipations vague 3)
+- Entretien continu : à chaque PR Cowork/Code, vérifier que la whitelist reste à jour
+
+**Trace :** rapport `rag/eval/audit-report-s1bis.md` §2 + arbitrage Cowork — 12 mai 2026.
 
 ---
 

@@ -46,6 +46,32 @@ Le couple 1 doit être informé quand :
 
 ### Items descendants (couple 1 → couple 2)
 
+#### I-D-002 — Sources primaires manquantes sur heuristiques techniques DEP-02 HTML
+
+**Émetteur :** couple 2 (Cowork Hub IA Plateforme — issue S1bis catégorie D)
+**Destinataire :** couple 1 (Cowork Hub IA)
+**Date d'inscription :** 12 mai 2026
+**Statut :** ouvert (à traiter par couple 1 dans une prochaine itération éditoriale Hub HTML)
+
+**Contenu (résumé) :**
+S1bis Lot S1b.1 (audit-md-rag sur vault réel) a signalé en catégorie D plusieurs heuristiques techniques de DEP-02 sans source primaire visible dans le HTML source du Hub :
+- « 30-40 % impact embedding model » sur la qualité finale RAG
+- « +10-30 % précision reranking » (et « -30 % précision si sauter le reranking »)
+- « 5-10 % impact vector DB » (souvent surestimé en PME)
+
+Ces fourchettes apparaissent comme heuristiques pratiques dans `modules/cu-008-knowledge-base-rag.html` et `deploiement/dep-02-rag-architecture-prod.html` sans source primaire datée (alignement RULES §A potentiellement perfectible). Le MD `dep-02.md` les transpose fidèlement (R10 respectée — transposition fidèle), mais R6 audit signale leur potentiel orphelinat de source.
+
+**Action attendue côté couple 1 :** lors d'une prochaine itération éditoriale Hub HTML (v3.9, v4.0…), envisager de sourcer ces 3 fourchettes :
+- Soit en référençant un benchmark public (Techment, VentureBeat, MTEB) qui aurait mesuré ces impacts
+- Soit en les requalifiant explicitement comme « heuristiques pratiques observées en RetEx, sans source primaire »
+- Soit en supprimant les fourchettes chiffrées et en gardant un classement qualitatif
+
+**Impact côté couple 2 :** convention « le couple 1 tranche, le couple 2 s'aligne ». Le MD dep-02 reste fidèle au HTML actuel. Dès que la décision côté HTML est mergée, refactor du MD dep-02 en miroir.
+
+**Priorité :** basse. Pas bloquant pour Phase 1. À traiter au prochain audit éditorial Hub HTML.
+
+---
+
 #### I-D-001 — Harmonisation matrice PR-07 HTML (6 critères discours vs 8 critères table)
 
 **Émetteur :** couple 1 (Cowork Hub IA)

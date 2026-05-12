@@ -51,39 +51,42 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.11 | Sprint S1 Claude Code Plateforme — 6 lots livrés, 62/62 tests verts | ✅ Fait | Claude Code Plateforme |
 | L1.12 | D-012-bis (MCP Obsidian reporté Phase 2) + D-027 (convention branches Claude Code) actées | ✅ Fait | Cowork |
 | L1.13 | Brief CC-S1bis produit (validation end-to-end + PR) | ✅ Fait | Cowork |
-| L1.14 | Transfert des 10 MD du vault Cowork-side vers branche Git | ✅ Fait (9 fichiers présents — écart 9 vs 10 à confirmer) | Blaise |
+| L1.14 | Transfert des 9 MD du vault Cowork-side vers branche Git (initialement annoncé « 10 » par erreur de comptage Cowork — correction post-S1bis) | ✅ Fait | Blaise |
 | L1.15 | Transmission brief CC-S1bis à Claude Code Plateforme | ✅ Fait | Blaise |
 | L1.16a | S1bis Lot S1b.1 — audit-md-rag sur vault réel + rapport classifié | ✅ Fait (150 écarts bruts, 0 violation éditoriale réelle après classification) | Claude Code Plateforme |
 | L1.16b | S1bis Lot S1b.2 — validation end-to-end (ingest + retrieval + génération + eval) | ⏸ En pause (clés API absentes dans session) | Claude Code Plateforme |
 | L1.16c | S1bis Lot S1b.3 — RAPPORT-CC-S1bis + ouverture PR | ✅ Partiel (RAPPORT + PR livrés sans S1b.2 — §3/§4 marqués non exécutés) | Claude Code Plateforme |
 | L1.17 | Merge PR par Blaise après validation manuelle | ⏳ En attente | Blaise |
 | L1.18 | S1ter — exécution S1b.2 différée (ingest + queries + eval) dès clés API | ⏳ Reporté session future | Claude Code Plateforme |
+| L1.19 | Étape B (arbitrage catégorie D) + Étape C (SPEC v1.3 + D-028/D-029 + whitelist + 4e canonisation chiffres-macro 90 % + refactor wikilinks + I-D-002 + correctifs 9 vs 10) | ✅ Fait | Cowork |
+| L1.20 | Sync rag-prep côté Git (push de SPEC v1.3, whitelist, DECISIONS étendu, JOURNAL/STATUS/cartographie/SYNC, chiffres-macro v3.8.4, glossaire v3.8.4, cu-008 v3.8.5) | ⏳ À faire | Blaise |
+| L1.21 | Création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) | ⏳ À faire | Blaise |
+| L1.22 | Brief CC-S1ter pour reprendre S1b.2 (validation end-to-end + nouvelle PR/extension RAPPORT) | ⏳ À faire après L1.20 | Cowork |
+| L1.23 | Exécution S1ter par Claude Code Plateforme + extension PR ou nouvelle PR | ⏳ À faire | Claude Code Plateforme |
 
 ---
 
-## Vague 1 + Vague 2 — bilan production MD
+## Vague 1 + Vague 2 — bilan production MD (corrigé post-S1bis)
 
 **Vault `content/`** :
 - 1 glossaire canonique (`glossaire.md`, 23 termes après vague 2)
 - 1 fiche outils (`ressources/outils-vector-db.md`)
 - 3 briques transverses (`transverses/chiffres-macro-2026.md`, `vigilance-hallucinations.md`, `vigilance-confidentialite.md`)
-- 3 modules CU (`modules/cu-001.md`, `modules/cu-008.md` ← référence canonique D-017)
+- 2 modules CU (`modules/cu-001.md`, `modules/cu-008.md` ← référence canonique D-017)
 - 1 préalable PR (`prealables/pr-07.md`)
 - 1 fiche déploiement DEP (`deploiement/dep-02.md`)
 
-**Total : 10 fichiers MD du vault**, ~1000 lignes de contenu MD production.
+**Total : 9 fichiers MD du vault** (correction post-S1bis : Claude Code Plateforme a relevé un écart 9 vs 10 — mes décomptes précédents annonçaient 10 par erreur de comptage Cowork ; le nombre réel est 9). ~1100 lignes de contenu MD production.
 
 ---
 
 ## Blockers actifs
 
-- **L1.16b/c** : clés `OPENAI_API_KEY` et `ANTHROPIC_API_KEY` absentes dans la session Claude Code Plateforme actuelle. Validation end-to-end + ouverture PR en pause jusqu'à fourniture des clés ou choix d'un mode dégradé documenté. Arbitrage Blaise demandé.
-- **Écart inventaire vault** : 9 fichiers présents vs 10 annoncés. Voir §5 du rapport `rag/eval/audit-report-s1bis.md`. À confirmer Blaise / Cowork.
-- **Arbitrage Cowork sur ~7 chiffres orphelins potentiels** signalés en catégorie D du rapport audit (essentiellement dep-02, outils-vector-db, glossaire).
-- **L1.14** : transfert des 10 MD du vault Cowork-side vers la branche Git `claude/execute-pilot-batches-mBSIp` par Blaise. Procédure documentée.
-- **L1.15** : transmission du `BRIEF-CC-S1bis-validation-end-to-end.md` à Claude Code Plateforme par Blaise.
-- Puis exécution autonome de S1bis par Claude Code Plateforme + PR ouverte + merge manuel par Blaise.
-- **Vague 3 à venir** (CU-026, CU-027, DEP-08) avec application D-026 (sondage Cowork Hub IA préalable sur 2-3 passages sensibles).
+- **L1.20** : sync ascendante des fichiers de gouvernance vers le clone Git puis push (SPEC v1.3, whitelist-wikilinks-futurs.md, DECISIONS étendu D-028/D-029, JOURNAL/STATUS/cartographie-rag/SYNC à jour, chiffres-macro-2026 v3.8.4, glossaire v3.8.4, cu-008 v3.8.5).
+- **L1.21** : création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) par Blaise.
+- **Écart inventaire vault confirmé corrigé** : 9 fichiers réels, mes décomptes précédents annonçaient « 10 » par erreur (correction propagée dans STATUS).
+- **Arbitrage Cowork des 7 chiffres orphelins catégorie D résolu** : 1 canonisation (90 %), 1 item descendant I-D-002 inscrit pour le couple 1, 5 chiffres conservés tel quel (acceptables ou faux positifs R6).
+- **Vague 3 à venir** (CU-026, CU-027, DEP-08) avec application D-026 (sondage Cowork Hub IA préalable sur 2-3 passages sensibles). Voir aussi production prioritaire de `pattern-llm-wiki.md` (recouvrement cu-008 ↔ dep-02 confirmé).
 
 ## Vague 3 anticipée — modules N3/N4 à produire
 
