@@ -5,8 +5,8 @@ type: transverse
 axe: transverse
 niveau: 1
 tags: [glossaire, definitions, vocabulaire]
-version: 3.8.3
-last_updated: 2026-05-11
+version: 3.8.4
+last_updated: 2026-05-12
 glosaire_termes: []
 derives: []
 public_cible: [dirigeant, ops, r&d, tech, transverse]
@@ -82,7 +82,7 @@ Segment de texte de taille contrôlée (typiquement 400-700 [[glossaire#token]]s
 
 ## Fine-tuning
 
-Ajustement d'un [[glossaire#llm]] sur tes propres données pour spécialiser son comportement. À distinguer du [[glossaire#rag]] qui ajoute du contexte au moment de la requête. Long et coûteux (compute + données + expertise) ; généralement à privilégier seulement si un cas d'usage très spécifique avec domaine stable n'est pas couvrable par le RAG. Pour 90 % des cas PME/ETI, le RAG suffit.
+Ajustement d'un [[glossaire#llm]] sur tes propres données pour spécialiser son comportement. À distinguer du [[glossaire#rag]] qui ajoute du contexte au moment de la requête. Long et coûteux (compute + données + expertise) ; généralement à privilégier seulement si un cas d'usage très spécifique avec domaine stable n'est pas couvrable par le RAG. [[chiffres-macro-2026#90-pourcent-cas-pme-ou-le-rag-bat-le-fine-tuning-hub-ia-learning-center|Pour 90 % des cas PME/ETI, le RAG suffit]].
 
 ## Token
 
@@ -114,4 +114,4 @@ Massive Text Embedding Benchmark : benchmark public de référence pour évaluer
 
 ---
 
-*Glossaire — v3.8.3. À enrichir au fil des productions MD du vault.*
+*Glossaire — v3.8.4. À enrichir au fil des productions MD du vault.*

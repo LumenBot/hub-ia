@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.2 (8 règles essentielles + R9 + R10 issue retour I-003 + section briques transverses)
-**Dernière mise à jour :** 12 mai 2026 (révision post-revue I-003 couple 1)
+**Statut :** v1.3 (8 règles essentielles + R9 + R10 + exception R1 glossaire + politique wikilinks futurs)
+**Dernière mise à jour :** 12 mai 2026 (révision post-S1bis Claude Code Plateforme)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -9,6 +9,19 @@
 > **Principe directeur (RetEx couple 1 Q3 §3) :** démarrer minimaliste, enrichir au fil des écarts détectés par audit-md-rag.py. Cette v1 contient 8 règles essentielles. Les règles ajoutées en v2+ proviendront des apprentissages du pilote S1.
 
 > **Règle de gouvernance (D-023, issue retour couple 1 sur I-001) :** toute nouvelle règle ajoutée à ce fichier au-delà de la v1 doit s'accompagner, **dans le même commit**, d'une fonction de validation correspondante dans `audit-md-rag.py`. Sinon, la règle bascule en « anti-pattern documenté » (recommandation forte mais non opposable), pas en règle stricte. Pattern aligné sur K.1 de RULES-IMPLEMENTATION v1.6 du couple 1.
+
+---
+
+## Exception structurelle pour les fichiers racines transverses (issue S1bis catégorie A)
+
+Deux champs du frontmatter peuvent être légitimement vides pour les fichiers de type `transverse` qui constituent la **racine canonique** d'un système de référence :
+
+- `glosaire_termes: []` — pour le `glossaire.md` (le glossaire est la racine du système de termes, il ne référence pas un autre glossaire)
+- `derives: []` — pour le `glossaire.md` et pour les briques transverses « pures » (celles qui ne dérivent pas d'un module identifié)
+
+**Cette exception est inscrite par D-028 et doit être reconnue par audit-md-rag v2** (cf. roadmap audit v2 ci-dessous).
+
+**Anti-pattern interdit** : utiliser cette exception comme prétexte pour laisser vides des champs dans des fichiers ordinaires (modules CU, préalables PR, fiches DEP, fiches outils). Cette exception est strictement limitée aux fichiers racines transverses.
 
 ---
 
@@ -71,6 +84,14 @@ public_cible: [dirigeant, ops, r&d]   # valeurs autorisées : dirigeant | ops | 
 **Liens externes** (hors vault) : MD standard `[texte](url)`. Toujours inclure le domaine source dans le texte si pertinent.
 
 **Validation** : audit-md-rag.py vérifie que les cibles des wikilinks existent dans le vault.
+
+### Politique des wikilinks vers MD planifiés mais non encore produits (issue S1bis catégorie B + D-029)
+
+Le vault est construit par vagues successives. Les premiers modules produits font légitimement référence à des modules à produire dans les vagues suivantes (ex. `cu-001.md` référence `cu-002.md` qui n'est pas encore dans le vault). Ces wikilinks sont **anticipations planifiées**, pas erreurs.
+
+**Mécanisme** : un fichier `rag-prep/whitelist-wikilinks-futurs.md` (côté gouvernance, hors vault) liste les codes de fichiers planifiés mais pas encore produits. L'audit-md-rag v2 le lira au démarrage et émettra des **warnings** (pas des erreurs) pour les wikilinks pointant vers ces codes.
+
+**Politique de mise à jour de la whitelist** : à chaque nouveau MD produit, retirer son code de la whitelist. Si une wikilink pointe vers un code ni dans le vault ni dans la whitelist → erreur réelle, le wikilink est cassé.
 
 ---
 
@@ -222,13 +243,19 @@ Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à 
 4. **R4-wikilinks-valides** : toutes les cibles de wikilinks existent dans le vault
 5. **R6-chiffres-sources** : tout chiffre numérique de pattern `%`, `×`, `k€`, `M€` est suivi à moins de 50 caractères d'une mention « Source : » ou d'un lien `[...](...)` ou d'une mention `URL`
 
-À ajouter en v2 (post-S1, alignement avec règles consolidées) :
+À ajouter en v2 (post-S1, alignement avec règles consolidées et apprentissages S1bis) :
 
 6. **R5-glossaire** : tout terme du glossaire utilisé dans un MD doit l'être via wikilink `[[glossaire#terme]]`, pas en clair
 7. **R7-nommage** : conformité au schéma `{type}-{numero}.md` ou `outils-{categorie}.md`
 8. **R8-versioning** : `last_updated` cohérent avec la dernière modification git (< 7 jours d'écart)
 9. **R9-chiffres-macro-canoniques** : tout chiffre macro du Hub (95 %, 67 %, 76 %, etc.) cité dans un MD doit l'être soit textuellement (avec source), soit via wikilink vers `chiffres-macro-2026.md`. Détection par regex et comparaison avec `chiffres-macro-2026.md` parsé.
 10. **R10-tableaux-numeriques-fideles** : pour chaque tableau MD, comparer les valeurs numériques extraites (regex sur seuils, fourchettes, montants, durées) avec celles du HTML source correspondant. Signaler tout écart numérique.
+
+### Évolutions issues du retour S1bis Claude Code Plateforme (à intégrer en v2)
+
+11. **Exception R1 pour fichiers racines transverses** (D-028) : ne pas considérer comme « champ vide » `glosaire_termes` et `derives` quand `code == "glossaire"` ou pour les briques transverses racines. Vide par construction = légitime.
+12. **R4 tolérante aux wikilinks vers MD planifiés** (D-029) : lire `rag-prep/whitelist-wikilinks-futurs.md` au démarrage de l'audit. Wikilinks vers codes whitelistés → warnings (pas erreurs). Wikilinks vers codes ni dans le vault ni dans la whitelist → erreurs réelles.
+13. **R6 reconnaît les wikilinks canoniques comme source** : étendre `SOURCE_MARKERS` pour matcher `\[\[chiffres-macro-\d{4}[^\]]+\]\]` et plus généralement les wikilinks vers `transverses/*`. Convergence opérationnelle R6 ↔ R9.
 
 ---
 
@@ -239,5 +266,6 @@ Le script `audit-md-rag.py` (livré en S1 par Claude Code Plateforme) valide à 
 | v1 | 11 mai 2026 | Version initiale, 8 règles essentielles |
 | v1.1 | 11 mai 2026 | + R9 (citation textuelle chiffres canoniques, règle stricte issue retour I-002) ; + section méthodologique « briques transverses » (D-025) ; enrichissement anti-patterns (AP-2 conversion monétaire, AP-3 édulcoration contextuelle) ; ajout glose « On-premise » au glossaire (alignement RULES §C.2)|
 | v1.2 | 12 mai 2026 | + R10 (transposition fidèle des valeurs numériques dans les tableaux, règle stricte issue retour I-003) ; AP-4 promu en règle R10 plutôt qu'anti-pattern documenté ; audit R10 ajouté à la roadmap v2 audit-md-rag.py |
+| v1.3 | 12 mai 2026 | + Exception structurelle R1 pour fichiers racines transverses (D-028, issue S1bis catégorie A) ; + Politique des wikilinks vers MD planifiés (D-029, issue S1bis catégorie B) ; roadmap audit v2 enrichie de 3 évolutions (exception R1, R4 tolérante, R6 reconnaît wikilinks canoniques) |
 
 **Évolution prévue** : enrichissement en v2 post-pilote S1 sur la base des écarts détectés par les premières exécutions de `audit-md-rag.py`.

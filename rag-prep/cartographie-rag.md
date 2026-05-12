@@ -76,18 +76,20 @@ Pour chaque fichier MD produit, on consigne :
 ### `transverses/chiffres-macro-2026.md` (transverse — référentiel chiffres canoniques)
 
 **Titre** : Chiffres macro IA — référentiel canonique 2026
-**Version** : 3.8.2
-**Date d'ajout au vault** : 2026-05-11
+**Version** : 3.8.4 (post-S1bis)
+**Date d'ajout au vault** : 2026-05-11 (extensions 2026-05-12)
 **Angles thématiques principaux** :
-1. Référentiel canonique de 13 chiffres macro du Hub IA (sources datées + formulation exacte)
+1. Référentiel canonique de **16 chiffres macro** du Hub IA (sources datées + formulation exacte)
 2. Discipline anti-dérive : tout module qui cite un de ces chiffres wikilinke ici plutôt que de reformuler
 3. Couverture adoption IA (55 % usage GenAI, 26 % usage intégré, 67 % manque de méthode…)
 4. Couverture risque/ROI (95 % MIT NANDA sans ROI, 80-95 % causes organisationnelles, +270 % Microsoft)
 5. Couverture marché travail (×5 productivité PwC, 77k offres, 3,7× IDC Copilot)
+6. Couverture RAG : **1,8 h/jour McKinsey** + **90 % cas PME RAG bat fine-tuning** (ajout S1bis)
+7. Couverture transformation : **21 % organisations IA workflows redesignés** McKinsey (ajout S1bis)
 
-**Mots-clés sémantiques** : chiffres, statistiques, sources, Bpifrance, France Num, MIT NANDA, Microsoft, PwC, IDC
+**Mots-clés sémantiques** : chiffres, statistiques, sources, Bpifrance, France Num, MIT NANDA, Microsoft, PwC, IDC, McKinsey, RAG, fine-tuning
 
-**Recouvrements connus** : SOURCE UNIQUE pour ces chiffres. Tous les modules qui les mentionneront feront référence ici par wikilink. Élimine la dérive AP-1 identifiée en revue I-002.
+**Recouvrements connus** : SOURCE UNIQUE pour ces chiffres. Tous les modules qui les mentionneront feront référence ici par wikilink. Élimine la dérive AP-1 identifiée en revue I-002 et formalise R9 SPEC v1.2.
 
 ---
 

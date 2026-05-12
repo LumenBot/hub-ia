@@ -5,10 +5,10 @@ type: transverse
 axe: transverse
 niveau: 2
 tags: [chiffres, statistiques, marche-ia, adoption, roi, sourcing]
-version: 3.8.3
+version: 3.8.4
 last_updated: 2026-05-12
 glosaire_termes: [llm, rag, fine-tuning]
-derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]"]
+derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]"]
 public_cible: [dirigeant, ops, r&d, tech, transverse]
 ---
 
@@ -81,6 +81,16 @@ Mesure le « gap entre adoption et transformation » : la majorité des organisa
 Argument central pour les patterns de [[glossaire#rag]] et de knowledge management. Un RAG bien déployé réduit ce temps de 50-70 %. Pour une équipe de 20 personnes : plusieurs centaines d'heures redéployables par mois sur des tâches à valeur ajoutée.
 
 **Modules concernés** : [[cu-001]] (recherche & veille augmentée), [[cu-008]] (Knowledge base RAG), [[cu-025]] (Knowledge management IA-augmenté pour dirigeant), [[pr-04]] (Marché IA & emploi).
+
+## 90 % — cas PME où le RAG bat le fine-tuning (Hub IA Learning Center)
+
+**Pour 90 % des cas d'usage PME / ETI, le RAG bat le [[glossaire#fine-tuning]].** Source : synthèse pédagogique du Hub IA Learning Center, alignée sur les retours d'expérience documentés en 2025-2026.
+
+Raisons clés : mise à jour immédiate (ajout d'un document), réversibilité totale, citation des sources native, compatibilité RGPD / droit à l'oubli, coût initial faible. Le fine-tuning est à privilégier uniquement pour des cas très spécifiques (domaine très stable, performance à optimiser, données très propriétaires).
+
+Chiffre canonique pour les choix d'architecture RAG vs fine-tuning. À wikilinker depuis tout module qui le mentionne pour cohérence cross-couche (R9 SPEC v1.2).
+
+**Modules concernés** : [[cu-008]] (Knowledge base RAG — formulation principale), [[glossaire]] (définition Fine-tuning), [[dep-04]] (Fine-tuning : quand y aller, quand ne pas).
 
 ## 95 % — projets GenAI sans ROI mesurable (MIT NANDA 2025)
 
