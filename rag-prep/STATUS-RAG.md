@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (S2.2 ouvert — brief finalisé, à transmettre)
-**Sprint en cours :** **S2.2 — Brique pattern-llm-wiki + extension golden set + métriques + pre-commit** (BRIEF-CC-S2.2 v1 prêt à transmettre, allocation D-030 hybride Cowork + Plateforme + Desktop)
+**Dernière mise à jour :** 12 mai 2026 (S2.2 Lot C livré par Claude Code Plateforme — Lots A, B, D en cours côté Cowork/Desktop)
+**Sprint en cours :** **S2.2 en exécution** — Lot C ✅ livré (métriques coût + pre-commit + system prompt enrichi, 159/159 tests verts, 0 $). Lots A/B (Cowork) + Lot D (Desktop) à enchaîner en parallèle.
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 

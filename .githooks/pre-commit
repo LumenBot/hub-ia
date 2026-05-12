@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Pre-commit hook RAG (S2.2 Lot C) — exécute audit-md-rag.py sur le vault
+# quand un fichier `rag/content/**.md` est stagé. Bloque le commit si erreur
+# (warnings tolérés sauf si --strict-future et/ou --strict-r6 passés).
+#
+# Activation côté Blaise (une fois par clone) :
+#     git config core.hooksPath .githooks
+#
+# Désactivation ponctuelle (ne pas en abuser — D-016 audit shift-left) :
+#     git commit --no-verify
+#
+# Réfs : D-016 audit automatisé dès S1, BRIEF-CC-S2.2 §4 Lot C, RAPPORT
+# CC-S1 §6 reco 5 et RAPPORT-CC-S1bis §8 reco 3 (recommandation
+# récurrente).
+
+set -e
+
+# Détection des fichiers MD du vault stagés (Added/Modified/Renamed)
+staged_md=$(git diff --cached --name-only --diff-filter=AMR | grep -E '^rag/content/.*\.md$' || true)
+
+if [ -z "$staged_md" ]; then
+    # Pas de fichier rag/content/*.md modifié — rien à auditer.
+    exit 0
+fi
+
+echo "pre-commit: rag/content/ touché — exécution audit-md-rag v2..."
+echo "fichiers concernés :"
+echo "$staged_md" | sed 's/^/  - /'
+echo ""
+
+# On lance l'audit sur l'ensemble du vault (les MD interagissent entre eux
+# via wikilinks, donc l'audit ne peut pas se limiter aux seuls fichiers
+# stagés sans risquer les faux négatifs R4).
+audit_script="rag/code/audit/audit-md-rag.py"
+
+if [ ! -f "$audit_script" ]; then
+    echo "pre-commit [warn]: $audit_script introuvable, audit ignoré."
+    exit 0
+fi
+
+if ! python3 "$audit_script" --vault rag/content; then
+    echo ""
+    echo "pre-commit: ✗ audit-md-rag a détecté des erreurs. Commit bloqué."
+    echo "  - Corriger les erreurs signalées ci-dessus, OU"
+    echo "  - Forcer le commit (déconseillé) : git commit --no-verify"
+    exit 1
+fi
+
+echo "pre-commit: ✅ audit-md-rag OK, commit autorisé."
+exit 0

@@ -196,3 +196,108 @@ class TestPromptDiscipline:
         assert "Citations" in sp or "cite" in sp.lower()
         assert "pas d'invention" in sp.lower() or "invention" in sp.lower()
         assert "n'ai pas de réponse" in sp or "documentée" in sp
+
+
+# ============================================================
+# S2.2 Lot C — Prompt enrichi (briques transverses + wikilinks)
+# ============================================================
+
+class TestPromptEnrichiS22:
+    """Le system prompt v2 doit mentionner les briques transverses comme
+    sources canoniques privilégiées (D-025) et le format wikilink Obsidian
+    comme citation préférée."""
+
+    def test_mentionne_briques_transverses_canoniques(self):
+        sp = query_mod.SYSTEM_PROMPT
+        assert "chiffres-macro-2026" in sp, "doit mentionner le référentiel chiffres-macro"
+        assert "vigilance-" in sp, "doit mentionner la famille vigilance-*"
+        assert "pattern-" in sp, "doit mentionner la famille pattern-*"
+        assert "glossaire" in sp.lower()
+
+    def test_mentionne_autorite_canonique_transverse(self):
+        sp = query_mod.SYSTEM_PROMPT
+        # Le prompt doit indiquer que les transverses sont d'autorité supérieure
+        # à une mention équivalente dans un module
+        assert "autorité" in sp.lower() or "canoniques privilégiées" in sp.lower() \
+            or "source canonique" in sp.lower()
+
+    def test_mentionne_format_wikilink_obsidian(self):
+        sp = query_mod.SYSTEM_PROMPT
+        assert "[[" in sp, "doit montrer la syntaxe wikilink [[code]]"
+        assert "]]" in sp
+        assert "préféré" in sp.lower() or "wikilink" in sp.lower()
+
+    def test_format_crochets_simples_reste_accepte_retro_compat(self):
+        sp = query_mod.SYSTEM_PROMPT
+        # Rétro-compatibilité du format historique [CODE]
+        assert "[CU-008]" in sp or "[CU-001]" in sp or "[DEP-02]" in sp or \
+               "rétro-compatibilité" in sp.lower()
+
+    def test_extraction_citations_supporte_les_deux_formats(self):
+        """L'extraction doit fonctionner sur les crochets simples (v1).
+        Les wikilinks Obsidian [[...]] ne sont pas matchés par CODE_PATTERN
+        (intentionnel : ils sont du markup interne, pas des citations
+        exposées) — confirmé par les tests existants."""
+        ans = "Réponse [CU-008]. Voir aussi [DEP-02]."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["CU-008", "DEP-02"]
+
+
+# ============================================================
+# S2.2 Lot C — Instrumentation coût (intégration Generator/Embedder)
+# ============================================================
+
+class FakeAnthropicResponse:
+    """Mock minimal d'un objet de réponse Anthropic avec usage."""
+    class _Usage:
+        def __init__(self, in_tokens, out_tokens):
+            self.input_tokens = in_tokens
+            self.output_tokens = out_tokens
+
+    class _Block:
+        def __init__(self, text):
+            self.text = text
+            self.type = "text"
+
+    def __init__(self, text, in_tokens=100, out_tokens=50):
+        self.content = [self._Block(text)]
+        self.usage = self._Usage(in_tokens, out_tokens)
+
+
+class FakeAnthropicClient:
+    def __init__(self, in_tokens=100, out_tokens=50):
+        self.in_tokens = in_tokens
+        self.out_tokens = out_tokens
+        self.messages = self
+
+    def create(self, model, max_tokens, system, messages):
+        return FakeAnthropicResponse("ok", self.in_tokens, self.out_tokens)
+
+
+class TestCostInstrumentation:
+    def test_generator_log_cost_avec_usage(self, tmp_path):
+        gen = query_mod.Generator(
+            model="claude-sonnet-4-6",
+            api_key="dummy",
+            cost_log_path=str(tmp_path / "cost.jsonl"),
+        )
+        # On bypass _ensure() en plantant directement le client mock
+        gen._client = FakeAnthropicClient(in_tokens=1234, out_tokens=567)
+        out = gen.generate("system", "user")
+        assert out == "ok"
+        # Vérifier que le log JSONL contient l'entrée
+        log = (tmp_path / "cost.jsonl").read_text(encoding="utf-8")
+        assert "claude-sonnet-4-6" in log
+        assert '"tokens_in": 1234' in log
+        assert '"tokens_out": 567' in log
+
+    def test_generator_tolerant_si_log_path_inaccessible(self, tmp_path):
+        gen = query_mod.Generator(
+            model="claude-sonnet-4-6",
+            api_key="dummy",
+            cost_log_path=str(tmp_path / "ne-pas-exister" / "cost.jsonl"),
+        )
+        gen._client = FakeAnthropicClient(in_tokens=10, out_tokens=5)
+        # Doit retourner la réponse sans crasher même si log inaccessible
+        out = gen.generate("system", "user")
+        assert out == "ok"

@@ -52,14 +52,39 @@ Ton et style :
 glose en une phrase.
 - Pas d'invention de chiffres ou de sources : seules les données présentes \
 dans le CONTEXTE ci-dessous sont valides.
-- Citations obligatoires : chaque assertion factuelle doit être suivie du \
-code source entre crochets, par exemple [CU-008] ou [DEP-02].
+
+Briques transverses — sources canoniques privilégiées (D-025) :
+- `chiffres-macro-2026` : référentiel canonique des chiffres macro du Hub \
+(95 % MIT NANDA, 67 % Bpifrance, 1,8 h/jour McKinsey, etc.). Cite-le en \
+priorité dès qu'un chiffre macro est mobilisé.
+- `vigilance-*` (vigilance-hallucinations, vigilance-confidentialite) : \
+patterns de vigilance communs à plusieurs modules. À mobiliser dès qu'une \
+question évoque sécurité, fiabilité ou conformité.
+- `pattern-*` (pattern-llm-wiki, pattern-eval-set-golden, etc.) : \
+patterns techniques transversaux. À mobiliser dès qu'une architecture \
+récurrente est concernée.
+- `glossaire` : définitions canoniques des termes du Hub. À mobiliser pour \
+toute glose de terme technique.
+
+Quand un chunk du CONTEXTE provient d'une brique transverse, traite-la comme \
+**source d'autorité supérieure** à une mention équivalente trouvée dans un \
+module CU/PR/DEP (préfère la formulation canonique transverse).
+
+Citations obligatoires :
+- Format **préféré** (Obsidian wikilink, aligné avec le vault RAG) : \
+`[[code]]` ou `[[code#section]]` pour pointer une section précise — \
+exemple `[[chiffres-macro-2026#95-pourcent-mit-nanda-2025]]`, `[[pattern-llm-wiki]]`.
+- Format **accepté** (rétro-compatibilité historique) : `[CODE]` entre \
+crochets simples — exemple `[CU-008]`, `[DEP-02]`.
+- Chaque assertion factuelle doit être suivie d'au moins une citation \
+(wikilink préféré, crochets simples accepté).
 - Si le CONTEXTE ne couvre pas la question, dis explicitement « Je n'ai pas \
 de réponse documentée dans le Hub IA pour cette question » plutôt que d'extrapoler.
 
 Format de réponse :
 1. Réponse directe en 2-4 paragraphes.
-2. Ligne « Sources : » à la fin listant les codes utilisés (ex. : CU-001, DEP-02).
+2. Ligne « Sources : » à la fin listant les codes utilisés (ex. : CU-001, \
+DEP-02, chiffres-macro-2026).
 """
 
 
@@ -102,10 +127,12 @@ class QueryResult:
 # ============================================================
 
 class Embedder:
-    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None):
+    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None,
+                 cost_log_path: str | None = None):
         self.model = model
         self._client = None
         self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        self._cost_log_path = cost_log_path
 
     def _ensure(self):
         if self._client is None:
@@ -118,6 +145,19 @@ class Embedder:
     def embed_one(self, text: str) -> list[float]:
         client = self._ensure()
         resp = client.embeddings.create(model=self.model, input=[text])
+        # S2.2 Lot C — instrumentation coût
+        try:
+            import _cost  # noqa: F401
+            tokens_in = getattr(getattr(resp, "usage", None), "prompt_tokens", 0) or 0
+            _cost.log_cost(
+                script="query.py",
+                model=self.model,
+                tokens_in=int(tokens_in),
+                tokens_out=0,
+                log_path=self._cost_log_path,
+            )
+        except Exception:
+            pass
         return resp.data[0].embedding
 
 
@@ -149,10 +189,12 @@ class Retriever:
 
 
 class Generator:
-    def __init__(self, model: str = "claude-sonnet-4-6", api_key: str | None = None):
+    def __init__(self, model: str = "claude-sonnet-4-6", api_key: str | None = None,
+                 cost_log_path: str | None = None):
         self.model = model
         self._client = None
         self._api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+        self._cost_log_path = cost_log_path
 
     def _ensure(self):
         if self._client is None:
@@ -170,6 +212,21 @@ class Generator:
             system=system,
             messages=[{"role": "user", "content": user}],
         )
+        # S2.2 Lot C — instrumentation coût
+        try:
+            import _cost  # noqa: F401
+            usage = getattr(msg, "usage", None)
+            tokens_in = getattr(usage, "input_tokens", 0) or 0
+            tokens_out = getattr(usage, "output_tokens", 0) or 0
+            _cost.log_cost(
+                script="query.py",
+                model=self.model,
+                tokens_in=int(tokens_in),
+                tokens_out=int(tokens_out),
+                log_path=self._cost_log_path,
+            )
+        except Exception:
+            pass
         return "".join(block.text for block in msg.content if getattr(block, "type", None) == "text")
 
 

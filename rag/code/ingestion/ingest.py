@@ -232,10 +232,12 @@ def collect_chunks(vault: str) -> list[Chunk]:
 class Embedder:
     """Abstraction d'un client d'embeddings. Override en test."""
 
-    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None):
+    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None,
+                 cost_log_path: str | None = None):
         self.model = model
         self._client = None
         self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        self._cost_log_path = cost_log_path
 
     def _ensure_client(self):
         if self._client is None:
@@ -250,6 +252,19 @@ class Embedder:
             return []
         client = self._ensure_client()
         resp = client.embeddings.create(model=self.model, input=texts)
+        # S2.2 Lot C — instrumentation coût
+        try:
+            import _cost  # noqa: F401  (chargé par _env en tête)
+            tokens_in = getattr(getattr(resp, "usage", None), "prompt_tokens", 0) or 0
+            _cost.log_cost(
+                script="ingest.py",
+                model=self.model,
+                tokens_in=int(tokens_in),
+                tokens_out=0,
+                log_path=self._cost_log_path,
+            )
+        except Exception:
+            pass  # ne jamais faire échouer l'ingestion à cause du log de coût
         return [d.embedding for d in resp.data]
 
 
