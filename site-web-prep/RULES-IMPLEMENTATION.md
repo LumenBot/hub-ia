@@ -230,9 +230,20 @@ Référence d'implémentation : `modules/cu-023-devis-intelligent.html` (pattern
 
 Les renvois internes (autres modules CU, préalables PR, fiches DEP, fiches outils de `ressources.html`, page Architectures) **vivent dans le corps du module au fil du texte, contextualisés**. Ils **ne doivent PAS être récapitulés** dans la section finale `id="ressources"` (qui est réservée aux **ressources externes** — Schéma A : 4 sous-rubriques externes uniquement).
 
-**Lien obligatoire à la 1re mention significative d'un outil** ayant une fiche dans `ressources.html` : `<a href="../ressources.html#nom-outil">Nom de l'outil</a>`. Liste des ancres à jour : `grep -oE '<article class="tool-card" id="[^"]+"' ressources.html`.
+**Lien obligatoire à la 1re mention significative d'un outil** ayant une fiche dans `ressources.html` : `<a href="../ressources.html#nom-outil" class="tool-link">Nom de l'outil</a>`.
+
+**Précisions opérationnelles (v3.9)** :
+- La règle s'applique sur **toute page** du Hub (modules, préalables, déploiement, architectures, index) : chaque page doit linker la **première occurrence non-liée** de chaque outil cité qui possède une fiche `tool-card` dans `ressources.html`.
+- Les occurrences suivantes dans la même page ne sont **pas** à linker (évite la surcharge visuelle).
+- Le label du lien reprend exactement le nom mentionné dans le texte (alias acceptés : `Mistral Large` → `#mistral`, `Claude Code` → `#claude-code`, `ChatGPT Atlas` → `#atlas`).
+- Zones à exclure du wrappage automatique : `<a>`, `<code>`, `<pre>`, `<script>`, `<style>`, `<svg>`, `<aside class="module-toc">`, attributs HTML.
+- Outils dont le nom est homographe d'un mot usuel (Make, v0, Comet, Operator, Atlas, Crayon, Whisper) → décision manuelle au cas par cas.
+
+**Liste des ancres à jour** : `grep -oE '<article class="tool-card" id="[^"]+"' ressources.html`. Toute nouvelle fiche outil ajoutée dans `ressources.html` ouvre un cycle de revue cross-site (cf. `site-web-prep/link-tools-to-resources.py` — script idempotent qui ajoute la première mention par page).
 
 **Cross-links obligatoires sur paires sensibles** (voir Annexe § 4.I.1 pour la liste complète) : CU-015 ↔ CU-027, CU-021 ↔ CU-024, triptyque CU-001/011/012, CU-014 ↔ CU-026, etc.
+
+**Audit automatisé** : la fonction `audit_tool_link_first_mention()` de `audit-global.py` détecte les mentions d'outils non-liées sur les pages de contenu (rule I.2).
 
 ---
 
@@ -324,7 +335,8 @@ Auto-diagnostic (H.1) :
 Renvois internes (I.1) :
 ☐ Renvois internes dans le corps, contextualisés.
 ☐ Section finale id="ressources" en Schéma A (4 sous-rubriques externes).
-☐ 1re mention significative d'un outil → lien `ressources.html#nom-outil`.
+☐ 1re mention significative d'un outil sur la page → lien `<a href="ressources.html#anchor" class="tool-link">Nom</a>`.
+☐ `audit-global.py` règle 14 sans hit (sinon, exécuter `site-web-prep/link-tools-to-resources.py`).
 
 Anti-patterns (J.1) :
 ☐ Aucun des 14 anti-patterns interdits présent (vérification grep).
@@ -338,7 +350,7 @@ Audit final (K.1) :
 
 ## 3. Cohérence avec audit-global.py
 
-Mapping des **13 règles automatisées** dans `audit-global.py` vers les règles RULES v1.6 :
+Mapping des **14 règles automatisées** dans `audit-global.py` vers les règles RULES v1.6 :
 
 | Fonction audit | Règle RULES v1.6 |
 |---|---|
@@ -349,7 +361,8 @@ Mapping des **13 règles automatisées** dans `audit-global.py` vers les règles
 | `audit_structure_module_section_header` | F.1 |
 | `audit_callout_intro_margin` | F.1 |
 | `audit_codes_internes_visibles` | C.2 |
-| `audit_lien_outil_obligatoire` | I.1 |
+| `audit_lien_outil_obligatoire` (legacy) | I.1 |
+| `audit_tool_link_first_mention` (rule 14) | I.1 (renvois cross-site) |
 | `audit_coherence_card_contenu` | D.2 |
 | `audit_sommaire_canonique` | E.1 |
 | `audit_contraste_fonds_fonces` | E.1 |
@@ -498,6 +511,41 @@ Si un composant nouveau apparaît sur 2+ modules, **migration obligatoire vers `
 - **CU-005 ↔ CU-023** : propositions B2B complexes vs devis simples (porte d'entrée IA)
 - **CU-014 ↔ CU-026** : architecture multi-agents vs gouvernance managériale agents
 - **CU-026 ↔ CU-020, PR-05** : gouvernance agents (angle managérial) ↔ conformité RGPD/AI Act + sécurité IA
+
+### 4.I.2 — Renvois outils → `ressources.html#anchor` (mise en pratique)
+
+**Principe** : sur **toute page** du Hub, la **première mention non-liée** de chaque outil disposant d'une `tool-card` dans `ressources.html` doit être wrappée dans un lien vers la fiche.
+
+**Pattern HTML attendu** :
+
+```html
+<!-- Première occurrence : linkée -->
+<p>Pour le retrieval, on utilise <a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>
+   et un LLM type <a href="../ressources.html#claude" class="tool-link">Claude</a>.</p>
+
+<!-- Occurrences suivantes dans la même page : pas linkées -->
+<p>Qdrant tient la charge sur les volumétries PME ; Claude reste l'option par défaut.</p>
+```
+
+**Outils homographes à NE PAS linker automatiquement** (décision manuelle requise) : `Make`, `v0`, `Comet`, `Operator`, `Atlas`, `Crayon`, `Whisper`. Le contexte décide.
+
+**Aliases acceptés** (label du lien = ce qui est écrit dans le texte) :
+- `Mistral Large`, `Mistral 7B`, `Mistral AI`, `Mistral Forge` → tous vers la fiche Mistral (`#mistral`) sauf `Mistral Agents SDK` (`#mistral-agents`) et `Mistral Forge` (`#mistral-forge`)
+- `Claude Code` → `#claude-code` (≠ `#claude`)
+- `ChatGPT Atlas` → `#atlas` (et non `#gpt`)
+- `GPT-4`, `GPT-5`, `GPT-4o`, `ChatGPT` → tous vers `#gpt`
+- `pgvector` ou `Postgres pgvector` → `#pgvector`
+
+**Zones à exclure du wrappage** : tout contenu à l'intérieur de `<a>`, `<code>`, `<pre>`, `<script>`, `<style>`, `<svg>`, `<aside class="module-toc">`, `<title>`, `<meta>`, ou un attribut HTML.
+
+**Outils opérationnels** :
+- `site-web-prep/link-tools-to-resources.py` — script idempotent qui linke la première mention par page (peut être ré-exécuté après ajout d'un nouvel outil dans `ressources.html`)
+- `audit-global.py` règle 14 — flagge tout fichier où un outil mentionné n'a aucun lien vers sa fiche
+
+**Quand exécuter le script** :
+- Après ajout d'une nouvelle `tool-card` dans `ressources.html`
+- Après création d'un nouveau module / préalable / fiche DEP
+- Lors d'une refonte éditoriale élargie (ex : itération v3.X qui touche plusieurs modules)
 
 ### 4.J.1 — Anti-patterns historiques de détection
 

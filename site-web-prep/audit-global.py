@@ -516,6 +516,90 @@ def audit_nul_bytes():
 
 
 # ============================================================
+# Règle 14 — Renvois outils → ressources.html#anchor (Rule I.1 v1.6)
+# ============================================================
+
+# Outils ambigus (homographes de mots usuels) — décision manuelle requise,
+# l'audit ne flagge PAS leurs mentions
+TOOL_AMBIGUOUS = {'Make', 'v0', 'Comet', 'Operator', 'Atlas', 'Crayon', 'Whisper'}
+
+def _build_tool_catalog():
+    """Lit ressources.html et extrait (anchor, primary_name) pour chaque tool-card."""
+    res_path = os.path.join(ROOT, 'ressources.html')
+    if not os.path.exists(res_path):
+        return []
+    html = read(res_path)
+    pat = re.compile(
+        r'<article class="tool-card" id="([^"]+)">.*?<h3>([^<]+?)'
+        r'(?:<span[^>]*>[^<]*</span>)?</h3>',
+        re.DOTALL,
+    )
+    catalog = []
+    for m in pat.finditer(html):
+        anchor = m.group(1)
+        name = re.sub(r'\s+', ' ', m.group(2)).strip()
+        catalog.append((anchor, name))
+    return catalog
+
+def audit_tool_link_first_mention():
+    """Détecte les pages où le nom d'un outil possédant une tool-card est mentionné
+    sans aucun lien vers la fiche ressources.html#anchor correspondante.
+    Une seule mention liée par page suffit (la première)."""
+    hits = []
+    catalog = _build_tool_catalog()
+    if not catalog:
+        return hits
+
+    # Liste des noms (primary + variantes manuelles connues à ne PAS dupliquer ici —
+    # le script link-tools-to-resources.py est la référence pour les alias)
+    tools = [(a, n) for a, n in catalog if n not in TOOL_AMBIGUOUS]
+
+    # Zones protégées (identiques au linker)
+    protected = [
+        re.compile(r'<a\b[^>]*>.*?</a>', re.DOTALL),
+        re.compile(r'<code\b[^>]*>.*?</code>', re.DOTALL),
+        re.compile(r'<pre\b[^>]*>.*?</pre>', re.DOTALL),
+        re.compile(r'<script\b[^>]*>.*?</script>', re.DOTALL),
+        re.compile(r'<style\b[^>]*>.*?</style>', re.DOTALL),
+        re.compile(r'<svg\b[^>]*>.*?</svg>', re.DOTALL),
+        re.compile(r'<aside\b[^>]*class="module-toc"[^>]*>.*?</aside>', re.DOTALL),
+        re.compile(r'<title\b[^>]*>.*?</title>', re.DOTALL),
+        re.compile(r'<meta\b[^>]*>'),
+        re.compile(r'<[^>]+>'),
+    ]
+
+    for fp in all_html_files():
+        if rel(fp) == 'ressources.html':
+            continue
+        s = read(fp)
+        # mask
+        mask = [True] * len(s)
+        for p in protected:
+            for m in p.finditer(s):
+                for i in range(m.start(), m.end()):
+                    mask[i] = False
+        # Pour chaque outil, vérifier si une mention non-liée existe ET si aucun lien
+        # vers cet anchor n'est déjà présent sur la page
+        for anchor, name in tools:
+            # Lien déjà présent ?
+            if re.search(r'href="[^"]*ressources\.html#' + re.escape(anchor) + r'"', s):
+                continue
+            # Cherche une mention non-liée
+            pat = re.compile(r'(?<![\w.\-])' + re.escape(name) + r'(?![\w.\-])')
+            for m in pat.finditer(s):
+                if all(mask[i] for i in range(m.start(), m.end())):
+                    line = s[:m.start()].count('\n') + 1
+                    hits.append({
+                        'rule': '14 — Renvoi outil manquant',
+                        'file': rel(fp),
+                        'line': line,
+                        'issue': f"Mention « {name} » non liée — manque <a href=\".../ressources.html#{anchor}\">",
+                    })
+                    break  # une seule occurrence rapportée par fichier par outil
+    return hits
+
+
+# ============================================================
 # Main
 # ============================================================
 
@@ -537,6 +621,7 @@ def main():
     all_hits += audit_contraste_dark()
     all_hits += audit_stash_residuals()
     all_hits += audit_nul_bytes()
+    all_hits += audit_tool_link_first_mention()
 
     # Group by rule
     by_rule = {}
