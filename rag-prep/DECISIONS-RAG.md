@@ -22,7 +22,7 @@
 | D-009 | 11 mai 2026 | Schéma frontmatter YAML : 10 champs canoniques (cf. SPEC-MD-POUR-RAG) | Actée |
 | D-010 | 11 mai 2026 | Wikilinks : syntaxe Obsidian `[[code]]` ou `[[code\|alias]]` | Actée |
 | D-011 | 11 mai 2026 | Chunking : section h2 = chunk principal (~400-700 tokens), h3 subdivisable si > 800 | Actée |
-| D-012 | 11 mai 2026 | MCP Obsidian côté Claude Code Plateforme uniquement (pas côté Cowork) | Actée |
+| D-012 | 11 mai 2026 | MCP Obsidian côté Claude Code Plateforme uniquement (pas côté Cowork) | **Reportée à Phase 2** (révision 12 mai) |
 | D-013 | 11 mai 2026 | Plafonds API : Anthropic 50 $/mois (alerte 30), OpenAI 10 $/mois (alerte 5) | Actée |
 | D-014 | 11 mai 2026 | Nommage MD : `{type}-{numero}.md` ; fiches outils regroupées par catégorie | Actée |
 | D-015 | — | Structure du `SYNC-INTER-CANAUX.md` | À acter en production |
@@ -35,6 +35,10 @@
 | D-022 | 11 mai 2026 | Spécialisation rôles couple 2 : Cowork = matière MD, Claude Code = code RAG | Actée |
 | D-023 | 11 mai 2026 | Principe « nouvelle règle = nouvelle fonction d'audit » codifié dès v1 (issu retour couple 1 sur I-001) | Actée |
 | D-024 | 11 mai 2026 | Architecture de circulation Cowork ↔ Git ↔ Claude Code : `rag-prep/` ascendant Cowork + `rag-prep/` partagé sur Git + Option D rebaselining | Actée |
+| D-025 | 11 mai 2026 | Pattern architectural « unité = module + extraction sélective de briques transverses » (issue revue I-002 Q7) | Actée |
+| D-026 | 12 mai 2026 | Co-production légère obligatoire avec Cowork Hub IA sur modules N3/N4 (sondage AVANT production sur passages sensibles) — issue revue I-003 Q5 | Actée |
+| D-027 | 12 mai 2026 | Convention de nommage des branches Claude Code Plateforme : `claude/execute-{slug}-{hash}` accepté par défaut, pas de rename imposé | Actée |
+| D-012-bis | 12 mai 2026 | MCP Obsidian reporté à Phase 2 (gain marginal en Phase 1, valeur réelle en LLM Wiki layer) | Actée |
 
 ---
 
@@ -387,6 +391,97 @@ public_cible: [dirigeant, ops, r&d]
 - Catégorisation des 4 types de fichiers dans `_instructions-rag.md` §8 : stables (Cowork canonique), briefs sprint (immuables après push), rapports mission (Claude Code canonique), vivants (Git canonique avec rebaselining)
 
 **Trace :** échanges Cowork ↔ Blaise — 11 mai 2026 (4 options soumises, Option D retenue après clarification de Blaise sur le fonctionnement couple 1).
+
+---
+
+## D-025 — Pattern architectural « module + briques transverses sélectives »
+
+**Date :** 11 mai 2026
+**Statut :** Actée
+
+**Contexte :** Blaise a soulevé la question d'un découplage sémantique plus poussé que la convention implicite « 1 HTML = 1 MD » initialement appliquée. Question structurante posée à Cowork Hub IA via I-002 (Q7). Réponse couple 1 : compromis validé empiriquement avec recommandation forte d'extraction de 3 briques transverses dès maintenant (vigilance-hallucinations, vigilance-confidentialite, chiffres-macro-2026) + 7 brain pages prioritaires sur 6-12 mois.
+
+**Décision :** unité de base du vault RAG = module CU/PR/DEP/fiche-outil (préserve l'isomorphisme avec le Hub HTML et la cohérence pédagogique). En complément, **extraction sélective de briques transverses** dans `rag/content/transverses/` dès qu'un concept apparaît dans **3 modules ou plus**.
+
+**Catégories de briques transverses** (à enrichir au fil des productions) :
+- `vigilance-{slug}.md` (hallucinations, confidentialité, etc.)
+- `pattern-{slug}.md` (build-vs-buy, rag-vs-fine-tuning, etc.)
+- `methodologie-{slug}.md` (prompt engineering, eval, etc.)
+- `chiffres-macro-{annee}.md` (référentiel canonique des chiffres macro du Hub)
+- `cadrage-{slug}.md` (cadrages réglementaires ou stratégiques)
+
+**Conséquences :**
+- Évite la duplication d'indexation (un seul chunk canonique par concept transverse, référencé partout par wikilink)
+- Granularité du retrieval améliorée (un fichier dédié donne une réponse plus précise qu'un chunk noyé dans un module)
+- Couplage avec D-023 (nouvelle règle = nouvelle fonction d'audit) : les futures briques transverses doivent être détectables par audit-md-rag.py (R9 pour chiffres macro identifie ces concepts)
+- Aligné avec le pattern LLM Wiki Karpathy de la roadmap globale Phase 2 (préparation infrastructurelle)
+- 3 risques à monitorer (cf. SPEC v1.1 section « Briques transverses ») : dérive référentiel chiffres, duplication brain page/module, wikilinks cassés
+
+**Trace :** revue I-002 Q7 par Cowork Hub IA — 11 mai 2026.
+
+---
+
+## D-012-bis (révision) — MCP Obsidian reporté à Phase 2
+
+**Date :** 12 mai 2026
+**Statut :** Actée (supersède D-012 du 11 mai 2026)
+
+**Contexte :** D-012 avait acté en S0 le setup MCP Obsidian côté Claude Code Plateforme dès S1, par anticipation. Première session Claude Code Plateforme (S1) a livré 6 lots avec 62/62 tests verts en utilisant le filesystem direct sur les MD du vault — sans MCP Obsidian. Le Lot 2 (config MCP) a été délégué à Blaise (config locale Claude Code Desktop).
+
+**Décision :** **reporter le setup MCP Obsidian à Phase 2** (LLM Wiki layer). Raisons :
+1. Gain marginal en Phase 1 : Claude Code Plateforme accède déjà aux MD via Read/Write/Edit + parsing frontmatter via PyYAML/regex. Pas de besoin opérationnel non couvert.
+2. Valeur réelle en Phase 2 : le MCP Obsidian devient structurant pour la LLM Wiki layer (brain pages persistantes, graphe de notes interconnectées, navigation Obsidian-style, multi-agent vaults). Là, les helpers Obsidian font la différence.
+3. Coût opportunité : ~30-45 min de setup côté Blaise pour ROI quasi-nul en Phase 1.
+
+**Conséquences :**
+- Lot 2 du brief CC-S1 reclassé « non applicable Phase 1 »
+- À reconsidérer au démarrage Phase 2 (LLM Wiki layer) — sans engagement préalable
+- Claude Code Plateforme continue à accéder au vault via filesystem direct
+
+**Trace :** retour CC-S1 (Lot 2 délégué à Blaise) + décision Cowork/Blaise — 12 mai 2026.
+
+---
+
+## D-027 — Convention de nommage des branches Claude Code Plateforme
+
+**Date :** 12 mai 2026
+**Statut :** Actée
+
+**Contexte :** premier sprint Claude Code Plateforme (S1) a livré sur la branche `claude/execute-pilot-batches-mBSIp` au lieu de `feature/rag-s1-pilote` proposée dans le brief. Le nom de branche est probablement imposé par l'outillage Claude Code agentique (préfixe `claude/execute-` + slug + hash de session).
+
+**Décision :** **accepter par défaut le nommage Claude Code agentique** `claude/execute-{slug}-{hash}`. Pas de rename imposé. Les briefs sprint **ne fixent plus de nom de branche** (la formulation « branche dédiée » du brief CC-S1 §6 est obsolète).
+
+**Conséquences :**
+- Workflow Claude Code Plateforme : branche créée automatiquement par l'outillage, commits, PR vers main avec le nom de branche tel quel
+- Convention de nommage des PR (titre PR) à formaliser pour compenser : `feat(rag): sprint S{N} - {slug}` pour rester traçable côté humain
+- Briefs futurs : mention de la branche supprimée, focus sur le contenu du sprint et le titre de PR attendu
+
+**Trace :** retour CC-S1 (écart signalé) + simplification opérationnelle — 12 mai 2026.
+
+---
+
+## D-026 — Co-production légère obligatoire sur modules N3/N4
+
+**Date :** 12 mai 2026
+**Statut :** Actée
+
+**Contexte :** retour I-003 Q5 du couple 1 signale comme « signal faible » que la co-production prévue par STRATEGIE-MD-RAG §6 a été court-circuitée sur la vague 2 (Blaise go direct sans sondage Cowork Hub IA). Conséquence : 5 dérives chiffrées détectées sur la matrice PR-07 en revue a posteriori. Couple 1 recommande de revenir à une co-production légère sur les modules complexes : « sondage Cowork Hub IA AVANT production sur les 2-3 passages les plus sensibles, plutôt que revue exhaustive a posteriori. Effort équivalent côté couple 1, gain qualité significatif. »
+
+**Décision :** pour tout module de niveau ⭐⭐⭐ ou ⭐⭐⭐⭐ (modules N3/N4), Cowork Hub IA Plateforme effectue un **sondage Cowork Hub IA AVANT production** sur les 2-3 passages les plus sensibles identifiés. Procédure :
+
+1. Avant production d'un module N3/N4, Cowork Hub IA Plateforme identifie 2-3 passages sensibles (tableaux chiffrés, RetEx, distinctions conceptuelles fines, patterns techniques précis).
+2. Sondage léger au couple 1 via Blaise : « pour le module X, je vais transposer ces passages [Y/Z], y a-t-il des points de vigilance, dérives historiques à éviter, ou nuances à préserver ? »
+3. Couple 1 répond en mode bref (< 200 mots/passage) avec les vigilances spécifiques.
+4. Cowork Hub IA Plateforme produit le module en intégrant ces vigilances.
+5. Revue a posteriori reste possible mais moins exhaustive (déjà calibrée par le sondage).
+
+**Conséquences :**
+- Pour la vague 3 (CU-026 gouvernance, CU-027 dev applicatif IA, DEP-08 sécurité agents/MCP), sondage préalable obligatoire
+- Effort équivalent réparti en amont au lieu d'a posteriori
+- Réduction du risque de dérives non détectées (notamment AP-1 R9 et AP-4 R10 sur les chiffres et fourchettes)
+- Compatible avec D-024 (le clone Git reste source de vérité, le sondage passe par les conventions de coordination inter-canaux légères type SYNC-INTER-CANAUX item-mini)
+
+**Trace :** revue I-003 Q5 par Cowork Hub IA — 12 mai 2026.
 
 ---
 

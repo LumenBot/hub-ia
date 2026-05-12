@@ -11,30 +11,284 @@
 
 ## Entrées
 
-### 2026-05-12 — Claude Code Hub IA Plateforme — Sprint S1 (Lots 1, 3, 4, 5, 6)
+### 2026-05-12 (suite) — Cowork Hub IA Plateforme — Brief CC-S1bis + D-012-bis + D-027
 
-**Branche :** `claude/execute-pilot-batches-mBSIp` (assignée par Blaise — substitue `feature/rag-s1-pilote` proposée dans le brief).
+**Contexte :**
+- Blaise a créé le canal Claude Code Plateforme et lui a transmis le brief CC-S1. Premier rapport reçu : **6 lots livrés, 62/62 tests verts, 0 $ API consommé**. Excellente exécution. 4 écarts résiduels signalés (Lot 2 délégué à Blaise, validation end-to-end en attente, branche `claude/execute-pilot-batches-mBSIp` ≠ brief, pas de PR ouverte).
+- Cowork sandbox n'a pas pu lire le RAPPORT-CC-S1.md depuis le clone Git (warnings de permission sur `.git/` — cohérent avec D-024 lecture seule). Travail sur la base de la synthèse transmise par Blaise.
 
 **Actions menées :**
 
-- **Lot 1 — Scaffold rag/** : arborescence complète créée (`content/`, `code/{ingestion,backend,audit,eval}`, `eval/`, `docs/`), `README.md` + `docs/ARCHITECTURE.md` + `requirements.txt` + `.env.example`, `.gitignore` racine étendu (vector_store, .env, __pycache__, .pytest_cache, node_modules, .wrangler, .venv). `.gitkeep` ajoutés pour préserver la structure des dossiers vides.
-- **Lot 2 — MCP Obsidian** : non exécuté en session autonome (configuration locale de l'environnement Claude Code, hors scope du clone Git). À faire par Blaise localement.
-- **Lot 3 — audit-md-rag.py v1** : 5 règles (R1-frontmatter, R2-h1-unique, R3-chunking, R4-wikilinks, R6-chiffres-sources). Style aligné sur `site-web-prep/audit-global.py`. 26 tests pytest, 100 % verts.
-- **Lot 4 — ingest.py** : chunking par section H2 (D-011) avec subdivision H3 si >800 tokens, frontmatter injecté en tête, embeddings OpenAI text-embedding-3-small (D-007), store ChromaDB local (D-006), re-indexation incrémentale par `content_hash` (SHA-256) + purge des chunks orphelins. 14 tests pytest, 100 % verts (FakeStore + FakeEmbedder, zéro appel API).
-- **Lot 5 — query.py** : CLI backend S1 (Cloudflare Worker reporté à S3 — D-008). Pipeline embed→retrieve top-k=5→Claude Sonnet 4.6 (D-005) avec system prompt structuré (ton Hub IA, citations obligatoires, refus d'invention, refus explicite si CONTEXTE vide). 12 tests pytest, 100 % verts.
-- **Lot 6 — golden set + run_eval.py** : 10 questions (2 par unité pilote) + golden-answers (critères qualitatifs). Script d'eval matche sources citées + concepts attendus, exit code 0 si ≥8/10 sources retrouvées. 10 tests pytest, 100 % verts.
+**Bloc 1 — Révision décisions** :
+- **D-012-bis** actée (supersède D-012 du 11 mai) : MCP Obsidian reporté à Phase 2. Raisons : gain marginal en Phase 1 (Claude Code accède déjà aux MD via filesystem direct + parsing frontmatter), valeur réelle en Phase 2 (LLM Wiki layer), coût opportunité ~30-45 min setup pour ROI quasi-nul.
+- **D-027** actée : convention de nommage des branches Claude Code Plateforme acceptée — `claude/execute-{slug}-{hash}` accepté par défaut, pas de rename imposé. Mention de la branche supprimée des briefs futurs.
 
-**Suite totale tests :** 62/62 verts (`pytest rag/code/`).
+**Bloc 2 — Brief CC-S1bis produit** :
+- Fichier `rag-prep/briefs/BRIEF-CC-S1bis-validation-end-to-end.md` (~1700 mots, dans la cible D-021)
+- 3 lots ciblés : (1) audit-md-rag sur vault réel, (2) validation end-to-end ingestion + retrieval + génération + eval, (3) rapport mission consolidé + ouverture PR
+- Critères de succès quantifiés : ~30-60 chunks indexés, ≥ 8/10 sources attendues citées, coût < 2 $
+- Plafonds API rappelés (cf. D-013) : alerte > 1 $ Anthropic / > 0,30 $ OpenAI
 
-**Décisions structurantes prises :** aucune (toutes les décisions d'architecture mobilisées sont des décisions S0 déjà actées D-005 à D-024).
+**Bloc 3 — Procédure de transfert MD vers Git** :
+- Transmise à Blaise pour exécution dans son terminal Mac :
+  - `cd repo-current && git fetch --all && git checkout claude/execute-pilot-batches-mBSIp`
+  - `cp -r ../../Hub-IA-Plateforme/rag-prep/content/* rag/content/`
+  - `git add rag/content/ && git commit -m "feat(rag): dépôt vault initial..." && git push`
+- 10 fichiers MD à transférer (1 glossaire + 2 modules CU + 1 préalable PR + 1 fiche-outil + 1 DEP + 3 transverses)
 
-**Reste à faire — coordination :**
-- Blaise déclenche Lot 2 localement (config MCP Obsidian côté Claude Code).
-- Cowork produit les 5 MD pilotes ; Blaise les copie vers `rag-prep/content-drafts/` puis Claude Code les migre vers `rag/content/`.
-- Une fois le vault peuplé : rejouer `audit-md-rag.py` sur les 5 MD → signaler les écarts à Cowork ; lancer `ingest.py` (coût estimé < 0,05 $) ; rejouer le golden set via `run_eval.py` ; sondage manuel Blaise.
+**Décisions structurantes prises :**
+- D-012-bis — MCP Obsidian reporté Phase 2
+- D-027 — Convention nommage branches Claude Code Plateforme
+
+**Reste à faire :**
+- Blaise exécute la procédure de transfert MD vers la branche `claude/execute-pilot-batches-mBSIp`
+- Blaise transmet le brief CC-S1bis à Claude Code Plateforme
+- Claude Code Plateforme exécute les 3 lots S1bis + ouvre la PR
+- Validation manuelle de la PR par Blaise côté GitHub
 
 **Blockers :**
-- Aucun blocker bloquant. Écart résiduel : impossible de valider le pipeline end-to-end avant que les MD pilotes soient déposés (dépendance Cowork × Blaise).
+- Transfert MD par Blaise et transmission brief CC-S1bis.
+
+---
+
+### 2026-05-12 (clôture) — Cowork Hub IA Plateforme — Intégration retour I-003
+
+**Actions menées (ordre logique D-023 respecté : formaliser avant corriger) :**
+
+**Bloc 1 — SPEC v1.2 + D-026** :
+- Bump `SPEC-MD-POUR-RAG.md` v1.1 → v1.2
+- Ajout **R10 nouvelle règle stricte** : transposition fidèle des valeurs numériques dans les tableaux (issue AP-4 du retour couple 1, promu en règle stricte). Roadmap audit R10 ajoutée (regex valeurs numériques + diff vs HTML source).
+- Acte **D-026** : co-production légère obligatoire sur modules N3/N4 vague 3+ (sondage AVANT production sur 2-3 passages sensibles)
+
+**Bloc 2 — Extension du référentiel chiffres macro** :
+- `chiffres-macro-2026.md` v3.8.2 → v3.8.3
+- Ajout entrée **« 21 % — organisations IA ayant redesigné leurs workflows (McKinsey 2025) »** avec wikilink dans pr-07 (2 occurrences refactorisées en wikilink R9)
+- Ajout entrée **« 1,8 h/jour — temps perdu à chercher l'information (McKinsey 2025) »** avec wikilink dans cu-008 (essentiel à retenir)
+- Champ `derives` enrichi avec cu-008 et cu-025
+
+**Bloc 3 — Corrections vague 2** :
+- `pr-07.md` v3.8.3 → v3.8.4 :
+  - **Matrice 6 critères : 5 cellules réalignées sur HTML** (volume BUY < 20 utilisateurs, volume BUILD > 50 utilisateurs « ou volume élevé », budget BUY « SaaS 50-200 €/mois suffit, ROI 6 mois », budget BUILD « 40-100 k€ + 20 %/an OK », délai BUILD « 3-9 mois acceptables, valeur long terme »)
+  - Wikilink `[[vigilance-hallucinations]]` ajouté dans Écueil 4 (gouvernance IA)
+  - Wikilink `[[vigilance-confidentialite]]` ajouté dans Écueil 6 (obligations réglementaires RGPD)
+  - Champ `derives` enrichi (`pr-05`, `vigilance-hallucinations`, `vigilance-confidentialite`)
+- `dep-02.md` v3.8.3 → v3.8.4 :
+  - **Nouvel Écueil 6 transverse** : « Ignorer la confidentialité du corpus indexé » avec wikilink `[[vigilance-confidentialite]]`
+  - Champ `derives` enrichi (`vigilance-confidentialite`)
+- `cu-008.md` v3.8.3 → v3.8.4 :
+  - Section « L'essentiel à retenir » : 1,8 h/jour McKinsey wikilinké vers `[[chiffres-macro-2026#18-h-jour...]]` (R9 + canonisation préventive)
+- `glossaire.md` : bump footer v3.8.2 → v3.8.3 (cohérence avec frontmatter v3.8.3, incohérence signalée Q4 du retour)
+
+**Bloc 4 — SYNC-INTER-CANAUX** :
+- **I-003 archivé** en items résolus avec capitalisation complète (5 apprentissages, suivi post-clôture)
+- **I-D-001 nouvel item descendant inscrit** : harmonisation matrice PR-07 HTML (6 critères discours vs 8 critères table v3.8 enrichi). Couple 1 prend l'item de son côté. Convention « couple 1 tranche, couple 2 s'aligne » à la prochaine itération PR-07 HTML.
+
+**Décisions structurantes prises :**
+- D-026 — Co-production légère obligatoire sur modules N3/N4 vague 3+
+
+**Bilan de la session :**
+- 1 SPEC bumpée en v1.2 (+ R10)
+- 1 décision actée (D-026)
+- 1 brique transverse enrichie (chiffres-macro-2026 v3.8.3, +2 chiffres)
+- 4 fichiers vague 2 corrigés (pr-07 matrice, pr-07 wikilinks, dep-02 wikilinks + nouvel écueil, cu-008 wikilink chiffre macro, glossaire footer)
+- 1 item inter-canal archivé (I-003 clôturé)
+- 1 item descendant ouvert (I-D-001 — première occurrence dans le sens couple 1 → couple 2)
+
+**Apprentissages clés :**
+- AP-1 (R9 chiffres macro) et AP-4 (R10 tableaux numériques) sont les deux dérives les plus systémiques sur les modules denses → l'audit-md-rag.py R9 + R10 sera décisif pour la vague 3
+- La co-production légère D-026 est la procédure pivot qui équilibre vitesse d'exécution × fidélité éditoriale
+- Le pattern de coordination inter-canaux fonctionne dans les deux sens : I-001/I-002/I-003 ascendants + I-D-001 descendant. Cycle complet.
+
+**Reste à faire :**
+- Validation Blaise de l'intégration
+- Décision sur séquencement ingestion (recommandation Cowork Hub IA : ingestion progressive en 2 temps — vague 2 maintenant pour valider pipeline, vague 3 + briques transverses ensemble dans 2-3 sprints)
+- Démarrage vague 3 (CU-026, CU-027, DEP-08) avec application D-026 (sondage Cowork Hub IA préalable)
+- Production des 3 briques transverses anticipées : pattern-llm-wiki (urgent — recouvrement cu-008/dep-02), pattern-eval-set-golden (avec DEP-07), pattern-build-vs-buy (avec module suivant qui s'y réfère)
+
+**Blockers :**
+- Aucun blocker bloquant. Validation Blaise possible.
+
+---
+
+### 2026-05-12 (ter) — Cowork Hub IA Plateforme — Brief revue vague 2 + I-003
+
+**Actions menées :**
+- Blaise valide la suggestion de revue ciblée par Cowork Hub IA sur la vague 2 (modules denses produits en autonomie sans co-production).
+- Production du `BRIEF-COWORK-HUB-IA-REVUE-VAGUE-2.md` (~1300 mots, dans la cible D-021). Format resserré vs I-002 (5 questions au lieu de 7) parce que Cowork Hub IA a déjà fourni la matrice méthodologique en I-002 (anti-patterns AP-1/AP-2/AP-3, pattern « module + transverses »).
+- 5 questions structurées centrées sur les passages denses :
+  - Q1 : conformité RULES sur chiffres techniques précis et fourchettes
+  - Q2 : dérives sémantiques sur passages identifiés en Q6 d'I-002 (LLM Wiki post-Karpathy, matrice 6 critères, pipeline 7 étapes, cycle SEI avec RetEx embedding #130, cas AMETRA)
+  - Q3 : application de R9 + détection de nouveaux chiffres macro à canoniser (1,8 h/jour McKinsey, 78 % Retool, 21 % McKinsey workflows, 70-90 % Techment)
+  - Q4 : validation wikilinks transverses + détection de manques (LLM Wiki dupliqué cu-008/dep-02, SaaS vs self-hosted, eval set)
+  - Q5 : vault prêt pour ingestion ? brain pages transverses prioritaires avant ingestion ?
+- Inscription **I-003** dans `SYNC-INTER-CANAUX.md` (items montants ouverts).
+
+**Décisions structurantes prises :**
+- Aucune nouvelle décision actée.
+
+**Reste à faire :**
+- Blaise transmet le `BRIEF-COWORK-HUB-IA-REVUE-VAGUE-2.md` au canal Cowork Hub IA (pointage local).
+- Réception du `RETOUR-I-003-REVUE-VAGUE-2.md` côté couple 2.
+- Selon les réponses : corrections vague 2 + ajustement chiffres-macro-2026 + (potentiellement) production de brain pages transverses additionnelles avant ingestion.
+- En parallèle, Claude Code Plateforme continue ses Lots S1.
+
+**Blockers :**
+- Réception du retour Cowork Hub IA sur I-003 avant ingestion par Claude Code Plateforme (recommandation).
+
+---
+
+### 2026-05-12 (bis) — Cowork Hub IA Plateforme — Production vague 2 (3 modules denses)
+
+**Actions menées :**
+- Enrichissement `glossaire.md` v3.8.3 avec 5 nouveaux termes (eval-set, LLM-as-judge, reranker, retrieval-hybride, MTEB) — anticipations identifiées par couple 1 dans Q6 de la revue I-002.
+- Lecture intégrale des 3 HTML sources via Bash : `cu-008-knowledge-base-rag.html` (~66 KB), `pr-07-build-vs-buy.html` (~13 KB), `dep-02-rag-architecture-prod.html` (~16 KB).
+- **Production de 3 modules MD denses** :
+  - `content/modules/cu-008.md` v3.8.3 — **Référence canonique D-017** — Knowledge base interne (RAG). 11 sections H2 sémantiquement autonomes. Couvre RAG vs Fine-tuning, pipeline 2 temps, LLM Wiki Karpathy, patterns post-Karpathy (persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation), 3 voies stack pragmatiques, déploiement 4 paliers, 5 pièges, architectures A1/A3/A4, RetEx Conseil aviation 25 personnes. Wikilinks vers chiffres-macro, vigilance-hallucinations, vigilance-confidentialite, outils-vector-db, glossaire.
+  - `content/prealables/pr-07.md` v3.8.3 — Build vs Buy à l'ère de l'IA. 10 sections H2. Couvre 3 tendances 2025-2026, scaling gap (95 % MIT NANDA, 21 % McKinsey workflow), 6 situations BUY, 5 situations BUILD, pattern hybride dominant, matrice 6 critères, 7 écueils. Mention AMETRA dans la section BUILD (sans détail inventé). Wikilinks vers chiffres-macro pour 95 % et 67/33 %.
+  - `content/deploiement/dep-02.md` v3.8.3 — RAG en production. 12 sections H2. Couvre 3 ruptures 2025-2026, règle décision 30 sec, LLM Wiki coût-bénéfice, anatomie pipeline 7 étapes, choix techniques par ordre d'impact, tableau décision par volume, panorama vector DB 5 acteurs + question piège, 5 écueils, cycle Stitch → Evaluate → Iterate + RetEx embedding #130 MTEB, plan 60 jours.
+- Application discipline SPEC v1.1 :
+  - R9 — chiffres macro wikilinkés vers chiffres-macro-2026 (95 % MIT NANDA, 67/33 %)
+  - AP-2 — aucune conversion monétaire ad-hoc
+  - AP-3 — citations préservées (Karpathy gist, Techment, VentureBeat, MIT NANDA, McKinsey, Retool, GitHub Copilot)
+- Mise à jour `cartographie-rag.md` avec les 3 nouvelles entrées détaillées (angles thématiques + recouvrements).
+
+**Décisions structurantes prises :**
+- Aucune nouvelle décision actée. Production conforme à SPEC v1.1.
+
+**Signaux faibles observés / capitalisation :**
+- La densité de cu-008 a confirmé la pertinence du pattern « briques transverses » (D-025) : sans `vigilance-hallucinations` et `vigilance-confidentialite` extraites, cu-008 aurait dupliqué massivement le même contenu de pr-05, cu-001, etc.
+- La discipline de double-relecture HTML ↔ MD a été appliquée mais en mode auto-relecture Cowork (pas de validation Cowork Hub IA en parallèle vu le go direct de Blaise). À signaler comme zone de risque résiduel : co-production prévue par STRATEGIE-MD-RAG §6 pas formellement exécutée.
+- Mention AMETRA dans pr-07 conservée textuelle sans détail inventé. Sera à compléter quand cu-027 sera produit (pattern complet documenté ailleurs dans le Hub).
+
+**Reste à faire :**
+- Mise à jour STATUS + clôture des tâches vague 2
+- Sondage qualité par Blaise sur les 3 modules denses (validation post-production)
+- À envisager : revue ciblée par Cowork Hub IA sur les passages identifiés en Q6 (RAG vs LLM Wiki dans cu-008, matrice 6 critères dans pr-07, cycle SEI dans dep-02) — sur le modèle I-002 mais resserrée
+
+**Blockers :**
+- Aucun blocker bloquant. Sondage Blaise possible mais non obligatoire.
+
+---
+
+### 2026-05-12 — Cowork Hub IA Plateforme — Intégration retour I-002 (massive)
+
+**Actions menées (session dense, ordre logique D-023 respecté : formaliser avant produire) :**
+
+**Bloc 1 — SPEC v1.1 + D-025** :
+- Bump `SPEC-MD-POUR-RAG.md` v1 → v1.1
+- Ajout **R9** (règle stricte) : citation textuelle des chiffres canoniques + audit-md-rag.py R9 à implémenter en v2
+- Nouvelle section méthodologique « Briques transverses » (catégories, critères d'extraction 3+ modules, 3 risques à monitorer)
+- Enrichissement section anti-patterns : AP-2 (conversion monétaire ad-hoc) + AP-3 (édulcoration éléments contextuels)
+- Ajout règles auditables v2 dans la roadmap audit (R5, R7, R8, R9)
+- Acte **D-025** : pattern architectural « unité = module + extraction sélective de briques transverses »
+
+**Bloc 2 — Production des 3 briques transverses prioritaires** (recommandation Q7.a couple 1) :
+- `transverses/chiffres-macro-2026.md` v1 — référentiel canonique de 13 chiffres macro avec sources datées et formulations exactes. Source unique de vérité pour les chiffres macro du Hub (67 % Bpifrance, 95 % MIT NANDA, 76 % France Num, 55 % Bpifrance Osez l'IA, 26 % France Num, 58 % enjeu vital, 33 % adoption, 67 % vs 33 % Buy/Build, +270 % Microsoft, 80-95 % causes orga, ×5 PwC, 77k offres, 3,7× IDC, consensus 70-95 %).
+- `transverses/vigilance-hallucinations.md` v1 — Pattern de vigilance commune à ~10 modules. 3 types d'hallucinations, discipline en 3 règles, mitigations techniques, cas d'application, anti-patterns observés.
+- `transverses/vigilance-confidentialite.md` v1 — Pattern de vigilance commune à ~8 modules. Risque structurel, 4 catégories à protéger, 3 options souveraines, discipline en 4 règles.
+
+**Bloc 3 — Corrections vague 1** :
+- `cu-001.md` v3.8.2 → v3.8.3 :
+  - Chiffre « 67 % n'ont pas commencé » corrigé en « ne savent pas par où commencer » (formulation canonique)
+  - Conversion monétaire $ → € pour Perplexity Pro
+  - Citation MIT 2025 réintégrée dans « L'essentiel à retenir »
+  - Certifications ISO 27001 / SOC 2 du Chat Pro restaurées
+  - Formulation « 5 minutes du réflexe humain à la matière exploitable » réintégrée
+  - Phrases trop longues aérées (vigilances structurantes passées en liste)
+  - Wikilinks ajoutés vers les 3 briques transverses (`[[vigilance-hallucinations]]`, `[[vigilance-confidentialite]]`, `[[chiffres-macro-2026#67-pourcent-...]]`)
+  - Frontmatter `derives` enrichi
+- `glossaire.md` v3.8.2 → v3.8.3 :
+  - Ajout glose **On-premise** (13e glose obligatoire RULES §C.2)
+  - Affinement « Vector store » (ancrage « brique centrale du RAG »)
+  - Affinement « Chunk » (référence explicite SPEC §R3)
+
+**Bloc 4 — Mise à jour fichiers vivants** :
+- `cartographie-rag.md` : ajout des 3 nouvelles entrées (chiffres-macro-2026, vigilance-hallucinations, vigilance-confidentialite) avec angles thématiques et recouvrements
+- `SYNC-INTER-CANAUX.md` : I-002 archivé en items résolus avec apprentissages capitalisés (5 dérives, 3 anti-patterns, 3 briques produites, D-025, suivi post-clôture)
+
+**Décisions structurantes prises :**
+- D-025 — Pattern architectural module + briques transverses sélectives (Actée)
+
+**Bilan de la session :**
+- 1 SPEC bumpée en v1.1
+- 1 décision actée (D-025)
+- 3 fichiers transverses produits (~290 lignes)
+- 1 module CU corrigé (5 dérives résolues + phrases aérées + wikilinks transverses)
+- 1 glossaire enrichi (+ On-premise)
+- 4 fichiers vivants mis à jour (DECISIONS, JOURNAL, STATUS, cartographie, SYNC)
+- 1 item inter-canal archivé (I-002 clôturé)
+
+**Reste à faire — pré-vague 2 :**
+- Validation Blaise de l'intégration (sondage de bonne tenue)
+- Possible itération sur les briques transverses si Blaise détecte un point
+- Démarrage de la vague 2 : CU-008 (référence canonique D-017), PR-07, DEP-02 — en co-production avec Cowork Hub IA pour ces 3 modules denses
+
+**Blockers :**
+- Aucun en bloquant. Sondage de validation Blaise possible mais non obligatoire avant vague 2.
+
+---
+
+### 2026-05-11 (clôture) — Cowork Hub IA Plateforme — Brief revue vague 1 + I-002
+
+**Actions menées :**
+- Blaise soulève une question architecturale fondamentale : la convention implicite « 1 fichier HTML = 1 fichier MD » est-elle optimale pour le RAG, ou faut-il un découpage sémantique plus poussé avec extraction de briques transverses ?
+- Reconnaissance que la question dépasse l'expertise du couple 2 sur le maillage interne du Hub. Cowork Hub IA est mieux placé pour arbitrer.
+- Décision : demander une revue à Cowork Hub IA **avant** production de la vague 2 (CU-008, PR-07, DEP-02), combinant (a) conformité éditoriale des 3 fichiers vague 1 produits, (b) arbitrage architectural sur le découpage sémantique.
+- Production du `BRIEF-COWORK-HUB-IA-REVUE-VAGUE-1.md` (~1700 mots, dans la cible D-021) avec 7 questions structurées :
+  - Q1 à Q4 : conformité éditoriale (RULES sourcing/langue/gloses, cohérence chiffres cross-Hub, dérive sémantique, alignement gloses §C.2)
+  - Q5 : anti-patterns à formaliser dans SPEC v1.1
+  - Q6 : recommandations vague 2
+  - Q7 (structurante) : arbitrage architectural sur découpage sémantique
+- Inscription de **I-002** dans `SYNC-INTER-CANAUX.md` (item montant ouvert, à transmettre par Blaise).
+- Mise à jour `STATUS-RAG.md` : ajout L0.14 et nouveau blocker (vague 2 en attente revue couple 1).
+
+**Décisions structurantes prises :**
+- Aucune nouvelle décision actée. Décision architecturale (découpage sémantique) suspendue à la réponse Q7 du couple 1.
+
+**Reste à faire :**
+- Blaise transmet le `BRIEF-COWORK-HUB-IA-REVUE-VAGUE-1.md` au canal Cowork Hub IA (pointage local, pas besoin de push Git).
+- Réception du `RETOUR-I-002-REVUE-VAGUE-1.md` côté couple 2.
+- Selon les réponses : corrections vague 1 + ajustement SPEC v1.1 + (potentiellement) production de fichiers transverses **avant** vague 2.
+- En parallèle, Claude Code Plateforme avance sur Lots 1-3 du brief S1.
+
+**Anticipations / signaux faibles :**
+- Premier exercice du pattern canonique de coordination inter-canaux dans le sens couple 2 → couple 1 (en miroir de I-001). Validation empirique du pattern.
+- Si la réponse Q7 confirme l'extraction de briques transverses, le `cartographie-rag.md` v0 actuelle (qui anticipait déjà 8 sujets à fort recouvrement) sera enrichi avec une nouvelle catégorie « brain pages transverses » avant production massive.
+- Discipline d'itération préservée : on évite de produire 3 modules denses qui devraient être refactorisés a posteriori.
+
+**Blockers :**
+- Réception du retour Cowork Hub IA sur I-002 avant production vague 2.
+
+---
+
+### 2026-05-11 (très tardive) — Cowork Hub IA Plateforme — Production MD pilote vague 1
+
+**Actions menées :**
+- Canal Claude Code Hub IA Plateforme lancé par Blaise (confirmation reçue).
+- Lecture intégrale du HTML source `cu-001-recherche-veille.html` (sections executive, outils, méthode, pièges, cas, stats clés).
+- Lecture intégrale de la section `cat-vector` de `ressources.html` (4 fiches outils : Qdrant, pgvector, Pinecone, ChromaDB).
+- Création de la structure `Canaux/Hub-IA-Plateforme/rag-prep/content/` avec sous-dossiers `modules/`, `prealables/`, `deploiement/`, `ressources/`.
+- Production de **3 fichiers MD** (vague 1 du sprint S1) :
+  - `rag-prep/content/glossaire.md` v1 — 18 termes canoniques avec wikilinks croisés (RAG, vector-store, embeddings, LLM, POC, MVP, API, SaaS, open-source, self-hosting, souveraineté, cloud-souverain, hallucination, HNSW, chunk, fine-tuning, token, prompt). Tous les futurs MD du vault y feront référence.
+  - `rag-prep/content/ressources/outils-vector-db.md` v1 — panorama des 4 vector stores du marché 2026 + comparatif synthétique + cross-references vers cu-008, dep-02, dep-06. Premier MD type `fiche-outil`, valide le format catégorie.
+  - `rag-prep/content/modules/cu-001.md` v1 — module Recherche & veille augmentée distillé en 7 sections H2 sémantiquement autonomes. Premier MD type `module-cu`, valide le format module.
+- Mise à jour `cartographie-rag.md` avec les 3 nouvelles entrées + identification des recouvrements à venir (cu-008 et dep-02 référenceront outils-vector-db.md plutôt que dupliquer).
+
+**Décisions structurantes prises :**
+- Aucune nouvelle décision actée. Production conforme à SPEC v1, STRATEGIE v1, D-001 à D-024.
+
+**Reste à faire — clôture vague 1 :**
+- Validation par Blaise des 3 MD produits (sondage qualité avant production des modules denses).
+- Sur retour positif : production de la vague 2 (cu-008 référence canonique, pr-07, dep-02) — co-production avec Cowork Hub IA pour ces 3 modules denses (assistance contextuelle).
+- En parallèle, Claude Code Plateforme attaque les Lots 1 à 3 du brief S1 (infrastructure repo `rag/`, MCP Obsidian, audit-md-rag.py).
+
+**Anticipations / signaux faibles :**
+- Aucune dérive sémantique détectée par auto-relecture, mais cela mérite confirmation par sondage Blaise (et plus tard par eval automatique sur questions test).
+- Discipline de longueur des sections H2 respectée (estimation 400-700 tokens par section). À vérifier formellement quand `audit-md-rag.py` sera fonctionnel.
+- `outils-vector-db.md` regroupe 4 outils en un seul fichier (conformément à D-014 et à la convention « fiches outils par catégorie »). Cela valide la stratégie « pas un fichier par fiche outil isolée » pour éviter la dilution du retrieval.
+
+**Blockers :**
+- Validation Blaise sur la vague 1 avant production vague 2.
 
 ---
 
