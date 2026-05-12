@@ -343,10 +343,10 @@
         </div>
 
         <ol>
-          <li><strong>Trigger sur email entrant.</strong> Connexion à Gmail (API native ou OAuth via Google Workspace), Outlook (Microsoft Graph API), ou mailbox métier (IMAP/POP3 standard). Trois modes : <em>webhook</em> en temps réel (le plus réactif, nécessite API), <em>polling</em> périodique (toutes les 5 min, plus simple à mettre en place), ou <em>intégration native</em> via plateforme tierce (AgentMail, <a href="../ressources.html#composio" class="tool-link">Composio</a>).</li>
-          <li><strong>Classification par l'agent IA.</strong> Un modèle (Claude, GPT, Mistral) reçoit le contenu de l'email et le classifie selon ta typologie : spam, prospection commerciale, demande client, support, urgent, etc. Sortie structurée en JSON pour exploitation aval. Précision attendue : 95 %+ sur les types courants après calibrage de 2 à 4 semaines.</li>
+          <li><strong>Trigger sur email entrant.</strong> Connexion à Gmail (API native ou OAuth via Google Workspace), Outlook (Microsoft Graph API), ou mailbox métier (IMAP/POP3 standard). Trois modes : <em>webhook</em> en temps réel (le plus réactif, nécessite API), <em>polling</em> périodique (toutes les 5 min, plus simple à mettre en place), ou <em>intégration native</em> via plateforme tierce (<a href="../ressources.html#agentmail" class="tool-link">AgentMail</a>, <a href="../ressources.html#composio" class="tool-link">Composio</a>).</li>
+          <li><strong>Classification par l'agent IA.</strong> Un modèle (<a href="../ressources.html#claude" class="tool-link">Claude</a>, GPT, Mistral) reçoit le contenu de l'email et le classifie selon ta typologie : spam, prospection commerciale, demande client, support, urgent, etc. Sortie structurée en JSON pour exploitation aval. Précision attendue : 95 %+ sur les types courants après calibrage de 2 à 4 semaines.</li>
           <li><strong>Extraction d'information.</strong> Pour les emails à conserver (non spam), un second appel modèle extrait les éléments structurés : nom, entreprise, fonction, demande exacte, budget mentionné, calendrier évoqué, contexte business. Sortie JSON structuré directement utilisable par le CRM.</li>
-          <li><strong>Mise à jour CRM.</strong> Via l'API native du CRM (HubSpot, Salesforce, Pipedrive, Monday.com), création ou enrichissement de la fiche prospect/client : log de l'email avec résumé, mise à jour des champs (statut, score lead, dernière interaction), déclenchement éventuel d'automations CRM existantes (séquences nurturing, alertes commercial).</li>
+          <li><strong>Mise à jour CRM.</strong> Via l'API native du CRM (<a href="../ressources.html#hubspot" class="tool-link">HubSpot</a>, <a href="../ressources.html#salesforce" class="tool-link">Salesforce</a>, <a href="../ressources.html#pipedrive" class="tool-link">Pipedrive</a>, Monday.com), création ou enrichissement de la fiche prospect/client : log de l'email avec résumé, mise à jour des champs (statut, score lead, dernière interaction), déclenchement éventuel d'automations CRM existantes (séquences nurturing, alertes commercial).</li>
           <li><strong>Routage selon la matrice de règles.</strong> Application de ta matrice (cf. section précédente) pour décider du mode de réponse : AUTO envoi (FAQ, accusés), DRAFT humain (demandes qualifiées), HUMAIN direct (réclamations, négociations). Détection des mots-clés sensibles (urgence, legal, presse, juridique) qui forcent l'escalade humaine quel que soit le contenu.</li>
           <li><strong>Génération de réponse.</strong> Pour les modes AUTO et DRAFT, l'agent rédige une réponse contextualisée : utilisation du nom du destinataire, référence à l'email reçu, ton calibré sur la voix de marque, signature. Pour AUTO : envoi immédiat. Pour DRAFT : message déposé en brouillon Gmail/Outlook avec notification, validation humaine en 30 secondes, envoi.</li>
           <li><strong>Boucle d'apprentissage.</strong> Chaque correction humaine sur un draft (ajustement de ton, ajout d'information, correction d'erreur) alimente une mémoire d'exemples qui ré-injecte le contexte dans les prompts futurs. Le système se calibre progressivement — typiquement, 80 % des drafts sortent sans correction substantielle après 6 à 8 semaines de calibrage.</li>
@@ -367,7 +367,7 @@
             <div class="archi-flow-steps">
               <div class="archi-step"><div class="archi-step-icon">📧</div><div class="archi-step-content"><strong>Email entrant</strong><small>Gmail / Outlook / IMAP</small></div></div>
               <div class="archi-arrow">↓</div>
-              <div class="archi-step is-trigger"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Trigger n8n</strong><small>Webhook ou polling 5 min</small></div></div>
+              <div class="archi-step is-trigger"><div class="archi-step-icon">⚡</div><div class="archi-step-content"><strong>Trigger <a href="../ressources.html#n8n" class="tool-link">n8n</a></strong><small>Webhook ou polling 5 min</small></div></div>
               <div class="archi-arrow">↓</div>
               <div class="archi-step is-agent"><div class="archi-step-icon">🤖</div><div class="archi-step-content"><strong>Agent classification</strong><small>Claude / Mistral → JSON typé (catégorie + priorité + intention)</small></div></div>
               <div class="archi-arrow">↓</div>
@@ -404,7 +404,7 @@
 
         <h3>Modèles de classification et rédaction</h3>
         <p>
-          <a href="../ressources.html#claude" class="tool-link">Claude</a> est apprécié pour le ton naturel des réponses générées et la précision de la classification. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste robuste pour les volumes industriels. <a href="../ressources.html#mistral" class="tool-link">Mistral</a> est l'option à privilégier dès qu'il y a sensibilité — données clients, secteurs régulés, contenu commercial stratégique. Pour la classification pure (rapide, peu coûteuse), des modèles plus légers (Mistral Small, GPT-4o mini, Claude Haiku) suffisent et réduisent significativement le coût d'inférence.
+          <a href="../ressources.html#claude" class="tool-link">Claude</a> est apprécié pour le ton naturel des réponses générées et la précision de la classification. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste robuste pour les volumes industriels. <a href="../ressources.html#mistral" class="tool-link">Mistral</a> est l'option à privilégier dès qu'il y a sensibilité — données clients, secteurs régulés, contenu commercial stratégique. Pour la classification pure (rapide, peu coûteuse), des modèles plus légers (Mistral Small, <a href="../ressources.html#gpt" class="tool-link">GPT-4o</a> mini, Claude Haiku) suffisent et réduisent significativement le coût d'inférence.
         </p>
 
         <h3>Orchestration end-to-end</h3>
@@ -419,7 +419,7 @@
 
         <h3>Gouvernance et audit</h3>
         <p>
-          Pour les structures qui veulent une couche de pilotage centralisée et des audits réguliers, <strong>Goodweek</strong> (alumni QFC) propose une fédération multi-LLM avec gouvernance. Particulièrement pertinent quand le workflow email est l'un de plusieurs cas d'usage IA déployés en parallèle dans la structure.
+          Pour les structures qui veulent une couche de pilotage centralisée et des audits réguliers, <strong><a href="../ressources.html#goodweek" class="tool-link">Goodweek</a></strong> (alumni QFC) propose une fédération multi-LLM avec gouvernance. Particulièrement pertinent quand le workflow email est l'un de plusieurs cas d'usage IA déployés en parallèle dans la structure.
         </p>
 
         <h3>Prérequis techniques et organisationnels</h3>
@@ -535,7 +535,7 @@
           <div class="case-deep-step-num">2</div>
           <div class="case-deep-step-content">
             <h3>Configurer n8n + Mistral + HubSpot (semaine 2-3)</h3>
-            <p>Configuration n8n self-hosted en Docker. Trigger Gmail via OAuth. Workflow à 5 nœuds : (1) trigger → (2) classification Mistral Small (rapide et peu coûteux pour cette tâche) → (3) extraction Claude (plus précis sur le contenu structuré) → (4) update HubSpot via API native (création/enrichissement contact + log email) → (5) routage AUTO/DRAFT/HUMAIN selon matrice. Mistral Large pour la rédaction des drafts (souveraineté EU sur les données clients). Tests préliminaires sur 50 emails historiques de l'archive.</p>
+            <p>Configuration n8n self-hosted en Docker. Trigger Gmail via OAuth. Workflow à 5 nœuds : (1) trigger → (2) classification Mistral Small (rapide et peu coûteux pour cette tâche) → (3) extraction Claude (plus précis sur le contenu structuré) → (4) update HubSpot via API native (création/enrichissement contact + log email) → (5) routage AUTO/DRAFT/HUMAIN selon matrice. <a href="../ressources.html#mistral" class="tool-link">Mistral Large</a> pour la rédaction des drafts (souveraineté EU sur les données clients). Tests préliminaires sur 50 emails historiques de l'archive.</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
               n8n (Docker) → Gmail OAuth → Mistral Small (classification) → Claude (extraction structurée) → HubSpot API (logging) → Mistral Large (rédaction drafts) → Gmail API (envoi AUTO ou brouillon)
@@ -570,7 +570,7 @@
             <p>Une fois la précision classification stabilisée à 96 %+, bascule progressive : FAQ tarifs publics passent en AUTO, accusés de réception standardisés passent en AUTO. Les demandes commerciales et support restent en DRAFT (la valeur de la voix humaine sur ces canaux est trop critique pour automatiser). La boucle d'apprentissage continue : chaque correction humaine sur un draft alimente la mémoire d'exemples ré-injectée dans les prompts futurs.</p>
             <div class="case-deep-tech">
               <div class="case-deep-tech-label">Stack technique</div>
-              Mode AUTO étendu sur 2 types supplémentaires → vector store (Qdrant) pour mémoire des corrections → ré-injection contexte dans prompts via RAG léger
+              Mode AUTO étendu sur 2 types supplémentaires → vector store (<a href="../ressources.html#qdrant" class="tool-link">Qdrant</a>) pour mémoire des corrections → ré-injection contexte dans prompts via RAG léger
             </div>
             <div class="case-deep-result">
               <div class="case-deep-result-label">Résultat</div>
@@ -726,7 +726,7 @@
               <div class="eligibility-item">
                 <div class="eligibility-item-label">
                   <strong>6. Compétence n8n / orchestration disponible</strong>
-                  <small>Niveau intermédiaire en interne, ou prestataire d'intégration mobilisable (NIN-IA, Spinalia, autre)</small>
+                  <small>Niveau intermédiaire en interne, ou prestataire d'intégration mobilisable (<a href="../ressources.html#nin-ia" class="tool-link">NIN-IA</a>, <a href="../ressources.html#spinalia" class="tool-link">Spinalia</a>, autre)</small>
                 </div>
                 <div class="eligibility-item-radios">
                   <label class="eligibility-radio oui"><input type="radio" name="q1" value="2"><span>Oui</span></label>
@@ -824,7 +824,7 @@
             </div>
           </div>
           <p style="margin-top: var(--space-3); font-size: 0.9375rem;">
-            <strong>40 leads qu'un stagiaire aurait traités en 1 semaine sont désormais traités en 30 minutes</strong> — réduction du temps de traitement de <strong>−99 %</strong>. Développement réalisé seul par le dirigeant avec assistance IA générative (Claude Code / ChatGPT). Stack : API OpenAI GPT-4.1 + RAG sur base FAQ et manuels internes + Pipedrive. Démontre que la mise en production est désormais accessible à une TPE sans équipe technique dédiée.
+            <strong>40 leads qu'un stagiaire aurait traités en 1 semaine sont désormais traités en 30 minutes</strong> — réduction du temps de traitement de <strong>−99 %</strong>. Développement réalisé seul par le dirigeant avec assistance IA générative (<a href="../ressources.html#claude-code" class="tool-link">Claude Code</a> / ChatGPT). Stack : API OpenAI GPT-4.1 + RAG sur base FAQ et manuels internes + Pipedrive. Démontre que la mise en production est désormais accessible à une TPE sans équipe technique dédiée.
           </p>
           <p style="margin: 0; font-size: 0.8125rem; color: var(--color-text-soft); font-style: italic;">
             Source : Bpifrance Le Lab, « L'IA dans les PME et ETI françaises », juin 2025, p. 106-109.

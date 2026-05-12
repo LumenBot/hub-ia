@@ -166,7 +166,7 @@
 
         <h3>2.3 Réduction du coût d'inférence</h3>
         <p>Pour un cas d'usage à <strong>très haut volume</strong> (millions de requêtes/mois), fine-tuner un petit modèle (7B-13B) peut <strong>surpasser un gros modèle générique</strong> sur ton cas spécifique, à un coût d'inférence 10× moindre.</p>
-        <p><strong>Exemple type</strong> : classification automatique de tickets support (10 catégories métier). Un Mistral 7B fine-tuné peut atteindre 95 % de précision contre 92 % pour Claude Sonnet, à 10× moins cher en inférence.</p>
+        <p><strong>Exemple type</strong> : classification automatique de tickets support (10 catégories métier). Un <a href="../ressources.html#mistral" class="tool-link">Mistral 7B</a> fine-tuné peut atteindre 95 % de précision contre 92 % pour <a href="../ressources.html#claude" class="tool-link">Claude</a> Sonnet, à 10× moins cher en inférence.</p>
       </section>
 
       <!-- 3. CAS À ÉVITER -->
@@ -207,7 +207,7 @@
         <p><strong>QLoRA</strong> : variante qui ajoute une quantization (compression 4-bit) du modèle de base, divisant encore par 4 la mémoire requise.</p>
 
         <h3>4.2 Coût et délai typiques pour une PME</h3>
-        <p>Pour fine-tuner un Mistral 7B ou Llama 8B en LoRA sur tes données :</p>
+        <p>Pour fine-tuner un Mistral 7B ou <a href="../ressources.html#llama" class="tool-link">Llama 8B</a> en LoRA sur tes données :</p>
         <ul>
           <li><strong>Préparation données</strong> : 1-3 semaines (le plus long en PME)</li>
           <li><strong>Entraînement</strong> : 2-12 heures sur une GPU A100/H100 (Vast.ai, Runpod, Lambda Labs)</li>
@@ -271,7 +271,7 @@
         <p>Données de marché 2026&nbsp;: <strong>les entreprises paient 50&nbsp;K€+ pour des modèles personnalisés sur leurs données</strong> (sources&nbsp;: annonces sociétés de services IA spécialisées, mai 2026). Cette valorisation reflète&nbsp;:</p>
 
         <ul>
-          <li>L'absence d'alternative équivalente côté SaaS (pas de fine-tuning Claude / GPT-4 à 100&nbsp;K exemples métier dans la plupart des cas)</li>
+          <li>L'absence d'alternative équivalente côté SaaS (pas de fine-tuning Claude / <a href="../ressources.html#gpt" class="tool-link">GPT-4</a> à 100&nbsp;K exemples métier dans la plupart des cas)</li>
           <li>La valeur du <strong>on-premise</strong> (souveraineté, confidentialité, RGPD)</li>
           <li>La pérennité (le modèle fine-tuné devient un actif de l'entreprise, pas un abonnement)</li>
         </ul>

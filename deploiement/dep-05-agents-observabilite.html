@@ -157,7 +157,7 @@
         <h3>2.1 Layer 1 — Logs LLM structurés</h3>
         <p>À chaque appel modèle, on log :</p>
         <ul>
-          <li>Modèle utilisé (Claude Sonnet, GPT-4, etc.)</li>
+          <li>Modèle utilisé (<a href="../ressources.html#claude" class="tool-link">Claude</a> Sonnet, <a href="../ressources.html#gpt" class="tool-link">GPT-4</a>, etc.)</li>
           <li>Tokens input / output</li>
           <li>Coût estimé</li>
           <li>Latence</li>
@@ -393,7 +393,7 @@
 
         <p>Jusqu'en 2025, le focus dominant sur les agents IA en production était <strong>le LLM call</strong> : optimiser les prompts, le caching, le choix de modèle. En 2026, un nouveau constat émerge : <strong>les bottlenecks d'un système agentic en production ne sont plus dans le LLM, mais dans le data plane</strong> (sérialisation, coordination, transit de données entre composants).</p>
 
-        <h3>Le pattern AAFLOW — runtime distribué agentique</h3>
+        <h3>Le pattern <a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> — runtime distribué agentique</h3>
         <p>Un nouveau framework apparu en 2026 illustre cette tendance : <a href="../ressources.html#aaflow" class="tool-link">AAFLOW</a> propose un <strong>unified distributed runtime</strong> pour les pipelines agentic :</p>
         <ul>
           <li><strong>Zero-copy serialization</strong> sur Apache Arrow / Cylon (pas de désérialisation/sérialisation entre les étapes)</li>
@@ -502,7 +502,7 @@
         <ul>
           <li><strong>9-layer production architecture</strong> — la cartographie macro (5 services + agents auto-correcting + sécurité + observabilité).</li>
           <li><strong>Gates machine-checkable TOML</strong> — anti-pattern <em>overclaimed completeness</em>&nbsp;: forcer la conformité par contrat.</li>
-          <li><strong>Code Execution with MCP</strong> — agents qui chargent les tools à la demande, filtrent les données avant le modèle.</li>
+          <li><strong>Code Execution with <a href="../ressources.html#mcp" class="tool-link">MCP</a></strong> — agents qui chargent les tools à la demande, filtrent les données avant le modèle.</li>
           <li><strong>Agent Skills</strong> — variante structurée du LLM Wiki appliquée aux compétences agent.</li>
         </ul>
 
@@ -520,7 +520,7 @@
             <tr><td>3</td><td><strong>Memory service</strong></td><td>Mémoire long terme persistante (utilisateur, session, organisation)</td><td>KV store + summarization</td></tr>
             <tr><td>4</td><td><strong>Query rewriter</strong></td><td>Réécriture de la requête utilisateur pour optimiser le retrieval</td><td>LLM léger ou rule-based</td></tr>
             <tr><td>5</td><td><strong>Router</strong></td><td>Orientation de la requête vers le bon modèle / la bonne stack</td><td>Model router (coût / latence / qualité)</td></tr>
-            <tr><td>6</td><td><strong>Auto-correcting agents</strong></td><td>Document grader, decomposer, adaptive router — agents qui auto-évaluent leurs sorties</td><td>LangGraph / patterns CRITIC</td></tr>
+            <tr><td>6</td><td><strong>Auto-correcting agents</strong></td><td>Document grader, decomposer, adaptive router — agents qui auto-évaluent leurs sorties</td><td><a href="../ressources.html#langgraph" class="tool-link">LangGraph</a> / patterns CRITIC</td></tr>
             <tr><td>7</td><td><strong>Security layer 3 niveaux</strong></td><td>Input validation / content filtering / output sanitization</td><td>Guardrails AI, Lakera, etc.</td></tr>
             <tr><td>8</td><td><strong>Observabilité par-stage</strong></td><td>Tracing distribué + cost-per-query + qualité par stage</td><td>LangSmith, Phoenix, Arize</td></tr>
             <tr><td>9</td><td><strong>Cost attribution</strong></td><td>Imputation des coûts LLM par feature, par utilisateur, par requête</td><td>FinOps custom ou outillé</td></tr>
@@ -562,7 +562,7 @@ validation_prompt = "Le CR contient-il au moins 3 décisions et 5 actions assign
         <ul>
           <li>À mettre en place pour <strong>tout agent en production qui produit un livrable</strong>.</li>
           <li>Le surcoût de design est faible (1-2&nbsp;h par agent) mais le ROI est très élevé&nbsp;: 0&nbsp;% de livrables silencieusement incomplets.</li>
-          <li>Compatible avec les frameworks d'évaluation existants (<a href="../ressources.html#langsmith" class="tool-link">LangSmith</a>, <a href="../ressources.html#phoenix" class="tool-link">Phoenix</a>, custom evals).</li>
+          <li>Compatible avec les frameworks d'évaluation existants (LangSmith, Phoenix, custom evals).</li>
         </ul>
 
         <div class="callout callout-info">

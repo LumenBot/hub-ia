@@ -127,9 +127,9 @@
         <div class="what-youll-do">
           <h3>4 capacités opérationnelles à acquérir</h3>
           <ul>
-            <li>Comprendre l'architecture d'un pipeline à 4 agents (recherche, idéation, rédaction, programmation) et son intérêt par rapport à un usage ChatGPT manuel</li>
+            <li>Comprendre l'architecture d'un pipeline à 4 agents (recherche, idéation, rédaction, programmation) et son intérêt par rapport à un usage <a href="../ressources.html#gpt" class="tool-link">ChatGPT</a> manuel</li>
             <li>Calibrer la voix de marque sur un corpus de 20 à 30 posts existants pour éviter le syndrome « ça sent l'IA »</li>
-            <li>Configurer un workflow no-code (n8n, Make) qui industrialise la production sans déléguer la stratégie éditoriale</li>
+            <li>Configurer un workflow no-code (<a href="../ressources.html#n8n" class="tool-link">n8n</a>, Make) qui industrialise la production sans déléguer la stratégie éditoriale</li>
             <li>Verrouiller les points sensibles : authenticité du ton, conformité plateformes (shadow-ban X), hallucinations factuelles, transparence AI Act</li>
           </ul>
         </div>
@@ -243,7 +243,7 @@
         </div>
 
         <h3>Recherche (Agent 1)</h3>
-        <p><a href="../ressources.html#perplexity" class="tool-link">Perplexity</a> est la solution la plus directe pour la recherche augmentée. <a href="../ressources.html#notebooklm" class="tool-link">NotebookLM</a> permet d'interroger un corpus que tu fournis. Pour un scraping plus avancé sur des sites résistants ou pour pousser la veille sur des posts sociaux, <strong>Scrapling</strong> (cité par la communauté ZHC) ou des solutions custom via Apify peuvent être nécessaires.</p>
+        <p><a href="../ressources.html#perplexity" class="tool-link">Perplexity</a> est la solution la plus directe pour la recherche augmentée. <a href="../ressources.html#notebooklm" class="tool-link">NotebookLM</a> permet d'interroger un corpus que tu fournis. Pour un scraping plus avancé sur des sites résistants ou pour pousser la veille sur des posts sociaux, <strong>Scrapling</strong> (cité par la communauté ZHC) ou des solutions custom via <a href="../ressources.html#apify" class="tool-link">Apify</a> peuvent être nécessaires.</p>
 
         <h3>Idéation et rédaction (Agents 2-3)</h3>
         <p><a href="../ressources.html#claude" class="tool-link">Claude</a> est apprécié pour son ton naturel et sa capacité à reproduire une voix de marque à partir d'un corpus. <a href="../ressources.html#gpt" class="tool-link">GPT-4 / GPT-5</a> reste la référence robuste avec une large adoption. <a href="../ressources.html#mistral" class="tool-link">Mistral</a> est l'option à privilégier pour les structures sensibles à la souveraineté EU ou aux données stratégiques.</p>
@@ -291,7 +291,7 @@
         <div class="case-deep-step">
           <div class="case-deep-step-num">2</div>
           <div>
-            <h4>Configurer un projet Claude avec ton corpus</h4>
+            <h4>Configurer un projet <a href="../ressources.html#claude" class="tool-link">Claude</a> avec ton corpus</h4>
             <p>Pour démarrer simple sans n8n, crée un projet dans <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> ou <a href="https://chat.openai.com" target="_blank" rel="noopener">ChatGPT</a>. Charge ton corpus dans le contexte. Ajoute un prompt système :</p>
             <p style="background: #F0F4FA; padding: var(--space-3); border-radius: var(--radius-md); font-family: monospace; font-size: 0.875rem;">Tu es mon assistant rédactionnel pour LinkedIn. Tu produis des posts dans MA voix, calibrée sur le corpus joint. Pour chaque sujet que je te donne : (1) propose 3 angles d'accroche différents avec des hooks variés, (2) je te dis lequel développer, (3) tu rédiges un post complet de 800 à 1500 caractères, structuré (hook, développement en 3-4 paragraphes courts, CTA optionnel). Tu n'inventes JAMAIS de chiffres ou de citations — si tu as besoin d'un chiffre, tu me le demandes.</p>
             <div class="case-deep-tech"><div class="case-deep-tech-label">Outils</div>🛠️ Claude Projects / ChatGPT Custom GPT · 📋 Prompt système avec garde-fous</div>
