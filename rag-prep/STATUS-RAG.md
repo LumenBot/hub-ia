@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 11 mai 2026
-**Sprint en cours :** S0 — Cadrage
+**Dernière mise à jour :** 12 mai 2026
+**Sprint en cours :** S1ter (clôture définitive S1) — Lot S1c.1 livré, S1c.2 différé exécution locale Blaise, S1c.3 partiel livré (RAPPORT + PR)
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -59,12 +59,14 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.17 | Merge PR par Blaise après validation manuelle | ⏳ En attente | Blaise |
 | L1.18 | S1ter — exécution S1b.2 différée (ingest + queries + eval) dès clés API | ⏳ Reporté session future | Claude Code Plateforme |
 | L1.19 | Étape B (arbitrage catégorie D) + Étape C (SPEC v1.3 + D-028/D-029 + whitelist + 4e canonisation chiffres-macro 90 % + refactor wikilinks + I-D-002 + correctifs 9 vs 10) | ✅ Fait | Cowork |
-| L1.20 | Sync rag-prep côté Git (push de SPEC v1.3, whitelist, DECISIONS étendu, JOURNAL/STATUS/cartographie/SYNC, chiffres-macro v3.8.4, glossaire v3.8.4, cu-008 v3.8.5) | ⏳ À faire | Blaise |
-| L1.21 | Création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) | ⏳ À faire | Blaise |
+| L1.20 | Sync rag-prep côté Git (push de SPEC v1.3, whitelist, DECISIONS étendu, JOURNAL/STATUS/cartographie/SYNC, chiffres-macro v3.8.4, glossaire v3.8.4, cu-008 v3.8.5) | ✅ Fait (commit `094931c` + `83cea32`) | Blaise |
+| L1.21 | Création `.env` local avec ANTHROPIC_API_KEY et OPENAI_API_KEY dans `rag/code/.env` (gitignored) | ✅ Fait (côté Mac Blaise) | Blaise |
 | L1.22 | Brief CC-S1ter produit (3 lots S1c.1 python-dotenv + S1c.2 validation end-to-end + S1c.3 RAPPORT + PR) | ✅ Fait | Cowork |
-| L1.23 | Transmission `BRIEF-CC-S1ter-validation-end-to-end-avec-cles.md` à Claude Code Plateforme | ⏳ À faire | Blaise |
-| L1.24 | Exécution S1ter par Claude Code Plateforme + ouverture nouvelle PR | ⏳ À faire | Claude Code Plateforme |
-| L1.25 | Merge final PR S1ter par Blaise — clôture définitive sprint S1 | ⏳ À faire | Blaise |
+| L1.23 | Transmission `BRIEF-CC-S1ter-validation-end-to-end-avec-cles.md` à Claude Code Plateforme | ✅ Fait | Blaise |
+| L1.24a | S1ter Lot S1c.1 — python-dotenv + tests + sanity check | ✅ Fait (67/67 tests verts, commit `9f0b341`) | Claude Code Plateforme |
+| L1.24b | S1ter Lot S1c.2 — validation end-to-end (ingest réel + 10 queries + eval) | ⏸ Différé exécution locale Blaise (`.env` jamais synchronisé vers session web — par construction D-013) | Blaise (exécution) + Claude Code (analyse post-push si besoin) |
+| L1.24c | S1ter Lot S1c.3 — RAPPORT-CC-S1ter + ouverture PR | ✅ Partiel (RAPPORT + PR livrés, §3/§4/§5 marqués « exécution locale Blaise ») | Claude Code Plateforme |
+| L1.25 | Merge final PR S1ter par Blaise — clôture définitive sprint S1 | ⏳ En attente | Blaise |
 
 ---
 
