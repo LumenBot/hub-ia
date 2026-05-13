@@ -123,6 +123,38 @@ Si une card de la home promet « Étude de cas + checklist », le module doit li
 
 **Contraste obligatoire sur fonds foncés** : sur les conteneurs à fond bleu foncé (`.exec-summary`, `.case-deep-final`, `.archi-block`), aucun élément texte ne doit hériter ou recevoir une couleur sombre (paragraphes, listes, cellules, headings h2/h3/h4, `<strong>`, liens). Détails et règles CSS défensives : Annexe § 4.E.2.
 
+#### Règle E.2 — Responsive obligatoire par défaut (mobile-first défensif)
+
+Toute nouvelle section, tout nouveau composant CSS, tout nouveau bloc HTML ajouté à la plateforme **doit intégrer la dimension responsive dès sa conception**. Trois breakpoints actifs sur le site :
+
+- **`< 900px`** : `.module-layout` 2 colonnes → 1 colonne, TOC en accordéon mobile
+- **`< 768px`** : padding/marges des sections réduits, icônes section 56 → 44 px, tableaux en scroll horizontal défensif, exec-summary compacte
+- **`< 480px`** : nav compressée (logo 56 px, libellé site masqué), titres h1 réduits, grilles secondaires forcées en 1 colonne
+
+**Le contrat opérationnel** :
+
+1. **Padding > `var(--space-5)`** (24 px) → override mobile obligatoire pour ramener à `var(--space-4)` (16 px) ou moins.
+2. **Grille > 1 colonne** (`grid-template-columns: repeat(N, ...)` ou `repeat(auto-fit, minmax(Xpx, 1fr))` avec X > 280) → vérifier l'effondrement à 1 colonne en dessous de 480 px.
+3. **Police > 1.5 rem** (h1, stat-num, hero) → utiliser `clamp(min, vw, max)` OU prévoir un override `@media (max-width: 480px)`.
+4. **Tableau** (`<table>` ou `.tool-table`, `.compare-table`, `.decision-matrix`, `.tech-comparison-table`, `.rules-matrix`, `.trouble-table`) → la règle générale `@media (max-width: 768px) { ... display: block; overflow-x: auto; }` couvre par défaut. Pour les tableaux à largeur fixe (rare), prévoir un wrapper `<div class="table-scroll">`.
+5. **SVG schémas** (`.schema-svg-wrap`, `.archi-flow`) → couverts par défaut via `overflow-x: auto` à 768 px. Ne pas définir de `width` fixe en pixels sur les `<svg>` (utiliser `width="100%"` + `viewBox`).
+6. **Composant à `padding` en pixels** (rare, à éviter) → utiliser `var(--space-X)` qui s'adapte aux overrides.
+
+**Où ajouter les overrides** :
+
+- Composant **structurel global** (nav, footer, hero home) → `css/style.css` (chargé par toutes les pages, y compris `index.html` et `about.html`)
+- Composant **propre aux modules / fiches PR / fiches DEP** → `css/module-v3.css` (chargé sur ces pages uniquement)
+- Style **inline** sur une seule page (`<style>` dans le `<head>`) → l'auteur doit inclure son propre `@media` dans le même `<style>`
+
+**Anti-patterns interdits** (cf. J.1 #15) :
+- Composant qui pousse un scroll horizontal sur le viewport mobile (≤ 768 px) lors d'un test rapide DevTools.
+- Tableau sans `overflow-x: auto` ni wrapper scrollable.
+- Police `font-size` en pixels (`12px`) sur du texte de contenu — utiliser `rem` ou `var(...)` pour respecter le scaling utilisateur.
+
+**Validation manuelle attendue à chaque PR éditoriale** : ouvrir la page modifiée dans DevTools Chrome/Firefox aux 3 viewports de référence (375 px, 768 px, 1024 px) et vérifier qu'aucun scroll horizontal involontaire n'apparaît, et que les composants restent lisibles. À ajouter à la checklist de PR ci-après.
+
+**Validation automatisée** : l'audit `audit_responsive_basics()` (rule 15) flagge les styles inline `<style>` qui ajoutent une grille ou un padding > 24 px sans `@media` associé dans le même bloc.
+
 ---
 
 ### Dimension F — Pattern structurel obligatoire
@@ -267,6 +299,7 @@ Les patterns suivants sont **interdits** dans tout module / fiche PR / fiche DEP
 12. ❌ Fallback emoji `📌` répété sur > 1 entrée d'un sommaire (chaque section a son emoji contextuel)
 13. ❌ Placeholders STASH résiduels post-bulk-patch (`§STASH-XX§`)
 14. ❌ NUL bytes résiduels (`\x00`) dans les fichiers HTML
+15. ❌ Section ou composant ajouté **sans dimension responsive** (cf. E.2) — pas de scroll horizontal involontaire à ≤ 768 px, pas de tableau sans `overflow-x` défensif, pas de grille fixe > 1 colonne maintenue sous 480 px
 
 Détails et historique de détection : Annexe § 4.J.1.
 
@@ -322,6 +355,13 @@ Harmonisation visuelle (E.1) :
 ☐ Aucune couleur hardcodée, aucun espacement absolu en `<style>` inline.
 ☐ Aucun texte sombre dans conteneur à fond foncé.
 
+Responsive (E.2) :
+☐ Toute nouvelle section / composant ajouté → override `@media` mobile prévu (768 px et 480 px).
+☐ Aucun scroll horizontal involontaire à 375 px (test DevTools).
+☐ Tableaux ajoutés → couverts par `display: block; overflow-x: auto` du breakpoint 768 px.
+☐ Grilles ajoutées → effondrement à 1 colonne à 480 px vérifié.
+☐ `audit-global.py` règle 15 sans hit.
+
 Pattern structurel (F.1) :
 ☐ Squelette HTML 9 blocs respecté sur tout nouveau module/PR/DEP.
 ☐ Référence canonique CU-008 consultée en cas de doute.
@@ -350,7 +390,7 @@ Audit final (K.1) :
 
 ## 3. Cohérence avec audit-global.py
 
-Mapping des **14 règles automatisées** dans `audit-global.py` vers les règles RULES v1.6 :
+Mapping des **15 règles automatisées** dans `audit-global.py` vers les règles RULES v1.6 :
 
 | Fonction audit | Règle RULES v1.6 |
 |---|---|
@@ -363,6 +403,7 @@ Mapping des **14 règles automatisées** dans `audit-global.py` vers les règles
 | `audit_codes_internes_visibles` | C.2 |
 | `audit_lien_outil_obligatoire` (legacy) | I.1 |
 | `audit_tool_link_first_mention` (rule 14) | I.1 (renvois cross-site) |
+| `audit_responsive_basics` (rule 15) | E.2 |
 | `audit_coherence_card_contenu` | D.2 |
 | `audit_sommaire_canonique` | E.1 |
 | `audit_contraste_fonds_fonces` | E.1 |

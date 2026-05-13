@@ -44,6 +44,22 @@
     .deploiement-footer-cta h3 { color: var(--color-text); margin: 0 0 var(--space-3); }
     .deploiement-footer-cta p { margin: 0 0 var(--space-3); line-height: 1.6; }
     .deploiement-footer-cta a { color: var(--color-primary); font-weight: 600; }
+
+    /* Responsive (E.2) — overrides mobile co-localisés */
+    @media (max-width: 768px) {
+      .deploiement-hero { padding: calc(var(--nav-height) + var(--space-5)) var(--space-4) var(--space-5); }
+      .deploiement-hero h1 { font-size: 1.5rem; }
+      .deploiement-hero p { font-size: 0.9375rem; }
+      .deploiement-intro { margin: var(--space-5) auto; padding: 0 var(--space-4); }
+      .deploiement-grid { padding: 0 var(--space-4); gap: var(--space-4); margin: var(--space-5) auto; }
+      .dep-card { padding: var(--space-4); }
+      .dep-card-icon { font-size: 1.75rem; }
+      .dep-card-title { font-size: 1rem; }
+      .deploiement-aiguillage { padding: 0 var(--space-4); margin: var(--space-5) auto; }
+      .parcours-grid { gap: var(--space-4); }
+      .parcours-card { padding: var(--space-4); }
+      .deploiement-footer-cta { margin: var(--space-5) auto; padding: var(--space-4) var(--space-5); }
+    }
   </style>
 </head>
 <body>

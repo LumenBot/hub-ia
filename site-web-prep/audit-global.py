@@ -600,6 +600,48 @@ def audit_tool_link_first_mention():
 
 
 # ============================================================
+# Règle 15 — Responsive basics (Rule E.2 v1.6)
+# ============================================================
+
+def audit_responsive_basics():
+    """Détecte les styles inline <style>...</style> qui introduisent un padding
+    > var(--space-5) (24 px) OU une grille > 1 colonne SANS @media query
+    associée dans le même bloc <style>.
+    Heuristique défensive : si on ajoute du design dans un fichier sans
+    breakpoint mobile, on signale.
+    """
+    hits = []
+    style_block_re = re.compile(r'<style\b[^>]*>(.*?)</style>', re.DOTALL)
+    # Patterns considérés comme "non responsive" sans @media :
+    risky_re = re.compile(
+        r'(?:'
+        r'padding\s*:\s*var\(--space-[6789]\)'      # padding très large
+        r'|padding\s*:\s*(?:[3-9]|[1-9]\d+)\s*rem'  # padding pixel/rem absolu >= 3rem
+        r'|grid-template-columns\s*:\s*repeat\(\s*[2-9]\s*,'  # grille à 2+ colonnes fixes
+        r')',
+        re.IGNORECASE,
+    )
+    media_re = re.compile(r'@media\s*\([^)]*max-width', re.IGNORECASE)
+
+    for fp in all_html_files():
+        s = read(fp)
+        for m in style_block_re.finditer(s):
+            block = m.group(1)
+            # Ignorer les blocs minuscules (commentaires migration, etc.)
+            if len(block.strip()) < 100:
+                continue
+            if risky_re.search(block) and not media_re.search(block):
+                line = s[:m.start()].count('\n') + 1
+                hits.append({
+                    'rule': '15 — Responsive manquant',
+                    'file': rel(fp),
+                    'line': line,
+                    'issue': "Bloc <style> avec padding large / grille fixe sans @media query mobile (cf. E.2)",
+                })
+    return hits
+
+
+# ============================================================
 # Main
 # ============================================================
 
@@ -622,6 +664,7 @@ def main():
     all_hits += audit_stash_residuals()
     all_hits += audit_nul_bytes()
     all_hits += audit_tool_link_first_mention()
+    all_hits += audit_responsive_basics()
 
     # Group by rule
     by_rule = {}
