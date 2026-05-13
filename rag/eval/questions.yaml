@@ -115,7 +115,7 @@
 - id: q-016
   question: "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?"
   expected_sources: [cu-008, chiffres-macro-2026]
-  expected_concepts: [1,8, heures, McKinsey]
+  expected_concepts: ["1,8 heures", McKinsey]
   unit: cu-008
 
 # === PR-07 (Build vs Buy) — 3 nouvelles questions ===
@@ -135,7 +135,7 @@
 - id: q-019
   question: "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?"
   expected_sources: [pr-07, chiffres-macro-2026]
-  expected_concepts: [95, ROI, gouvernance, redesign]
+  expected_concepts: ["95 %", ROI, gouvernance, redesign]
   unit: pr-07
 
 # === DEP-02 (RAG en production) — 3 nouvelles questions ===
@@ -189,7 +189,7 @@
 - id: q-027
   question: "Quel pourcentage des organisations IA ont redesigné leurs workflows ?"
   expected_sources: [chiffres-macro-2026]
-  expected_concepts: [21, McKinsey, workflow]
+  expected_concepts: ["21 %", McKinsey, workflow]
   unit: chiffres-macro-2026
 
 - id: q-028
