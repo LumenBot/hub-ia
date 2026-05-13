@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.3 Lots B + D livrés — vague 3 produite + concept_matched() supporte option B synonymes)
-**Sprint en cours :** **S2.3 en cours** — Lots A + B + C + D livrés (B + C Cowork, D Plateforme `78d0fa7`, mergé PR #53). Reste : Lot E (Desktop eval extended 42q) + Lot F (Plateforme RAPPORT + PR). En attente sync ascendante Blaise pour finaliser Lot B Cowork-side (3 MD vague 3 + patch chiffres-macro I-D-005 + whitelist v2). Tests cumulés 190/190 verts. Cible eval recalibrée : ≥ 35/42 sources (≥ 83 %).
+**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot E livré — eval 42q sur vault vague 3, 41/42 score global, cibles dépassées)
+**Sprint en cours :** **S2.3 en cours** — Lots A + B + C + D + **E (Desktop `a8e8977`)** livrés. **Cibles brief §7 dépassées** : 41/42 sources (97 %, cible ≥ 35), 41/42 concepts ≥ 50 % (97 %, cible ≥ 38), latence 16,6 s/q (cible 12-18 s), coût Lot E 1,02 $ Anthropic (cap durci 0,90 $ dépassé +13 %). 1 seul échec score=0 : q-038 (dep-08 sécurité agents, concepts détaillés Snyk/Semgrep/1 282/102 règles absents). Reste : **Lot F (Plateforme RAPPORT + PR)**.
 **Période S2.3 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
 
@@ -81,8 +81,8 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.27b | S2.3 Lot B — production cu-026 + cu-027 + dep-08 selon RETOUR-SONDAGE | ✅ Fait Cowork (3 MD ~4700 mots + patch chiffres-macro I-D-005 + whitelist v2, 4 dérives évitées, 3 passages bonus intégrés, 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout vague 3 | ✅ Fait Cowork v2 ajusté post-RETOUR (`questions-v2-s2.3.yaml` : **42 questions** — 30 enrichies + 9 vague 3 corrigées + 3 bonus ; AP-5 ✅ ; 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ✅ Fait Plateforme (`78d0fa7`, PR #53 mergée) : `concept_matched()` + 19 nouveaux tests sur 5 classes, 190/190 verts, 0,00 $ ; R11 wikilink audit reporté (charge non bloquante) | Claude Code Plateforme |
-| L1.27e | S2.3 Lot E — eval extended 39q post-vault enrichi | ⏳ Bloqué par Lots B + D | Claude Code Desktop |
-| L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ⏳ Bloqué par Lot E | Claude Code Plateforme |
+| L1.27e | S2.3 Lot E — eval extended 42q post-vault enrichi | ✅ Fait (`a8e8977` branche `claude/execute-s23-lot-e-eval-42q` : **41/42 sources retrouvées, 41/42 concepts ≥ 50 %, 41/42 score global**, latence moy. 16,6 s/q ; **5 faux négatifs S2.2 résolus** via option B synonymes ; vague 3 retrieval 11/12 ✅, **1 échec q-038** dep-08 concepts détaillés ; **coût Lot E 1,02 $ Anthropic** — cap durci 0,90 $ dépassé +13 %, acceptable) | Claude Code Desktop |
+| L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ⏳ **Prêt pour Claude Code Plateforme** (intégrer diagnostic q-038, recalibrage cap durci à 1,10 $ pour 42q, considérations SPEC v1.6) | Claude Code Plateforme |
 
 ---
 
@@ -114,7 +114,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 |---|---|---|---|
 | **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ **Mergé PR #45** (134/134 tests verts, vault audit 0 erreur + 183 warnings catégorisés) |
 | **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟢 **Lots A+B+C+D livrés**. Lot D partiel q-016 → q-030 (15/30), crash bloquant sur q-016 (golden set int non-quoté) corrigé par auto-correction Desktop (commit `00d80e8`). Eval partiel `fa8fc88`. Bug extraction wikilinks identifié → Lot E. |
-| **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | 🟡 **DRAFT sondage préalable préparé** (`rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md`) — reprise post-S2.2 |
+| **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) + matching sémantique synonymes + golden set 42q | Cowork + Cowork Hub IA + Plateforme + Desktop | 🟢 **Lots A→E livrés**. Eval Lot E 41/42 score global, cibles dépassées. Reste Lot F (RAPPORT + PR finale). |
 | **S2.5** (nouvelle — issue v3.9) | **Vague 3.5** modules patchés v3.9 : `dep-03.md`, `dep-04.md`, `dep-05.md`, `pr-04.md` | Cowork + Cowork Hub IA (sondage co-produit DEP-05 §8) + Desktop pour eval | 🟡 **À cadrer post-S2.3** — les 4 modules n'existent pas encore dans le vault, production intégrale (pas refactor) |
 
 ## Reprise sprint S2 — post-itération couple 1 v3.9 — étapes A-I livrées
