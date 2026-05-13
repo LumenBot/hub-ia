@@ -11,6 +11,53 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.2 Lot D — rerun final 30q) — Claude Code Desktop — Eval complet post-Lot E.1 wikilinks fix
+
+**Contexte :** Lot E.1 (commit `34496cb`) livré et mergé sur main pendant la pause inter-sessions Desktop — fix d'extraction wikilinks dans `query.py` (regex qui ne captait pas `[[code#ancre]]`). Blaise demande rerun complet 30q avec le fix intégré pour produire un rapport définitif Lot D.
+
+**Actions menées :**
+
+1. **Merge `origin/main` dans `claude/execute-pilot-batches-mBSIp`** (commit `4298da0`, stratégie ort, pas de conflit). Branche embarque maintenant `34496cb` (fix wikilinks) + `1dfd680` (merge PR #47) + `8f2a60f` (brief Lot E).
+2. **Vérification invocation `python -m rag.code.eval.run_eval`** : fonctionne via namespace packages PEP 420 (pas besoin de `__init__.py`).
+3. **Rerun complet 30 questions** : `python -m rag.code.eval.run_eval --questions rag/eval/questions.yaml --report rag/eval/eval-report-s2.2-final.md --json rag/eval/eval-report-s2.2-final.json`
+4. Durée totale : **8 min 16 s** sur 30 questions, latence moyenne **16,4 s/question** (min 10 s, max 26 s).
+
+**Résultats eval final 30q (commit `af18810`)** :
+- **Sources retrouvées (≥ 1)** : **30/30 (100 %)** — cible brief §9 (≥ 24/30 = 80 %) **largement atteinte**
+- **Sources retrouvées (toutes)** : 29/30 (97 %)
+- **Concepts ≥ 50 % couverts** : **30/30 (100 %)** — cible brief §9 (≥ 50 %) **atteinte sur 100 % des questions**
+- **Concepts pleinement couverts** : 25/30 (83 %)
+- **Score global rapport** : 30/30 (100 %)
+
+**5 concepts marginaux non capturés** (synonymes/paraphrases présents dans la réponse mais matching exact échoué) :
+- q-001 : `méthode` (réponse utilise « méthodologie », « approche », etc.)
+- q-012 : `vérification` (réponse utilise « vérifier »)
+- q-016 : `1,8 heures` (réponse écrit « 1,8 heure » sans s)
+- q-028 : `persistant` (réponse utilise « persistance », « persistent »)
+- q-029 : `économie` (réponse utilise « gain », « réduction de coût »)
+
+Tous restent dans le > 50 % des concepts attendus → score global = 1 pour toutes les 30 questions. À investiguer S2.3 (recalibrage matching exact vs sémantique, possible normalisation racine de mot).
+
+**Coût Lot D total (cumulé deux runs Desktop)** :
+- Anthropic : **1,4094 $** (61 calls Sonnet 4.6, 208951 in + 52172 out)
+- OpenAI : 0,000947 $ (embeddings + ingest)
+- **Total : 1,41 $**
+- Dépassement cap durci sprint 0,65 $ : accepté ex-ante par Blaise pour les 2 décisions (auto-correction + rerun complet)
+- Cap mensuel 50 $ Anthropic + 10 $ OpenAI : largement préservé (~1,29 $ crédits Anthropic restants estimés)
+
+**Décisions structurantes prises :** aucune (exécution + validation cible). Le fix Lot E.1 + ce rerun valident l'objectif quantitatif S2.2.
+
+**Reste à faire pour Lot E (Claude Code Plateforme)** :
+1. RAPPORT-CC-S2.2.md (8 sections, intégrant ce rerun final 30/30)
+2. Ouverture PR `feat(rag): Sprint S2.2 - pattern-llm-wiki + extension golden set 30q + métriques + pre-commit + eval extended`
+3. Recalibrage cible latence brief S2.3 (5 s → 16-20 s pour Sonnet 4.6 sur ces volumes)
+4. Investigation S2.3 du matching concepts (synonymes/paraphrases → faux négatifs marginaux)
+
+**Blockers :**
+- Aucun.
+
+---
+
 ### 2026-05-13 (S2.2 Lot D) — Claude Code Desktop — Eval extended exécuté en partiel q-016 → q-030 + fix golden set
 
 **Contexte :** première session Claude Code Desktop (instance locale Mac de Blaise, D-030). Lecture intégrale des fichiers de référence (`_instructions-rag.md`, `DECISIONS-RAG.md` 30 décisions, `SPEC-MD-POUR-RAG.md` v1.4, `STATUS-RAG.md`, brief `BRIEF-CC-S2.2.md`). Branche `claude/execute-pilot-batches-mBSIp` resync OK avec Lots A+B Cowork (`b7c7f96`) + Lot C Plateforme (`127de86`).
