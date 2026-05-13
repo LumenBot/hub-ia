@@ -11,6 +11,73 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot A clôturé + Lot C v2 ajusté) — Cowork Hub IA Plateforme — Intégration RETOUR-SONDAGE-COWORK-HUB-IA-S2.3
+
+**Contexte :** Cowork Hub IA a livré `rag-prep/briefs/RETOUR-SONDAGE-COWORK-HUB-IA-S2.3.md` (~2100 mots, citation textuelle des passages canoniques HTML). **Pattern D-026 validé empiriquement** — le sondage préalable a sauvé 4 dérives sémantiques majeures qui auraient nécessité une revue a posteriori coûteuse.
+
+**Synthèse du RETOUR par module :**
+
+- **CU-026** ✅ 3/3 hypothèses confirmées avec précisions :
+  - Cas Klarna : angle = **« gouvernance ajustée en cours de route »**, pas un cas d'échec. Chiffres canoniques : 2,3 M chats/mois, 700 ETP, 40 M$/an, février 2024 → 2025 retour humain.
+  - Framework = **7 dimensions** (Tâche / Droits décision / Escalade / KPI / Audit / Versions / Onboarding-offboarding) ; nuance critique : 7 dimensions en Section 3 mais 8 questions auto-diag Section 6 — **ne pas fusionner**.
+  - Pattern « agent = employé » → **NE PAS extraire en transverse** : c'est l'ossature complète de CU-026 (titre Section 1, Takeaway 3, base des 7 dimensions). CU-014 ne fait que mentionner avec wikilink — pas de duplication réelle.
+
+- **CU-027** ⚠ 3/3 hypothèses partiellement erronées — **rectifications majeures** :
+  - Passage 4 : « 8-10× » désigne le **coût d'équipe humaine remplacée** (8-10 K$/mois pour 3-4 dev juniors), PAS l'écart Kimi/Opus. Écart inférence Kimi K2.6 vs Claude Opus 4.7 = **80-90 % d'économie**.
+  - Passage 5 : **PAS de cas AMETRA dans CU-027**. Le cas-école est **Tea App, juillet 2025** (72 000 pièces d'identité fuitées, Firebase ouverte, clé API hardcodée). Angle = **gouvernance produit**, pas qualité technique. AMETRA reste dans PR-07.
+  - Passage 6 : **PAS un classement par niveau d'autonomie** mais un tableau **« 3 catégories × maturité production »**. Ordre canonique des 7 outils : Lovable, Bolt.new, v0, Replit Agent, Cursor, Claude Code, Windsurf. Hiérarchie production-ready : Windsurf 8,5/10 > Cursor 7,5/10 > Replit 7/10.
+
+- **DEP-08** ⚠ 2/3 confirmées + 1 rectification :
+  - Passage 7 : **4 vecteurs d'attaque** (MCP compromis / prompt injection / skills malveillants / supply chain) + 5 défenses prompt injection. Chiffres CVE : CVE-2025-59536 CVSS 8.7, 57 % adoption LangChain 2026, 12 % OpenClaw.
+  - Passage 8 : confirmé. **AgentShield** = composant ECC gratuit (1 282 tests, 102 règles, mode `--opus` red-team/blue-team/auditor). Mapping Snyk/Semgrep fourni.
+  - Passage 9 : **rectification — PAS Klarna ni Stripe Minions**. Les cas-école sont 4 incidents/CVE techniques (CVE-2025-59536, MCP STDIO, OpenClaw 12 %, Moltbook 1,5 M clés). DEP-08 traite la **sécurité technique**, pas la gouvernance managériale.
+
+- **3 passages bonus signalés** (non anticipés dans le sondage) :
+  - CU-026 §4 : jurisprudence Moffatt v. Air Canada (février 2024) + article 22 RGPD + AI Act article 14 (applicable au 2 août 2026, date répétée 2× → R9 critique)
+  - CU-027 §1bis.3 : pattern Garry Tan « Fat Skills / Thin Harness » complémentaire à ECC
+  - DEP-08 §4 : section opérationnelle « Sécuriser CLAUDE.md, hooks, configs » (versioning git, revue PR, audit hebdo/mensuel AgentShield)
+
+**Actions menées sur Lot C (ajustement v2 → v3) :**
+
+- **Ajustement des 9 questions vague 3 initiales** dans `questions-v2-s2.3.yaml` :
+  - q-031 reformulée (angle « gouvernance ajustée » + chiffres canoniques 2,3 M, 700, Klarna)
+  - q-032 reformulée (7 dimensions nommées textuellement : tâche, droits, escalade, KPI, audit, versions, onboarding)
+  - q-033 reformulée (pattern central, pas pattern recommandé isolé)
+  - q-034 **complètement reformulée** : passage de la confusion « 8-10× écart Kimi/Opus » à la clarification « 80-90 % économie inférence Kimi K2.6 vs Opus 4.7 »
+  - q-035 **complètement reformulée** : Tea App (juillet 2025, 72 000 fuites, Firebase, gouvernance produit) à la place de AMETRA
+  - q-036 reformulée : maturité production (Windsurf 8,5 > Cursor 7,5 > Replit 7) avec énumération canonique des 7 outils
+  - q-037 reformulée : 4 vecteurs d'attaque (MCP compromis, prompt injection, skills malveillants, supply chain) + CVE-2025-59536
+  - q-038 reformulée : AgentShield (1 282 tests, 102 règles, mode --opus) + Snyk/Semgrep
+  - q-039 reformulée : 4 incidents techniques (CVE-2025-59536, MCP STDIO, OpenClaw, Moltbook 1,5 M) — pas Klarna
+- **Ajout des 3 questions bonus** : q-040 (AI Act / RGPD art. 14 / Moffatt / 2 août 2026), q-041 (Garry Tan Fat Skills / Thin Harness), q-042 (sécurisation CLAUDE.md / hooks / configs)
+- **Total golden set v2 : 42 questions** (+3 vs cible initiale brief — élargissement aligné sur contenu canonique)
+- **Recalibrage cible eval S2.3** : ≥ 35/42 sources retrouvées (≥ 83 %), ≥ 38/42 concepts ≥ 50 % (≥ 90 %) — proportionnel à la cible initiale ≥ 32/39
+- **AP-5 vérifié** par script Python sur les 42 entrées : `yaml.safe_load` OK + audit type sur tous les concepts → 0 violation
+
+**2 chiffres CU-027 à canoniser dans `chiffres-macro-2026.md`** (recouvrement DEP-06, PR-07) — à inscrire comme item descendant SYNC-INTER-CANAUX :
+1. « 80 à 90 % d'économie d'inférence Kimi K2.6 (0,80 $/M input, 3,60 $/M output) vs Claude Opus 4.7 (5 $/M input, 25 $/M output) »
+2. « 8-10 K$/mois pour équipe de 3-4 dev juniors, remplaçable par 1 senior + ECC stack à ~20 $/mois Claude Pro + 50-200 €/mois infra »
+
+À intégrer en Lot B avec I-D-003 déjà inscrit (6 chiffres macro 2026 en attente). Probable bump `chiffres-macro-2026.md` v3.8.5 → v3.8.6 (ou v3.9 si convergence avec couple 1 v3.10 en préparation).
+
+**Signal entrant côté couple 1** : 6 nouvelles pistes ajoutées dans `pistes-cumulatives.md` (compteur 5 → 11), zone d'itération éditoriale (seuil 8-12) → préparation v3.10 dans les jours qui viennent. Pas d'impact immédiat sur S2.3.
+
+**Décisions structurantes prises :**
+
+- **Pattern D-026 validé empiriquement** — le sondage préalable a évité 4 dérives sémantiques majeures. À reconduire systématiquement pour les vagues 4+ contenant des modules denses avec passages techniques pointus.
+- **Pattern « agent = employé »** confirmé NON extraite en transverse (réponse passage 3) — l'arbitrage D-025 est ainsi confirmé sur la base d'un critère opérationnel : « ossature complète d'un module ≠ brique transverse extractible ».
+- **Élargissement Lot C de 39 → 42 questions** : décision Cowork autonome basée sur la valeur ajoutée des 3 passages bonus signalés. Le brief Git-side reste figé comme référence historique (cible ≥ 32/39), mais le JOURNAL acte la cible recalibrée.
+
+**Reste à faire pour Blaise (sync ascendante actualisée)** :
+1. Copier `questions-v2-s2.3.yaml` (42 questions) → `rag/eval/questions.yaml`
+2. Copier JOURNAL + STATUS + SYNC-INTER-CANAUX (mise à jour I-D-004 ou suivant pour les 2 chiffres CU-027)
+3. Commit + push sur branche dédiée
+4. Une fois mergé : (a) Lot D Plateforme peut démarrer, (b) Lot B Cowork peut démarrer (production cu-026 + cu-027 + dep-08 à partir du RETOUR-SONDAGE)
+
+**Blockers :** aucun. Le RETOUR-SONDAGE débloque Lot B en plus du Lot D.
+
+---
+
 ### 2026-05-13 (S2.3 Lot C livré) — Cowork Hub IA Plateforme — Golden set v2 (39 questions + synonymes)
 
 **Contexte :** PR #48 mergée, sync ascendante S2.3 effectuée. Lot A (sondage Cowork Hub IA) lancé en parallèle, Lot C démarré sans attendre RETOUR-SONDAGE selon plan brief S2.3 §10.

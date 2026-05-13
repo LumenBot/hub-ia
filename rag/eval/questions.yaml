@@ -1,4 +1,4 @@
-# Golden set v2 — sprint S2.3 (39 questions)
+# Golden set v2 — sprint S2.3 (42 questions)
 #
 # Évolutions S2.3 par rapport à S2.2 :
 # - Format `expected_concepts` enrichi avec option B (liste de listes) pour synonymes
@@ -7,7 +7,10 @@
 # - Résolution des 5 faux négatifs identifiés dans RAPPORT-CC-S2.2 §7 :
 #   q-001 (méthode), q-012 (vérification), q-016 (1,8 heures), q-028 (persistant), q-029 (économie)
 # - Élargissement morphologique ciblé sur les questions où des variations sont attendues
-# - Ajout de 9 nouvelles questions vague 3 (q-031 → q-039) pour cu-026, cu-027, dep-08
+# - Ajout de 12 nouvelles questions vague 3 (q-031 → q-042) pour cu-026, cu-027, dep-08
+#   (9 questions initiales + 3 questions bonus issues du RETOUR-SONDAGE-COWORK-HUB-IA-S2.3)
+# - Alignement avec formulations canoniques du Hub via RETOUR-SONDAGE (D-026 validé empiriquement) :
+#   4 dérives sémantiques majeures évitées avant production MD vague 3
 #
 # Discipline AP-5 (SPEC v1.5) : toute valeur commençant par un chiffre est quotée
 # explicitement ("95 %", "1,8 heures", "21 %") pour éviter le parsing PyYAML int/float.
@@ -284,105 +287,166 @@
   unit: cross-pr07-vigilance
 
 # ====================================================================
-# Extension S2.3 — 9 nouvelles questions vague 3 (q-031 → q-039)
+# Extension S2.3 — 12 nouvelles questions vague 3 (q-031 → q-042)
 # ====================================================================
 #
 # Couverture : CU-026 (gouvernance agents), CU-027 (appli métier sans IT), DEP-08 (sécurité agents/MCP).
 #
-# NOTE : les 3 modules MD ne sont pas encore produits (Lot B post-RETOUR-SONDAGE).
-# Les `expected_concepts` ci-dessous sont posés à partir des angles cadrés dans
-# BRIEF-CC-S2.3 §5 (sections H2 prévues, chiffres anticipés, acteurs cités).
-# Un passage de finalisation est attendu post-Lot B pour ajuster les concepts
-# effectivement présents dans les MD produits (notamment chiffres exacts Klarna,
-# nombre N de dimensions du framework, énumération exacte des catégories de risques MCP).
+# Alignées avec `RETOUR-SONDAGE-COWORK-HUB-IA-S2.3.md` (13 mai 2026) — pattern D-026 validé
+# empiriquement (4 dérives sémantiques évitées avant production MD vague 3).
+#
+# 9 questions initiales (q-031 → q-039) + 3 bonus signalés par Cowork Hub IA dans le RETOUR
+# (q-040 AI Act/RGPD Moffatt, q-041 Garry Tan Fat Skills/Thin Harness, q-042 sécurisation
+# CLAUDE.md/hooks/configs).
+#
+# Les `expected_concepts` ci-dessous sont alignés sur les formulations CANONIQUES du HTML
+# source (citation textuelle dans le RETOUR). Un passage de finalisation reste possible
+# post-Lot B pour ajuster les concepts effectivement présents dans les MD produits.
 
-# === CU-026 (Gouvernance des agents IA) — 3 nouvelles questions ===
+# === CU-026 (Gouvernance des agents IA) — 3 questions + 1 bonus ===
 
 - id: q-031
-  question: "Quel RetEx documenté illustre les risques d'une gouvernance agents IA insuffisante en entreprise ?"
+  question: "Que nous apprend le cas Klarna sur l'évolution de la gouvernance des agents IA en entreprise ?"
   expected_sources: [cu-026]
   expected_concepts:
     - Klarna
-    - [agent, agents]
+    - ["2,3 M", "2,3 millions"]
+    - "700"
     - [gouvernance, gouverner]
+    - [ajustement, ajuster, ajustée]
   unit: cu-026
 
 - id: q-032
-  question: "Quelles sont les dimensions clés d'un framework de gouvernance des agents IA ?"
+  question: "Quelles sont les 7 dimensions du framework de gouvernance des agents IA ?"
   expected_sources: [cu-026]
   expected_concepts:
-    - [dimension, dimensions]
-    - [gouvernance, framework]
-    - [agent, agents]
+    - ["7 dimensions", "sept dimensions"]
+    - tâche
+    - [droits, droit]
+    - escalade
+    - KPI
+    - audit
+    - versions
+    - [onboarding, offboarding]
   unit: cu-026
 
 - id: q-033
-  question: "Pourquoi traiter un agent IA comme un employé est-il un pattern recommandé ?"
+  question: "Pourquoi traiter un agent IA comme un employé est-il le pattern central de la gouvernance agents ?"
   expected_sources: [cu-026]
   expected_concepts:
     - employé
-    - [droit, droits]
+    - [droits, droit]
     - [escalade, escalader]
     - [évaluation, évaluer]
+    - tâche
   unit: cu-026
 
-# === CU-027 (Faire développer une appli métier sans être IT) — 3 nouvelles questions ===
+- id: q-040
+  question: "Quelles obligations réglementaires européennes s'appliquent à la gouvernance d'agents IA en 2026 ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - "AI Act"
+    - RGPD
+    - ["article 14", "art. 14", "article 22", "art. 22"]
+    - "2 août 2026"
+    - Moffatt
+  unit: cu-026
+
+# === CU-027 (Faire développer une appli métier sans être IT) — 3 questions + 1 bonus ===
 
 - id: q-034
-  question: "Comment compresser les coûts de développement IA-assisté avec la stack ECC ?"
+  question: "Quelle économie d'inférence apporte Kimi K2.6 par rapport à Claude Opus 4.7 dans la stack ECC ?"
   expected_sources: [cu-027]
   expected_concepts:
     - ECC
-    - [coût, coûts, prix]
-    - [compression, réduction]
+    - Kimi
+    - [Opus, "Claude Opus"]
+    - ["80", "90"]
+    - [économie, économies, gain, réduction]
+    - inférence
   unit: cu-027
 
 - id: q-035
-  question: "Quel cas-école PME française illustre le développement d'une appli métier par un non-IT ?"
+  question: "Quel cas-école documenté illustre les risques d'un développement IA-assisté sans gouvernance produit ?"
   expected_sources: [cu-027]
   expected_concepts:
-    - AMETRA
-    - [PME, entreprise]
-    - [métier, applicatif]
+    - "Tea App"
+    - ["72 000", "72000"]
+    - [fuite, fuitées, fuités]
+    - Firebase
+    - [gouvernance produit, "gouvernance"]
   unit: cu-027
 
 - id: q-036
-  question: "Comment hiérarchiser les outils de développement IA-assisté par niveau d'autonomie ?"
+  question: "Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?"
   expected_sources: [cu-027]
   expected_concepts:
-    - [Cursor, "Claude Code", Lovable]
-    - [autonomie, autonome]
-    - [niveau, niveaux]
+    - Windsurf
+    - Cursor
+    - [Replit, "Replit Agent"]
+    - [Lovable, "Bolt.new", v0]
+    - "Claude Code"
+    - [maturité, production]
   unit: cu-027
 
-# === DEP-08 (Sécurité agents et MCP servers) — 3 nouvelles questions ===
+- id: q-041
+  question: "Qu'est-ce que le pattern Fat Skills / Thin Harness de Garry Tan pour le développement IA-assisté ?"
+  expected_sources: [cu-027]
+  expected_concepts:
+    - "Garry Tan"
+    - "Fat Skills"
+    - "Thin Harness"
+    - ECC
+  unit: cu-027
+
+# === DEP-08 (Sécurité agents et MCP servers) — 3 questions + 1 bonus ===
 
 - id: q-037
-  question: "Quels sont les principaux risques de sécurité associés aux MCP servers en production ?"
+  question: "Quels sont les 4 vecteurs d'attaque connus contre les agents IA et MCP servers en 2026 ?"
   expected_sources: [dep-08]
   expected_concepts:
     - MCP
-    - [injection, exfiltration, escalade]
-    - [risque, risques]
+    - ["MCP compromis", "MCP malveillant"]
+    - "prompt injection"
+    - [skills, "skills malveillants"]
+    - "supply chain"
+    - "CVE-2025-59536"
   unit: dep-08
 
 - id: q-038
-  question: "Quels patterns de mitigation appliquer pour sécuriser des agents IA en production ?"
+  question: "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?"
   expected_sources: [dep-08]
   expected_concepts:
-    - [sandboxing, sandbox]
-    - [droit, droits]
-    - [mitigation, mitiger]
+    - AgentShield
+    - [Snyk, Semgrep]
+    - ["1 282", "1282"]
+    - ["102 règles", "102"]
+    - "--opus"
     - [audit, logs]
   unit: dep-08
 
 - id: q-039
-  question: "Quel cas-école documenté illustre un incident de sécurité agent IA en production ?"
+  question: "Quels incidents et CVE documentés illustrent les risques techniques des agents IA en production ?"
   expected_sources: [dep-08]
   expected_concepts:
-    - [incident, post-mortem]
-    - [sécurité, sécuriser]
-    - [agent, agents]
+    - "CVE-2025-59536"
+    - ["MCP STDIO", "STDIO"]
+    - OpenClaw
+    - ["Moltbook", "1,5 M", "1 500 000"]
+    - [incident, incidents]
   unit: dep-08
 
-# Fin de l'extension S2.3 — 9 nouvelles questions vague 3 (total golden set v2 : 39 questions).
+- id: q-042
+  question: "Comment sécuriser les fichiers de configuration d'agents IA en production (CLAUDE.md, hooks, configs) ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - "CLAUDE.md"
+    - [hooks, configs]
+    - [versioning, git]
+    - ["revue PR", "revue de PR"]
+    - AgentShield
+    - [audit, hebdo, mensuel]
+  unit: dep-08
+
+# Fin de l'extension S2.3 — 12 nouvelles questions vague 3 (total golden set v2 : 42 questions).
+# Recalibrage cible eval S2.3 : ≥ 35/42 sources retrouvées (≥ 83 %), ≥ 38/42 concepts ≥ 50 % (≥ 90 %).
