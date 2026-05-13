@@ -11,6 +11,90 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.2 Lot E.3 livré) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.2 consolidé + PR finale
+
+**Contexte :** clôture du sprint S2.2. Lot E.1 (fix `extract_cited_codes`) mergé via PR #47 sur main. Lot E.2 (rerun complet 30q post-fix) livré par Desktop avec **30/30 sources retrouvées, 30/30 concepts ≥ 50 %, 30/30 score global**. Cible brief 24/30 (80 %) largement dépassée. Reste à produire le RAPPORT consolidé et la PR finale (Lot E.3).
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.2.md`** (8 sections, ~2400 mots) :
+  1. Objectifs S2.2 (3 axes : pattern-llm-wiki, golden set 30q, garde-fous)
+  2. Livrables par lot (tableau exhaustif A→E.3 avec acteurs et commits)
+  3. Métriques quantitatives (eval avant/après fix wikilinks, latence 16,4 s/q, volume vector store 121 chunks)
+  4. Anomalies & fixes (Anomalie #1 YAML int values, Anomalie #2 bug wikilinks extraction)
+  5. Décisions structurantes (aucune nouvelle, mais 3 patterns opérationnels candidats à formalisation)
+  6. Recommandations SPEC v1.5 (4 propositions : AP-5 YAML, pattern wikilink extraction, recalibrage latence 12-18 s, boucle eval réelle comme garde-fou)
+  7. Pistes investigation S2.3 (matching exact vs sémantique pour 5 concepts non « pleinement » couverts : méthode/méthodologie, vérification/vérifier, 1,8 heures/1,8 heure, persistant/persistance, économie/gain — 4 options proposées)
+  8. Coûts cumulés (S2.2 ~2,50 $, cumul S1+S2.1+S2.2 ~2,80 $, alerte budgétaire crédits Anthropic ~0,20 $ restants — 3 options pour S2.3)
+
+- **Création du sous-dossier `rag-prep/reports/`** (selon consigne Blaise — distinction briefs/reports).
+
+- **MAJ STATUS-RAG** : L1.26e.2 marqué ✅ Fait, sprint S2.2 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.2 ouverte vers `main`** depuis `claude/execute-pilot-batches-mBSIp`. Titre : `feat(rag): Sprint S2.2 - pattern-llm-wiki + golden set 30q + métriques + pre-commit + eval extended`. Description = synthèse des 8 sections du rapport + liste des 10 commits S2.2.
+
+**Décisions structurantes prises :** aucune (S2.2 Lot E.3 = production rapport + clôture).
+
+**Coût API consommé (cette session Lot E.3) :** 0,00 $ (rapport texte uniquement, aucun appel API).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.2 par Blaise.
+- Arbitrage Cowork des 4 propositions d'amendement SPEC v1.4 → v1.5.
+- Ouverture S2.3 (vague 3 production CU-026, CU-027, DEP-08 avec D-026 co-production légère). Alerte budgétaire Anthropic à traiter en début de S2.3 (recharge crédits OU bascule Haiku 4.5 OU eval ciblée sous-ensemble).
+
+**Blockers :** aucun pour la PR. Alerte budgétaire signalée pour S2.3 (à arbitrer par Blaise).
+
+---
+
+### 2026-05-13 (S2.2 Lot D — rerun final 30q) — Claude Code Desktop — Eval complet post-Lot E.1 wikilinks fix
+
+**Contexte :** Lot E.1 (commit `34496cb`) livré et mergé sur main pendant la pause inter-sessions Desktop — fix d'extraction wikilinks dans `query.py` (regex qui ne captait pas `[[code#ancre]]`). Blaise demande rerun complet 30q avec le fix intégré pour produire un rapport définitif Lot D.
+
+**Actions menées :**
+
+1. **Merge `origin/main` dans `claude/execute-pilot-batches-mBSIp`** (commit `4298da0`, stratégie ort, pas de conflit). Branche embarque maintenant `34496cb` (fix wikilinks) + `1dfd680` (merge PR #47) + `8f2a60f` (brief Lot E).
+2. **Vérification invocation `python -m rag.code.eval.run_eval`** : fonctionne via namespace packages PEP 420 (pas besoin de `__init__.py`).
+3. **Rerun complet 30 questions** : `python -m rag.code.eval.run_eval --questions rag/eval/questions.yaml --report rag/eval/eval-report-s2.2-final.md --json rag/eval/eval-report-s2.2-final.json`
+4. Durée totale : **8 min 16 s** sur 30 questions, latence moyenne **16,4 s/question** (min 10 s, max 26 s).
+
+**Résultats eval final 30q (commit `af18810`)** :
+- **Sources retrouvées (≥ 1)** : **30/30 (100 %)** — cible brief §9 (≥ 24/30 = 80 %) **largement atteinte**
+- **Sources retrouvées (toutes)** : 29/30 (97 %)
+- **Concepts ≥ 50 % couverts** : **30/30 (100 %)** — cible brief §9 (≥ 50 %) **atteinte sur 100 % des questions**
+- **Concepts pleinement couverts** : 25/30 (83 %)
+- **Score global rapport** : 30/30 (100 %)
+
+**5 concepts marginaux non capturés** (synonymes/paraphrases présents dans la réponse mais matching exact échoué) :
+- q-001 : `méthode` (réponse utilise « méthodologie », « approche », etc.)
+- q-012 : `vérification` (réponse utilise « vérifier »)
+- q-016 : `1,8 heures` (réponse écrit « 1,8 heure » sans s)
+- q-028 : `persistant` (réponse utilise « persistance », « persistent »)
+- q-029 : `économie` (réponse utilise « gain », « réduction de coût »)
+
+Tous restent dans le > 50 % des concepts attendus → score global = 1 pour toutes les 30 questions. À investiguer S2.3 (recalibrage matching exact vs sémantique, possible normalisation racine de mot).
+
+**Coût Lot D total (cumulé deux runs Desktop)** :
+- Anthropic : **1,4094 $** (61 calls Sonnet 4.6, 208951 in + 52172 out)
+- OpenAI : 0,000947 $ (embeddings + ingest)
+- **Total : 1,41 $**
+- Dépassement cap durci sprint 0,65 $ : accepté ex-ante par Blaise pour les 2 décisions (auto-correction + rerun complet)
+- Cap mensuel 50 $ Anthropic + 10 $ OpenAI : largement préservé (~1,29 $ crédits Anthropic restants estimés)
+
+**Décisions structurantes prises :** aucune (exécution + validation cible). Le fix Lot E.1 + ce rerun valident l'objectif quantitatif S2.2.
+
+**Reste à faire pour Lot E (Claude Code Plateforme)** :
+1. RAPPORT-CC-S2.2.md (8 sections, intégrant ce rerun final 30/30)
+2. Ouverture PR `feat(rag): Sprint S2.2 - pattern-llm-wiki + extension golden set 30q + métriques + pre-commit + eval extended`
+3. Recalibrage cible latence brief S2.3 (5 s → 16-20 s pour Sonnet 4.6 sur ces volumes)
+4. Investigation S2.3 du matching concepts (synonymes/paraphrases → faux négatifs marginaux)
+
+**Blockers :**
+- Aucun.
+
+---
+
 ### 2026-05-13 (S2.2 Lot D) — Claude Code Desktop — Eval extended exécuté en partiel q-016 → q-030 + fix golden set
 
 **Contexte :** première session Claude Code Desktop (instance locale Mac de Blaise, D-030). Lecture intégrale des fichiers de référence (`_instructions-rag.md`, `DECISIONS-RAG.md` 30 décisions, `SPEC-MD-POUR-RAG.md` v1.4, `STATUS-RAG.md`, brief `BRIEF-CC-S2.2.md`). Branche `claude/execute-pilot-batches-mBSIp` resync OK avec Lots A+B Cowork (`b7c7f96`) + Lot C Plateforme (`127de86`).

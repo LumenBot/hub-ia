@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot D exécuté en partiel — prêt pour Lot E)
-**Sprint en cours :** **S2.2** — Lots A+B (Cowork, `b7c7f96`) + Lot C (Plateforme, `127de86`) + Lot D (Desktop, `fa8fc88` eval partiel q-016 → q-030 sur vault enrichi, 9/15 sources, 15/15 concepts ≥ 50 %, coût 0,71 $) livrés. Reste **Lot E (Claude Code Plateforme)** : fix bug extraction wikilinks dans `query.py` + rejeu 30q complet + RAPPORT-CC-S2.2 + PR.
+**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot E.3 livré — RAPPORT + PR finale)
+**Sprint en cours :** **S2.2 clôturé côté Claude Code Plateforme** — tous les lots livrés (A+B Cowork, C Plateforme, D + E.2 Desktop, E.1 + E.3 Plateforme). Eval finale 30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global. RAPPORT-CC-S2.2 produit dans `rag-prep/reports/` + PR finale ouverte vers `main`. En attente merge manuel Blaise puis ouverture S2.3.
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -72,8 +72,10 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.26b | S2.2 Lot B — Extension golden set 10 → 30 questions | ✅ Fait (`b7c7f96`) | Cowork |
 | L1.26c | S2.2 Lot C — Métriques coût + pre-commit hook + system prompt enrichi | ✅ Fait (`127de86`, 159/159 tests) | Claude Code Plateforme |
 | L1.26d-bis | S2.2 Lot D blocker — fix YAML int values q-016/019/027 | ✅ Fait (`00d80e8`, auto-correction Desktop exception D-022 validée par Blaise) | Claude Code Desktop |
-| L1.26d | S2.2 Lot D — Eval extended sur vault enrichi | ✅ Partiel (`fa8fc88` : 15/30 questions q-016 → q-030 ; 9/15 sources ≥ 1, 15/15 concepts ≥ 50 % ; coût 0,71 $ — cap durci dépassé accepté ; **bug extraction wikilinks identifié**) | Claude Code Desktop |
-| L1.26e | S2.2 Lot E — Fix bug wikilinks query.py + rejeu 30q + RAPPORT-CC-S2.2 + PR | ⏳ **Prêt pour Claude Code Plateforme** | Claude Code Plateforme |
+| L1.26d | S2.2 Lot D — Eval extended sur vault enrichi (1er run, partiel) | ✅ Partiel (`fa8fc88` : 15/30 questions q-016 → q-030 ; 9/15 sources, 15/15 concepts ≥ 50 % ; coût 0,71 $ — bug extraction wikilinks identifié) | Claude Code Desktop |
+| L1.26e.1 | S2.2 Lot E.1 — Fix `extract_cited_codes` wikilinks Obsidian dans `query.py` | ✅ Fait (`34496cb`, mergé via PR #47 → main) | Claude Code Plateforme |
+| L1.26d.2 | S2.2 Lot D rerun final — Eval complet 30q post-fix wikilinks | ✅ Fait (`af18810` : **30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global** ; cible brief 24/30 largement atteinte ; coût cumulé Lot D 1,41 $ ; latence moy. 16,4 s/q) | Claude Code Desktop |
+| L1.26e.2 | S2.2 Lot E.3 — RAPPORT-CC-S2.2 + PR finale | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.2.md` en 8 sections + PR finale ouverte) | Claude Code Plateforme |
 
 ---
 
