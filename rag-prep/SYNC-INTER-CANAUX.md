@@ -46,6 +46,32 @@ Le couple 1 doit être informé quand :
 
 ### Items descendants (couple 1 → couple 2)
 
+#### I-D-005 — Canonisation 2 chiffres CU-027 (Kimi/Opus + équipe humaine remplacée)
+
+**Émetteur :** couple 1 (Cowork Hub IA — RETOUR-SONDAGE-COWORK-HUB-IA-S2.3, 13 mai 2026)
+**Destinataire :** couple 2 (Cowork Hub IA Plateforme)
+**Date d'inscription :** 13 mai 2026
+**Statut :** ouvert (à traiter au Lot B production cu-027.md, recouvrement attendu DEP-06 et PR-07)
+
+**Contenu :**
+Le RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 a explicité 2 chiffres clés de CU-027 méritant canonisation dans `transverses/chiffres-macro-2026.md` (recouvrement avec DEP-06 et PR-07 selon couple 1) :
+
+1. **« 80 à 90 % d'économie d'inférence Kimi K2.6 (0,80 $/M input, 3,60 $/M output) vs Claude Opus 4.7 (5 $/M input, 25 $/M output) »**
+   - Source : RETOUR-SONDAGE §CU-027 passage 4 (citation textuelle HTML)
+   - Recouvrement RAG : cu-027 (stack ECC), dep-06 (inférence et coûts), pr-07 (build vs buy)
+
+2. **« 8-10 K$/mois pour équipe de 3-4 dev juniors, remplaçable par 1 senior + ECC stack à ~20 $/mois Claude Pro + 50-200 €/mois infra »**
+   - Source : RETOUR-SONDAGE §CU-027 passage 4 (citation textuelle HTML)
+   - Recouvrement RAG : cu-027 (stack ECC), pr-07 (build vs buy)
+
+**Action attendue côté couple 2 :** au Lot B de production de `cu-027.md`, intégrer ces 2 chiffres dans `transverses/chiffres-macro-2026.md` (sources sourcées) ET wikilinker depuis cu-027 + dep-06 (futur) + pr-07 (à corriger si la mention y est paraphrasée).
+
+**Articulation avec I-D-003** : I-D-003 (6 chiffres McKinsey + Gartner + MIT) reste ouvert. Les 2 chiffres présents I-D-005 peuvent être canonisés simultanément lors d'un même bump éditorial de `chiffres-macro-2026.md` (probable v3.8.5 → v3.8.6 ou v3.9 selon convergence couple 1 v3.10 en préparation).
+
+**Priorité :** haute pour cu-027 (chiffre central du module, R9 strict applicable).
+
+---
+
 #### I-D-003 — Canonisation 3 nouveaux chiffres macro 2026 (issus run veille 2026-05-12)
 
 **Émetteur :** couple 1 (Cowork Hub IA — Lot B v3.9 PR-04)
