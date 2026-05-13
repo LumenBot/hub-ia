@@ -264,14 +264,55 @@ def build_user_prompt(question: str, chunks: list[RetrievedChunk]) -> str:
     )
 
 
-CODE_PATTERN = re.compile(r"\[(CU-\d+|PR-\d+|DEP-\d+|A\d+|OUTILS-[A-Z0-9-]+|TRANSVERSE-[A-Z0-9-]+)\]", re.IGNORECASE)
+# ----- Extraction des citations dans la réponse Claude --------------
+# Deux formats sont reconnus, alignés avec le system prompt enrichi v2 :
+#
+# 1. Wikilink Obsidian (format **préféré**) : `[[code]]`, `[[code#ancre]]`,
+#    `[[code|alias]]`, `[[code#ancre|alias]]`. Codes en kebab-case lowercase,
+#    famille libre (cu-NNN, pr-NN, dep-NN, aN, outils-*, glossaire,
+#    chiffres-macro-YYYY, vigilance-*, pattern-*, methodologie-*, etc.).
+#
+# 2. Crochets simples (rétro-compatibilité) : `[CU-NNN]`, `[PR-NN]`,
+#    `[DEP-NN]`, `[AN]`, `[OUTILS-*]`, `[TRANSVERSE-*]`. Lookbehind/lookahead
+#    négatifs pour ne pas matcher à l'intérieur d'un wikilink `[[...]]`.
+#
+# Sortie normalisée en lowercase, alignée avec `run_eval.py` qui matche en
+# lowercase contre `expected_sources` du golden set.
+
+WIKILINK_CITATION_PATTERN = re.compile(
+    r"\[\[([a-zA-Z][a-zA-Z0-9-]*)(?:#[^\]\|]*)?(?:\|[^\]]*)?\]\]"
+)
+BRACKET_CITATION_PATTERN = re.compile(
+    r"(?<!\[)\[(CU-\d+|PR-\d+|DEP-\d+|A\d+|OUTILS-[A-Z0-9-]+|TRANSVERSE-[A-Z0-9-]+)\](?!\])",
+    re.IGNORECASE,
+)
+# Conservé pour rétro-compatibilité avec d'éventuels imports externes
+# antérieurs au refactor S2.2 Lot E.1 (alias vers BRACKET_CITATION_PATTERN).
+CODE_PATTERN = BRACKET_CITATION_PATTERN
 
 
 def extract_cited_codes(answer: str) -> list[str]:
+    """Extrait les codes cités dans la réponse Claude.
+
+    Reconnaît :
+    - wikilinks Obsidian (préférés) : `[[code]]`, `[[code#ancre]]`,
+      `[[code|alias]]`, `[[code#ancre|alias]]` — toute famille de code en
+      kebab-case lowercase.
+    - crochets simples (rétro-compat) : `[CU-NNN]`, `[PR-NN]`, `[DEP-NN]`,
+      `[AN]`, `[OUTILS-*]`, `[TRANSVERSE-*]` — pattern strict UPPERCASE.
+
+    Sortie : liste de codes lowercase, dédupliquée, dans l'ordre d'apparition.
+    """
+    matches: list[tuple[int, str]] = []
+    for m in WIKILINK_CITATION_PATTERN.finditer(answer):
+        matches.append((m.start(), m.group(1).lower()))
+    for m in BRACKET_CITATION_PATTERN.finditer(answer):
+        matches.append((m.start(), m.group(1).lower()))
+
+    matches.sort(key=lambda x: x[0])
     seen: set[str] = set()
     out: list[str] = []
-    for m in CODE_PATTERN.finditer(answer):
-        code = m.group(1).upper()
+    for _, code in matches:
         if code not in seen:
             seen.add(code)
             out.append(code)
