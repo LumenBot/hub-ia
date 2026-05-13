@@ -1,9 +1,9 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot E.3 livré — RAPPORT + PR finale)
-**Sprint en cours :** **S2.2 clôturé côté Claude Code Plateforme** — tous les lots livrés (A+B Cowork, C Plateforme, D + E.2 Desktop, E.1 + E.3 Plateforme). Eval finale 30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global. RAPPORT-CC-S2.2 produit dans `rag-prep/reports/` + PR finale ouverte vers `main`. En attente merge manuel Blaise puis ouverture S2.3.
-**Période :** mi-mai → début juin 2026 (3 semaines)
-**Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
+**Dernière mise à jour :** 13 mai 2026 (Ouverture S2.3 — SPEC v1.5 + BRIEF-CC-S2.3 produits)
+**Sprint en cours :** **S2.3 ouvert** — vague 3 (cu-026, cu-027, dep-08) + matching sémantique synonymes (option 2 Cowork) + golden set 39q + co-production sondage Cowork Hub IA en parallèle. `SPEC-MD-POUR-RAG.md v1.5` actée (4 propositions Plateforme validées). `BRIEF-CC-S2.3.md` produit (10 sections, 6 lots A-F en allocation hybride D-030). Sprint S2.2 clôturé (30/30 atteint, PR #48 produite, en attente merge manuel Blaise).
+**Période S2.3 :** 13 mai → début juin 2026
+**Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
 
 ---
 
@@ -75,7 +75,14 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.26d | S2.2 Lot D — Eval extended sur vault enrichi (1er run, partiel) | ✅ Partiel (`fa8fc88` : 15/30 questions q-016 → q-030 ; 9/15 sources, 15/15 concepts ≥ 50 % ; coût 0,71 $ — bug extraction wikilinks identifié) | Claude Code Desktop |
 | L1.26e.1 | S2.2 Lot E.1 — Fix `extract_cited_codes` wikilinks Obsidian dans `query.py` | ✅ Fait (`34496cb`, mergé via PR #47 → main) | Claude Code Plateforme |
 | L1.26d.2 | S2.2 Lot D rerun final — Eval complet 30q post-fix wikilinks | ✅ Fait (`af18810` : **30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global** ; cible brief 24/30 largement atteinte ; coût cumulé Lot D 1,41 $ ; latence moy. 16,4 s/q) | Claude Code Desktop |
-| L1.26e.2 | S2.2 Lot E.3 — RAPPORT-CC-S2.2 + PR finale | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.2.md` en 8 sections + PR finale ouverte) | Claude Code Plateforme |
+| L1.26e.2 | S2.2 Lot E.3 — RAPPORT-CC-S2.2 + PR finale | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.2.md` en 8 sections + PR #48 ouverte) | Claude Code Plateforme |
+| L1.27 | **S2.3 ouverture** — SPEC v1.5 (4 props validées) + BRIEF-CC-S2.3 produit | ✅ Fait Cowork (13 mai 2026) — sync ascendante à effectuer par Blaise | Cowork |
+| L1.27a | S2.3 Lot A — transmission sondage à Cowork Hub IA + attente RETOUR-SONDAGE | ⏳ Prêt | Cowork (transmission) + Cowork Hub IA (canal parallèle) |
+| L1.27b | S2.3 Lot B — production cu-026 + cu-027 + dep-08 selon RETOUR-SONDAGE | ⏳ Bloqué par Lot A | Cowork |
+| L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout q-031/039 | ⏳ Prêt (peut démarrer parallèle) | Cowork |
+| L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ⏳ Bloqué par Lot C | Claude Code Plateforme |
+| L1.27e | S2.3 Lot E — eval extended 39q post-vault enrichi | ⏳ Bloqué par Lots B + D | Claude Code Desktop |
+| L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ⏳ Bloqué par Lot E | Claude Code Plateforme |
 
 ---
 

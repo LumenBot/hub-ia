@@ -11,6 +11,41 @@
 
 ## Entrées
 
+### 2026-05-13 (Ouverture S2.3) — Cowork Hub IA Plateforme — SPEC v1.5 + BRIEF-CC-S2.3 + arbitrages Blaise
+
+**Contexte :** sprint S2.2 clôturé via PR finale #48 (RAPPORT-CC-S2.2 consolidé + 30/30 atteint). Blaise transmet trois arbitrages post-clôture :
+1. **Budget Anthropic** : top-up effectué (non bloquant) — S2.3 peut être dimensionné normalement
+2. **SPEC v1.5 — 4 propositions Plateforme validées** : AP-5 YAML int + formalisation pattern extraction wikilinks + recalibrage latence + eval réelle garde-fou structurel
+3. **Matching sémantique S2.3** : recommandation Cowork **option 2 (synonymes par concept)** retenue — minimal effort, zéro coût API, contrôle éditorial préservé. Option 4 (composer + LLM-as-judge) gardée en réserve S2.4.
+
+**Actions menées :**
+
+- **Sauvegarde intermédiaire** `rag-prep/PLAN-S2.3-WIP.md` pour acter les arbitrages et permettre la reprise en cas de session interrompue (à supprimer une fois brief S2.3 transmis).
+- **SPEC-MD-POUR-RAG.md v1.4 → v1.5** : 4 ajouts validés issus de RAPPORT-CC-S2.2 §6 :
+  - AP-5 dans §Anti-patterns (valeurs numériques non quotées dans `expected_concepts`)
+  - Sous-section §Extraction côté code RAG dans R4 (formalisation `WIKILINK_CITATION_PATTERN` préféré + `BRACKET_CITATION_PATTERN` rétro-compat, lookbehind/lookahead, contrat de sortie lowercase + ordre + dédup)
+  - Nouvelle section §Validation — Eval réelle comme garde-fou structurel (toute évolution prompt/regex/modèle déclenche rejeu eval golden set complet pré-clôture sprint)
+  - Nouvelle section §Performances — Cible latence Sonnet 4.6 recalibrée à 12-18 s/question (cible 5 s S1/S2.2 abandonnée)
+  - Historique v1.5 ajouté
+- **Production `rag-prep/briefs/BRIEF-CC-S2.3.md`** (~2600 mots, 10 sections) : périmètre vague 3 (cu-026 + cu-027 + dep-08), allocation hybride D-030 sur 6 lots (A→F), spécification matching sémantique option B (liste de listes en YAML) avec pseudo-code `evaluate_one()` adapté, directives production MD vague 3 module par module avec frontmatter/sections H2/wikilinks anticipés, eval cible 32/39 (≥ 82 %) ; coordination sondage Cowork Hub IA en parallèle (canal séparé) non bloquant pour Lots A + C.
+
+**Décisions structurantes prises :**
+
+- **SPEC v1.5 actée** — 4 propositions Plateforme intégrées
+- **Format YAML synonymes** : option B (liste de listes), rétro-compatible scalaire (préférence Cowork pour lisibilité)
+- **Cible eval S2.3** : ≥ 32/39 sources (82 %) + ≥ 35/39 concepts (90 % avec matching synonymes)
+- **Cap durci sprint S2.3** : 1,20 $ Anthropic + 0,003 $ OpenAI
+
+**Reste à faire pour Blaise** :
+1. Sync ascendante : copier SPEC v1.5 + BRIEF-CC-S2.3 + JOURNAL/STATUS dans le clone Git + push
+2. Transmettre `DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md` à Cowork Hub IA (canal séparé) pour démarrer le retour sondage
+3. Lancer Cowork Hub IA Plateforme (Lots A + C en parallèle dès maintenant — pas de dépendance sondage)
+4. Vérifier crédits Anthropic post top-up avant lancement Lot E
+
+**Blockers :** aucun (top-up Blaise débloque le budget Anthropic).
+
+---
+
 ### 2026-05-13 (S2.2 Lot E.3 livré) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.2 consolidé + PR finale
 
 **Contexte :** clôture du sprint S2.2. Lot E.1 (fix `extract_cited_codes`) mergé via PR #47 sur main. Lot E.2 (rerun complet 30q post-fix) livré par Desktop avec **30/30 sources retrouvées, 30/30 concepts ≥ 50 %, 30/30 score global**. Cible brief 24/30 (80 %) largement dépassée. Reste à produire le RAPPORT consolidé et la PR finale (Lot E.3).

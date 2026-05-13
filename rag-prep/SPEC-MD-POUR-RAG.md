@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.4 (8 règles + R9 + R10 + exception R1 + politique whitelist + R6 warning par défaut codifié + options strict documentées)
-**Dernière mise à jour :** 12 mai 2026 (révision post-S2.1 Claude Code Plateforme + intégration v3.9 couple 1)
+**Statut :** v1.5 (8 règles + R9 + R10 + exception R1 + politique whitelist + R6 warning par défaut codifié + options strict documentées + AP-5 YAML int + formalisation pattern extraction wikilinks + §Performances latence + §Validation eval réelle garde-fou)
+**Dernière mise à jour :** 13 mai 2026 (révision post-S2.2 — 4 propositions Plateforme RAPPORT-CC-S2.2 §6 validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -84,6 +84,17 @@ public_cible: [dirigeant, ops, r&d]   # valeurs autorisées : dirigeant | ops | 
 **Liens externes** (hors vault) : MD standard `[texte](url)`. Toujours inclure le domaine source dans le texte si pertinent.
 
 **Validation** : audit-md-rag.py vérifie que les cibles des wikilinks existent dans le vault.
+
+### Extraction côté code RAG (formalisation post-S2.2 Lot E.1)
+
+Les réponses produites par le pipeline RAG citent les sources selon deux formats, lus par `extract_cited_codes()` dans `rag/code/backend/query.py` :
+
+- **Format préféré** : wikilink Obsidian — `[[code]]`, `[[code#ancre]]`, `[[code|alias]]`, `[[code#ancre|alias]]`. Codé dans `WIKILINK_CITATION_PATTERN`. C'est le format demandé au LLM par le `SYSTEM_PROMPT` enrichi (D-025, Lot C S2.2).
+- **Format accepté (rétro-compatibilité)** : crochets simples — `[CU-NNN]`, `[PR-NN]`, `[DEP-NN]`, `[A1]`, `[OUTILS-*]`, `[TRANSVERSE-*]`. Codé dans `BRACKET_CITATION_PATTERN` avec lookbehind/lookahead `(?<!\[)...(?!\])` pour éviter la double-capture à l'intérieur d'un wikilink.
+
+**Contrat de sortie** : `extract_cited_codes()` normalise en lowercase, préserve l'ordre d'apparition, déduplique case-insensitive. L'évaluation contre `expected_sources` (lowercase) est donc cohérente.
+
+**Pourquoi cette formalisation** : le bug S2.2 Lot D (9/15 sources retrouvées au lieu de 30/30 après fix Lot E.1) est resté invisible jusqu'à l'eval réelle car les tests unitaires mockés ne validaient que le format crochets historique. Toute évolution future du format de citation (nouveau type, nouvelle famille de codes, séparateur supplémentaire) doit s'accompagner d'une mise à jour des patterns d'extraction ET d'un rejeu eval réelle (voir §Validation).
 
 ### Politique des wikilinks vers MD planifiés mais non encore produits (issue S1bis catégorie B + D-029)
 
@@ -237,6 +248,42 @@ Pour le RAG, certaines briques sémantiques (vigilances communes, patterns récu
 
 9. **Reformulation paraphrastique d'un chiffre canonique** : passé en **règle stricte R9** (cf. plus haut), pas seulement anti-pattern.
 
+10. **AP-5 — Valeurs numériques non quotées dans `expected_concepts`** (golden set eval, issue S2.2 Lot D blocker) : toute valeur du champ `expected_concepts` d'une entrée du golden set YAML qui commence par un chiffre doit être **explicitement quotée** (`"95 %"`, `"1,8 heures"`, `"21 %"`). PyYAML parse sinon les nombres en `int`/`float`, faisant crasher `evaluate_one()` sur `int.lower()`.
+   - *Cas réels détectés* (S2.2 Lot D) : q-016 (`[1,8, heures, McKinsey]` → `1,8` lu comme float), q-019 (`[95, ROI, ...]` → `95` int), q-027 (`[21, McKinsey, workflow]` → `21` int).
+   - *Recommandation* : à chaque ajout d'une question au golden set, vérifier visuellement le typage YAML. À terme, soit défense côté code (`str(c).lower()` dans `evaluate_one`), soit pre-commit golden set côté Cowork (audit YAML).
+   - *Statut* : anti-pattern fort, sans automatisation d'audit immédiate (le passage à `str(c).lower()` côté Plateforme reste à acter en S2.3 ou ultérieur).
+
+---
+
+## Validation — Eval réelle comme garde-fou structurel (issue RAPPORT-CC-S2.2 §6 P4)
+
+Tests unitaires mockés et eval réelle ont des rôles complémentaires non substituables :
+
+- **Tests unitaires mockés** valident le **contrat de chaque brique** (fonction d'extraction, parser frontmatter, audit-md-rag, ingestion, query) — ils répondent à la question « le code respecte-t-il son contrat ? ».
+- **Eval réelle sur le golden set** valide **l'effet observé bout-en-bout** sur le vrai corpus — elle répond à la question « le pipeline produit-il les résultats attendus quand on lui donne le vrai vault ? ».
+
+**Règle structurelle (post-S2.2)** : toute évolution du pipeline RAG susceptible d'affecter les résultats — modification du `SYSTEM_PROMPT`, des regex d'extraction (`extract_cited_codes`, autres parsers réponse), du modèle (LLM, embedding), du chunking, des paramètres de retrieval/reranking — doit déclencher un **rejeu eval golden set complet** sur le vault courant **avant clôture du sprint**, en complément des tests unitaires.
+
+**Pourquoi** : les deux anomalies S2.2 (YAML int + bug extraction wikilinks) ont été détectées exclusivement par eval réelle, pas par les 171 tests unitaires verts. Les mocks ne peuvent pas capter l'écart entre le format réel produit par le LLM et l'attendu de l'extraction.
+
+**Mise en œuvre** : à inscrire dans tout brief Plateforme/Desktop qui touche au pipeline. Cible-discipline budgétaire : un rejeu eval = ~0,70 $ Anthropic (estimation S2.2 sur 30 questions, Sonnet 4.6), à intégrer dans le cap durci sprint.
+
+---
+
+## Performances — Cible latence Sonnet 4.6 (recalibrage post-S2.2)
+
+Cible latence par question recalibrée empiriquement post-S2.2 Lot E.2 sur 30 questions :
+
+| Configuration | Cible latence par question |
+|---|---|
+| Sonnet 4.6, volumes ~3–5 k tokens in / ~0,5–1,5 k tokens out (RAG standard sur vault < 200 chunks) | **12–18 s acceptable** (mesure moyenne S2.2 : 16,4 s, min 9 s, max 22 s) |
+| Sonnet 4.6, volumes > 5 k tokens in (vault > 500 chunks ou retrieval k > 8) | 18–25 s acceptable, à mesurer en sprint dédié |
+| Haiku 4.5 sur mêmes volumes (option future S3 si optimisation latence prioritaire) | ~5 s estimé (~3× plus rapide), à mesurer avec impact qualitatif |
+
+**Cible précédente abandonnée** : la cible 5 s/question des briefs S1 et S2.2 était irréaliste pour Sonnet 4.6 sur ces volumes. Elle reste valable comme objectif optimisation S3+ avec Haiku 4.5 si la qualité est maintenue.
+
+**Application briefs futurs** : tout brief Desktop/Plateforme qui exécute une eval doit utiliser la cible 12–18 s/question pour Sonnet 4.6. Ne pas reproduire la cible 5 s du brief S2.2 (corrigée post-mortem dans le RAPPORT-CC-S2.2 §6 P3).
+
 ---
 
 ## Validation par audit-md-rag.py (5 règles initiales en v1)
@@ -288,5 +335,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.2 | 12 mai 2026 | + R10 (transposition fidèle des valeurs numériques dans les tableaux, règle stricte issue retour I-003) ; AP-4 promu en règle R10 plutôt qu'anti-pattern documenté ; audit R10 ajouté à la roadmap v2 audit-md-rag.py |
 | v1.3 | 12 mai 2026 | + Exception structurelle R1 pour fichiers racines transverses (D-028, issue S1bis catégorie A) ; + Politique des wikilinks vers MD planifiés (D-029, issue S1bis catégorie B) ; roadmap audit v2 enrichie de 3 évolutions (exception R1, R4 tolérante, R6 reconnaît wikilinks canoniques) |
 | v1.4 | 12 mai 2026 | + Codification R6 warning par défaut (issue RAPPORT-CC-S2.1 §5 P1 — convention déjà appliquée empiriquement par Claude Code Plateforme audit v2) ; + Documentation des options `--strict-future` et `--strict-r6` (issue P3) ; + Roadmap audit v3 enrichie : R5 v3 « première occurrence seulement » (P2 reportée audit v3) et R11 « outil glossarié wikilinké » (inspiré couple 1 v3.9 Règle I.1 cross-site outils, application différée audit v3) |
+| v1.5 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.2 §6 (validation Cowork post-clôture S2.2) : (1) AP-5 valeurs numériques non quotées dans `expected_concepts` (anti-pattern fort, validation visuelle au commit Cowork) ; (2) Formalisation des deux patterns d'extraction côté code RAG — `WIKILINK_CITATION_PATTERN` préféré + `BRACKET_CITATION_PATTERN` rétro-compat (sous-section dans R4) ; (3) Nouvelle section §Performances : recalibrage cible latence Sonnet 4.6 à 12-18 s/question (cible 5 s S1/S2.2 abandonnée comme irréaliste) ; (4) Nouvelle section §Validation : eval réelle comme garde-fou structurel pré-clôture sprint (toute évolution prompt/regex/modèle/chunking déclenche rejeu eval, mocks ≠ substituable). |
 
-**Évolution prévue** : enrichissement en v2 post-pilote S1 sur la base des écarts détectés par les premières exécutions de `audit-md-rag.py`.
+**Évolution prévue** : enrichissement en v1.6+ post-S2.3 sur la base du matching sémantique synonymes (option 2 Cowork) et d'éventuelles nouvelles anomalies détectées en eval réelle.
