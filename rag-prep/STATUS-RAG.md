@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot A clôturé + Lot C v2 ajusté post-RETOUR-SONDAGE — Golden set v2 42q)
-**Sprint en cours :** **S2.3 en cours** — Lot A clôturé (RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 reçu, D-026 validé empiriquement, 4 dérives évitées). Lot C v2 livré Cowork-side : golden set v2 ajusté à **42 questions** (30 enrichies synonymes + 9 vague 3 corrigées + 3 bonus). AP-5 ✅. En attente sync ascendante Blaise pour débloquer Lot B (production cu-026 + cu-027 + dep-08) ET Lot D Plateforme (adapt `evaluate_one()`). Cible eval recalibrée : ≥ 35/42 sources (≥ 83 %).
+**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot B livré — vague 3 produite : cu-026 + cu-027 + dep-08 + patch chiffres-macro I-D-005)
+**Sprint en cours :** **S2.3 en cours** — Lots A + B + C livrés Cowork-side. Lot D en cours par Claude Code Plateforme (adapt `evaluate_one()` synonymes). En attente sync ascendante Blaise pour : (1) appliquer patch chiffres-macro-2026 v3.8.5 → v3.8.6, (2) ingest vault 10 → 13 fichiers, (3) débloquer Lot E Desktop (eval extended 42q post-Lot D mergé). Cible eval recalibrée : ≥ 35/42 sources (≥ 83 %).
 **Période S2.3 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
 
@@ -78,7 +78,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.26e.2 | S2.2 Lot E.3 — RAPPORT-CC-S2.2 + PR finale | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.2.md` en 8 sections + PR #48 ouverte) | Claude Code Plateforme |
 | L1.27 | **S2.3 ouverture** — SPEC v1.5 (4 props validées) + BRIEF-CC-S2.3 produit | ✅ Fait Cowork (13 mai 2026) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27a | S2.3 Lot A — transmission sondage à Cowork Hub IA + attente RETOUR-SONDAGE | ✅ Fait (RETOUR-SONDAGE reçu 13 mai, D-026 validé empiriquement, 4 dérives sémantiques évitées) | Cowork (transmission) + Cowork Hub IA (canal parallèle) |
-| L1.27b | S2.3 Lot B — production cu-026 + cu-027 + dep-08 selon RETOUR-SONDAGE | ⏳ Débloqué — prêt à démarrer | Cowork |
+| L1.27b | S2.3 Lot B — production cu-026 + cu-027 + dep-08 selon RETOUR-SONDAGE | ✅ Fait Cowork (3 MD ~4700 mots + patch chiffres-macro I-D-005 + whitelist v2, 4 dérives évitées, 3 passages bonus intégrés, 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout vague 3 | ✅ Fait Cowork v2 ajusté post-RETOUR (`questions-v2-s2.3.yaml` : **42 questions** — 30 enrichies + 9 vague 3 corrigées + 3 bonus ; AP-5 ✅ ; 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ⏳ Bloqué par Lot C | Claude Code Plateforme |
 | L1.27e | S2.3 Lot E — eval extended 39q post-vault enrichi | ⏳ Bloqué par Lots B + D | Claude Code Desktop |
