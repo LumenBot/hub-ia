@@ -153,14 +153,16 @@ class TestFormatReport:
 # ============================================================
 
 class TestQuestionsYaml:
-    def test_golden_set_10_questions(self):
+    def test_golden_set_volume_courant(self):
         import yaml
         questions_path = os.path.join(os.path.dirname(HERE), "..", "eval", "questions.yaml")
         with open(questions_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-        # S2.2 Lot B : extension 10 → 30 questions (20 nouvelles couvrant
-        # vague 3.5 + transverses + cross-modules).
-        assert len(data) == 30
+        # S2.3 Lot C v2 : golden set passé à 42 questions
+        # (30 enrichies synonymes + 9 vague 3 + 3 bonus post-RETOUR-SONDAGE).
+        # On vérifie un volume ≥ 30 pour rester tolérant aux ajustements
+        # futurs du golden set sans recasser ce test.
+        assert len(data) >= 30
         for entry in data:
             assert "id" in entry
             assert "question" in entry
@@ -200,3 +202,213 @@ class TestQuestionsYaml:
         assert a_ids.issubset(q_ids), f"golden-answer orpheline : {a_ids - q_ids}"
         # Les 10 premières questions doivent garder leur golden-answer
         assert {f"q-{i:03d}" for i in range(1, 11)}.issubset(a_ids)
+
+
+# ============================================================
+# S2.3 Lot D — concept_matched() : matching scalaire + liste synonymes
+# ============================================================
+
+class TestConceptMatchedScalaire:
+    """Cas v1 (rétro-compat) : un concept = une string, match littéral
+    sous-chaîne case-insensitive."""
+
+    def test_concept_scalaire_present(self):
+        assert run_eval.concept_matched("veille", "la veille IA est essentielle") is True
+
+    def test_concept_scalaire_absent(self):
+        assert run_eval.concept_matched("RAG", "réponse sans le mot attendu") is False
+
+    def test_concept_scalaire_case_insensible(self):
+        assert run_eval.concept_matched("VEILLE", "La veille IA") is True
+        assert run_eval.concept_matched("veille", "LA VEILLE IA") is True
+
+    def test_concept_scalaire_ne_matche_pas_morphologie(self):
+        """Justification du format option B : « méthode » n'est PAS une
+        sous-chaîne de « méthodologie » (caractère 7 de « méthodologie »
+        est « o », pas « e »). C'est le faux négatif S2.2 §7 qui motive
+        l'introduction des listes de synonymes."""
+        assert run_eval.concept_matched("méthode", "méthodologie de veille") is False
+        # Pour matcher, il faut passer en format liste (cf. tests suivants)
+
+
+class TestConceptMatchedListe:
+    """S2.3 Lot D : un concept = liste de synonymes, match dès qu'au
+    moins un synonyme apparaît."""
+
+    def test_liste_un_synonyme_trouve(self):
+        assert run_eval.concept_matched(
+            ["méthode", "méthodologie", "approche"],
+            "voici une méthodologie en trois temps",
+        ) is True
+
+    def test_liste_aucun_synonyme_trouve(self):
+        assert run_eval.concept_matched(
+            ["méthode", "méthodologie", "approche"],
+            "réponse sans aucun synonyme attendu",
+        ) is False
+
+    def test_liste_premier_synonyme_match(self):
+        assert run_eval.concept_matched(
+            ["vérification", "vérifier"],
+            "il faut vérification systématique",
+        ) is True
+
+    def test_liste_dernier_synonyme_match(self):
+        assert run_eval.concept_matched(
+            ["vérification", "vérifier", "valider"],
+            "il faut valider chaque source",
+        ) is True
+
+    def test_liste_synonymes_case_insensible(self):
+        # Synonymes en uppercase, réponse en lowercase → match
+        assert run_eval.concept_matched(
+            ["MÉTHODE", "MÉTHODOLOGIE"],
+            "une méthode rigoureuse",
+        ) is True
+        # Inverse : synonymes lowercase, réponse uppercase
+        assert run_eval.concept_matched(
+            ["method", "methodology"],
+            "METHOD IS GOOD",
+        ) is True
+
+    def test_liste_synonymes_avec_chiffres_quotes(self):
+        """Cas issu de S2.2 §7 — variation morphologique sur les valeurs
+        numériques quotées (singulier/pluriel)."""
+        assert run_eval.concept_matched(
+            ["1,8 heures", "1,8 heure"],
+            "selon mckinsey, 1,8 heure par jour perdue",
+        ) is True
+        # Synonyme entier seulement, réponse contient le format singulier
+        assert run_eval.concept_matched(
+            ["1,8 heures"],
+            "selon mckinsey, 1,8 heure par jour perdue",
+        ) is False
+
+    def test_liste_synonymes_morphologie_persistant(self):
+        """q-028 S2.3 — persistant/persistance/persistent."""
+        assert run_eval.concept_matched(
+            ["persistant", "persistance", "persistent"],
+            "le pattern offre une persistance native",
+        ) is True
+
+    def test_liste_synonymes_economie_gain(self):
+        """q-029 S2.3 — économie/économies/gain/réduction."""
+        assert run_eval.concept_matched(
+            ["économie", "économies", "gain", "réduction"],
+            "un gain mesuré de 95 % sur les tokens",
+        ) is True
+
+
+class TestConceptMatchedDegenere:
+    """Cas dégénéré : liste vide → False + warning stderr."""
+
+    def test_liste_vide_retourne_false(self, capsys):
+        result = run_eval.concept_matched([], "n'importe quel texte")
+        assert result is False
+
+    def test_liste_vide_emet_warning_stderr(self, capsys):
+        run_eval.concept_matched([], "texte")
+        captured = capsys.readouterr()
+        assert "vide" in captured.err.lower() or "warn" in captured.err.lower()
+
+
+class TestEvaluateOneFormatMixte:
+    """S2.3 Lot D — `expected_concepts` peut être un mix scalaires + listes
+    dans la même entrée (cas réel observé dans questions.yaml q-001, q-039,
+    q-042)."""
+
+    def test_mix_scalaire_et_liste_tous_matches(self):
+        q = {
+            "id": "q-mix",
+            "question": "?",
+            "expected_sources": ["cu-001"],
+            "expected_concepts": [
+                "veille",                                      # scalaire
+                ["méthode", "méthodologie", "approche"],       # liste synonymes
+                "source",                                       # scalaire
+            ],
+        }
+        r = {
+            "answer": "La veille IA repose sur une méthodologie de source",
+            "cited_codes": ["cu-001"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        assert item.score_global == 1
+        # Les 3 concepts sont matchés (1 scalaire + 1 liste + 1 scalaire)
+        assert len(item.concepts_match) == 3
+        assert len(item.concepts_missing) == 0
+        # expected_concepts préservé tel quel (format mixte sérialisable JSON)
+        assert item.expected_concepts == q["expected_concepts"]
+
+    def test_mix_scalaire_et_liste_partiel(self):
+        q = {
+            "id": "q-mix-partial",
+            "question": "?",
+            "expected_sources": ["cu-008"],
+            "expected_concepts": [
+                ["méthode", "méthodologie"],
+                "absent_de_la_reponse",
+                ["synonyme1", "synonyme2"],
+            ],
+        }
+        r = {
+            "answer": "méthodologie en trois temps, et synonyme1 mentionné",
+            "cited_codes": ["cu-008"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        # 2 listes matchent, 1 scalaire ne matche pas
+        assert len(item.concepts_match) == 2
+        assert len(item.concepts_missing) == 1
+        # 2/3 ≥ 50 % → score 1 (avec source citée)
+        assert item.score_global == 1
+
+    def test_evaluate_one_ne_crashe_pas_sur_format_mixte_reel(self):
+        """Sanity check : ne crashe pas sur la structure réelle de
+        questions.yaml v2 S2.3 (q-001 contient [str, str, list])."""
+        q = {
+            "id": "q-001",
+            "question": "Qu'est-ce que la veille IA ?",
+            "expected_sources": ["cu-001"],
+            "expected_concepts": ["veille", "source", ["méthode", "méthodologie", "approche"]],
+        }
+        r = {"answer": "Veille IA et source [[cu-001]]", "cited_codes": ["cu-001"]}
+        # Doit fonctionner sans AttributeError sur .lower() d'une liste
+        item = run_eval.evaluate_one(q, r)
+        assert item.id == "q-001"
+        assert isinstance(item.expected_concepts, list)
+
+    def test_evaluate_one_serialise_format_mixte_en_json(self):
+        """to_dict() doit produire un dict sérialisable JSON, même avec
+        listes imbriquées dans expected_concepts."""
+        import json
+        q = {
+            "id": "q-json",
+            "question": "?",
+            "expected_sources": ["cu-001"],
+            "expected_concepts": ["veille", ["méthode", "méthodologie"]],
+        }
+        r = {"answer": "veille avec méthodologie", "cited_codes": ["cu-001"]}
+        item = run_eval.evaluate_one(q, r)
+        # Sérialisation JSON ne lève pas d'exception
+        s = json.dumps(item.to_dict(), ensure_ascii=False)
+        assert "méthodologie" in s
+
+
+class TestRetroCompatV1Inchangee:
+    """Tous les tests v1 (concepts scalaires uniquement) doivent continuer
+    à passer sans modification — preuve de rétro-compatibilité."""
+
+    def test_evaluate_one_v1_format_scalaires_seuls(self):
+        q = {
+            "id": "q-v1",
+            "question": "?",
+            "expected_sources": ["cu-008"],
+            "expected_concepts": ["retrieval", "fine-tuning"],
+        }
+        r = {
+            "answer": "Le RAG fait du retrieval et est différent du fine-tuning [CU-008]",
+            "cited_codes": ["cu-008"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        assert item.score_global == 1
+        assert set(item.concepts_match) == {"retrieval", "fine-tuning"}
