@@ -5,10 +5,10 @@ type: transverse
 axe: transverse
 niveau: 2
 tags: [chiffres, statistiques, marche-ia, adoption, roi, sourcing]
-version: 3.8.5
-last_updated: 2026-05-12
+version: 3.8.6
+last_updated: 2026-05-13
 glosaire_termes: [llm, rag, fine-tuning]
-derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]", "[[dep-05]]"]
+derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[cu-027]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]", "[[dep-05]]", "[[dep-06]]"]
 public_cible: [dirigeant, ops, r&d, tech, transverse]
 ---
 
@@ -203,6 +203,32 @@ Chiffre éditorialement utilisé comme proxy de gain productivité grand public,
 Anchor stratégique de la « pression à l'IA » qui motive les démarches d'adoption.
 
 **Modules concernés** : [[pr-04]], [[pr-01]].
+
+## 80 à 90 % — économie d'inférence Kimi K2.6 vs Claude Opus 4.7 (Moonshot AI, 2026)
+
+**Économie typique de 80 à 90 % de la facture d'inférence en bascule Kimi K2.6 vs Claude Opus 4.7.**
+
+Tarification détaillée à préserver textuellement :
+- **Kimi K2.6** (Moonshot AI, sortie 2026, open-source) : **0,80 $/M tokens en input, 3,60 $/M tokens en output**
+- **Claude Opus 4.7** : **5 $/M tokens en input, 25 $/M tokens en output**
+
+Source : tarifs publics Moonshot AI 2026 + tarifs publics Anthropic 2026, cités dans CU-027 Section 1bis point 1.
+
+Lecture du chiffre : l'économie ne se réalise que sur la facture d'inférence (les appels API), pas sur le coût total d'un projet (qui inclut développement, infra, supervision, audit sécurité). À utiliser pour comparer des coûts d'opération à workload constant, pas pour projeter un coût total.
+
+**Modules concernés** : [[cu-027]] (stack ECC, point 1 rupture économique 2026), [[dep-06]] (Inférence et coûts SaaS vs self-hosted — recouvrement direct quand produit), [[pr-07]] (Build vs Buy — argument coût d'opération).
+
+## 8-10 K$/mois — équipe 3-4 dev juniors remplaçable par 1 senior + ECC stack (CU-027, 2026)
+
+**Ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack.** Coût direct : **~20 $/mois Claude Pro + 50-200 €/mois infra**.
+
+ECC = Everything Claude Code, stack open-source qui composite plusieurs outils autour de Claude Code (templates de skills, hooks, audit AgentShield).
+
+Source : CU-027 Section 1bis point 2, citation textuelle de la formulation canonique du Hub IA Learning Center.
+
+Lecture du chiffre : l'équation économique tient en **coût mensuel direct**. Elle ne couvre pas la résilience (le senior reste un goulet d'étranglement humain, pas de redondance en cas d'absence). Les organisations qui ont besoin de continuité de service à 99 %+ doivent maintenir une seconde personne formée à la stack — ce qui dégrade légèrement l'arbitrage mais reste favorable vs 3-4 juniors.
+
+**Modules concernés** : [[cu-027]] (point 2 rupture économique 2026), [[pr-07]] (Build vs Buy — argument coût d'équipe interne).
 
 ## Discipline d'utilisation
 
