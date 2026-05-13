@@ -105,28 +105,126 @@ class TestBuildContext:
 
 
 class TestCitationExtraction:
+    """Format historique : crochets simples `[CODE]` (rétro-compatibilité v1).
+    Sortie normalisée en lowercase (S2.2 Lot E.1).
+    """
+
     def test_extract_cu(self):
         ans = "Le RAG diffère [CU-008]. Voir aussi [DEP-02]. Pas [hors-code]."
         codes = query_mod.extract_cited_codes(ans)
-        assert codes == ["CU-008", "DEP-02"]
+        assert codes == ["cu-008", "dep-02"]
 
     def test_dedup(self):
         ans = "Voir [CU-008], puis [cu-008] encore, et [PR-07]."
         codes = query_mod.extract_cited_codes(ans)
-        assert codes == ["CU-008", "PR-07"]
+        assert codes == ["cu-008", "pr-07"]
 
     def test_architecture_codes(self):
         ans = "Pattern [A1] et [A3]."
         codes = query_mod.extract_cited_codes(ans)
-        assert codes == ["A1", "A3"]
+        assert codes == ["a1", "a3"]
 
     def test_outils_code(self):
         ans = "Voir [OUTILS-VECTOR-DB]."
         codes = query_mod.extract_cited_codes(ans)
-        assert codes == ["OUTILS-VECTOR-DB"]
+        assert codes == ["outils-vector-db"]
 
     def test_no_code_returns_empty(self):
         assert query_mod.extract_cited_codes("Pas de code dans cette réponse.") == []
+
+
+class TestWikilinkExtraction:
+    """S2.2 Lot E.1 — Captation des wikilinks Obsidian `[[code]]` produits
+    par Claude conformément au system prompt enrichi (D-025).
+    """
+
+    def test_wikilink_simple(self):
+        ans = "Voir [[cu-008]] pour le détail."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["cu-008"]
+
+    def test_wikilink_avec_ancre(self):
+        ans = "Cf. [[chiffres-macro-2026#21-pourcent-mckinsey-2025]]."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["chiffres-macro-2026"]
+
+    def test_wikilink_avec_alias(self):
+        ans = "Le [[cu-008|Knowledge base RAG]] couvre cela."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["cu-008"]
+
+    def test_wikilink_ancre_et_alias(self):
+        ans = "Le chiffre [[chiffres-macro-2026#95-pourcent-mit-nanda|95 % MIT NANDA]] est canonique."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["chiffres-macro-2026"]
+
+    def test_wikilink_transverses_briques_canoniques(self):
+        ans = (
+            "Selon [[pattern-llm-wiki]], le LLM Wiki convient. "
+            "Voir aussi [[vigilance-hallucinations]] et [[vigilance-confidentialite]]. "
+            "Le [[glossaire#rag]] définit le terme."
+        )
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == [
+            "pattern-llm-wiki",
+            "vigilance-hallucinations",
+            "vigilance-confidentialite",
+            "glossaire",
+        ]
+
+    def test_wikilink_dedup_meme_code_plusieurs_occurrences(self):
+        ans = "Cf. [[cu-008]]. Détail dans [[cu-008#concepts]]. Voir [[cu-008|KB RAG]]."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["cu-008"]
+
+    def test_mix_wikilinks_et_crochets_simples(self):
+        """Les deux formats coexistent dans une même réponse — ordre
+        d'apparition préservé, dédup case-insensitive."""
+        ans = (
+            "[[cu-001]] pour la veille. Voir aussi [DEP-02] sur la prod. "
+            "Le chiffre canonique [[chiffres-macro-2026#95-pourcent]] est central. "
+            "Cf. [CU-001] (déjà cité)."
+        )
+        codes = query_mod.extract_cited_codes(ans)
+        # cu-001 et dep-02 et chiffres-macro-2026 ; cu-001 ne réapparaît pas
+        assert codes == ["cu-001", "dep-02", "chiffres-macro-2026"]
+
+    def test_wikilink_ne_consomme_pas_crochet_externe(self):
+        """Bug fix : `[[code]]` ne doit pas être matché aussi par le pattern
+        crochet simple (lookbehind/lookahead négatifs)."""
+        ans = "[[cu-008]]"
+        codes = query_mod.extract_cited_codes(ans)
+        # Un seul code extrait, pas de doublon
+        assert codes == ["cu-008"]
+        assert len(codes) == 1
+
+    def test_crochet_simple_isole_pas_consomme_par_wikilink(self):
+        """À l'inverse, `[CU-008]` isolé doit toujours être matché par le
+        pattern crochet simple."""
+        ans = "Cf. [CU-008] (sans double crochet)."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["cu-008"]
+
+    def test_wikilink_ordre_apparition_preserve(self):
+        ans = (
+            "[[dep-02]] vient en premier. "
+            "Ensuite [[cu-008]]. "
+            "Puis [[pr-07]]."
+        )
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["dep-02", "cu-008", "pr-07"]
+
+    def test_wikilink_outils_extrait(self):
+        ans = "Voir [[outils-vector-db#pgvector]] pour Postgres."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == ["outils-vector-db"]
+
+    def test_wikilink_ignore_si_pas_kebab_case(self):
+        """Un wikilink ne commençant pas par une lettre (ex. lien vers une
+        URL ou tag exotique) n'est pas considéré comme un code source."""
+        ans = "Voir [[#section-locale]] ou [[https://example.com]]."
+        codes = query_mod.extract_cited_codes(ans)
+        assert codes == []
 
 
 class TestAnswerFlow:
@@ -145,8 +243,8 @@ class TestAnswerFlow:
         assert len(gen.calls) == 1
         # System prompt non vide
         assert "Hub IA" in gen.calls[0][0]
-        # Citations extraites
-        assert result.cited_codes == ["CU-008"]
+        # Citations extraites (lowercase normalisé S2.2 Lot E.1)
+        assert result.cited_codes == ["cu-008"]
         assert result.chunks == chunks
 
     def test_no_chunks_still_runs(self):
@@ -168,7 +266,7 @@ class TestAnswerFlow:
         # JSON serializable
         json.dumps(d)
         assert d["question"] == "Build vs buy ?"
-        assert d["cited_codes"] == ["PR-07"]
+        assert d["cited_codes"] == ["pr-07"]
         assert d["chunks"][0]["code"] == "pr-07"
         assert d["chunks"][0]["distance"] == 0.4
 
@@ -234,13 +332,15 @@ class TestPromptEnrichiS22:
                "rétro-compatibilité" in sp.lower()
 
     def test_extraction_citations_supporte_les_deux_formats(self):
-        """L'extraction doit fonctionner sur les crochets simples (v1).
-        Les wikilinks Obsidian [[...]] ne sont pas matchés par CODE_PATTERN
-        (intentionnel : ils sont du markup interne, pas des citations
-        exposées) — confirmé par les tests existants."""
-        ans = "Réponse [CU-008]. Voir aussi [DEP-02]."
-        codes = query_mod.extract_cited_codes(ans)
-        assert codes == ["CU-008", "DEP-02"]
+        """S2.2 Lot E.1 — l'extraction supporte désormais wikilinks Obsidian
+        (préférés) ET crochets simples (rétro-compat). Sortie normalisée
+        en lowercase. Tests dédiés détaillés dans TestWikilinkExtraction."""
+        # Format historique seul
+        ans1 = "Réponse [CU-008]. Voir aussi [DEP-02]."
+        assert query_mod.extract_cited_codes(ans1) == ["cu-008", "dep-02"]
+        # Mix wikilink + crochet
+        ans2 = "Selon [[cu-008]] et [DEP-02]."
+        assert query_mod.extract_cited_codes(ans2) == ["cu-008", "dep-02"]
 
 
 # ============================================================
