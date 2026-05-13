@@ -1,20 +1,36 @@
-# Golden set initial — sprint S1 (10 questions)
+# Golden set v2 — sprint S2.3 (39 questions)
 #
-# 2 questions par unité pilote (CU-001, CU-008, PR-07, DEP-02, outils-vector-db).
-# Format minimaliste. Enrichissement à 30 questions prévu en S2.
+# Évolutions S2.3 par rapport à S2.2 :
+# - Format `expected_concepts` enrichi avec option B (liste de listes) pour synonymes
+#   - Rétro-compatibilité : scalaire seul (string) reste valide
+#   - Mix scalaire + liste autorisé au sein d'une même entrée
+# - Résolution des 5 faux négatifs identifiés dans RAPPORT-CC-S2.2 §7 :
+#   q-001 (méthode), q-012 (vérification), q-016 (1,8 heures), q-028 (persistant), q-029 (économie)
+# - Élargissement morphologique ciblé sur les questions où des variations sont attendues
+# - Ajout de 9 nouvelles questions vague 3 (q-031 → q-039) pour cu-026, cu-027, dep-08
+#
+# Discipline AP-5 (SPEC v1.5) : toute valeur commençant par un chiffre est quotée
+# explicitement ("95 %", "1,8 heures", "21 %") pour éviter le parsing PyYAML int/float.
 #
 # Champs :
 #   id              : identifiant stable
 #   question        : énoncé tel que posé à query.py
 #   expected_sources: codes attendus en citation (case-insensitive)
 #   expected_concepts: termes/notions devant apparaître dans la réponse
-#                      (matching sous-chaîne case-insensitive)
+#                      - scalaire (string)   → matching sous-chaîne case-insensitive
+#                      - liste (synonymes)   → match si AU MOINS un terme de la liste est trouvé
+#                      Plafond recommandé : 2-4 synonymes par liste (anti-pattern : >4 → faux positifs)
 #   unit            : unité pilote ciblée
+
+# === CU-001 (Recherche & veille augmentée) — 5 questions ===
 
 - id: q-001
   question: "Qu'est-ce que la veille IA et comment la structurer dans une PME ?"
   expected_sources: [cu-001]
-  expected_concepts: [veille, source, méthode]
+  expected_concepts:
+    - veille
+    - source
+    - [méthode, méthodologie, approche]
   unit: cu-001
 
 - id: q-002
@@ -22,63 +38,6 @@
   expected_sources: [cu-001]
   expected_concepts: [source, veille]
   unit: cu-001
-
-- id: q-003
-  question: "Quelle est la différence entre RAG et fine-tuning ?"
-  expected_sources: [cu-008]
-  expected_concepts: [retrieval, fine-tuning, mise à jour]
-  unit: cu-008
-
-- id: q-004
-  question: "Comment fonctionne une knowledge base interne avec RAG ?"
-  expected_sources: [cu-008]
-  expected_concepts: [retrieval, embedding, citation]
-  unit: cu-008
-
-- id: q-005
-  question: "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?"
-  expected_sources: [pr-07]
-  expected_concepts: [build, buy, coût]
-  unit: pr-07
-
-- id: q-006
-  question: "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?"
-  expected_sources: [pr-07]
-  expected_concepts: [arbitrage, critère]
-  unit: pr-07
-
-- id: q-007
-  question: "Comment mettre un système RAG en production ?"
-  expected_sources: [dep-02]
-  expected_concepts: [production, évaluation, itération]
-  unit: dep-02
-
-- id: q-008
-  question: "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?"
-  expected_sources: [dep-02]
-  expected_concepts: [stitch, evaluate, iterate]
-  unit: dep-02
-
-- id: q-009
-  question: "Quelle vector database choisir pour démarrer un POC RAG ?"
-  expected_sources: [outils-vector-db]
-  expected_concepts: [chromadb, vector]
-  unit: outils-vector-db
-
-- id: q-010
-  question: "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?"
-  expected_sources: [outils-vector-db]
-  expected_concepts: [pinecone, qdrant, weaviate, chromadb]
-  unit: outils-vector-db
-# Extension golden set S2.2 — 20 nouvelles questions (à concaténer à rag/eval/questions.yaml)
-#
-# Produit par Cowork Hub IA Plateforme — Lot B brief CC-S2.2 (12 mai 2026)
-# Couverture étendue post-pattern-llm-wiki + 22 chiffres macro v3.8.5
-#
-# Procédure : Blaise concatène ce bloc à la fin de `rag/eval/questions.yaml` (entre la dernière question
-# existante q-010 et la fin du fichier). Format aligné sur les 10 questions originales.
-
-# === CU-001 (Recherche & veille augmentée) — 3 nouvelles questions ===
 
 - id: q-011
   question: "Quels sont les trois outils pour les trois usages distincts de la recherche augmentée IA ?"
@@ -89,16 +48,40 @@
 - id: q-012
   question: "Comment éviter les hallucinations quand on utilise un outil de recherche augmentée comme Perplexity ?"
   expected_sources: [cu-001, vigilance-hallucinations]
-  expected_concepts: [hallucination, vérification, source]
+  expected_concepts:
+    - hallucination
+    - [vérification, vérifier]
+    - source
   unit: cu-001
 
 - id: q-013
   question: "Combien d'heures par semaine peut-on gagner avec la recherche augmentée IA en PME ?"
   expected_sources: [cu-001]
-  expected_concepts: [heures, semaine, gain]
+  expected_concepts:
+    - [heures, heure]
+    - semaine
+    - [gain, gains, productivité]
   unit: cu-001
 
-# === CU-008 (Knowledge base RAG) — 3 nouvelles questions ===
+# === CU-008 (Knowledge base RAG) — 5 questions ===
+
+- id: q-003
+  question: "Quelle est la différence entre RAG et fine-tuning ?"
+  expected_sources: [cu-008]
+  expected_concepts:
+    - retrieval
+    - fine-tuning
+    - [mise à jour, actualisation, fraîcheur]
+  unit: cu-008
+
+- id: q-004
+  question: "Comment fonctionne une knowledge base interne avec RAG ?"
+  expected_sources: [cu-008]
+  expected_concepts:
+    - retrieval
+    - embedding
+    - [citation, source, référence]
+  unit: cu-008
 
 - id: q-014
   question: "Quels sont les pièges à éviter lors de la mise en place d'un RAG en entreprise ?"
@@ -109,36 +92,81 @@
 - id: q-015
   question: "Quelle architecture choisir pour un RAG sur documentation interne stratégique ?"
   expected_sources: [cu-008]
-  expected_concepts: [A3, A4, souveraineté]
+  expected_concepts:
+    - A3
+    - A4
+    - [souveraineté, souverain]
   unit: cu-008
 
 - id: q-016
   question: "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?"
   expected_sources: [cu-008, chiffres-macro-2026]
-  expected_concepts: ["1,8 heures", McKinsey]
+  expected_concepts:
+    - ["1,8 heures", "1,8 heure"]
+    - McKinsey
   unit: cu-008
 
-# === PR-07 (Build vs Buy) — 3 nouvelles questions ===
+# === PR-07 (Build vs Buy) — 5 questions ===
+
+- id: q-005
+  question: "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?"
+  expected_sources: [pr-07]
+  expected_concepts:
+    - build
+    - buy
+    - [coût, coûts, prix, budget]
+  unit: pr-07
+
+- id: q-006
+  question: "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?"
+  expected_sources: [pr-07]
+  expected_concepts:
+    - [arbitrage, décision]
+    - [critère, critères, facteur]
+  unit: pr-07
 
 - id: q-017
   question: "Qu'est-ce que le scaling gap dans les projets IA en entreprise ?"
   expected_sources: [pr-07]
-  expected_concepts: [scaling, gap, workflow, redesign]
+  expected_concepts:
+    - scaling
+    - gap
+    - workflow
+    - [redesign, refonte, refonder]
   unit: pr-07
 
 - id: q-018
   question: "Le fine-tuning de petits modèles SLM est-il une alternative au build vs buy en 2026 ?"
   expected_sources: [pr-07, dep-04]
-  expected_concepts: [SLM, fine-tuning, troisième voie]
+  expected_concepts: [SLM, fine-tuning, "troisième voie"]
   unit: pr-07
 
 - id: q-019
   question: "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?"
   expected_sources: [pr-07, chiffres-macro-2026]
-  expected_concepts: ["95 %", ROI, gouvernance, redesign]
+  expected_concepts:
+    - ["95 %", "95%"]
+    - ROI
+    - gouvernance
+    - [redesign, refonte]
   unit: pr-07
 
-# === DEP-02 (RAG en production) — 3 nouvelles questions ===
+# === DEP-02 (RAG en production) — 5 questions ===
+
+- id: q-007
+  question: "Comment mettre un système RAG en production ?"
+  expected_sources: [dep-02]
+  expected_concepts:
+    - production
+    - [évaluation, eval, évaluer]
+    - [itération, itérer, itératif]
+  unit: dep-02
+
+- id: q-008
+  question: "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?"
+  expected_sources: [dep-02]
+  expected_concepts: [stitch, evaluate, iterate]
+  unit: dep-02
 
 - id: q-020
   question: "Quelles sont les 7 étapes d'une pipeline RAG hybride en production ?"
@@ -155,10 +183,28 @@
 - id: q-022
   question: "Quel est l'impact relatif des choix techniques sur la qualité d'un RAG ?"
   expected_sources: [dep-02]
-  expected_concepts: [embedding, reranking, chunking, vector]
+  expected_concepts:
+    - embedding
+    - reranking
+    - chunking
+    - [vector, vectorielle, vectoriel]
   unit: dep-02
 
-# === outils-vector-db — 2 nouvelles questions ===
+# === outils-vector-db — 4 questions ===
+
+- id: q-009
+  question: "Quelle vector database choisir pour démarrer un POC RAG ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts:
+    - chromadb
+    - [vector, vectorielle, vectoriel]
+  unit: outils-vector-db
+
+- id: q-010
+  question: "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts: [pinecone, qdrant, weaviate, chromadb]
+  unit: outils-vector-db
 
 - id: q-023
   question: "Quand choisir pgvector plutôt que Qdrant pour un RAG en PME ?"
@@ -169,47 +215,174 @@
 - id: q-024
   question: "Quelle vector database choisir pour un RAG souverain en Europe ?"
   expected_sources: [outils-vector-db]
-  expected_concepts: [souveraineté, Qdrant, self-host, EU]
+  expected_concepts:
+    - [souveraineté, souverain, souveraine]
+    - Qdrant
+    - self-host
+    - [EU, Europe, européen]
   unit: outils-vector-db
 
-# === Briques transverses — 4 nouvelles questions (1 par brique) ===
+# === Briques transverses — 4 questions (1 par brique) ===
 
 - id: q-025
   question: "Quelle discipline appliquer face aux hallucinations d'un LLM ?"
   expected_sources: [vigilance-hallucinations]
-  expected_concepts: [vérifier, source, challenger]
+  expected_concepts:
+    - [vérifier, vérification]
+    - source
+    - [challenger, contester]
   unit: vigilance-hallucinations
 
 - id: q-026
   question: "Quelles données ne jamais coller dans un chatbot grand public ?"
   expected_sources: [vigilance-confidentialite]
-  expected_concepts: [personnelles, contractuelles, stratégiques, régulées]
+  expected_concepts:
+    - [personnelles, personnelle]
+    - [contractuelles, contractuelle]
+    - [stratégiques, stratégique]
+    - [régulées, régulée]
   unit: vigilance-confidentialite
 
 - id: q-027
   question: "Quel pourcentage des organisations IA ont redesigné leurs workflows ?"
   expected_sources: [chiffres-macro-2026]
-  expected_concepts: ["21 %", McKinsey, workflow]
+  expected_concepts:
+    - ["21 %", "21%"]
+    - McKinsey
+    - [workflow, workflows]
   unit: chiffres-macro-2026
 
 - id: q-028
   question: "Qu'est-ce que le pattern LLM Wiki de Karpathy et quand l'utiliser ?"
   expected_sources: [pattern-llm-wiki]
-  expected_concepts: [Karpathy, synthèse, persistant, markdown]
+  expected_concepts:
+    - Karpathy
+    - [synthèse, synthétiser, synthétique]
+    - [persistant, persistance, persistent]
+    - markdown
   unit: pattern-llm-wiki
 
-# === Cross-modules (questions transversales) — 2 nouvelles questions ===
+# === Cross-modules (questions transversales) — 2 questions ===
 
 - id: q-029
   question: "Pour un corpus stable de 50K tokens, dois-je choisir un RAG vectoriel ou un LLM Wiki ?"
   expected_sources: [pattern-llm-wiki, dep-02]
-  expected_concepts: [LLM Wiki, 50K, économie, stable]
+  expected_concepts:
+    - "LLM Wiki"
+    - ["50K", "50 K", "50000", "50 000"]
+    - [économie, économies, gain, réduction]
+    - [stable, stabilité]
   unit: cross-llm-wiki-dep02
 
 - id: q-030
   question: "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?"
   expected_sources: [pr-07, vigilance-confidentialite]
-  expected_concepts: [RGPD, AI Act, conformité]
+  expected_concepts:
+    - RGPD
+    - "AI Act"
+    - [conformité, conforme, réglementation]
   unit: cross-pr07-vigilance
 
-# Fin de l'extension S2.2 — 20 nouvelles questions (total golden set : 30 questions).
+# ====================================================================
+# Extension S2.3 — 9 nouvelles questions vague 3 (q-031 → q-039)
+# ====================================================================
+#
+# Couverture : CU-026 (gouvernance agents), CU-027 (appli métier sans IT), DEP-08 (sécurité agents/MCP).
+#
+# NOTE : les 3 modules MD ne sont pas encore produits (Lot B post-RETOUR-SONDAGE).
+# Les `expected_concepts` ci-dessous sont posés à partir des angles cadrés dans
+# BRIEF-CC-S2.3 §5 (sections H2 prévues, chiffres anticipés, acteurs cités).
+# Un passage de finalisation est attendu post-Lot B pour ajuster les concepts
+# effectivement présents dans les MD produits (notamment chiffres exacts Klarna,
+# nombre N de dimensions du framework, énumération exacte des catégories de risques MCP).
+
+# === CU-026 (Gouvernance des agents IA) — 3 nouvelles questions ===
+
+- id: q-031
+  question: "Quel RetEx documenté illustre les risques d'une gouvernance agents IA insuffisante en entreprise ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - Klarna
+    - [agent, agents]
+    - [gouvernance, gouverner]
+  unit: cu-026
+
+- id: q-032
+  question: "Quelles sont les dimensions clés d'un framework de gouvernance des agents IA ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - [dimension, dimensions]
+    - [gouvernance, framework]
+    - [agent, agents]
+  unit: cu-026
+
+- id: q-033
+  question: "Pourquoi traiter un agent IA comme un employé est-il un pattern recommandé ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - employé
+    - [droit, droits]
+    - [escalade, escalader]
+    - [évaluation, évaluer]
+  unit: cu-026
+
+# === CU-027 (Faire développer une appli métier sans être IT) — 3 nouvelles questions ===
+
+- id: q-034
+  question: "Comment compresser les coûts de développement IA-assisté avec la stack ECC ?"
+  expected_sources: [cu-027]
+  expected_concepts:
+    - ECC
+    - [coût, coûts, prix]
+    - [compression, réduction]
+  unit: cu-027
+
+- id: q-035
+  question: "Quel cas-école PME française illustre le développement d'une appli métier par un non-IT ?"
+  expected_sources: [cu-027]
+  expected_concepts:
+    - AMETRA
+    - [PME, entreprise]
+    - [métier, applicatif]
+  unit: cu-027
+
+- id: q-036
+  question: "Comment hiérarchiser les outils de développement IA-assisté par niveau d'autonomie ?"
+  expected_sources: [cu-027]
+  expected_concepts:
+    - [Cursor, "Claude Code", Lovable]
+    - [autonomie, autonome]
+    - [niveau, niveaux]
+  unit: cu-027
+
+# === DEP-08 (Sécurité agents et MCP servers) — 3 nouvelles questions ===
+
+- id: q-037
+  question: "Quels sont les principaux risques de sécurité associés aux MCP servers en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - MCP
+    - [injection, exfiltration, escalade]
+    - [risque, risques]
+  unit: dep-08
+
+- id: q-038
+  question: "Quels patterns de mitigation appliquer pour sécuriser des agents IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - [sandboxing, sandbox]
+    - [droit, droits]
+    - [mitigation, mitiger]
+    - [audit, logs]
+  unit: dep-08
+
+- id: q-039
+  question: "Quel cas-école documenté illustre un incident de sécurité agent IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - [incident, post-mortem]
+    - [sécurité, sécuriser]
+    - [agent, agents]
+  unit: dep-08
+
+# Fin de l'extension S2.3 — 9 nouvelles questions vague 3 (total golden set v2 : 39 questions).

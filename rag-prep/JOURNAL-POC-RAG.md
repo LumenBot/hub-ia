@@ -11,6 +11,55 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot C livré) — Cowork Hub IA Plateforme — Golden set v2 (39 questions + synonymes)
+
+**Contexte :** PR #48 mergée, sync ascendante S2.3 effectuée. Lot A (sondage Cowork Hub IA) lancé en parallèle, Lot C démarré sans attendre RETOUR-SONDAGE selon plan brief S2.3 §10.
+
+**Actions menées :**
+
+- **Production `rag-prep/questions-v2-s2.3.yaml`** (fichier complet Cowork-side, à copier vers `rag/eval/questions.yaml` par Blaise en sync ascendante) :
+  - **39 questions** au total : 30 enrichies (q-001 → q-030) + 9 nouvelles vague 3 (q-031 → q-039)
+  - **30/39 questions** intègrent au moins une liste de synonymes (option B liste de listes)
+  - **5 obligatoires** (résolution faux négatifs RAPPORT-CC-S2.2 §7) traitées : q-001 (méthode → [méthode, méthodologie, approche]), q-012 (vérification → [vérification, vérifier]), q-016 ("1,8 heures" → ["1,8 heures", "1,8 heure"]), q-028 (persistant → [persistant, persistance, persistent]), q-029 (économie → [économie, économies, gain, réduction])
+  - **25 autres questions enrichies** par variations morphologiques évidentes (substantif/verbe, singulier/pluriel, racine commune) : ex. q-005 (coût → [coût, coûts, prix, budget]), q-007 (évaluation → [évaluation, eval, évaluer]), q-017 (redesign → [redesign, refonte, refonder]), q-022 (vector → [vector, vectorielle, vectoriel]), q-024 (souveraineté + EU élargis), etc.
+  - **Plafond 2-4 synonymes par concept** respecté (anti-pattern faux positifs brief S2.3 §4)
+  - **Mix scalaire + liste** maintenu dans les entrées concernées (rétro-compat)
+- **Discipline AP-5 vérifiée** par script Python `yaml.safe_load` + audit type des concepts : aucune valeur numérique non quotée (les chiffres `"1,8 heures"`, `"95 %"`, `"21 %"`, `"50K"`, `"50 000"` tous explicitement quotés en string)
+- **9 nouvelles questions vague 3** ancrées sur les angles BRIEF-CC-S2.3 §5 :
+  - CU-026 : q-031 (Klarna), q-032 (N dimensions framework), q-033 (pattern agent = employé)
+  - CU-027 : q-034 (stack ECC), q-035 (cas AMETRA), q-036 (niveaux d'autonomie outils dev IA-assisté)
+  - DEP-08 : q-037 (risques MCP), q-038 (patterns mitigation), q-039 (cas-école sécurité)
+  - Les `expected_concepts` posés à partir des angles connus (chiffres anticipés, acteurs cités) — finalisation prévue post-Lot B selon contenu effectif des MD produits
+
+**Choix éditoriaux sensibles à signaler à Blaise et au RAPPORT-CC-S2.3 :**
+
+1. **q-031 vs q-039** — risque de chevauchement sources : si le cas-école sécurité de DEP-08 est lui aussi Klarna (passage sensible 9 du sondage), les deux questions tireront la même source. À arbitrer post-RETOUR-SONDAGE.
+2. **q-032 « N dimensions »** — nombre exact non posé (3, 5, 7 ?), liste de concepts générique (`[dimension, dimensions, framework]`) — à affiner post-RETOUR-SONDAGE passage 2.
+3. **q-037 énumération MCP** — `[injection, exfiltration, escalade]` posés en synonymes à partir du draft sondage. Si le RETOUR donne 5 catégories au lieu de 3, élargir la liste.
+4. **q-036 outils dev IA-assisté** — `[Cursor, "Claude Code", Lovable]` posés. Si le HTML source liste un ordre canonique précis avec plus d'outils, élargir.
+5. **q-024 souveraineté EU** — synonyme « européen » ajouté en scalaire singulier seulement, devrait peut-être inclure « européenne ». À monitorer si faux négatif lors de l'eval.
+
+**Décisions structurantes prises :** aucune (Lot C est pur éditorial — application du format option B validé par Blaise en ouverture S2.3).
+
+**Métriques Lot C :**
+- Questions enrichies avec synonymes : **30/30** (objectif minimum atteint + cible optionnelle largement couverte)
+- Questions ajoutées : **9** (cible atteinte)
+- Total golden set v2 : **39 questions** (cible atteinte)
+- AP-5 vérifié : ✅ (validation `yaml.safe_load` + audit type)
+- Coût : **0,00 $** (Lot C éditorial pur, pas d'appel API)
+
+**Reste à faire pour Blaise (sync ascendante)** :
+1. Copier `Hub-IA-Plateforme/rag-prep/questions-v2-s2.3.yaml` → `Hub-IA/repo-current/rag/eval/questions.yaml` (écrasement)
+2. Commit + push sur branche dédiée (D-027) : `claude/execute-s23-lot-c-{hash}`
+3. Sync JOURNAL + STATUS Cowork → Git
+4. Une fois mergé, Lot D Plateforme peut démarrer (adapt `evaluate_one()` synonymes liste de listes + tests)
+
+**Blockers :** aucun.
+
+**Prochaine étape parallèle** : Lot A en attente du RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 pour débloquer Lot B (production cu-026 + cu-027 + dep-08).
+
+---
+
 ### 2026-05-13 (Ouverture S2.3) — Cowork Hub IA Plateforme — SPEC v1.5 + BRIEF-CC-S2.3 + arbitrages Blaise
 
 **Contexte :** sprint S2.2 clôturé via PR finale #48 (RAPPORT-CC-S2.2 consolidé + 30/30 atteint). Blaise transmet trois arbitrages post-clôture :

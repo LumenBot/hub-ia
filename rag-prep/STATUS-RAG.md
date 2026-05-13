@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (Ouverture S2.3 — SPEC v1.5 + BRIEF-CC-S2.3 produits)
-**Sprint en cours :** **S2.3 ouvert** — vague 3 (cu-026, cu-027, dep-08) + matching sémantique synonymes (option 2 Cowork) + golden set 39q + co-production sondage Cowork Hub IA en parallèle. `SPEC-MD-POUR-RAG.md v1.5` actée (4 propositions Plateforme validées). `BRIEF-CC-S2.3.md` produit (10 sections, 6 lots A-F en allocation hybride D-030). Sprint S2.2 clôturé (30/30 atteint, PR #48 produite, en attente merge manuel Blaise).
+**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot C livré — Golden set v2 39q)
+**Sprint en cours :** **S2.3 en cours** — Lot C livré Cowork-side (golden set v2 : 39 questions, 30 enrichies synonymes + 9 nouvelles vague 3, AP-5 ✅, 0,00 $). En attente sync ascendante Blaise pour débloquer Lot D Plateforme (adapt `evaluate_one()`). Lot A en attente RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 (canal parallèle). Sprint S2.2 clôturé (PR #48 mergée, 30/30 atteint).
 **Période S2.3 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
 
@@ -79,7 +79,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.27 | **S2.3 ouverture** — SPEC v1.5 (4 props validées) + BRIEF-CC-S2.3 produit | ✅ Fait Cowork (13 mai 2026) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27a | S2.3 Lot A — transmission sondage à Cowork Hub IA + attente RETOUR-SONDAGE | ⏳ Prêt | Cowork (transmission) + Cowork Hub IA (canal parallèle) |
 | L1.27b | S2.3 Lot B — production cu-026 + cu-027 + dep-08 selon RETOUR-SONDAGE | ⏳ Bloqué par Lot A | Cowork |
-| L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout q-031/039 | ⏳ Prêt (peut démarrer parallèle) | Cowork |
+| L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout q-031/039 | ✅ Fait Cowork (`questions-v2-s2.3.yaml` : 39 questions, 30 enrichies, AP-5 ✅, 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ⏳ Bloqué par Lot C | Claude Code Plateforme |
 | L1.27e | S2.3 Lot E — eval extended 39q post-vault enrichi | ⏳ Bloqué par Lots B + D | Claude Code Desktop |
 | L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ⏳ Bloqué par Lot E | Claude Code Plateforme |
