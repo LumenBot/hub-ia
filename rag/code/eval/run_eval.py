@@ -205,6 +205,15 @@ def main(argv: list[str] | None = None) -> int:
         with open(args.json, "w", encoding="utf-8") as f:
             json.dump([i.to_dict() for i in items], f, ensure_ascii=False, indent=2)
 
+    # S2.2 Lot C — affichage du cumul coût accumulé
+    try:
+        import _cost  # noqa: F401
+        summary = _cost.summarize_cost()
+        if summary["total_calls"] > 0:
+            print(_cost.format_cost_summary(summary))
+    except Exception:
+        pass
+
     sources_ok = sum(1 for i in items if i.sources_match)
     return 0 if sources_ok >= 8 else 1
 

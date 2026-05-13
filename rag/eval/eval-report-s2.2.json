@@ -1,0 +1,457 @@
+[
+  {
+    "id": "q-016",
+    "question": "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?",
+    "expected_sources": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "1,8 heures",
+      "mckinsey"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "cu-001"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [
+      "chiffres-macro-2026"
+    ],
+    "concepts_match": [
+      "mckinsey"
+    ],
+    "concepts_missing": [
+      "1,8 heures"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Temps perdu à chercher l'information : que dit la recherche ?  Selon McKinsey (2025), **un collaborateur perd en moyenne 1,8 heure par jour à chercher de l'information** dans une organisation moyenne. [[chiffres-macro-2026#18-h-jour-temp"
+  },
+  {
+    "id": "q-017",
+    "question": "Qu'est-ce que le scaling gap dans les projets IA en entreprise ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "scaling",
+      "gap",
+      "workflow",
+      "redesign"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "scaling",
+      "gap",
+      "workflow",
+      "redesign"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le scaling gap : quand la promesse IA se heurte à la réalité opérationnelle  Le **scaling gap** désigne l'écart massif qui existe entre l'adoption de l'IA en entreprise et la capacité à en tirer un retour sur investissement réel et mesur"
+  },
+  {
+    "id": "q-018",
+    "question": "Le fine-tuning de petits modèles SLM est-il une alternative au build vs buy en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "dep-04"
+    ],
+    "expected_concepts": [
+      "slm",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "cited_codes": [
+      "dep-04",
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07",
+      "dep-04"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "slm",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le fine-tuning SLM : une troisième voie entre Build et Buy  Oui, en 2026, le fine-tuning de petits modèles SLM s'affirme explicitement comme **une troisième option** dans l'arbitrage Build vs Buy — ni l'un ni l'autre, mais un palier inte"
+  },
+  {
+    "id": "q-019",
+    "question": "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?",
+    "expected_sources": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "95 %",
+      "roi",
+      "gouvernance",
+      "redesign"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [
+      "chiffres-macro-2026"
+    ],
+    "concepts_match": [
+      "95 %",
+      "roi",
+      "gouvernance",
+      "redesign"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?  La réponse courte : **ce n'est pas un problème de technologie, c'est un problème de méthode et d'organisation.** Selon le MIT NANDA (*State of AI in Business 2025*),"
+  },
+  {
+    "id": "q-020",
+    "question": "Quelles sont les 7 étapes d'une pipeline RAG hybride en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 étapes d'une pipeline RAG hybride en production  Voici l'anatomie complète telle que définie dans le référentiel Hub IA — « ton prestataire doit te les réciter sans hésiter » [[dep-02#RAG hybride — anatomie d'une pipeline productio"
+  },
+  {
+    "id": "q-021",
+    "question": "Comment évaluer la qualité d'un RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [],
+    "sources_match": [],
+    "sources_missing": [
+      "dep-02"
+    ],
+    "concepts_match": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Évaluer la qualité d'un RAG en production  La règle de base est simple : **sans pipeline d'évaluation, tu ne sais pas si une modification améliore ou dégrade ton système** — tout choix devient subjectif et instable [[dep-02#Les 5 écueils"
+  },
+  {
+    "id": "q-022",
+    "question": "Quel est l'impact relatif des choix techniques sur la qualité d'un RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "embedding",
+      "reranking",
+      "chunking",
+      "vector"
+    ],
+    "cited_codes": [],
+    "sources_match": [],
+    "sources_missing": [
+      "dep-02"
+    ],
+    "concepts_match": [
+      "embedding",
+      "reranking",
+      "chunking",
+      "vector"
+    ],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Impact relatif des choix techniques sur la qualité d'un RAG  La question centrale n'est pas « quelles briques choisir ? » mais **dans quel ordre concentrer son attention**. Tous les choix techniques ne pèsent pas le même poids sur la qua"
+  },
+  {
+    "id": "q-023",
+    "question": "Quand choisir pgvector plutôt que Qdrant pour un RAG en PME ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pgvector",
+      "postgres",
+      "qdrant"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "cu-008",
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pgvector",
+      "postgres",
+      "qdrant"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## pgvector ou Qdrant pour votre RAG en PME ?  La réponse courte : **commencez par pgvector si vous avez déjà PostgreSQL, passez à Qdrant dès que vous montez en volume ou en exigence de production.**  ---  ### Choisissez pgvector si…  Votre"
+  },
+  {
+    "id": "q-024",
+    "question": "Quelle vector database choisir pour un RAG souverain en Europe ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "souveraineté",
+      "qdrant",
+      "self-host",
+      "eu"
+    ],
+    "cited_codes": [
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "souveraineté",
+      "qdrant",
+      "self-host",
+      "eu"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database pour un RAG souverain en Europe ?  **La réponse courte : Qdrant en self-hosting.**  Pour un RAG souverain — c'est-à-dire un système où vos données restent hébergées sur le sol européen, hors de portée de juridictio"
+  },
+  {
+    "id": "q-025",
+    "question": "Quelle discipline appliquer face aux hallucinations d'un LLM ?",
+    "expected_sources": [
+      "vigilance-hallucinations"
+    ],
+    "expected_concepts": [
+      "vérifier",
+      "source",
+      "challenger"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02",
+      "dep-05",
+      "dep-07"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "vigilance-hallucinations"
+    ],
+    "concepts_match": [
+      "vérifier",
+      "source"
+    ],
+    "concepts_missing": [
+      "challenger"
+    ],
+    "score_global": 0,
+    "answer_preview": "## Faire face aux hallucinations d'un LLM : la discipline à adopter  ### Comprendre d'abord ce qu'est une hallucination  Une **hallucination** est une affirmation fausse présentée avec assurance par un modèle d'IA. Le LLM ne \"sait\" pas qu'i"
+  },
+  {
+    "id": "q-026",
+    "question": "Quelles données ne jamais coller dans un chatbot grand public ?",
+    "expected_sources": [
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "personnelles",
+      "contractuelles",
+      "stratégiques",
+      "régulées"
+    ],
+    "cited_codes": [
+      "cu-007",
+      "cu-008",
+      "cu-020",
+      "cu-024",
+      "cu-002",
+      "cu-005",
+      "pr-05"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "vigilance-confidentialite"
+    ],
+    "concepts_match": [
+      "personnelles",
+      "contractuelles",
+      "stratégiques"
+    ],
+    "concepts_missing": [
+      "régulées"
+    ],
+    "score_global": 0,
+    "answer_preview": "## Données à ne jamais coller dans un chatbot grand public  La règle de base est simple : un chatbot grand public (ChatGPT, Gemini, Perplexity en version gratuite, etc.) envoie toutes vos saisies vers les serveurs de l'éditeur, où elles peu"
+  },
+  {
+    "id": "q-027",
+    "question": "Quel pourcentage des organisations IA ont redesigné leurs workflows ?",
+    "expected_sources": [
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "21 %",
+      "mckinsey",
+      "workflow"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "chiffres-macro-2026"
+    ],
+    "concepts_match": [
+      "21 %",
+      "mckinsey",
+      "workflow"
+    ],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Redesign des workflows IA : où en sont les organisations ?  **21 % seulement des organisations ayant adopté l'IA ont effectivement redesigné leurs workflows.** [[chiffres-macro-2026#21-pourcent-organisations-ia-ayant-redesigne-leurs-work"
+  },
+  {
+    "id": "q-028",
+    "question": "Qu'est-ce que le pattern LLM Wiki de Karpathy et quand l'utiliser ?",
+    "expected_sources": [
+      "pattern-llm-wiki"
+    ],
+    "expected_concepts": [
+      "karpathy",
+      "synthèse",
+      "persistant",
+      "markdown"
+    ],
+    "cited_codes": [
+      "cu-014",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "pattern-llm-wiki"
+    ],
+    "concepts_match": [
+      "karpathy",
+      "synthèse",
+      "persistant",
+      "markdown"
+    ],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Le pattern LLM Wiki de Karpathy  **Ce que c'est**  Le **LLM Wiki** est une alternative architecturale au RAG vectoriel classique, proposée par Andrej Karpathy en avril 2026 dans un gist GitHub (17 millions de vues, 5 000 stars en quelque"
+  },
+  {
+    "id": "q-029",
+    "question": "Pour un corpus stable de 50K tokens, dois-je choisir un RAG vectoriel ou un LLM Wiki ?",
+    "expected_sources": [
+      "pattern-llm-wiki",
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "llm wiki",
+      "50k",
+      "économie",
+      "stable"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [
+      "pattern-llm-wiki"
+    ],
+    "concepts_match": [
+      "llm wiki",
+      "50k",
+      "stable"
+    ],
+    "concepts_missing": [
+      "économie"
+    ],
+    "score_global": 1,
+    "answer_preview": "## LLM Wiki ou RAG vectoriel pour 50 000 tokens stables ?  **La réponse est claire : le LLM Wiki est recommandé en priorité.** Pour un corpus de 50 000 tokens avec une stabilité élevée (mises à jour trimestrielles par exemple), le tableau d"
+  },
+  {
+    "id": "q-030",
+    "question": "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "rgpd",
+      "ai act",
+      "conformité"
+    ],
+    "cited_codes": [
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [
+      "vigilance-confidentialite"
+    ],
+    "concepts_match": [
+      "rgpd",
+      "ai act",
+      "conformité"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Obligations réglementaires à anticiper pour un projet IA en PME en 2026  Le contexte disponible dans le Hub IA identifie **trois calendriers réglementaires concrets** qui s'imposent aux PME et qui ne peuvent plus être reportés [[pr-07]] "
+  }
+]

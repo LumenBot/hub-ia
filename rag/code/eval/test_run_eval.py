@@ -158,7 +158,9 @@ class TestQuestionsYaml:
         questions_path = os.path.join(os.path.dirname(HERE), "..", "eval", "questions.yaml")
         with open(questions_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-        assert len(data) == 10
+        # S2.2 Lot B : extension 10 → 30 questions (20 nouvelles couvrant
+        # vague 3.5 + transverses + cross-modules).
+        assert len(data) == 30
         for entry in data:
             assert "id" in entry
             assert "question" in entry
@@ -166,15 +168,25 @@ class TestQuestionsYaml:
             assert "expected_concepts" in entry and entry["expected_concepts"]
             assert "unit" in entry
 
-    def test_golden_set_covers_5_units(self):
+    def test_golden_set_couvre_5_unites_pilotes_et_extensions_s22(self):
+        """Les 5 unités pilotes S1 doivent rester couvertes, plus les
+        extensions S2.2 (briques transverses + cross-modules)."""
         import yaml
         questions_path = os.path.join(os.path.dirname(HERE), "..", "eval", "questions.yaml")
         with open(questions_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
         units = {q["unit"] for q in data}
-        assert units == {"cu-001", "cu-008", "pr-07", "dep-02", "outils-vector-db"}
+        # Les 5 unités pilotes S1 restent toutes représentées
+        pilotes = {"cu-001", "cu-008", "pr-07", "dep-02", "outils-vector-db"}
+        assert pilotes.issubset(units), f"unités pilotes manquantes : {pilotes - units}"
+        # Couverture S2.2 attendue : transverses + cross-modules
+        assert "pattern-llm-wiki" in units
+        assert any(u.startswith("cross-") for u in units), "au moins 1 cross-modules attendu"
 
-    def test_golden_answers_aligned(self):
+    def test_golden_answers_sous_ensemble_des_questions(self):
+        """golden-answers peut être un sous-ensemble des questions (les
+        20 nouvelles questions S2.2 Lot B n'ont pas encore leur golden-
+        answer canonique côté Cowork — production différée)."""
         import yaml
         q_path = os.path.join(os.path.dirname(HERE), "..", "eval", "questions.yaml")
         a_path = os.path.join(os.path.dirname(HERE), "..", "eval", "golden-answers.yaml")
@@ -184,4 +196,7 @@ class TestQuestionsYaml:
             ans = yaml.safe_load(f)
         q_ids = {q["id"] for q in qs}
         a_ids = {a["id"] for a in ans}
-        assert q_ids == a_ids
+        # Toute golden-answer doit pointer sur une question existante
+        assert a_ids.issubset(q_ids), f"golden-answer orpheline : {a_ids - q_ids}"
+        # Les 10 premières questions doivent garder leur golden-answer
+        assert {f"q-{i:03d}" for i in range(1, 11)}.issubset(a_ids)

@@ -1,4 +1,5 @@
 rag/code/.env
+rag/code/.cost-log.jsonl
 rag/code/**/__pycache__/
 rag/code/**/.pytest_cache/
 rag/code/vector_store/

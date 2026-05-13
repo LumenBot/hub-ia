@@ -70,3 +70,146 @@
   expected_sources: [outils-vector-db]
   expected_concepts: [pinecone, qdrant, weaviate, chromadb]
   unit: outils-vector-db
+# Extension golden set S2.2 — 20 nouvelles questions (à concaténer à rag/eval/questions.yaml)
+#
+# Produit par Cowork Hub IA Plateforme — Lot B brief CC-S2.2 (12 mai 2026)
+# Couverture étendue post-pattern-llm-wiki + 22 chiffres macro v3.8.5
+#
+# Procédure : Blaise concatène ce bloc à la fin de `rag/eval/questions.yaml` (entre la dernière question
+# existante q-010 et la fin du fichier). Format aligné sur les 10 questions originales.
+
+# === CU-001 (Recherche & veille augmentée) — 3 nouvelles questions ===
+
+- id: q-011
+  question: "Quels sont les trois outils pour les trois usages distincts de la recherche augmentée IA ?"
+  expected_sources: [cu-001]
+  expected_concepts: [Perplexity, Mistral, NotebookLM]
+  unit: cu-001
+
+- id: q-012
+  question: "Comment éviter les hallucinations quand on utilise un outil de recherche augmentée comme Perplexity ?"
+  expected_sources: [cu-001, vigilance-hallucinations]
+  expected_concepts: [hallucination, vérification, source]
+  unit: cu-001
+
+- id: q-013
+  question: "Combien d'heures par semaine peut-on gagner avec la recherche augmentée IA en PME ?"
+  expected_sources: [cu-001]
+  expected_concepts: [heures, semaine, gain]
+  unit: cu-001
+
+# === CU-008 (Knowledge base RAG) — 3 nouvelles questions ===
+
+- id: q-014
+  question: "Quels sont les pièges à éviter lors de la mise en place d'un RAG en entreprise ?"
+  expected_sources: [cu-008]
+  expected_concepts: [garbage, droits, maintenance, hallucination]
+  unit: cu-008
+
+- id: q-015
+  question: "Quelle architecture choisir pour un RAG sur documentation interne stratégique ?"
+  expected_sources: [cu-008]
+  expected_concepts: [A3, A4, souveraineté]
+  unit: cu-008
+
+- id: q-016
+  question: "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?"
+  expected_sources: [cu-008, chiffres-macro-2026]
+  expected_concepts: ["1,8 heures", McKinsey]
+  unit: cu-008
+
+# === PR-07 (Build vs Buy) — 3 nouvelles questions ===
+
+- id: q-017
+  question: "Qu'est-ce que le scaling gap dans les projets IA en entreprise ?"
+  expected_sources: [pr-07]
+  expected_concepts: [scaling, gap, workflow, redesign]
+  unit: pr-07
+
+- id: q-018
+  question: "Le fine-tuning de petits modèles SLM est-il une alternative au build vs buy en 2026 ?"
+  expected_sources: [pr-07, dep-04]
+  expected_concepts: [SLM, fine-tuning, troisième voie]
+  unit: pr-07
+
+- id: q-019
+  question: "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?"
+  expected_sources: [pr-07, chiffres-macro-2026]
+  expected_concepts: ["95 %", ROI, gouvernance, redesign]
+  unit: pr-07
+
+# === DEP-02 (RAG en production) — 3 nouvelles questions ===
+
+- id: q-020
+  question: "Quelles sont les 7 étapes d'une pipeline RAG hybride en production ?"
+  expected_sources: [dep-02]
+  expected_concepts: [chunking, embedding, retrieval, reranking, generation]
+  unit: dep-02
+
+- id: q-021
+  question: "Comment évaluer la qualité d'un RAG en production ?"
+  expected_sources: [dep-02]
+  expected_concepts: [eval, golden, stitch, evaluate, iterate]
+  unit: dep-02
+
+- id: q-022
+  question: "Quel est l'impact relatif des choix techniques sur la qualité d'un RAG ?"
+  expected_sources: [dep-02]
+  expected_concepts: [embedding, reranking, chunking, vector]
+  unit: dep-02
+
+# === outils-vector-db — 2 nouvelles questions ===
+
+- id: q-023
+  question: "Quand choisir pgvector plutôt que Qdrant pour un RAG en PME ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts: [pgvector, Postgres, Qdrant]
+  unit: outils-vector-db
+
+- id: q-024
+  question: "Quelle vector database choisir pour un RAG souverain en Europe ?"
+  expected_sources: [outils-vector-db]
+  expected_concepts: [souveraineté, Qdrant, self-host, EU]
+  unit: outils-vector-db
+
+# === Briques transverses — 4 nouvelles questions (1 par brique) ===
+
+- id: q-025
+  question: "Quelle discipline appliquer face aux hallucinations d'un LLM ?"
+  expected_sources: [vigilance-hallucinations]
+  expected_concepts: [vérifier, source, challenger]
+  unit: vigilance-hallucinations
+
+- id: q-026
+  question: "Quelles données ne jamais coller dans un chatbot grand public ?"
+  expected_sources: [vigilance-confidentialite]
+  expected_concepts: [personnelles, contractuelles, stratégiques, régulées]
+  unit: vigilance-confidentialite
+
+- id: q-027
+  question: "Quel pourcentage des organisations IA ont redesigné leurs workflows ?"
+  expected_sources: [chiffres-macro-2026]
+  expected_concepts: ["21 %", McKinsey, workflow]
+  unit: chiffres-macro-2026
+
+- id: q-028
+  question: "Qu'est-ce que le pattern LLM Wiki de Karpathy et quand l'utiliser ?"
+  expected_sources: [pattern-llm-wiki]
+  expected_concepts: [Karpathy, synthèse, persistant, markdown]
+  unit: pattern-llm-wiki
+
+# === Cross-modules (questions transversales) — 2 nouvelles questions ===
+
+- id: q-029
+  question: "Pour un corpus stable de 50K tokens, dois-je choisir un RAG vectoriel ou un LLM Wiki ?"
+  expected_sources: [pattern-llm-wiki, dep-02]
+  expected_concepts: [LLM Wiki, 50K, économie, stable]
+  unit: cross-llm-wiki-dep02
+
+- id: q-030
+  question: "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?"
+  expected_sources: [pr-07, vigilance-confidentialite]
+  expected_concepts: [RGPD, AI Act, conformité]
+  unit: cross-pr07-vigilance
+
+# Fin de l'extension S2.2 — 20 nouvelles questions (total golden set : 30 questions).
