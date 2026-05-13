@@ -1,0 +1,902 @@
+[
+  {
+    "id": "q-001",
+    "question": "Qu'est-ce que la veille IA et comment la structurer dans une PME ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "veille",
+      "source",
+      "méthode"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "chiffres-macro-2026",
+      "cu-011",
+      "cu-025"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "veille",
+      "source"
+    ],
+    "concepts_missing": [
+      "méthode"
+    ],
+    "score_global": 1,
+    "answer_preview": "## La veille IA en PME : de quoi parle-t-on et comment la structurer ?  ### Ce qu'est la veille IA augmentée  La **veille IA** désigne l'ensemble des pratiques qui consistent à surveiller en continu son environnement (marché, concurrents, r"
+  },
+  {
+    "id": "q-002",
+    "question": "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "source",
+      "veille"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07",
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "source",
+      "veille"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sources fiables pour suivre l'actualité IA générative en 2026  Le contexte du Hub IA ne contient pas de module dédié à la **veille des sources médias ou académiques** sur l'IA générative. Je n'ai donc pas de réponse documentée dans le Hu"
+  },
+  {
+    "id": "q-003",
+    "question": "Quelle est la différence entre RAG et fine-tuning ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "fine-tuning",
+      "mise à jour"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "fine-tuning",
+      "mise à jour"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## RAG vs Fine-tuning : deux façons très différentes d'apprendre à un modèle  **Le RAG (Retrieval-Augmented Generation)** consiste à *connecter* le modèle d'IA à une base documentaire externe : à chaque question, le système va chercher les "
+  },
+  {
+    "id": "q-004",
+    "question": "Comment fonctionne une knowledge base interne avec RAG ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "embedding",
+      "citation"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "embedding",
+      "citation"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Comment fonctionne une knowledge base interne avec RAG ?  ### Le principe général  Le RAG (*Retrieval-Augmented Generation* — littéralement « génération augmentée par récupération ») est une architecture qui permet à un modèle d'IA de ré"
+  },
+  {
+    "id": "q-005",
+    "question": "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "build",
+      "buy",
+      "coût"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "build",
+      "buy",
+      "coût"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Arbitrer entre Build et Buy en IA : un cadre en 15 minutes  ### La réalité à intégrer avant tout arbitrage  Avant de choisir, prenez acte d'un chiffre structurant : [[chiffres-macro-2026#95-pourcent-projets-genai-sans-roi-mesurable-mit-n"
+  },
+  {
+    "id": "q-006",
+    "question": "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "arbitrage",
+      "critère"
+    ],
+    "cited_codes": [
+      "pr-07",
+      "dep-04",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "arbitrage",
+      "critère"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Build vs Buy d'une plateforme IA en PME : les critères clés  ### Une décision structurée en 6 critères  Le module [[pr-07]] propose une grille d'arbitrage applicable en 15 minutes, fondée sur six critères concrets :  | Critère | Orientat"
+  },
+  {
+    "id": "q-007",
+    "question": "Comment mettre un système RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "production",
+      "évaluation",
+      "itération"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "dep-07"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "production",
+      "évaluation",
+      "itération"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Mettre un système RAG en production : mode d'emploi  ### La pipeline technique en 7 étapes  Une architecture RAG (Retrieval-Augmented Generation — système qui connecte un LLM à votre base documentaire pour qu'il réponde en s'appuyant sur"
+  },
+  {
+    "id": "q-008",
+    "question": "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "dep-07"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le cycle Stitch → Evaluate → Iterate  ### Pourquoi ce cycle existe-t-il ?  Le point de départ est un constat documenté : **les benchmarks publics (leaderboards) ne prédisent pas la performance d'un RAG sur vos données spécifiques**. Ces "
+  },
+  {
+    "id": "q-009",
+    "question": "Quelle vector database choisir pour démarrer un POC RAG ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "chromadb",
+      "vector"
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "cu-008",
+      "dep-02"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chromadb",
+      "vector"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database choisir pour démarrer un POC RAG ?  La réponse dépend avant tout d'une question simple : **avez-vous déjà PostgreSQL dans votre infrastructure ?** Si oui, commencez par **pgvector** — c'est une extension gratuite q"
+  },
+  {
+    "id": "q-010",
+    "question": "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Choisir son vector store : les bons critères  Avant d'entrer dans les détails de chaque outil, retenez un point clé posé dans la documentation du Hub : **la question \"quel vector store choisir ?\" est en réalité une mauvaise question**. L"
+  },
+  {
+    "id": "q-011",
+    "question": "Quels sont les trois outils pour les trois usages distincts de la recherche augmentée IA ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "perplexity",
+      "mistral",
+      "notebooklm"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "glossaire",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "perplexity",
+      "mistral",
+      "notebooklm"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les trois outils pour les trois usages distincts de la recherche augmentée IA  Le module [[cu-001]] identifie clairement trois outils, chacun conçu pour un type de besoin précis.  **1. Perplexity — pour la recherche web sourcée** C'est l"
+  },
+  {
+    "id": "q-012",
+    "question": "Comment éviter les hallucinations quand on utilise un outil de recherche augmentée comme Perplexity ?",
+    "expected_sources": [
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "expected_concepts": [
+      "hallucination",
+      "vérification",
+      "source"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "sources_match": [
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "hallucination",
+      "source"
+    ],
+    "concepts_missing": [
+      "vérification"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Éviter les hallucinations avec Perplexity  Perplexity est conçu pour réduire le risque d'hallucination — c'est-à-dire de réponses inventées par le modèle d'IA — grâce à deux atouts structurels : il dispose de **son propre index web en te"
+  },
+  {
+    "id": "q-013",
+    "question": "Combien d'heures par semaine peut-on gagner avec la recherche augmentée IA en PME ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "heures",
+      "semaine",
+      "gain"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "chiffres-macro-2026",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "heures",
+      "semaine",
+      "gain"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Gain de temps avec la recherche augmentée IA en PME  Selon le module dédié à la recherche et veille augmentée, le gain documenté est de **3 à 5 heures par semaine** [[cu-001#L'essentiel à retenir]]. Ce gain porte principalement sur trois"
+  },
+  {
+    "id": "q-014",
+    "question": "Quels sont les pièges à éviter lors de la mise en place d'un RAG en entreprise ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "garbage",
+      "droits",
+      "maintenance",
+      "hallucination"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02",
+      "vigilance-confidentialite",
+      "vigilance-hallucinations"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "garbage",
+      "droits",
+      "maintenance",
+      "hallucination"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les pièges à éviter lors de la mise en place d'un RAG en entreprise  La mise en place d'un RAG (Retrieval-Augmented Generation — système qui connecte un modèle d'IA à une base documentaire pour qu'il puisse y puiser des réponses) recèle "
+  },
+  {
+    "id": "q-015",
+    "question": "Quelle architecture choisir pour un RAG sur documentation interne stratégique ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "a3",
+      "a4",
+      "souveraineté"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "a3",
+      "a4",
+      "souveraineté"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Architecture RAG pour documentation interne stratégique  ### Le critère décisif : la sensibilité des données  Pour de la **documentation interne stratégique** — procédures, contrats, savoir-faire propriétaire —, le choix d'architecture e"
+  },
+  {
+    "id": "q-016",
+    "question": "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?",
+    "expected_sources": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "1,8 heures",
+      "mckinsey"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "cu-008",
+      "cu-001"
+    ],
+    "sources_match": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "mckinsey"
+    ],
+    "concepts_missing": [
+      "1,8 heures"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Combien de temps perd-on à chercher de l'information ?  Selon les données du Hub IA, **1,8 heure par jour est perdue en moyenne à chercher de l'information dans une organisation**, quelle que soit sa taille [[chiffres-macro-2026#18-h-jou"
+  },
+  {
+    "id": "q-017",
+    "question": "Qu'est-ce que le scaling gap dans les projets IA en entreprise ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "scaling",
+      "gap",
+      "workflow",
+      "redesign"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "scaling",
+      "gap",
+      "workflow",
+      "redesign"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le scaling gap : quand l'IA déçoit massivement en entreprise  Le **scaling gap** désigne le fossé entre les ambitions affichées des projets IA en entreprise et leurs résultats réels une fois déployés à grande échelle. En clair : les orga"
+  },
+  {
+    "id": "q-018",
+    "question": "Le fine-tuning de petits modèles SLM est-il une alternative au build vs buy en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "dep-04"
+    ],
+    "expected_concepts": [
+      "slm",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "cited_codes": [
+      "pr-07",
+      "chiffres-macro-2026",
+      "dep-04"
+    ],
+    "sources_match": [
+      "pr-07",
+      "dep-04"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "slm",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le fine-tuning SLM : une troisième voie entre Build et Buy en 2026  Oui, le fine-tuning de petits modèles SLM constitue bien une alternative émergente à l'arbitrage classique Build vs Buy — et c'est une nouveauté structurante de 2026. En"
+  },
+  {
+    "id": "q-019",
+    "question": "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?",
+    "expected_sources": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "95 %",
+      "roi",
+      "gouvernance",
+      "redesign"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "95 %",
+      "roi",
+      "gouvernance",
+      "redesign"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?  **Le chiffre d'abord** : 95 % des projets GenAI déployés en entreprise ne génèrent pas de ROI mesurable — c'est-à-dire aucun retour sur investissement quantifié —, s"
+  },
+  {
+    "id": "q-020",
+    "question": "Quelles sont les 7 étapes d'une pipeline RAG hybride en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 étapes d'une pipeline RAG hybride en production  Une pipeline RAG hybride (RAG = *Retrieval-Augmented Generation*, c'est-à-dire un système d'IA qui génère ses réponses en allant chercher des passages pertinents dans une base docume"
+  },
+  {
+    "id": "q-021",
+    "question": "Comment évaluer la qualité d'un RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Évaluer la qualité d'un RAG en production  La règle de base est simple : **sans pipeline d'évaluation, vous pilotez à l'aveugle.** Chaque modification de votre système (changement d'embedding, ajustement du chunking, ajout d'un reranker)"
+  },
+  {
+    "id": "q-022",
+    "question": "Quel est l'impact relatif des choix techniques sur la qualité d'un RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "embedding",
+      "reranking",
+      "chunking",
+      "vector"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "embedding",
+      "reranking",
+      "chunking",
+      "vector"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Impact relatif des choix techniques sur la qualité d'un RAG  La première bonne nouvelle pour un dirigeant de PME : tous les choix techniques n'ont **pas le même poids**. Le document de référence [[dep-02]] établit un classement clair par"
+  },
+  {
+    "id": "q-023",
+    "question": "Quand choisir pgvector plutôt que Qdrant pour un RAG en PME ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pgvector",
+      "postgres",
+      "qdrant"
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "cu-008",
+      "cu-013",
+      "dep-02"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pgvector",
+      "postgres",
+      "qdrant"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## pgvector vs Qdrant pour un RAG en PME : le critère décisif est votre stack existante  La règle d'or est simple : **si vous avez déjà PostgreSQL en production dans votre système d'information, commencez par pgvector** — vous évitez d'intr"
+  },
+  {
+    "id": "q-024",
+    "question": "Quelle vector database choisir pour un RAG souverain en Europe ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "souveraineté",
+      "qdrant",
+      "self-host",
+      "eu"
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "souveraineté",
+      "qdrant",
+      "self-host",
+      "eu"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database choisir pour un RAG souverain en Europe ?  **La réponse courte : Qdrant self-hosted est le choix par défaut** pour un RAG souverain en France et en Europe [[outils-vector-db#Qdrant — référence open-source en produc"
+  },
+  {
+    "id": "q-025",
+    "question": "Quelle discipline appliquer face aux hallucinations d'un LLM ?",
+    "expected_sources": [
+      "vigilance-hallucinations"
+    ],
+    "expected_concepts": [
+      "vérifier",
+      "source",
+      "challenger"
+    ],
+    "cited_codes": [
+      "vigilance-hallucinations",
+      "cu-008",
+      "dep-02",
+      "glossaire",
+      "dep-05",
+      "dep-07"
+    ],
+    "sources_match": [
+      "vigilance-hallucinations"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "vérifier",
+      "source",
+      "challenger"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Faire face aux hallucinations d'un LLM : la discipline à adopter  ### Comprendre le phénomène d'abord  Une **hallucination** est une affirmation fausse présentée avec assurance par le modèle — il ne « sait » pas qu'il invente, il génère "
+  },
+  {
+    "id": "q-026",
+    "question": "Quelles données ne jamais coller dans un chatbot grand public ?",
+    "expected_sources": [
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "personnelles",
+      "contractuelles",
+      "stratégiques",
+      "régulées"
+    ],
+    "cited_codes": [
+      "vigilance-confidentialite",
+      "cu-020",
+      "pr-05"
+    ],
+    "sources_match": [
+      "vigilance-confidentialite"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "personnelles",
+      "contractuelles",
+      "stratégiques",
+      "régulées"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelles données ne jamais coller dans un chatbot grand public ?  La règle de base est simple : tout ce qui concerne votre entreprise de près ou de loin de manière confidentielle ne doit pas être copié-collé dans un outil IA grand public "
+  },
+  {
+    "id": "q-027",
+    "question": "Quel pourcentage des organisations IA ont redesigné leurs workflows ?",
+    "expected_sources": [
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      "21 %",
+      "mckinsey",
+      "workflow"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "21 %",
+      "mckinsey",
+      "workflow"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Seulement 21 % des organisations IA ont redesigné leurs workflows  Selon les données canoniques du Hub IA, **21 % seulement des organisations ayant déployé de l'IA ont effectivement redesigné leurs workflows** [[chiffres-macro-2026#21 % "
+  },
+  {
+    "id": "q-028",
+    "question": "Qu'est-ce que le pattern LLM Wiki de Karpathy et quand l'utiliser ?",
+    "expected_sources": [
+      "pattern-llm-wiki"
+    ],
+    "expected_concepts": [
+      "karpathy",
+      "synthèse",
+      "persistant",
+      "markdown"
+    ],
+    "cited_codes": [
+      "pattern-llm-wiki",
+      "cu-008",
+      "dep-02"
+    ],
+    "sources_match": [
+      "pattern-llm-wiki"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "karpathy",
+      "synthèse",
+      "markdown"
+    ],
+    "concepts_missing": [
+      "persistant"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Le pattern LLM Wiki de Karpathy  **Ce que c'est**  Le **LLM Wiki** est une alternative architecturale au RAG vectoriel classique, proposée par Andrej Karpathy en avril 2026 dans un gist GitHub (17 millions de vues, 5 000 stars en quelque"
+  },
+  {
+    "id": "q-029",
+    "question": "Pour un corpus stable de 50K tokens, dois-je choisir un RAG vectoriel ou un LLM Wiki ?",
+    "expected_sources": [
+      "pattern-llm-wiki",
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "llm wiki",
+      "50k",
+      "économie",
+      "stable"
+    ],
+    "cited_codes": [
+      "pattern-llm-wiki",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "pattern-llm-wiki",
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "llm wiki",
+      "50k",
+      "stable"
+    ],
+    "concepts_missing": [
+      "économie"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Réponse directe  **Votre corpus de 50 000 tokens se situe exactement à la frontière du tableau de décision.** Selon [[pattern-llm-wiki#Quand le LLM Wiki bat le RAG vectoriel — tableau de décision]], deux zones encadrent votre cas :  - **"
+  },
+  {
+    "id": "q-030",
+    "question": "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "rgpd",
+      "ai act",
+      "conformité"
+    ],
+    "cited_codes": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [
+      "vigilance-confidentialite"
+    ],
+    "concepts_match": [
+      "rgpd",
+      "ai act",
+      "conformité"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Obligations réglementaires à anticiper pour un projet IA en PME en 2026  Le contexte disponible dans le Hub IA identifie **trois calendriers réglementaires majeurs** qui s'imposent aux PME et qui rendent toute temporisation risquée [[pr-"
+  }
+]
