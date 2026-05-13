@@ -11,6 +11,43 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot D livré) — Claude Code Hub IA Plateforme — Matching sémantique synonymes (`concept_matched()`)
+
+**Contexte :** Lot C v2 mergé sur `main` (`a61a41a`) — golden set `rag/eval/questions.yaml` passé à **42 questions** au format option B (mix scalaires + listes de synonymes). Lot D débloqué : adapter `evaluate_one()` pour parcourir le format mixte sans crash (le code v1 faisait `c.lower()` directement sur les entrées, ce qui crasherait sur une liste).
+
+**Actions menées :**
+
+- **Refactor `rag/code/eval/run_eval.py`** :
+  - Nouvelle fonction `concept_matched(concept_entry, answer_text_lower)` distinguant scalaire (cas v1, sous-chaîne case-insensitive) vs liste de synonymes (cas v2 option B, match dès qu'≥ 1 synonyme présent).
+  - Cas dégénéré liste vide `[]` → False + warning stderr explicite (signal à Cowork pour enrichissement du golden set).
+  - Robustesse défensive : `concept_matched()` re-applique `.lower()` à `answer_text_lower` pour tolérer un usage hors-pipeline (le nom du paramètre conserve la convention « lowercased par contrat »).
+  - `evaluate_one()` adapté : ne pré-applique plus `.lower()` à `expected_concepts` (préserve le format mixte tel quel pour sérialisation JSON), délègue le matching à `concept_matched()`.
+  - Typage `EvalItem.expected_concepts`, `concepts_match`, `concepts_missing` élargi à `list` (mix `str | list[str]`).
+- **Tests** : `rag/code/eval/test_run_eval.py` enrichi de 19 nouveaux tests répartis sur 5 classes :
+  - `TestConceptMatchedScalaire` (4 tests) — rétro-compat v1, présent/absent, case-insensible, et test négatif explicite « `méthode` n'est PAS substring de `méthodologie` » (justification structurelle de l'option B).
+  - `TestConceptMatchedListe` (8 tests) — un synonyme trouvé, aucun, premier, dernier, case-insensible (synonymes UPPERCASE → réponse lowercase et inverse), chiffres quotés `["1,8 heures", "1,8 heure"]`, morphologies `persistant/persistance/persistent`, `économie/économies/gain/réduction`.
+  - `TestConceptMatchedDegenere` (2 tests) — liste vide → False + capture stderr.
+  - `TestEvaluateOneFormatMixte` (4 tests) — mix scalaire + liste dans même `expected_concepts`, partiel, sanity check sur format réel q-001, sérialisation JSON.
+  - `TestRetroCompatV1Inchangee` (1 test) — preuve que les questions golden set v1 (concepts scalaires seuls) restent traitées comme avant.
+- **Test pré-existant adapté** : `test_golden_set_10_questions` renommé `test_golden_set_volume_courant` avec assertion `len(data) >= 30` (tolérant aux ajustements futurs sans recasser le test).
+
+**Suite tests** : 190/190 verts (171 cumulés S1-S2.2 + 19 nouveaux S2.3 Lot D).
+
+**R11 audit pattern wikilinks post-query (optionnel)** : non implémenté dans ce Lot D. Le module `citation_audit.py` reste à produire dans un sprint ultérieur (charge non bloquante).
+
+**Coût API consommé** : 0,00 $ (refactor code + tests mockés exclusivement, conforme allocation D-030 Plateforme).
+
+**Décisions structurantes prises :** aucune (S2.3 Lot D = exécution stricte du brief §4).
+
+**Reste à faire :**
+- Lot E (Claude Code Desktop) — eval extended 42 questions sur le vault enrichi vague 3, post-merge Lot D + Lot B (production vague 3 CU-026/CU-027/DEP-08).
+- Lot F (Plateforme ou Desktop) — RAPPORT-CC-S2.3 consolidé + PR finale S2.3.
+- Arbitrage Cowork de l'anti-pattern « synonymes excessifs » à inscrire en SPEC v1.6 (cf. brief §4 dernière sous-section).
+
+**Blockers :** aucun pour Lot D.
+
+---
+
 ### 2026-05-13 (S2.3 Lot A clôturé + Lot C v2 ajusté) — Cowork Hub IA Plateforme — Intégration RETOUR-SONDAGE-COWORK-HUB-IA-S2.3
 
 **Contexte :** Cowork Hub IA a livré `rag-prep/briefs/RETOUR-SONDAGE-COWORK-HUB-IA-S2.3.md` (~2100 mots, citation textuelle des passages canoniques HTML). **Pattern D-026 validé empiriquement** — le sondage préalable a sauvé 4 dérives sémantiques majeures qui auraient nécessité une revue a posteriori coûteuse.

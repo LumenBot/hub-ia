@@ -67,12 +67,15 @@ class EvalItem:
     id: str
     question: str
     expected_sources: list[str]
-    expected_concepts: list[str]
+    # S2.3 Lot D : format mixte (str | list[str]) pour supporter les
+    # synonymes (option B). asdict() sérialise correctement les listes
+    # imbriquées en JSON.
+    expected_concepts: list
     cited_codes: list[str]
     sources_match: list[str]
     sources_missing: list[str]
-    concepts_match: list[str]
-    concepts_missing: list[str]
+    concepts_match: list
+    concepts_missing: list
     score_global: int
     answer_preview: str
 
@@ -80,16 +83,57 @@ class EvalItem:
         return asdict(self)
 
 
+# ============================================================
+# Matching sémantique des concepts attendus — S2.3 Lot D
+# ============================================================
+
+def concept_matched(concept_entry, answer_text_lower: str) -> bool:
+    """Détecte si un `concept` attendu est présent dans la réponse.
+
+    Format option B retenu en S2.3 (cf. BRIEF-CC-S2.3 §4) — un concept
+    peut prendre deux formes dans `expected_concepts` :
+
+    - **Scalaire (str, cas v1)** : match littéral sous-chaîne case-
+      insensitive.
+    - **Liste de synonymes (list[str])** : match dès qu'**au moins un**
+      synonyme apparaît dans la réponse (rétro-compat des dérivés
+      lexicaux : méthode/méthodologie, vérification/vérifier,
+      « 1,8 heures »/« 1,8 heure », persistant/persistance, etc.).
+
+    Cas dégénéré : liste vide → False + warning stderr (un concept liste
+    sans synonymes ne peut jamais matcher — à signaler à Cowork pour
+    enrichissement du golden set).
+
+    Le paramètre s'appelle `answer_text_lower` pour rappeler le contrat
+    d'appel (texte de réponse déjà lowercased par `evaluate_one()`).
+    Pour la robustesse face à un usage direct hors-pipeline, la fonction
+    re-applique défensivement `.lower()` à la réponse.
+    """
+    answer = answer_text_lower.lower() if answer_text_lower else ""
+    if isinstance(concept_entry, list):
+        if not concept_entry:
+            print(
+                "[warn] concept_matched: liste de synonymes vide — "
+                "concept dégénéré, ne pourra jamais matcher",
+                file=sys.stderr,
+            )
+            return False
+        return any(str(syn).lower() in answer for syn in concept_entry)
+    return str(concept_entry).lower() in answer
+
+
 def evaluate_one(question_entry: dict, result_dict: dict) -> EvalItem:
     expected_sources = [s.lower() for s in question_entry.get("expected_sources", [])]
-    expected_concepts = [c.lower() for c in question_entry.get("expected_concepts", [])]
+    # S2.3 Lot D : on préserve le format mixte (str | list[str]) sans
+    # applatir en lowercase ici — concept_matched() gère les deux formes.
+    expected_concepts = list(question_entry.get("expected_concepts", []))
     cited = [c.lower() for c in result_dict.get("cited_codes", [])]
     answer_text = (result_dict.get("answer") or "").lower()
 
     sources_match = [s for s in expected_sources if s in cited]
     sources_missing = [s for s in expected_sources if s not in cited]
-    concepts_match = [c for c in expected_concepts if c in answer_text]
-    concepts_missing = [c for c in expected_concepts if c not in answer_text]
+    concepts_match = [c for c in expected_concepts if concept_matched(c, answer_text)]
+    concepts_missing = [c for c in expected_concepts if not concept_matched(c, answer_text)]
 
     has_source = bool(sources_match)
     concept_ratio = len(concepts_match) / max(1, len(expected_concepts))
