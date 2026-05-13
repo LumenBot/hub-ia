@@ -877,3 +877,116 @@ a.tool-link:hover { text-decoration-color: var(--color-primary); }
   letter-spacing: 0.05em;
   margin-top: var(--space-1);
 }
+
+/* ============================================================
+   RESPONSIVE — Consolidation des overrides mobile (v3.10)
+   3 breakpoints actifs sur le site :
+     - < 900px : module-layout 2 colonnes → 1 colonne + TOC sticky
+     - < 768px : composants serrés (cards, padding, sections)
+     - < 480px : micro-mobile (nav compressée, polices titres)
+   Toute nouvelle classe structurelle ajoutée à module-v3.css doit avoir
+   un override responsive si elle utilise un padding > var(--space-5),
+   une grille > 1 colonne, ou une taille de police > 1.5rem.
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* Hero & contenu principal — réduction du padding vertical */
+  .module-hero {
+    padding-top: calc(var(--nav-height) + var(--space-5));
+    padding-bottom: var(--space-5);
+  }
+  .module-hero-inner,
+  .module-content {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  .module-content {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
+  }
+
+  /* Module section — réduction du padding inter-sections */
+  .module-section { padding: var(--space-5) 0; }
+  .module-section-header { gap: var(--space-3); margin-bottom: var(--space-4); }
+  .module-section-icon { width: 44px; height: 44px; font-size: 1.375rem; }
+  .module-section-title h2 { font-size: 1.1875rem; }
+
+  /* Executive summary — padding contenu */
+  .exec-summary { padding: var(--space-5) var(--space-4); }
+  .exec-summary h2 { font-size: 1.25rem; }
+  .exec-takeaway { grid-template-columns: 32px 1fr; padding: var(--space-3) var(--space-3); }
+  .exec-takeaway-num { width: 24px; height: 24px; font-size: 0.8125rem; }
+  .exec-stats { padding: var(--space-4); gap: var(--space-2); }
+  .exec-stat-num { font-size: 1.25rem; }
+
+  /* Case deep — étapes numérotées (icône réduite) */
+  .case-deep-step { grid-template-columns: 40px 1fr; gap: var(--space-3); padding: var(--space-3); }
+
+  /* Stat block — chiffre moins imposant */
+  .stat-block { padding: var(--space-5) var(--space-4); }
+  .stat-block-num { font-size: 2rem; }
+
+  /* Callouts — padding réduit */
+  .callout { padding: var(--space-3); }
+  .alert-ai-act, .alert-warning, .alert-block { padding: var(--space-3) var(--space-4); gap: var(--space-3); }
+  .alert-ai-act-icon { font-size: 1.5rem; }
+
+  /* Tableaux — scroll horizontal défensif (évite le débordement du viewport) */
+  .tool-table, .compare-table, .decision-matrix table,
+  .trouble-table table, .rules-matrix table, .tech-comparison-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Pour les <table> wrappées dans un conteneur, on force le conteneur à scroller */
+  .decision-matrix, .trouble-table, .rules-matrix { overflow-x: auto; }
+
+  /* SVG schémas — overflow safety */
+  .schema-svg-wrap { padding: var(--space-3); overflow-x: auto; }
+  .archi-flow { padding: var(--space-3); overflow-x: auto; }
+
+  /* Pre/code blocks (TOML, arborescences) — police plus petite et scroll */
+  pre { font-size: 0.8125rem !important; }
+  .module-main pre, .module-main code { max-width: 100%; }
+
+  /* Pull quote — réduit */
+  .pull-quote { padding: var(--space-4); font-size: 1.0625rem; }
+
+  /* Module hero badges qui débordent */
+  .module-badges { gap: var(--space-2); }
+
+  /* Resources cat — espacement réduit */
+  .resources-cat { padding: var(--space-4); }
+}
+
+@media (max-width: 480px) {
+  /* Nav bar — micro-mobile : logo réduit, gaps compressés, fallback flex */
+  .nav-inner {
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+    grid-template-columns: 1fr auto auto;
+  }
+  .nav-logo-large { height: 56px; }
+  .nav-title-link { font-size: 0.875rem; }
+  .nav-title { display: none; }                 /* libère l'espace pour les liens */
+  .nav-links { gap: var(--space-3); }
+  .nav-link { font-size: 0.8125rem; }
+
+  /* Hero module — titre H1 plus compact */
+  .module-hero h1 { font-size: 1.5rem; }
+  .module-subtitle { font-size: 0.9375rem; }
+
+  /* Grilles à 1 colonne forcée pour les petits écrans */
+  .diag-options,
+  .risk-matrix,
+  .usecase-grid,
+  .tool-grid { grid-template-columns: 1fr !important; }
+
+  /* Exec stats : 2 colonnes pour ne pas étirer chaque stat sur toute la largeur */
+  .exec-stats { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer — gaps compressés */
+  .footer-links { gap: var(--space-3); }
+}
+
