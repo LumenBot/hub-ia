@@ -11,6 +11,45 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot F livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.3 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.3. Lots A (Cowork Hub IA sondage), B (Cowork production vague 3), C v1+v2 (Cowork golden set 42q), D (Plateforme `concept_matched()` 190/190 tests), E (Desktop eval 41/42 score global) tous livrés. Branche Lot F dérivée de `claude/execute-s23-lot-e-eval-42q` pour inclure les commits Lot E dans la PR finale.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.3.md`** en 8 sections (~2400 mots, conforme format S2.2) :
+  1. Objectifs S2.3 (4 axes : vague 3, résolution 5 faux négatifs S2.2, golden set 42q, validation D-026)
+  2. Livrables par lot (tableau exhaustif A→F + acteurs + commits)
+  3. Métriques quantitatives (41/42 sources, 41/42 concepts ≥ 50 %, 41/42 score global, 36/42 concepts pleinement, latence 16,6 s/q, ingestion incrémentale 121 → 146 chunks)
+  4. Anomalies & fixes (q-038 unique échec : retrieval dep-08 OK mais concepts spécifiques Snyk/Semgrep/1 282/102/--opus absents — 3 options recommandées Cowork)
+  5. Décisions structurantes (aucune Git-side, mais 2 patterns opérationnels validés : D-026 sondage évite 4 dérives sémantiques majeures + critère « ossature module ≠ brique transverse »)
+  6. Recommandations SPEC v1.6 (4 propositions : recalibrage cap durci 1,10 $, précision D-025 critère extraction, AP-6 synonymes excessifs, garde-fou concepts détaillés)
+  7. Pistes investigation S2.4 / S3 (chunking dep-08, option 4 composition, R11 audit wikilinks, audit régression latence, stratégie vague 4)
+  8. Coûts cumulés (S2.3 ~1,02 $, total S1→S2.3 ~3,82 $, **alerte budgétaire 🔴 dépassement +0,82 $ vs crédits initiaux** — 3 options pour S2.4)
+
+- **Branche Lot F créée** : `claude/execute-s23-lot-f-rapport` dérivée de `claude/execute-s23-lot-e-eval-42q` (inclut commits Lot E `a8e8977` + `08c5892` + commits ancêtres S2.3).
+
+- **MAJ STATUS-RAG** : L1.27e marqué ✅ Fait (déjà fait par Desktop) ; L1.27f marqué ✅ Fait (cette entrée) ; sprint S2.3 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.3 à ouvrir** vers `main` depuis `claude/execute-s23-lot-f-rapport`. Titre : `feat(rag): Sprint S2.3 - vague 3 (cu-026 + cu-027 + dep-08) + matching sémantique synonymes + golden set 42q`. Description = synthèse 8 sections du rapport + liste des 7 commits S2.3.
+
+**Décisions structurantes prises :** aucune (S2.3 Lot F = production rapport + clôture).
+
+**Coût API consommé (cette session Lot F) :** 0,00 $ (production texte uniquement). Aligné avec allocation D-030 Plateforme.
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.3 par Blaise après revue.
+- Arbitrage Cowork des 4 propositions d'amendement SPEC v1.5 → v1.6.
+- Arbitrage Cowork de l'option A/B/C pour résoudre l'anomalie q-038 (recommandation Plateforme : Option C — refactor chunking dep-08 + élargissement métrique).
+- **Décision critique S2.4** : alerte budgétaire Anthropic confirmée (~-0,82 $ vs crédits initiaux) — choisir entre recharge / bascule Haiku 4.5 / eval ciblée sous-ensemble. Plafonds mensuels D-013 (50 $) restent préservés.
+- Ouverture S2.4 sur la base des décisions ci-dessus.
+
+**Blockers :** aucun pour la PR. Alerte budgétaire confirmée critique pour S2.4.
+
+---
+
 ### 2026-05-13 (S2.3 Lot E livré) — Claude Code Desktop — Eval extended 42 questions sur vault vague 3
 
 **Contexte :** Lots A + B + C v2 + D mergés sur main (`84f6832`). Vault enrichi à 13 fichiers MD (10 + cu-026 + cu-027 + dep-08). `evaluate_one()` adapté Plateforme Lot D supporte le format option B (liste de synonymes). Reprise Claude Code Desktop pour Lot E (eval réelle).

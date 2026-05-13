@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot E livré — eval 42q sur vault vague 3, 41/42 score global, cibles dépassées)
-**Sprint en cours :** **S2.3 en cours** — Lots A + B + C + D + **E (Desktop `a8e8977`)** livrés. **Cibles brief §7 dépassées** : 41/42 sources (97 %, cible ≥ 35), 41/42 concepts ≥ 50 % (97 %, cible ≥ 38), latence 16,6 s/q (cible 12-18 s), coût Lot E 1,02 $ Anthropic (cap durci 0,90 $ dépassé +13 %). 1 seul échec score=0 : q-038 (dep-08 sécurité agents, concepts détaillés Snyk/Semgrep/1 282/102 règles absents). Reste : **Lot F (Plateforme RAPPORT + PR)**.
+**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot F livré — RAPPORT + PR finale, sprint clôturé côté Plateforme)
+**Sprint en cours :** **S2.3 clôturé côté Claude Code Plateforme** — tous les lots livrés (A Cowork Hub IA, B+C Cowork Plateforme, D Plateforme `78d0fa7`, E Desktop `a8e8977`+`08c5892`, F Plateforme = rapport + PR finale). **Cibles brief §7 dépassées** (41/42 score global, latence 16,6 s/q). `rag-prep/reports/RAPPORT-CC-S2.3.md` produit en 8 sections. PR finale ouverte vers main depuis branche `claude/execute-s23-lot-f-rapport`. En attente merge manuel Blaise + arbitrage Cowork des 4 propositions SPEC v1.6.
 **Période S2.3 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
 
@@ -82,7 +82,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.27c | S2.3 Lot C — enrichissement synonymes 30 q existantes + ajout vague 3 | ✅ Fait Cowork v2 ajusté post-RETOUR (`questions-v2-s2.3.yaml` : **42 questions** — 30 enrichies + 9 vague 3 corrigées + 3 bonus ; AP-5 ✅ ; 0,00 $) — sync ascendante à effectuer par Blaise | Cowork |
 | L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ✅ Fait Plateforme (`78d0fa7`, PR #53 mergée) : `concept_matched()` + 19 nouveaux tests sur 5 classes, 190/190 verts, 0,00 $ ; R11 wikilink audit reporté (charge non bloquante) | Claude Code Plateforme |
 | L1.27e | S2.3 Lot E — eval extended 42q post-vault enrichi | ✅ Fait (`a8e8977` branche `claude/execute-s23-lot-e-eval-42q` : **41/42 sources retrouvées, 41/42 concepts ≥ 50 %, 41/42 score global**, latence moy. 16,6 s/q ; **5 faux négatifs S2.2 résolus** via option B synonymes ; vague 3 retrieval 11/12 ✅, **1 échec q-038** dep-08 concepts détaillés ; **coût Lot E 1,02 $ Anthropic** — cap durci 0,90 $ dépassé +13 %, acceptable) | Claude Code Desktop |
-| L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ⏳ **Prêt pour Claude Code Plateforme** (intégrer diagnostic q-038, recalibrage cap durci à 1,10 $ pour 42q, considérations SPEC v1.6) | Claude Code Plateforme |
+| L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.3.md` 8 sections + PR finale ouverte depuis `claude/execute-s23-lot-f-rapport`) | Claude Code Plateforme |
 
 ---
 
