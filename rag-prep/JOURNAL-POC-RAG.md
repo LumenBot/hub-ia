@@ -11,6 +11,43 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.2 Lot E.3 livré) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.2 consolidé + PR finale
+
+**Contexte :** clôture du sprint S2.2. Lot E.1 (fix `extract_cited_codes`) mergé via PR #47 sur main. Lot E.2 (rerun complet 30q post-fix) livré par Desktop avec **30/30 sources retrouvées, 30/30 concepts ≥ 50 %, 30/30 score global**. Cible brief 24/30 (80 %) largement dépassée. Reste à produire le RAPPORT consolidé et la PR finale (Lot E.3).
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.2.md`** (8 sections, ~2400 mots) :
+  1. Objectifs S2.2 (3 axes : pattern-llm-wiki, golden set 30q, garde-fous)
+  2. Livrables par lot (tableau exhaustif A→E.3 avec acteurs et commits)
+  3. Métriques quantitatives (eval avant/après fix wikilinks, latence 16,4 s/q, volume vector store 121 chunks)
+  4. Anomalies & fixes (Anomalie #1 YAML int values, Anomalie #2 bug wikilinks extraction)
+  5. Décisions structurantes (aucune nouvelle, mais 3 patterns opérationnels candidats à formalisation)
+  6. Recommandations SPEC v1.5 (4 propositions : AP-5 YAML, pattern wikilink extraction, recalibrage latence 12-18 s, boucle eval réelle comme garde-fou)
+  7. Pistes investigation S2.3 (matching exact vs sémantique pour 5 concepts non « pleinement » couverts : méthode/méthodologie, vérification/vérifier, 1,8 heures/1,8 heure, persistant/persistance, économie/gain — 4 options proposées)
+  8. Coûts cumulés (S2.2 ~2,50 $, cumul S1+S2.1+S2.2 ~2,80 $, alerte budgétaire crédits Anthropic ~0,20 $ restants — 3 options pour S2.3)
+
+- **Création du sous-dossier `rag-prep/reports/`** (selon consigne Blaise — distinction briefs/reports).
+
+- **MAJ STATUS-RAG** : L1.26e.2 marqué ✅ Fait, sprint S2.2 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.2 ouverte vers `main`** depuis `claude/execute-pilot-batches-mBSIp`. Titre : `feat(rag): Sprint S2.2 - pattern-llm-wiki + golden set 30q + métriques + pre-commit + eval extended`. Description = synthèse des 8 sections du rapport + liste des 10 commits S2.2.
+
+**Décisions structurantes prises :** aucune (S2.2 Lot E.3 = production rapport + clôture).
+
+**Coût API consommé (cette session Lot E.3) :** 0,00 $ (rapport texte uniquement, aucun appel API).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.2 par Blaise.
+- Arbitrage Cowork des 4 propositions d'amendement SPEC v1.4 → v1.5.
+- Ouverture S2.3 (vague 3 production CU-026, CU-027, DEP-08 avec D-026 co-production légère). Alerte budgétaire Anthropic à traiter en début de S2.3 (recharge crédits OU bascule Haiku 4.5 OU eval ciblée sous-ensemble).
+
+**Blockers :** aucun pour la PR. Alerte budgétaire signalée pour S2.3 (à arbitrer par Blaise).
+
+---
+
 ### 2026-05-13 (S2.2 Lot D — rerun final 30q) — Claude Code Desktop — Eval complet post-Lot E.1 wikilinks fix
 
 **Contexte :** Lot E.1 (commit `34496cb`) livré et mergé sur main pendant la pause inter-sessions Desktop — fix d'extraction wikilinks dans `query.py` (regex qui ne captait pas `[[code#ancre]]`). Blaise demande rerun complet 30q avec le fix intégré pour produire un rapport définitif Lot D.

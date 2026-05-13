@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot D rerun final 30q exécuté post-E.1 — cible atteinte)
-**Sprint en cours :** **S2.2** — Lots A+B (Cowork, `b7c7f96`) + Lot C (Plateforme, `127de86`) + Lot E.1 fix wikilinks (Plateforme, `34496cb`) + Lot D rerun final 30q (Desktop, `af18810`) livrés. **Eval cible 24/30 largement atteinte** : 30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global. Reste **Lot E.2 (Claude Code Plateforme)** : RAPPORT-CC-S2.2 + PR finale.
+**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot E.3 livré — RAPPORT + PR finale)
+**Sprint en cours :** **S2.2 clôturé côté Claude Code Plateforme** — tous les lots livrés (A+B Cowork, C Plateforme, D + E.2 Desktop, E.1 + E.3 Plateforme). Eval finale 30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global. RAPPORT-CC-S2.2 produit dans `rag-prep/reports/` + PR finale ouverte vers `main`. En attente merge manuel Blaise puis ouverture S2.3.
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -75,7 +75,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.26d | S2.2 Lot D — Eval extended sur vault enrichi (1er run, partiel) | ✅ Partiel (`fa8fc88` : 15/30 questions q-016 → q-030 ; 9/15 sources, 15/15 concepts ≥ 50 % ; coût 0,71 $ — bug extraction wikilinks identifié) | Claude Code Desktop |
 | L1.26e.1 | S2.2 Lot E.1 — Fix `extract_cited_codes` wikilinks Obsidian dans `query.py` | ✅ Fait (`34496cb`, mergé via PR #47 → main) | Claude Code Plateforme |
 | L1.26d.2 | S2.2 Lot D rerun final — Eval complet 30q post-fix wikilinks | ✅ Fait (`af18810` : **30/30 sources, 30/30 concepts ≥ 50 %, 30/30 score global** ; cible brief 24/30 largement atteinte ; coût cumulé Lot D 1,41 $ ; latence moy. 16,4 s/q) | Claude Code Desktop |
-| L1.26e.2 | S2.2 Lot E.2 — RAPPORT-CC-S2.2 + PR finale | ⏳ **Prêt pour Claude Code Plateforme** (intégrer rerun 30/30 + recalibrage latence + faux négatifs concepts synonymes) | Claude Code Plateforme |
+| L1.26e.2 | S2.2 Lot E.3 — RAPPORT-CC-S2.2 + PR finale | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.2.md` en 8 sections + PR finale ouverte) | Claude Code Plateforme |
 
 ---
 
