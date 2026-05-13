@@ -11,6 +11,77 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.2 Lot D) — Claude Code Desktop — Eval extended exécuté en partiel q-016 → q-030 + fix golden set
+
+**Contexte :** première session Claude Code Desktop (instance locale Mac de Blaise, D-030). Lecture intégrale des fichiers de référence (`_instructions-rag.md`, `DECISIONS-RAG.md` 30 décisions, `SPEC-MD-POUR-RAG.md` v1.4, `STATUS-RAG.md`, brief `BRIEF-CC-S2.2.md`). Branche `claude/execute-pilot-batches-mBSIp` resync OK avec Lots A+B Cowork (`b7c7f96`) + Lot C Plateforme (`127de86`).
+
+**Pré-vol** : `source rag/code/.venv/bin/activate` + `python3 -c "import _env; ..."` → 2 clés API présentes. Sanity check OK.
+
+**Actions menées :**
+
+**Étape 1 — Re-indexation incrémentale** (`python3 rag/code/ingestion/ingest.py --vault rag/content --store rag/code/vector_store`) :
+- 121 chunks au total dans le vector store (vs ~107 post-S1c.2)
+- `new=15` (chunks pattern-llm-wiki), `updated=52` (cu-008/dep-02 refactorés en v3.8.6), `skipped=54`, `deleted=1`, `errors=0`
+- Coût : **0,000474 $** OpenAI text-embedding-3-small (23 719 tokens in)
+
+**Étape 2 — Eval extended (1er essai, crashé)** :
+- Lancement `run_eval.py` sur 30 questions → crash après 16 queries Anthropic à l'évaluation de q-016
+- Traceback `AttributeError: 'int' object has no attribute 'lower'` dans `evaluate_one` ligne 85
+- Cause racine : 3 entrées du golden set Lot B (q-016, q-019, q-027) contiennent des valeurs numériques (`1,8`, `95`, `21`) non quotées dans `expected_concepts` → YAML les parse comme `int`
+- Audit complet du fichier : seules ces 3 entrées posent problème. Les 27 autres sont saines.
+- Coût consommé : **0,3749 $ Anthropic** + 0,0005 $ OpenAI (16 calls Sonnet 4.6)
+
+**Blocker signalé à Blaise** (D-022 + brief §6 Contact) — arbitrage demandé via question structurée. Choix Blaise :
+1. **Auto-correction Claude Code Desktop (exception ciblée D-022)** plutôt que circuit Cowork pour rapidité.
+2. **Rerun ciblé q-016 → q-030 seulement**, dépassement cap durci accepté.
+
+**Fix appliqué** (commit `00d80e8`) : `fix(rag-eval): quote int values in q-016/019/027 (s2.2 lot D blocker)` — 3 quotes ajoutés strictement formels :
+- `[1,8, heures, McKinsey]` → `["1,8 heures", McKinsey]`
+- `[95, ROI, ...]` → `["95 %", ROI, ...]`
+- `[21, McKinsey, workflow]` → `["21 %", McKinsey, workflow]`
+
+**Rerun ciblé q-016 → q-030** via subset YAML temporaire `/tmp/questions-subset-q016-q030.yaml`. Eval réussi, 15 questions évaluées.
+
+**Étape 3 + 4 — Vérification coût + analyse rapport** :
+- Coût cumulé final : **0,7138 $ Anthropic + 0,000947 $ OpenAI = 0,7148 $**
+- Dépassement cap durci 0,65 $ : accepté ex-ante par Blaise
+- Cap mensuel global 50 $ Anthropic + 10 $ OpenAI : largement préservé
+- Latence moyenne Anthropic : **15,9 s/question** (min 9 s, max 22 s). Cible brief 5 s/question : non tenue, vraisemblablement irréaliste pour Sonnet 4.6 avec ~3500 tokens in / ~900 tokens out.
+
+**Résultats eval (15 questions q-016 → q-030)** :
+- **Sources attendues retrouvées (toutes)** : 5/15 (33 %)
+- **Sources attendues retrouvées (≥ 1)** : 9/15 (60 %) — métrique principale rapport
+- **Concepts attendus ≥ 50 % couverts** : 15/15 (100 %)
+- **Score global (source + ≥ 50 % concepts)** : 9/15 (60 %)
+- **Cible adaptée brief (équivalent 12/15 = 80 % sources) : NON ATTEINTE**
+
+**Découverte structurante — bug d'extraction wikilinks** :
+- 3 questions (q-016, q-021, q-027) contiennent dans la réponse complète des wikilinks vers les sources attendues : `[[chiffres-macro-2026#...]]` (q-016, q-027) ou `[[dep-02#...]]` (q-021)
+- Mais `cited_codes` ne les extrait pas → faux négatifs systématiques sur les sources avec ancre
+- Cause probable : regex d'extraction dans `query.py` qui ne gère pas `[[code#ancre]]` ou tronque sur `#`
+- **Impact estimé** : sans ce bug, score sources estimé ~12/15 (cible adaptée atteinte sur subset)
+- À investiguer Lot E ou S2.3 par Claude Code Plateforme
+
+**Étape 5 — Commit + push artefacts** (commit `fa8fc88`) :
+- `rag/eval/eval-report-s2.2.md` (txt formatté)
+- `rag/eval/eval-report-s2.2.json` (structuré)
+- Message commit détaille les 3 observations majeures (périmètre partiel, bug wikilinks, dépassement cap accepté)
+- Pas de PR ouverte — rôle Lot E (Claude Code Plateforme).
+
+**Décisions structurantes prises :** aucune (exécution + signalement). Les arbitrages auto-correction + dépassement cap sont des décisions opérationnelles ponctuelles, pas structurelles.
+
+**Reste à faire pour Lot E (Claude Code Plateforme)** :
+1. Investigation et fix du bug d'extraction wikilinks dans `query.py` (regex `[[code#ancre]]`)
+2. Rejeu eval complet 30q après fix wikilinks (validation cible 24/30 = 80 %)
+3. RAPPORT-CC-S2.2.md (8 sections, intégrant : crash + fix Lot D, dépassement cap, bug wikilinks, recalibrage latence, résultats 15/15)
+4. Ouverture PR `feat(rag): Sprint S2.2 - pattern-llm-wiki + extension golden set 30q + métriques + pre-commit + eval extended`
+5. Recalibrage cible latence brief S2.3 (5 s irréaliste, viser 12-18 s pour Sonnet 4.6 sur ces volumes)
+
+**Blockers :**
+- Aucun bloquant côté Desktop. Cap budgétaire Anthropic mensuel (50 $) reste largement préservé : ~2,70 $ de crédits restants en début de session → ~1,99 $ après cette session, soit -0,71 $.
+
+---
+
 ### 2026-05-12 (S2.2 Lots A+B) — Cowork Hub IA Plateforme — pattern-llm-wiki produit + golden set étendu 30q
 
 **Contexte :** Claude Code Plateforme a livré le Lot C (commit `127de86`, 159/159 tests verts, 25 nouveaux tests S2.2, 0 $ API). PR S2.2 différée au Lot E. Blaise séquentiel : Cowork attaque Lots A et B maintenant. Alerte limite d'usage : priorisation efficace.

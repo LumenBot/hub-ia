@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 12 mai 2026 (S2.2 ouvert — brief finalisé, à transmettre)
-**Sprint en cours :** **S2.2** — Lot C livré par Claude Code Plateforme (159/159 tests, commit `127de86`), Lots A et B livrés par Cowork (pattern-llm-wiki v3.8.6 + golden set étendu 30q), reste Lot D (eval Desktop) + Lot E (RAPPORT + PR finale)
+**Dernière mise à jour :** 13 mai 2026 (S2.2 Lot D exécuté en partiel — prêt pour Lot E)
+**Sprint en cours :** **S2.2** — Lots A+B (Cowork, `b7c7f96`) + Lot C (Plateforme, `127de86`) + Lot D (Desktop, `fa8fc88` eval partiel q-016 → q-030 sur vault enrichi, 9/15 sources, 15/15 concepts ≥ 50 %, coût 0,71 $) livrés. Reste **Lot E (Claude Code Plateforme)** : fix bug extraction wikilinks dans `query.py` + rejeu 30q complet + RAPPORT-CC-S2.2 + PR.
 **Période :** mi-mai → début juin 2026 (3 semaines)
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Blaise + interaction couple 1 (via RetEx)
 
@@ -68,6 +68,12 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.24c | S1ter Lot S1c.3 — RAPPORT-CC-S1ter + ouverture PR | ✅ Partiel (RAPPORT + PR livrés, §3/§4/§5 marqués « exécution locale Blaise ») | Claude Code Plateforme |
 | L1.24d | **S1c.2 exécution locale Blaise** — ingest réel + 10 queries + run_eval | ✅ Fait (10/10 sources retrouvées, 9/10 concepts couverts, 107 chunks créés, coût ~0,30 $) | Blaise |
 | L1.25 | Merge final PR #44 par Blaise — **clôture définitive sprint S1** | ✅ Fait (commit `9bef8c4` sur main) | Blaise |
+| L1.26a | S2.2 Lot A — `pattern-llm-wiki.md` v3.8.6 + refactor cu-008/dep-02 | ✅ Fait (`b7c7f96`) | Cowork |
+| L1.26b | S2.2 Lot B — Extension golden set 10 → 30 questions | ✅ Fait (`b7c7f96`) | Cowork |
+| L1.26c | S2.2 Lot C — Métriques coût + pre-commit hook + system prompt enrichi | ✅ Fait (`127de86`, 159/159 tests) | Claude Code Plateforme |
+| L1.26d-bis | S2.2 Lot D blocker — fix YAML int values q-016/019/027 | ✅ Fait (`00d80e8`, auto-correction Desktop exception D-022 validée par Blaise) | Claude Code Desktop |
+| L1.26d | S2.2 Lot D — Eval extended sur vault enrichi | ✅ Partiel (`fa8fc88` : 15/30 questions q-016 → q-030 ; 9/15 sources ≥ 1, 15/15 concepts ≥ 50 % ; coût 0,71 $ — cap durci dépassé accepté ; **bug extraction wikilinks identifié**) | Claude Code Desktop |
+| L1.26e | S2.2 Lot E — Fix bug wikilinks query.py + rejeu 30q + RAPPORT-CC-S2.2 + PR | ⏳ **Prêt pour Claude Code Plateforme** | Claude Code Plateforme |
 
 ---
 
@@ -98,7 +104,7 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | Sous-sprint | Périmètre | Allocation D-030 | Statut |
 |---|---|---|---|
 | **S2.1** | Audit-md-rag v2 (D-028, D-029, R5-R10) | Claude Code Plateforme seul | ✅ **Mergé PR #45** (134/134 tests verts, vault audit 0 erreur + 183 warnings catégorisés) |
-| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟡 **BRIEF v1 finalisé** (`rag-prep/briefs/BRIEF-CC-S2.2.md`, 238 lignes, 5 lots A→E) — à transmettre |
+| **S2.2** | Brique `pattern-llm-wiki.md` + extension golden set 30 questions + métriques coût + pre-commit hook | Cowork + Plateforme + Desktop pour eval | 🟢 **Lots A+B+C+D livrés**. Lot D partiel q-016 → q-030 (15/30), crash bloquant sur q-016 (golden set int non-quoté) corrigé par auto-correction Desktop (commit `00d80e8`). Eval partiel `fa8fc88`. Bug extraction wikilinks identifié → Lot E. |
 | **S2.3** | Vague 3 modules denses (cu-026, cu-027, dep-08) en co-production avec Cowork Hub IA (D-026) | Cowork + Cowork Hub IA + Desktop pour eval | 🟡 **DRAFT sondage préalable préparé** (`rag-prep/briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S2.3-PRE-PRODUCTION.md`) — reprise post-S2.2 |
 | **S2.5** (nouvelle — issue v3.9) | **Vague 3.5** modules patchés v3.9 : `dep-03.md`, `dep-04.md`, `dep-05.md`, `pr-04.md` | Cowork + Cowork Hub IA (sondage co-produit DEP-05 §8) + Desktop pour eval | 🟡 **À cadrer post-S2.3** — les 4 modules n'existent pas encore dans le vault, production intégrale (pas refactor) |
 
