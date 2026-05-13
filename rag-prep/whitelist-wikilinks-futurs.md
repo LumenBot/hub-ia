@@ -1,7 +1,7 @@
 # whitelist-wikilinks-futurs.md — Liste des MD planifiés mais non encore produits
 
-**Statut :** v1 (initial, issue S1bis)
-**Dernière mise à jour :** 12 mai 2026
+**Statut :** v2 (post-S2.3 Lot B — 3 modules vague 3 produits)
+**Dernière mise à jour :** 13 mai 2026
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle (D-029) :** liste des codes de fichiers MD planifiés dans la roadmap du vault mais pas encore produits. Lue par `audit-md-rag.py` v2 au démarrage. Les wikilinks pointant vers ces codes sont signalés comme **warnings** (anticipations légitimes), pas comme erreurs (wikilinks cassés).
@@ -37,8 +37,8 @@
 | `cu-023` | Devis simples — porte d'entrée IA | 4 |
 | `cu-024` | Order-to-cash automation | 4 |
 | `cu-025` | Knowledge management IA-augmenté pour dirigeant | 3 |
-| `cu-026` | Gouvernance des agents IA | **3 (priorité)** |
-| `cu-027` | Faire développer une appli métier (sans être IT) | **3 (priorité)** |
+| ~~`cu-026`~~ | ~~Gouvernance des agents IA~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |
+| ~~`cu-027`~~ | ~~Faire développer une appli métier (sans être IT)~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |
 
 ## Préalables PR planifiés (à produire vagues 3 à 4)
 
@@ -61,7 +61,7 @@
 | `dep-05` | Agents en production : observabilité et garde-fous | 3-4 |
 | `dep-06` | Inférence et coûts : SaaS vs self-hosted | 3-4 |
 | `dep-07` | Évaluation continue et qualité IA | 3-4 |
-| `dep-08` | Sécurité agents et MCP servers | **3 (priorité)** |
+| ~~`dep-08`~~ | ~~Sécurité agents et MCP servers~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |
 
 ## Architectures planifiées
 
@@ -117,3 +117,4 @@
 | Version | Date | Modification |
 |---|---|---|
 | v1 | 12 mai 2026 | Initialisation post-S1bis (D-029), 69 codes whitelistés couvrant vagues 3 à 5 |
+| v2 | 13 mai 2026 | S2.3 Lot B — retrait de `cu-026`, `cu-027`, `dep-08` (produits dans le vault). 66 codes restant whitelistés. |

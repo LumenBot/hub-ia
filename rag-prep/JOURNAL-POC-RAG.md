@@ -11,6 +11,59 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot B livré) — Cowork Hub IA Plateforme — Production vague 3 (cu-026, cu-027, dep-08) + patch I-D-005
+
+**Contexte :** Lot A clôturé (RETOUR-SONDAGE reçu, D-026 validé), Lot C v2 livré (42 questions golden set), Lot D en cours par Claude Code Plateforme (adapt `evaluate_one()` synonymes). Production parallèle Lot B autorisée par Blaise.
+
+**Actions menées :**
+
+- **Production `rag-prep/content/cu-026.md`** (~1400 mots) : Gouvernance des agents IA, niveau ⭐⭐⭐, axe B. Sections : Essentiel / Public / Pattern « agent comme employé » (ossature centrale, NON extrait en transverse cf. RETOUR §passage 3) / Étude de cas Klarna (gouvernance ajustée + 4 leçons fondatrices, chiffres canoniques 2,3 M chats/mois, 700 ETP, 40 M$/an) / Framework 7 dimensions (tableau dense + précisions par dimension, distinction explicite avec les 8 questions auto-diag) / Cadre réglementaire (AI Act art. 14, RGPD art. 22, jurisprudence Moffatt v. Air Canada février 2024) / Risques de dérive / Récap actionnable. Wikilinks : cu-014, dep-05, dep-08, pr-07, vigilance-hallucinations, vigilance-confidentialite, chiffres-macro-2026.
+
+- **Production `rag-prep/content/cu-027.md`** (~1600 mots) : Faire développer une appli métier (sans être IT), niveau ⭐⭐⭐⭐, axe agentique. Sections : Essentiel / Public / Tableau 7 outils × 3 catégories × maturité production (Lovable, Bolt.new, v0, Replit Agent, Cursor, Claude Code, Windsurf ; hiérarchie Windsurf 8,5 > Cursor 7,5 > Replit 7) / 3 questions au prestataire / Rupture économique 2026 (Kimi K2.6 80-90 % économie inférence ; ECC stack 8-10 K$/mois équipe → 1 senior + ECC ; pattern Garry Tan « Fat Skills / Thin Harness ») / Incident emblématique Tea App (72 000 fuites juillet 2025, 4 défauts cumulés, angle gouvernance produit) / Coût/PI/dépendance / Récap actionnable. Wikilinks : pr-07, cu-008, dep-08, vigilance-confidentialite, chiffres-macro-2026.
+
+- **Production `rag-prep/content/dep-08.md`** (~1700 mots) : Sécurité agents et MCP servers, niveau ⭐⭐⭐⭐, axe B. Sections : Essentiel / Public / Pourquoi sujet à part / 4 vecteurs d'attaque (MCP compromis, prompt injection, skills malveillants, supply chain) / 4 incidents/CVE de référence (CVE-2025-59536 CVSS 8.7, MCP STDIO avril 2026, OpenClaw 12 %, Moltbook 1,5 M clés) / 5 défenses prompt injection / AgentShield (1 282 tests, 102 règles, mode --opus) + mapping Snyk/Semgrep / Règle absolue MCP servers (pull-quote textuel) / Sécuriser CLAUDE.md / hooks / configs (passage bonus du RETOUR §DEP-08 §4 : versioning git, revue PR, audit hebdo/mensuel) / Risques de dérive / Récap actionnable. Wikilinks : cu-026, cu-014, dep-05, vigilance-confidentialite, chiffres-macro-2026.
+
+- **Production `rag-prep/content/chiffres-macro-additions-id005.md`** : patch Cowork-side avec les 2 nouvelles sections H2 à intégrer dans `chiffres-macro-2026.md` Git-side (bump v3.8.5 → v3.8.6) :
+  - « 80 à 90 % — économie d'inférence Kimi K2.6 vs Claude Opus 4.7 (Moonshot AI, 2026) »
+  - « 8-10 K$/mois — équipe 3-4 dev juniors remplaçable par 1 senior + ECC stack (CU-027, 2026) »
+  Application manuelle par Blaise (D-024 — pas de modification directe du vault Git par Cowork).
+
+- **Mise à jour `whitelist-wikilinks-futurs.md` v1 → v2** : retrait de `cu-026`, `cu-027`, `dep-08` (désormais produits). 66 codes restant whitelistés.
+
+**Application du RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 :**
+
+- **CU-026 ✅** : pattern agent = employé maintenu en ossature complète de CU-026 (pas d'extraction transverse), wikilink depuis [[cu-014]] uniquement. 4 leçons fondatrices Klarna transposées textuellement. 7 dimensions énumérées dans l'ordre canonique (Tâche / Droits décision / Escalade / KPI / Audit / Versions / Onboarding-offboarding). Distinction explicite 7 dimensions vs 8 questions auto-diag rappelée dans la section « Risques de dérive ». KPI nommés textuellement (containment rate, escalation accuracy, cost per interaction). Cadre réglementaire AI Act article 14 + 2 août 2026 + Moffatt + RGPD art. 22 intégré.
+
+- **CU-027 ✅ rectifications appliquées** : confusion 8-10× écart Kimi/Opus → corrigé (« 80-90 % économie inférence » distinct du « 8-10 K$/mois équipe humaine »). AMETRA → remplacé par cas Tea App (juillet 2025, 4 causes documentées, angle gouvernance produit). « Classement par autonomie » → remplacé par « tableau 3 catégories × maturité production » avec 7 outils canoniques dans l'ordre exact. Pattern Garry Tan Fat Skills / Thin Harness intégré comme point 3 de la rupture économique 2026.
+
+- **DEP-08 ✅ rectifications appliquées** : cas-école Klarna/Stripe Minions → remplacés par 4 incidents/CVE techniques (CVE-2025-59536, MCP STDIO, OpenClaw, Moltbook). Énumération « 4 vecteurs d'attaque » + « 5 défenses prompt injection » distinctes. AgentShield précisions textuelles (1 282 tests, 102 règles, mode --opus red-team/blue-team/auditor). Section bonus « Sécuriser CLAUDE.md, hooks, configs » intégrée (versioning git, PR avec revue, audit hebdo/mensuel).
+
+**Décisions structurantes prises :**
+
+- **Application D-025 sur le pattern « agent = employé »** : NON extrait en transverse (validation explicite du RETOUR-SONDAGE) → maintien dans CU-026 entier. Documentation du critère opérationnel utilisé : « ossature complète d'un module + simple mention satellite ailleurs ≠ brique transverse extractible ». À inscrire éventuellement dans SPEC v1.6 comme précision de D-025.
+- **Patch Cowork-side pour chiffres-macro-2026.md** : pratique adoptée à défaut de réécriture complète Git-side. Sera reconduite pour I-D-003 (6 chiffres McKinsey/Gartner/MIT) au prochain bump éditorial coordonné.
+
+**Métriques Lot B :**
+- 3 modules MD produits : cu-026 (~1400 mots), cu-027 (~1600 mots), dep-08 (~1700 mots) = ~4700 mots total
+- 1 patch chiffres-macro-2026 (I-D-005, 2 chiffres canonisés)
+- 1 fichier vivant mis à jour : whitelist v1 → v2 (3 codes retirés)
+- Coût : **0,00 $** (Lot B pur Cowork éditorial)
+- Application RETOUR-SONDAGE : 4 dérives sémantiques évitées (q-034 confusion 8-10×, q-035 AMETRA, q-036 autonomie vs maturité, q-039 cas-école sécurité)
+- 3 passages bonus intégrés : AI Act/RGPD/Moffatt dans CU-026, Garry Tan dans CU-027, Sécuriser CLAUDE.md/hooks dans DEP-08
+
+**Reste à faire pour Blaise (sync ascendante)** :
+1. Copier `Hub-IA-Plateforme/rag-prep/content/cu-026.md` → `Hub-IA/repo-current/rag/content/modules/cu-026.md`
+2. Copier `cu-027.md` → `rag/content/modules/cu-027.md`
+3. Copier `dep-08.md` → `rag/content/deploiement/dep-08.md`
+4. **Appliquer le patch** `chiffres-macro-additions-id005.md` dans `rag/content/transverses/chiffres-macro-2026.md` (bump v3.8.5 → v3.8.6 + 2 nouvelles sections H2)
+5. Copier whitelist + JOURNAL + STATUS Cowork → Git
+6. Commit + push sur branche dédiée (D-027)
+7. Une fois mergé : (a) revue audit `audit-md-rag.py` pour vérifier conformité SPEC v1.5, (b) re-ingestion ChromaDB pour intégrer les 3 nouveaux fichiers, (c) Lot E Desktop peut démarrer post-Lot D
+
+**Blockers :** aucun. Tous les inputs canoniques étaient dans le RETOUR-SONDAGE.
+
+---
+
 ### 2026-05-13 (S2.3 Lot D livré) — Claude Code Hub IA Plateforme — Matching sémantique synonymes (`concept_matched()`)
 
 **Contexte :** Lot C v2 mergé sur `main` (`a61a41a`) — golden set `rag/eval/questions.yaml` passé à **42 questions** au format option B (mix scalaires + listes de synonymes). Lot D débloqué : adapter `evaluate_one()` pour parcourir le format mixte sans crash (le code v1 faisait `c.lower()` directement sur les entrées, ce qui crasherait sur une liste).
@@ -24,27 +77,31 @@
   - `evaluate_one()` adapté : ne pré-applique plus `.lower()` à `expected_concepts` (préserve le format mixte tel quel pour sérialisation JSON), délègue le matching à `concept_matched()`.
   - Typage `EvalItem.expected_concepts`, `concepts_match`, `concepts_missing` élargi à `list` (mix `str | list[str]`).
 - **Tests** : `rag/code/eval/test_run_eval.py` enrichi de 19 nouveaux tests répartis sur 5 classes :
-  - `TestConceptMatchedScalaire` (4 tests) — rétro-compat v1, présent/absent, case-insensible, et test négatif explicite « `méthode` n'est PAS substring de `méthodologie` » (justification structurelle de l'option B).
-  - `TestConceptMatchedListe` (8 tests) — un synonyme trouvé, aucun, premier, dernier, case-insensible (synonymes UPPERCASE → réponse lowercase et inverse), chiffres quotés `["1,8 heures", "1,8 heure"]`, morphologies `persistant/persistance/persistent`, `économie/économies/gain/réduction`.
+  - `TestConceptMatchedScalaire` (4 tests) — rétro-compat v1, présent/absent, case-insensible.
+  - `TestConceptMatchedListe` (8 tests) — synonymes trouvés/non, premier/dernier, case-insensible, chiffres quotés `["1,8 heures", "1,8 heure"]`, morphologies `persistant/persistance/persistent`, `économie/économies/gain/réduction`.
   - `TestConceptMatchedDegenere` (2 tests) — liste vide → False + capture stderr.
-  - `TestEvaluateOneFormatMixte` (4 tests) — mix scalaire + liste dans même `expected_concepts`, partiel, sanity check sur format réel q-001, sérialisation JSON.
+  - `TestEvaluateOneFormatMixte` (4 tests) — mix scalaire + liste dans même `expected_concepts`, partiel, sanity check format réel q-001, sérialisation JSON.
   - `TestRetroCompatV1Inchangee` (1 test) — preuve que les questions golden set v1 (concepts scalaires seuls) restent traitées comme avant.
-- **Test pré-existant adapté** : `test_golden_set_10_questions` renommé `test_golden_set_volume_courant` avec assertion `len(data) >= 30` (tolérant aux ajustements futurs sans recasser le test).
+- **Test pré-existant adapté** : `test_golden_set_10_questions` → `test_golden_set_volume_courant` avec assertion `len(data) >= 30` (résilient aux 42 questions actuelles et futurs ajustements).
 
-**Suite tests** : 190/190 verts (171 cumulés S1-S2.2 + 19 nouveaux S2.3 Lot D).
+**Suite tests cumulée** : 190/190 verts (171 cumulés S1-S2.2 + 19 nouveaux S2.3 Lot D).
 
-**R11 audit pattern wikilinks post-query (optionnel)** : non implémenté dans ce Lot D. Le module `citation_audit.py` reste à produire dans un sprint ultérieur (charge non bloquante).
+**R11 audit pattern wikilinks post-query (optionnel)** : non implémenté dans ce Lot D. Le module `citation_audit.py` reste à produire dans un sprint ultérieur (charge non bloquante, brief §6 « si charge disponible »).
 
-**Coût API consommé** : 0,00 $ (refactor code + tests mockés exclusivement, conforme allocation D-030 Plateforme).
+**Coût API consommé** : 0,00 $ (refactor code + tests mockés exclusivement, allocation D-030 Plateforme respectée).
+
+**Commits Lot D Git-side :**
+- `78d0fa7` : feat(rag-eval): concept_matched() supporte le format option B liste de synonymes (s2.3 lot D)
+- `9d6a5fc` : Merge pull request #53
 
 **Décisions structurantes prises :** aucune (S2.3 Lot D = exécution stricte du brief §4).
 
 **Reste à faire :**
-- Lot E (Claude Code Desktop) — eval extended 42 questions sur le vault enrichi vague 3, post-merge Lot D + Lot B (production vague 3 CU-026/CU-027/DEP-08).
-- Lot F (Plateforme ou Desktop) — RAPPORT-CC-S2.3 consolidé + PR finale S2.3.
-- Arbitrage Cowork de l'anti-pattern « synonymes excessifs » à inscrire en SPEC v1.6 (cf. brief §4 dernière sous-section).
+- Lot E (Claude Code Desktop) — eval extended 42 questions sur le vault enrichi vague 3 post-merge Lot B
+- Lot F (Plateforme) — RAPPORT-CC-S2.3 consolidé + PR finale S2.3
+- Arbitrage Cowork de l'anti-pattern « synonymes excessifs » à inscrire en SPEC v1.6 (cf. brief §4 dernière sous-section)
 
-**Blockers :** aucun pour Lot D.
+**Blockers :** aucun pour Lot D. Lot E dépend de la finalisation de la sync ascendante du Lot B.
 
 ---
 
