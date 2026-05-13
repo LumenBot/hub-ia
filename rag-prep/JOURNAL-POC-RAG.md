@@ -11,6 +11,109 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.3 Lot F livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.3 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.3. Lots A (Cowork Hub IA sondage), B (Cowork production vague 3), C v1+v2 (Cowork golden set 42q), D (Plateforme `concept_matched()` 190/190 tests), E (Desktop eval 41/42 score global) tous livrés. Branche Lot F dérivée de `claude/execute-s23-lot-e-eval-42q` pour inclure les commits Lot E dans la PR finale.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.3.md`** en 8 sections (~2400 mots, conforme format S2.2) :
+  1. Objectifs S2.3 (4 axes : vague 3, résolution 5 faux négatifs S2.2, golden set 42q, validation D-026)
+  2. Livrables par lot (tableau exhaustif A→F + acteurs + commits)
+  3. Métriques quantitatives (41/42 sources, 41/42 concepts ≥ 50 %, 41/42 score global, 36/42 concepts pleinement, latence 16,6 s/q, ingestion incrémentale 121 → 146 chunks)
+  4. Anomalies & fixes (q-038 unique échec : retrieval dep-08 OK mais concepts spécifiques Snyk/Semgrep/1 282/102/--opus absents — 3 options recommandées Cowork)
+  5. Décisions structurantes (aucune Git-side, mais 2 patterns opérationnels validés : D-026 sondage évite 4 dérives sémantiques majeures + critère « ossature module ≠ brique transverse »)
+  6. Recommandations SPEC v1.6 (4 propositions : recalibrage cap durci 1,10 $, précision D-025 critère extraction, AP-6 synonymes excessifs, garde-fou concepts détaillés)
+  7. Pistes investigation S2.4 / S3 (chunking dep-08, option 4 composition, R11 audit wikilinks, audit régression latence, stratégie vague 4)
+  8. Coûts cumulés (S2.3 ~1,02 $, total S1→S2.3 ~3,82 $, **alerte budgétaire 🔴 dépassement +0,82 $ vs crédits initiaux** — 3 options pour S2.4)
+
+- **Branche Lot F créée** : `claude/execute-s23-lot-f-rapport` dérivée de `claude/execute-s23-lot-e-eval-42q` (inclut commits Lot E `a8e8977` + `08c5892` + commits ancêtres S2.3).
+
+- **MAJ STATUS-RAG** : L1.27e marqué ✅ Fait (déjà fait par Desktop) ; L1.27f marqué ✅ Fait (cette entrée) ; sprint S2.3 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.3 à ouvrir** vers `main` depuis `claude/execute-s23-lot-f-rapport`. Titre : `feat(rag): Sprint S2.3 - vague 3 (cu-026 + cu-027 + dep-08) + matching sémantique synonymes + golden set 42q`. Description = synthèse 8 sections du rapport + liste des 7 commits S2.3.
+
+**Décisions structurantes prises :** aucune (S2.3 Lot F = production rapport + clôture).
+
+**Coût API consommé (cette session Lot F) :** 0,00 $ (production texte uniquement). Aligné avec allocation D-030 Plateforme.
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.3 par Blaise après revue.
+- Arbitrage Cowork des 4 propositions d'amendement SPEC v1.5 → v1.6.
+- Arbitrage Cowork de l'option A/B/C pour résoudre l'anomalie q-038 (recommandation Plateforme : Option C — refactor chunking dep-08 + élargissement métrique).
+- **Décision critique S2.4** : alerte budgétaire Anthropic confirmée (~-0,82 $ vs crédits initiaux) — choisir entre recharge / bascule Haiku 4.5 / eval ciblée sous-ensemble. Plafonds mensuels D-013 (50 $) restent préservés.
+- Ouverture S2.4 sur la base des décisions ci-dessus.
+
+**Blockers :** aucun pour la PR. Alerte budgétaire confirmée critique pour S2.4.
+
+---
+
+### 2026-05-13 (S2.3 Lot E livré) — Claude Code Desktop — Eval extended 42 questions sur vault vague 3
+
+**Contexte :** Lots A + B + C v2 + D mergés sur main (`84f6832`). Vault enrichi à 13 fichiers MD (10 + cu-026 + cu-027 + dep-08). `evaluate_one()` adapté Plateforme Lot D supporte le format option B (liste de synonymes). Reprise Claude Code Desktop pour Lot E (eval réelle).
+
+**Branche** : `claude/execute-s23-lot-e-eval-42q` créée depuis `origin/main` (84f6832).
+
+**Pré-vol** : venv activé, 2 clés API présentes, vector store existant (121 chunks post-S2.2 Lot D rerun).
+
+**Actions menées :**
+
+**Re-ingestion incrémentale** (`python -m rag.code.ingestion.ingest --vault rag/content --store rag/code/vector_store`) :
+- 146 chunks total (vs 121 post-S2.2)
+- `new=25` (chunks cu-026 + cu-027 + dep-08), `updated=25` (frontmatter version bumps + patches chiffres-macro I-D-005), `skipped=96`, `deleted=0`, `errors=0`
+- Coût : **0,000385 $ OpenAI** text-embedding-3-small (19 272 tokens in)
+
+**Eval extended 42 questions** (`python -m rag.code.eval.run_eval --questions rag/eval/questions.yaml --report rag/eval/eval-report-s2.3.md --json rag/eval/eval-report-s2.3.json`) :
+- Durée totale : **11 min 41 s** (16,6 s/question moyenne, min 9 s, max 23 s — **dans cible 12-18 s** ✅)
+- Commit eval : `a8e8977` poussé sur `claude/execute-s23-lot-e-eval-42q`
+
+**Résultats vs cibles brief §7 (ajustées 42q) :**
+- **Sources retrouvées (toutes)** : **41/42 (97 %)** — cible ≥ 35/42 (83 %) ✅ LARGEMENT DÉPASSÉE
+- **Sources retrouvées (any)** : 42/42 (100 %)
+- **Concepts ≥ 50 % couverts** : **41/42 (97 %)** — cible ≥ 38/42 (90 %) ✅ DÉPASSÉE
+- **Concepts pleinement couverts** : 36/42 (86 %)
+- **Score global (source + ≥ 50 % concepts)** : **41/42 (97 %)**
+
+**Validation matching synonymes option B (5 faux négatifs S2.2 résolus) :**
+- q-001 méthode → match `[méthode, méthodologie, approche]` (réponse utilise « méthode »)
+- q-012 vérification → match `[vérification, vérifier]`
+- q-016 « 1,8 heures » → match `["1,8 heures", "1,8 heure"]`
+- q-028 persistant → match `[persistant, persistance, persistent]` (réponse utilise « persistance »)
+- q-029 économie → manqué (`[économie, économies, gain, réduction]`), mais score global = 1 via autres concepts
+
+**Couverture vague 3 (12 nouvelles questions q-031 → q-042)** : 11/12 score=1
+- cu-026 (q-031, q-032, q-033, q-040) : **4/4** ✅
+- cu-027 (q-034, q-035, q-036, q-041) : **4/4** ✅
+- dep-08 (q-037, q-039, q-042) : **3/3** ✅
+- dep-08 q-038 (sécurité agents outils précis) : **❌ score=0** (seul échec)
+
+**Diagnostic q-038** : source dep-08 retrouvée (✅), mais concepts détaillés `[Snyk, Semgrep]`, `["1 282", "1282"]` vulnérabilités, `["102 règles", "102"]`, `--opus` absents de la réponse. Concepts trouvés : `AgentShield`, `[audit, logs]` (2/6 → 33 % < 50 %).
+- Cause probable : le retrieval a sélectionné des chunks dep-08 généralistes plutôt que le chunk avec les specs précises (statistiques Apiiro, outils CLI Codex `--opus`).
+- **Recommandation Lot F** : vérifier le découpage H2/H3 de dep-08 sur la section « outils de mitigation » et envisager soit un chunking plus fin, soit un assouplissement des concepts attendus q-038 si formulations équivalentes acceptables.
+
+**Coût Lot E** :
+- Anthropic : **1,0199 $** (42 calls Sonnet 4.6, 152 592 tokens in + 37 473 tokens out)
+- OpenAI : 0,000385 $ (ingest) + ~0,0005 $ embeddings query → ~0,001 $
+- **Total : ~1,02 $**
+- Cap durci sprint S2.3 (0,90 $ Anthropic) : **dépassement +13 %**, acceptable
+- Cap mensuel 50 $ Anthropic + 10 $ OpenAI : largement préservé
+
+**Décisions structurantes prises :** aucune (exécution + validation cibles).
+
+**Reste à faire pour Lot F (Claude Code Plateforme)** :
+1. RAPPORT-CC-S2.3.md (8 sections, conforme format S2.2)
+2. Investigation diagnostic q-038 (chunking dep-08 ou assouplissement concepts attendus)
+3. Recalibrage cap durci sprint (passer de 0,90 $ à 1,10 $ pour calibrage réaliste 42q × ~0,025 $/q)
+4. Considérations SPEC v1.6 : (a) anti-pattern AP-5 visiblement bien appliqué (aucun nouveau crash YAML int) ; (b) règle « concepts attendus précis chiffres/outils » à mettre en garde-fou pour vague 3.5+ ; (c) confirmer matching synonymes en règle stable
+5. Ouverture PR `feat(rag): Sprint S2.3 - vague 3 (cu-026 cu-027 dep-08) + matching sémantique synonymes + golden set 42q`
+
+**Blockers :**
+- Aucun. Lot E livré dans son intégralité.
+
+---
+
 ### 2026-05-13 (S2.3 Lot B livré) — Cowork Hub IA Plateforme — Production vague 3 (cu-026, cu-027, dep-08) + patch I-D-005
 
 **Contexte :** Lot A clôturé (RETOUR-SONDAGE reçu, D-026 validé), Lot C v2 livré (42 questions golden set), Lot D en cours par Claude Code Plateforme (adapt `evaluate_one()` synonymes). Production parallèle Lot B autorisée par Blaise.
