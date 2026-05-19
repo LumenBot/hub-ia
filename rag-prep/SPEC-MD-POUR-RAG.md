@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.5 (8 règles + R9 + R10 + exception R1 + politique whitelist + R6 warning par défaut codifié + options strict documentées + AP-5 YAML int + formalisation pattern extraction wikilinks + §Performances latence + §Validation eval réelle garde-fou)
-**Dernière mise à jour :** 13 mai 2026 (révision post-S2.2 — 4 propositions Plateforme RAPPORT-CC-S2.2 §6 validées par Cowork)
+**Statut :** v1.6 (v1.5 + cap budgétaire par sprint + précision D-025 « ossature complète ≠ transverse » + AP-6 synonymes excessifs + garde-fou concepts détaillés vague 3.5+)
+**Dernière mise à jour :** 13 mai 2026 (révision post-S2.3 — 4 propositions RAPPORT-CC-S2.3 §6 validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -211,6 +211,16 @@ Pour le RAG, certaines briques sémantiques (vigilances communes, patterns récu
 - Concept indépendant sémantiquement (peut être indexé seul et servir une réponse autonome)
 - Concept stable dans le temps (peu d'évolution attendue) OU concept dont la mise à jour centralisée évite la dérive (ex. chiffres macro)
 
+**Précision D-025 post-S2.3 — ossature complète d'un module ≠ brique transverse extractible** (issue RAPPORT-CC-S2.3 §6 P2, validée empiriquement par RETOUR-SONDAGE-COWORK-HUB-IA-S2.3 sur le pattern « agent = employé » de CU-026) :
+
+Si un concept constitue l'**ossature complète** d'un module — c'est-à-dire qu'il en structure le titre de Section 1, un Takeaway exec, ET la base d'un framework structurant du module — alors **il ne doit PAS être extrait en transverse**, même s'il est mentionné dans un autre module.
+
+Une mention satellite avec wikilink depuis un autre module ne constitue pas une duplication justifiant l'extraction : la dissymétrie « module dédié + mention satellite » est éditorialement saine et n'introduit pas de dette de maintenance significative.
+
+Critère de test : si on retirait le concept du module candidat, le module perdrait-il son ossature ? Si oui → pas d'extraction. Si non → l'extraction reste possible selon les autres critères.
+
+*Exemple d'application* : le pattern « agent = employé » est l'ossature complète de CU-026 (Gouvernance des agents IA) — titre Section 1, Takeaway 3, base conceptuelle des 7 dimensions du framework. CU-014 (Multi-agents) ne fait qu'y faire un renvoi wikilink. **Décision** : pas d'extraction en `transverses/pattern-agent-employe.md`, maintien dans CU-026 entier.
+
 **Catégories de briques transverses** (à enrichir au fil des productions) :
 - `vigilance-{slug}.md` — patterns de vigilance commune (hallucinations, confidentialité, dépendance vendor, etc.)
 - `pattern-{slug}.md` — patterns récurrents (build-vs-buy, rag-vs-fine-tuning, etc.)
@@ -251,7 +261,29 @@ Pour le RAG, certaines briques sémantiques (vigilances communes, patterns récu
 10. **AP-5 — Valeurs numériques non quotées dans `expected_concepts`** (golden set eval, issue S2.2 Lot D blocker) : toute valeur du champ `expected_concepts` d'une entrée du golden set YAML qui commence par un chiffre doit être **explicitement quotée** (`"95 %"`, `"1,8 heures"`, `"21 %"`). PyYAML parse sinon les nombres en `int`/`float`, faisant crasher `evaluate_one()` sur `int.lower()`.
    - *Cas réels détectés* (S2.2 Lot D) : q-016 (`[1,8, heures, McKinsey]` → `1,8` lu comme float), q-019 (`[95, ROI, ...]` → `95` int), q-027 (`[21, McKinsey, workflow]` → `21` int).
    - *Recommandation* : à chaque ajout d'une question au golden set, vérifier visuellement le typage YAML. À terme, soit défense côté code (`str(c).lower()` dans `evaluate_one`), soit pre-commit golden set côté Cowork (audit YAML).
-   - *Statut* : anti-pattern fort, sans automatisation d'audit immédiate (le passage à `str(c).lower()` côté Plateforme reste à acter en S2.3 ou ultérieur).
+   - *Statut* : anti-pattern fort. Renforcé côté Plateforme via Lot D S2.3 — `concept_matched()` applique `str(syn).lower()` défensivement.
+
+11. **AP-6 — Synonymes excessifs dans `expected_concepts` liste de listes** (option B matching sémantique, issue RAPPORT-CC-S2.3 §6 P3) : une entrée `expected_concepts` au format liste de listes (synonymes pour un même concept) ne doit **pas dépasser 4 synonymes**. Plafond recommandé : **2-4 synonymes par concept**.
+   - *Risque* : au-delà de 4 synonymes, augmentation linéaire du risque de **faux positifs** (un synonyme large matche un concept différent de celui visé). Exemple : `[économie, économies, gain, réduction, optimisation, performance]` matcherait « économie d'énergie » qui n'est pas le concept attendu.
+   - *Variations à privilégier* : morphologiques évidentes (substantif/verbe : `vérification/vérifier`), pluriel/singulier (`heures/heure`), racine commune (`persistant/persistance/persistent`). Éviter les synonymes thématiquement proches mais sémantiquement distincts.
+   - *Recommandation* : audit visuel à chaque ajout/modification. Si plus de 4 synonymes semblent nécessaires, c'est probablement que le concept est mal défini — le scinder en 2 concepts distincts est préférable.
+
+---
+
+## Conception MD et questions golden set — garde-fou « concepts détaillés » (issue RAPPORT-CC-S2.3 §6 P4)
+
+Quand une question du golden set cible des **specs techniques précises** — chiffres exacts (« 1 282 tests », « 102 règles »), noms d'outils nommés (Snyk, Semgrep, AgentShield), paramètres CLI (`--opus`, `--strict-r6`) — deux disciplines complémentaires doivent être appliquées simultanément :
+
+1. **Côté MD source** : prévoir une **sous-section H3 dédiée** dans le module concerné, regroupant les specs précises en un chunk identifiable. Le retrieval RAG est plus susceptible de retourner un chunk H3 ciblé « specs opérationnelles AgentShield » que de capter ces specs noyées dans un chunk H2 généraliste « outils de mitigation ».
+
+2. **Côté `expected_concepts`** : prévoir un format **plus tolérant aux variations numériques** via l'option B (liste de synonymes). Exemples :
+   - `["1 282", "1282", "1 282 tests", "milliers de tests"]` plutôt que `1 282` scalaire
+   - `["102 règles", "102", "centaine de règles"]` plutôt que `102 règles` scalaire
+   - `["--opus", "mode --opus", "mode Opus"]` plutôt que `--opus` scalaire
+
+**Pourquoi cette double discipline** : l'eval S2.3 Lot E a identifié q-038 (dep-08 sécurité agents) comme seul échec score=0 sur 42 questions. La source dep-08 a bien été retrouvée, mais les concepts détaillés (Snyk, Semgrep, « 1 282 », « 102 règles », `--opus`) étaient absents de la réponse — le retrieval avait sélectionné des chunks dep-08 généralistes plutôt que le chunk « outils de mitigation » avec les specs précises. Le découpage H3 + format `expected_concepts` tolérant aurait permis d'éviter cet échec en amont.
+
+**Application pratique** : lors de la production d'un nouveau module ou de la rédaction d'une question golden set, **identifier ex-ante les concepts détaillés** (chiffres exacts, noms d'outils précis, paramètres) et appliquer la double discipline. À auditer dans la revue de production MD et dans la revue de questions golden set.
 
 ---
 
@@ -283,6 +315,20 @@ Cible latence par question recalibrée empiriquement post-S2.2 Lot E.2 sur 30 qu
 **Cible précédente abandonnée** : la cible 5 s/question des briefs S1 et S2.2 était irréaliste pour Sonnet 4.6 sur ces volumes. Elle reste valable comme objectif optimisation S3+ avec Haiku 4.5 si la qualité est maintenue.
 
 **Application briefs futurs** : tout brief Desktop/Plateforme qui exécute une eval doit utiliser la cible 12–18 s/question pour Sonnet 4.6. Ne pas reproduire la cible 5 s du brief S2.2 (corrigée post-mortem dans le RAPPORT-CC-S2.2 §6 P3).
+
+### Cap budgétaire par sprint (issue RAPPORT-CC-S2.3 §6 P1)
+
+Cap durci par sprint recalibré post-S2.3 (mesure empirique Lot E sur 42 questions = ~0,025 $/q Sonnet 4.6 sur volumes ~3-5k tokens in / ~0,5-1,5k tokens out) :
+
+| Volume eval | Cap durci sprint (Anthropic) | Note |
+|---|---|---|
+| ≤ 20 questions | 0,55 $ | Cap S2.2 conservé pour évals légères |
+| 20-40 questions | 0,90 $ | Cap intermédiaire |
+| **40-50 questions** | **1,10 $** | Cap calibré sur S2.3 (42q × 0,025 $/q = 1,05 $ + marge variance ~5 %) |
+| 50-60 questions | 1,35 $ | Extrapolation linéaire — à confirmer empiriquement |
+| > 60 questions | À cadrer ad hoc | Considérer eval ciblée par sous-ensemble ou bascule Haiku 4.5 |
+
+Le cap durci sprint est une **alerte opérationnelle**, pas un hard-stop absolu (cf. décision S2.2 Lot D). Tant que le cap mensuel D-013 (50 $/mois Anthropic) est respecté, un dépassement de cap durci est acceptable s'il est documenté ex-ante au RAPPORT-CC-* du sprint.
 
 ---
 
@@ -336,5 +382,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.3 | 12 mai 2026 | + Exception structurelle R1 pour fichiers racines transverses (D-028, issue S1bis catégorie A) ; + Politique des wikilinks vers MD planifiés (D-029, issue S1bis catégorie B) ; roadmap audit v2 enrichie de 3 évolutions (exception R1, R4 tolérante, R6 reconnaît wikilinks canoniques) |
 | v1.4 | 12 mai 2026 | + Codification R6 warning par défaut (issue RAPPORT-CC-S2.1 §5 P1 — convention déjà appliquée empiriquement par Claude Code Plateforme audit v2) ; + Documentation des options `--strict-future` et `--strict-r6` (issue P3) ; + Roadmap audit v3 enrichie : R5 v3 « première occurrence seulement » (P2 reportée audit v3) et R11 « outil glossarié wikilinké » (inspiré couple 1 v3.9 Règle I.1 cross-site outils, application différée audit v3) |
 | v1.5 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.2 §6 (validation Cowork post-clôture S2.2) : (1) AP-5 valeurs numériques non quotées dans `expected_concepts` (anti-pattern fort, validation visuelle au commit Cowork) ; (2) Formalisation des deux patterns d'extraction côté code RAG — `WIKILINK_CITATION_PATTERN` préféré + `BRACKET_CITATION_PATTERN` rétro-compat (sous-section dans R4) ; (3) Nouvelle section §Performances : recalibrage cible latence Sonnet 4.6 à 12-18 s/question (cible 5 s S1/S2.2 abandonnée comme irréaliste) ; (4) Nouvelle section §Validation : eval réelle comme garde-fou structurel pré-clôture sprint (toute évolution prompt/regex/modèle/chunking déclenche rejeu eval, mocks ≠ substituable). |
+| v1.6 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.3 §6 (validation Cowork post-clôture S2.3 — sprint clôturé à 41/42 score global) : (1) Cap budgétaire par sprint formalisé en §Performances (recalibrage 0,90 $ → 1,10 $ pour 42q, table par volume) ; (2) Précision D-025 en §Briques transverses : « ossature complète d'un module ≠ brique transverse extractible » (validé empiriquement RETOUR-SONDAGE sur pattern « agent = employé » CU-026) ; (3) AP-6 : synonymes excessifs dans `expected_concepts` liste de listes (plafond 2-4 synonymes, anti-faux-positifs) ; (4) Nouvelle section §Conception MD et questions golden set : garde-fou « concepts détaillés » (sub-section H3 dédiée + format `expected_concepts` tolérant aux variations numériques, issue diagnostic q-038). |
 
-**Évolution prévue** : enrichissement en v1.6+ post-S2.3 sur la base du matching sémantique synonymes (option 2 Cowork) et d'éventuelles nouvelles anomalies détectées en eval réelle.
+**Évolution prévue** : enrichissement en v1.7+ post-S2.4 sur la base du fix q-038 (refactor chunking dep-08), de la vague 4 production MD (modules denses restants), et d'éventuelles décisions structurantes émergentes.
