@@ -11,7 +11,7 @@
 
 ## Entrées
 
-### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 livrés) — Cowork Hub IA Plateforme — Extraction pattern-persistent-memory + refactor CU-008 + DEP-02 + patches CU-026/CU-027/DEP-08
+### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 + F.4 livrés) — Cowork Hub IA Plateforme — pattern-persistent-memory + refactor CU-008/DEP-02 + patches CU-026/CU-027/DEP-08 + nouveau module PR-08
 
 **Contexte :** RETOUR-SONDAGE-COWORK-HUB-IA-S2.4 reçu (2e application D-026, 11 sous-passages confirmés/rectifiés + 5 bonus). Décision Cowork validée : extraction transverse `pattern-persistent-memory.md` recommandée (D-025 SPEC v1.6 satisfait, symétrique pattern-llm-wiki). **Rectification critique du RETOUR §3.4** : le tableau §4 DEP-02 (« Tableau de décision RAG ») n'a **pas** été modifié en v3.10/v3.11 — la nouvelle ligne « agent avec mémoire conversationnelle » est dans un **mini-tableau distinct** (§2bis « Implication opérationnelle »). À préserver les 2 tableaux séparés, **ne pas fusionner**.
 
@@ -55,6 +55,36 @@
 - Coût : **0,00 $** (Lot Cowork pur éditorial)
 
 **Pattern Lot D-ter appliqué systématiquement** : lead bridge enrichi avec vocabulaire question canonique attendu dans le golden set vague 4 (« 4 patterns Microsoft Frontier Firms pour la collaboration humain-agent IA », « SBOM IA et supply chain — sécuriser la chaîne de dépendances agents »). Anticipation retrieval Lot I.
+
+- **Lot F.4 — Production nouveau module PR-08 « Financer son projet IA en 2026 »** (création from scratch, première production module post-S2.3 sans précédent MD) :
+  - Frontmatter conforme SPEC v1.6 : `code: pr-08`, type prealable-pr, axe transverse, niveau 3, tags fiscalité-IA + dispositifs, v3.11.0
+  - **10 sections H2** : 7 sections canoniques RETOUR §1.1 (Pourquoi 2026 change tout / Fiscalité 7 dispositifs / France 2030 / 2 deadlines juin / 4 leviers Bpifrance / Méthode 5 étapes + 5 pièges / Plan 30 jours) + Essentiel + Public + Pour aller plus loin
+  - **Tableau 7 dispositifs fiscaux canoniques** (RETOUR §1.1) : CIR, CII, 🆕 CII-IA, JEI, 🆕 JEII, CICO, C3IV avec colonnes Statut 2026 / Cible / Spécificité IA
+  - **5 profils PME** + dispositifs prioritaires (« quel dispositif pour quel profil »)
+  - **Règle des 5 étapes** (séquence chronologique : diagnostic → CIR/CII → CII-IA → JEI/JEII → AAP régionaux/France 2030)
+  - **5 pièges à éviter** (démarrer par AAP sans diagnostic, confondre CIR/CII, oublier CII-IA, JEI déclarée trop tard, ignorer guichets régionaux)
+  - **Plan d'action 30 jours** en 4 étapes hebdomadaires
+  - **Chiffres canoniques cités** (12 occurrences) : 240 M€ Bpifrance ×14 (wikilink chiffres-macro-2026 I-D-006), 25 M€ IA Booster, 40 % diagnostics Data IA, 15 M professionnels formés visés 2030, 460 Data AI Diagnostics 2025, 9 403 dirigeants formés Bpifrance Université, 15 000+ PME formées
+  - **Wikilinks** : `[[pr-04]]` (callout-info §1), `[[dep-04]]` (callout-info §2), `[[cu-027]]` (mention discrète stack ECC §2 + Pour aller plus loin), `[[chiffres-macro-2026]]`
+  - **Rectifications RETOUR §1.3 respectées** : aucun wikilink vers PR-07 (« couple 1 tranche, couple 2 s'aligne ») ; aucun cas-école PME nommé (approche cartographique méthodologique différente de CU-026 Klarna ou CU-027 Tea App) ; aucun plafond CIR détaillé (« non cité côté HTML, ne pas inventer ») ; aucune deadline AAP au-delà des 2 de juin 2026
+  - **Mentions sources institutionnelles** : BOFIP, impots.gouv.fr, financeinnovation.fr, economie.gouv.fr, presse.economie.gouv.fr, entreprises.gouv.fr, Bpifrance, Bpifrance Le Lab, grandest.fr (cohérence territoriale Quai Alpha)
+  - **Volume** : 178 lignes / 2149 mots (cible RETOUR ~150 lignes équivalent PR-07 légèrement dépassée, acceptable car module structurant cartographie 7 dispositifs)
+  - **Whitelist mise à jour** : `pr-08` retiré (RULES 7→8 préalables effective côté MD)
+
+**Métriques Lot F.4 :**
+- 1 fichier MD nouveau (`rag/content/prealables/pr-08.md`)
+- 1 fichier vivant : whitelist v2 → v2.1 (pr-08 retiré, RULES 7→8 préalables)
+- Coût : **0,00 $** (Lot Cowork pur éditorial)
+
+**Décisions structurantes Lot F.4 :**
+- **2e application D-026 validée sur module from scratch** : PR-08 produit avec 0 dérive sémantique majeure détectable (vs S2.3 où CU-027 avait 3 hypothèses incorrectes nécessitant rectification). Le sondage préalable a évité les pièges (cas-école inventé, plafonds CIR extrapolés, wikilink PR-07 artificiel).
+- **Pattern de production from scratch avec sondage D-026** confirmé efficace pour modules sans précédent MD. À reconduire systématiquement pour Lot F.5 (7 modules à produire from scratch).
+
+**Récap consolidé Phase 2 — Lots F.1 + F.2 + F.3 + F.4 livrés** :
+- 5 fichiers MD impactés : pattern-persistent-memory (nouveau brique transverse), cu-008 (refactor), dep-02 (refactor), cu-026 (patch), cu-027 (patch), dep-08 (patch), pr-08 (nouveau module)
+- 2 fichiers vivants : JOURNAL, STATUS, whitelist mis à jour
+- Coût total Phase 2 : **0,00 $** (pur Cowork éditorial)
+- Reste Phase 3 : Lot F.5 (production 7 modules whitelistés = CU-020/CU-024/DEP-01/DEP-05/DEP-07/PR-01/PR-04/PR-05 — reporté Option A validée Blaise), Lots G/H/I/J (golden set + eval + RAPPORT + PR finale)
 
 **Reste à faire S2.4 Phase 3 (Lots F.3 à J)** :
 - Lot F.3 : patches 10 modules existants (CU-020 + CU-024 + CU-026 §3bis Frontier Firms + CU-027 + DEP-01 + DEP-05 + DEP-07 + DEP-08 + PR-01 + PR-04 + PR-05)
