@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">28 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">32 min de lecture</span>
       </div>
       <h1>🔭 Agents en production : observabilité et garde-fous</h1>
       <p class="module-subtitle">89 % des organisations ont une forme d'observabilité pour leurs agents, 94 % parmi celles en prod. La qualité reste le blocker n°1 (32 %), la sécurité monte en n°2 (24,9 %). Voici le cadre opérationnel.</p>
@@ -640,8 +640,75 @@ validation_prompt = "Le CR contient-il au moins 3 décisions et 5 actions assign
           <p>🏛️ <strong>Lien avec le module Gouvernance des agents IA&nbsp;:</strong> les Agent Skills s'inscrivent parfaitement dans ce framework de gouvernance — chaque Skill est une compétence avec son onboarding, ses KPI, son périmètre. Voir le module <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>.</p>
         </div>
 
+        <h3>8.5 Le pattern « Failure receipts &amp; ownership »</h3>
+
+        <div class="callout callout-warn">
+          <p><strong>Le constat — un agent peut faire des dégâts irréversibles en quelques secondes.</strong></p>
+          <p style="margin-top: var(--space-3);">Un coding agent a supprimé <strong>une base de production + ses backups en 9 secondes</strong>. Sans traçabilité forensique, l'incident devient ingouvernable&nbsp;: qui était responsable&nbsp;? Que faisait l'agent à ce moment&nbsp;? Pourquoi le garde-fou a-t-il failli&nbsp;? Ce cas n'est pas isolé — il illustre <strong>la nouvelle classe de risques agentiques 2026</strong> (cf. <a href="../prealables/pr-05-securite-ia.html#risques-agentiques" class="tool-link">Sécurité IA — Risques agentiques 2026</a>).</p>
+        </div>
+
+        <p><strong>Le pattern correctif — failure receipt + human owner.</strong> Tout agent en production doit pouvoir produire un <strong>failure receipt</strong> complet en cas d'incident&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Élément du failure receipt</th>
+              <th>Question répondue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Inputs reçus</strong></td><td>Quel prompt / contexte / donnée d'entrée a déclenché l'action&nbsp;?</td></tr>
+            <tr><td><strong>Actions entreprises</strong></td><td>Quelle séquence d'appels tools / décisions internes a été exécutée&nbsp;?</td></tr>
+            <tr><td><strong>Vérification des résultats</strong></td><td>Quelles validations (gates TOML, LLM-as-judge) ont été passées ou contournées&nbsp;?</td></tr>
+            <tr><td><strong>Propriétaire clair</strong></td><td>Qui est le human owner de l'agent&nbsp;? Qui contacter immédiatement&nbsp;?</td></tr>
+          </tbody>
+        </table>
+
+        <div class="pull-quote">
+          <p>Sans cette traçabilité élémentaire, <strong>l'agent ne doit pas être autorisé près des systèmes critiques</strong>.</p>
+        </div>
+
+        <h4>Implications opérationnelles</h4>
+        <ul>
+          <li><strong>Pour chaque agent en production</strong>&nbsp;: checklist gouvernance enrichie (à intégrer aussi dans <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>).</li>
+          <li><strong>Pour chaque outcome agent</strong>&nbsp;: un <strong>human owner désigné</strong> (cohérent avec le pattern « agent = employé »&nbsp;: chaque employé a un manager).</li>
+          <li><strong>Cohérence avec §8.2 (gates TOML)</strong>&nbsp;: les gates bloquent en amont, le failure receipt documente en aval.</li>
+          <li><strong>Cohérence avec §3 (garde-fous) et la fiche <a href="dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents et MCP</a></strong>&nbsp;: le failure receipt est la <strong>traçabilité forensique</strong> complémentaire des défenses préventives.</li>
+        </ul>
+
+        <h3>8.5bis Le pattern « Effective Harnesses pour agents long-running »</h3>
+
+        <p><strong>Le constat</strong>&nbsp;: les patterns §8.1 à §8.4 couvrent l'orchestration intra-session. Manque la dimension <strong>continuité cross-sessions</strong> pour les agents qui tournent sur des tâches multi-heures ou multi-jours (refactor de codebase, audit complet, projet itératif).</p>
+
+        <p><strong>Le pattern two-agent harness</strong> (Anthropic Engineering, mars 2026) — architecture à 2 rôles complémentaires&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Rôle</th>
+              <th>Mission</th>
+              <th>Artefacts produits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Initializer agent</strong></td><td>Crée le projet, les scripts d'init, la feature list structurée, le progress log</td><td><code>claude-progress.txt</code>, fichiers de structure, premier commit git</td></tr>
+            <tr><td><strong>Coding agent</strong></td><td>Implémente <strong>une feature par session</strong>, exécute les tests E2E, met à jour le progress log</td><td>Code, tests, mises à jour <code>claude-progress.txt</code>, commits git</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-info">
+          <p>💡 <strong>Insight clé</strong>&nbsp;: <strong>les artefacts externes deviennent la mémoire de l'agent</strong>. Chaque session reconstruit son contexte à partir du progress log + de l'historique git. Pas de mémoire interne persistante (cohérent avec le signal RAG vs persistent memory de la fiche <a href="../modules/cu-008-knowledge-base-rag.html#llm-wiki-shelf-life" class="tool-link">Knowledge base RAG — Durée de vie des stacks</a>).</p>
+        </div>
+
+        <h4>Implications pour la PME</h4>
+        <ul>
+          <li><strong>Cas d'usage typique</strong>&nbsp;: projet de migration / refactor majeur d'une application, audit qualité complet d'un repo, génération itérative d'un site / d'une documentation.</li>
+          <li><strong>Stack</strong>&nbsp;: framework existant (<a href="../ressources.html#claude-code" class="tool-link">Claude Code</a>, <a href="../ressources.html#cursor" class="tool-link">Cursor</a>) + discipline d'externalisation des artefacts.</li>
+          <li><strong>Pas un investissement infra lourd</strong>&nbsp;: surtout une discipline d'organisation des fichiers et du process.</li>
+        </ul>
+
         <div class="callout callout-info" style="margin-top: var(--space-6);">
-          <p><strong>Synthèse</strong>&nbsp;: la production en 2026, ce n'est plus une pipeline RAG bien réglée. C'est une <strong>stack en 9 couches</strong>, des <strong>gates contractuelles</strong> sur chaque livrable, une <strong>exécution de code</strong> qui filtre les données avant le modèle, et des <strong>compétences chargées dynamiquement</strong>. La barre s'est levée. La bonne nouvelle&nbsp;: aucun de ces 4 patterns n'exige une équipe de 20 ingénieurs. Tous sont accessibles à une PME outillée — à condition de les empiler dans le bon ordre.</p>
+          <p><strong>Synthèse</strong>&nbsp;: la production en 2026, ce n'est plus une pipeline RAG bien réglée. C'est une <strong>stack en 9 couches</strong>, des <strong>gates contractuelles</strong> sur chaque livrable, une <strong>exécution de code</strong> qui filtre les données avant le modèle, des <strong>compétences chargées dynamiquement</strong>, des <strong>failure receipts</strong> pour la forensique et une <strong>discipline d'externalisation</strong> pour les agents long-running. La barre s'est levée. La bonne nouvelle&nbsp;: aucun de ces 6 patterns n'exige une équipe de 20 ingénieurs. Tous sont accessibles à une PME outillée — à condition de les empiler dans le bon ordre.</p>
         </div>
       </section>
 
@@ -668,6 +735,10 @@ validation_prompt = "Le CR contient-il au moins 3 décisions et 5 actions assign
             <li><a href="https://x.com/wernerk_au" target="_blank" rel="noopener">Compte X @wernerk_au — Audit 7 cycles LLM-agent + pattern gates TOML</a><span class="resources-meta">Mai 2026</span></li>
             <li><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">Anthropic Engineering — Code Execution with MCP</a><span class="resources-meta">Réduction tokens 60-80 % sur workflows longs (mai 2026)</span></li>
             <li><a href="https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills" target="_blank" rel="noopener">Anthropic Engineering — Equipping agents for the real world with Agent Skills</a><span class="resources-meta">Compétences agent chargées dynamiquement (mai 2026)</span></li>
+            <li><a href="https://x.com/CliffDoesAI/status/2056511828952273286" target="_blank" rel="noopener">@CliffDoesAI — Failure receipt &amp; ownership pattern</a><span class="resources-meta">19 mai 2026 — coding agent supprime base prod + backups en 9 secondes</span></li>
+            <li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener">Anthropic Engineering — Effective harnesses for long-running agents</a><span class="resources-meta">Nov. 2025 — patterns continuité cross-sessions</span></li>
+            <li><a href="https://www.anthropic.com/engineering/" target="_blank" rel="noopener">Anthropic Engineering — Harness Design for Long-Running Application Development</a><span class="resources-meta">Mars 2026 — pattern two-agent harness (initializer + coding)</span></li>
+            <li><a href="https://github.com/anthropics/cwc-long-running-agents" target="_blank" rel="noopener">GitHub Anthropic — cwc-long-running-agents</a><span class="resources-meta">Implémentation de référence du two-agent harness</span></li>
           </ul>
         </div>
 
