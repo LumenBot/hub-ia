@@ -112,6 +112,49 @@ def audit_coherence_numerique():
                     'line': line,
                     'issue': f"« {m.group(0)} » mais réel = {expected}",
                 })
+
+    # Stat blocks DOM : value et label sont séparés par des balises HTML, donc
+    # les regex texte-pur ci-dessus ne les voient pas. On parse les couples
+    # *-stat-num / *-stat-label adjacents et on mappe le label vers la valeur
+    # attendue (fiches outils, modules, préalables, fiches Déploiement).
+    label_to_real = {
+        'fiches outils': real['fiches_outils'],
+        'outils essentiels': real['fiches_outils'],
+        'modules': real['modules'],
+        'modules cas d\'usage': real['modules'],
+        'cas d\'usage': real['modules'],
+        'préalables': real['prealables'],
+        'fiches déploiement': real['fiches_dep'],
+        'fiches dep': real['fiches_dep'],
+    }
+    stat_pattern = re.compile(
+        r'(?:hero-stat|exec-stat|stat)-num"?>(\d+)\s*</(?:span|div)>\s*'
+        r'<(?:span|div) class="(?:hero-stat|exec-stat|stat)-label"?>([^<]+)</',
+        re.IGNORECASE,
+    )
+    for path in ('index.html', 'prealables.html', 'ressources.html',
+                 'architectures.html', 'deploiement.html'):
+        full = os.path.join(ROOT, path)
+        if not os.path.exists(full):
+            continue
+        s = read(full)
+        for m in stat_pattern.finditer(s):
+            value = int(m.group(1))
+            label_raw = m.group(2)
+            label_norm = re.sub(r'<[^>]+>', ' ', label_raw)  # strip <br>
+            label_norm = re.sub(r'\s+', ' ', label_norm).strip().lower()
+            expected = label_to_real.get(label_norm)
+            if expected is None:
+                continue
+            if value != expected:
+                line = s[:m.start()].count('\n') + 1
+                hits.append({
+                    'rule': '1 — Cohérence numérique',
+                    'file': path,
+                    'line': line,
+                    'issue': f"stat block « {value} {label_norm} » mais réel = {expected}",
+                })
+
     return hits, real
 
 
