@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 19 mai 2026 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 livrés — pattern-persistent-memory + refactor CU-008/DEP-02 + patches CU-026/CU-027/DEP-08)
-**Sprint en cours :** **S2.4 en cours** — Phase 1 clôturée (q-038 score=1). **Phase 2 quasi clôturée** : Lots E + F.1 + F.2 + F.3 livrés (sondage D-026, pattern-persistent-memory, refactor CU-008/DEP-02, patches 3 modules existants CU-026 §3bis Frontier Firms / CU-027 §1bis Point 4 Stanford / DEP-08 §7bis SBOM IA). Constat : 7 modules cibles RETOUR Lot F.3 non encore produits (à reporter en Lot F.5 — production from scratch CU-020 + CU-024 + DEP-01 + DEP-05 + DEP-07 + PR-01 + PR-04 + PR-05). Reste **Lot F.4 (nouveau module PR-08)** + Phase 3 (Lots G/H/I/J = whitelist + golden set vague 4 + eval + RAPPORT-CC-S2.4).
+**Dernière mise à jour :** 19 mai 2026 (S2.4 Phase 2 clôturée — Lots E + F.1 + F.2 + F.3 + F.4 livrés)
+**Sprint en cours :** **S2.4 en cours, Phase 2 clôturée** ✅ — sondage D-026, brique transverse pattern-persistent-memory, refactor CU-008/DEP-02, patches 3 modules existants (CU-026 §3bis Frontier Firms / CU-027 §1bis Stanford / DEP-08 §7bis SBOM IA), **nouveau module PR-08 « Financer son projet IA en 2026 » produit** (10 H2, tableau 7 dispositifs fiscaux, 5 profils PME, règle 5 étapes, 5 pièges, plan 30j, 12 chiffres canoniques cités). Option A validée Blaise : production 7 modules whitelistés (CU-020/CU-024/DEP-01/DEP-05/DEP-07/PR-01/PR-04/PR-05) reportée en sprint S2.5 dédié. Reste **Phase 3 S2.4** : Lots G/H/I/J = whitelist/cartographie/glossaire + golden set vague 4 (cible ~50q) + eval extended (~1,25 $) + RAPPORT-CC-S2.4 + PR finale.
 **Période S2.4 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA + Blaise + Claude Code Plateforme + Claude Code Desktop. Sprint S2.3 clôturé (PR #56 mergée, score 41/42).
 

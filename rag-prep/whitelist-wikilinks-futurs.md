@@ -50,6 +50,7 @@
 | `pr-04` | Marché IA & emploi | 3-4 |
 | `pr-05` | Sécurité IA | 3-4 |
 | `pr-06` | Qualité du code IA | 3-4 |
+| ~~`pr-08`~~ | ~~Financer son projet IA en 2026 (nouveau préalable v3.10)~~ | ✅ **Produit S2.4 Lot F.4 — 13 mai 2026** (RULES 7→8 préalables, post-RETOUR-SONDAGE-S2.4 §1) |
 
 ## Fiches déploiement DEP planifiées (à produire vagues 3 à 5)
 
