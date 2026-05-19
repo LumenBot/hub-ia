@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">23 min de lecture</span>
       </div>
       <h1>🎯 Cadrer un projet IA pour la mise en production</h1>
       <p class="module-subtitle">95 % des projets GenAI en entreprise n'ont aucun impact P&amp;L mesurable. La cause n'est pas la technologie. C'est l'absence de cadrage. Voici comment ne pas faire partie des 95 %.</p>
@@ -252,6 +252,29 @@
         <div class="callout callout-info">
           <p>⚠️ <strong>Contexte 2026</strong>&nbsp;: <strong>le long context a déjà tué la moitié des cas RAG classiques</strong> (corpus &lt; 200 K tokens). Avant de mettre en place une stack RAG complexe, vérifier si un long context ne suffit pas. Voir le signal détaillé dans la fiche <a href="dep-02-rag-architecture-prod.html#section-2bis" class="tool-link">RAG en production §2bis</a>.</p>
         </div>
+
+        <h3 id="jagged-frontier" style="margin-top: var(--space-6);">Le « Jagged Frontier » de l'IA en 2026 — frontière dentelée des capacités</h3>
+
+        <div class="callout callout-info">
+          <p>🪨 <strong>« Jagged Frontier »</strong> (Stanford AI Index Report 2026) — l'IA n'est pas uniformément bonne ou mauvaise sur tous les sujets. C'est une <strong>frontière dentelée</strong>&nbsp;: excellente sur certaines tâches, défaillante sur d'autres pourtant proches.</p>
+        </div>
+
+        <p><strong>Exemples documentés par Stanford</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>Gemini Deep Think a gagné une médaille d'or à l'International Mathematical Olympiad</strong> (sommet du raisonnement mathématique)…</li>
+          <li>…mais <strong>le même modèle ne lit correctement l'heure sur une horloge analogique que 50,1 % du temps</strong> (tâche triviale pour un enfant de 7 ans).</li>
+          <li><strong>OSWorld</strong> (tests d'agents sur tâches PC réelles)&nbsp;: passage de <strong>12 % à 66 % de task success en un an</strong>…</li>
+          <li>…mais <strong>1 échec sur 3 reste</strong>, et les benchmarks structurés ne reflètent pas la variabilité des tâches du monde réel.</li>
+        </ul>
+
+        <p><strong>Implication pour le dirigeant PME qui cadre un projet IA</strong>&nbsp;:</p>
+
+        <ol>
+          <li><strong>Ne jamais extrapoler d'une démo réussie à un déploiement universel.</strong> Un agent qui marche sur 10 cas testés peut échouer catastrophiquement sur le 11e cas.</li>
+          <li><strong>Documenter le périmètre exact</strong> où l'IA est testée et valide. Tout ce qui sort de ce périmètre est <strong>frontière non testée</strong>.</li>
+          <li><strong>Maintenir un fallback humain</strong> sur tous les cas qui sortent du périmètre testé (cohérence avec le pattern « agent = employé » du module <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a> + <em>failure receipt</em> de la fiche <a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production §8.5</a>).</li>
+          <li><strong>Ne pas confondre « le modèle peut faire X » et « l'agent en production fera X de manière fiable »</strong>. La fiabilité opérationnelle est une propriété distincte de la capacité brute.</li>
+        </ol>
       </section>
 
       <!-- 5. NIST AI RMF -->
@@ -371,6 +394,7 @@
             <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The state of AI 2025 (mars)</a><span class="resources-meta">Étude annuelle 78 % adoption / 6 % EBIT &gt; 5 %</span></li>
             <li><a href="https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity" target="_blank" rel="noopener">HBR — AI-generated workslop is destroying productivity (sept. 2025)</a><span class="resources-meta">Coût caché de l'IA mal cadrée</span></li>
             <li><a href="https://x.com/LearnWithBrij/status/2053836732454572298" target="_blank" rel="noopener">@LearnWithBrij — Heuristique anti-hype architecture (mai 2026)</a><span class="resources-meta">80 % des échecs IA avant la première ligne de code — single LLM call d'abord</span></li>
+            <li><a href="https://aiindex.stanford.edu/" target="_blank" rel="noopener">Stanford HAI — AI Index Report 2026, chapitre 2 « Technical Performance »</a><span class="resources-meta">Jagged Frontier : Gemini IMO médaille d'or vs 50,1 % horloge analogique, OSWorld 12→66 %</span></li>
           </ul>
         </div>
 
