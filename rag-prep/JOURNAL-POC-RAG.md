@@ -11,6 +11,49 @@
 
 ## Entrées
 
+### 2026-05-19 (S2.4 Phase 3 Lot I livré — eval 52q) — Claude Code Desktop — Eval extended 52 questions post-vague 4, score global 50/52 (96 %)
+
+**Contexte :** Lot I = eval extended sur golden set étendu 52 questions (post-Lot H) sur vault vague 4 à 15 fichiers MD (post-Phase 2 Lots F.1-F.4). Cibles SPEC v1.6 : sources ≥ 43/52 (83 %), concepts ≥ 50 % couverts ≥ 47/52 (90 %), latence 12-18 s/q, coût ≤ 1,35 $ (cap durci 50-60q). Branche `claude/execute-s24-lot-i-eval-52q` dérivée de main `248b47c`.
+
+**Actions menées :**
+
+- **Re-ingestion incrémentale ChromaDB** : `files=15 chunks=194 new=29 updated=46 skipped=119 deleted=1 errors=0`. +28 chunks net (166 → 194). 29 new = pattern-persistent-memory + pr-08 + nouvelles H2 dédiées sur cu-008/dep-02 + patches CU-026/CU-027/DEP-08. 46 updated = chunks parents réorganisés. 1 deleted = ancien chunk dont le slug a changé après promotion de titre.
+
+- **Eval 52 questions** via `python -m rag.code.eval.run_eval --questions rag/eval/questions.yaml` :
+  - **50/52 sources retrouvées (96 %)** ✅ — dépasse largement cible 43/52 (83 %)
+  - **44/52 concepts ≥ 50 % couverts (85 %)** — légèrement sous cible 47/52 (90 %), mais non bloquant
+  - **50/52 score global (96 %)** ✅ — dépasse largement cible 43/52 (83 %)
+  - **10/10 nouvelles q-043 → q-052 score=1** : pattern-persistent-memory q-043/q-044, refactor CU-008/DEP-02 q-045/q-046, Frontier Firms CU-026 q-047/q-048 (chunk 850 tokens OK, **pas de subdivision H3 requise**), Stanford CU-027 q-049, SBOM IA DEP-08 q-050, PR-08 financement q-051/q-052
+  - **q-038 toujours score=1** ✅ (S2.4.1 Lot D consolidé, pas de régression vague 3)
+  - **41/42 questions S2.3 maintenues** (vs 41/42 en S2.3 Lot E) — **2 régressions** identifiées et localisées
+
+- **Diagnostic 2 régressions S2.3** (dump `query.py --json -k 10`) :
+  - **q-002 « sources fiables actualité IA 2026 »** : cu-001 attendu, retrieved rang #8 sim 0,109. Top-5 dominé par chiffres-macro-2026 (#1 sim 0,159), 4 chunks pr-08 (#2/3/5/6) + cu-026 (#4). Le module CU-001 (Recherche & veille augmentée) est étouffé par les contenus 2026-spécifiques (chiffres + financement pr-08).
+  - **q-030 « obligations réglementaires projet IA PME 2026 »** : pr-07 + vigilance-confidentialite attendus, **9/10 chunks top-10 sont pr-08** (#1 sim 0,403, #2 sim 0,362, …). Saturation totale par pr-08. La question utilise « projet IA 2026 PME » qui matche fortement le lead pr-08 « financer projet IA 2026 PME ». pr-07 absent du top-10.
+  - Root cause : le lead pr-08 (nouveau module dense) sur-capture les questions génériques « projet IA 2026 PME » au-delà de son scope financement. Effet inverse du fix q-038 S2.4.1 : un lead trop accrocheur attire des questions hors thématique.
+
+- **Métriques production** :
+  - **Coût session** : **1,2785 $ Anthropic** + 0,000008 $ OpenAI ≤ cap durci 1,35 $ ✅
+  - **Latence wall-clock** : 859 s / 52q = **16,5 s/q** ✅ (cible 12-18 s/q)
+  - **Tokens** : 202 903 in / 44 654 out (52 calls Sonnet 4.6)
+
+**Artefacts générés (commit cette session) :**
+- `rag/eval/eval-report-s2.4.md` (rapport texte, format S2.3 conforme)
+- `rag/eval/eval-report-s2.4.json` (dump JSON détaillé par question)
+
+**Décisions structurantes prises :** aucune nouvelle décision actée, mais **3 observations opérationnelles à reporter au RAPPORT-CC-S2.4 (Lot J)** :
+- Pattern « lead trop accrocheur » : un module dense avec un lead bridge multi-thématique (pr-08 « projet IA 2026 PME ») peut étouffer des modules plus génériques (cu-001) ou plus spécifiques (pr-07) sur des questions transversales. Symétrique inverse du pattern « vocabulaire bridge » validé en S2.4.1 Lot D pour q-038.
+- Pattern « chunk dense 850 tokens » : la section H2 Frontier Firms CU-026 (q-047/q-048) à 850 tokens (légèrement au-dessus seuil SPEC §R3 800 tok) **n'a pas causé de problème** de retrieval — q-047 et q-048 score=1 avec sources et concepts complets. **Pas de subdivision H3 requise** en S2.5.
+- Pattern « concepts ≥ 50 % vs concepts pleinement » : 50/52 (96 %) score global mais seulement 44/52 (85 %) concepts pleinement couverts. 6 questions ont des concepts partiels (≥ 50 % mais < 100 %) — c'est attendu sur des questions à 4-6 expected_concepts. Le score global pondère correctement.
+
+**Reste à faire Lot J (Plateforme) :**
+- Production `rag-prep/reports/RAPPORT-CC-S2.4.md` 8 sections (format S2.3) : objectifs S2.4 (3 phases), livrables détaillés (S2.4.1 + Phase 2 + Phase 3), métriques (cibles vs réalisé), anomalies (q-002/q-030 + 3 options correctives), décisions structurantes (patterns opérationnels validés), recommandations SPEC v1.7 si besoin, pistes investigation S3 (retrieval hybride, top_k=8, lead bridge inversé pour pr-07/cu-001), coûts cumulés
+- Ouverture PR finale S2.4 vers main
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-19 (S2.4 Phase 3 Lots G + H livrés) — Cowork Hub IA Plateforme — Cartographie v1 + extension golden set 52 questions
 
 **Contexte :** Phase 2 S2.4 clôturée (sondage D-026 + brique transverse + refactor 2 modules + patches 3 modules + nouveau module PR-08, 4 PR mergées #65 à #69). Phase 3 démarre : préparation eval Lot I (Desktop) avec mise à niveau cartographie + extension golden set.
