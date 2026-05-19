@@ -39,7 +39,7 @@
       <div class="module-badges">
         <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
         <a href="../index.html?niveau=n3#modules" class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">33 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">35 min de lecture</span>
       </div>
       <h1>📚 Knowledge base interne (RAG)</h1>
       <p class="module-subtitle">
@@ -102,7 +102,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">5</div>
-              <p><strong>Signal de rupture à 3-6 mois — surveiller la trajectoire long context / persistent memory.</strong> Trois sources convergentes en mai 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent) suggèrent que les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. <strong>Ne pas surinvestir au-delà de 18 mois d'amortissement sur une stack RAG complexe</strong>. Voir la sous-section <a href="#llm-wiki-shelf-life" class="tool-link">Durée de vie des stacks RAG actuels</a>.</p>
+              <p><strong>Signal de rupture à 3-6 mois — la trajectoire bascule de discussion à infrastructure.</strong> Quatre sources convergentes en mai-juin 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent, agentmemory avec benchmarks publiés 95,2 % r@5 + coût token ÷ 100+) suggèrent que les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. <strong>Ne pas surinvestir au-delà de 18 mois d'amortissement sur une stack RAG complexe</strong>. Voir la sous-section <a href="#llm-wiki-shelf-life" class="tool-link">Durée de vie des stacks RAG actuels</a>.</p>
             </div>
           </div>
 
@@ -344,15 +344,20 @@
 
         <h3 id="llm-wiki-shelf-life">Durée de vie des stacks RAG actuels — un signal de rupture à 3-6 mois</h3>
 
-        <p>En mai 2026, <strong>trois sources indépendantes ont signalé la même hypothèse</strong> : les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. Le signal mérite d'être pris au sérieux par toute PME qui investit aujourd'hui dans une stack RAG.</p>
+        <p>En mai-juin 2026, <strong>quatre sources indépendantes ont signalé la même hypothèse</strong> — la trajectoire bascule de « discussion » à « infrastructure » : les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. Le signal mérite désormais d'être pris très au sérieux par toute PME qui investit dans une stack RAG.</p>
 
-        <h4>Trois signaux convergents</h4>
+        <h4>Quatre signaux convergents</h4>
 
         <ul>
           <li><strong>Signal 1 — Long context natif (SubQ, mai 2026)</strong>&nbsp;: si les modèles atteignent en production des fenêtres de contexte de <strong>10 M tokens et plus</strong> (12 M en recherche, 1 M en production déjà chez SubQ), avec une <strong>réduction du coût de l'attention ×1000</strong>, alors RAG, multi-agent, chunking et vector DB deviennent des <em>workarounds</em> contre une limite technique qui est en train de tomber. L'argument&nbsp;: « pourquoi orchestrer une retrieval pipeline si on peut donner tout le corpus au modèle directement&nbsp;?».</li>
           <li><strong>Signal 2 — LLM Wiki post-Karpathy (mai 2026)</strong>&nbsp;: le gist initial d'Andrej Karpathy (avril 2026) a atteint <strong>5 000+ stars en un mois</strong>. L'écosystème de forks et patterns dérivés s'est structuré en quelques semaines&nbsp;: sheaf cohomology pour contradiction detection, sleep consolidation, persistent multi-agent vaults, graph-based layers, MCP audit trails. Argumentation&nbsp;: « le LLM Wiki ingère, synthétise, fait évoluer la connaissance » vs RAG stateless qui <em>retrieve → answer → forget</em>.</li>
           <li><strong>Signal 3 — Persistent memory pour agents scalables (mai 2026)</strong>&nbsp;: Jean Vargas (founder Hermes Agent) formalise&nbsp;: <em>« Persistent memory &gt; RAG stateless pour agents scalables »</em>. Sans mémoire persistante, les agents restent stateless et <strong>ne compoundent pas l'intelligence</strong>. Avec persistent memory (pattern observé sur <a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a>, <a href="../ressources.html#beever-atlas" class="tool-link">Beever Atlas</a>, anima AI), les <strong>skills et procédures écrites redeviennent du knowledge réutilisable</strong> plutôt que perdus dans l'historique.</li>
+          <li><strong>Signal 4 — agentmemory et l'écosystème de hooks partagés (mai 2026)</strong>&nbsp;: le passage de discussion à infrastructure. Un projet open-source nommé <strong><a href="../ressources.html#agentmemory" class="tool-link">agentmemory</a></strong> (créé par @ghumare64, <strong>13 200+ stars GitHub en quelques semaines</strong>) propose une <strong>couche de persistent memory commune à tous les coding agents</strong> (<a href="../ressources.html#claude-code" class="tool-link">Claude Code</a>, <a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a>, <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a>, Codex CLI, <a href="../ressources.html#cursor" class="tool-link">Cursor</a>, Gemini CLI) via un serveur local SQLite + FAISS. Les benchmarks publiés sont mesurables&nbsp;: <strong>95,2 % r@5 (recall at 5) vs 86,2 % BM25 fallback</strong> + <strong>coût token divisé par 100+ vs full context injection</strong>. L'argument structurel&nbsp;: si plusieurs coding agents partagent la même mémoire persistante, l'agent ponctuel devient un <strong>système qui se souvient</strong> du codebase, des décisions passées et des corrections d'erreur — sans réingestion à chaque session.</li>
         </ul>
+
+        <div class="callout callout-info">
+          <p>💡 <strong>Pattern adjacent à surveiller</strong> — <a href="../ressources.html#claude-smart" class="tool-link">claude-smart</a> (plugin self-improving lancé 18 mai 2026 par Yi Lu, Tech Lead Meta AI / ReflexioAI) automatise la création de skills réutilisables Claude Code à partir de l'analyse des sessions passées. C'est l'<strong>automatisation de la création d'Agent Skills</strong> (cf. fiche <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production §8.4</a>). Pas encore mesuré, mais cohérent avec la trajectoire persistent memory.</p>
+        </div>
 
         <h4>Ce que ça veut dire pour ta PME en 2026</h4>
 
@@ -371,7 +376,7 @@
         </ul>
 
         <div class="callout callout-info">
-          <strong>Pattern A5 à venir — « Agents fédérés / persistent memory »</strong>&nbsp;: si la trajectoire se confirme dans les 6-12 mois (3 sources convergentes deviennent 6+, écosystème de patterns stabilisé, premiers RetEx PME documentés), la page <a href="../architectures.html" class="tool-link">Architectures</a> introduira un 5e pattern complémentaire des 4 patterns existants. Pour l'instant, ce pattern reste en signal — pas en référence d'implémentation. Renvoi symétrique côté production&nbsp;: <a href="../deploiement/dep-02-rag-architecture-prod.html#section-2bis" class="tool-link">RAG en production §2bis</a>.
+          <strong>Pattern A5 à venir — « Agents fédérés / persistent memory »</strong>&nbsp;: si la trajectoire se confirme dans les 6-12 mois (4 sources convergentes deviennent 6+, écosystème de patterns stabilisé, premiers RetEx PME documentés), la page <a href="../architectures.html" class="tool-link">Architectures</a> introduira un 5e pattern complémentaire des 4 patterns existants. Pour l'instant, ce pattern reste en signal — pas en référence d'implémentation. Renvoi symétrique côté production&nbsp;: <a href="../deploiement/dep-02-rag-architecture-prod.html#section-2bis" class="tool-link">RAG en production §2bis</a>.
         </div>
       </section>
 
@@ -682,6 +687,7 @@
             <li><a href="https://x.com/0xCVYH/status/2052039643114213699" target="_blank" rel="noopener">@0xCVYH (SubQ) — Long context 10M+ vs RAG playbook</a><span class="resources-meta">Mai 2026, thèse fin du playbook RAG si long context natif</span></li>
             <li><a href="https://x.com/Suryanshti777/status/2055326692051390540" target="_blank" rel="noopener">@Suryanshti777 — Obsolescence progressive du RAG classique</a><span class="resources-meta">Mai 2026, au profit du pattern LLM Wiki</span></li>
             <li><a href="https://x.com/JE4NVRG/status/2056511285651497136" target="_blank" rel="noopener">@JE4NVRG (Jean Vargas, founder Hermes Agent) — Persistent memory &gt; RAG stateless</a><span class="resources-meta">Mai 2026, persistent memory pour agents scalables</span></li>
+            <li><a href="https://github.com/rohitg00/agentmemory" target="_blank" rel="noopener">@ghumare64 (Rohit Ghumare) — agentmemory : persistent memory layer for coding agents</a><span class="resources-meta">Mai 2026, 13 200+ stars GitHub, benchmarks 95,2 % r@5 + coût token ÷ 100+</span></li>
           </ul>
         </div>
 
