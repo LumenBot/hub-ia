@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.6 (refonte simplifiée)
+**Version :** 1.6.1 (refonte simplifiée + chiffres-clés actualisés v3.10)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -447,7 +447,7 @@ Microsoft New Future of Work Report 2025</a>).</p>
 | Chiffre | Valeur courante (mai 2026, v3.8) | Lieux d'apparition |
 |---|---|---|
 | Modules CU | **27** (CU-001 → CU-027) | home, page modules, à propos, méta |
-| Préalables PR | **7** (PR-01 → PR-07) | prealables.html, home, à propos |
+| Préalables PR | **8** (PR-01 → PR-08) | prealables.html, home, à propos |
 | Fiches Déploiement DEP | **8** (DEP-01 → DEP-08) | deploiement.html, home, à propos |
 | Fiches outils | **99** | ressources.html, à propos, hero ressources |
 | Patterns architecture | 4 + 1 hybride | architectures.html, à propos |
@@ -661,6 +661,7 @@ Versionnage : on incrémente la version en tête de fichier. v1.6 → v1.7 (refo
 - **v1.5** — v3.7 : glossaire actualisé (26 modules, 95 fiches, 5 nav)
 - **v1.5.1 à v1.5.14** — v3.7.1 → v3.8 : 14 sous-versions de patches cumulés (détail § 4.K.1)
 - **v1.6** — refonte simplifiée : 13 règles essentielles + annexes + alignement audit-global.py. Pas de nouvelle règle. Pas de règle abandonnée. Consolidation pure (cf. `RULES-MIGRATION-v1.5-vers-v1.6.md` pour le mapping exhaustif).
+- **v1.6.1** — v3.10 : glossaire chiffres-clés actualisé (préalables PR : 7 → 8 suite ajout de PR-08 « Financer son projet IA en 2026 »).
 
 ---
 
