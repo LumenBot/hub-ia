@@ -4,11 +4,11 @@ titre: "Sécurité agents et MCP servers"
 type: deploiement-dep
 axe: B
 niveau: 4
-tags: [securite, agents, mcp, gouvernance-tech, cve, agentshield, ecc]
-version: 3.8.7
+tags: [securite, agents, mcp, gouvernance-tech, cve, agentshield, ecc, sbom, supply-chain, anssi]
+version: 3.11.0
 last_updated: 2026-05-13
 glosaire_termes: [agent, mcp, llm, rag]
-derives: ["[[cu-026]]", "[[cu-014]]", "[[dep-05]]", "[[vigilance-confidentialite]]", "[[chiffres-macro-2026]]"]
+derives: ["[[cu-026]]", "[[cu-014]]", "[[cu-027]]", "[[dep-02]]", "[[dep-05]]", "[[pr-05]]", "[[vigilance-confidentialite]]", "[[chiffres-macro-2026]]"]
 public_cible: [tech, r&d, ops]
 ---
 
@@ -138,6 +138,34 @@ Pour les vecteurs d'attaque eux-mêmes, voir la section « Pourquoi la sécurit�
 - **Patterns d'injection** dans les system prompts et skills
 
 **Rationale chunk autonome** : la sécurité agents en 2026 repose sur un outillage composite (AgentShield + Snyk + Semgrep) avec des specs numériques précises (1 282 tests, 102 règles, modes CLI nommés). La promotion de cette section en H2 indépendante (post-Lot C S2.4) garantit un chunk autonome captable par le retrieval RAG sur les questions de mitigation opérationnelle (cf. SPEC v1.6 §Conception MD — garde-fou concepts détaillés).
+
+## SBOM IA et supply chain — sécuriser la chaîne de dépendances agents (ANSSI / G7, 2026)
+
+**Sécurisation de la chaîne de dépendances agents IA et MCP servers en production : SBOM IA (Software Bill of Materials adapté à l'écosystème IA) et discipline supply chain — recommandations ANSSI et G7 en 2026, contexte 362 incidents IA documentés en 2025 (+55 % vs 2024).**
+
+La sécurité agents en 2026 ne se limite pas à durcir les configs (sections précédentes) — elle inclut la sécurisation de la **chaîne de dépendances** : MCP servers tiers, skills marketplace, modèles IA téléchargés, hooks externes. Ce sujet émerge en 2026 sous le label **SBOM IA** (Software Bill of Materials adapté à l'écosystème IA), avec des recommandations conjointes de l'**ANSSI** (Agence nationale de la sécurité des systèmes d'information, France) et du **G7** sur la transparence des chaînes de dépendances IA en production.
+
+### Chiffre canonique cadrant l'urgence
+
+**362 incidents IA documentés en 2025** (vs 233 en 2024 — augmentation **+55 % en un an**). Source : Stanford AI Index Report 2026 (chiffre canonique [[chiffres-macro-2026#362-incidents-ia-documentes-en-2025-55-vs-2024-stanford-ai-index-2026]]).
+
+Mesure de l'augmentation des incidents IA en production (failles de sécurité, biais, dérives, hallucinations à effet significatif). Argument quantitatif pour intensifier la gouvernance sécurité — cohérent avec l'encart symétrique côté [[pr-05]] (Sécurité IA — quand produit en vague 4+).
+
+### 4 disciplines SBOM IA à appliquer en production
+
+1. **Inventaire exhaustif des dépendances IA** : maintenir un BOM (Bill of Materials) listant tous les MCP servers, skills, modèles IA, embeddings, vector DBs, agents externes installés dans la stack. Format machine-lisible (CycloneDX, SPDX) si possible.
+
+2. **Audit régulier des CVE connus** : croiser le BOM avec les bases de CVE (NVD, GitHub Security Advisories, CVE Anthropic). Outils : **Snyk** (scan automatique des dépendances vs CVE), **Semgrep** (static analysis des configs). Cf. [[#agentshield-outils-et-patterns-de-mitigation-pour-securiser-des-agents-ia-en-production|section AgentShield]] pour le mapping outils complémentaires.
+
+3. **Discipline marketplace** : ne jamais installer un skill ou MCP depuis une marketplace sans **audit AgentShield** ou **vendor reconnu**. Cas OpenClaw (janvier 2026, 341 skills malveillants sur 2 857 = 12 %) reste un cas-école valable.
+
+4. **Versioning + signature des configs sensibles** : CLAUDE.md, settings.json, MCP configs, hooks doivent être versionnés en git, revus en PR, et signés (commits GPG) pour les changements sensibles. Cf. section « Sécuriser CLAUDE.md, hooks, configs » ci-dessous pour le détail opérationnel.
+
+### Cadre réglementaire émergent (2026)
+
+L'**ANSSI** publie en 2026 des recommandations spécifiques sur la sécurisation de la chaîne de dépendances IA pour les opérateurs d'importance vitale (OIV) et d'opérateurs de services essentiels (OSE). Le **G7** publie un cadre commun sur la transparence des supply chains IA pour les modèles de pointe (frontier models).
+
+Implication pour les PME / ETI : pas d'obligation directe à ce stade, mais le cadre se durcit. Anticiper l'inventaire BOM IA en 2026-2027 évite la dette technique réglementaire à venir (cohérent avec l'AI Act article 14 du module [[cu-026]] applicable au 2 août 2026).
 
 ## Sécuriser CLAUDE.md, hooks, configs
 
