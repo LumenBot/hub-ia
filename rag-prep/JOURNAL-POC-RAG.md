@@ -11,6 +11,47 @@
 
 ## Entrées
 
+### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 livrés) — Cowork Hub IA Plateforme — Extraction pattern-persistent-memory + refactor CU-008 + DEP-02
+
+**Contexte :** RETOUR-SONDAGE-COWORK-HUB-IA-S2.4 reçu (2e application D-026, 11 sous-passages confirmés/rectifiés + 5 bonus). Décision Cowork validée : extraction transverse `pattern-persistent-memory.md` recommandée (D-025 SPEC v1.6 satisfait, symétrique pattern-llm-wiki). **Rectification critique du RETOUR §3.4** : le tableau §4 DEP-02 (« Tableau de décision RAG ») n'a **pas** été modifié en v3.10/v3.11 — la nouvelle ligne « agent avec mémoire conversationnelle » est dans un **mini-tableau distinct** (§2bis « Implication opérationnelle »). À préserver les 2 tableaux séparés, **ne pas fusionner**.
+
+**Actions menées :**
+
+- **Lot F.1 — Production `rag/content/transverses/pattern-persistent-memory.md`** (~1900 mots, format symétrique à pattern-llm-wiki.md) :
+  - Frontmatter v3.11.0, type: transverse, niveau: 3
+  - 4 signaux convergents (ordre canonique chronologique mai 2026) : Long context natif SubQ (10 M tokens+, ×1000 coût attention), LLM Wiki post-Karpathy (5 000+ stars), Persistent memory Vargas (Hermes Agent founder, « persistent memory > RAG stateless pour agents scalables »), agentmemory infrastructure (13 200+ stars, pivot infrastructurel)
+  - Benchmarks agentmemory (R10 stricte) : 95,2 % r@5 vs 86,2 % BM25 + coût token ÷ 100+, source github.com/rohitg00/agentmemory (Rohit Ghumare)
+  - Écosystème hooks 6 outils (ordre canonique) : Claude Code / Hermes Agent / OpenClaw / Codex CLI / Cursor / Gemini CLI
+  - Distinction conceptuelle vs pattern-llm-wiki (tableau comparatif 6 critères : nature, cycle, volume cible, statefulness, cas d'usage, coût)
+  - Tableau de décision RAG / LLM Wiki / Persistent memory (4 profils workload)
+  - Préfiguration pattern A5 « Agents fédérés / persistent memory »
+  - Whitelist mise à jour : `pattern-persistent-memory` retiré
+
+- **Lot F.2 — Refactor CU-008 + DEP-02** (application pattern Lot D-ter validé S2.4.1 : chunking H2 autonome + lead bridge enrichi) :
+  - **CU-008** (bump v3.8.6 → v3.11.0) : ajout section H2 « ## Persistent memory pour agents IA — 4 signaux convergents (mai 2026) » après LLM Wiki existante. 351 mots / ~456 tokens (chunk autonome SPEC §R3). Lead bridge en gras avec vocabulaire question canonique. Renvoi `[[pattern-persistent-memory]]`. Articulation explicite « 2 patterns distincts mais convergents ».
+  - **DEP-02** (bump v3.8.6 → v3.11.0) : ajout section H2 « ## Implication opérationnelle — architecture pour agent avec mémoire conversationnelle (persistent memory, mai 2026) » **entre** LLM Wiki et RAG hybride. **Tableau §4 « Tableau de décision RAG » strictement intact** (rectification critique RETOUR §3.4). Mini-tableau distinct 4 profils workload avec ligne « Agent en production avec mémoire conversationnelle → persistent memory mutualisable, local-first SQLite + FAISS, benchmark 95,2 % r@5 + coût ÷ 100+ ». 401 mots / ~521 tokens.
+  - Frontmatter `derives` enrichi pour les 2 modules : +cu-026, +dep-05, +pattern-persistent-memory. Glossaire `agent` ajouté.
+
+**Application pattern Lot D-ter (validé empiriquement S2.4.1)** : titres H2 + leads des chunks démarrent par le vocabulaire bridge attendu dans les questions canoniques (« persistent memory pour agents IA », « architecture pour agent avec mémoire conversationnelle »). Anticipation des questions futures du golden set vague 4.
+
+**Décisions structurantes prises :**
+- **Extraction pattern-persistent-memory.md actée** comme 2e brique transverse de pattern d'architecture (symétrique pattern-llm-wiki). Validation empirique critère D-025 SPEC v1.6.
+- **Préservation 2 tableaux distincts dans DEP-02** : tableau principal §4 (volume corpus) + mini-tableau §3bis (profil workload agent). Pattern de coexistence à inscrire éventuellement en précision SPEC v1.7.
+
+**Métriques Lots F.1 + F.2 :**
+- 3 fichiers MD : pattern-persistent-memory.md (nouveau, 1900 mots), cu-008.md (refactor, +351 mots), dep-02.md (refactor, +401 mots)
+- 1 fichier vivant : whitelist v2 (`pattern-persistent-memory` retiré)
+- Coût : **0,00 $** (Lot Cowork pur éditorial, exception D-022 ciblée éditoriale)
+
+**Reste à faire S2.4 Phase 3 (Lots F.3 à J)** :
+- Lot F.3 : patches 10 modules existants (CU-020 + CU-024 + CU-026 §3bis Frontier Firms + CU-027 + DEP-01 + DEP-05 + DEP-07 + DEP-08 + PR-01 + PR-04 + PR-05)
+- Lot F.4 : production nouveau module PR-08 « Financer son projet IA en 2026 »
+- Lots G/H/I/J : whitelist + golden set + eval + RAPPORT-CC-S2.4 + PR finale
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-19 (S2.4.1 Lot D livré — Phase 1 clôturée) — Claude Code Desktop — Rerun eval ciblé q-038, score=1 atteint après 3 itérations
 
 **Contexte :** Lot D = rerun eval ciblé q-038 + 5 voisines pour vérifier que le fix S2.4.1 Lot C (chunking + élargissement `expected_concepts`) fait passer q-038 de score=0 (S2.3 Lot E) à score=1, sans régression sur les voisines. Branche dérivée de main `claude/execute-s241-lot-d-rerun-q038[-bis|-ter]` (3 itérations successives).

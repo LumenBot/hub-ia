@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 19 mai 2026 (S2.4.1 Phase 1 clôturée — Lot D rerun q-038 score=1, chunk specs op rang #1 sim 0,2239)
-**Sprint en cours :** **S2.4 ouvert** — **Phase 1 (S2.4.1) clôturée** : Lot A SPEC v1.6 + Lot B canonisation chiffres-macro v3.9.0 + Lot C fix q-038 option C + 2 patchs correctifs retrieval (promotion H3→H2 chunk autonome `f16e1b1` + enrichissement lead vocabulaire question `7fc5970`) + **Lot D Desktop rerun q-038 score=1, 6/6 concepts trouvés, chunk « AgentShield outils et patterns » rang #1 sim 0,2239** (vs rang ≥11 sim < 0,108 avant). Garde-fou « concepts détaillés » SPEC v1.6 validé empiriquement. Reste Phase 2 (sondage D-026 étendu) + Phase 3 (production vague 4 + eval + RAPPORT-CC-S2.4).
+**Dernière mise à jour :** 19 mai 2026 (S2.4 Phase 2 Lots F.1 + F.2 livrés — extraction pattern-persistent-memory + refactor CU-008 + DEP-02)
+**Sprint en cours :** **S2.4 en cours** — Phase 1 clôturée (q-038 score=1). **Phase 2 en cours** : Lot E sondage D-026 ✅ (RETOUR-S2.4 reçu, 11/11 sous-passages traités + 5 bonus), Lot F.1 ✅ (`pattern-persistent-memory.md` produit, brique transverse symétrique pattern-llm-wiki), Lot F.2 ✅ (refactor CU-008 + DEP-02 avec section H2 dédiée chunk autonome + lead bridge, tableau §4 DEP-02 strictement préservé per rectification critique RETOUR §3.4). Reste Phase 3 (Lots F.3 patches 10 modules + F.4 PR-08 + G/H/I/J = whitelist + golden set vague 4 + eval ~1,50 $ + RAPPORT-CC-S2.4).
 **Période S2.4 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA + Blaise + Claude Code Plateforme + Claude Code Desktop. Sprint S2.3 clôturé (PR #56 mergée, score 41/42).
 
