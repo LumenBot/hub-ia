@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">22 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">26 min de lecture</span>
       </div>
       <h1>🛡️ Sécurité agents et MCP servers</h1>
       <p class="module-subtitle">12 % de skills malveillants sur <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> en janvier 2026 (341/2 857). CVE-2025-59536 sur <a href="../ressources.html#claude" class="tool-link">Claude</a> Code. MCP STDIO touche 7 000 serveurs et 150 M de téléchargements. La sécurité des agents n'est plus un sujet d'expert.</p>
@@ -61,6 +61,7 @@
         <li><a href="#section-5"><span class="toc-icon">🛠️</span>Outils 2026 par domaine</a></li>
         <li><a href="#section-6"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
         <li><a href="#section-7"><span class="toc-icon">⚖️</span>Conformité à anticiper</a></li>
+        <li><a href="#section-7bis"><span class="toc-icon">📦</span>SBOM IA &amp; supply chain</a></li>
         <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
       </ul>
     </aside>
@@ -89,6 +90,10 @@
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
               <p><strong>Les CLAUDE.md et configs hooks sont des cibles d'attaque.</strong> Un attaquant qui modifie ton CLAUDE.md (via supply chain ou compromission) peut détourner ton agent. <strong>AgentShield (npx ecc-agentshield scan)</strong> est un outil gratuit pour auditer ces configs.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">5</div>
+              <p><strong>SBOM IA — l'inventaire des composants devient un standard international en 2026.</strong> Le G7 (mai 2026) et l'ANSSI (relais 13 mai 2026) publient un cadre de traçabilité aligné NIS2&nbsp;: inventaire des modèles, datasets, fournisseurs, dépendances logicielles, configurations agents. Voir <a href="#section-7bis" class="tool-link">section 7bis</a>.</p>
             </div>
           </div>
 
@@ -443,6 +448,85 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
         </ul>
       </section>
 
+      <!-- 7bis. SBOM IA & SUPPLY CHAIN -->
+      <section class="module-section" id="section-7bis">
+        <div class="module-section-header">
+          <div class="module-section-icon icon-method">📦</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 7bis</div>
+            <h2>SBOM IA &amp; supply chain — cadre international 2026</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p><strong>SBOM for AI</strong>&nbsp;: la <strong>Software Bill of Materials</strong> appliquée aux systèmes IA — un cadre de traçabilité qui devient standard international en 2026.</p>
+        </div>
+
+        <p>Le groupe de travail cybersécurité du <strong>G7</strong> a publié en mai 2026 un document de référence&nbsp;: <strong>« Software Bill of Materials (SBOM) for Artificial Intelligence »</strong>, relayé par l'<strong>ANSSI le 13 mai 2026</strong>. Cadre <strong>non contraignant</strong> mais <strong>aligné NIS2</strong> et futures exigences européennes. À surveiller&nbsp;: la convergence avec le <strong>NIST AI Agent Standards Initiative (CAISI)</strong> signalé dans la fiche <a href="../prealables/pr-05-securite-ia.html#nist-caisi" class="tool-link">Sécurité IA</a>.</p>
+
+        <h3>7bis.1 Qu'est-ce qu'un SBOM IA&nbsp;?</h3>
+
+        <p>Un SBOM IA est un <strong>inventaire structuré</strong> des composants qui constituent un système IA&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Composant</th>
+              <th>Exemples</th>
+              <th>Pourquoi le tracer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Modèles IA</strong></td><td>GPT-4, Claude Opus, <a href="../ressources.html#mistral" class="tool-link">Mistral Large</a>, <a href="../ressources.html#llama" class="tool-link">Llama 3</a> fine-tuné</td><td>Vulnérabilités modèle, mise à jour fournisseur</td></tr>
+            <tr><td><strong>Datasets</strong></td><td>Données d'entraînement, données de fine-tuning, RAG corpus</td><td>Conformité RGPD, biais documentés</td></tr>
+            <tr><td><strong>Fournisseurs</strong></td><td>OpenAI, Anthropic, Mistral, fournisseurs cloud</td><td>Risque concentration, défaillance fournisseur</td></tr>
+            <tr><td><strong>Dépendances logicielles</strong></td><td>LangChain, vector DBs, MCP servers tiers</td><td>CVE applicables, supply chain attack</td></tr>
+            <tr><td><strong>Configuration agents</strong></td><td>Skills, hooks, prompts système, CLAUDE.md</td><td>Compromission supply chain, audit trail</td></tr>
+          </tbody>
+        </table>
+
+        <h3>7bis.2 Pourquoi c'est important pour une PME en 2026</h3>
+
+        <ol>
+          <li><strong>Convergence réglementaire imminente</strong>&nbsp;: NIS2 + AI Act + initiatives NIST → la documentation des composants IA devient un attendu (pas encore une obligation, mais le sera dans 12-24 mois).</li>
+          <li><strong>Gestion des incidents de production</strong>&nbsp;: sans SBOM, en cas d'incident agent, le délai de diagnostic explose. Avec SBOM, on identifie immédiatement quel modèle / dataset / MCP est impliqué.</li>
+          <li><strong>Sécurisation supply chain</strong>&nbsp;: 2025-2026 a vu <strong>341 skills malveillants détectés sur OpenClaw Marketplace</strong> (12&nbsp;%), <strong>MCP STDIO vulnerability</strong> sur 7 000+ serveurs. Le SBOM permet de réagir vite face à ces alertes (« est-ce que je suis exposé&nbsp;? »).</li>
+        </ol>
+
+        <h3>7bis.3 Comment commencer en pratique</h3>
+
+        <h4>Approche minimaliste (PME découverte)</h4>
+        <ul>
+          <li>Documenter dans un simple tableau Excel&nbsp;: liste des modèles IA utilisés + fournisseurs + cas d'usage + données traitées</li>
+          <li>Mettre à jour à chaque évolution stack (trimestriel max)</li>
+          <li>Stockage simple, partagé entre DSI/RSSI/responsable IA</li>
+        </ul>
+
+        <h4>Approche structurée (PME en industrialisation)</h4>
+        <ul>
+          <li>Outils&nbsp;: SPDX (format standard) + outils de génération automatique de SBOM</li>
+          <li>Intégration CI/CD pour automatiser la mise à jour</li>
+          <li>Couplage avec la chaîne d'observabilité agent (cf. fiche <a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production</a>)</li>
+        </ul>
+
+        <h4>Approche conforme (PME secteur réglementé)</h4>
+        <ul>
+          <li>Format SBOM aligné aux recommandations G7/ANSSI</li>
+          <li>Audit annuel + procédure de réponse incident liée au SBOM</li>
+          <li>Cohérence avec NIS2 et préparation aux futures exigences AI Act</li>
+        </ul>
+
+        <h3>7bis.4 Lien avec les autres dimensions sécurité du Hub</h3>
+
+        <ul>
+          <li><strong>Section 2 (5 défenses prompt injection)</strong>&nbsp;: le SBOM aide à identifier rapidement quels composants sont impactés par une CVE de modèle ou de MCP.</li>
+          <li><strong>Section 3 (AgentShield)</strong>&nbsp;: AgentShield scanne la configuration agent&nbsp;; le SBOM documente cette configuration et son évolution.</li>
+          <li><strong>Section 4 (Sécuriser CLAUDE.md)</strong>&nbsp;: le SBOM intègre les CLAUDE.md versionnés comme composant traçable.</li>
+          <li>Module <a href="../modules/cu-020-conformite-rgpd-ai-act.html" class="tool-link">Conformité RGPD &amp; AI Act</a> — volet conformité&nbsp;: le SBOM IA est une brique opérationnelle pour démontrer une diligence raisonnable.</li>
+          <li>Préalable <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA</a> — volet stratégique, signal NIST CAISI complémentaire.</li>
+        </ul>
+      </section>
+
       <!-- RESSOURCES -->
       <section class="module-section" id="ressources">
         <div class="module-section-header">
@@ -462,6 +546,8 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
             <li><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-generated-code-security-vibe-coding-202/" target="_blank" rel="noopener">Cloud Security Alliance — AI-generated code security</a><span class="resources-meta">Référence sécurité code IA</span></li>
             <li><a href="https://www.wiz.io/" target="_blank" rel="noopener">Wiz Research — Moltbook breach analysis</a><span class="resources-meta">Analyse incident</span></li>
             <li><a href="https://www.ox.security/" target="_blank" rel="noopener">OX Security — MCP STDIO vulnerability</a><span class="resources-meta">Détail technique vulnérabilité</span></li>
+            <li><a href="https://cyber.gouv.fr/nous-connaitre/publications/publications-internationales/software-bill-of-materials-sbom-for-artificial-intelligence/" target="_blank" rel="noopener">ANSSI / G7 — Software Bill of Materials (SBOM) for Artificial Intelligence</a><span class="resources-meta">Publication G7 relayée ANSSI 13 mai 2026 — cadre traçabilité aligné NIS2</span></li>
+            <li><a href="https://x.com/ANSSI_FR/status/2054525097969344862" target="_blank" rel="noopener">ANSSI sur X — annonce relais SBOM IA</a><span class="resources-meta">13 mai 2026</span></li>
           </ul>
         </div>
 

@@ -127,7 +127,7 @@
         <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
         <a href="../index.html?niveau=n3#modules" class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</a>
         <span class="card-badge">📋 Étude de cas + framework + auto-diagnostic</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">28 min de lecture</span>
       </div>
       <h1>🪪 Gouvernance des agents IA</h1>
       <p class="module-subtitle">
@@ -146,6 +146,7 @@
         <li><a href="#section-1"><span class="toc-icon">🧭</span>Le shift de framing 2026</a></li>
         <li><a href="#section-2"><span class="toc-icon">📍</span>La leçon Klarna</a></li>
         <li><a href="#section-3"><span class="toc-icon">🛠️</span>Framework — 7 dimensions</a></li>
+        <li><a href="#section-3bis"><span class="toc-icon">🎭</span>4 patterns de collaboration</a></li>
         <li><a href="#section-4"><span class="toc-icon">⚖️</span>Cadre réglementaire</a></li>
         <li><a href="#section-5"><span class="toc-icon">🚦</span>Pattern d'escalade</a></li>
         <li><a href="#section-6"><span class="toc-icon">🔎</span>Auto-diagnostic</a></li>
@@ -433,6 +434,68 @@
         </ul>
         <p><strong>Offboarding</strong> : si l'agent est désactivé (changement de mission, abandon du projet), comment archiver proprement ? Que devient l'historique de ses décisions ? Comment les utilisateurs sont-ils informés ?</p>
         <p>Souvent négligé. C'est pourtant ce qui distingue une organisation mature d'une organisation qui empile des agents fantômes en production.</p>
+      </section>
+
+      <!-- SECTION 3bis — 4 PATTERNS MICROSOFT FRONTIER FIRMS -->
+      <section class="module-section" id="section-3bis">
+        <div class="module-section-header">
+          <div class="module-section-icon primary">🎭</div>
+          <div class="module-section-title">
+            <div class="section-number">Section 3bis</div>
+            <h2>4 patterns de collaboration humain-agent (Microsoft Frontier Firms 2026)</h2>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <p><strong>Insight cadre Microsoft (Jared Spataro, 5 mai 2026)</strong>&nbsp;: <em>« la contrainte n'est plus ce que les gens peuvent faire, c'est la façon dont le travail est structuré autour d'eux. »</em></p>
+        </div>
+
+        <p>Le pattern « agent = employé » (§3) répond à la question « comment manager un agent&nbsp;? ». Microsoft Frontier Firms ajoute une <strong>grille de design organisationnel</strong> pour matcher le <strong>niveau d'implication humaine</strong> à l'outcome attendu.</p>
+
+        <h3>Les 4 patterns de collaboration</h3>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Rôle humain</th>
+              <th>Rôle agent</th>
+              <th>Cas d'usage type PME</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>(1) Author</strong></td><td>Produit</td><td>Assiste à la demande</td><td>Rédaction de propositions commerciales avec Copilot</td></tr>
+            <tr><td><strong>(2) Editor</strong></td><td>Fixe l'intent, édite/approuve</td><td>Produit un premier draft</td><td>Rédaction de CR de réunion, articles, posts (cf. <a href="cu-002-assistant-redactionnel.html" class="tool-link">Assistant rédactionnel</a>, <a href="cu-003-cr-reunion.html" class="tool-link">CR de réunion</a>)</td></tr>
+            <tr><td><strong>(3) Director</strong></td><td>Crée une spec, délègue</td><td>Exécute intégralement en arrière-plan</td><td>Génération de rapports périodiques, veille, traduction (cf. <a href="cu-001-recherche-veille.html" class="tool-link">Recherche &amp; veille</a>, <a href="cu-004-traduction.html" class="tool-link">Traduction</a>)</td></tr>
+            <tr><td><strong>(4) Orchestrator</strong></td><td>Conçoit le système</td><td>Plusieurs agents tournent en parallèle, avec exceptions / escalades</td><td>Multi-agents par fonction (cf. <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction métier</a>), workflows complexes</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Comment utiliser cette grille</h3>
+
+        <p>Chaque cas d'usage IA d'une PME peut être positionné sur <strong>l'un des 4 patterns</strong>. Le pattern détermine&nbsp;:</p>
+        <ul>
+          <li>Le <strong>niveau de supervision</strong> requis</li>
+          <li>Les <strong>garde-fous</strong> à mettre en place (validation humaine vs revue échantillonnée vs failure receipt seul — cf. <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production §8.5</a>)</li>
+          <li>Le <strong>KPI de succès</strong> (rapport assistance / autonomie / parallélisation)</li>
+          <li>Le <strong>profil de l'employé</strong> qui pilote (Author = niveau senior, Orchestrator = niveau lead avec compétence design organisationnel)</li>
+        </ul>
+
+        <h3>Cohérence avec les 7 dimensions du framework PR-CU-026</h3>
+
+        <p>Les 4 patterns Microsoft sont <strong>complémentaires</strong> des 7 dimensions de gouvernance (§3)&nbsp;:</p>
+        <ul>
+          <li>Les <strong>4 patterns</strong> définissent <strong>le type de collaboration</strong> (architecture humain-agent)</li>
+          <li>Les <strong>7 dimensions</strong> définissent <strong>les attendus de gestion</strong> par agent (tâche, droits, escalade, KPI, audit, versions, onboarding)</li>
+        </ul>
+
+        <p>Les 2 grilles s'utilisent ensemble&nbsp;:</p>
+        <ol>
+          <li>Choisir le <strong>pattern Microsoft</strong> (Author / Editor / Director / Orchestrator) selon le cas d'usage</li>
+          <li>Documenter les <strong>7 dimensions</strong> pour chaque agent du pattern</li>
+        </ol>
+
+        <p><em>Cohérence narrative avec le préalable <a href="../prealables/pr-04-marche-ia-emploi.html#section-2ter" class="tool-link">Marché IA &amp; emploi §2ter</a> — maturité agentique et 4 paliers (Découverte → Expérimentation → Mise en production → Industrialisation).</em></p>
       </section>
 
       <!-- SECTION 4 — CADRE RÉGLEMENTAIRE -->
@@ -907,6 +970,7 @@
             <li><a href="https://www.raconteur.net/technology/autonomous-ai-agents-2026-the-new-rules-for-business-governance" target="_blank" rel="noopener">Raconteur — Autonomous AI agents 2026: the new rules for business governance</a><span class="resources-meta">Synthèse des règles émergentes de gouvernance</span></li>
             <li><a href="https://www.customerexperiencedive.com/news/klarna-reinvests-human-talent-customer-service-AI-chatbot/747586/" target="_blank" rel="noopener">CX Dive — Klarna reinvests in human talent for customer service</a><span class="resources-meta">Cas pédagogique fondateur — retour humain sur cas complexes</span></li>
             <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey — The State of AI 2025</a><span class="resources-meta">Données scaling agents — 23 % à l'échelle, 39 % en expérimentation</span></li>
+            <li><a href="https://blogs.microsoft.com/blog/2026/05/05/" target="_blank" rel="noopener">Microsoft — How Frontier Firms are rebuilding the operating model for the age of AI</a><span class="resources-meta">Jared Spataro, 5 mai 2026 — 4 patterns de collaboration humain-agent (Author/Editor/Director/Orchestrator)</span></li>
           </ul>
         </div>
 

@@ -53,7 +53,7 @@
       <div class="module-badges">
         <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">17 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
       </div>
       <h1>✅ Évaluation continue et qualité IA</h1>
       <p class="module-subtitle">Tu ne peux pas piloter ce que tu ne mesures pas. Une eval pipeline, c'est ce qui distingue le projet IA amateur du projet IA production. Voici comment la construire en PME, sans être FAANG.</p>
@@ -255,6 +255,53 @@
           <li><strong>Sémantique</strong> sur 100 % des cas où une référence existe (fact-checking)</li>
           <li><strong>LLM-as-judge</strong> sur 20-30 % des cas (échantillonnage qualité narrative, coût maîtrisé)</li>
         </ul>
+
+        <h3>3.5 Définitions canoniques Anthropic (mai 2026)</h3>
+
+        <p>Référentiel terminologique à adopter pour aligner le vocabulaire interne aux pratiques 2026 (Anthropic Engineering, « Demystifying evals for AI agents »)&nbsp;:</p>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Terme</th>
+              <th>Définition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>eval</strong></td><td>Mesure quantifiable de la qualité d'une sortie ou d'une décision agent sur une tâche donnée</td></tr>
+            <tr><td><strong>harness</strong></td><td>Cadre d'exécution qui orchestre l'agent + les tools + les gates + les évaluations (cf. <a href="dep-03-context-engineering-couts.html#section-3bis" class="tool-link">Context engineering §3bis — Du context au harness</a>)</td></tr>
+            <tr><td><strong>multi-turn evaluations</strong></td><td>Évaluation sur une séquence d'échanges, pas seulement un appel unique</td></tr>
+            <tr><td><strong>state-modifying agents</strong></td><td>Agents qui modifient un état externe (fichier, DB, API) — évaluation = vérification de l'état post-action, pas seulement de la réponse</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3.6 Heuristique « eval first, optimize second »</h3>
+
+        <div class="pull-quote">
+          <p><strong>Construire les évaluations AVANT d'optimiser l'agent.</strong></p>
+        </div>
+
+        <p><strong>Pourquoi</strong>&nbsp;: sans baseline d'évaluation, toute optimisation est mesurée à l'aveugle. Les premiers gains paraissent grands (« ça marche mieux ») mais on découvre 6 mois plus tard que la qualité est restée stable, voire a régressé. Cette heuristique est <strong>l'équivalent qualité du « single LLM call d'abord »</strong> côté architecture (voir <a href="dep-01-cadrer-projet-prod.html#heuristique-anti-hype" class="tool-link">Cadrer un projet IA — Heuristique anti-hype</a>).</p>
+
+        <h3>3.7 Bruit infra vs régression modèle — comment distinguer</h3>
+
+        <p>Source complémentaire&nbsp;: Anthropic « Quantifying infrastructure noise in agentic coding evals » (mai 2026).</p>
+
+        <p>Quand un eval baisse, <strong>deux causes possibles</strong>&nbsp;:</p>
+        <ol>
+          <li><strong>Régression modèle</strong>&nbsp;: le modèle de base a changé, ou le prompt a dérivé</li>
+          <li><strong>Bruit infra</strong>&nbsp;: latence variable, indisponibilité ponctuelle d'un tool, instabilité de l'API</li>
+        </ol>
+
+        <p><strong>Méthode pour distinguer</strong>&nbsp;: répéter l'eval <strong>N fois sur le même input</strong> et mesurer la variance.</p>
+        <ul>
+          <li><strong>Variance haute</strong> → bruit infra (à corriger côté infra avant de modifier l'agent)</li>
+          <li><strong>Variance basse mais score bas</strong> → régression réelle (à investiguer côté modèle/prompt)</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p>🔗 <strong>Couples opérationnels</strong>&nbsp;: les gates TOML (<a href="dep-05-agents-observabilite.html" class="tool-link">Agents en production §8.2</a>) sont un type d'eval mécanique exécuté à chaque sortie. Le <strong>failure receipt</strong> (<a href="dep-05-agents-observabilite.html" class="tool-link">§8.5</a>) documente les échecs lorsqu'un eval n'a pas suffi. Eval = mesure du succès, failure receipt = forensique de l'échec.</p>
+        </div>
       </section>
 
       <!-- 4. OUTILS -->
@@ -465,6 +512,8 @@
             <li><a href="https://blog.dailydoseofds.com/p/foundations-of-ai-engineering-and-0a6" target="_blank" rel="noopener">Avi Chawla — Eval &amp; observability layers</a><span class="resources-meta">Pilier 8 LLM Engineering Roadmap</span></li>
             <li><a href="https://www.anthropic.com/engineering" target="_blank" rel="noopener">Anthropic Engineering — Building evaluations</a><span class="resources-meta">Pratiques de référence</span></li>
             <li><a href="https://blog.langchain.dev/" target="_blank" rel="noopener">LangChain — State of Agent Engineering 2026</a><span class="resources-meta">Étude annuelle, qualité = blocker n°1</span></li>
+            <li><a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank" rel="noopener">Anthropic Engineering — Demystifying evals for AI agents</a><span class="resources-meta">Mai 2026 — terminologie canonique (eval, harness, multi-turn, state-modifying) + heuristique « eval first »</span></li>
+            <li><a href="https://www.anthropic.com/engineering/" target="_blank" rel="noopener">Anthropic Engineering — Quantifying infrastructure noise in agentic coding evals</a><span class="resources-meta">Mai 2026 — méthode variance N runs pour distinguer bruit infra vs régression modèle</span></li>
           </ul>
         </div>
 

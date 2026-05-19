@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">22 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">24 min de lecture</span>
       </div>
       <h1>🔎 RAG en production : choisir son architecture</h1>
       <p class="module-subtitle">Le RAG hybride a triplé en Q1 2026 (10,3 % → 33,3 %). Le débat n'est plus « RAG ou pas » mais « quelle architecture selon mon volume et mes données ». Voici comment décider.</p>
@@ -90,6 +90,10 @@
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
               <p><strong>Le LLM Wiki Karpathy (avril 2026) change la donne pour les petits corpus.</strong> Pour une base &lt; 100K tokens stable (manuel produit, FAQ technique, documentation interne d'un domaine), une simple base markdown maintenue par un LLM peut surpasser un RAG vectoriel — et coûter 95 % moins en tokens.</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">5</div>
+              <p><strong>Signal de rupture potentielle 3-6 mois — surveiller la trajectoire long context / persistent memory.</strong> Trois sources convergentes en mai 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent) suggèrent que les RAG classiques pourraient être à risque de rupture sur certains cas d'usage. Voir <a href="#section-2bis" class="tool-link">section 2bis</a> pour la grille de décision par profil de projet.</p>
             </div>
           </div>
 
@@ -175,6 +179,57 @@
           <li><strong>LLM Wiki</strong> : ~10-50 €/mois (juste le LLM, pas de vector DB)</li>
         </ul>
         <p>→ Économie potentielle de 90 % sur les petits corpus.</p>
+
+        <h3 id="section-2bis">2.5 Le signal de rupture — durée de vie des architectures RAG actuelles</h3>
+
+        <div class="callout callout-warn">
+          <p>⚠️ <strong>Signal fort 2026 à intégrer dans tout cadrage de projet RAG en production</strong>&nbsp;: les architectures RAG classiques pourraient avoir une durée de vie de <strong>3-6 mois sur certains cas d'usage</strong>, si les ruptures observées (long context 10M+ natif + LLM Wiki + persistent memory) se confirment.</p>
+        </div>
+
+        <p><strong>Trois sources convergentes en une semaine (mai 2026)</strong>&nbsp;:</p>
+        <ul>
+          <li>@0xCVYH (SubQ) — long context 10M+ tokens en production, réduction coût attention ×1000</li>
+          <li>@Suryanshti777 — gist Karpathy LLM Wiki à 5 000+ stars, écosystème de patterns dérivés</li>
+          <li>@JE4NVRG (<a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a> / Jean Vargas) — persistent memory &gt; RAG stateless pour agents scalables</li>
+        </ul>
+
+        <h4>Implication opérationnelle pour ton choix d'architecture RAG</h4>
+
+        <table class="tool-table">
+          <thead>
+            <tr>
+              <th>Si ton projet est…</th>
+              <th>Recommandation 2026</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>POC ou pilote court (&lt; 6 mois)</strong></td><td>Architecture RAG simple, ne pas optimiser à outrance. La stack restera valide sur l'horizon.</td></tr>
+            <tr><td><strong>Production sur corpus &lt; 1 M tokens</strong></td><td>Évaluer une architecture <strong>hybride RAG-light + long context</strong> pour ne pas être prisonnier de la rupture annoncée.</td></tr>
+            <tr><td><strong>Production sur corpus &gt; 10 M tokens</strong></td><td>RAG hybride classique reste pertinent — le long context natif ne couvrira pas ces volumes à court terme.</td></tr>
+            <tr><td><strong>Agent en production avec mémoire conversationnelle</strong></td><td>Privilégier les patterns <strong>persistent memory</strong> (Hermes Agent, vault structuré) plutôt que pure stack RAG.</td></tr>
+            <tr><td><strong>Stack RAG déjà déployée en prod</strong></td><td>Documenter la dette technique RAG&nbsp;; tester en parallèle une alternative sur un cas non critique&nbsp;; ne pas paniquer (le RAG classique reste pertinent pour citation et sourcing précis).</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Ce qui ne change pas</h4>
+
+        <p>Le RAG hybride <strong>reste pertinent</strong> pour&nbsp;:</p>
+        <ul>
+          <li>Les corpus volumineux (&gt; 10 M tokens) où le long context natif ne suffira pas</li>
+          <li>Les besoins de <strong>sourcing précis</strong> (citation source, traçabilité du chunk d'origine)</li>
+          <li>Les contextes <strong>réglementés</strong> (RGPD, AI Act) où la traçabilité de l'information injectée dans le contexte est exigée</li>
+          <li>Les architectures <strong>multi-tenant</strong> où chaque tenant doit avoir un isolement strict des données</li>
+        </ul>
+
+        <p>Le RAG hybride <strong>devient à risque de rupture</strong> pour&nbsp;:</p>
+        <ul>
+          <li>Les agents avec mémoire conversationnelle simple</li>
+          <li>Les corpus petits-moyens (&lt; 1 M tokens) où le long context natif suffira</li>
+          <li>Les use cases « ingestion + synthèse + évolution » où le LLM Wiki est plus efficace</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <strong>Pattern A5 « Agents fédérés / persistent memory » à venir</strong>&nbsp;: si la trajectoire se confirme, la page <a href="../architectures.html" class="tool-link">Architectures</a> introduira un 5e pattern complémentaire. Pour l'instant, ce pattern reste en signal — pas en référence d'implémentation. Surveillance active dans les 3-6 mois. Symétrie côté business&nbsp;: voir <a href="../modules/cu-008-knowledge-base-rag.html#llm-wiki-shelf-life" class="tool-link">Knowledge base RAG — Durée de vie des stacks RAG actuels</a>.</div>
       </section>
 
       <!-- 3. RAG HYBRIDE -->
@@ -413,6 +468,9 @@
             <li><a href="https://venturebeat.com/data/the-retrieval-rebuild-why-hybrid-retrieval-intent-tripled-as-enterprise-rag-programs-hit-the-scale-wall" target="_blank" rel="noopener">VentureBeat — Hybrid retrieval intent tripled (mars 2026)</a><span class="resources-meta">La bascule Q1 2026 vers le retrieval hybride</span></li>
             <li><a href="https://www.mindstudio.ai/blog/llm-wiki-vs-rag-markdown-knowledge-base-comparison" target="_blank" rel="noopener">MindStudio — LLM Wiki vs RAG comparison</a><span class="resources-meta">Analyse comparée patterns 2026</span></li>
             <li><a href="https://www.techment.com/blogs/rag-in-2026/" target="_blank" rel="noopener">Techment — RAG in 2026</a><span class="resources-meta">État de l'art RAG production</span></li>
+            <li><a href="https://x.com/0xCVYH/status/2052039643114213699" target="_blank" rel="noopener">@0xCVYH (SubQ) — Long context 10M+ vs RAG playbook</a><span class="resources-meta">Mai 2026, thèse fin du playbook RAG si long context natif</span></li>
+            <li><a href="https://x.com/Suryanshti777/status/2055326692051390540" target="_blank" rel="noopener">@Suryanshti777 — Obsolescence progressive du RAG classique</a><span class="resources-meta">Mai 2026, au profit du LLM Wiki</span></li>
+            <li><a href="https://x.com/JE4NVRG/status/2056511285651497136" target="_blank" rel="noopener">@JE4NVRG (Hermes Agent) — Persistent memory &gt; RAG stateless</a><span class="resources-meta">Mai 2026, pour agents scalables</span></li>
           </ul>
         </div>
 
