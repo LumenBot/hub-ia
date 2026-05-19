@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sécurité IA &amp; risques opérationnels — Hub IA Learning Center</title>
+  <meta name="description" content="Sécurité IA en PME : du LLM classique à l'agentique 2026. Risques, typologie, NIST CAISI, SBOM IA, McKinsey RAI maturité 2,3/5. Cybersécurité agentique = vecteur de risque distinct.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -44,7 +45,7 @@
       </a>
       <div class="module-badges">
         <span class="card-badge" style="background:#1F3864; color:white;">⚡ Cadrage</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">12 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
       </div>
       <h1>🛡️ Sécurité IA &amp; risques opérationnels</h1>
       <p class="module-subtitle">
@@ -206,6 +207,31 @@
           <li><strong>Manquement AI Act</strong> : usage haut risque sans dispositif (recrutement, crédit, scoring).</li>
           <li><strong>Manquement transparence</strong> : utilisateurs finaux non informés de l'usage IA (article 50 AI Act).</li>
         </ul>
+
+        <h3 id="risques-agentiques">Risques agentiques 2026 — un vecteur distinct du LLM classique</h3>
+
+        <div class="callout callout-info">
+          <p>🤖 <strong>2026 : la cybersécurité agentique devient un vecteur de risque distinct du LLM classique</strong> (McKinsey « Securing the agentic enterprise », mai 2026).</p>
+          <p style="margin-top: var(--space-3);"><em>« Les organisations ne peuvent plus se contenter de craindre que l'IA dise la mauvaise chose, elles doivent contendre avec des systèmes qui font la mauvaise chose&nbsp;: actions non intentionnelles, mésusage d'outils, contournement de garde-fous. »</em></p>
+        </div>
+
+        <p><strong>Implications pour la PME</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>Risque LLM classique</strong>&nbsp;: hallucination, biais, fuite de données via prompt → relativement bien couvert par la stack 2025 (filtrage, sandbox).</li>
+          <li><strong>Risque agentique 2026</strong>&nbsp;: un agent peut <strong>agir</strong> sur un système (envoi de mail, modification fichier, transfert d'argent, accès API). Le risque devient celui de <strong>l'action incorrecte</strong>, pas seulement de l'output incorrect.</li>
+        </ul>
+
+        <p><strong>Chiffres McKinsey à intégrer dans tout cadrage gouvernance IA</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>RAI maturité moyenne 2026 : 2,3/5</strong> (vs 2,0 en 2025) — progression mesurable mais lente.</li>
+          <li><strong>~1/3 des organisations à maturité ≥ 3</strong> en stratégie, gouvernance et gouvernance agentique — donc <strong>2/3 des organisations restent à risque</strong>.</li>
+        </ul>
+
+        <p><strong>Action attendue pour la PME</strong>&nbsp;: si l'entreprise déploie un agent IA en production avec accès à des systèmes opérationnels (CRM, ERP, mail), elle doit appliquer les patterns techniques de mitigation (voir la fiche <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production</a> §8 production-grade et §8.5 failure receipt) et inscrire le projet à un <strong>niveau de gouvernance ≥ 3</strong> (auto-diag dans le module <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>).</p>
+
+        <div class="callout callout-info" style="margin-top: var(--space-5);">
+          <p>🏭 <strong>NIST AI RMF Profile « Trustworthy AI in Critical Infrastructure » (avril 2026)</strong>&nbsp;: complément stratégique au RMF générique, dédié aux opérateurs d'infrastructures critiques (OIV/OSE en France). Particulièrement pertinent pour les <strong>PME industrielles vosgiennes</strong> dans des filières classées (énergie, eau, transport, agroalimentaire). À mobiliser en couple avec le SBOM IA (fiche <a href="../deploiement/dep-08-securite-agents-mcp.html#section-7bis" class="tool-link">Sécurité agents et MCP §7bis</a>) pour les déploiements en environnement OIV.</p>
+        </div>
       </section>
 
       <section class="module-section" id="section-4">
@@ -262,6 +288,39 @@
         <p>
           Pour les fondations techniques qui rendent cette check-list applicable (logs, sandbox, monitoring), voir le préalable <a href="pr-02-preables-data-si.html" class="tool-link">Préalables data &amp; SI</a>. Pour les cas d'usage où la sécurité opérationnelle est particulièrement critique (validation humaine systématique des actions agents), voir le module <a href="../modules/cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction métier</a>. Sur les solutions souveraines à privilégier pour les flux à criticité élevée, voir la fiche <a href="../ressources.html#mistral" class="tool-link">Mistral</a> ; sur l'audit éthique structuré, voir <a href="../ressources.html#ethiqais" class="tool-link">EthiqAIS</a> (référentiel français de gouvernance IA).
         </p>
+
+        <h3 id="nist-caisi">NIST CAISI — cadre US complémentaire AI Act à anticiper</h3>
+
+        <div class="callout callout-info">
+          <p>🔄 <strong>NIST AI Agent Standards Initiative (CAISI)</strong> — un cadre US complémentaire de l'AI Act EU à anticiper pour 2026-2027. Lancé en février 2026, via le Center for AI Standards and Innovation (NIST).</p>
+        </div>
+
+        <p><strong>6 thèmes prioritaires identifiés par le NIST</strong>&nbsp;:</p>
+        <ol>
+          <li><strong>Agent identity &amp; authentication</strong></li>
+          <li><strong>Auditability &amp; non-repudiation</strong> — records des décisions agents + approbations humaines (cohérence directe avec le pattern <em>failure receipt</em> des agents en production)</li>
+          <li><strong>Interoperability</strong> — interopérabilité entre stacks agents et <a href="../ressources.html#mcp" class="tool-link">MCP</a></li>
+          <li>Évaluation et validation continue des agents</li>
+          <li>Sécurité de la supply chain agentique (cohérence directe avec le SBOM IA G7/ANSSI)</li>
+          <li>Gouvernance multi-acteurs (fournisseurs, déployeurs, utilisateurs finaux)</li>
+        </ol>
+
+        <p><strong>Calendrier</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>RFI agent security threats &amp; vulnerabilities</strong>&nbsp;: clos le 9 mars 2026</li>
+          <li><strong>NCCoE concept paper agents authorization</strong>&nbsp;: clos le 2 avril 2026</li>
+          <li><strong>Sector listening sessions</strong>&nbsp;: tenues en avril 2026 (healthcare, finance, education)</li>
+          <li><strong>AI Agent Interoperability Profile</strong> prévu <strong>Q4 2026</strong></li>
+        </ul>
+
+        <p><strong>Implication PME</strong>&nbsp;: le NIST CAISI est un <strong>soft framework</strong> (pas obligatoire en France/EU) mais il <strong>structure les pratiques internationales</strong>. Les PME qui exportent vers les US ou travaillent avec des grandes entreprises US auront à s'aligner. À surveiller pour 2027.</p>
+
+        <p><strong>Couple naturel avec</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>SBOM for AI G7/ANSSI</strong> (mai 2026) — convergence internationale traçabilité, voir <a href="../deploiement/dep-08-securite-agents-mcp.html#section-7bis" class="tool-link">Sécurité agents et MCP §7bis</a>.</li>
+          <li><strong>AI Act Article 50</strong> (applicable 2 août 2026) — convergence transparence, voir <a href="../modules/cu-020-conformite-rgpd-ai-act.html#section-art50" class="tool-link">Conformité RGPD &amp; AI Act</a>.</li>
+          <li><strong>Pattern « agent = employé »</strong> côté gouvernance managériale&nbsp;: voir <a href="../modules/cu-026-gouvernance-agents-ia.html" class="tool-link">Gouvernance des agents IA</a>.</li>
+        </ul>
       </section>
 
       <section class="module-section" id="ressources">
@@ -277,6 +336,10 @@
             <li><a href="https://www.ssi.gouv.fr" target="_blank" rel="noopener">ANSSI — Recommandations IA</a><span class="resources-meta">Agence nationale de la sécurité des SI — guides cybersécurité applicables IA</span></li>
             <li><a href="https://www.usine-digitale.fr" target="_blank" rel="noopener">L'Usine Digitale — section IA &amp; cybersécurité</a><span class="resources-meta">Veille presse sur les incidents IA en entreprises (général)</span></li>
             <li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener">OWASP Top 10 LLM</a><span class="resources-meta">Référence internationale sur les vulnérabilités IA</span></li>
+            <li><a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/securing-the-agentic-enterprise-opportunities-for-cybersecurity-providers" target="_blank" rel="noopener">McKinsey — Securing the agentic enterprise (mai 2026)</a><span class="resources-meta">RAI maturité 2,3/5, cybersécurité agentique distincte du LLM classique</span></li>
+            <li><a href="https://www.nist.gov/" target="_blank" rel="noopener">NIST — AI Agent Standards Initiative (CAISI)</a><span class="resources-meta">Cadre US complémentaire AI Act EU — 6 thèmes prioritaires, AI Agent Interoperability Profile Q4 2026</span></li>
+            <li><a href="https://www.metricstream.com/blog/nists-ai-agent-standards-initiative.html" target="_blank" rel="noopener">MetricStream — NIST AI Agent Standards Initiative</a><span class="resources-meta">Décryptage opérationnel du cadre NIST CAISI</span></li>
+            <li><a href="https://cyber.gouv.fr/nous-connaitre/publications/publications-internationales/software-bill-of-materials-sbom-for-artificial-intelligence/" target="_blank" rel="noopener">ANSSI / G7 — SBOM for AI</a><span class="resources-meta">Cadre traçabilité composants IA aligné NIS2 (mai 2026)</span></li>
           </ul>
         </div>
 
