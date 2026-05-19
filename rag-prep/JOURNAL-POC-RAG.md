@@ -11,6 +11,132 @@
 
 ## Entrées
 
+### 2026-05-19 (S2.4 Phase 3 Lots G + H livrés) — Cowork Hub IA Plateforme — Cartographie v1 + extension golden set 52 questions
+
+**Contexte :** Phase 2 S2.4 clôturée (sondage D-026 + brique transverse + refactor 2 modules + patches 3 modules + nouveau module PR-08, 4 PR mergées #65 à #69). Phase 3 démarre : préparation eval Lot I (Desktop) avec mise à niveau cartographie + extension golden set.
+
+**Actions menées :**
+
+- **Lot G — Cartographie v0 → v1** : ajout d'une section dédiée « Vague 4 — ajouts S2.4 Phase 2 » avec inventaire détaillé des 7 entrées modifiées/nouvelles :
+  - 2 nouveaux fichiers MD : `pattern-persistent-memory.md` (brique transverse symétrique pattern-llm-wiki) + `pr-08.md` (nouveau préalable RULES 7→8)
+  - 5 refactors/patches : cu-008 + dep-02 (sections H2 dédiées persistent memory), cu-026 (section H2 §3bis Frontier Firms), cu-027 (point 4 Stanford), dep-08 (section H2 §7bis SBOM IA)
+  - 1 bump éditorial chiffres-macro-2026 (v3.8.6 → v3.9.0, +20 chiffres canonisés)
+  - Récap inventaire : vault passe de **13 à 15 fichiers MD** ; 8 modules restant whitelistés pour Lot F.5 sprint S2.5 dédié
+  - Whitelist déjà à jour (pr-08 retiré en Lot F.4, pattern-persistent-memory retiré en Lot F.1)
+  - Glossaire RULES : 7→8 préalables effectif côté MD (cohérent avec impact v3.10 HTML)
+
+- **Lot H — Extension golden set 42 → 52 questions** (10 nouvelles q-043 → q-052) :
+  - 2 questions `pattern-persistent-memory` (q-043 4 signaux convergents, q-044 benchmarks agentmemory)
+  - 2 questions cross-modules `cu-008` + `dep-02` refactor (q-045 quand privilégier persistent memory, q-046 architecture agent mémoire conversationnelle)
+  - 2 questions `cu-026` §3bis Frontier Firms (q-047 4 patterns, q-048 articulation 4 patterns vs 7 dimensions)
+  - 1 question `cu-027` Point 4 Stanford (q-049 productivité 14-26 % + emploi devs -20 %)
+  - 1 question `dep-08` §7bis SBOM IA (q-050 disciplines SBOM IA + ANSSI/G7)
+  - 2 questions `pr-08` (q-051 7 dispositifs fiscaux, q-052 règle des 5 étapes empilement)
+  - **Application stricte SPEC v1.6** : AP-5 (valeurs numériques quotées : `"95,2 %"`, `"14-26 %"`, `"86,2 %"`, `"÷ 100"`, etc.), AP-6 (plafond 4 synonymes respecté), garde-fou « concepts détaillés » (leads des chunks cibles avaient été enrichis avec vocabulaire bridge en Lots F.1 à F.4 — anticipation retrieval)
+  - **Validation YAML automatique** : 52 questions, 41/52 avec ≥1 liste de synonymes, AP-5 + AP-6 ✅, 52 ids consécutifs q-001 → q-052
+  - **Cible eval S2.4** recalibrée : ≥ 43/52 sources retrouvées (≥ 83 %), ≥ 47/52 concepts ≥ 50 % (≥ 90 %)
+  - **Coût eval Lot I attendu** : 52q × ~0,025 $/q = **~1,30 $ Anthropic** (cap durci sprint 1,35 $ SPEC v1.6 respecté)
+
+**Métriques Lots G + H :**
+- 2 fichiers de gouvernance : cartographie-rag.md (v0 → v1), questions.yaml (42 → 52 questions)
+- Coût : **0,00 $** (Cowork pur éditorial)
+
+**Décisions structurantes :**
+- **Cartographie v1** acte le périmètre vault post-S2.4 Phase 2 et la roadmap des 8 modules restant whitelistés (Lot F.5 S2.5 dédié).
+- **Cible eval S2.4** : ≥ 43/52 (83 %) — proportionnelle aux cibles précédentes (S2.2 24/30 = 80 %, S2.3 35/42 = 83 % atteinte 41/42 = 97 %). Marge raisonnable pour absorber 10 nouveaux chunks dans 7 fichiers MD modifiés.
+
+**Reste à faire S2.4 Phase 3** :
+- **Lot I (Desktop)** : eval extended 52 questions sur vault enrichi vague 4 post-S2.4 Phase 2. Pull main + ingest incrémental (15 fichiers MD) + run_eval + commit artefacts + MAJ JOURNAL/STATUS.
+- **Lot J (Plateforme)** : RAPPORT-CC-S2.4 (8 sections format S2.3) + PR finale S2.4.
+
+**Blockers :** aucun. État stable Cowork-side, attente exécution Desktop Lot I.
+
+---
+
+### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 + F.4 livrés) — Cowork Hub IA Plateforme — pattern-persistent-memory + refactor CU-008/DEP-02 + patches CU-026/CU-027/DEP-08 + nouveau module PR-08
+
+**Contexte :** RETOUR-SONDAGE-COWORK-HUB-IA-S2.4 reçu (2e application D-026, 11 sous-passages confirmés/rectifiés + 5 bonus). Décision Cowork validée : extraction transverse `pattern-persistent-memory.md` recommandée (D-025 SPEC v1.6 satisfait, symétrique pattern-llm-wiki). **Rectification critique du RETOUR §3.4** : le tableau §4 DEP-02 (« Tableau de décision RAG ») n'a **pas** été modifié en v3.10/v3.11 — la nouvelle ligne « agent avec mémoire conversationnelle » est dans un **mini-tableau distinct** (§2bis « Implication opérationnelle »). À préserver les 2 tableaux séparés, **ne pas fusionner**.
+
+**Actions menées :**
+
+- **Lot F.1 — Production `rag/content/transverses/pattern-persistent-memory.md`** (~1900 mots, format symétrique à pattern-llm-wiki.md) :
+  - Frontmatter v3.11.0, type: transverse, niveau: 3
+  - 4 signaux convergents (ordre canonique chronologique mai 2026) : Long context natif SubQ (10 M tokens+, ×1000 coût attention), LLM Wiki post-Karpathy (5 000+ stars), Persistent memory Vargas (Hermes Agent founder, « persistent memory > RAG stateless pour agents scalables »), agentmemory infrastructure (13 200+ stars, pivot infrastructurel)
+  - Benchmarks agentmemory (R10 stricte) : 95,2 % r@5 vs 86,2 % BM25 + coût token ÷ 100+, source github.com/rohitg00/agentmemory (Rohit Ghumare)
+  - Écosystème hooks 6 outils (ordre canonique) : Claude Code / Hermes Agent / OpenClaw / Codex CLI / Cursor / Gemini CLI
+  - Distinction conceptuelle vs pattern-llm-wiki (tableau comparatif 6 critères : nature, cycle, volume cible, statefulness, cas d'usage, coût)
+  - Tableau de décision RAG / LLM Wiki / Persistent memory (4 profils workload)
+  - Préfiguration pattern A5 « Agents fédérés / persistent memory »
+  - Whitelist mise à jour : `pattern-persistent-memory` retiré
+
+- **Lot F.2 — Refactor CU-008 + DEP-02** (application pattern Lot D-ter validé S2.4.1 : chunking H2 autonome + lead bridge enrichi) :
+  - **CU-008** (bump v3.8.6 → v3.11.0) : ajout section H2 « ## Persistent memory pour agents IA — 4 signaux convergents (mai 2026) » après LLM Wiki existante. 351 mots / ~456 tokens (chunk autonome SPEC §R3). Lead bridge en gras avec vocabulaire question canonique. Renvoi `[[pattern-persistent-memory]]`. Articulation explicite « 2 patterns distincts mais convergents ».
+  - **DEP-02** (bump v3.8.6 → v3.11.0) : ajout section H2 « ## Implication opérationnelle — architecture pour agent avec mémoire conversationnelle (persistent memory, mai 2026) » **entre** LLM Wiki et RAG hybride. **Tableau §4 « Tableau de décision RAG » strictement intact** (rectification critique RETOUR §3.4). Mini-tableau distinct 4 profils workload avec ligne « Agent en production avec mémoire conversationnelle → persistent memory mutualisable, local-first SQLite + FAISS, benchmark 95,2 % r@5 + coût ÷ 100+ ». 401 mots / ~521 tokens.
+  - Frontmatter `derives` enrichi pour les 2 modules : +cu-026, +dep-05, +pattern-persistent-memory. Glossaire `agent` ajouté.
+
+**Application pattern Lot D-ter (validé empiriquement S2.4.1)** : titres H2 + leads des chunks démarrent par le vocabulaire bridge attendu dans les questions canoniques (« persistent memory pour agents IA », « architecture pour agent avec mémoire conversationnelle »). Anticipation des questions futures du golden set vague 4.
+
+**Décisions structurantes prises :**
+- **Extraction pattern-persistent-memory.md actée** comme 2e brique transverse de pattern d'architecture (symétrique pattern-llm-wiki). Validation empirique critère D-025 SPEC v1.6.
+- **Préservation 2 tableaux distincts dans DEP-02** : tableau principal §4 (volume corpus) + mini-tableau §3bis (profil workload agent). Pattern de coexistence à inscrire éventuellement en précision SPEC v1.7.
+
+**Métriques Lots F.1 + F.2 :**
+- 3 fichiers MD : pattern-persistent-memory.md (nouveau, 1900 mots), cu-008.md (refactor, +351 mots), dep-02.md (refactor, +401 mots)
+- 1 fichier vivant : whitelist v2 (`pattern-persistent-memory` retiré)
+- Coût : **0,00 $** (Lot Cowork pur éditorial, exception D-022 ciblée éditoriale)
+
+- **Lot F.3 — Patches modules existants produits (3/10 cibles RETOUR Lot F.3)** :
+  - **Constat préalable** : sur les 10 modules listés au RETOUR §Lot F.3 patches v3.10/v3.11, seuls **3 sont déjà produits dans le vault** (CU-026, CU-027, DEP-08). Les 7 autres (CU-020, CU-024, DEP-01, DEP-05, DEP-07, PR-01, PR-04, PR-05) restent whitelistés — production from scratch reportée en Lot F.5 ultérieur. PR-08 nouveau préalable reste en Lot F.4 dédié.
+  - **CU-026 (bump v3.8.7 → v3.11.0)** : ajout section H2 dédiée « ## 4 patterns Microsoft Frontier Firms — typologie de collaboration humain-agent IA (2026) » entre Framework 7 dimensions et Cadre réglementaire. 4 patterns dans l'ordre canonique progression croissante d'autonomie (Author / Editor / Director / Orchestrator) + cas typiques + **distinction explicite « 4 patterns ≠ 7 dimensions »** (équivalent S2.3 « 7 dimensions ≠ 8 questions auto-diag »). Lead bridge enrichi conforme pattern Lot D-ter. Frontmatter `tags` enrichi (+frontier-firms, +microsoft), `derives` enrichi (+cu-008, +dep-02, +pattern-persistent-memory). 654 mots / ~850 tokens — légèrement au-dessus du seuil 800 SPEC §R3 mais acceptable, à monitorer en eval Lot I (le chunk reste cohérent thématiquement).
+  - **CU-027 (bump v3.8.7 → v3.11.0)** : ajout « ### Point 4 — Benchmarks Stanford 2026 » dans la section H2 « Rupture économique 2026 » (3 chiffres canoniques Stanford AI Index Report 2026 : SWE-bench 60→100 %, productivité 14-26 %, emploi devs juniors US -20 %). Wikilinks vers [[chiffres-macro-2026]] sections canonisées en S2.4.1. Frontmatter `tags` enrichi (+swe-bench, +stanford), `derives` enrichi (+cu-026).
+  - **DEP-08 (bump v3.8.7 → v3.11.0)** : ajout section H2 dédiée « ## SBOM IA et supply chain — sécuriser la chaîne de dépendances agents (ANSSI / G7, 2026) » entre AgentShield specs opérationnelles et Sécuriser CLAUDE.md. Lead bridge enrichi pattern Lot D-ter. Chiffre canonique 362 incidents IA Stanford intégré. 4 disciplines SBOM IA + cadre réglementaire émergent ANSSI / G7. 486 mots / ~632 tokens ✅. Frontmatter `tags` enrichi (+sbom, +supply-chain, +anssi), `derives` enrichi (+cu-027, +dep-02, +pr-05).
+
+**Métriques Lot F.3 :**
+- 3 fichiers MD modifiés : cu-026.md, cu-027.md, dep-08.md (tous bumpés v3.11.0)
+- 2 nouvelles sections H2 dédiées + 1 sous-point dans une H2 existante
+- Coût : **0,00 $** (Lot Cowork pur éditorial)
+
+**Pattern Lot D-ter appliqué systématiquement** : lead bridge enrichi avec vocabulaire question canonique attendu dans le golden set vague 4 (« 4 patterns Microsoft Frontier Firms pour la collaboration humain-agent IA », « SBOM IA et supply chain — sécuriser la chaîne de dépendances agents »). Anticipation retrieval Lot I.
+
+- **Lot F.4 — Production nouveau module PR-08 « Financer son projet IA en 2026 »** (création from scratch, première production module post-S2.3 sans précédent MD) :
+  - Frontmatter conforme SPEC v1.6 : `code: pr-08`, type prealable-pr, axe transverse, niveau 3, tags fiscalité-IA + dispositifs, v3.11.0
+  - **10 sections H2** : 7 sections canoniques RETOUR §1.1 (Pourquoi 2026 change tout / Fiscalité 7 dispositifs / France 2030 / 2 deadlines juin / 4 leviers Bpifrance / Méthode 5 étapes + 5 pièges / Plan 30 jours) + Essentiel + Public + Pour aller plus loin
+  - **Tableau 7 dispositifs fiscaux canoniques** (RETOUR §1.1) : CIR, CII, 🆕 CII-IA, JEI, 🆕 JEII, CICO, C3IV avec colonnes Statut 2026 / Cible / Spécificité IA
+  - **5 profils PME** + dispositifs prioritaires (« quel dispositif pour quel profil »)
+  - **Règle des 5 étapes** (séquence chronologique : diagnostic → CIR/CII → CII-IA → JEI/JEII → AAP régionaux/France 2030)
+  - **5 pièges à éviter** (démarrer par AAP sans diagnostic, confondre CIR/CII, oublier CII-IA, JEI déclarée trop tard, ignorer guichets régionaux)
+  - **Plan d'action 30 jours** en 4 étapes hebdomadaires
+  - **Chiffres canoniques cités** (12 occurrences) : 240 M€ Bpifrance ×14 (wikilink chiffres-macro-2026 I-D-006), 25 M€ IA Booster, 40 % diagnostics Data IA, 15 M professionnels formés visés 2030, 460 Data AI Diagnostics 2025, 9 403 dirigeants formés Bpifrance Université, 15 000+ PME formées
+  - **Wikilinks** : `[[pr-04]]` (callout-info §1), `[[dep-04]]` (callout-info §2), `[[cu-027]]` (mention discrète stack ECC §2 + Pour aller plus loin), `[[chiffres-macro-2026]]`
+  - **Rectifications RETOUR §1.3 respectées** : aucun wikilink vers PR-07 (« couple 1 tranche, couple 2 s'aligne ») ; aucun cas-école PME nommé (approche cartographique méthodologique différente de CU-026 Klarna ou CU-027 Tea App) ; aucun plafond CIR détaillé (« non cité côté HTML, ne pas inventer ») ; aucune deadline AAP au-delà des 2 de juin 2026
+  - **Mentions sources institutionnelles** : BOFIP, impots.gouv.fr, financeinnovation.fr, economie.gouv.fr, presse.economie.gouv.fr, entreprises.gouv.fr, Bpifrance, Bpifrance Le Lab, grandest.fr (cohérence territoriale Quai Alpha)
+  - **Volume** : 178 lignes / 2149 mots (cible RETOUR ~150 lignes équivalent PR-07 légèrement dépassée, acceptable car module structurant cartographie 7 dispositifs)
+  - **Whitelist mise à jour** : `pr-08` retiré (RULES 7→8 préalables effective côté MD)
+
+**Métriques Lot F.4 :**
+- 1 fichier MD nouveau (`rag/content/prealables/pr-08.md`)
+- 1 fichier vivant : whitelist v2 → v2.1 (pr-08 retiré, RULES 7→8 préalables)
+- Coût : **0,00 $** (Lot Cowork pur éditorial)
+
+**Décisions structurantes Lot F.4 :**
+- **2e application D-026 validée sur module from scratch** : PR-08 produit avec 0 dérive sémantique majeure détectable (vs S2.3 où CU-027 avait 3 hypothèses incorrectes nécessitant rectification). Le sondage préalable a évité les pièges (cas-école inventé, plafonds CIR extrapolés, wikilink PR-07 artificiel).
+- **Pattern de production from scratch avec sondage D-026** confirmé efficace pour modules sans précédent MD. À reconduire systématiquement pour Lot F.5 (7 modules à produire from scratch).
+
+**Récap consolidé Phase 2 — Lots F.1 + F.2 + F.3 + F.4 livrés** :
+- 5 fichiers MD impactés : pattern-persistent-memory (nouveau brique transverse), cu-008 (refactor), dep-02 (refactor), cu-026 (patch), cu-027 (patch), dep-08 (patch), pr-08 (nouveau module)
+- 2 fichiers vivants : JOURNAL, STATUS, whitelist mis à jour
+- Coût total Phase 2 : **0,00 $** (pur Cowork éditorial)
+- Reste Phase 3 : Lot F.5 (production 7 modules whitelistés = CU-020/CU-024/DEP-01/DEP-05/DEP-07/PR-01/PR-04/PR-05 — reporté Option A validée Blaise), Lots G/H/I/J (golden set + eval + RAPPORT + PR finale)
+
+**Reste à faire S2.4 Phase 3 (Lots F.3 à J)** :
+- Lot F.3 : patches 10 modules existants (CU-020 + CU-024 + CU-026 §3bis Frontier Firms + CU-027 + DEP-01 + DEP-05 + DEP-07 + DEP-08 + PR-01 + PR-04 + PR-05)
+- Lot F.4 : production nouveau module PR-08 « Financer son projet IA en 2026 »
+- Lots G/H/I/J : whitelist + golden set + eval + RAPPORT-CC-S2.4 + PR finale
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-19 (S2.4.1 Lot D livré — Phase 1 clôturée) — Claude Code Desktop — Rerun eval ciblé q-038, score=1 atteint après 3 itérations
 
 **Contexte :** Lot D = rerun eval ciblé q-038 + 5 voisines pour vérifier que le fix S2.4.1 Lot C (chunking + élargissement `expected_concepts`) fait passer q-038 de score=0 (S2.3 Lot E) à score=1, sans régression sur les voisines. Branche dérivée de main `claude/execute-s241-lot-d-rerun-q038[-bis|-ter]` (3 itérations successives).

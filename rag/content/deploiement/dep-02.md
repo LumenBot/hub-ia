@@ -5,10 +5,10 @@ type: deploiement-dep
 axe: B
 niveau: 3
 tags: [rag, production, architecture, llm-wiki, hybride, embeddings, reranking, eval-set, chunking]
-version: 3.8.6
-last_updated: 2026-05-12
-glosaire_termes: [rag, vector-store, embeddings, chunk, llm, llm-wiki, hnsw, reranker, retrieval-hybride, eval-set, llm-as-judge, mteb]
-derives: ["[[cu-008]]", "[[pr-07]]", "[[dep-01]]", "[[dep-03]]", "[[dep-04]]", "[[dep-06]]", "[[dep-07]]", "[[outils-vector-db]]", "[[pattern-llm-wiki]]", "[[vigilance-hallucinations]]", "[[vigilance-confidentialite]]"]
+version: 3.11.0
+last_updated: 2026-05-13
+glosaire_termes: [rag, vector-store, embeddings, chunk, llm, llm-wiki, hnsw, reranker, retrieval-hybride, eval-set, llm-as-judge, mteb, agent]
+derives: ["[[cu-008]]", "[[cu-026]]", "[[pr-07]]", "[[dep-01]]", "[[dep-03]]", "[[dep-04]]", "[[dep-05]]", "[[dep-06]]", "[[dep-07]]", "[[outils-vector-db]]", "[[pattern-llm-wiki]]", "[[pattern-persistent-memory]]", "[[vigilance-hallucinations]]", "[[vigilance-confidentialite]]"]
 public_cible: [ops, r&d, tech]
 ---
 
@@ -58,6 +58,25 @@ Le tableau de décision plus bas donne la réponse architecturale.
 Pattern documenté en détail dans la brique transverse [[pattern-llm-wiki]] (à consulter pour le tableau de décision par volume corpus, les cas types pertinents en PME, le coût-bénéfice mesuré ~95 % d'économie sur petits corpus, et les 5 patterns post-Karpathy : persistent memory, self-maintaining KB, contradiction detection, multi-agent vaults, sleep consolidation).
 
 **Synthèse technique pour ce module** : pour un corpus < 100K tokens stable (manuel produit, FAQ, procédures RH), le LLM Wiki Karpathy ([[glossaire#llm-wiki]]) remplace avantageusement le RAG vectoriel — pas de vector DB, pas de chunking, base markdown maintenue par un LLM. Coût attendu ~10-50 €/mois vs 150-300 €/mois pour un RAG vectoriel équivalent. Au-delà de 100K tokens ou pour les mises à jour temps réel, basculer sur le RAG hybride détaillé ci-dessous.
+
+## Implication opérationnelle — architecture pour agent avec mémoire conversationnelle (persistent memory, mai 2026)
+
+**Architecture recommandée pour un agent IA en production avec mémoire conversationnelle multi-tours, multi-sessions ou multi-agents : privilégier une couche persistent memory mutualisable (cf. agentmemory et l'écosystème de hooks partagés) plutôt qu'un RAG hybride classique stateless. Architecture local-first SQLite + FAISS compatible souveraineté A3/A4. Benchmark de référence : 95,2 % r@5 vs 86,2 % BM25 + coût token ÷ 100+.**
+
+Pattern documenté en détail dans la brique transverse [[pattern-persistent-memory]] (4 signaux convergents mai 2026 : long context natif SubQ, LLM Wiki post-Karpathy, persistent memory Vargas, agentmemory infrastructure ; benchmarks ; écosystème de hooks multi-agents Claude Code / Hermes Agent / OpenClaw / Codex CLI / Cursor / Gemini CLI ; préfiguration pattern A5 « Agents fédérés / persistent memory »).
+
+**Mini-tableau de décision opérationnelle** (à utiliser en complément du tableau principal § « Tableau de décision RAG » ci-dessous — ne PAS fusionner les deux, ce sont des arbitrages distincts) :
+
+| Profil de workload agent | Architecture recommandée | Renvoi détail |
+|---|---|---|
+| Agent one-shot (Q&A documentaire stateless) | RAG hybride classique ou LLM Wiki selon volume | tableau de décision RAG ci-dessous + [[pattern-llm-wiki]] |
+| **Agent en production avec mémoire conversationnelle** | **Privilégier persistent memory mutualisable (agentmemory ou équivalent). Architecture local-first SQLite + FAISS. Benchmark 95,2 % r@5 + coût ÷ 100+** | [[pattern-persistent-memory]] |
+| **Multi-agents coopérants partageant contexte** | **Persistent memory partagée + hooks multi-agents standardisés** | [[pattern-persistent-memory]] §écosystème |
+| Agent à knowledge canonique stable + mémoire conversationnelle | Composer LLM Wiki (knowledge) + persistent memory (mémoire) | [[pattern-llm-wiki]] + [[pattern-persistent-memory]] |
+
+**Distinction conceptuelle à préserver** : LLM Wiki (Karpathy) = synthèse markdown stable mise à jour périodiquement par un LLM. Persistent memory (Vargas/agentmemory) = mémoire agentique en lecture/écriture **pendant l'exécution**. Deux patterns distincts mais convergents — ne pas les substituer l'un à l'autre. Voir [[pattern-persistent-memory]] §Distinction pour le tableau comparatif complet (nature, cycle, statefulness, cas d'usage type, coût).
+
+**Implication architecture** : la majorité des modules RAG produits en 2024-2025 ne mobilisent pas de persistent memory parce qu'ils visent un workflow one-shot. Le pivot agentique de 2026 (cf. [[cu-026]], [[dep-05]]) change la donne : tout déploiement RAG sur un workflow agentique stateful doit anticiper l'intégration d'une couche persistent memory dès la conception architecturale, pas après coup. Discipline [[vigilance-confidentialite]] critique sur le store mémoire.
 
 ## RAG hybride — anatomie d'une pipeline production
 

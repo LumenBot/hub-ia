@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 19 mai 2026 (S2.4.1 Phase 1 clôturée — Lot D rerun q-038 score=1, chunk specs op rang #1 sim 0,2239)
-**Sprint en cours :** **S2.4 ouvert** — **Phase 1 (S2.4.1) clôturée** : Lot A SPEC v1.6 + Lot B canonisation chiffres-macro v3.9.0 + Lot C fix q-038 option C + 2 patchs correctifs retrieval (promotion H3→H2 chunk autonome `f16e1b1` + enrichissement lead vocabulaire question `7fc5970`) + **Lot D Desktop rerun q-038 score=1, 6/6 concepts trouvés, chunk « AgentShield outils et patterns » rang #1 sim 0,2239** (vs rang ≥11 sim < 0,108 avant). Garde-fou « concepts détaillés » SPEC v1.6 validé empiriquement. Reste Phase 2 (sondage D-026 étendu) + Phase 3 (production vague 4 + eval + RAPPORT-CC-S2.4).
+**Dernière mise à jour :** 19 mai 2026 (S2.4 Phase 3 Lots G + H livrés — cartographie v1 + golden set 52q)
+**Sprint en cours :** **S2.4 en cours, Phase 3 démarrée** — Lots G + H livrés Cowork-side : cartographie v0 → v1 (inventaire vague 4, vault 13 → 15 fichiers MD) + golden set 42 → **52 questions** (10 nouvelles q-043 → q-052, AP-5 + AP-6 ✅, cible eval ≥ 43/52 = 83 %). Reste **Lot I (Desktop)** : eval extended 52q (~1,30 $ Anthropic) puis **Lot J (Plateforme)** : RAPPORT-CC-S2.4 + PR finale. Lot F.5 (8 modules whitelistés CU-020/CU-024/DEP-01/DEP-05/DEP-07/PR-01/PR-04/PR-05) reporté sprint S2.5 dédié.
 **Période S2.4 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA + Blaise + Claude Code Plateforme + Claude Code Desktop. Sprint S2.3 clôturé (PR #56 mergée, score 41/42).
 

@@ -450,3 +450,134 @@
 
 # Fin de l'extension S2.3 — 12 nouvelles questions vague 3 (total golden set v2 : 42 questions).
 # Recalibrage cible eval S2.3 : ≥ 35/42 sources retrouvées (≥ 83 %), ≥ 38/42 concepts ≥ 50 % (≥ 90 %).
+
+# ====================================================================
+# Extension S2.4 Lot H — 10 nouvelles questions vague 4 (q-043 → q-052)
+# ====================================================================
+#
+# Couverture : pattern-persistent-memory (nouveau transverse), refactor CU-008 + DEP-02,
+# patches CU-026 §3bis Frontier Firms / CU-027 §1bis Point 4 Stanford / DEP-08 §7bis SBOM IA,
+# nouveau module PR-08 « Financer son projet IA en 2026 ».
+#
+# Application stricte SPEC v1.6 :
+# - AP-5 : valeurs numériques quotées explicitement
+# - AP-6 : plafond 4 synonymes par concept
+# - Garde-fou « concepts détaillés » : leads des chunks cibles ont été enrichis avec vocabulaire bridge
+#
+# Cible eval S2.4 : ≥ 43/52 sources retrouvées (≥ 83 %), ≥ 47/52 concepts ≥ 50 % (≥ 90 %)
+
+# === pattern-persistent-memory — 2 nouvelles questions ===
+
+- id: q-043
+  question: "Quels sont les 4 signaux convergents du pattern persistent memory pour agents IA en mai 2026 ?"
+  expected_sources: [pattern-persistent-memory]
+  expected_concepts:
+    - ["Long context", "SubQ", "10 M tokens"]
+    - ["LLM Wiki", Karpathy]
+    - [Vargas, "Hermes Agent", "persistent memory"]
+    - [agentmemory, "13 200"]
+  unit: pattern-persistent-memory
+
+- id: q-044
+  question: "Quels benchmarks documentent les performances d'agentmemory par rapport à BM25 ?"
+  expected_sources: [pattern-persistent-memory]
+  expected_concepts:
+    - ["95,2 %", "95,2"]
+    - ["86,2 %", "86,2", BM25]
+    - ["÷ 100", "divisé par 100", "coût token"]
+    - [agentmemory, "Rohit Ghumare"]
+  unit: pattern-persistent-memory
+
+# === cu-008 + dep-02 refactor — 2 nouvelles questions cross-modules ===
+
+- id: q-045
+  question: "Quand privilégier la persistent memory plutôt que le RAG classique pour un agent IA en production ?"
+  expected_sources: [cu-008, pattern-persistent-memory]
+  expected_concepts:
+    - ["persistent memory", "mémoire conversationnelle"]
+    - [agent, agents]
+    - [stateful, "multi-tours", "multi-sessions"]
+    - ["RAG stateless", "RAG classique"]
+  unit: cu-008
+
+- id: q-046
+  question: "Quelle architecture pour un agent en production avec mémoire conversationnelle multi-tours ?"
+  expected_sources: [dep-02, pattern-persistent-memory]
+  expected_concepts:
+    - ["persistent memory", "agentmemory"]
+    - ["local-first", "SQLite", FAISS]
+    - ["mémoire conversationnelle", agent]
+    - ["souveraineté", "A3", "A4"]
+  unit: dep-02
+
+# === cu-026 §3bis Microsoft Frontier Firms — 2 nouvelles questions ===
+
+- id: q-047
+  question: "Quels sont les 4 patterns Microsoft Frontier Firms pour la collaboration humain-agent IA ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - Author
+    - Editor
+    - Director
+    - Orchestrator
+  unit: cu-026
+
+- id: q-048
+  question: "Comment articuler les 4 patterns Microsoft avec le framework 7 dimensions de gouvernance des agents IA ?"
+  expected_sources: [cu-026]
+  expected_concepts:
+    - ["4 patterns", "Author", "Editor"]
+    - ["7 dimensions", "Tâche", "Droits"]
+    - ["distinction", "distincts", "complémentaire"]
+    - ["répartition", "conception"]
+  unit: cu-026
+
+# === cu-027 §1bis Point 4 Stanford — 1 nouvelle question ===
+
+- id: q-049
+  question: "Quel est le gain de productivité IA mesuré en customer support et software dev en 2026 selon Stanford ?"
+  expected_sources: [cu-027, chiffres-macro-2026]
+  expected_concepts:
+    - ["14-26 %", "14 à 26", "14 %", "26 %"]
+    - ["Stanford", "Stanford AI Index"]
+    - ["customer support", "software dev"]
+    - ["-20 %", "devs juniors", "emploi"]
+  unit: cu-027
+
+# === dep-08 §7bis SBOM IA — 1 nouvelle question ===
+
+- id: q-050
+  question: "Quelles disciplines SBOM IA appliquer pour sécuriser la chaîne de dépendances d'agents IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - ["SBOM", "SBOM IA"]
+    - [ANSSI, G7]
+    - ["supply chain", "chaîne de dépendances"]
+    - ["inventaire", "audit", "CVE"]
+  unit: dep-08
+
+# === pr-08 nouveau module — 2 nouvelles questions ===
+
+- id: q-051
+  question: "Quels sont les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026 ?"
+  expected_sources: [pr-08]
+  expected_concepts:
+    - [CIR, CII]
+    - ["CII-IA", "CII IA"]
+    - [JEI, JEII]
+    - [CICO, C3IV]
+  unit: pr-08
+
+- id: q-052
+  question: "Quelle est la règle des 5 étapes pour empiler les dispositifs de financement IA en PME ?"
+  expected_sources: [pr-08]
+  expected_concepts:
+    - ["5 étapes", "cinq étapes"]
+    - ["diagnostic Bpifrance", "Data AI Diagnostic"]
+    - ["CIR", "CII", "CII-IA"]
+    - ["JEI", "JEII", "AAP", "France 2030"]
+  unit: pr-08
+
+# Fin de l'extension S2.4 Lot H — 10 nouvelles questions vague 4 (total golden set : 52 questions).
+# Cible eval S2.4 : ≥ 43/52 sources retrouvées (≥ 83 %), ≥ 47/52 concepts ≥ 50 % (≥ 90 %).
+# Coût eval estimé : 52q × ~0,025 $/q = ~1,30 $ Anthropic (cap durci sprint S2.4 = 1,35 $ SPEC v1.6).

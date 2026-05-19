@@ -50,6 +50,7 @@
 | `pr-04` | Marché IA & emploi | 3-4 |
 | `pr-05` | Sécurité IA | 3-4 |
 | `pr-06` | Qualité du code IA | 3-4 |
+| ~~`pr-08`~~ | ~~Financer son projet IA en 2026 (nouveau préalable v3.10)~~ | ✅ **Produit S2.4 Lot F.4 — 13 mai 2026** (RULES 7→8 préalables, post-RETOUR-SONDAGE-S2.4 §1) |
 
 ## Fiches déploiement DEP planifiées (à produire vagues 3 à 5)
 
@@ -77,6 +78,7 @@
 | Code | Portée (rappel) | Priorité |
 |---|---|---|
 | ~~`pattern-llm-wiki`~~ | ~~Pattern LLM Wiki Karpathy distillé + 5 patterns post-Karpathy~~ | ✅ **Produit S2.2 Lot A — retiré whitelist le 12 mai 2026** |
+| ~~`pattern-persistent-memory`~~ | ~~Pattern Persistent memory 4 signaux + agentmemory benchmarks~~ | ✅ **Produit S2.4 Phase 2 Lot F.1 — 13 mai 2026** (post-RETOUR-SONDAGE-S2.4, validation D-025 SPEC v1.6 — symétrique pattern-llm-wiki) |
 | `pattern-eval-set-golden` | Méthodologie golden set + Stitch → Evaluate → Iterate + LLM-as-judge | 🟡 Moyenne (à coupler avec dep-07) |
 | `pattern-build-vs-buy` | Matrice 6 critères + 3 scénarios distillés | 🟢 Basse (à coupler avec module appelant) |
 | `methodologie-prompt-engineering` | 4 étapes universelles (question, contexte, vérification, itération) | 🟡 Moyenne |
