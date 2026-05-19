@@ -1,0 +1,18 @@
+# Golden 1-question — Sprint S2.4.1 Lot D-bis (rerun q-038 post-promotion H3→H2)
+#
+# Vérification ciblée que la promotion H3 → H2 « AgentShield — specs opérationnelles »
+# (dep-08.md ligne 114, chunk autonome) rend les specs précises retrouvables par le retrieval.
+#
+# Source de vérité : rag/eval/questions.yaml (entrée copiée verbatim).
+
+- id: q-038
+  question: "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - AgentShield
+    - [Snyk, Semgrep]
+    - ["1 282", "1282", "1 282 tests", "milliers de tests"]
+    - ["102 règles", "102", "centaine de règles"]
+    - ["--opus", "mode --opus", "mode Opus"]
+    - [audit, logs, "audit hebdo"]
+  unit: dep-08

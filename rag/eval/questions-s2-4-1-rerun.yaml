@@ -1,0 +1,76 @@
+# Golden set rerun ciblé — Sprint S2.4.1 Lot D (q-038 fix verification)
+#
+# Sous-ensemble filtré de questions.yaml (golden set v2, 42 questions) pour valider :
+#   - q-038 doit passer score=1 (vs score=0 en S2.3 Lot E)
+#     après refonte H3 « AgentShield — specs opérationnelles » dans dep-08.md
+#     et élargissement expected_concepts (SPEC v1.6 AP-6, plafond 4 synonymes)
+#   - 5 voisines sanity (no-regression) :
+#       q-037, q-039, q-042 → dep-08 (même fichier modifié)
+#       q-014               → cu-008 (hors dep-08)
+#       q-026               → vigilance-confidentialite (hors vague 3)
+#
+# Source de vérité : rag/eval/questions.yaml (entrées copiées verbatim).
+# Ne pas éditer ici sans synchroniser avec questions.yaml.
+
+- id: q-014
+  question: "Quels sont les pièges à éviter lors de la mise en place d'un RAG en entreprise ?"
+  expected_sources: [cu-008]
+  expected_concepts: [garbage, droits, maintenance, hallucination]
+  unit: cu-008
+
+- id: q-026
+  question: "Quelles données ne jamais coller dans un chatbot grand public ?"
+  expected_sources: [vigilance-confidentialite]
+  expected_concepts:
+    - [personnelles, personnelle]
+    - [contractuelles, contractuelle]
+    - [stratégiques, stratégique]
+    - [régulées, régulée]
+  unit: vigilance-confidentialite
+
+- id: q-037
+  question: "Quels sont les 4 vecteurs d'attaque connus contre les agents IA et MCP servers en 2026 ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - MCP
+    - ["MCP compromis", "MCP malveillant"]
+    - "prompt injection"
+    - [skills, "skills malveillants"]
+    - "supply chain"
+    - "CVE-2025-59536"
+  unit: dep-08
+
+- id: q-038
+  question: "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - AgentShield
+    - [Snyk, Semgrep]
+    - ["1 282", "1282", "1 282 tests", "milliers de tests"]
+    - ["102 règles", "102", "centaine de règles"]
+    - ["--opus", "mode --opus", "mode Opus"]
+    - [audit, logs, "audit hebdo"]
+  unit: dep-08
+
+- id: q-039
+  question: "Quels incidents et CVE documentés illustrent les risques techniques des agents IA en production ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - "CVE-2025-59536"
+    - ["MCP STDIO", "STDIO"]
+    - OpenClaw
+    - ["Moltbook", "1,5 M", "1 500 000"]
+    - [incident, incidents]
+  unit: dep-08
+
+- id: q-042
+  question: "Comment sécuriser les fichiers de configuration d'agents IA en production (CLAUDE.md, hooks, configs) ?"
+  expected_sources: [dep-08]
+  expected_concepts:
+    - "CLAUDE.md"
+    - [hooks, configs]
+    - [versioning, git]
+    - ["revue PR", "revue de PR"]
+    - AgentShield
+    - [audit, hebdo, mensuel]
+  unit: dep-08
