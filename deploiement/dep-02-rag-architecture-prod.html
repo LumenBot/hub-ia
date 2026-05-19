@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">24 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">26 min de lecture</span>
       </div>
       <h1>🔎 RAG en production : choisir son architecture</h1>
       <p class="module-subtitle">Le RAG hybride a triplé en Q1 2026 (10,3 % → 33,3 %). Le débat n'est plus « RAG ou pas » mais « quelle architecture selon mon volume et mes données ». Voici comment décider.</p>
@@ -93,7 +93,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">5</div>
-              <p><strong>Signal de rupture potentielle 3-6 mois — surveiller la trajectoire long context / persistent memory.</strong> Trois sources convergentes en mai 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent) suggèrent que les RAG classiques pourraient être à risque de rupture sur certains cas d'usage. Voir <a href="#section-2bis" class="tool-link">section 2bis</a> pour la grille de décision par profil de projet.</p>
+              <p><strong>Signal de rupture potentielle 3-6 mois — la trajectoire bascule de discussion à infrastructure.</strong> Quatre sources convergentes en mai-juin 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent, agentmemory avec benchmarks publiés 95,2 % r@5 + coût token ÷ 100+) suggèrent que les RAG classiques pourraient être à risque de rupture sur certains cas d'usage. Voir <a href="#section-2bis" class="tool-link">section 2bis</a> pour la grille de décision par profil de projet.</p>
             </div>
           </div>
 
@@ -183,15 +183,28 @@
         <h3 id="section-2bis">2.5 Le signal de rupture — durée de vie des architectures RAG actuelles</h3>
 
         <div class="callout callout-warn">
-          <p>⚠️ <strong>Signal fort 2026 à intégrer dans tout cadrage de projet RAG en production</strong>&nbsp;: les architectures RAG classiques pourraient avoir une durée de vie de <strong>3-6 mois sur certains cas d'usage</strong>, si les ruptures observées (long context 10M+ natif + LLM Wiki + persistent memory) se confirment.</p>
+          <p>⚠️ <strong>Signal fort 2026 à intégrer dans tout cadrage de projet RAG en production</strong>&nbsp;: les architectures RAG classiques pourraient avoir une durée de vie de <strong>3-6 mois sur certains cas d'usage</strong>, si les ruptures observées (long context 10M+ natif + LLM Wiki + persistent memory + agentmemory) se confirment. La trajectoire bascule désormais de « discussion » à « infrastructure ».</p>
         </div>
 
-        <p><strong>Trois sources convergentes en une semaine (mai 2026)</strong>&nbsp;:</p>
+        <p><strong>Quatre sources convergentes en mai-juin 2026</strong>&nbsp;:</p>
         <ul>
           <li>@0xCVYH (SubQ) — long context 10M+ tokens en production, réduction coût attention ×1000</li>
           <li>@Suryanshti777 — gist Karpathy LLM Wiki à 5 000+ stars, écosystème de patterns dérivés</li>
           <li>@JE4NVRG (<a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a> / Jean Vargas) — persistent memory &gt; RAG stateless pour agents scalables</li>
+          <li>@ghumare64 (<a href="../ressources.html#agentmemory" class="tool-link">agentmemory</a>) — <strong>13 200+ stars GitHub</strong>, première implémentation mutualisable cross-agents (<a href="../ressources.html#claude-code" class="tool-link">Claude Code</a>, <a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a>, <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a>, Codex CLI, <a href="../ressources.html#cursor" class="tool-link">Cursor</a>, Gemini CLI) avec benchmarks publiés</li>
         </ul>
+
+        <h4>Signal 4 — agentmemory : la persistent memory devient infrastructure mutualisable</h4>
+
+        <p>Côté production, agentmemory est la première implémentation <strong>mutualisable cross-agents</strong> d'une couche de persistent memory&nbsp;:</p>
+        <ul>
+          <li>Serveur <strong>local SQLite + FAISS</strong> (pas de SaaS — souveraineté / RGPD respectés)</li>
+          <li>Hooks officiels pour Claude Code, Hermes Agent, OpenClaw, Codex CLI, Cursor, Gemini CLI</li>
+          <li>Benchmarks publiés&nbsp;: <strong>95,2 % r@5 vs 86,2 % BM25 fallback</strong> + <strong>coût token ÷ 100+</strong></li>
+          <li>Pattern de déploiement <strong>local-first</strong>, compatible avec les architectures A3/A4 (souveraineté contrôlée / forte)</li>
+        </ul>
+
+        <p><strong>Implication pour l'équipe qui industrialise un projet RAG en 2026</strong>&nbsp;: avant de surinvestir dans une infrastructure RAG classique, évaluer si un <strong>pattern hybride RAG-light + persistent memory</strong> ne suffit pas. La barre de qualité (95,2 % r@5) et le ratio coût (÷ 100+) rendent l'arbitrage non trivial. Voir la fiche outil détaillée <a href="../ressources.html#agentmemory" class="tool-link">agentmemory</a>.</p>
 
         <h4>Implication opérationnelle pour ton choix d'architecture RAG</h4>
 
@@ -206,7 +219,7 @@
             <tr><td><strong>POC ou pilote court (&lt; 6 mois)</strong></td><td>Architecture RAG simple, ne pas optimiser à outrance. La stack restera valide sur l'horizon.</td></tr>
             <tr><td><strong>Production sur corpus &lt; 1 M tokens</strong></td><td>Évaluer une architecture <strong>hybride RAG-light + long context</strong> pour ne pas être prisonnier de la rupture annoncée.</td></tr>
             <tr><td><strong>Production sur corpus &gt; 10 M tokens</strong></td><td>RAG hybride classique reste pertinent — le long context natif ne couvrira pas ces volumes à court terme.</td></tr>
-            <tr><td><strong>Agent en production avec mémoire conversationnelle</strong></td><td>Privilégier les patterns <strong>persistent memory</strong> (Hermes Agent, vault structuré) plutôt que pure stack RAG.</td></tr>
+            <tr><td><strong>Agent en production avec mémoire conversationnelle</strong></td><td>Privilégier une couche <strong>persistent memory mutualisable</strong> (cf. <a href="../ressources.html#agentmemory" class="tool-link">agentmemory</a>) plutôt que RAG hybride. Architecture local-first (SQLite + FAISS) compatible souveraineté A3/A4. Benchmark de référence&nbsp;: 95,2 % r@5 + coût token ÷ 100+.</td></tr>
             <tr><td><strong>Stack RAG déjà déployée en prod</strong></td><td>Documenter la dette technique RAG&nbsp;; tester en parallèle une alternative sur un cas non critique&nbsp;; ne pas paniquer (le RAG classique reste pertinent pour citation et sourcing précis).</td></tr>
           </tbody>
         </table>
@@ -471,6 +484,7 @@
             <li><a href="https://x.com/0xCVYH/status/2052039643114213699" target="_blank" rel="noopener">@0xCVYH (SubQ) — Long context 10M+ vs RAG playbook</a><span class="resources-meta">Mai 2026, thèse fin du playbook RAG si long context natif</span></li>
             <li><a href="https://x.com/Suryanshti777/status/2055326692051390540" target="_blank" rel="noopener">@Suryanshti777 — Obsolescence progressive du RAG classique</a><span class="resources-meta">Mai 2026, au profit du LLM Wiki</span></li>
             <li><a href="https://x.com/JE4NVRG/status/2056511285651497136" target="_blank" rel="noopener">@JE4NVRG (Hermes Agent) — Persistent memory &gt; RAG stateless</a><span class="resources-meta">Mai 2026, pour agents scalables</span></li>
+            <li><a href="https://github.com/rohitg00/agentmemory" target="_blank" rel="noopener">@ghumare64 (Rohit Ghumare) — agentmemory : persistent memory layer</a><span class="resources-meta">Mai 2026, 13 200+ stars GitHub — benchmarks 95,2 % r@5 vs 86,2 % BM25 fallback + coût token ÷ 100+</span></li>
           </ul>
         </div>
 

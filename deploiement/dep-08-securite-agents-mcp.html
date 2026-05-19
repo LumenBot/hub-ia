@@ -40,7 +40,7 @@
       <div class="module-badges">
         <span class="card-badge n4">⭐⭐⭐⭐ Niveau 4 — Expert</span>
         <span class="card-badge">🎯 Cadrage stratégique</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">26 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">27 min de lecture</span>
       </div>
       <h1>🛡️ Sécurité agents et MCP servers</h1>
       <p class="module-subtitle">12 % de skills malveillants sur <a href="../ressources.html#openclaw" class="tool-link">OpenClaw</a> en janvier 2026 (341/2 857). CVE-2025-59536 sur <a href="../ressources.html#claude" class="tool-link">Claude</a> Code. MCP STDIO touche 7 000 serveurs et 150 M de téléchargements. La sécurité des agents n'est plus un sujet d'expert.</p>
@@ -89,7 +89,7 @@
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
-              <p><strong>Les CLAUDE.md et configs hooks sont des cibles d'attaque.</strong> Un attaquant qui modifie ton CLAUDE.md (via supply chain ou compromission) peut détourner ton agent. <strong>AgentShield (npx ecc-agentshield scan)</strong> est un outil gratuit pour auditer ces configs.</p>
+              <p><strong>Les CLAUDE.md et configs hooks sont des cibles d'attaque.</strong> Un attaquant qui modifie ton CLAUDE.md (via supply chain ou compromission) peut détourner ton agent. <strong><a href="../ressources.html#agentshield" class="tool-link">AgentShield</a> (npx ecc-agentshield scan)</strong> est un outil gratuit pour auditer ces configs.</p>
             </div>
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">5</div>
@@ -152,6 +152,12 @@
             <li><strong>OpenClaw Marketplace</strong> (janvier 2026) : 341 skills malveillants détectés sur 2 857 publiés (12 %)</li>
             <li><strong>Moltbook breach</strong> (février 2026) : 1,5 M clés API exposées en plaintext</li>
           </ul>
+        </div>
+
+        <div class="callout callout-warn" style="margin-top: var(--space-5);">
+          <p>🚨 <strong>362 incidents IA documentés en 2025 vs 233 en 2024 — +55 % en un an</strong> (Stanford AI Index Report 2026).</p>
+          <p style="margin-top: var(--space-3);">Le rapport Stanford documente une <strong>explosion des incidents IA</strong> en 2025, parallèle à l'adoption massive. Catégories observées&nbsp;: failles de sécurité agents et MCP servers (cohérent avec les incidents listés ci-dessus), hallucinations en production avec conséquences réelles, compromissions supply chain, mésusages d'outils par agents.</p>
+          <p style="margin-top: var(--space-3);"><strong>Implication PME</strong>&nbsp;: la <strong>probabilité d'incident IA augmente plus vite que les capacités de mitigation</strong> des PME. Les patterns de la <a href="#section-2" class="tool-link">section 2 (5 défenses prompt injection)</a> + <a href="#section-3" class="tool-link">section 3 (AgentShield)</a> + <a href="#section-7bis" class="tool-link">section 7bis (SBOM IA)</a> deviennent un <strong>minimum opérationnel</strong>, pas une option avancée.</p>
         </div>
       </section>
 
@@ -548,6 +554,7 @@ npx ecc-agentshield scan --opus     # Audit profond avec LLM
             <li><a href="https://www.ox.security/" target="_blank" rel="noopener">OX Security — MCP STDIO vulnerability</a><span class="resources-meta">Détail technique vulnérabilité</span></li>
             <li><a href="https://cyber.gouv.fr/nous-connaitre/publications/publications-internationales/software-bill-of-materials-sbom-for-artificial-intelligence/" target="_blank" rel="noopener">ANSSI / G7 — Software Bill of Materials (SBOM) for Artificial Intelligence</a><span class="resources-meta">Publication G7 relayée ANSSI 13 mai 2026 — cadre traçabilité aligné NIS2</span></li>
             <li><a href="https://x.com/ANSSI_FR/status/2054525097969344862" target="_blank" rel="noopener">ANSSI sur X — annonce relais SBOM IA</a><span class="resources-meta">13 mai 2026</span></li>
+            <li><a href="https://aiindex.stanford.edu/" target="_blank" rel="noopener">Stanford HAI — AI Index Report 2026, chapitre 3 « Responsible AI »</a><span class="resources-meta">362 incidents IA documentés en 2025 vs 233 en 2024 (+55 %)</span></li>
           </ul>
         </div>
 

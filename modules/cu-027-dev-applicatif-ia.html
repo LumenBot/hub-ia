@@ -75,7 +75,7 @@
         <a href="../index.html?axe=agentique#modules" class="card-badge" style="background:#F8F4FF; color:#4A3A8C; border:1px solid #7A5CB8;">🤖 Architecture agentique</a>
         <a href="../index.html?niveau=n4#modules" class="card-badge n4" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐⭐ Niveau 4 — Expert</a>
         <span class="card-badge">📋 Étude de cas + checklist</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">25 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">27 min de lecture</span>
       </div>
       <h1>🛠️ Faire développer une appli métier (sans être IT)</h1>
       <p class="module-subtitle">Cadrage projet pour dirigeant PME non-IT qui veut faire développer une application métier sur mesure : choix du prestataire, scope MVP, sécurité, dette technique invisible, cadre juridique. Ce qui demandait 3 développeurs et 6 mois se prototype aujourd'hui en 2-3 semaines via des outils comme <a href="../ressources.html#cursor" class="tool-link"><strong>Cursor</strong></a>, <a href="../ressources.html#claude-code" class="tool-link"><strong>Claude Code</strong></a>, <a href="../ressources.html#lovable" class="tool-link">Lovable</a> ou <a href="../ressources.html#windsurf" class="tool-link">Windsurf</a> — mais 45 % du code généré par IA contient des failles, et la responsabilité du pilotage reste celle du dirigeant. Pour comprendre le pattern d'asynchronicité agentique sous-jacent (qui se transpose au-delà du dev), voir <a href="cu-015-stripe-minions.html">Asynchronicité agentique — cas Stripe Minions</a>.</p>
@@ -257,13 +257,32 @@
       <p><strong>Implication PME</strong> : pour 75-80 % des cas d'usage de dev applicatif IA-assisté, Kimi K2.6 suffit. Économie typique : <strong>80 à 90 % de la facture d'inférence</strong> vs Opus. Garder Opus pour les 20-25 % vraiment complexes. Voir la fiche <a href="../deploiement/dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a> pour le détail décisionnel.</p>
 
       <h3>2. ECC (Everything Claude Code) — l'écosystème open-source qui remplace une équipe</h3>
-      <p><strong>ECC</strong> est devenu en 2026 le standard de qui pilote un projet de dev applicatif IA-assisté : 38 agents spécialisés (planner, security-reviewer, typescript-reviewer, etc.), 156 skills réutilisables, 72 commandes slash, et <strong>AgentShield</strong> — audit sécurité gratuit (1 282 tests, 102 règles).</p>
+      <p><strong><a href="../ressources.html#everything-claude-code" class="tool-link">ECC</a></strong> est devenu en 2026 le standard de qui pilote un projet de dev applicatif IA-assisté : 38 agents spécialisés (planner, security-reviewer, typescript-reviewer, etc.), 156 skills réutilisables, 72 commandes slash, et <strong><a href="../ressources.html#agentshield" class="tool-link">AgentShield</a></strong> — audit sécurité gratuit (1 282 tests, 102 règles).</p>
       <p><strong>Implication PME</strong> : ce qui demandait 8-10 K$/mois pour une équipe de 3-4 développeurs juniors peut être pris en charge par 1 développeur senior + ECC stack. Coût direct : ~20 $/mois Claude Pro + 50-200 €/mois infra. Voir la fiche <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents et MCP</a> pour le rôle d'AgentShield.</p>
 
       <h3>3. Le pattern Garry Tan — Fat Skills / Thin Harness</h3>
       <p><strong>Garry Tan</strong> (CEO Y Combinator) a popularisé le pattern « Fat Skills / Thin Harness » : architecture où le runtime est minimal (quelques milliers de lignes) et toute l'intelligence est dans des <strong>skills réutilisables et composables</strong> (markdown + scripts). Bénéfices documentés : 100+ skills accumulables sur 6 mois, compounding effect (chaque skill améliore le suivant), coût d'apprentissage faible. Voir le module <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a> pour la mise en œuvre côté multi-agents.</p>
 
-      <h3>4. Trois questions à poser à ton prestataire en 2026</h3>
+      <h3>4. L'accélération mesurable des coding agents — SWE-bench 60→100 % en un an</h3>
+
+      <div class="callout callout-info">
+        <p>🚀 <strong>SWE-bench Verified&nbsp;: de 60 % à ~100 % du baseline humain en un an</strong> (Stanford AI Index Report 2026).</p>
+      </div>
+
+      <p>C'est le chiffre qui matérialise pourquoi 2026 est l'année où les coding agents passent du « prometteur » au « réellement productif ». <strong>SWE-bench Verified</strong> est un benchmark de référence qui mesure la capacité d'un agent à résoudre <strong>de vrais bugs sur de vrais repos GitHub</strong>. Le passage de 60 % à ~100 % du baseline humain en 12 mois est <strong>une accélération sans équivalent dans l'histoire récente du software engineering</strong>.</p>
+
+      <p><strong>Implication PME</strong>&nbsp;: si tu fais développer une appli métier en 2026, ton prestataire doit <strong>utiliser un coding agent récent</strong> (<a href="../ressources.html#claude-code" class="tool-link">Claude Code</a>, <a href="../ressources.html#cursor" class="tool-link">Cursor</a>, <a href="../ressources.html#windsurf" class="tool-link">Windsurf</a>) sur un modèle de pointe (<a href="../ressources.html#claude" class="tool-link">Claude Opus 4.7</a>, <a href="../ressources.html#kimi" class="tool-link">Kimi K2.6</a>). Sinon il facture 8-10 K€/mois pour un travail qui peut être fait à 20 $/mois Claude Pro + 50-200 €/mois infra — cohérence avec les chiffres ECC ci-dessus.</p>
+
+      <h3>5. Productivité mesurée et effet sur l'emploi des devs juniors</h3>
+
+      <div class="callout callout-warn">
+        <p>📊 <strong>Productivité 14-26 % en customer support et software dev</strong> (Stanford AI Index Report 2026).</p>
+        <p style="margin-top: var(--space-3);"><strong>Effet secondaire mesuré</strong>&nbsp;: <strong>emploi des développeurs US 22-25 ans → −20 % depuis 2024</strong> (alors que les seniors continuent d'embaucher).</p>
+      </div>
+
+      <p><strong>Implication PME</strong>&nbsp;: la productivité gagne, mais elle se redistribue par <strong>niveau de séniorité</strong>. Le junior généraliste perd, le senior augmenté gagne. À anticiper dans toute stratégie de recrutement ou de prestation IA-assistée — privilégier <strong>un prestataire senior + ECC stack</strong> plutôt qu'une équipe de juniors. Cohérent avec les chiffres macro <a href="../prealables/pr-04-marche-ia-emploi.html#section-2bis" class="tool-link">Marché IA &amp; emploi §2bis</a>.</p>
+
+      <h3>6. Trois questions à poser à ton prestataire en 2026</h3>
       <ol>
         <li><strong>« Tu utilises quoi comme modèle de base ? »</strong> — si la réponse est « Opus uniquement », demander pourquoi pas Kimi K2.6 sur les cas non complexes (économie 80-90 %).</li>
         <li><strong>« Tu utilises ECC ou un équivalent ? »</strong> — si non, demander quel framework de skills/agents est utilisé. Sans framework, le coût de maintenance va exploser.</li>
@@ -623,6 +642,7 @@
         <ul>
           <li><a href="https://blog.barracuda.com/2025/12/22/vibe-coding-and-the-tea-app-breach--why-security-can-t-be-an-aft" target="_blank" rel="noopener">Barracuda Networks — Tea App breach analysis</a><span class="resources-meta">Analyse de l'incident Tea App, juillet 2025</span></li>
           <li><a href="https://dev.to/paulthedev/i-built-the-same-app-5-ways-cursor-vs-claude-code-vs-windsurf-vs-replit-agent-vs-github-copilot-50m2" target="_blank" rel="noopener">DEV.to — Cursor vs Claude Code vs Windsurf vs Replit Agent vs Copilot</a><span class="resources-meta">Comparatif terrain des outils 2025</span></li>
+          <li><a href="https://aiindex.stanford.edu/" target="_blank" rel="noopener">Stanford HAI — AI Index Report 2026</a><span class="resources-meta">SWE-bench 60→100 %, productivité 14-26 %, emploi devs juniors −20 %</span></li>
         </ul>
       </div>
 

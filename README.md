@@ -12,7 +12,7 @@ Une base de référence opérationnelle, en accès libre, structurée en 5 nivea
 - 🏗️ **4 patterns d'architecture + l'option hybride** — comment je déploie techniquement ? (`architectures.html`)
 - 🚀 **8 fiches Déploiement** — comment passer du POC à la production ? (`deploiement.html`)
 - 🎯 **27 modules cas d'usage** — comment résoudre concrètement mon problème métier ? (`modules/`)
-- 🛠️ **99 fiches outils** — quel outil pour ma stack ? (`ressources.html`)
+- 🛠️ **104 fiches outils** — quel outil pour ma stack ? (`ressources.html`)
 
 Les 27 modules sont regroupés en **6 familles métier** sur la home (Découverte / Marketing &amp; croissance / Décision &amp; gouvernance / Fonctions support / Industrie / Architectures agentiques avancées) et étiquetés sur une **échelle de complexité 4 niveaux** (⭐ Initiation · ⭐⭐ Opérationnel · ⭐⭐⭐ Avancé · ⭐⭐⭐⭐ Expert).
 
@@ -27,7 +27,7 @@ hub-ia/
 ├── deploiement.html        ← index des 8 fiches Déploiement (POC → production)
 ├── deploiement/            ← une page par fiche DEP (dep-01 à dep-08)
 ├── modules/                ← une page par cas d'usage (cu-001 à cu-027)
-├── ressources.html         ← catalogue d'outils (99 fiches en 15 catégories)
+├── ressources.html         ← catalogue d'outils (104 fiches en 15 catégories)
 ├── css/                    ← design system (style.css + module-v3.css)
 ├── js/                     ← module-v3.js (TOC sticky, reading progress, scroll-spy)
 └── site-web-prep/          ← briefs, patches, rapports d'audit, RULES, mockups
