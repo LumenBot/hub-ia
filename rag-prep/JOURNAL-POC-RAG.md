@@ -11,6 +11,43 @@
 
 ## Entrées
 
+### 2026-05-19 (S2.4 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.4 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.4. Tous les lots A→I livrés et mergés sur main : Lots A (SPEC v1.6), B (canonisation 28 chiffres v3.9.0), C (fix chunking dep-08), D (rerun ciblé q-038 sur 3 itérations Desktop), E (sondage D-026 11 sous-passages Cowork Hub IA), F.1-F.4 (pattern-persistent-memory + refactor cu-008/dep-02 + patches cu-026/cu-027/dep-08 + nouveau PR-08), G (cartographie v1), H (golden set 52q), I (eval extended 52q, score 50/52 = 96 %).
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.4.md`** en 8 sections (~2700 mots, format conforme S2.3) :
+  1. Objectifs S2.4 (4 axes : vague 4 ciblée, canonisation v3.9.0, fix q-038, golden set 52q)
+  2. Livrables par lot (tableau exhaustif A→J avec acteurs + commits)
+  3. Métriques quantitatives (50/52 sources, 50/52 score global, 44/52 concepts pleinement, 10/10 nouvelles vague 4 score=1, latence 16,5 s/q, coût 1,2785 $ Anthropic dans cap 1,35 $)
+  4. Anomalies & observations (2 régressions S2.3 q-002 + q-030 dues à saturation top-5 par pr-08 lead trop accrocheur ; chunk Frontier Firms cu-026 850 tokens validé ; 6 questions concepts partiels OK)
+  5. Décisions structurantes (5 patterns opérationnels validés : Lot D-ter chunking H2+lead bridge, bump éditorial groupé, 2 tableaux distincts dep-02, ossature ≠ transverse confirmée, 2e application D-026)
+  6. Recommandations SPEC v1.8 (3 propositions : AP-7 lead bridge sur-élargi, tolérance R3 jusqu'à ~900 tokens, codification production from scratch avec D-026 systématique)
+  7. Pistes investigation S2.5 (Lot S2.5.0 correctif retrieval pr-08, Lot F.5 production 7 modules whitelistés, R11 audit wikilinks reporté, audit régression latence, **décision budgétaire impérative**)
+  8. Coûts cumulés (S2.4 ~1,28 $, total S1→S2.4 ~5,10 $, **alerte budgétaire 🔴 dépassement ~2,10 $ vs crédits initiaux Anthropic** — décision impérative S2.5)
+
+- **MAJ STATUS-RAG** : Lot J marqué ✅ Fait, sprint S2.4 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.4 à ouvrir** vers `main` depuis `claude/execute-s24-lot-j-rapport` (branche dérivée de main post-merge PR #71). Titre canonique : `feat(rag): Sprint S2.4 - vague 4 (pattern-persistent-memory + 3 patches + PR-08) + golden set 52q + fix retrieval q-038`.
+
+**Décisions structurantes prises :** aucune (Lot J = production rapport + clôture).
+
+**Coût API consommé (cette session Lot J) :** 0,00 $ (production texte uniquement, conforme allocation D-030 Plateforme).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.4 par Blaise après revue.
+- Arbitrage Cowork des 3 propositions d'amendement SPEC v1.6 → v1.8 (AP-7, tolérance R3, D-026 systématique).
+- **Décision budgétaire impérative S2.5** : crédits Anthropic dépassés de ~2,10 $ — choisir entre recharge / bascule Haiku 4.5 / eval ciblée sous-ensemble. Plafond mensuel D-013 (50 $) reste préservé.
+- Lot S2.5.0 correctif retrieval pr-08 saturation (refactor lead pr-08 + enrichissement leads cu-001/pr-07) pour résoudre les régressions q-002 + q-030.
+- Lot F.5 vague 5 (7 modules whitelistés : CU-020, CU-024, DEP-01, DEP-05, DEP-07, PR-01, PR-04, PR-05) avec D-026 systématique.
+
+**Blockers :** aucun pour la PR. Alerte budgétaire 🔴 confirmée impérative pour S2.5 (3e signalement consécutif).
+
+---
+
 ### 2026-05-19 (S2.4 Phase 3 Lot I livré — eval 52q) — Claude Code Desktop — Eval extended 52 questions post-vague 4, score global 50/52 (96 %)
 
 **Contexte :** Lot I = eval extended sur golden set étendu 52 questions (post-Lot H) sur vault vague 4 à 15 fichiers MD (post-Phase 2 Lots F.1-F.4). Cibles SPEC v1.6 : sources ≥ 43/52 (83 %), concepts ≥ 50 % couverts ≥ 47/52 (90 %), latence 12-18 s/q, coût ≤ 1,35 $ (cap durci 50-60q). Branche `claude/execute-s24-lot-i-eval-52q` dérivée de main `248b47c`.
