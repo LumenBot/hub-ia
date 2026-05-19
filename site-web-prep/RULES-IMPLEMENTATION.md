@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.6.2 (refonte simplifiée + chiffres-clés actualisés v3.11 — fiches outils 99 → 104, 15 → 16 catégories)
+**Version :** 1.6.3 (refonte simplifiée + chiffres-clés v3.11 + détection DOM des stat blocks dans audit-global.py)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -56,6 +56,10 @@ Aucun cabinet de conseil intermédiaire, agence ou intégrateur n'est mentionné
 Tout chiffre structurel du site (nombre de modules, préalables, fiches outils, entrées de nav, etc.) doit être **identique sur toutes les pages où il apparaît** ET **cohérent intra-page** (les exec-stats ne contredisent pas le hero badge ni la prose).
 
 Avant tout commit modifiant un comptage : exécuter `audit-global.py` qui vérifie les chiffres réels (`grep` des éléments) contre toutes les apparitions cross-site. Mise à jour synchrone obligatoire de **toutes** les occurrences (`exec-stats`, `card-badge`, `hero-stat-num`, `cat-divider-count`, prose narrative, méta-description, takeaways texte, README, glossaire RULES § 1.2.3).
+
+**Pièges récurrents (mis en évidence par les correctifs v3.11)** :
+- Les **blocs `hero-stat-num` / `exec-stat-num`** séparent le chiffre (`<span class="hero-stat-num">99</span>`) du label (`<span class="hero-stat-label">fiches outils</span>`) par des balises HTML — une regex texte-pur de la forme `(\d+) fiches outils` **ne match pas** ces blocs. L'audit doit parser le DOM (couples num/label adjacents), pas juste chercher la prose. La v1.6.3 d'`audit-global.py` ajoute cette détection ; tout nouveau bloc stat doit utiliser une convention identique pour rester détectable.
+- Quand on change un comptage, **passer en revue manuellement** les hero-stats, exec-stats et cat-divider-count en plus des regex texte. La règle d'or : si un chiffre apparaît visuellement sur la page sans le mot collé à côté, l'audit n'a probablement aucune chance de le détecter par regex texte — il faut une logique DOM dédiée.
 
 **Glossaire des chiffres-clés courants** : voir Annexe § 4.B.1.
 
@@ -663,6 +667,7 @@ Versionnage : on incrémente la version en tête de fichier. v1.6 → v1.7 (refo
 - **v1.6** — refonte simplifiée : 13 règles essentielles + annexes + alignement audit-global.py. Pas de nouvelle règle. Pas de règle abandonnée. Consolidation pure (cf. `RULES-MIGRATION-v1.5-vers-v1.6.md` pour le mapping exhaustif).
 - **v1.6.1** — v3.10 : glossaire chiffres-clés actualisé (préalables PR : 7 → 8 suite ajout de PR-08 « Financer son projet IA en 2026 »).
 - **v1.6.2** — v3.11 : glossaire chiffres-clés actualisé (fiches outils : 99 → 104, 15 → 16 catégories suite création nouvelle catégorie « Stack agentique Claude / Anthropic » avec 5 nouvelles fiches : ECC, AgentShield, agentmemory, claude-smart, Onyx).
+- **v1.6.3** — correctif post-v3.11 : `audit-global.py` enrichi pour détecter les blocs `hero-stat-num` / `exec-stat-num` dont la valeur et le label sont séparés par des balises HTML (cas où la regex texte « X fiches outils » ne match pas). Le mapping `label → comptage réel` couvre fiches outils, modules, préalables, fiches Déploiement. Règle B.1 complétée d'une note explicite sur ce piège.
 
 ---
 
