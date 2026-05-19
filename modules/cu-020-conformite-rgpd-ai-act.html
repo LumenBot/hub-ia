@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conformité RGPD & AI Act pour PME — Hub IA Learning Center</title>
+  <meta name="description" content="3 échéances réglementaires IA à anticiper en 2026 : juin (consultation Art. 50), août (applicabilité), décembre (watermarking). Comprendre AI Act, RGPD, fiches CNIL et guide HAS-CNIL pour PME.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +42,7 @@
         <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
         <a href="../index.html?niveau=n3#modules" class="card-badge n3" style="background:#FFE0E0; color:#8C1A1A;">⭐⭐⭐ Niveau 3 — Avancé</a>
         <span class="card-badge" style="background:#FFF1F1; color:#8C1A1A; border:1px solid #C82A2A;">⚖️ Conformité réglementaire</span>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">45 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">49 min de lecture</span>
       </div>
       <h1>⚖️ Conformité RGPD & AI Act pour PME</h1>
       <p class="module-subtitle">
@@ -221,6 +222,16 @@
           <h2 class="module-section-title">AI Act Article 50 — Transparence et obligations de labellisation</h2>
         </div>
 
+        <div class="alert-block">
+          <h3>📅 3 échéances réglementaires PME 2026 à anticiper</h3>
+          <ul>
+            <li><strong>3 juin 2026</strong> — clôture consultation publique Draft Guidelines Art. 50 AI Act</li>
+            <li><strong>2 août 2026</strong> — applicabilité Art. 50 AI Act (transparence interactions IA, deepfakes, contenus IA-générés)</li>
+            <li><strong>2 décembre 2026</strong> — watermarking cryptographique obligatoire (reporté par Omnibus VII)</li>
+          </ul>
+          <p>En parallèle, les <strong>fiches IA finales CNIL</strong> (applicabilité RGPD aux modèles, exigences sécurité, annotation données) et le <strong>guide HAS-CNIL santé</strong> (12 fiches) deviennent des références opérationnelles applicables maintenant. <strong>2026 est l'année où la conformité IA devient opérationnelle pour les PME</strong> — pas seulement théorique.</p>
+        </div>
+
         <p>L'Article 50 du règlement européen sur l'IA (AI Act) impose <strong>deux obligations de transparence</strong> distinctes, applicables à <strong>tous les acteurs</strong> (pas seulement aux systèmes haut-risque) :</p>
 
         <ol>
@@ -230,8 +241,31 @@
 
         <p><strong>Application</strong> : 2 août 2026.</p>
 
-        <h3>État de la consultation publique (mai 2026)</h3>
-        <p>Les <strong>draft guidelines pour l'implémentation de l'Article 50</strong> ont été publiées par la Commission européenne le <strong>8 mai 2026</strong>. Elles sont en consultation publique : tout acteur concerné peut soumettre des observations. La date de fin initialement annoncée par la Commission était fixée début juin 2026 — à vérifier au moment où tu lis ce module (la consultation peut avoir évolué).</p>
+        <h3>Draft Guidelines Art. 50 — publication 8 mai 2026 (calendrier précis)</h3>
+        <p>Le 8 mai 2026, la Commission européenne a publié les <strong>premières lignes directrices (non contraignantes) couvrant l'intégralité du périmètre de l'article 50 AI Act</strong> : transparence pour interactions IA, deepfakes, contenus IA-générés, reconnaissance émotionnelle, catégorisation biométrique.</p>
+
+        <ul>
+          <li><strong>8 mai 2026</strong> — publication des Draft Guidelines</li>
+          <li><strong>3 juin 2026</strong> — clôture de la consultation publique ciblée</li>
+          <li><strong>2 août 2026</strong> — applicabilité confirmée des obligations Art. 50</li>
+        </ul>
+
+        <p>Le <strong>caractère non contraignant</strong> des Draft Guidelines est à souligner&nbsp;: elles donnent une orientation aux opérateurs sur <em>comment</em> appliquer les obligations Art. 50, pas seulement <em>quoi</em> appliquer. L'obligation juridique vient de l'AI Act lui-même, pas des Guidelines. En parallèle, la Commission a publié le <strong>Code of Practice on Transparency of AI-Generated Content</strong> (2e draft publié le 5 mars 2026), qui complète l'approche.</p>
+
+        <h4>Obligations confirmées au 2 août 2026</h4>
+
+        <p><strong>Pour les fournisseurs de systèmes IA</strong>&nbsp;:</p>
+        <ul>
+          <li>Informer les utilisateurs lorsqu'ils interagissent avec une IA (interfaces conversationnelles)</li>
+          <li>Implémenter des <strong>marques machine-readable dans les systèmes d'IA générative</strong> pour permettre la détection automatique de contenu synthétique</li>
+        </ul>
+
+        <p><strong>Pour les déployeurs (entreprises utilisatrices)</strong>&nbsp;:</p>
+        <ul>
+          <li>Informer les personnes exposées à des deepfakes</li>
+          <li>Informer en cas de publications IA-générées sur sujets d'intérêt public</li>
+          <li>Informer en cas d'usage de systèmes de reconnaissance émotionnelle ou catégorisation biométrique</li>
+        </ul>
 
         <h3>Le paquet Omnibus VII — simplification adoptée le 7 mai 2026</h3>
         <p>Le <strong>paquet de simplification Omnibus VII</strong> a fait l'objet d'un accord politique entre Parlement et Conseil le <strong>7 mai 2026</strong>. Il apporte trois nouveautés :</p>
@@ -255,6 +289,25 @@
         </ol>
 
         <p>Pour les architectures multi-agents qui interagissent avec le public, l'Article 50 impose une transparence cascadée — chaque agent en frontline doit s'annoncer. Voir le module <a href="cu-014-multi-agents.html" class="tool-link">Multi-agents par fonction</a> pour le pattern d'architecture.</p>
+
+        <h3>Fiches IA finales CNIL + guide HAS-CNIL — applicables maintenant</h3>
+
+        <p>En complément de l'AI Act, la <strong>CNIL a publié ses recommandations finales sur l'IA et le RGPD</strong>, couvrant 3 thèmes opérationnels pour toute PME exploitant des données personnelles dans ses systèmes IA&nbsp;:</p>
+        <ol>
+          <li><strong>Applicabilité du RGPD aux modèles IA</strong>&nbsp;: un modèle entraîné sur des données personnelles est lui-même un traitement de données personnelles potentiel.</li>
+          <li><strong>Exigences de sécurité dans le développement IA</strong>&nbsp;: <em>security-by-design</em> + tests de robustesse + traçabilité des données d'entraînement.</li>
+          <li><strong>Conditions d'annotation des données d'entraînement</strong>&nbsp;: information des annotateurs + bases légales applicables + droits d'accès et rectification.</li>
+        </ol>
+
+        <p>Pour les PME du <strong>secteur santé / médico-social</strong> ou éditrices d'IA, le <strong>guide HAS-CNIL « Accompagner le bon usage des systèmes d'IA »</strong> (mars 2026, consultation publique close 16 avril 2026) devient la référence opérationnelle&nbsp;:</p>
+        <ul>
+          <li><strong>10 fiches dédiées au cycle de vie</strong> des systèmes IA (cadrage → conception → développement → déploiement → suivi)</li>
+          <li><strong>2 fiches transverses</strong>&nbsp;: gouvernance et GenAI</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p>🩺 <strong>Impact opérationnel pour la PME</strong>&nbsp;: pour les PME tertiaires, les fiches IA finales CNIL doivent être consultées <strong>avant tout projet IA exploitant des données personnelles</strong> (clients, candidats, employés). Pour les PME santé/médico-social, le guide HAS-CNIL devient référentiel obligé. Pour les exigences de sécurité opérationnelle dans le développement IA, voir aussi le préalable <a href="../prealables/pr-05-securite-ia.html" class="tool-link">Sécurité IA &amp; risques opérationnels</a>. Pour l'annotation des données candidats côté RH, voir <a href="cu-007-rh-cv-entretiens.html" class="tool-link">RH — CV et entretiens IA-augmentés</a>.</p>
+        </div>
       </section>
 
       <!-- 3. ARCHITECTURE DU DISPOSITIF -->
@@ -904,6 +957,18 @@
             <li>
               <a href="https://www.francenum.gouv.fr/guides-et-conseils/intelligence-artificielle" target="_blank" rel="noopener">France Num — Intelligence artificielle</a>
               <span class="resources-meta">France Num — retours d'expérience PME et guides pratiques</span>
+            </li>
+            <li>
+              <a href="https://www.insideglobaltech.com/2026/05/12/10-takeaways-from-the-european-commissions-draft-guidelines-on-ai-transparency/" target="_blank" rel="noopener">Inside Global Tech — 10 takeaways Draft Guidelines AI transparency</a>
+              <span class="resources-meta">Analyse 12 mai 2026 — décryptage opérationnel des Draft Guidelines Art. 50</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/fr/ia-et-rgpd-la-cnil-publie-ses-nouvelles-recommandations" target="_blank" rel="noopener">CNIL — IA et RGPD : recommandations finales (2026)</a>
+              <span class="resources-meta">3 thèmes : applicabilité RGPD aux modèles, exigences sécurité, annotation données</span>
+            </li>
+            <li>
+              <a href="https://www.cnil.fr/sites/default/files/2026-03/guide_has_cnil_recommandations_ia.pdf" target="_blank" rel="noopener">CNIL × HAS — Guide « Accompagner le bon usage des systèmes d'IA »</a>
+              <span class="resources-meta">Mars 2026 — 12 fiches (10 cycle de vie + 2 transverses) pour secteur santé/médico-social</span>
             </li>
           </ul>
         </div>
