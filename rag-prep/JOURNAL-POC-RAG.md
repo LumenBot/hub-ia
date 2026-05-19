@@ -11,7 +11,7 @@
 
 ## Entrées
 
-### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 livrés) — Cowork Hub IA Plateforme — Extraction pattern-persistent-memory + refactor CU-008 + DEP-02
+### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 livrés) — Cowork Hub IA Plateforme — Extraction pattern-persistent-memory + refactor CU-008 + DEP-02 + patches CU-026/CU-027/DEP-08
 
 **Contexte :** RETOUR-SONDAGE-COWORK-HUB-IA-S2.4 reçu (2e application D-026, 11 sous-passages confirmés/rectifiés + 5 bonus). Décision Cowork validée : extraction transverse `pattern-persistent-memory.md` recommandée (D-025 SPEC v1.6 satisfait, symétrique pattern-llm-wiki). **Rectification critique du RETOUR §3.4** : le tableau §4 DEP-02 (« Tableau de décision RAG ») n'a **pas** été modifié en v3.10/v3.11 — la nouvelle ligne « agent avec mémoire conversationnelle » est dans un **mini-tableau distinct** (§2bis « Implication opérationnelle »). À préserver les 2 tableaux séparés, **ne pas fusionner**.
 
@@ -42,6 +42,19 @@
 - 3 fichiers MD : pattern-persistent-memory.md (nouveau, 1900 mots), cu-008.md (refactor, +351 mots), dep-02.md (refactor, +401 mots)
 - 1 fichier vivant : whitelist v2 (`pattern-persistent-memory` retiré)
 - Coût : **0,00 $** (Lot Cowork pur éditorial, exception D-022 ciblée éditoriale)
+
+- **Lot F.3 — Patches modules existants produits (3/10 cibles RETOUR Lot F.3)** :
+  - **Constat préalable** : sur les 10 modules listés au RETOUR §Lot F.3 patches v3.10/v3.11, seuls **3 sont déjà produits dans le vault** (CU-026, CU-027, DEP-08). Les 7 autres (CU-020, CU-024, DEP-01, DEP-05, DEP-07, PR-01, PR-04, PR-05) restent whitelistés — production from scratch reportée en Lot F.5 ultérieur. PR-08 nouveau préalable reste en Lot F.4 dédié.
+  - **CU-026 (bump v3.8.7 → v3.11.0)** : ajout section H2 dédiée « ## 4 patterns Microsoft Frontier Firms — typologie de collaboration humain-agent IA (2026) » entre Framework 7 dimensions et Cadre réglementaire. 4 patterns dans l'ordre canonique progression croissante d'autonomie (Author / Editor / Director / Orchestrator) + cas typiques + **distinction explicite « 4 patterns ≠ 7 dimensions »** (équivalent S2.3 « 7 dimensions ≠ 8 questions auto-diag »). Lead bridge enrichi conforme pattern Lot D-ter. Frontmatter `tags` enrichi (+frontier-firms, +microsoft), `derives` enrichi (+cu-008, +dep-02, +pattern-persistent-memory). 654 mots / ~850 tokens — légèrement au-dessus du seuil 800 SPEC §R3 mais acceptable, à monitorer en eval Lot I (le chunk reste cohérent thématiquement).
+  - **CU-027 (bump v3.8.7 → v3.11.0)** : ajout « ### Point 4 — Benchmarks Stanford 2026 » dans la section H2 « Rupture économique 2026 » (3 chiffres canoniques Stanford AI Index Report 2026 : SWE-bench 60→100 %, productivité 14-26 %, emploi devs juniors US -20 %). Wikilinks vers [[chiffres-macro-2026]] sections canonisées en S2.4.1. Frontmatter `tags` enrichi (+swe-bench, +stanford), `derives` enrichi (+cu-026).
+  - **DEP-08 (bump v3.8.7 → v3.11.0)** : ajout section H2 dédiée « ## SBOM IA et supply chain — sécuriser la chaîne de dépendances agents (ANSSI / G7, 2026) » entre AgentShield specs opérationnelles et Sécuriser CLAUDE.md. Lead bridge enrichi pattern Lot D-ter. Chiffre canonique 362 incidents IA Stanford intégré. 4 disciplines SBOM IA + cadre réglementaire émergent ANSSI / G7. 486 mots / ~632 tokens ✅. Frontmatter `tags` enrichi (+sbom, +supply-chain, +anssi), `derives` enrichi (+cu-027, +dep-02, +pr-05).
+
+**Métriques Lot F.3 :**
+- 3 fichiers MD modifiés : cu-026.md, cu-027.md, dep-08.md (tous bumpés v3.11.0)
+- 2 nouvelles sections H2 dédiées + 1 sous-point dans une H2 existante
+- Coût : **0,00 $** (Lot Cowork pur éditorial)
+
+**Pattern Lot D-ter appliqué systématiquement** : lead bridge enrichi avec vocabulaire question canonique attendu dans le golden set vague 4 (« 4 patterns Microsoft Frontier Firms pour la collaboration humain-agent IA », « SBOM IA et supply chain — sécuriser la chaîne de dépendances agents »). Anticipation retrieval Lot I.
 
 **Reste à faire S2.4 Phase 3 (Lots F.3 à J)** :
 - Lot F.3 : patches 10 modules existants (CU-020 + CU-024 + CU-026 §3bis Frontier Firms + CU-027 + DEP-01 + DEP-05 + DEP-07 + DEP-08 + PR-01 + PR-04 + PR-05)
