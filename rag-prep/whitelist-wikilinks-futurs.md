@@ -77,6 +77,7 @@
 | Code | Portée (rappel) | Priorité |
 |---|---|---|
 | ~~`pattern-llm-wiki`~~ | ~~Pattern LLM Wiki Karpathy distillé + 5 patterns post-Karpathy~~ | ✅ **Produit S2.2 Lot A — retiré whitelist le 12 mai 2026** |
+| ~~`pattern-persistent-memory`~~ | ~~Pattern Persistent memory 4 signaux + agentmemory benchmarks~~ | ✅ **Produit S2.4 Phase 2 Lot F.1 — 13 mai 2026** (post-RETOUR-SONDAGE-S2.4, validation D-025 SPEC v1.6 — symétrique pattern-llm-wiki) |
 | `pattern-eval-set-golden` | Méthodologie golden set + Stitch → Evaluate → Iterate + LLM-as-judge | 🟡 Moyenne (à coupler avec dep-07) |
 | `pattern-build-vs-buy` | Matrice 6 critères + 3 scénarios distillés | 🟢 Basse (à coupler avec module appelant) |
 | `methodologie-prompt-engineering` | 4 étapes universelles (question, contexte, vérification, itération) | 🟡 Moyenne |
