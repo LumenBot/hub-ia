@@ -265,8 +265,90 @@ D'après la cartographie d'ancrage du couple 1 (`Canaux/Hub-IA/veille/cartograph
 
 ---
 
+## Vague 4 — ajouts S2.4 Phase 2 (mai 2026, post-v3.10 + v3.11 HTML)
+
+### `pattern-persistent-memory.md` (transverse)
+
+**Titre** : Pattern Persistent memory pour agents IA (4 signaux convergents)
+**Version** : 3.11.0
+**Date d'ajout au vault** : 2026-05-13
+**Angles thématiques principaux** :
+1. 4 signaux convergents mai 2026 (Long context SubQ / LLM Wiki post-Karpathy / Persistent memory Vargas / agentmemory infrastructure)
+2. Benchmarks agentmemory (95,2 % r@5 vs 86,2 % BM25 + coût token ÷ 100+)
+3. Écosystème hooks 6 outils (Claude Code, Hermes Agent, OpenClaw, Codex CLI, Cursor, Gemini CLI)
+4. Distinction conceptuelle vs LLM Wiki (synthèse stable vs mémoire stateful)
+5. Préfiguration pattern A5 « Agents fédérés / persistent memory »
+
+**Mots-clés sémantiques** : persistent memory, agentmemory, hooks multi-agents, mémoire conversationnelle, SQLite + FAISS, stateful, Jean Vargas
+
+**Recouvrements connus** :
+- `pattern-llm-wiki.md` : 2 patterns distincts mais convergents (table comparative incluse dans pattern-persistent-memory.md §Distinction conceptuelle)
+- `cu-008.md` : encart H2 dédié « Persistent memory pour agents IA — 4 signaux convergents » avec renvoi pattern-persistent-memory
+- `dep-02.md` : encart H2 dédié « Implication opérationnelle — architecture pour agent avec mémoire conversationnelle » avec mini-tableau profils workload distinct du tableau §4
+
+### `pr-08.md` (préalable-pr) — nouveau préalable
+
+**Titre** : Financer son projet IA en 2026
+**Version** : 3.11.0
+**Date d'ajout au vault** : 2026-05-13
+**Angles thématiques principaux** :
+1. 3 ruptures structurelles 2026 (CII-IA nouveau, France 2030 phase diffusion, convergence Bpifrance + DGE + Hub France IA)
+2. Tableau 7 dispositifs fiscaux (CIR, CII, CII-IA, JEI, JEII, CICO, C3IV) + 5 profils PME
+3. France 2030 — Plan « Osez l'IA » + 2 deadlines juin 2026 (AMI 5 juin + AAP 9 juin)
+4. 4 leviers Bpifrance (diagnostics 40 %, formation 9 403 dirigeants, prêts, capital 240 M€ ×14)
+5. Méthode — règle des 5 étapes + 5 pièges à éviter + plan d'action 30 jours
+
+**Mots-clés sémantiques** : financement IA, CIR, CII, CII-IA, JEI, JEII, France 2030, IA Booster, Bpifrance, AMI, AAP, fiscalité innovation
+
+**Recouvrements connus** :
+- `pr-04.md` (Marché IA & emploi) : callout-info §1 référence explicite (à produire en S2.5)
+- `dep-04.md` (Fine-tuning PME) : callout-info §2 référence explicite (à produire en S2.5)
+- `cu-027.md` : mention discrète CII-IA pour dépenses calcul intensif GPU/CPU (stack ECC)
+- `chiffres-macro-2026.md` v3.9.0 : wikilink direct vers 240 M€ Bpifrance (canonisé I-D-006)
+- **PAS de wikilink vers PR-07** (rectification RETOUR-SONDAGE-S2.4 §1.3 — « couple 1 tranche, couple 2 s'aligne »)
+
+### `cu-008.md` (refactor S2.4 — v3.8.6 → v3.11.0)
+
+**Modification structurelle** : ajout section H2 « Persistent memory pour agents IA — 4 signaux convergents (mai 2026) » entre LLM Wiki et Stack outils. Lead bridge enrichi pattern Lot D-ter validé. Articulation explicite « 2 patterns distincts mais convergents » avec pattern-llm-wiki.
+
+### `dep-02.md` (refactor S2.4 — v3.8.6 → v3.11.0)
+
+**Modification structurelle** : ajout section H2 « Implication opérationnelle — architecture pour agent avec mémoire conversationnelle » entre LLM Wiki et RAG hybride. **Tableau §4 « Tableau de décision RAG » strictement intact** (rectification critique RETOUR-SONDAGE-S2.4 §3.4 — les 2 tableaux coexistent). Mini-tableau profils workload distinct.
+
+### `cu-026.md` (patch S2.4 — v3.8.7 → v3.11.0)
+
+**Modification structurelle** : ajout section H2 dédiée « 4 patterns Microsoft Frontier Firms — typologie de collaboration humain-agent IA (2026) » entre Framework 7 dimensions et Cadre réglementaire. Ordre canonique Author / Editor / Director / Orchestrator (progression croissante d'autonomie). **Distinction explicite « 4 patterns ≠ 7 dimensions »** préservée.
+
+### `cu-027.md` (patch S2.4 — v3.8.7 → v3.11.0)
+
+**Modification structurelle** : ajout « Point 4 — Benchmarks Stanford 2026 » dans section H2 « Rupture économique 2026 » (SWE-bench 60→100 %, productivité 14-26 %, emploi devs juniors -20 %). Wikilinks vers chiffres-macro-2026 v3.9.0 sections canonisées.
+
+### `dep-08.md` (patch S2.4 — v3.8.7 → v3.11.0)
+
+**Modification structurelle** : ajout section H2 dédiée « SBOM IA et supply chain — sécuriser la chaîne de dépendances agents (ANSSI / G7, 2026) » entre AgentShield specs opérationnelles et Sécuriser CLAUDE.md. Chiffre canonique 362 incidents IA Stanford intégré. 4 disciplines SBOM IA.
+
+### `chiffres-macro-2026.md` (bump éditorial v3.8.6 → v3.9.0, S2.4.1 Lot B)
+
+**Modification structurelle** : canonisation 20 nouveaux chiffres (1 enrichissement + 19 nouvelles sections H2) issus de I-D-006 (8 chiffres v3.10 Bpifrance/Microsoft/McKinsey) + I-D-007 (12 chiffres v3.11 Stanford/McKinsey). 27 → 46 sections H2. `derives` enrichi avec cu-014, pr-05, pr-08, dep-07, dep-08.
+
+---
+
+## Récap inventaire post-S2.4 Phase 2
+
+**Vault à 15 fichiers MD** :
+- 4 modules CU : cu-001, cu-008, cu-026, cu-027
+- 2 préalables PR : pr-07, **pr-08 (nouveau)**
+- 2 déploiement DEP : dep-02, dep-08
+- 5 transverses : glossaire, chiffres-macro-2026, pattern-llm-wiki, **pattern-persistent-memory (nouveau)**, vigilance-hallucinations, vigilance-confidentialite
+- 1 ressources : outils-vector-db
+
+Reste à produire pour vague 4+ complète (Lot F.5 sprint S2.5 dédié) : CU-020, CU-024, DEP-01, DEP-05, DEP-07, PR-01, PR-04, PR-05 (8 modules whitelistés).
+
+---
+
 ## Historique des versions
 
 | Version | Date | Modification |
 |---|---|---|
 | v0 | 11 mai 2026 | Initialisation, structure définie, premiers sujets à recouvrement identifiés |
+| v1 | 19 mai 2026 | Section « Vague 4 — ajouts S2.4 Phase 2 » : pattern-persistent-memory, pr-08, refactor cu-008/dep-02, patches cu-026/cu-027/dep-08, bump chiffres-macro-2026 v3.9.0. Vault passe de 13 à 15 fichiers MD. |

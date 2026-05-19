@@ -11,6 +11,48 @@
 
 ## Entrées
 
+### 2026-05-19 (S2.4 Phase 3 Lots G + H livrés) — Cowork Hub IA Plateforme — Cartographie v1 + extension golden set 52 questions
+
+**Contexte :** Phase 2 S2.4 clôturée (sondage D-026 + brique transverse + refactor 2 modules + patches 3 modules + nouveau module PR-08, 4 PR mergées #65 à #69). Phase 3 démarre : préparation eval Lot I (Desktop) avec mise à niveau cartographie + extension golden set.
+
+**Actions menées :**
+
+- **Lot G — Cartographie v0 → v1** : ajout d'une section dédiée « Vague 4 — ajouts S2.4 Phase 2 » avec inventaire détaillé des 7 entrées modifiées/nouvelles :
+  - 2 nouveaux fichiers MD : `pattern-persistent-memory.md` (brique transverse symétrique pattern-llm-wiki) + `pr-08.md` (nouveau préalable RULES 7→8)
+  - 5 refactors/patches : cu-008 + dep-02 (sections H2 dédiées persistent memory), cu-026 (section H2 §3bis Frontier Firms), cu-027 (point 4 Stanford), dep-08 (section H2 §7bis SBOM IA)
+  - 1 bump éditorial chiffres-macro-2026 (v3.8.6 → v3.9.0, +20 chiffres canonisés)
+  - Récap inventaire : vault passe de **13 à 15 fichiers MD** ; 8 modules restant whitelistés pour Lot F.5 sprint S2.5 dédié
+  - Whitelist déjà à jour (pr-08 retiré en Lot F.4, pattern-persistent-memory retiré en Lot F.1)
+  - Glossaire RULES : 7→8 préalables effectif côté MD (cohérent avec impact v3.10 HTML)
+
+- **Lot H — Extension golden set 42 → 52 questions** (10 nouvelles q-043 → q-052) :
+  - 2 questions `pattern-persistent-memory` (q-043 4 signaux convergents, q-044 benchmarks agentmemory)
+  - 2 questions cross-modules `cu-008` + `dep-02` refactor (q-045 quand privilégier persistent memory, q-046 architecture agent mémoire conversationnelle)
+  - 2 questions `cu-026` §3bis Frontier Firms (q-047 4 patterns, q-048 articulation 4 patterns vs 7 dimensions)
+  - 1 question `cu-027` Point 4 Stanford (q-049 productivité 14-26 % + emploi devs -20 %)
+  - 1 question `dep-08` §7bis SBOM IA (q-050 disciplines SBOM IA + ANSSI/G7)
+  - 2 questions `pr-08` (q-051 7 dispositifs fiscaux, q-052 règle des 5 étapes empilement)
+  - **Application stricte SPEC v1.6** : AP-5 (valeurs numériques quotées : `"95,2 %"`, `"14-26 %"`, `"86,2 %"`, `"÷ 100"`, etc.), AP-6 (plafond 4 synonymes respecté), garde-fou « concepts détaillés » (leads des chunks cibles avaient été enrichis avec vocabulaire bridge en Lots F.1 à F.4 — anticipation retrieval)
+  - **Validation YAML automatique** : 52 questions, 41/52 avec ≥1 liste de synonymes, AP-5 + AP-6 ✅, 52 ids consécutifs q-001 → q-052
+  - **Cible eval S2.4** recalibrée : ≥ 43/52 sources retrouvées (≥ 83 %), ≥ 47/52 concepts ≥ 50 % (≥ 90 %)
+  - **Coût eval Lot I attendu** : 52q × ~0,025 $/q = **~1,30 $ Anthropic** (cap durci sprint 1,35 $ SPEC v1.6 respecté)
+
+**Métriques Lots G + H :**
+- 2 fichiers de gouvernance : cartographie-rag.md (v0 → v1), questions.yaml (42 → 52 questions)
+- Coût : **0,00 $** (Cowork pur éditorial)
+
+**Décisions structurantes :**
+- **Cartographie v1** acte le périmètre vault post-S2.4 Phase 2 et la roadmap des 8 modules restant whitelistés (Lot F.5 S2.5 dédié).
+- **Cible eval S2.4** : ≥ 43/52 (83 %) — proportionnelle aux cibles précédentes (S2.2 24/30 = 80 %, S2.3 35/42 = 83 % atteinte 41/42 = 97 %). Marge raisonnable pour absorber 10 nouveaux chunks dans 7 fichiers MD modifiés.
+
+**Reste à faire S2.4 Phase 3** :
+- **Lot I (Desktop)** : eval extended 52 questions sur vault enrichi vague 4 post-S2.4 Phase 2. Pull main + ingest incrémental (15 fichiers MD) + run_eval + commit artefacts + MAJ JOURNAL/STATUS.
+- **Lot J (Plateforme)** : RAPPORT-CC-S2.4 (8 sections format S2.3) + PR finale S2.4.
+
+**Blockers :** aucun. État stable Cowork-side, attente exécution Desktop Lot I.
+
+---
+
 ### 2026-05-19 (S2.4 Phase 2 Lots F.1 + F.2 + F.3 + F.4 livrés) — Cowork Hub IA Plateforme — pattern-persistent-memory + refactor CU-008/DEP-02 + patches CU-026/CU-027/DEP-08 + nouveau module PR-08
 
 **Contexte :** RETOUR-SONDAGE-COWORK-HUB-IA-S2.4 reçu (2e application D-026, 11 sous-passages confirmés/rectifiés + 5 bonus). Décision Cowork validée : extraction transverse `pattern-persistent-memory.md` recommandée (D-025 SPEC v1.6 satisfait, symétrique pattern-llm-wiki). **Rectification critique du RETOUR §3.4** : le tableau §4 DEP-02 (« Tableau de décision RAG ») n'a **pas** été modifié en v3.10/v3.11 — la nouvelle ligne « agent avec mémoire conversationnelle » est dans un **mini-tableau distinct** (§2bis « Implication opérationnelle »). À préserver les 2 tableaux séparés, **ne pas fusionner**.
