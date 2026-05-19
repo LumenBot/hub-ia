@@ -111,11 +111,13 @@ Cette défense en profondeur compose naturellement avec les 7 dimensions de [[cu
 
 Cette règle est non négociable. Le cas OpenClaw (341 skills malveillants sur 2 857 = 12 %) prouve empiriquement que la marketplace tierce sans audit est un vecteur d'attaque récurrent.
 
-## AgentShield — specs opérationnelles (outils, chiffres, commandes)
+## AgentShield — outils et patterns de mitigation pour sécuriser des agents IA en production
 
-**AgentShield, Snyk et Semgrep — specs opérationnelles : 1 282 tests automatiques, 102 règles de sécurité, mode `--opus` red-team/blue-team/auditor.**
+**Outils et patterns de mitigation pour sécuriser des agents IA en production en 2026 : AgentShield, Snyk, Semgrep — l'outillage composite de référence avec specs opérationnelles précises (1 282 tests automatiques, 102 règles de sécurité, mode `--opus` red-team/blue-team/auditor, audit hebdo + mensuel).**
 
-Cette section consolide en un chunk autonome dédié toutes les specs précises (chiffres, noms d'outils, paramètres CLI) de l'outillage de sécurité agents IA en 2026. Sert de référence chiffrée et nommée pour toute question opérationnelle sur les outils et patterns de mitigation (AgentShield, Snyk, Semgrep, modes CLI, fréquences d'audit, ce qu'AgentShield détecte).
+Cette section est la **référence opérationnelle** quand tu cherches quels outils utiliser et quels patterns appliquer pour mitiger les risques de sécurité d'un agent IA en production. Elle consolide en un chunk autonome dédié tous les noms d'outils, chiffres précis, modes CLI, commandes et fréquences d'audit du décor sécurité agents 2026.
+
+Pour les vecteurs d'attaque eux-mêmes, voir la section « Pourquoi la sécurité agents est un sujet à part » et « Les 5 défenses prompt injection » ci-dessus. Cette section traite spécifiquement de **l'outillage de mitigation** (le « quoi installer, comment, à quelle fréquence »).
 
 **AgentShield** — composant d'**ECC (Everything Claude Code)**, **gratuit**, open-source :
 - **1 282 tests automatiques** (couverture exhaustive des vecteurs d'attaque connus à 2026)
