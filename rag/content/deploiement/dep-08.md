@@ -111,19 +111,30 @@ Cette défense en profondeur compose naturellement avec les 7 dimensions de [[cu
 
 Cette règle est non négociable. Le cas OpenClaw (341 skills malveillants sur 2 857 = 12 %) prouve empiriquement que la marketplace tierce sans audit est un vecteur d'attaque récurrent.
 
-### AgentShield — précisions opérationnelles
+### AgentShield — specs opérationnelles
 
-- Composant d'**ECC (Everything Claude Code)**, gratuit, open-source.
-- **1 282 tests automatiques** + **102 règles de sécurité**.
-- Couvre l'audit de : CLAUDE.md, settings.json, MCP configs, hooks, agents, skills.
-- Mode `--opus` : lance **trois agents Claude Opus en pipeline red-team / blue-team / auditor** (génération d'attaques, défense, jugement).
-- Commande : `npx ecc-agentshield scan`.
+Sub-section dédiée regroupant les specs précises d'**AgentShield** et de ses outils complémentaires (**Snyk** et **Semgrep**). Sert de référence chiffrée et nommée pour toute question opérationnelle sur l'outillage de sécurité agents IA.
+
+**AgentShield** :
+- Composant d'**ECC (Everything Claude Code)**, **gratuit**, open-source.
+- **1 282 tests automatiques** (couverture exhaustive des vecteurs d'attaque connus à 2026).
+- **102 règles de sécurité** appliquées aux fichiers de configuration agent.
+- Couvre l'audit de : **CLAUDE.md**, **settings.json**, **MCP configs**, **hooks**, **agents**, **skills**.
+- **Mode `--opus`** : lance **trois agents Claude Opus en pipeline red-team / blue-team / auditor** (génération d'attaques par le red-team, défense par le blue-team, jugement par l'auditor).
+- Commande : `npx ecc-agentshield scan` (mode standard) ou `npx ecc-agentshield scan --opus` (mode renforcé).
+- Fréquence recommandée : **hebdo en mode standard** + **mensuel en mode `--opus`**.
+
+**Outils complémentaires** (mapping référence) :
+- **Snyk** : scan dépendances et CVE connues. Free tier puis tarif variable. Complémentaire d'AgentShield (Snyk traite la couche dépendances, AgentShield la couche configs agent).
+- **Semgrep** : static analysis de configs et code. Open-source. Complémentaire d'AgentShield (Semgrep traite l'analyse statique de patterns, AgentShield l'audit comportemental des configs agent).
 
 **Ce qu'AgentShield détecte** (sans être exhaustif) :
-- Hardcoded API keys (clés API en clair dans le code, comme dans le cas Tea App détaillé en [[cu-027]])
-- Configs surdimensionnées (droits MCP trop larges, hooks aux permissions excessives)
-- MCP servers à risque CVE connu
-- Patterns d'injection dans les system prompts et skills
+- **Hardcoded API keys** (clés API en clair dans le code, comme dans le cas Tea App détaillé en [[cu-027]])
+- **Configs surdimensionnées** (droits MCP trop larges, hooks aux permissions excessives)
+- **MCP servers à risque CVE connu** (ex. CVE-2025-59536 Claude Code CVSS 8.7)
+- **Patterns d'injection** dans les system prompts et skills
+
+**Pourquoi cette sub-section condensée** : la sécurité agents en 2026 repose sur un outillage composite (AgentShield + Snyk + Semgrep) avec des specs numériques précises (1 282 tests, 102 règles, modes CLI nommés). La concentration de toutes ces specs dans un chunk dédié évite la dispersion dans le reste du module et facilite l'usage en référence opérationnelle (cf. SPEC v1.6 §Conception MD — garde-fou concepts détaillés).
 
 ## Sécuriser CLAUDE.md, hooks, configs
 

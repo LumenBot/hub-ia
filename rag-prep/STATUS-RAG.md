@@ -1,9 +1,9 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.3 Lot F livré — RAPPORT + PR finale, sprint clôturé côté Plateforme)
-**Sprint en cours :** **S2.3 clôturé côté Claude Code Plateforme** — tous les lots livrés (A Cowork Hub IA, B+C Cowork Plateforme, D Plateforme `78d0fa7`, E Desktop `a8e8977`+`08c5892`, F Plateforme = rapport + PR finale). **Cibles brief §7 dépassées** (41/42 score global, latence 16,6 s/q). `rag-prep/reports/RAPPORT-CC-S2.3.md` produit en 8 sections. PR finale ouverte vers main depuis branche `claude/execute-s23-lot-f-rapport`. En attente merge manuel Blaise + arbitrage Cowork des 4 propositions SPEC v1.6.
-**Période S2.3 :** 13 mai → début juin 2026
-**Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA (canal sondage parallèle) + Blaise + Claude Code Plateforme + Claude Code Desktop
+**Dernière mise à jour :** 13 mai 2026 (S2.4.1 Phase 1 livrée — SPEC v1.6 + canonisation 20 chiffres v3.9.0 + fix q-038)
+**Sprint en cours :** **S2.4 ouvert** — Phase 1 (S2.4.1) livrée Cowork-side : Lot A SPEC v1.6 (4 ajouts validés), Lot B canonisation chiffres-macro-2026.md v3.8.6 → **v3.9.0** (27 → 46 sections H2, +19 sections + 1 enrichissement), Lot C fix q-038 option C (dep-08 sub-section H3 consolidée + élargissement `expected_concepts` AP-6 conforme). Reste Lot D : transmission Desktop pour rerun eval ciblé q-038 + 5 voisines (~0,15 $). Puis Phase 2 (sondage D-026 étendu) + Phase 3 (production vague 4 + eval + RAPPORT).
+**Période S2.4 :** 13 mai → début juin 2026
+**Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA + Blaise + Claude Code Plateforme + Claude Code Desktop. Sprint S2.3 clôturé (PR #56 mergée, score 41/42).
 
 ---
 
