@@ -1,0 +1,76 @@
+[
+  {
+    "id": "q-038",
+    "question": "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "cited_codes": [
+      "dep-08",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sécuriser des agents IA en production : outils et patterns de mitigation  ### Pourquoi la sécurité agents est un problème spécifique  Un agent IA en production n'est pas une application web classique : il accède à des données internes, a"
+  }
+]

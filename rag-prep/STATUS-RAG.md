@@ -1,7 +1,7 @@
 # STATUS-RAG.md — État synthétique du sprint courant
 
-**Dernière mise à jour :** 13 mai 2026 (S2.4.1 Phase 1 livrée — SPEC v1.6 + canonisation 20 chiffres v3.9.0 + fix q-038)
-**Sprint en cours :** **S2.4 ouvert** — Phase 1 (S2.4.1) livrée Cowork-side : Lot A SPEC v1.6 (4 ajouts validés), Lot B canonisation chiffres-macro-2026.md v3.8.6 → **v3.9.0** (27 → 46 sections H2, +19 sections + 1 enrichissement), Lot C fix q-038 option C (dep-08 sub-section H3 consolidée + élargissement `expected_concepts` AP-6 conforme). Reste Lot D : transmission Desktop pour rerun eval ciblé q-038 + 5 voisines (~0,15 $). Puis Phase 2 (sondage D-026 étendu) + Phase 3 (production vague 4 + eval + RAPPORT).
+**Dernière mise à jour :** 19 mai 2026 (S2.4.1 Phase 1 clôturée — Lot D rerun q-038 score=1, chunk specs op rang #1 sim 0,2239)
+**Sprint en cours :** **S2.4 ouvert** — **Phase 1 (S2.4.1) clôturée** : Lot A SPEC v1.6 + Lot B canonisation chiffres-macro v3.9.0 + Lot C fix q-038 option C + 2 patchs correctifs retrieval (promotion H3→H2 chunk autonome `f16e1b1` + enrichissement lead vocabulaire question `7fc5970`) + **Lot D Desktop rerun q-038 score=1, 6/6 concepts trouvés, chunk « AgentShield outils et patterns » rang #1 sim 0,2239** (vs rang ≥11 sim < 0,108 avant). Garde-fou « concepts détaillés » SPEC v1.6 validé empiriquement. Reste Phase 2 (sondage D-026 étendu) + Phase 3 (production vague 4 + eval + RAPPORT-CC-S2.4).
 **Période S2.4 :** 13 mai → début juin 2026
 **Acteurs mobilisés :** Cowork Hub IA Plateforme + Cowork Hub IA + Blaise + Claude Code Plateforme + Claude Code Desktop. Sprint S2.3 clôturé (PR #56 mergée, score 41/42).
 
@@ -83,6 +83,12 @@ Acter l'ensemble des décisions structurantes nécessaires au démarrage opérat
 | L1.27d | S2.3 Lot D — adapt `evaluate_one()` synonymes liste-de-listes + tests + (R11 optionnel) | ✅ Fait Plateforme (`78d0fa7`, PR #53 mergée) : `concept_matched()` + 19 nouveaux tests sur 5 classes, 190/190 verts, 0,00 $ ; R11 wikilink audit reporté (charge non bloquante) | Claude Code Plateforme |
 | L1.27e | S2.3 Lot E — eval extended 42q post-vault enrichi | ✅ Fait (`a8e8977` branche `claude/execute-s23-lot-e-eval-42q` : **41/42 sources retrouvées, 41/42 concepts ≥ 50 %, 41/42 score global**, latence moy. 16,6 s/q ; **5 faux négatifs S2.2 résolus** via option B synonymes ; vague 3 retrieval 11/12 ✅, **1 échec q-038** dep-08 concepts détaillés ; **coût Lot E 1,02 $ Anthropic** — cap durci 0,90 $ dépassé +13 %, acceptable) | Claude Code Desktop |
 | L1.27f | S2.3 Lot F — RAPPORT-CC-S2.3 + PR finale S2.3 | ✅ Fait (`rag-prep/reports/RAPPORT-CC-S2.3.md` 8 sections + PR finale ouverte depuis `claude/execute-s23-lot-f-rapport`) | Claude Code Plateforme |
+| L2.4.1a | S2.4.1 Lot A — SPEC v1.6 (4 ajouts validés post-RAPPORT-CC-S2.3) | ✅ Fait (`93df20a`) | Cowork Hub IA Plateforme |
+| L2.4.1b | S2.4.1 Lot B — canonisation chiffres-macro v3.9.0 (20 chiffres : I-D-006 + I-D-007 + 1 enrichissement) | ✅ Fait (`93df20a`) | Cowork Hub IA Plateforme |
+| L2.4.1c | S2.4.1 Lot C — fix q-038 option C (dep-08 H3 specs op + élargissement `expected_concepts` AP-6) | ✅ Fait (`93df20a`) | Cowork Hub IA Plateforme |
+| L2.4.1c.1 | S2.4.1 patch correctif #1 — promotion H3 → H2 « AgentShield specs op » pour chunk autonome | ✅ Fait (`f16e1b1`, PR #62 mergée) | Cowork Hub IA Plateforme |
+| L2.4.1c.2 | S2.4.1 patch correctif #2 — enrichissement lead H2 avec vocabulaire question canonique (titre + 1er paragraphe) | ✅ Fait (`7fc5970`, PR #63 mergée) | Cowork Hub IA Plateforme |
+| L2.4.1d | S2.4.1 Lot D — rerun eval ciblé q-038 + dump retrieval | ✅ Fait (3 itérations Desktop) : q-038 score=1, 6/6 concepts trouvés (AgentShield, Snyk/Semgrep, 1 282, 102, --opus, audit) ; chunk « AgentShield outils et patterns » **rang #1 sim 0,2239** (vs rang ≥11 sim < 0,108 pré-fix) ; 5 voisines q-014/q-026/q-037/q-039/q-042 vérifiées en Lot D initial (toutes score=1, pas de régression) ; coût cumulé 3 itérations ~0,33 $ Anthropic (eval + diagnostics) ; latence eval 14 s/q ; garde-fou « concepts détaillés » SPEC v1.6 **validé empiriquement** | Claude Code Desktop |
 
 ---
 
