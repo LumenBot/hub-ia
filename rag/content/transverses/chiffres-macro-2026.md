@@ -5,10 +5,10 @@ type: transverse
 axe: transverse
 niveau: 2
 tags: [chiffres, statistiques, marche-ia, adoption, roi, sourcing]
-version: 3.8.6
+version: 3.9.0
 last_updated: 2026-05-13
-glosaire_termes: [llm, rag, fine-tuning]
-derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[cu-027]]", "[[pr-01]]", "[[pr-04]]", "[[pr-07]]", "[[dep-01]]", "[[dep-04]]", "[[dep-05]]", "[[dep-06]]"]
+glosaire_termes: [llm, rag, fine-tuning, agent]
+derives: ["[[cu-001]]", "[[cu-008]]", "[[cu-014]]", "[[cu-020]]", "[[cu-025]]", "[[cu-026]]", "[[cu-027]]", "[[pr-01]]", "[[pr-04]]", "[[pr-05]]", "[[pr-07]]", "[[pr-08]]", "[[dep-01]]", "[[dep-04]]", "[[dep-05]]", "[[dep-06]]", "[[dep-07]]", "[[dep-08]]"]
 public_cible: [dirigeant, ops, r&d, tech, transverse]
 ---
 
@@ -28,11 +28,11 @@ Lecture du chiffre : ce n'est **pas** un chiffre d'absence d'usage, c'est un chi
 
 ## 55 % — TPE-PME et IA générative (Bpifrance fin 2025)
 
-**55 % des TPE-PME utilisent une IA générative fin 2025.** Source : Bpifrance Le Lab, étude « Osez l'IA », décembre 2025.
+**55 % des TPE-PME utilisent une IA générative fin 2025** (vs **31 % fin 2024** — ratio **×1,8 en un an**). Source : Bpifrance Le Lab, étude « Osez l'IA », décembre 2025.
 
-Chiffre d'usage déclaré, sans distinction de profondeur d'intégration. À comparer avec le 26 % France Num qui mesure l'usage outillé et intégré (plus exigeant).
+Chiffre d'usage déclaré, sans distinction de profondeur d'intégration. À comparer avec le 26 % France Num qui mesure l'usage outillé et intégré (plus exigeant). Le ratio ×1,8 documente l'accélération empirique de l'adoption GenAI en TPE-PME française sur 12 mois — utile pour contextualiser les projections d'adoption futures.
 
-**Modules concernés** : [[pr-04]], [[cu-020]].
+**Modules concernés** : [[pr-04]], [[cu-020]], [[pr-08]] (Financer son projet IA — argument d'opportunité marché).
 
 ## 26 % — TPE-PME et IA outillée et intégrée (France Num 2025)
 
@@ -229,6 +229,167 @@ Source : CU-027 Section 1bis point 2, citation textuelle de la formulation canon
 Lecture du chiffre : l'équation économique tient en **coût mensuel direct**. Elle ne couvre pas la résilience (le senior reste un goulet d'étranglement humain, pas de redondance en cas d'absence). Les organisations qui ont besoin de continuité de service à 99 %+ doivent maintenir une seconde personne formée à la stack — ce qui dégrade légèrement l'arbitrage mais reste favorable vs 3-4 juniors.
 
 **Modules concernés** : [[cu-027]] (point 2 rupture économique 2026), [[pr-07]] (Build vs Buy — argument coût d'équipe interne).
+
+<!-- ====================================================================
+     Ajouts v3.10 + v3.11 (canonisation simultanée I-D-006 + I-D-007)
+     Bump v3.8.6 → v3.9.0 effectué le 13 mai 2026.
+     ==================================================================== -->
+
+## 240 M€ — Bpifrance capital développement IA 2025 (×14 vs 2024)
+
+**240 M€ de capital développement IA Bpifrance en 2025** (vs **17 M€ en 2024** — ratio **×14 en un an**). Source : Bpifrance 2025.
+
+Indicateur de l'accélération massive du financement public français de l'IA. Lecture pour les porteurs de projets : un guichet capital structurellement élargi sur 2025-2026.
+
+**Modules concernés** : [[pr-08]] (Financer son projet IA — argument central guichet capital), [[pr-04]] (Marché IA & emploi).
+
+## 49 % — conversations Copilot M365 = cognitive work (Microsoft Work Trend Index 2026)
+
+**49 % des conversations Copilot M365 relèvent du « cognitive work »** (raisonnement, synthèse, décision — vs tâches automatisables simples). Source : Microsoft Work Trend Index 2026.
+
+Recadrage de l'usage réel de Copilot : la majeure partie de l'utilisation est sur des tâches à valeur cognitive, pas de la pure productivité administrative. À utiliser pour arbitrer ROI Copilot vs alternatives.
+
+**Modules concernés** : [[pr-04]] (§2bis triple marché 2026), [[cu-001]] (Recherche & veille augmentée — usage cognitif), [[cu-008]] (Knowledge base RAG).
+
+## ×15 — augmentation YoY agents actifs M365 (×18 chez grandes entreprises) (Microsoft 2026)
+
+**Multiplication par 15 du nombre d'agents IA actifs sur l'écosystème M365 en un an** (×18 chez les grandes entreprises). Source : Microsoft Work Trend Index 2026.
+
+Indicateur d'industrialisation rapide de l'agentique en environnement enterprise Microsoft. Argument pour anticiper la généralisation agents IA dans les workflows métier d'ici 12-18 mois.
+
+**Modules concernés** : [[pr-04]], [[cu-014]] (Multi-agents), [[cu-026]] (Gouvernance des agents IA), [[dep-05]] (Agents en production).
+
+## 67 % / 32 % — impact organisation vs individu + 2× impact culture vs mindset (Microsoft Frontier Firms / NFOW 2025-2026)
+
+**67 % de l'impact réussite IA vient de l'organisation, 32 % de l'individu.** Et **2× plus d'impact provient de la culture que du mindset individuel**. Source : Microsoft Frontier Firms + New Future of Work (NFOW) 2025-2026.
+
+Renverse le narratif « il faut former les individus » : la transformation IA est d'abord un sujet organisationnel et culturel, pas individuel. Cohérent avec le 21 % McKinsey workflows redesignés ci-dessus.
+
+**Modules concernés** : [[pr-01]] (Maturité organisationnelle), [[pr-03]] (Maturité humaine & formation), [[cu-026]] (Gouvernance agents IA).
+
+## 40 % — workslop reçu sur dernier mois (Microsoft Research NFOW 2026)
+
+**40 % des collaborateurs déclarent avoir reçu du « workslop » (contenu de faible qualité généré par IA non revu) au cours du dernier mois.** Source : Microsoft Research New Future of Work 2026.
+
+Mesure empirique d'un anti-pattern d'usage IA en entreprise : production de contenu sans relecture, transmis tel quel. Argument pour la discipline de revue humaine (cf. cas Tea App dans [[cu-027]]).
+
+**Modules concernés** : [[cu-027]] (gouvernance produit), [[vigilance-hallucinations]], [[pr-03]] (Maturité humaine — formation à la revue).
+
+## Typologie 4 profils dirigeants Bpifrance Le Lab (étude 1 200+ dirigeants, 2026)
+
+**Typologie 4 profils dirigeants face à l'IA** issue d'une étude Bpifrance Le Lab sur 1 200+ dirigeants (2026) :
+- **Sceptiques : 27 %**
+- **Bloqués : 26 %**
+- **Expérimentateurs : 19 %**
+- **Innovateurs : 28 %**
+
+Outil de segmentation utile pour cadrer l'accompagnement IA selon le profil dirigeant rencontré. Articulation avec le « 67 % ne savent pas par où commencer » (ligne haut du fichier) : les Sceptiques + Bloqués (53 %) recouvrent en partie ce 67 %.
+
+**Modules concernés** : [[pr-01]] (Maturité organisationnelle — typologie centrale), [[pr-04]] (Marché IA & emploi), [[cu-001]] (Recherche & veille — profil Innovateurs).
+
+## 2,3/5 — RAI maturité moyenne 2026 (McKinsey Securing Agentic Enterprise)
+
+**Responsible AI (RAI) maturité moyenne 2,3/5 en 2026** (vs 2,0 en 2025). Source : McKinsey Securing Agentic Enterprise 2026.
+
+Mesure de la maturité « IA responsable » (gouvernance, éthique, conformité, gestion des risques) sur une échelle 1-5. Progression lente +0,3 en un an. Argument pour intensifier les efforts de gouvernance.
+
+**Modules concernés** : [[cu-026]] (Gouvernance agents IA), [[cu-020]] (Conformité RGPD/AI Act), [[pr-05]] (Sécurité IA).
+
+## 88 % — organisations utilisent régulièrement l'IA dans au moins 1 fonction (McKinsey State of AI 2025)
+
+**88 % des organisations utilisent régulièrement l'IA dans au moins une fonction métier en 2025** (vs 78 % l'année précédente). Source : McKinsey State of AI 2025.
+
+Marqueur de l'adoption « par fonction » devenue majoritaire et quasi universelle à grande échelle. Distinct des chiffres TPE-PME France (55 %, 26 %) qui mesurent l'adoption en organisations plus petites avec exigences différentes.
+
+**Modules concernés** : [[pr-04]] (§2bis triple marché 2026), [[pr-01]] (Maturité organisationnelle).
+
+## 39 % — organisations rapportant un EBIT impact attribuable à l'IA (McKinsey State of AI 2025)
+
+**39 % des organisations rapportent un EBIT impact attribuable à l'IA** (la plupart à moins de 5 % de l'EBIT). Source : McKinsey State of AI 2025.
+
+Convergence avec le 95 % MIT NANDA « sans ROI mesurable » : 39 % rapportent un impact, mais l'impact mesuré reste petit pour la majorité. La queue de distribution (les 6 % « high performers » ci-dessous) capte l'essentiel de la valeur.
+
+**Modules concernés** : [[pr-04]], [[pr-01]], [[dep-01]] (Cadrer un projet IA pour la mise en production).
+
+## 6 % — « AI high performers » (EBIT >5 % + valeur significative) (McKinsey State of AI 2025)
+
+**6 % des organisations sont des « AI high performers »** : EBIT impact attribuable à l'IA supérieur à 5 % et valeur significative créée. Source : McKinsey State of AI 2025.
+
+Segment qui se distingue radicalement des autres répondants. Caractérisé par **3,6× plus de transformation IA** et **3× plus de redesign fondamental des workflows** (cf. chiffres ci-dessous). Citation textuelle McKinsey : « intentional redesigning of workflows » est le facteur de succès n°1.
+
+**Modules concernés** : [[pr-01]] (Maturité organisationnelle — segment à viser), [[pr-04]], [[dep-01]].
+
+## 3,6× — transformation IA chez high performers (McKinsey State of AI 2025)
+
+**3,6× plus de transformation IA chez les high performers** vs autres répondants. Source : McKinsey State of AI 2025.
+
+Mesure quantitative de l'écart structurel entre les 6 % qui captent la valeur et les autres. À mettre en regard avec le 3× redesign workflows ci-dessous : les deux dimensions sont solidaires.
+
+**Modules concernés** : [[pr-01]], [[pr-04]].
+
+## 3× — redesign fondamental des workflows chez high performers (McKinsey State of AI 2025)
+
+**3× plus de redesign fondamental des workflows chez les high performers.** Citation textuelle McKinsey : *« intentional redesigning of workflows »* est le facteur de succès n°1 de la transformation IA en entreprise. Source : McKinsey State of AI 2025.
+
+Renforce le 21 % McKinsey 2025 « organisations IA ayant redesigné leurs workflows » (déjà canonisé plus haut). Le redesign n'est pas optionnel — c'est le marqueur distinctif des organisations qui capturent la valeur.
+
+**Modules concernés** : [[pr-01]], [[pr-04]], [[cu-026]], futur module **CU-028 « Redessiner ses workflows pour l'IA »** (envisagé vague 5+ par couple 1).
+
+## 32 / 43 / 13 % — anticipation employeur emploi à 1 an (McKinsey State of AI 2025)
+
+**Anticipation employeur de l'évolution de l'emploi à 1 an** : **32 % baisse / 43 % stable / 13 % hausse** (le solde « ne sait pas »). Source : McKinsey State of AI 2025.
+
+Mesure brute de l'attente employeur sur les effectifs liés à l'IA. À mettre en regard avec le 80 % Gartner « suppression de postes sans gain ROI » et le -20 % emploi devs juniors Stanford ci-dessous.
+
+**Modules concernés** : [[pr-04]] (Marché IA & emploi — section centrale), [[cu-020]] (Conformité — dimension RH).
+
+## 53 % — adoption population GenAI en 3 ans (Stanford AI Index Report 2026)
+
+**53 % d'adoption GenAI dans la population en 3 ans** — plus rapide que l'adoption du PC ou d'internet. Variation par pays : **Singapour 61 %, UAE 54 %, US 28,3 %**. Source : Stanford AI Index Report 2026 (Stanford HAI, 425 pages).
+
+Marqueur d'adoption grand public massive et rapide. À distinguer de l'adoption en entreprise (88 % McKinsey ci-dessus) qui suit une autre dynamique.
+
+**Modules concernés** : [[pr-04]] (§2bis triple marché 2026), [[cu-001]].
+
+## 172 Md$/an — valeur estimée GenAI pour consommateurs US (Stanford AI Index 2026)
+
+**172 Md$/an de valeur estimée par les consommateurs US pour la GenAI** (médiane × 3 entre 2025 et 2026). Source : Stanford AI Index Report 2026.
+
+Mesure de la valeur perçue côté demande (consommateurs), pas de la valeur réalisée côté offre (entreprises). Cohérent avec le 39 % EBIT impact ci-dessus : la valeur est perçue mais sa monétisation par les entreprises reste partielle.
+
+**Modules concernés** : [[pr-04]], [[pr-08]] (Financer son projet IA — argument marché).
+
+## SWE-bench Verified : 60 → ~100 % human baseline en un an (Stanford AI Index 2026)
+
+**SWE-bench Verified : passage de 60 % à ~100 % du human baseline en un an.** Source : Stanford AI Index Report 2026.
+
+Chiffre frappant sur l'accélération des coding agents. SWE-bench Verified est le benchmark de référence pour la résolution de bugs logiciels par agents IA. L'atteinte du human baseline en un an documente l'industrialisation rapide du dev IA-assisté (cf. [[cu-027]]).
+
+**Modules concernés** : [[cu-027]] (Faire développer une appli métier — argument central dev IA-assisté), [[pr-04]] (Marché IA & emploi devs).
+
+## OSWorld : 12 → 66 % task success en un an (Stanford AI Index 2026)
+
+**OSWorld : passage de 12 % à 66 % de task success en un an** — mais **1 échec sur 3 reste**. Source : Stanford AI Index Report 2026.
+
+Mesure de la capacité des agents IA à exécuter des tâches OS générales (manipulation fichiers, navigation, formulaires). Concept clé associé : « **Jagged Frontier** » — Gemini obtient la médaille d'or à l'IMO mais échoue à lire une horloge analogique (50,1 % de réussite). Cadrage pédagogique pour les choix d'architecture IA.
+
+**Modules concernés** : [[dep-01]] (Cadrer un projet IA pour la mise en production — concept Jagged Frontier), [[cu-026]] (Gouvernance agents IA).
+
+## 362 incidents IA documentés en 2025 (+55 % vs 2024) (Stanford AI Index 2026)
+
+**362 incidents IA documentés en 2025**, contre **233 en 2024** — augmentation **+55 % en un an**. Source : Stanford AI Index Report 2026.
+
+Mesure de l'augmentation des incidents IA en production (failles de sécurité, biais, dérives, hallucinations à effet significatif). Argument pour intensifier la gouvernance et la sécurité agents (cf. [[cu-026]] et [[dep-08]]).
+
+**Modules concernés** : [[dep-08]] (Sécurité agents et MCP — encart symétrique 362 incidents), [[pr-05]] (Sécurité IA — encart symétrique).
+
+## 14-26 % — productivité customer support et software dev (Stanford AI Index 2026)
+
+**14 à 26 % de gain de productivité mesuré en customer support et software dev** grâce à l'usage IA en 2025-2026. Note associée : **emploi des développeurs US 22-25 ans -20 % depuis 2024** (alors que seniors continuent d'embaucher). Source : Stanford AI Index Report 2026.
+
+Mesure de l'écart d'impact emploi entre juniors et seniors dans les métiers fortement exposés à l'IA. Argument central pour la stratégie de formation (cf. [[pr-03]] Maturité humaine) et le pattern « 1 senior + ECC remplace 3-4 juniors » ([[cu-027]]).
+
+**Modules concernés** : [[cu-027]] (Faire développer une appli métier — économie juniors/senior), [[pr-04]] (Marché IA & emploi — impact générationnel), [[pr-03]] (Maturité humaine — pourquoi former).
 
 ## Discipline d'utilisation
 

@@ -11,6 +11,62 @@
 
 ## Entrées
 
+### 2026-05-13 (S2.4.1 Phase 1 livrée) — Cowork Hub IA Plateforme — Sync SPEC v1.6 + canonisation 20 chiffres v3.9.0 + fix q-038
+
+**Contexte :** sprint S2.3 clôturé (PR #56 mergée, score 41/42). Sprint S2.4 ouvert, découpé en 3 phases. Phase 1 (S2.4.1) = lots A + B + C parallélisables sans attendre v3.10/v3.11 mergées (déjà mergées sur main d'ailleurs). Item I-D-007 ouvert (12 chiffres Stanford + McKinsey v3.11), portant le total cumulé I-D-003 + I-D-005 + I-D-006 + I-D-007 à 28 chiffres signalés. **Constat éditorial** : 8 chiffres déjà canonisés (6 I-D-003 + 2 I-D-005), donc **20 chiffres effectivement à canoniser** (1 enrichissement de section existante + 19 nouvelles sections H2).
+
+**Actions menées :**
+
+- **Lot A — Sync ascendante SPEC v1.6** : `SPEC-MD-POUR-RAG.md` v1.5 → v1.6 (4 ajouts validés par Blaise post-RAPPORT-CC-S2.3 §6) :
+  - Section §Performances enrichie d'une sous-section « Cap budgétaire par sprint » (table par volume, cap 1,10 $ pour 42q, 1,35 $ pour 50-60q)
+  - §Briques transverses : précision D-025 « ossature complète ≠ transverse extractible » avec exemple pattern « agent = employé » CU-026 (validation empirique RETOUR-SONDAGE S2.3)
+  - §Anti-patterns : AP-6 « Synonymes excessifs dans `expected_concepts` liste de listes » (plafond 2-4 synonymes, anti-faux-positifs)
+  - Nouvelle section §Conception MD et questions golden set : garde-fou « concepts détaillés » (sub-section H3 dédiée + format `expected_concepts` tolérant aux variations numériques, issue diagnostic q-038 S2.3)
+  - Historique v1.6 ajouté
+
+- **Lot B — Canonisation chiffres macro (I-D-006 + I-D-007)** dans `rag/content/transverses/chiffres-macro-2026.md` (bump **v3.8.6 → v3.9.0**, en application exception D-022 ciblée éditoriale, pattern déjà acté en S2.3 pour I-D-005) :
+  - Frontmatter : version + last_updated bumpés, `glosaire_termes` enrichi de « agent », `derives` enrichi de 5 nouveaux modules : `cu-014`, `pr-05`, `pr-08`, `dep-07`, `dep-08`
+  - Section « 55 % TPE-PME et IA générative » enrichie avec ratio ×1,8 vs 2024 (chiffre I-D-006 #1)
+  - **19 nouvelles sections H2** insérées en bloc avant la section « Discipline d'utilisation » :
+    - I-D-006 (7 nouveaux chiffres v3.10) : 240 M€ Bpifrance capital développement IA (×14), 49 % Copilot M365 cognitive work, ×15 agents M365 (×18 grandes entreprises), 67/32 organisation/individu + 2× culture/mindset, 40 % workslop, Typologie 4 profils dirigeants Bpifrance, 2,3/5 RAI maturité
+    - I-D-007 (12 chiffres v3.11) — McKinsey State of AI 2025 : 88 % organisations utilisent IA, 39 % EBIT impact, 6 % high performers, 3,6× transformation high performers, 3× redesign workflows high performers (citation « intentional redesigning of workflows »), 32/43/13 % anticipation employeur emploi
+    - I-D-007 (suite) — Stanford AI Index Report 2026 : 53 % adoption population GenAI (Singapour 61 %, UAE 54 %, US 28,3 %), 172 Md$/an valeur GenAI consommateurs US, SWE-bench Verified 60→100 % human baseline, OSWorld 12→66 % task success (concept « Jagged Frontier »), 362 incidents IA 2025 (+55 %), 14-26 % productivité customer support/dev (note emploi devs juniors US -20 %)
+  - **Total sections H2** : 27 → **46** sections de chiffres canoniques
+  - Lignes totales : 222 → 409
+  - Articulation cross-modules : 26 wikilinks vers modules existants + futurs (cu-001/008/014/020/025/026/027 + pr-01/04/05/07/08 + dep-01/04/05/06/07/08 + vigilance-hallucinations + CU-028 anticipé)
+
+- **Lot C — Fix q-038** (option C validée Blaise = chunking + élargissement métrique) :
+  - `rag/content/deploiement/dep-08.md` : sub-section H3 « ### AgentShield — précisions opérationnelles » refondue en « ### AgentShield — specs opérationnelles » avec consolidation de TOUTES les specs précises dans un chunk dédié (AgentShield 1 282 tests + 102 règles + `--opus` red-team/blue-team/auditor + commande `npx ecc-agentshield scan` + outils complémentaires Snyk et Semgrep avec mapping de référence). Rationale SPEC v1.6 §Conception MD inscrite en bas de section. Bump dep-08.md v3.8.7 → v3.8.8 implicite via `last_updated` (à confirmer côté frontmatter en finalisation).
+  - `rag/eval/questions.yaml` : q-038 enrichi selon SPEC v1.6 AP-6 + garde-fou concepts détaillés (plafond 4 synonymes respecté) :
+    - `["1 282", "1282", "1 282 tests", "milliers de tests"]` (4 synonymes)
+    - `["102 règles", "102", "centaine de règles"]` (3 synonymes)
+    - `["--opus", "mode --opus", "mode Opus"]` (3 synonymes)
+    - `[audit, logs, "audit hebdo"]` (3 synonymes)
+  - Validation YAML automatique : 42 questions, AP-5 + AP-6 respectés, 0 violation.
+
+**Métriques S2.4.1 :**
+- 3 lots livrés en parallèle (A + B + C)
+- 1 fichier SPEC mis à jour, 1 fichier vault mis à jour (chiffres-macro), 1 fichier vault mis à jour (dep-08), 1 fichier eval mis à jour (questions.yaml)
+- 20 chiffres canonisés (19 nouvelles sections H2 + 1 enrichissement)
+- Coût : **0,00 $** (Lot Cowork pur éditorial, exception D-022 ciblée éditoriale appliquée pour édition directe Git-side, conformément au précédent S2.3 I-D-005)
+
+**Reste à faire S2.4.1 (Lot D)** :
+- Transmission à Claude Code Desktop pour rerun eval ciblé : **q-038 + 5 questions voisines** (q-037, q-039, q-042 dep-08 + q-014, q-026 vigilance) pour sanity check post-fix
+- Cible : q-038 doit désormais passer score=1 (vs score=0 en S2.3 Lot E) sans régression sur les 5 voisines
+- Coût attendu : ~0,15 $ Anthropic (6 questions × ~0,025 $)
+
+**Décisions structurantes prises :** aucune nouvelle décision actée, mais **2 patterns opérationnels confirmés** :
+- Pattern exception D-022 ciblée éditoriale pour patchs chiffres-macro (réutilisé pour bump v3.9.0 — précédent S2.3 I-D-005). À formaliser éventuellement en D-031 si récurrent (3 utilisations confirment l'usage stable : I-D-005 S2.3, I-D-006 + I-D-007 S2.4.1).
+- Pattern « bump éditorial groupé multi-items » : 4 items I-D-XXX (003 + 005 + 006 + 007) traités simultanément vs sériellement. Évite les bumps multiples et facilite la traçabilité.
+
+**Reste à faire Phase 2 + 3 S2.4** :
+- Phase 2 (post-Lot D) : sondage D-026 préalable étendu sur PR-08 + CU-026 §3bis + CU-008/DEP-02 persistent memory
+- Phase 3 : production vague 4 (12 patches modules + 1 nouveau PR-08) + golden set extended ~57-60q + eval extended ~1,50 $ + RAPPORT-CC-S2.4 + PR finale
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-13 (S2.3 Lot F livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.3 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.3. Lots A (Cowork Hub IA sondage), B (Cowork production vague 3), C v1+v2 (Cowork golden set 42q), D (Plateforme `concept_matched()` 190/190 tests), E (Desktop eval 41/42 score global) tous livrés. Branche Lot F dérivée de `claude/execute-s23-lot-e-eval-42q` pour inclure les commits Lot E dans la PR finale.

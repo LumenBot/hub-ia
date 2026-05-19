@@ -419,10 +419,10 @@
   expected_concepts:
     - AgentShield
     - [Snyk, Semgrep]
-    - ["1 282", "1282"]
-    - ["102 règles", "102"]
-    - "--opus"
-    - [audit, logs]
+    - ["1 282", "1282", "1 282 tests", "milliers de tests"]
+    - ["102 règles", "102", "centaine de règles"]
+    - ["--opus", "mode --opus", "mode Opus"]
+    - [audit, logs, "audit hebdo"]
   unit: dep-08
 
 - id: q-039
