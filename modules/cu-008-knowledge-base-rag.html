@@ -39,7 +39,7 @@
       <div class="module-badges">
         <a href="../index.html?axe=b#modules" class="card-badge axe-b">🧭 Décision</a>
         <a href="../index.html?niveau=n3#modules" class="card-badge n3">⭐⭐⭐ Niveau 3 — Avancé</a>
-        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">30 min de lecture</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">33 min de lecture</span>
       </div>
       <h1>📚 Knowledge base interne (RAG)</h1>
       <p class="module-subtitle">
@@ -99,6 +99,10 @@
             <div class="exec-takeaway">
               <div class="exec-takeaway-num">4</div>
               <p>Approche pragmatique en 3 voies : <strong><a href="../ressources.html#notebooklm" class="tool-link">NotebookLM</a></strong> (gratuit, démarrage zone moindre risque), <strong><a href="../ressources.html#dify" class="tool-link">Dify</a>/<a href="../ressources.html#flowise" class="tool-link">Flowise</a></strong> (open source structuré, souveraineté EU), <strong>Vectara/Glean</strong> (enterprise, au-delà de 30-50 personnes ou secteur régulé).</p>
+            </div>
+            <div class="exec-takeaway">
+              <div class="exec-takeaway-num">5</div>
+              <p><strong>Signal de rupture à 3-6 mois — surveiller la trajectoire long context / persistent memory.</strong> Trois sources convergentes en mai 2026 (SubQ, Karpathy LLM Wiki, Hermes Agent) suggèrent que les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. <strong>Ne pas surinvestir au-delà de 18 mois d'amortissement sur une stack RAG complexe</strong>. Voir la sous-section <a href="#llm-wiki-shelf-life" class="tool-link">Durée de vie des stacks RAG actuels</a>.</p>
             </div>
           </div>
 
@@ -336,6 +340,38 @@
 
         <div class="pull-quote">
           💡 Heuristique pratique 2026 — <strong>itérer cheapest-first</strong>. Sur un projet RAG, l'instinct est souvent de prendre « le modèle le plus puissant ». L'inverse est plus rentable : optimiser le retrieval → améliorer les embeddings → puis seulement augmenter la taille du modèle. Cas documenté sur un dataset d'enchères : un embedding open-source classé #130 MTEB a battu les embeddings OpenAI (+11 % qualité, 240× plus rapide, gratuit). Le pattern complet d'itération en production est détaillé dans la fiche <a href="../deploiement/dep-02-rag-architecture-prod.html" class="tool-link">RAG en production</a>.
+        </div>
+
+        <h3 id="llm-wiki-shelf-life">Durée de vie des stacks RAG actuels — un signal de rupture à 3-6 mois</h3>
+
+        <p>En mai 2026, <strong>trois sources indépendantes ont signalé la même hypothèse</strong> : les architectures RAG classiques pourraient avoir une durée de vie limitée sur certains cas d'usage. Le signal mérite d'être pris au sérieux par toute PME qui investit aujourd'hui dans une stack RAG.</p>
+
+        <h4>Trois signaux convergents</h4>
+
+        <ul>
+          <li><strong>Signal 1 — Long context natif (SubQ, mai 2026)</strong>&nbsp;: si les modèles atteignent en production des fenêtres de contexte de <strong>10 M tokens et plus</strong> (12 M en recherche, 1 M en production déjà chez SubQ), avec une <strong>réduction du coût de l'attention ×1000</strong>, alors RAG, multi-agent, chunking et vector DB deviennent des <em>workarounds</em> contre une limite technique qui est en train de tomber. L'argument&nbsp;: « pourquoi orchestrer une retrieval pipeline si on peut donner tout le corpus au modèle directement&nbsp;?».</li>
+          <li><strong>Signal 2 — LLM Wiki post-Karpathy (mai 2026)</strong>&nbsp;: le gist initial d'Andrej Karpathy (avril 2026) a atteint <strong>5 000+ stars en un mois</strong>. L'écosystème de forks et patterns dérivés s'est structuré en quelques semaines&nbsp;: sheaf cohomology pour contradiction detection, sleep consolidation, persistent multi-agent vaults, graph-based layers, MCP audit trails. Argumentation&nbsp;: « le LLM Wiki ingère, synthétise, fait évoluer la connaissance » vs RAG stateless qui <em>retrieve → answer → forget</em>.</li>
+          <li><strong>Signal 3 — Persistent memory pour agents scalables (mai 2026)</strong>&nbsp;: Jean Vargas (founder Hermes Agent) formalise&nbsp;: <em>« Persistent memory &gt; RAG stateless pour agents scalables »</em>. Sans mémoire persistante, les agents restent stateless et <strong>ne compoundent pas l'intelligence</strong>. Avec persistent memory (pattern observé sur <a href="../ressources.html#hermes-agent" class="tool-link">Hermes Agent</a>, <a href="../ressources.html#beever-atlas" class="tool-link">Beever Atlas</a>, anima AI), les <strong>skills et procédures écrites redeviennent du knowledge réutilisable</strong> plutôt que perdus dans l'historique.</li>
+        </ul>
+
+        <h4>Ce que ça veut dire pour ta PME en 2026</h4>
+
+        <p><strong>Si tu démarres un projet RAG maintenant</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>Ne pas surinvestir</strong> dans une infrastructure RAG complexe (reranking sophistiqué + multi-stage retrieval + chunking optimisé) avec un horizon d'amortissement supérieur à 18 mois. Le risque que l'architecture devienne obsolète avant l'amortissement est réel.</li>
+          <li><strong>Préférer les architectures hybrides</strong> qui permettent de basculer vers du long context ou de la persistent memory sans tout réécrire (pattern « RAG-light »&nbsp;: un retrieval minimal + un long context fenêtré + un LLM puissant).</li>
+          <li><strong>Surveiller la trajectoire long context</strong> sur les modèles que tu utilises (Claude Opus, GPT-5, Gemini). Si la fenêtre disponible à coût raisonnable atteint 1 M+ tokens dans les 6 mois, certains de tes RAG classiques deviennent réinterrogeables.</li>
+        </ul>
+
+        <p><strong>Si tu as déjà une stack RAG en production</strong>&nbsp;:</p>
+        <ul>
+          <li><strong>Documenter la dette technique RAG</strong>&nbsp;: quels composants devraient être réévalués si le long context devient natif&nbsp;? Quels chunking strategies sont devenus inutiles&nbsp;? Cette documentation est une assurance.</li>
+          <li><strong>Tester en parallèle des approches alternatives</strong> sur un cas d'usage non critique (LLM Wiki, persistent memory simple). C'est le moment où le coût d'expérimentation est faible et l'apprentissage maximal.</li>
+          <li><strong>Ne pas paniquer</strong>&nbsp;: le RAG classique reste pertinent sur les corpus &gt;&gt; 1 M tokens et les besoins de citation précise / sourcing. La rupture n'est pas universelle.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <strong>Pattern A5 à venir — « Agents fédérés / persistent memory »</strong>&nbsp;: si la trajectoire se confirme dans les 6-12 mois (3 sources convergentes deviennent 6+, écosystème de patterns stabilisé, premiers RetEx PME documentés), la page <a href="../architectures.html" class="tool-link">Architectures</a> introduira un 5e pattern complémentaire des 4 patterns existants. Pour l'instant, ce pattern reste en signal — pas en référence d'implémentation. Renvoi symétrique côté production&nbsp;: <a href="../deploiement/dep-02-rag-architecture-prod.html#section-2bis" class="tool-link">RAG en production §2bis</a>.
         </div>
       </section>
 
@@ -642,6 +678,10 @@
             <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener">Karpathy — LLM Wiki Gist (avril 2026)</a><span class="resources-meta">Le pattern original « synthesis persistante » alternative au RAG — 17M vues</span></li>
             <li><a href="https://www.mindstudio.ai/blog/llm-wiki-vs-rag-markdown-knowledge-base-comparison" target="_blank" rel="noopener">MindStudio — LLM Wiki vs RAG comparison</a><span class="resources-meta">Analyse comparée chiffrée des deux approches</span></li>
             <li><a href="https://x.com/Suryanshti777" target="_blank" rel="noopener">Suryansh Tiwari (X) — RAG doesn't learn</a><span class="resources-meta">Critique conceptuelle du RAG classique stateless</span></li>
+            <li><a href="https://gist.github.com/karpathy" target="_blank" rel="noopener">Andrej Karpathy — Gist LLM Wiki</a><span class="resources-meta">Avril 2026, 5 000+ stars en un mois, source du pattern LLM Wiki</span></li>
+            <li><a href="https://x.com/0xCVYH/status/2052039643114213699" target="_blank" rel="noopener">@0xCVYH (SubQ) — Long context 10M+ vs RAG playbook</a><span class="resources-meta">Mai 2026, thèse fin du playbook RAG si long context natif</span></li>
+            <li><a href="https://x.com/Suryanshti777/status/2055326692051390540" target="_blank" rel="noopener">@Suryanshti777 — Obsolescence progressive du RAG classique</a><span class="resources-meta">Mai 2026, au profit du pattern LLM Wiki</span></li>
+            <li><a href="https://x.com/JE4NVRG/status/2056511285651497136" target="_blank" rel="noopener">@JE4NVRG (Jean Vargas, founder Hermes Agent) — Persistent memory &gt; RAG stateless</a><span class="resources-meta">Mai 2026, persistent memory pour agents scalables</span></li>
           </ul>
         </div>
 
