@@ -1,6 +1,6 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.6 (v1.5 + cap budgétaire par sprint + précision D-025 « ossature complète ≠ transverse » + AP-6 synonymes excessifs + garde-fou concepts détaillés vague 3.5+)
+**Statut :** v1.8 (v1.6 + AP-7 lead bridge sur-élargi + tolérance R3 800-900 tokens si chunk cohérent + codification sondage D-026 systématique pour production from scratch)
 **Dernière mise à jour :** 13 mai 2026 (révision post-S2.3 — 4 propositions RAPPORT-CC-S2.3 §6 validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
@@ -66,9 +66,12 @@ public_cible: [dirigeant, ops, r&d]   # valeurs autorisées : dirigeant | ops | 
 
 - **Chunk principal** : une section H2 = un chunk, longueur cible **400-700 tokens** (~ 250-500 mots)
 - **Subdivision** : si une section dépasse **800 tokens**, la subdiviser par H3 (chaque H3 devient un sous-chunk)
+- **Tolérance empirique 800-900 tokens** (post-S2.4, validé sur Frontier Firms cu-026 850 tokens) : le seuil 800 est une **recommandation** ; tolérance jusqu'à ~900 tokens **si le chunk est thématiquement cohérent** (un seul angle traité, pas d'enchaînement de sous-sujets distincts). **Au-delà de 900 tokens : refactoring H3 obligatoire** pour préserver la qualité du retrieval.
 - **Injection du frontmatter** : à l'indexation, le frontmatter du fichier est injecté en tête de chaque chunk pour préserver le contexte métadonnées (code, titre, type, axe, niveau)
 
-**Validation** : audit-md-rag.py mesure la longueur de chaque section et signale les sections > 800 tokens non subdivisées.
+**Validation** : audit-md-rag.py mesure la longueur de chaque section et signale les sections > 900 tokens non subdivisées (warning entre 800-900 tokens, erreur > 900 tokens).
+
+**Précision empirique post-S2.4.1 Lot D-ter (chunking H2 autonome + lead bridge)** : pour qu'un chunk de specs précises soit retrouvé sur des questions au vocabulaire générique, il ne suffit pas de mettre les specs en sub-section H3 dans une H2 < 800 tokens (le H3 sera agglutiné au chunk H2 parent). Promotion en H2 dédiée + lead bridge enrichi avec vocabulaire question canonique attendu (premier paragraphe en gras) sont les **deux conditions nécessaires et indissociables**. Cf. §Conception MD et questions golden set ci-dessous.
 
 ---
 
@@ -268,6 +271,12 @@ Critère de test : si on retirait le concept du module candidat, le module perdr
    - *Variations à privilégier* : morphologiques évidentes (substantif/verbe : `vérification/vérifier`), pluriel/singulier (`heures/heure`), racine commune (`persistant/persistance/persistent`). Éviter les synonymes thématiquement proches mais sémantiquement distincts.
    - *Recommandation* : audit visuel à chaque ajout/modification. Si plus de 4 synonymes semblent nécessaires, c'est probablement que le concept est mal défini — le scinder en 2 concepts distincts est préférable.
 
+12. **AP-7 — Lead bridge sur-élargi** (anti-pattern symétrique inverse du garde-fou « concepts détaillés » SPEC v1.6, issue RAPPORT-CC-S2.4 §6 P1 — validé empiriquement par régressions q-002 + q-030 S2.4 Lot I) : un lead de chunk H2 ne doit pas étendre son vocabulaire bridge **au-delà du scope strict du module**. Sinon, ce chunk peut **saturer le top-5 retrieval sur des questions transversales** et étouffer d'autres modules plus pertinents.
+   - *Cas-école* : `pr-08` lead « **financer un projet IA en 2026 pour PME — à condition de connaître la carte** » contient les termes « projet IA », « 2026 », « PME » trop génériques. Conséquence : saturation top-5 cosine sur q-002 (cu-001 — sources fiables actualité IA 2026 + PME) et q-030 (pr-07 — obligations réglementaires projet IA PME 2026). pr-07 absent du top-10, cu-001 rang #8 sim 0,109.
+   - *Discipline* : le lead doit contenir le vocabulaire bridge **du scope effectif du module**, pas un vocabulaire générique qui matcherait des questions hors scope. Pour un module thématiquement spécifique (financement, sécurité, gouvernance, etc.), le lead doit explicitement contenir le scope dès la première phrase (« **dispositifs fiscaux** + **Bpifrance** + **France 2030** » pour pr-08, pas « projet IA PME »).
+   - *Audit* : à chaque production module, lister 3-5 questions hors scope que le module ne doit PAS dominer en top-5 ; reformuler le lead s'il les domine au retrieval.
+   - *Statut* : anti-pattern fort, audit manuel à la production (audit automatisable en v3 audit-md-rag.py si signature distance cosine).
+
 ---
 
 ## Conception MD et questions golden set — garde-fou « concepts détaillés » (issue RAPPORT-CC-S2.3 §6 P4)
@@ -299,6 +308,25 @@ Tests unitaires mockés et eval réelle ont des rôles complémentaires non subs
 **Pourquoi** : les deux anomalies S2.2 (YAML int + bug extraction wikilinks) ont été détectées exclusivement par eval réelle, pas par les 171 tests unitaires verts. Les mocks ne peuvent pas capter l'écart entre le format réel produit par le LLM et l'attendu de l'extraction.
 
 **Mise en œuvre** : à inscrire dans tout brief Plateforme/Desktop qui touche au pipeline. Cible-discipline budgétaire : un rejeu eval = ~0,70 $ Anthropic (estimation S2.2 sur 30 questions, Sonnet 4.6), à intégrer dans le cap durci sprint.
+
+### Sondage D-026 systématique pour production from scratch (issue RAPPORT-CC-S2.4 §6 P3, validé empiriquement S2.3 + S2.4)
+
+Tout module produit **from scratch** (sans précédent MD dans le vault, c'est-à-dire première production de ce code module) doit faire l'objet d'un **sondage préalable D-026** au canal détenteur de la source canonique HTML (Cowork Hub IA dans la configuration POC).
+
+**Format du sondage** : draft Cowork-side `briefs/DRAFT-SONDAGE-COWORK-HUB-IA-S{N}-{slug}.md` listant 3-15 sous-passages sensibles avec **hypothèses Cowork** sur chaque passage. Le sondage cible en priorité :
+- Les **chiffres exacts** à transposer textuellement (R10 stricte)
+- Les **énumérations canoniques** (ordre, complétude)
+- Les **cas-écoles nommés** (Klarna, Tea App, OpenClaw, etc.) — risque de confusion entre cas-écoles
+- Les **frameworks structurants** (les 7 dimensions cu-026, les 4 patterns Frontier Firms, etc.)
+- Les **risques de duplication ou chevauchement** entre modules
+
+**Retour attendu** : `briefs/RETOUR-SONDAGE-COWORK-HUB-IA-S{N}.md` (~1500-3500 mots selon volume) avec, pour chaque passage : confirmation/rectification de l'hypothèse Cowork + citation textuelle de la formulation canonique HTML + arbitrage éditorial si pertinent (notamment extraction transverse D-025).
+
+**Effort estimé** : 1h Cowork (rédaction sondage) + 60-90 min Cowork Hub IA (retour) + intégration au moment de la production = **~2-3h de surcoût par module ou groupe de modules**. **Gain attendu** : 1-4 dérives sémantiques majeures évitées par sprint (validation empirique S2.3 = 4 dérives évitées, S2.4 = 1 rectification critique sur tableau DEP-02 §4).
+
+**Sondage global vs sondages séparés** : pour un sprint produisant plusieurs modules from scratch simultanément (cas Lot F.5 S2.5 = 8 modules), un **sondage global unique** sur l'ensemble des modules est plus efficace (1 session Cowork Hub IA ~60-90 min vs N sessions séparées). Validé empiriquement S2.5.
+
+**Statut** : règle structurelle pour production from scratch. Pour production de patches sur modules existants déjà produits (cas Lot F.3 S2.4 = patches CU-026/CU-027/DEP-08), le sondage D-026 reste recommandé sur les passages denses mais n'est pas systématique.
 
 ---
 
@@ -383,5 +411,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.4 | 12 mai 2026 | + Codification R6 warning par défaut (issue RAPPORT-CC-S2.1 §5 P1 — convention déjà appliquée empiriquement par Claude Code Plateforme audit v2) ; + Documentation des options `--strict-future` et `--strict-r6` (issue P3) ; + Roadmap audit v3 enrichie : R5 v3 « première occurrence seulement » (P2 reportée audit v3) et R11 « outil glossarié wikilinké » (inspiré couple 1 v3.9 Règle I.1 cross-site outils, application différée audit v3) |
 | v1.5 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.2 §6 (validation Cowork post-clôture S2.2) : (1) AP-5 valeurs numériques non quotées dans `expected_concepts` (anti-pattern fort, validation visuelle au commit Cowork) ; (2) Formalisation des deux patterns d'extraction côté code RAG — `WIKILINK_CITATION_PATTERN` préféré + `BRACKET_CITATION_PATTERN` rétro-compat (sous-section dans R4) ; (3) Nouvelle section §Performances : recalibrage cible latence Sonnet 4.6 à 12-18 s/question (cible 5 s S1/S2.2 abandonnée comme irréaliste) ; (4) Nouvelle section §Validation : eval réelle comme garde-fou structurel pré-clôture sprint (toute évolution prompt/regex/modèle/chunking déclenche rejeu eval, mocks ≠ substituable). |
 | v1.6 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.3 §6 (validation Cowork post-clôture S2.3 — sprint clôturé à 41/42 score global) : (1) Cap budgétaire par sprint formalisé en §Performances (recalibrage 0,90 $ → 1,10 $ pour 42q, table par volume) ; (2) Précision D-025 en §Briques transverses : « ossature complète d'un module ≠ brique transverse extractible » (validé empiriquement RETOUR-SONDAGE sur pattern « agent = employé » CU-026) ; (3) AP-6 : synonymes excessifs dans `expected_concepts` liste de listes (plafond 2-4 synonymes, anti-faux-positifs) ; (4) Nouvelle section §Conception MD et questions golden set : garde-fou « concepts détaillés » (sub-section H3 dédiée + format `expected_concepts` tolérant aux variations numériques, issue diagnostic q-038). |
+| v1.8 | 20 mai 2026 | Intégration des 3 propositions RAPPORT-CC-S2.4 §6 (validation Cowork post-clôture S2.4 — sprint clôturé à 50/52 score global) : (1) **AP-7 « Lead bridge sur-élargi »** dans §Anti-patterns (symétrique inverse du garde-fou « concepts détaillés » v1.6 — cas-école pr-08 saturant top-5 sur q-002 + q-030 transversales) ; (2) **Tolérance R3 800-900 tokens** si chunk thématiquement cohérent (validé empiriquement chunk Frontier Firms cu-026 850 tokens) ; (3) **Sondage D-026 systématique pour production from scratch** dans §Validation (validé empiriquement 2 sprints S2.3 + S2.4, 4 + 1 dérives évitées). Précision empirique post-Lot D-ter ajoutée à §R3 sur les 2 conditions nécessaires et indissociables : chunking H2 autonome + lead bridge enrichi. |
 
-**Évolution prévue** : enrichissement en v1.7+ post-S2.4 sur la base du fix q-038 (refactor chunking dep-08), de la vague 4 production MD (modules denses restants), et d'éventuelles décisions structurantes émergentes.
+**Évolution prévue** : enrichissement en v1.9+ post-S2.5 sur la base du correctif retrieval pr-08 + production vague 5 + éventuelles nouvelles décisions structurantes émergentes.
