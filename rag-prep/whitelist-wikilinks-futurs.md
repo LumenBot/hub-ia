@@ -56,12 +56,12 @@
 
 | Code | Titre métier | Vague cible |
 |---|---|---|
-| `dep-01` | Cadrer un projet IA pour la mise en production | 3-4 |
+| ~~`dep-01`~~ | ~~Cadrer un projet IA pour la mise en production~~ | ✅ **Produit S2.5 Lot F.5a — 22 mai 2026** (heuristique anti-hype 6 niveaux + Jagged Frontier Stanford) |
 | `dep-03` | Context engineering et coût par requête | 4 |
 | `dep-04` | Fine-tuning : quand y aller, quand ne pas | 4 |
 | `dep-05` | Agents en production : observabilité et garde-fous | 3-4 |
 | `dep-06` | Inférence et coûts : SaaS vs self-hosted | 3-4 |
-| `dep-07` | Évaluation continue et qualité IA | 3-4 |
+| ~~`dep-07`~~ | ~~Évaluation continue et qualité IA~~ | ✅ **Produit S2.5 Lot F.5a — 22 mai 2026** (Anthropic Demystifying Evals + 3 types d'evals + heuristique « eval first ») |
 | ~~`dep-08`~~ | ~~Sécurité agents et MCP servers~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |
 
 ## Architectures planifiées

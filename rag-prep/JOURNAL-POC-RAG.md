@@ -11,6 +11,42 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 SPEC v1.9 + Lot F.5a livrés) — Cowork Hub IA Plateforme — Pattern 3 niveaux retrieval inscrit + production DEP-01 + DEP-07
+
+**Contexte :** Lot Drer-ter Desktop a validé l'entrée q-030 dans le top-5 (rang #3 sim 0,3635). Phase 1 q-030 entièrement clôturée. Pattern « 3 niveaux d'intervention retrieval » validé empiriquement sur 3 itérations. Phase 2 démarre par : (1) inscription SPEC v1.9 + (2) Lot F.5a (production DEP-01 + DEP-07 en parallèle).
+
+**Actions menées :**
+
+- **SPEC v1.8 → v1.9** : ajout d'une sous-section §Conception MD « **Pattern 3 niveaux d'intervention retrieval** » avec les 3 niveaux validés empiriquement et leurs cas-écoles documentés (Lot D-ter S2.4.1 / S2.5.0-bis / S2.5.0-ter sur q-038 + q-030). Mise en garde tolérance R3 800-900 tokens à respecter en Niveau 3. Application séquentielle selon écart résiduel observé.
+
+- **Lot F.5a — Production DEP-01 + DEP-07** (2 modules vague 5 from scratch, application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5) :
+  - **`dep-01.md` v3.11.0** (~210 lignes / ~2200 mots) « Cadrer un projet IA pour la mise en production ». **Rectification critique RETOUR §3.1 appliquée** : les « 6 étapes » sont un **arbre de décision technique architectural** (Single LLM call → Long context → RAG → Fine-tuning → Single agent → Multi-agent), PAS un cadrage projet (futur PR-09 v3.12). Heuristique anti-hype 2026 préservée textuellement. Concept Jagged Frontier Stanford avec contraste IMO/horloge analogique 50,1 % + OSWorld 12 → 66 %. Articulation 4 stades démo → POC → pilote → production. Wikilinks vers dep-02/04/05, cu-014, cu-026, pattern-llm-wiki, pattern-persistent-memory.
+  - **`dep-07.md` v3.11.0** (~220 lignes / ~2300 mots) « Évaluation continue et qualité IA ». Référentiel canonique Anthropic Engineering 2026 (2 publications mai 2026 citées textuellement). Heuristique « eval first ». **3 types d'evals** : LLM-as-judge / offline référence / online utilisateurs. 4 définitions canoniques Anthropic (eval/harness/multi-turn/state-modifying). 5 outils 2026 (LangSmith, Phoenix Arize, Langfuse, Comet Opik, Braintrust). Méthode variance N runs (3-5) pour agents long-running. Intégration CI/CD avec gates de blocage (cohérence §8.2 gates TOML DEP-05 via wikilink, **pas de duplication**). **Distinction nette évaluation (avant) vs observabilité (après)** préservée textuellement.
+  - **Application pattern 3 niveaux retrieval SPEC v1.9 dès la production initiale** : leads des H2 « L'essentiel à retenir » incluent le vocabulaire question canonique anticipée pour Lot H golden set (« Comment cadrer architecture IA pour mise en production » pour DEP-01, « Comment évaluer la qualité d'un système IA en production » pour DEP-07).
+
+- **Whitelist v2.1 → v2.2** : `dep-01` et `dep-07` retirés.
+
+**Métriques :**
+- SPEC v1.8 → v1.9 (+1 sous-section + 1 ligne historique)
+- 2 nouveaux fichiers MD (~4500 mots cumulés DEP-01 + DEP-07)
+- Whitelist v2.2 (2 codes retirés)
+- Coût : **0,00 $**
+
+**Décisions structurantes :**
+- **Pattern 3 niveaux retrieval codifié SPEC v1.9** validation empirique sur 3 itérations.
+- **Distinction architecturale DEP-01 (arbre décision technique) ≠ cadrage projet (futur PR-09 v3.12)** préservée.
+- **Articulation DEP-07 vs DEP-02 vs DEP-05** : 3 modules complémentaires non substituables, pas de duplication.
+
+**Reste à faire Phase 3 S2.5** :
+- Lot F.5b : PR-01 + PR-04 (risque confusion à éviter)
+- Lot F.5c : PR-05 + DEP-05 (sécurité orga vs sécurité technique)
+- Lot F.5d : CU-020 + CU-024 (rectifications PA = Plateforme Agréée)
+- Lots G/H/I/J : whitelist v3 + cartographie v2 + golden set vague 5 + eval + RAPPORT-CC-S2.5 + PR finale
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-22 (S2.5 Lot Drer-ter — validation densification lead H2 pr-07) — Claude Code Desktop — ✅ q-030 RESTAURÉ, eval 4/4, Phase 1 q-030 clôturée
 
 **Contexte :** validation du Lot S2.5.0-ter (densification chirurgicale du lead de la H2 pr-07 « Obligations réglementaires », v3.11.2 → v3.11.3). Objectif : faire entrer le chunk dans le top-5 et q-030 → score=1. **Procédure** : le fix ter (`2262c64`) n'était PAS encore mergé sur main (origin/main `4aff929` post-PR #76 = pr-07 v3.11.2) — il vivait sur la branche `claude/execute-s25-lot-s2500-ter` (poussée). Branche Drer-ter dérivée de `2262c64` (= main + fix ter), base correcte. À signaler : merger `claude/execute-s25-lot-s2500-ter` sur main.
