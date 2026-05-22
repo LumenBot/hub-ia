@@ -31,11 +31,11 @@
 | `cu-017` | Contrôle qualité par vision IA | 4-5 |
 | `cu-018` | Optimisation production / nesting | 4-5 |
 | `cu-019` | Newsletter locale | 4 |
-| `cu-020` | Conformité RGPD & AI Act | 3-4 |
+| ~~`cu-020`~~ | ~~Conformité RGPD & AI Act~~ | ✅ **Produit S2.5 Lot F.5d — 22 mai 2026** (4 articles structurants AI Act + 4 niveaux risque + sanctions 7 % CA / 35 M€ + 3 fiches CNIL + guide HAS-CNIL santé) |
 | `cu-021` | Finance & comptabilité augmentées | 4 |
 | `cu-022` | Voicebot accueil téléphonique | 4 |
 | `cu-023` | Devis simples — porte d'entrée IA | 4 |
-| `cu-024` | Order-to-cash automation | 4 |
+| ~~`cu-024`~~ | ~~Order-to-cash automation~~ | ✅ **Produit S2.5 Lot F.5d — 22 mai 2026** (6 étapes O2C + valeur IA différenciée étapes 4 et 6 + PA vs PPF + calendrier réglementaire 1er sept 2026/2027) |
 | `cu-025` | Knowledge management IA-augmenté pour dirigeant | 3 |
 | ~~`cu-026`~~ | ~~Gouvernance des agents IA~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |
 | ~~`cu-027`~~ | ~~Faire développer une appli métier (sans être IT)~~ | ✅ **Produit S2.3 Lot B — retiré whitelist le 13 mai 2026** |

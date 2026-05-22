@@ -11,6 +11,47 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot F.5d livré — vague 5 production complète) — Cowork Hub IA Plateforme — Production CU-020 + CU-024 (conformité + O2C)
+
+**Contexte :** Phase 2 S2.5 — F.5a, F.5b, F.5c mergés sur main (DEP-01 + DEP-07 + PR-01 + PR-04 + DEP-05 + PR-05 + SPEC v1.9 + signal v3.12). F.5d clôture la production vague 5 avec les 2 derniers modules (CU-020 conformité + CU-024 order-to-cash). Application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5 §1 + §2 (avec rectification critique acronymes PA = Plateforme Agréée).
+
+**Actions menées :**
+
+- **Lot F.5d — Production CU-020 + CU-024** (2 modules vague 5 from scratch) :
+  - **`cu-020.md` v3.11.0** (~190 lignes / ~2200 mots) « Conformité RGPD / AI Act pour l'IA en PME ». **4 articles structurants** : RGPD article 22 (décision automatisée) + AI Act article 4 (formation IA obligatoire 2 août 2026) + AI Act article 14 (supervision humaine effective haut risque) + AI Act article 50 (transparence et labellisation GenAI). **Typologie 4 niveaux de risque AI Act** (interdit / haut risque / risque limité / risque minimal). **Sanctions chiffrées** 7 % CA mondial / 35 M€. **3 fiches CNIL finales** dans l'ordre canonique (applicabilité RGPD aux modèles IA / sécurité dans le développement IA / annotation des données d'entraînement). **Guide HAS-CNIL santé** mars 2026 (10 fiches cycle de vie + 2 fiches transverses, secteur santé / médico-social). **Draft Guidelines AI Act Art. 50** avec calendrier 3 juin / 2 août / 2 décembre 2026. **PAS de cas-école PME nommé** (cohérent avec CU-024, PR-05, DEP-08 — module cartographique méthodologique). Wikilink vers cu-014 (transparence cascadée art. 50). **PAS de wikilink artificiel vers PR-05** (« couple 1 tranche, couple 2 s'aligne »).
+  - **`cu-024.md` v3.11.0** (~210 lignes / ~2400 mots) « Order-to-cash automation IA ». **Workflow O2C en 6 étapes canoniques** : devis → bon de commande → facturation → relance → encaissement → lettrage. **Valeur IA différenciée par étape** : forte (relance 4 + lettrage 6), modérée (devis 1 + facturation 3), faible (BC 2 + encaissement 5). **Chiffres canoniques** : relance 30-40 % DSO en moins + 35-50 % productivité, lettrage 60-80 % automatique (vs 30-40 % règles classiques). **Rectification critique acronymes** : **PA = Plateforme Agréée** (LF 2026 art. 27), anciennement PDP — Plateforme de Dématérialisation Partenaire. **PPF = Portail Public de Facturation** est un dispositif distinct géré par la DGFiP, **à ne pas confondre avec PA**. **Calendrier réglementaire** : 125 PA immatriculées au 5 mai 2026 (+17 en attente), 1er sept 2026 (réception obligatoire + émission grandes entreprises/ETI), 1er sept 2027 (émission PME/TPE). **Outils nommés** : Pennylane, Sellsy, Axonaut, Esker, Sidetrade, Aston AI. **Section 5 « Cinq écueils typiques »** + **checklist 12 points** comme angles pédagogiques. **PAS de cas-école PME nommé** (module cartographique méthodologique).
+  - Application pattern Lot D-ter SPEC v1.9 dès la production initiale : leads des H2 « L'essentiel à retenir » différenciés (CU-020 = conformité réglementaire RGPD + AI Act + CNIL ; CU-024 = workflow O2C + facturation électronique PA). AP-7 strict appliqué.
+
+- **Whitelist v2.4 → v2.5** : `cu-020` et `cu-024` retirés.
+
+**Vague 5 production complète** ✅ — 4 sous-lots livrés (F.5a + F.5b + F.5c + F.5d), **8 modules produits from scratch** :
+- F.5a : DEP-01 + DEP-07
+- F.5b : PR-01 + PR-04
+- F.5c : DEP-05 + PR-05
+- F.5d : CU-020 + CU-024
+**+ 3 patches Lot S2.5.0 + bis + ter** (cu-001 + pr-07 + pr-08 leads). Total ~20 000 mots vague 5 cumulés.
+
+**Métriques Lot F.5d :**
+- 2 nouveaux fichiers MD (~4600 mots cumulés CU-020 + CU-024)
+- Whitelist v2.4 → v2.5 (2 codes retirés)
+- Coût : **0,00 $** (Cowork pur éditorial)
+
+**Décisions structurantes :**
+- **Pattern « 4 modules méthodologiques cartographiques sans cas-école PME »** documenté empiriquement : CU-020 + CU-024 + PR-05 + PR-08. À distinguer des modules illustratifs (CU-026 Klarna, CU-027 Tea App). Choix éditorial cohérent côté HTML, transposé fidèlement côté MD.
+- **Rectification critique acronymes PA / PDP / PPF** intégrée en CU-024. Préservée textuellement pour éviter la confusion structurelle signalée par Cowork Hub IA.
+- **Vague 5 cartographiée complète** : 8 modules + 3 patches leads. Vault passe de 21 → **23 fichiers MD**. Reste à compléter en vague 6 (PR-09 + PR-10 + PR-11 nouveaux v3.12, sondage D-026 recommandé).
+
+**Reste à faire S2.5 Phase 3 (post-F.5d)** :
+- **Lot G** : MAJ cartographie-rag v2 → v3 (8 nouveaux modules vague 5 + 3 patches leads à inventorier)
+- **Lot H** : extension golden set vague 5 (cible 52 → ~70-75 questions, +18-23 questions sur les 8 nouveaux modules + couverture patches leads)
+- **Lot I** : eval extended ~70-75 questions sur vault enrichi (~1,80 $ Anthropic estimé)
+- **Lot J** : RAPPORT-CC-S2.5 + PR finale S2.5
+
+**Blockers :** aucun.
+
+---
+
+
 <<<<<<< Updated upstream
 =======
 ### 2026-05-22 (S2.5 Lot F.5c livré) — Cowork Hub IA Plateforme — Production DEP-05 + PR-05 (sécurité technique + stratégique)
