@@ -581,3 +581,238 @@
 # Fin de l'extension S2.4 Lot H — 10 nouvelles questions vague 4 (total golden set : 52 questions).
 # Cible eval S2.4 : ≥ 43/52 sources retrouvées (≥ 83 %), ≥ 47/52 concepts ≥ 50 % (≥ 90 %).
 # Coût eval estimé : 52q × ~0,025 $/q = ~1,30 $ Anthropic (cap durci sprint S2.4 = 1,35 $ SPEC v1.6).
+
+# ====================================================================
+# Extension S2.5 Lot H — 20 nouvelles questions vague 5 (q-053 → q-072)
+# ====================================================================
+#
+# Couverture : 8 modules produits en Phase 2 S2.5 — dep-01 + dep-07 + dep-05 + pr-01 + pr-04 + pr-05 + cu-020 + cu-024.
+# 2-3 questions par module selon densité éditoriale.
+#
+# Application stricte SPEC v1.9 :
+# - AP-5 valeurs numériques quotées
+# - AP-6 plafond 4 synonymes par concept
+# - Pattern 3 niveaux retrieval (les leads des chunks cibles ont été enrichis ex-ante avec vocabulaire question canonique)
+# - AP-7 lead bridge dans scope strict du module
+#
+# Cible eval S2.5 : ≥ 60/72 sources retrouvées (≥ 83 %), ≥ 65/72 concepts ≥ 50 % (≥ 90 %)
+
+# === dep-01 (Cadrer un projet IA) — 3 questions ===
+
+- id: q-053
+  question: "Quelle heuristique anti-hype 2026 pour cadrer l'architecture d'un projet IA ?"
+  expected_sources: [dep-01]
+  expected_concepts:
+    - ["heuristique anti-hype", "anti-hype"]
+    - ["Single LLM call", "single LLM"]
+    - ["scaler", "prouvé nécessaire"]
+    - ["6 niveaux", "arbre de décision"]
+  unit: dep-01
+
+- id: q-054
+  question: "Quels sont les 6 niveaux de l'arbre de décision technique pour choisir une architecture IA ?"
+  expected_sources: [dep-01]
+  expected_concepts:
+    - ["Single LLM call", "single LLM"]
+    - ["Long context", "long-context"]
+    - RAG
+    - ["Fine-tuning", "Single agent", "Multi-agent"]
+  unit: dep-01
+
+- id: q-055
+  question: "Qu'est-ce que le concept Jagged Frontier de Stanford et pourquoi est-il important pour cadrer un projet IA ?"
+  expected_sources: [dep-01]
+  expected_concepts:
+    - ["Jagged Frontier", "frontière dentelée"]
+    - Stanford
+    - ["IMO", "horloge analogique"]
+    - ["démo", "extrapoler"]
+  unit: dep-01
+
+# === dep-07 (Évaluation continue) — 3 questions ===
+
+- id: q-056
+  question: "Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?"
+  expected_sources: [dep-07]
+  expected_concepts:
+    - ["eval first", "Anthropic"]
+    - ["Demystifying evals", "Demystifying"]
+    - ["golden set", "baseline"]
+    - ["build the eval before", "avant de coder"]
+  unit: dep-07
+
+- id: q-057
+  question: "Quels sont les 3 types d'evals complémentaires pour évaluer un système IA en production ?"
+  expected_sources: [dep-07]
+  expected_concepts:
+    - ["LLM-as-judge", "LLM as judge"]
+    - ["offline", "golden set", "référence"]
+    - ["online", "utilisateurs réels"]
+    - ["complémentaires", "non substituables"]
+  unit: dep-07
+
+- id: q-058
+  question: "Comment distinguer évaluation et observabilité d'un système IA en production ?"
+  expected_sources: [dep-07, dep-05]
+  expected_concepts:
+    - ["evals", "évaluation"]
+    - ["observabilité", "observabilite"]
+    - ["avant déploiement", "après"]
+    - ["sortie", "prod"]
+  unit: dep-07
+
+# === dep-05 (Agents observabilité) — 3 questions ===
+
+- id: q-059
+  question: "Quelle architecture d'observabilité pour des agents IA en production ?"
+  expected_sources: [dep-05]
+  expected_concepts:
+    - ["5 layers", "cinq layers"]
+    - [logs, traces, métriques]
+    - ["événements", "evenements", "événements métier"]
+    - ["prompts", "réponses", "reponses"]
+  unit: dep-05
+
+- id: q-060
+  question: "Qu'est-ce que le failure receipt pattern et comment l'appliquer pour les agents IA ?"
+  expected_sources: [dep-05]
+  expected_concepts:
+    - ["failure receipt", "failure receipts"]
+    - ["overclaimed completion", "overclaimed"]
+    - ["inputs reçus", "actions entreprises"]
+    - ["vérification", "propriétaire"]
+  unit: dep-05
+
+- id: q-061
+  question: "Qu'est-ce que le pattern two-agent harness Anthropic pour les agents long-running ?"
+  expected_sources: [dep-05]
+  expected_concepts:
+    - ["two-agent harness", "two agent"]
+    - ["Initializer agent", "Initializer"]
+    - ["Coding agent"]
+    - ["progress log", "artefacts externes", "mémoire externalisée"]
+  unit: dep-05
+
+# === pr-01 (Maturité orga) — 2 questions ===
+
+- id: q-062
+  question: "Quelle est la typologie 4 profils dirigeants Bpifrance Le Lab face à l'IA ?"
+  expected_sources: [pr-01]
+  expected_concepts:
+    - Sceptiques
+    - Bloqués
+    - Expérimentateurs
+    - Innovateurs
+  unit: pr-01
+
+- id: q-063
+  question: "Quel est le facteur de succès n°1 mesuré pour la valeur IA en entreprise selon McKinsey ?"
+  expected_sources: [pr-01, chiffres-macro-2026]
+  expected_concepts:
+    - ["redesign", "intentional redesigning", "workflows"]
+    - ["high performers", "AI high performers"]
+    - ["6 %", "6 pourcent"]
+    - ["McKinsey", "State of AI"]
+  unit: pr-01
+
+# === pr-04 (Marché IA emploi) — 3 questions ===
+
+- id: q-064
+  question: "Quelles sont les 4 séries de chiffres convergents du marché IA en 2026 ?"
+  expected_sources: [pr-04]
+  expected_concepts:
+    - Bpifrance
+    - Microsoft
+    - McKinsey
+    - Stanford
+  unit: pr-04
+
+- id: q-065
+  question: "Qu'est-ce que le Transformation Paradox de Microsoft 2026 ?"
+  expected_sources: [pr-04]
+  expected_concepts:
+    - ["Transformation Paradox"]
+    - Microsoft
+    - ["culture", "culture de l'organisation"]
+    - ["frein", "valeur IA"]
+  unit: pr-04
+
+- id: q-066
+  question: "Quel est le paradoxe enjeu vs adoption de l'IA en TPE-PME française selon Bpifrance ?"
+  expected_sources: [pr-04, chiffres-macro-2026]
+  expected_concepts:
+    - ["58 %", "58 pourcent"]
+    - ["enjeu de survie"]
+    - ["33 %", "adoption quotidienne"]
+    - Bpifrance
+  unit: pr-04
+
+# === pr-05 (Sécurité IA) — 2 questions ===
+
+- id: q-067
+  question: "Qu'est-ce que la cybersécurité agentique selon McKinsey 2026 et pourquoi est-elle un vecteur de risque distinct ?"
+  expected_sources: [pr-05]
+  expected_concepts:
+    - ["cybersécurité agentique", "cybersecurite agentique"]
+    - McKinsey
+    - ["vecteur de risque", "distinct du LLM"]
+    - ["Securing the agentic enterprise"]
+  unit: pr-05
+
+- id: q-068
+  question: "Quels sont les thèmes prioritaires du NIST CAISI pour la sécurité IA en 2026 ?"
+  expected_sources: [pr-05]
+  expected_concepts:
+    - ["NIST CAISI", "NIST"]
+    - ["agent identity", "identity & authentication"]
+    - ["auditability"]
+    - ["interoperability", "AI Agent Interoperability Profile"]
+  unit: pr-05
+
+# === cu-020 (Conformité RGPD/AI Act) — 2 questions ===
+
+- id: q-069
+  question: "Quels sont les 4 articles structurants pour la conformité d'un projet IA en PME 2026 ?"
+  expected_sources: [cu-020]
+  expected_concepts:
+    - ["RGPD", "article 22"]
+    - ["AI Act", "article 4"]
+    - ["article 14"]
+    - ["article 50", "transparence"]
+  unit: cu-020
+
+- id: q-070
+  question: "Quelles sont les sanctions maximales prévues par l'AI Act européen ?"
+  expected_sources: [cu-020]
+  expected_concepts:
+    - ["7 %", "7 pourcent", "CA mondial"]
+    - ["35 M€", "35 millions"]
+    - ["2 août 2026"]
+    - ["sanctions", "sanctions effectives"]
+  unit: cu-020
+
+# === cu-024 (Order-to-cash) — 2 questions ===
+
+- id: q-071
+  question: "Quelles sont les 6 étapes canoniques d'un workflow order-to-cash et où la valeur IA est-elle la plus forte ?"
+  expected_sources: [cu-024]
+  expected_concepts:
+    - [devis, "bon de commande"]
+    - [facturation, relance]
+    - [encaissement, lettrage]
+    - ["forte valeur", "étapes 4 et 6", "relance et lettrage"]
+  unit: cu-024
+
+- id: q-072
+  question: "Quelle est la différence entre une Plateforme Agréée (PA) et le Portail Public de Facturation (PPF) ?"
+  expected_sources: [cu-024]
+  expected_concepts:
+    - ["Plateforme Agréée", "PA"]
+    - ["PPF", "Portail Public de Facturation"]
+    - ["DGFiP", "loi de finances 2026", "art. 27"]
+    - ["125 PA", "1er septembre 2026"]
+  unit: cu-024
+
+# Fin de l'extension S2.5 Lot H — 20 nouvelles questions vague 5 (total golden set : 72 questions).
+# Cible eval S2.5 : ≥ 60/72 sources retrouvées (≥ 83 %), ≥ 65/72 concepts ≥ 50 % (≥ 90 %).
+# Coût eval estimé : 72q × ~0,025 $/q = ~1,80 $ Anthropic (cap durci sprint S2.5 = 1,80 $ SPEC v1.9 §Performances table 50-60q + marge).

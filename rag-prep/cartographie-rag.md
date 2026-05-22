@@ -333,16 +333,164 @@ D'après la cartographie d'ancrage du couple 1 (`Canaux/Hub-IA/veille/cartograph
 
 ---
 
-## Récap inventaire post-S2.4 Phase 2
+## Vague 5 — ajouts S2.5 Phase 2 (mai 2026, post-v3.10/v3.11 + signal v3.12 anticipé)
 
-**Vault à 15 fichiers MD** :
-- 4 modules CU : cu-001, cu-008, cu-026, cu-027
-- 2 préalables PR : pr-07, **pr-08 (nouveau)**
-- 2 déploiement DEP : dep-02, dep-08
-- 5 transverses : glossaire, chiffres-macro-2026, pattern-llm-wiki, **pattern-persistent-memory (nouveau)**, vigilance-hallucinations, vigilance-confidentialite
-- 1 ressources : outils-vector-db
+### `dep-01.md` (deploiement-dep) — nouveau
 
-Reste à produire pour vague 4+ complète (Lot F.5 sprint S2.5 dédié) : CU-020, CU-024, DEP-01, DEP-05, DEP-07, PR-01, PR-04, PR-05 (8 modules whitelistés).
+**Titre** : Cadrer un projet IA pour la mise en production
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Heuristique anti-hype 2026 — single LLM call d'abord
+2. Arbre de décision technique en 6 niveaux (Single LLM call → Long context → RAG → Fine-tuning → Single agent → Multi-agent)
+3. Concept Jagged Frontier Stanford (IMO médaille d'or vs horloge analogique 50,1 % + OSWorld 12 → 66 %)
+4. 4 stades projet : démo → POC → pilote → production
+
+**Mots-clés sémantiques** : cadrage technique, arbre décision, heuristique anti-hype, Jagged Frontier, Single LLM call
+
+**Recouvrements** :
+- `pr-09.md` (vague 6) traitera le cadrage projet **stratégique** (distinct du cadrage technique). PAS de wikilink prématuré.
+- Étapes 3-6 wikilinkent vers dep-02, dep-04, dep-05, cu-014, cu-026
+- Pattern transverse pattern-llm-wiki + pattern-persistent-memory cités dès le niveau 2-3
+
+### `dep-07.md` (deploiement-dep) — nouveau
+
+**Titre** : Évaluation continue et qualité IA
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Heuristique « eval first » Anthropic Engineering 2026
+2. 3 types d'evals complémentaires (LLM-as-judge / offline référence / online utilisateurs)
+3. Définitions canoniques Anthropic (eval / harness / multi-turn / state-modifying)
+4. Méthode variance N runs pour agents long-running
+5. Intégration CI/CD + gates de blocage
+
+**Recouvrements** :
+- Distinction nette évaluation (avant déploiement) vs observabilité (après) — wikilink vers `dep-05.md`
+- Cycle Stitch → Evaluate → Iterate spécifique RAG dans `dep-02.md`, pas dupliqué
+- §8.2 gates TOML cohérent avec `dep-05.md` §8.2 (wikilink, pas duplication)
+
+### `dep-05.md` (deploiement-dep) — nouveau (le plus dense vague 5)
+
+**Titre** : Agents en production : observabilité et garde-fous
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Architecture observabilité 5 layers (logs / traces / métriques / événements / prompts-réponses)
+2. 4 patterns industriels production 2026 (9-layer + gates TOML + Code Execution MCP + Agent Skills)
+3. §8.5 Failure receipts et ownership (4 éléments anti-overclaimed completion)
+4. §8.5bis Two-agent harness Anthropic (Initializer + Coding, mémoire externalisée)
+5. KPI canoniques (containment rate / escalation accuracy / cost per interaction)
+
+**Recouvrements** :
+- Distinction explicitement préservée avec dep-07 (eval) + dep-08 (sécurité MCP) + cu-026 (gouvernance)
+- Two-agent harness Anthropic distinct de Fat Skills / Thin Harness Garry Tan (cu-027) — pattern à ne pas confondre
+- pattern-persistent-memory mémoire stateful vs mémoire externalisée artefacts versionnés (deux patterns complémentaires)
+
+### `pr-01.md` (prealable-pr) — nouveau
+
+**Titre** : Maturité organisationnelle face à l'IA
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Typologie 4 profils dirigeants Bpifrance Le Lab (Sceptiques 27 % / Bloqués 26 % / Expérimentateurs 19 % / Innovateurs 28 %)
+2. Encart McKinsey AI high performers (6 % + 3,6× transformation + 3× redesign + citation textuelle « intentional redesigning of workflows »)
+3. Nuance d'échelle préservée (28 % Innovateurs ≠ 6 % high performers, échelles différentes)
+4. Grille 4 paliers maturité (expérimentation isolée → stratégie cadrée → workflows redesignés → industrialisation)
+5. Auto-évaluation 10 questions + 3 causes structurelles de blocage
+
+**Recouvrements** :
+- Frontière éditoriale claire avec pr-04 (PR-01 = posture dirigeant + organisation, PR-04 = marché + emploi)
+- Wikilinks transverses vers chiffres-macro-2026
+
+### `pr-04.md` (prealable-pr) — nouveau
+
+**Titre** : Marché IA & emploi en 2026
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. §2bis 4 séries de chiffres convergents (Bpifrance + Microsoft + McKinsey + Stanford) — ordre canonique préservé
+2. §2ter Maturité agentique (23 % scaling + 39 % expérimentation = 62 % engagés)
+3. Paradoxe MIT NANDA 95 % sans ROI
+4. Section 5 Transformation Paradox Microsoft 2026 (« le frein principal n'est ni la techno ni les collaborateurs, mais la culture »)
+5. Prime salariale IA + asymétrie senior/junior + spécificité française
+
+**Recouvrements** :
+- Chiffres canoniques tous wikilinkés vers chiffres-macro-2026 (pas dupliqué)
+- « -20 % emploi devs juniors US » reste local à cu-027 (cf. RETOUR-SONDAGE §7.3)
+- Frontière éditoriale claire avec pr-01
+
+### `pr-05.md` (prealable-pr) — nouveau
+
+**Titre** : Sécurité IA — cadrage stratégique pour PME
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Cybersécurité agentique distincte du LLM classique (McKinsey « Securing the agentic enterprise » mai 2026)
+2. RAI maturité moyenne 2026 : 2,3/5 (vs 2,0 en 2025, ~1/3 à maturité ≥ 3, 2/3 à risque)
+3. NIST CAISI 6 thèmes prioritaires + AI Agent Interoperability Profile Q4 2026
+4. Encart 362 incidents Stanford symétrique avec dep-08 (formulation similaire, angles distincts)
+5. Pas de cas-école PME nommé (module cartographique méthodologique)
+
+**Recouvrements** :
+- Pattern « 4 modules sécurité IA complémentaires » : PR-05 (stratégique) + DEP-05 (technique runtime) + DEP-08 (technique infrastructure) + CU-026 (gouvernance managériale)
+- 362 incidents canonisé une seule fois dans chiffres-macro-2026, wikilinké depuis PR-05 + DEP-05 + DEP-08
+
+### `cu-020.md` (module-cu) — nouveau
+
+**Titre** : Conformité RGPD / AI Act pour l'IA en PME
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. 4 articles structurants (RGPD art. 22 + AI Act art. 4, 14, 50)
+2. Typologie 4 niveaux de risque AI Act (interdit / haut risque / risque limité / risque minimal)
+3. Sanctions chiffrées : 7 % CA mondial / 35 M€
+4. Date pivot 2 août 2026 + Draft Guidelines Article 50 (3 juin / 2 août / 2 décembre 2026)
+5. 3 fiches CNIL finales + guide HAS-CNIL santé mars 2026
+
+**Recouvrements** :
+- Wikilink vers cu-014 (transparence cascadée art. 50)
+- Pas de wikilink artificiel vers pr-05 (non présent côté HTML — « couple 1 tranche, couple 2 s'aligne »)
+- Article 14 + Moffatt v. Air Canada détaillés dans cu-026 (wikilinké, pas dupliqué)
+- Pas de cas-école PME nommé (cohérent avec cu-024, pr-05, dep-08)
+
+### `cu-024.md` (module-cu) — nouveau
+
+**Titre** : Order-to-cash automation IA
+**Version** : 3.11.0
+**Date d'ajout** : 2026-05-22
+**Angles thématiques principaux** :
+1. Workflow O2C en 6 étapes canoniques (devis → bon de commande → facturation → relance → encaissement → lettrage)
+2. Valeur IA différenciée par étape (forte : étapes 4 et 6 ; modérée : 1, 3 ; faible : 2, 5)
+3. Chiffres canoniques : relance 30-40 % DSO en moins + 35-50 % productivité, lettrage 60-80 % automatique
+4. Rectification critique acronymes : PA = Plateforme Agréée (LF 2026 art. 27) ≠ PPF = Portail Public de Facturation DGFiP
+5. Calendrier réglementaire : 125 PA immatriculées au 5 mai 2026, 1er sept 2026 (réception obligatoire + émission grandes/ETI), 1er sept 2027 (PME/TPE)
+
+**Recouvrements** :
+- Module cartographique méthodologique (pas de cas-école PME nommé)
+- Outils : Pennylane, Sellsy, Axonaut, Esker, Sidetrade, Aston AI (catégorie outils-compta-facturation-fr whitelistée)
+- Wikilinks vers cu-008, pr-04, pr-07, pr-08, chiffres-macro-2026
+
+### Patches Lot S2.5.0 + bis + ter (correctifs retrieval)
+
+**3 modules patchés** côté leads (pas refactor structurel) :
+
+- **`cu-001.md` v3.8.3 → v3.11.1** : lead « L'essentiel à retenir » enrichi vocabulaire question canonique q-002 (sources fiables actualité IA + veille IA générative + PME 2026)
+- **`pr-07.md` v3.8.5 → v3.11.3** (3 patches successifs) : (1) Lot S2.5.0 — lead enrichi vocabulaire q-030 ; (2) Lot S2.5.0-bis — nouvelle H2 dédiée « Obligations réglementaires IA » concurrente aux chunks pr-08 ; (3) Lot S2.5.0-ter — densification chirurgicale lead H2 (titre verbatim « à anticiper », mode question + 4 ancrages, répétition contrôlée). Pattern empirique « 3 niveaux d'intervention retrieval » validé sur cette cible (q-030 rang #13 → #6 → #3 sim 0,3635).
+- **`pr-08.md` v3.11.0 → v3.11.1** : lead restreint au scope strict financement (dispositifs fiscaux + Bpifrance + France 2030) — application AP-7 SPEC v1.8 inverse Lot D-ter.
+
+---
+
+## Récap inventaire post-S2.5 Phase 2
+
+**Vault à 23 fichiers MD** :
+- **6 modules CU** : cu-001, cu-008, **cu-020 (nouveau)**, **cu-024 (nouveau)**, cu-026, cu-027
+- **5 préalables PR** : **pr-01 (nouveau)**, **pr-04 (nouveau)**, **pr-05 (nouveau)**, pr-07, pr-08
+- **5 déploiement DEP** : **dep-01 (nouveau)**, dep-02, **dep-05 (nouveau)**, **dep-07 (nouveau)**, dep-08
+- **5 transverses** : glossaire, chiffres-macro-2026, pattern-llm-wiki, pattern-persistent-memory, vigilance-hallucinations, vigilance-confidentialite
+- **1 ressources** : outils-vector-db
+
+**Reste pour vague 6 (S2.6 dédié)** : PR-09 + PR-10 + PR-11 (3 nouveaux préalables v3.12, sondage D-026 obligatoire sur PR-10 et PR-11).
 
 ---
 
@@ -352,3 +500,4 @@ Reste à produire pour vague 4+ complète (Lot F.5 sprint S2.5 dédié) : CU-020
 |---|---|---|
 | v0 | 11 mai 2026 | Initialisation, structure définie, premiers sujets à recouvrement identifiés |
 | v1 | 19 mai 2026 | Section « Vague 4 — ajouts S2.4 Phase 2 » : pattern-persistent-memory, pr-08, refactor cu-008/dep-02, patches cu-026/cu-027/dep-08, bump chiffres-macro-2026 v3.9.0. Vault passe de 13 à 15 fichiers MD. |
+| v3 | 22 mai 2026 | Section « Vague 5 — ajouts S2.5 Phase 2 » : 8 nouveaux modules (dep-01, dep-05, dep-07, pr-01, pr-04, pr-05, cu-020, cu-024) + 3 patches leads correctifs retrieval (cu-001 v3.11.1, pr-07 v3.11.3 avec 3 itérations Lot S2.5.0+bis+ter, pr-08 v3.11.1). Pattern « 3 niveaux d'intervention retrieval » validé empiriquement sur cible q-030 (rang #13 → #6 → #3). Vault passe de 15 à 23 fichiers MD. |
