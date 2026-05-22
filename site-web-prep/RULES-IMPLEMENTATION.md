@@ -1,6 +1,6 @@
 # Règles d'implémentation — Hub IA Learning Center
 
-**Version :** 1.6.3 (refonte simplifiée + chiffres-clés v3.11 + détection DOM des stat blocks dans audit-global.py)
+**Version :** 1.6.4 (refonte simplifiée + chiffres-clés v3.11 + détection DOM des stat blocks dans audit-global.py + 3 nouveaux préalables v3.12)
 **Statut :** Référentiel non négociable
 **Public :** Claude Code, contributeurs au repo, futurs LLM intervenant sur le site
 
@@ -451,7 +451,7 @@ Microsoft New Future of Work Report 2025</a>).</p>
 | Chiffre | Valeur courante (mai 2026, v3.8) | Lieux d'apparition |
 |---|---|---|
 | Modules CU | **27** (CU-001 → CU-027) | home, page modules, à propos, méta |
-| Préalables PR | **8** (PR-01 → PR-08) | prealables.html, home, à propos |
+| Préalables PR | **11** (PR-01 → PR-11) | prealables.html, home, à propos |
 | Fiches Déploiement DEP | **8** (DEP-01 → DEP-08) | deploiement.html, home, à propos |
 | Fiches outils | **104** (16 catégories) | ressources.html, à propos, hero ressources |
 | Patterns architecture | 4 + 1 hybride | architectures.html, à propos |
@@ -668,6 +668,13 @@ Versionnage : on incrémente la version en tête de fichier. v1.6 → v1.7 (refo
 - **v1.6.1** — v3.10 : glossaire chiffres-clés actualisé (préalables PR : 7 → 8 suite ajout de PR-08 « Financer son projet IA en 2026 »).
 - **v1.6.2** — v3.11 : glossaire chiffres-clés actualisé (fiches outils : 99 → 104, 15 → 16 catégories suite création nouvelle catégorie « Stack agentique Claude / Anthropic » avec 5 nouvelles fiches : ECC, AgentShield, agentmemory, claude-smart, Onyx).
 - **v1.6.3** — correctif post-v3.11 : `audit-global.py` enrichi pour détecter les blocs `hero-stat-num` / `exec-stat-num` dont la valeur et le label sont séparés par des balises HTML (cas où la regex texte « X fiches outils » ne match pas). Le mapping `label → comptage réel` couvre fiches outils, modules, préalables, fiches Déploiement. Règle B.1 complétée d'une note explicite sur ce piège.
+- **v1.6.4** — itération v3.12 (3 nouveaux préalables PR-09 + PR-10 + PR-11) :
+  - Glossaire § 4.B.1 : 8 → 11 préalables PR (PR-01 → PR-11)
+  - Création PR-09 « Cadrer un projet IA avant de choisir un outil » (discipline amont — 8 questions de cadrage, 5 anti-patterns, livrable 1 page)
+  - Création PR-10 « Vérifier et limiter les hallucinations IA » (discipline vérification — 4 familles hallucinations, 4 niveaux de vérification, qui vérifie quoi quand)
+  - Création PR-11 « Cycle de vie d'un projet IA » (vue d'ensemble séquentielle — 9 étapes, 3 quality gates, coût des courts-circuits)
+  - Cross-links réciproques dans PR-01, PR-02, PR-04, PR-05, PR-07, PR-08 et DEP-01 à DEP-08 vers PR-11
+  - Aucune nouvelle règle structurelle. RULES reste à 1.6.X.
 
 ---
 

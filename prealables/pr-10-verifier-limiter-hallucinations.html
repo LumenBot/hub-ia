@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérifier et limiter les hallucinations IA — Hub IA Learning Center</title>
+  <meta name="description" content="Vérifier et limiter les hallucinations IA : 4 niveaux de vérification proportionnés à l'enjeu, pattern « pas de claim de complétion sans preuve fraîche », typologie des hallucinations métier. La discipline managériale qui sépare les PME qui pilotent l'IA de celles qui pilotent à l'aveugle.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../deploiement.html" class="nav-link">Déploiement</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">← Retour aux préalables</a>
+      <div class="module-badges">
+        <span class="card-badge">🛡️ Discipline managériale</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">18 min de lecture</span>
+      </div>
+      <h1>🛡️ Vérifier et limiter les hallucinations IA</h1>
+      <p class="module-subtitle">Pourquoi un agent IA peut déclarer une tâche terminée sans qu'elle le soit. La discipline managériale qui sépare les PME qui pilotent l'IA de celles qui pilotent à l'aveugle.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du préalable</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Le problème de l'hallucination silencieuse</a></li>
+        <li><a href="#section-2"><span class="toc-icon">📚</span>Typologie des hallucinations métier</a></li>
+        <li><a href="#section-3"><span class="toc-icon">⚖️</span>Pattern « pas de claim de complétion »</a></li>
+        <li><a href="#section-4"><span class="toc-icon">🛡️</span>4 niveaux de vérification</a></li>
+        <li><a href="#section-5"><span class="toc-icon">👥</span>Qui vérifie quoi quand</a></li>
+        <li><a href="#section-6"><span class="toc-icon">📏</span>Outils de mesure</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>Un agent IA peut déclarer une tâche terminée sans qu'elle le soit. La discipline de vérification est ce qui sépare une PME qui pilote l'IA d'une PME qui pilote à l'aveugle.</h2>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>L'hallucination silencieuse est le risque IA le plus sous-estimé en PME.</strong> Un agent ne dit pas « je n'ai pas pu faire ça » — il dit « voilà ce que j'ai fait », même quand l'output est incorrect. Sans vérification, l'erreur passe directement en production.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>Quatre familles d'hallucinations métier reviennent quasi quotidiennement</strong> : chiffres inventés, citations fabriquées, conclusions hors-périmètre, faux positifs de complétion (l'agent prétend avoir réalisé une action qu'il n'a pas faite).</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>Le pattern « pas de claim de complétion sans preuve fraîche » est la règle absolue.</strong> Aucun output IA ne doit être considéré comme valide tant qu'une vérification proportionnée à l'enjeu n'a pas été effectuée. Cette règle s'applique à l'humain qui valide comme à l'agent qui contrôle.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>4 niveaux de vérification proportionnés</strong> : pas de vérification (POC sans enjeu), vérification par échantillonnage (production faible enjeu), vérification systématique humaine (production enjeu modéré), double validation humain + agent réviseur (production enjeu critique).</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">5</div>
+            <p><strong>Cette discipline est managériale, pas technique.</strong> Elle se traduit en répartition de responsabilités, en routines d'équipe, en KPI de qualité. Sans ce volet managérial, les meilleures stacks techniques d'évaluation ne protègent pas la PME.</p>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">362</div>
+            <div class="exec-stat-label">incidents IA documentés en 2025 (+55 % vs 2024 — Stanford AI Index 2026)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">45 %</div>
+            <div class="exec-stat-label">du code IA-généré contient des failles (Cloud Security Alliance)</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">0</div>
+            <div class="exec-stat-label">garantie de correction sans vérification effective de l'output</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">9 sec</div>
+            <div class="exec-stat-label">temps d'un agent pour supprimer une base de production + backups (incident documenté mai 2026)</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Cette page est utile si :</strong> tu as déjà des agents IA en production ou en cours de déploiement dans ton entreprise, et tu veux mettre en place une <strong>discipline de vérification des outputs</strong> proportionnée à l'enjeu. Complémentaire de <a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a> (amont) et <a href="pr-11-cycle-de-vie-projet-ia.html" class="tool-link">Cycle de vie d'un projet IA</a> (vue séquentielle).
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Le problème de l'hallucination silencieuse</h2>
+      </div>
+
+      <ol>
+        <li><strong>Un agent IA n'a pas conscience de ne pas savoir.</strong> Quand il manque d'information ou se trompe, il <strong>complète</strong> plutôt que d'avouer l'ignorance. C'est une propriété structurelle des modèles génératifs, pas un bug ponctuel.</li>
+        <li><strong>L'hallucination est silencieuse par défaut.</strong> L'output est syntaxiquement correct, le ton est confiant, la mise en forme professionnelle. Rien ne signale à l'utilisateur que le contenu est erroné — sauf vérification active.</li>
+        <li><strong>Le coût d'une hallucination détectée tardivement est asymétrique.</strong> 100 réponses correctes apportent un gain marginal. 1 réponse incorrecte transmise à un client, intégrée dans un contrat ou utilisée pour une décision peut détruire la valeur accumulée.</li>
+      </ol>
+
+      <blockquote style="border-left:4px solid var(--color-primary,#2563eb);padding:var(--space-3) var(--space-4);background:var(--color-bg-alt,#f8fafc);margin:var(--space-4) 0;font-style:italic;">
+        « Les organisations ne peuvent plus se contenter de craindre que l'IA dise la mauvaise chose, elles doivent contendre avec des systèmes qui font la mauvaise chose : actions non intentionnelles, mésusage d'outils, contournement de garde-fous. »
+        <br><em>(McKinsey « Securing the agentic enterprise », mai 2026 — déjà intégrée dans <a href="pr-05-securite-ia.html" class="tool-link">Sécurité IA</a>)</em>
+      </blockquote>
+
+      <p><strong>Pourquoi c'est spécifiquement critique en PME</strong> : la PME n'a généralement pas de cellule qualité dédiée à la vérification IA. Les outputs IA arrivent directement dans le flux de travail sans relais de contrôle. Le risque est donc plus élevé qu'en grande entreprise où une vérification — même imparfaite — existe par construction des process.</p>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">2</div>
+        <h2 class="module-section-title">Typologie des hallucinations métier</h2>
+      </div>
+
+      <p>Quatre familles d'hallucinations à reconnaître, illustrées par des cas concrets adaptés au contexte PME :</p>
+
+      <h3>2.1 Chiffres inventés</h3>
+      <ul>
+        <li><strong>Pattern</strong> : l'agent produit un chiffre précis sans source vérifiable, parce que le chiffre <strong>paraît plausible</strong> dans le contexte de la réponse.</li>
+        <li><strong>Cas d'usage type</strong> : un dirigeant demande à un agent de synthétiser une note sectorielle. L'agent produit des chiffres de marché que le dirigeant intègre dans une présentation client. 2 mois plus tard, un audit révèle que 3 chiffres sur 5 sont fabriqués.</li>
+        <li><strong>Détection</strong> : croisement systématique avec sources officielles (INSEE, Bpifrance Le Lab, France Num, études institutionnelles). Si un chiffre ne peut pas être tracé vers une source publique, il ne doit pas être utilisé.</li>
+      </ul>
+
+      <h3>2.2 Citations fabriquées</h3>
+      <ul>
+        <li><strong>Pattern</strong> : l'agent attribue à une personnalité réelle une citation qu'elle n'a jamais prononcée, parce que cette citation <strong>renforce</strong> le propos.</li>
+        <li><strong>Cas d'usage type</strong> : un agent prépare une argumentation pour un comité d'investissement. Il cite un expert avec une phrase qui n'existe pas dans son corpus public.</li>
+        <li><strong>Détection</strong> : règle absolue — <strong>aucune citation ne peut être utilisée sans source vérifiable</strong> (lien vers article, vidéo, tweet officiel). Si l'agent cite sans lien, demander le lien. S'il ne peut pas le fournir, la citation est fabriquée.</li>
+      </ul>
+
+      <h3>2.3 Conclusions hors-périmètre</h3>
+      <ul>
+        <li><strong>Pattern</strong> : l'agent répond en sortant du périmètre des données qu'il a effectivement consultées. Il <strong>extrapole</strong> sans signaler qu'il extrapole.</li>
+        <li><strong>Cas d'usage type</strong> : un agent analyse un contrat fournisseur. Il conclut « cette clause de confidentialité est standard dans votre secteur ». Or l'agent n'a accès à aucun corpus de contrats sectoriels — il extrapole depuis ses connaissances générales.</li>
+        <li><strong>Détection</strong> : règle absolue — <strong>l'agent doit signaler explicitement quand il extrapole</strong>. Si une conclusion ne peut pas être adossée à un document présent dans le contexte de la requête, elle doit être préfixée par « basé sur les données disponibles » ou « extrapolation à valider ».</li>
+      </ul>
+
+      <h3>2.4 Faux positifs de complétion</h3>
+      <ul>
+        <li><strong>Pattern</strong> : l'agent déclare une tâche terminée alors qu'elle a échoué silencieusement. C'est le pattern <strong>« overclaimed completeness »</strong> documenté dans la communauté builders.</li>
+        <li><strong>Cas d'usage type</strong> : un agent doit envoyer un email de confirmation à un prospect. Il déclare « email envoyé avec succès ». En réalité, l'API SMTP a renvoyé une erreur silencieuse — l'email n'a jamais été transmis.</li>
+        <li><strong>Exemple documenté</strong> : un coding agent a supprimé en 9 secondes une base de production + ses backups, en déclarant l'opération « terminée avec succès » (cité dans le pattern failure receipt de <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production</a>). Le mécanisme est exactement le même.</li>
+        <li><strong>Détection</strong> : règle absolue — <strong>toute déclaration de complétion doit être assortie d'une preuve fraîche</strong> (par exemple, l'ID du message envoyé ou l'existence vérifiée du fichier produit).</li>
+      </ul>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">3</div>
+        <h2 class="module-section-title">Pattern « pas de claim de complétion sans preuve fraîche »</h2>
+      </div>
+
+      <p>Le principe central de la discipline de vérification, en règle absolue :</p>
+
+      <div style="background:var(--color-surface,#fff);border:2px solid var(--color-primary,#2563eb);border-radius:8px;padding:var(--space-4);margin:var(--space-4) 0;">
+        <strong>Règle absolue</strong> : « Aucun output IA n'est considéré comme valide tant qu'une preuve fraîche d'exécution n'a pas été produite et vérifiée. »
+      </div>
+
+      <h3>Application opérationnelle par type d'output</h3>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Type d'output IA</th>
+            <th>Preuve fraîche acceptable</th>
+            <th>Niveau de vérification minimal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Génération de texte (note, mail, document)</td>
+            <td>Contenu lisible avec citations sources</td>
+            <td>Relecture humaine intégrale avant envoi externe</td>
+          </tr>
+          <tr>
+            <td>Extraction de données (chiffres, dates, entités)</td>
+            <td>Renvoi vers le passage source dans le document d'origine</td>
+            <td>Vérification par sondage minimum 10 %</td>
+          </tr>
+          <tr>
+            <td>Action sur système externe (envoi mail, mise à jour CRM, écriture fichier)</td>
+            <td>ID de transaction du système cible + vérification de l'état post-action</td>
+            <td>Vérification systématique pour actions à enjeu</td>
+          </tr>
+          <tr>
+            <td>Recommandation ou décision (« je recommande »)</td>
+            <td>Liste explicite des critères évalués + des alternatives écartées</td>
+            <td>Validation humaine obligatoire avant exécution</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-info">
+        <p>⚖️ <strong>Garde-fou managérial</strong> : ce principe doit être <strong>codifié dans une procédure interne</strong> de la PME, pas rester une bonne intention. Chaque agent IA en production a un « contrat de vérification » qui spécifie : qui vérifie, à quelle fréquence, sur quoi.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">4</div>
+        <h2 class="module-section-title">4 niveaux de vérification proportionnés</h2>
+      </div>
+
+      <p>La discipline de vérification ne se traite pas en tout-ou-rien. Quatre niveaux à calibrer selon l'enjeu de l'output :</p>
+
+      <h3>Niveau 0 — Pas de vérification (POC sans enjeu)</h3>
+      <ul>
+        <li><strong>Contexte</strong> : POC interne sur des données fictives, test en bac à sable, exploration. L'output ne sort jamais du périmètre POC.</li>
+        <li><strong>Risque acceptable</strong> : aucun (puisque l'output n'a pas d'impact externe).</li>
+        <li><strong>Pratique</strong> : pas de vérification systématique, simple relecture finale du résultat d'ensemble.</li>
+      </ul>
+
+      <h3>Niveau 1 — Vérification par échantillonnage (production faible enjeu)</h3>
+      <ul>
+        <li><strong>Contexte</strong> : tâche répétée à fort volume, où une erreur ponctuelle est rattrapable (ex : tri automatique d'emails, catégorisation de tickets de support en first triage).</li>
+        <li><strong>Risque acceptable</strong> : taux d'erreur &lt;5 % corrigible a posteriori.</li>
+        <li><strong>Pratique</strong> : échantillonnage de 5-10 % des outputs vérifiés par un humain, taux d'erreur mesuré et tracé, recalibrage si dérive observée.</li>
+      </ul>
+
+      <h3>Niveau 2 — Vérification systématique humaine (production enjeu modéré)</h3>
+      <ul>
+        <li><strong>Contexte</strong> : output qui sort de l'entreprise ou qui prend une décision automatisée à impact business (ex : propositions commerciales, réponses à des prospects, analyses de contrats).</li>
+        <li><strong>Risque acceptable</strong> : pratiquement aucune erreur (1 erreur peut coûter un client ou créer un contentieux).</li>
+        <li><strong>Pratique</strong> : chaque output relu et validé par un humain avant transmission externe. L'agent IA produit le draft, l'humain valide et signe.</li>
+      </ul>
+
+      <h3>Niveau 3 — Double validation humain + agent réviseur (production enjeu critique)</h3>
+      <ul>
+        <li><strong>Contexte</strong> : décisions à fort impact (financier, juridique, sécurité), actions irréversibles sur systèmes critiques (modifications de bases de données, transferts financiers, signature de contrats).</li>
+        <li><strong>Risque acceptable</strong> : zéro erreur.</li>
+        <li><strong>Pratique</strong> : double validation systématique. Un humain valide. Un agent réviseur (différent de l'agent producteur) audite l'output selon des critères structurés. La conjonction des deux validations est requise.</li>
+      </ul>
+
+      <div class="callout callout-info">
+        <p>⚖️ <strong>Heuristique de choix</strong> : à chaque output IA en production, se poser la question « quelle est la conséquence d'une erreur non détectée ? ». Si « rattrapable et limitée » → niveau 1. Si « réputationnelle ou contractuelle » → niveau 2. Si « critique ou irréversible » → niveau 3.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-flow">5</div>
+        <h2 class="module-section-title">Qui vérifie quoi quand</h2>
+      </div>
+
+      <p>La discipline de vérification ne fonctionne que si <strong>la responsabilité est nommée</strong>. Quatre dimensions à formaliser pour chaque agent IA en production :</p>
+
+      <h3>Le human owner désigné</h3>
+      <p>Pour chaque agent en production, <strong>une personne physique est désignée</strong> comme responsable de sa qualité d'output. Pas une équipe, une personne. Elle peut déléguer la vérification opérationnelle, mais la responsabilité reste sienne.</p>
+
+      <h3>Le rythme de vérification</h3>
+      <p>Selon le niveau (cf. § 4), la vérification est continue (niveau 2-3) ou par échantillonnage (niveau 1) avec fréquence définie (exemple : « 10 outputs échantillonnés tous les vendredis »).</p>
+
+      <h3>La procédure d'escalade en cas d'erreur</h3>
+      <p>Quand une erreur est détectée, qui est notifié ? Quelle est la procédure de correction ? L'output défaillant est-il rétro-corrigé chez le destinataire ? L'agent est-il suspendu en attendant la correction ?</p>
+
+      <h3>Le suivi des indicateurs de qualité</h3>
+      <p>Taux d'erreur observé, types d'erreurs récurrentes, dérives saisonnières. Ces indicateurs sont <strong>partagés</strong> avec la direction (revue mensuelle ou trimestrielle selon enjeu) pour permettre les arbitrages d'investissement.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Cohérence avec le pattern « agent = employé »</strong> (référence <a href="../modules/cu-026-gouvernance-agents.html" class="tool-link">Gouvernance des agents IA</a>) : la discipline de vérification appliquée à un agent IA est exactement celle qu'on appliquerait à un employé junior — supervision rapprochée au démarrage, autonomie graduelle avec contrôles d'échantillonnage, escalade en cas de doute.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">6</div>
+        <h2 class="module-section-title">Outils de mesure</h2>
+      </div>
+
+      <p>Pour structurer la mesure de qualité des outputs IA, trois outils complémentaires :</p>
+
+      <h3>Golden set</h3>
+      <ul>
+        <li><strong>Définition</strong> : ensemble de <strong>questions de référence avec réponses attendues</strong>, défini une fois pour toutes et utilisé pour mesurer la qualité de l'agent dans le temps.</li>
+        <li><strong>Construction</strong> : 20 à 100 questions représentatives des cas d'usage réels, avec pour chacune la réponse attendue formulée par un expert humain.</li>
+        <li><strong>Usage</strong> : à chaque évolution de l'agent (nouveau prompt, nouveau modèle, nouvelle source de données), exécuter le golden set et mesurer le pourcentage de réponses correctes. Si le score baisse, la modification est régressive.</li>
+        <li><strong>Coût indicatif</strong> : quelques jours de travail expert pour la construction ; quelques euros par cycle d'évaluation sur 50 questions.</li>
+      </ul>
+
+      <h3>Eval automatique (LLM-as-judge)</h3>
+      <ul>
+        <li><strong>Définition</strong> : un second agent IA évalue les outputs du premier sur des critères structurés (factualité, format, ton, complétude).</li>
+        <li><strong>Usage</strong> : permet d'évaluer un volume important d'outputs sans mobiliser systématiquement un humain. Adapté aux niveaux 1 et 2 de vérification.</li>
+        <li><strong>Garde-fou</strong> : l'agent évaluateur peut lui-même halluciner. Il faut donc périodiquement <strong>comparer ses évaluations à celles d'un humain expert</strong> pour calibrer sa fiabilité. Pour approfondir les méthodologies d'évaluation, voir <a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue</a>.</li>
+      </ul>
+
+      <h3>Humain dans la boucle</h3>
+      <ul>
+        <li><strong>Définition</strong> : un humain valide tout ou partie des outputs IA avant transmission ou exécution.</li>
+        <li><strong>Usage</strong> : indispensable pour les niveaux 2 et 3. Pour le niveau 1, l'humain valide par échantillonnage.</li>
+        <li><strong>Combinaison optimale</strong> : golden set pour la mesure de régression, eval automatique pour le volume courant, humain dans la boucle pour les enjeux critiques.</li>
+      </ul>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">7</div>
+        <h2 class="module-section-title">Plan d'action 30 jours</h2>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">1</div>
+        <div>
+          <h4>Jours 1-7 — Diagnostic existant</h4>
+          <ul>
+            <li>Lister tous les agents IA actuellement en production dans l'entreprise (ChatGPT utilisé par les équipes, Copilot Microsoft, agents personnalisés, etc.)</li>
+            <li>Pour chacun : identifier le human owner désigné (souvent inexistant à ce stade)</li>
+            <li>Identifier les outputs IA qui sortent de l'entreprise sans vérification systématique</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">2</div>
+        <div>
+          <h4>Jours 8-14 — Calibrage des niveaux</h4>
+          <ul>
+            <li>Pour chaque agent identifié, classifier en niveau 0 / 1 / 2 / 3 (cf. § 4)</li>
+            <li>Identifier les écarts entre niveau requis et niveau effectif</li>
+            <li>Prioriser les écarts les plus critiques (niveau 3 requis avec niveau 0 effectif = priorité absolue)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">3</div>
+        <div>
+          <h4>Jours 15-21 — Mise en place des procédures</h4>
+          <ul>
+            <li>Pour les agents en écart de niveau, mettre en place le mécanisme de vérification approprié (échantillonnage, validation systématique, double validation)</li>
+            <li>Désigner les human owners explicitement</li>
+            <li>Documenter les procédures dans une note interne courte (1-2 pages par agent)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">4</div>
+        <div>
+          <h4>Jours 22-30 — Mesure et ajustement</h4>
+          <ul>
+            <li>Démarrer le suivi des indicateurs (taux d'erreur, types d'erreurs)</li>
+            <li>Si un golden set n'existe pas pour un agent à enjeu, le construire (20-30 questions)</li>
+            <li>Programmer une revue à 90 jours pour mesurer l'efficacité du dispositif</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="ressources">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">8</div>
+        <div class="module-section-title">
+          <div class="section-number">Section 8</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
+      </div>
+
+      <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources du Hub</a>.
+      </div>
+
+      <div class="resources-cat">
+        <h3>📰 Articles de fond</h3>
+        <ul>
+          <li><a href="https://aiindex.stanford.edu/report/" target="_blank" rel="noopener">Stanford AI Index Report 2026</a><span class="resources-meta">362 incidents IA documentés en 2025, chapitre « Responsible AI » (déjà canonisé, cohérence cross-modules).</span></li>
+          <li><span>McKinsey « Securing the agentic enterprise »</span><span class="resources-meta">Concept de cybersécurité agentique, citée également dans <a href="pr-05-securite-ia.html" class="tool-link">Sécurité IA</a>.</span></li>
+          <li><a href="https://www.anthropic.com/research" target="_blank" rel="noopener">Anthropic Engineering — « Demystifying evals for AI agents »</a><span class="resources-meta">Approche structurée pour évaluer la qualité des agents IA (déjà citée dans <a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue</a>).</span></li>
+          <li><a href="https://cloudsecurityalliance.org/research/working-groups/artificial-intelligence" target="_blank" rel="noopener">Cloud Security Alliance — AI Safety &amp; Security Guidelines</a><span class="resources-meta">Statistiques sur le code IA-généré (déjà citée dans modules existants).</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>🎓 Tutoriels &amp; cas pratiques</h3>
+        <ul>
+          <li><span>Template de procédure de vérification par niveau</span><span class="resources-meta">À adapter pour chaque agent IA en production de votre entreprise — basé sur les 4 niveaux décrits en § 4.</span></li>
+          <li><span>Checklist « à quel niveau de vérification se situent vos agents IA ? »</span><span class="resources-meta">Auto-évaluation en 10 questions (version statique — extension interactive possible Phase 3 plateforme).</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>📚 Documentation officielle &amp; études</h3>
+        <ul>
+          <li><a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Recommandations sur la supervision humaine et l'auditabilité</a><span class="resources-meta">Exigences de supervision humaine pour les systèmes IA.</span></li>
+          <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — Article 14 (Supervision humaine effective)</a><span class="resources-meta">Exigences de supervision humaine pour les systèmes IA à risque élevé.</span></li>
+          <li><a href="https://www.nist.gov/artificial-intelligence" target="_blank" rel="noopener">NIST AI Risk Management Framework</a><span class="resources-meta">Framework de gestion des risques agents IA, incluant la supervision humaine.</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>👥 Contacts opérationnels</h3>
+        <ul>
+          <li><a href="../ressources.html#agentshield" class="tool-link">AgentShield</a> (composant ECC) | <a href="https://github.com/affaan-m/AgentShield" target="_blank" rel="noopener">github.com/affaan-m/AgentShield</a><span class="resources-meta">Audit sécurité gratuit (1&nbsp;282 tests, 102 règles) pour la configuration d'agents IA — déjà référencé dans <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents &amp; MCP</a>.</span></li>
+          <li><a href="https://lelab.bpifrance.fr/" target="_blank" rel="noopener">Bpifrance Le Lab — Études sur la qualité IA en PME</a><span class="resources-meta">Études de référence sur l'adoption et la qualité IA en PME/ETI françaises.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Initiative ouverte · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
