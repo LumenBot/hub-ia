@@ -1,0 +1,31 @@
+======================================================================
+q-036 — cible [cu-027] (chunk densifié §7 outils)
+  >>> [cu-027] 1er hit rang #3 sim 0.3310 | dans top-5 : OUI
+    # 1 [pr-01                 ] sim=0.3773  Récap actionnable
+    # 2 [pr-01                 ] sim=0.3722  Grille de maturité organisationnelle — 4 p
+    # 3 [cu-027                ] sim=0.3310  7 outils dev IA-assisté en 2026 — hiérarch <== CIBLE
+    # 4 [pr-05                 ] sim=0.3288  Récap actionnable
+    # 5 [pr-01                 ] sim=0.3274  L'essentiel à retenir
+    # 6 [pr-04                 ] sim=0.3241  Section 5 — Transformation Paradox et impl
+    # 7 [dep-01                ] sim=0.3215  Récap actionnable
+    # 8 [pr-05                 ] sim=0.3037  RAI maturité — où en est-on en 2026 ?
+    # 9 [pr-04                 ] sim=0.3021  §2ter Maturité agentique 2026
+    #10 [pr-04                 ] sim=0.2966  Récap actionnable
+======================================================================
+q-056 — cible [dep-07] (chunk densifié §eval first)
+  >>> [dep-07] 1er hit rang #1 sim 0.4634 | dans top-5 : OUI
+    # 1 [dep-07                ] sim=0.4634  L'heuristique « eval first » d'Anthropic p <== CIBLE
+    # 2 [dep-01                ] sim=0.3085  L'essentiel à retenir
+    # 3 [dep-01                ] sim=0.2984  Récap actionnable
+    # 4 [dep-01                ] sim=0.2810  Jagged Frontier — la frontière dentelée de
+    # 5 [dep-01                ] sim=0.2775  Heuristique anti-hype 2026 — single LLM ca
+    # 6 [pr-04                 ] sim=0.2501  §2ter Maturité agentique 2026
+    # 7 [pr-04                 ] sim=0.2359  Le paradoxe MIT NANDA — 95 % sans ROI mesu
+    # 8 [pr-04                 ] sim=0.2222  Section 5 — Transformation Paradox et impl
+    # 9 [pr-04                 ] sim=0.2147  Récap actionnable
+    #10 [pr-08                 ] sim=0.2145  France 2030 — Plan « Osez l'IA » et ses di
+
+SYNTHÈSE Lot Drer-S2.5.x (validation densification Niveau 3 SPEC v1.9) :
+  q-036 cu-027 §7 outils  : Lot I absent top-10  ->  Drer-S2.5.x rang #3 sim 0,3310  [score 0 -> 1]
+  q-056 dep-07 §eval first: Lot I rang #9 sim 0,209 -> Drer-S2.5.x rang #1 sim 0,4634  [score 0 -> 1]
+Sanity non-régression S2.4 : q-002 (cu-001) score=1, q-038 (dep-08) score=1. Eval ciblée 4/4.
