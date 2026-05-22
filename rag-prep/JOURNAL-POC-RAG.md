@@ -11,6 +11,49 @@
 
 ## Entrées
 
+<<<<<<< Updated upstream
+=======
+### 2026-05-22 (S2.5 Lot S2.5.x livré — correctif retrieval q-036 + q-056) — Cowork Hub IA Plateforme — Densification leads cu-027 §7 outils + dep-07 §heuristique eval first
+
+**Contexte :** Lot I Desktop a livré eval 72q à 70/72 score global (97 %, cibles dépassées). 2 régressions résiduelles détectées :
+- **q-036** (cu-027) — étouffé par pr-01 + pr-05 (nouveaux modules vague 5) sur termes « maturité » + « production »
+- **q-056** (dep-07) — rang #9, étouffé par dep-01 sur formulation « projets IA 2026 »
+
+Arbitrage Blaise : Lot S2.5.x correctif **avant** Lot J pour clôturer à 72/72. Application Niveau 3 du pattern « 3 niveaux d'intervention retrieval » SPEC v1.9 (densification chirurgicale des leads).
+
+**Actions menées :**
+
+- **Patch cu-027 §7 outils dev IA-assisté** (v3.11.0 → v3.11.1) : titre H2 reformulé « 7 outils dev IA-assisté en 2026 — hiérarchisation par maturité production (Lovable, Bolt.new, v0, Replit, Cursor, Claude Code, Windsurf) » incluant le vocabulaire question canonique q-036 (« hiérarchiser », « 7 outils », « développement IA-assisté », « maturité production », « 2026 »). Premier paragraphe en gras reformulé en mode question + réponse avec énumération canonique 7 outils dans l'ordre + hiérarchie production-ready chiffrée. Second paragraphe d'introduction renforce le scope « hiérarchisation maturité production ». Tags frontmatter enrichis : +windsurf, +cursor, +claude-code.
+
+- **Patch dep-07 §heuristique « eval first »** (v3.11.0 → v3.11.1) : titre H2 reformulé « L'heuristique « eval first » d'Anthropic pour les projets IA en 2026 — pas de production sans eval pipeline » avec vocabulaire question canonique q-056 (« heuristique », « eval first », « Anthropic », « projets IA », « 2026 »). Premier paragraphe en gras reformulé en mode question (« Quelle est l'heuristique « eval first » d'Anthropic pour les projets IA en 2026 ? ») + réponse avec citation textuelle Anthropic + application pratique. Densification mesurée : « eval first » répété 5×, « Anthropic » 4×, « projets IA » 3×, « 2026 » 3×.
+
+- Application stricte Niveau 3 SPEC v1.9 : densification par répétition contrôlée + titre H2 verbatim de la formulation question canonique attendue + mode question/réponse dans le premier paragraphe en gras. AP-7 respecté (lead reste dans scope strict du module).
+
+**Pattern empirique « 3 niveaux d'intervention retrieval » étendu** :
+- **Niveau 1** (lead bridge enrichi) : Lot D-ter S2.4.1 q-038, Lot S2.5.0 q-002/q-030, Lot S2.5.x q-036/q-056
+- **Niveau 2** (H2 dédiée concurrente) : Lot S2.5.0-bis q-030
+- **Niveau 3** (densification chirurgicale) : Lot S2.5.0-ter q-030, **Lot S2.5.x q-036 + q-056 (cette session)**
+
+Le pattern « 3 niveaux » est désormais validé sur 4 questions distinctes (q-038, q-030, q-036, q-056). Consolidation empirique de SPEC v1.9 §Conception MD.
+
+**Métriques Lot S2.5.x :**
+- 2 fichiers MD patchés (cu-027 v3.11.1, dep-07 v3.11.1)
+- Coût : **0,00 $** (Cowork pur éditorial, exception D-022)
+
+**Décisions structurantes :**
+- **Discipline hygiène merge Cowork** : pattern « git stash pop conflictuel committé tel quel » détecté en PR #84 (marqueurs `<<<<<<<` non résolus). Discipline à renforcer : à chaque `git stash pop`, vérifier visuellement les fichiers + résoudre les conflits avant `git add`. Desktop a nettoyé en PR #85 sans perte. À noter pour S2.6.
+- **Pattern « 3 niveaux retrieval » validé sur 4 cas** : SPEC v1.9 stabilisé empiriquement. Pas de nouvelle révision SPEC nécessaire.
+
+**Reste à faire :**
+- **Lot Drer-S2.5.x Desktop** : rerun ciblé q-036 + q-056 (~0,06 $) pour valider entrée top-5
+- **Lot J Plateforme** : RAPPORT-CC-S2.5 (8 sections) + PR finale S2.5
+
+**Blockers :** aucun.
+
+---
+
+
+>>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 Phase 3 Lot I — eval extended 72q vault enrichi vague 5) — Claude Code Desktop — 70/72 (97 %), toutes cibles dépassées, non-régression S2.4 intégrale
 
 **Contexte :** eval complète du golden set 72 questions sur le vault enrichi vague 5 (23 fichiers MD, 8 nouveaux modules + 3 patches leads correctifs). Cible SPEC v1.9 : ≥ 60/72 sources (83 %), ≥ 65/72 concepts ≥ 50 % (90 %), latence 12-18 s/q, cap 1,80 $. Branche `claude/execute-s25-lot-i-eval-72q` dérivée de main `bcb69b2` (PR #84, Lots G+H mergés — cette fois le golden set 72q + les 8 modules étaient bien sur main).
