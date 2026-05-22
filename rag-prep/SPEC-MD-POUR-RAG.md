@@ -1,6 +1,6 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.8 (v1.6 + AP-7 lead bridge sur-élargi + tolérance R3 800-900 tokens si chunk cohérent + codification sondage D-026 systématique pour production from scratch)
+**Statut :** v1.9 (v1.8 + pattern empirique « 3 niveaux d'intervention retrieval » dans §Conception MD : lead bridge enrichi → H2 dédiée concurrente → densification lead par répétition contrôlée)
 **Dernière mise à jour :** 13 mai 2026 (révision post-S2.3 — 4 propositions RAPPORT-CC-S2.3 §6 validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
@@ -294,6 +294,26 @@ Quand une question du golden set cible des **specs techniques précises** — ch
 
 **Application pratique** : lors de la production d'un nouveau module ou de la rédaction d'une question golden set, **identifier ex-ante les concepts détaillés** (chiffres exacts, noms d'outils précis, paramètres) et appliquer la double discipline. À auditer dans la revue de production MD et dans la revue de questions golden set.
 
+### Pattern « 3 niveaux d'intervention retrieval » (validé empiriquement S2.4.1 + S2.5)
+
+Quand un chunk cible n'apparaît pas dans le top-5 retrieval sur une question canonique attendue, **3 niveaux d'intervention** se composent successivement selon l'écart résiduel :
+
+**Niveau 1 — Lead bridge enrichi** (validé Lot D-ter S2.4.1 sur q-038) : reformuler le premier paragraphe d'un chunk H2 pour inclure dès la première phrase en gras le vocabulaire question canonique attendu (termes génériques + termes techniques précis). Cible : un chunk qui contient textuellement les concepts mais reste hors top-5 du fait d'un embedding dominé par les termes techniques.
+
+*Cas-école Lot D-ter* : q-038 dep-08 — chunk « specs opérationnelles AgentShield » contenait textuellement 1 282 tests / 102 règles / `--opus` mais ne figurait pas dans le top-5. Promotion H3 → H2 autonome **+** lead enrichi avec vocabulaire « **Outils et patterns de mitigation pour sécuriser des agents IA en production** » → chunk passé rang ≥11 → rang **#1 sim 0,2239**, q-038 score=0 → score=1.
+
+**Niveau 2 — H2 dédiée concurrente** (validé Lot S2.5.0-bis sur q-030) : si le top-10 retrieval est saturé par un module concurrent dominant (plusieurs chunks du même module), un simple patch lead du module dominé ne suffit pas — il faut créer une **nouvelle section H2 dédiée** dans le module dominé pour produire un chunk concurrent en propre, indépendant des autres chunks existants.
+
+*Cas-école Lot S2.5.0-bis* : q-030 (obligations réglementaires projet IA PME 2026) — top-10 saturé 100 % par pr-08 (Financement IA). Le lead pr-07 enrichi ne remontait qu'au rang #13. Création d'une nouvelle H2 « Obligations réglementaires IA pour un projet en PME 2026 » dans pr-07 → chunk passé rang #13 → rang **#6 sim 0,3062** (+0,1204).
+
+**Niveau 3 — Densification chirurgicale du lead** (validé Lot S2.5.0-ter sur q-030) : si le chunk concurrent est entré dans le top-10 mais reste hors top-5 (écart résiduel typiquement 0,01-0,02 sim), densifier le lead par **répétition contrôlée** du vocabulaire question canonique. Discipline : titre H2 verbatim de la formulation de la question canonique attendue, premier paragraphe en gras qui reformule la question puis enchaîne la réponse, répétition explicite des 4-6 termes-clés (3-5 occurrences par terme).
+
+*Cas-école Lot S2.5.0-ter* : q-030 — chunk pr-07 « Obligations réglementaires » entré rang #6 (Niveau 2) mais hors top-5 (gap 0,0144 sim). Densification du lead : titre H2 inclut « **à anticiper** » verbatim de la question, premier paragraphe reformulé en mode question + réponse 4 ancrages, répétition « obligations réglementaires » 3× / « projet IA » 5× / « RGPD/AI Act/conformité/2026 » 5× chacun → chunk passé rang #6 → rang **#3 sim 0,3635** (+0,0573), q-030 score=0 → score=1.
+
+**Application** : appliquer les niveaux successivement selon l'écart résiduel observé. Niveau 1 d'abord (le plus léger). Niveau 2 si saturation par module concurrent dominant. Niveau 3 en finalisation si le chunk concurrent reste proche mais hors top-5.
+
+**Mise en garde** : la densification de Niveau 3 augmente la taille du chunk (~+50-100 mots typiquement). Surveiller la tolérance seuil R3 800-900 tokens. Au-delà, refactoring H3 obligatoire (cf. §R3).
+
 ---
 
 ## Validation — Eval réelle comme garde-fou structurel (issue RAPPORT-CC-S2.2 §6 P4)
@@ -413,4 +433,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.6 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.3 §6 (validation Cowork post-clôture S2.3 — sprint clôturé à 41/42 score global) : (1) Cap budgétaire par sprint formalisé en §Performances (recalibrage 0,90 $ → 1,10 $ pour 42q, table par volume) ; (2) Précision D-025 en §Briques transverses : « ossature complète d'un module ≠ brique transverse extractible » (validé empiriquement RETOUR-SONDAGE sur pattern « agent = employé » CU-026) ; (3) AP-6 : synonymes excessifs dans `expected_concepts` liste de listes (plafond 2-4 synonymes, anti-faux-positifs) ; (4) Nouvelle section §Conception MD et questions golden set : garde-fou « concepts détaillés » (sub-section H3 dédiée + format `expected_concepts` tolérant aux variations numériques, issue diagnostic q-038). |
 | v1.8 | 20 mai 2026 | Intégration des 3 propositions RAPPORT-CC-S2.4 §6 (validation Cowork post-clôture S2.4 — sprint clôturé à 50/52 score global) : (1) **AP-7 « Lead bridge sur-élargi »** dans §Anti-patterns (symétrique inverse du garde-fou « concepts détaillés » v1.6 — cas-école pr-08 saturant top-5 sur q-002 + q-030 transversales) ; (2) **Tolérance R3 800-900 tokens** si chunk thématiquement cohérent (validé empiriquement chunk Frontier Firms cu-026 850 tokens) ; (3) **Sondage D-026 systématique pour production from scratch** dans §Validation (validé empiriquement 2 sprints S2.3 + S2.4, 4 + 1 dérives évitées). Précision empirique post-Lot D-ter ajoutée à §R3 sur les 2 conditions nécessaires et indissociables : chunking H2 autonome + lead bridge enrichi. |
 
-**Évolution prévue** : enrichissement en v1.9+ post-S2.5 sur la base du correctif retrieval pr-08 + production vague 5 + éventuelles nouvelles décisions structurantes émergentes.
+| v1.9 | 22 mai 2026 | Inscription du **pattern empirique « 3 niveaux d'intervention retrieval »** dans §Conception MD (précision opérationnelle du garde-fou « concepts détaillés ») : (1) Lead bridge enrichi (validé Lot D-ter S2.4.1 — q-038 rang ≥11 → #1) ; (2) H2 dédiée concurrente si saturation par module dominant (validé Lot S2.5.0-bis — q-030 #13 → #6) ; (3) Densification chirurgicale du lead par répétition contrôlée si chunk concurrent hors top-5 (validé Lot S2.5.0-ter — q-030 #6 → #3). Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter) documenté empiriquement.
+
+**Évolution prévue** : enrichissement en v2+ post-S2.5 sur la base de la production vague 5 (Lot F.5 8 modules) + observations empiriques de production from scratch en série + éventuels nouveaux anti-patterns émergents.
