@@ -1,0 +1,828 @@
+/* ============================================================
+   Hub IA — Layer JOURNEY
+   ------------------------------------------------------------
+   Ajouts additifs à style.css — ne touche pas l'existant.
+   Composants :
+   1. Itinéraire (fil d'Ariane sticky 5 stations)
+   2. Carte d'itinéraire (mini-cartography après hero)
+   3. Wizard « Par où commencer ? »
+   4. Transitions narratives entre sections
+   5. Badges progression (nav + section headers)
+   6. Suite logique (pied de page narratif)
+   ============================================================ */
+
+/* ============================================================
+   1 — FIL D'ARIANE / ITINÉRAIRE STICKY
+   ============================================================ */
+.journey {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 60;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  transition: top var(--transition-base);
+}
+
+.journey-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.journey-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-mute);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journey-label::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: var(--color-primary);
+}
+
+.journey-track {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+  gap: 0;
+}
+
+/* Ligne de fond pointillée traversante */
+.journey-track::before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-border-strong) 0 4px,
+    transparent 4px 8px
+  );
+  z-index: 0;
+}
+
+/* Ligne pleine de progression (jusqu'à l'étape active) */
+.journey-track::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 10%;
+  height: 1px;
+  width: var(--journey-progress, 0%);
+  background: var(--color-primary);
+  z-index: 0;
+  transition: width 400ms var(--transition-base);
+}
+
+.journey-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 8px;
+  transition: transform var(--transition-fast);
+}
+.journey-step:hover { transform: translateY(-1px); }
+
+.journey-step-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border-strong);
+  margin-bottom: 8px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.journey-step-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: transparent;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.journey-step.is-done .journey-step-dot {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.journey-step.is-done .journey-step-num { color: white; }
+
+.journey-step.is-current .journey-step-dot {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(31,56,100,0.12);
+  transform: scale(1.1);
+}
+.journey-step.is-current .journey-step-num { color: white; }
+
+.journey-step:hover:not(.is-current) .journey-step-dot {
+  border-color: var(--color-primary);
+}
+
+.journey-step-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  text-align: center;
+}
+.journey-step.is-current .journey-step-label,
+.journey-step.is-done .journey-step-label {
+  color: var(--color-primary);
+}
+
+.journey-step-count {
+  font-size: 0.6875rem;
+  color: var(--color-text-mute);
+  font-weight: 500;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.journey-progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  background: var(--color-bg);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  border: 1px solid var(--color-border);
+}
+.journey-progress-pill strong { color: var(--color-primary); }
+.journey-progress-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+@media (max-width: 980px) {
+  .journey-step-count { display: none; }
+  .journey-step-label { font-size: 0.6875rem; }
+  .journey-progress-pill { display: none; }
+}
+@media (max-width: 720px) {
+  .journey-inner { padding: 12px var(--space-4); gap: var(--space-3); }
+  .journey-label { display: none; }
+  .journey-step-label { font-size: 0.625rem; }
+}
+
+/* ============================================================
+   2 — CARTE D'ITINÉRAIRE (après hero, vue d'ensemble)
+   ============================================================ */
+.itinerary {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-9) var(--space-5) var(--space-7);
+}
+
+.itinerary-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.itinerary-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--color-primary);
+}
+
+.itinerary-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+  max-width: 24ch;
+}
+.itinerary-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.itinerary-lede {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  max-width: 60ch;
+  margin-bottom: var(--space-7);
+}
+
+.itinerary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3);
+  position: relative;
+}
+
+.itinerary-grid::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(to right,
+    var(--color-primary) 0,
+    var(--color-primary) 50%,
+    var(--color-border-strong) 50%,
+    var(--color-border-strong) 100%);
+}
+
+.station {
+  position: relative;
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-base);
+  z-index: 1;
+}
+.station:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.station-marker {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+.station.is-done .station-marker {
+  background: var(--color-primary);
+  color: white;
+}
+.station.is-key .station-marker {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 0 4px rgba(31,56,100,0.15);
+}
+
+.station-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-mute);
+  margin-bottom: 4px;
+}
+
+.station-name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.015em;
+  margin-bottom: var(--space-2);
+}
+
+.station-question {
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+  flex: 1;
+}
+
+.station-stats {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+.station-stat-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+}
+.station-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-soft);
+  font-weight: 500;
+}
+
+.station-arrow {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-4);
+  color: var(--color-border-strong);
+  transition: all var(--transition-fast);
+}
+.station:hover .station-arrow {
+  color: var(--color-primary);
+  transform: translateX(2px);
+}
+
+@media (max-width: 980px) {
+  .itinerary-grid { grid-template-columns: repeat(2, 1fr); }
+  .itinerary-grid::before { display: none; }
+}
+@media (max-width: 560px) {
+  .itinerary-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   3 — WIZARD « Par où commencer ? »
+   ============================================================ */
+.starter {
+  max-width: 880px;
+  margin: 0 auto var(--space-8);
+  padding: var(--space-6) var(--space-6);
+  background: linear-gradient(135deg, #FFFFFF 0%, #F4F7FB 100%);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.starter::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(31,56,100,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.starter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.starter-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.starter-eyebrow-num {
+  background: var(--color-primary);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+}
+
+.starter-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+.starter-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.starter-sub {
+  font-size: 0.9375rem;
+  color: var(--color-text-soft);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.starter-restart {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.starter-restart:hover { text-decoration: underline; }
+
+.starter-question {
+  margin-top: var(--space-5);
+}
+.starter-question-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.starter-question-num {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  background: rgba(31,56,100,0.08);
+  border-radius: 4px;
+  padding: 2px 6px;
+  letter-spacing: 0.04em;
+}
+
+.starter-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-2);
+}
+
+.starter-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.starter-option:hover {
+  border-color: var(--color-primary);
+  background: rgba(31,56,100,0.02);
+}
+.starter-option.is-selected {
+  border-color: var(--color-primary);
+  background: rgba(31,56,100,0.06);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+.starter-option-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* État résultats */
+.starter-results {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px dashed var(--color-border-strong);
+  display: none;
+}
+.starter.is-resolved .starter-results { display: block; }
+.starter.is-resolved .starter-question { opacity: 0.55; pointer-events: none; }
+
+.starter-results-head {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-success);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.starter-results-head::before {
+  content: '✓';
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-success);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+}
+
+.starter-results-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+  line-height: 1.3;
+}
+
+.starter-recs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.starter-rec {
+  display: block;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+.starter-rec:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.starter-rec-num {
+  font-size: 0.625rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.starter-rec-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.starter-rec-reason {
+  font-size: 0.8125rem;
+  color: var(--color-text-soft);
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* ============================================================
+   4 — TRANSITIONS NARRATIVES entre sections
+   ============================================================ */
+.bridge {
+  max-width: 720px;
+  margin: var(--space-7) auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: 0 var(--space-5);
+}
+
+.bridge-line {
+  flex-shrink: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--color-primary), transparent);
+  margin-top: 6px;
+  align-self: stretch;
+  min-height: 60px;
+}
+
+.bridge-content {
+  flex: 1;
+}
+
+.bridge-arrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.bridge-text {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  font-weight: 400;
+}
+.bridge-text em {
+  color: var(--color-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+.bridge-text strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   5 — BADGE PROGRESSION (sur section headers)
+   ============================================================ */
+.section-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  background: rgba(22,163,74,0.08);
+  border: 1px solid rgba(22,163,74,0.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-top: 6px;
+}
+.section-progress.is-empty {
+  color: var(--color-text-mute);
+  background: var(--color-bg);
+  border-color: var(--color-border);
+}
+.section-progress strong {
+  color: var(--color-success);
+  font-weight: 800;
+}
+.section-progress.is-empty strong { color: var(--color-text-soft); }
+
+.section-progress-track {
+  width: 40px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.section-progress-fill {
+  height: 100%;
+  background: var(--color-success);
+  width: var(--p, 0%);
+  transition: width 400ms var(--transition-base);
+}
+
+/* ============================================================
+   6 — SUITE LOGIQUE (pied de page narratif)
+   ============================================================ */
+.next-step {
+  max-width: var(--max-width);
+  margin: var(--space-9) auto 0;
+  padding: var(--space-8) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.next-step-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+.next-step-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.next-step-eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--color-primary);
+}
+
+.next-step-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+.next-step-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.next-step-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.next-step-card {
+  display: block;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+.next-step-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.next-step-card-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.next-step-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.next-step-card-desc {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+  margin-bottom: var(--space-3);
+}
+
+.next-step-card-cta {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 880px) {
+  .next-step-inner { grid-template-columns: 1fr; }
+  .next-step-cards { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   PETITS AJUSTEMENTS — section header
+   ============================================================ */
+.section-header {
+  position: relative;
+}
+.section-header > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

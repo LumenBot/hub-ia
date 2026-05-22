@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/journey.css">
+  <script defer src="js/journey.js"></script>
   <link rel="stylesheet" href="css/module-v3.css">
   <style>
     /* Section Déploiement — page d'index (réplique du pattern .prealables-* validé v3.5+) */
@@ -87,6 +89,44 @@
       Passer du pilote à la production. <strong>95 % des projets GenAI en entreprise n'ont aucun impact P&amp;L mesurable</strong> (MIT NANDA, août 2025). La cause n'est jamais la technologie, mais le cadrage. Cette section te donne les 8 cadrages essentiels pour ne pas faire partie des 95 %.
     </p>
   </header>
+
+  <!-- FIL D'ARIANE / ITINÉRAIRE STICKY -->
+  <div class="journey" id="journey">
+    <div class="journey-inner">
+      <span class="journey-label">Itinéraire</span>
+      <div class="journey-track">
+        <a href="prealables.html" class="journey-step" data-step="0">
+          <span class="journey-step-dot"><span class="journey-step-num">1</span></span>
+          <span class="journey-step-label">Préalables</span>
+          <span class="journey-step-count">11 préalables</span>
+        </a>
+        <a href="architectures.html" class="journey-step" data-step="1">
+          <span class="journey-step-dot"><span class="journey-step-num">2</span></span>
+          <span class="journey-step-label">Architectures</span>
+          <span class="journey-step-count">4+1 patterns</span>
+        </a>
+        <a href="index.html#modules" class="journey-step" data-step="2">
+          <span class="journey-step-dot"><span class="journey-step-num">3</span></span>
+          <span class="journey-step-label">Modules</span>
+          <span class="journey-step-count">27 cas d'usage</span>
+        </a>
+        <a href="deploiement.html" class="journey-step is-current" data-step="3">
+          <span class="journey-step-dot"><span class="journey-step-num">4</span></span>
+          <span class="journey-step-label">Déploiement</span>
+          <span class="journey-step-count">8 fiches</span>
+        </a>
+        <a href="ressources.html" class="journey-step" data-step="4">
+          <span class="journey-step-dot"><span class="journey-step-num">5</span></span>
+          <span class="journey-step-label">Ressources</span>
+          <span class="journey-step-count">104 outils</span>
+        </a>
+      </div>
+      <div class="journey-progress-pill">
+        <span class="journey-progress-pill-dot"></span>
+        <span class="journey-progress-count"><strong>0</strong>/27 modules</span>
+      </div>
+    </div>
+  </div>
 
   <section class="deploiement-intro">
     <h2>Pourquoi cette section ?</h2>
@@ -236,6 +276,34 @@
   <section class="deploiement-footer-cta">
     <h3>Tu hésites encore sur l'architecture de déploiement ?</h3>
     <p>Va voir les <a href="architectures.html" class="tool-link">4 patterns d'architecture</a> (SaaS, propriétaire managé, open-source cloud souverain, on-premise) — un préalable structurel à plusieurs des cadrages de cette section (notamment la fiche <a href="deploiement/dep-06-inference-saas-self-hosted.html" class="tool-link">Inférence SaaS vs self-hosted</a>).</p>
+  </section>
+
+  <!-- SUITE LOGIQUE — next step -->
+  <section class="next-step">
+    <div class="next-step-inner">
+      <div>
+        <div class="next-step-eyebrow">Station suivante</div>
+        <h2 class="next-step-title">Projet en production —<br><em>outille ta stack.</em></h2>
+      </div>
+      <div class="next-step-cards">
+        <a href="ressources.html" class="next-step-card">
+          <div class="next-step-card-tag">→ §05 · Ressources</div>
+          <div class="next-step-card-title">L'atlas des 104 outils</div>
+          <div class="next-step-card-desc">LLM, orchestration, multi-agents, RAG, voice, vision, CRM, compta &amp; O2C, IDE codeurs, souverains FR. Pas de hiérarchie commerciale.</div>
+          <div class="next-step-card-cta">Parcourir l'atlas
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+        <a href="index.html#modules" class="next-step-card">
+          <div class="next-step-card-tag">→ §03 · Modules</div>
+          <div class="next-step-card-title">27 cas d'usage opérationnels</div>
+          <div class="next-step-card-desc">Reviens au catalogue des cas d'usage métier pour cadrer le prochain projet à mettre en production.</div>
+          <div class="next-step-card-cta">Explorer les modules
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
   </section>
 
   <footer class="footer">

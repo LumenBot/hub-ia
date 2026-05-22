@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/journey.css">
+  <script defer src="js/journey.js"></script>
 </head>
 <body>
 
@@ -100,6 +102,44 @@
     </div>
   </section>
 
+  <!-- FIL D'ARIANE / ITINÉRAIRE STICKY (devient sticky une fois passé le hero) -->
+  <div class="journey" id="journey">
+    <div class="journey-inner">
+      <span class="journey-label">Itinéraire</span>
+      <div class="journey-track">
+        <a href="prealables.html" class="journey-step" data-step="0">
+          <span class="journey-step-dot"><span class="journey-step-num">1</span></span>
+          <span class="journey-step-label">Préalables</span>
+          <span class="journey-step-count">11 préalables</span>
+        </a>
+        <a href="architectures.html" class="journey-step" data-step="1">
+          <span class="journey-step-dot"><span class="journey-step-num">2</span></span>
+          <span class="journey-step-label">Architectures</span>
+          <span class="journey-step-count">4+1 patterns</span>
+        </a>
+        <a href="#modules" class="journey-step is-current" data-step="2">
+          <span class="journey-step-dot"><span class="journey-step-num">3</span></span>
+          <span class="journey-step-label">Modules</span>
+          <span class="journey-step-count">27 cas d'usage</span>
+        </a>
+        <a href="deploiement.html" class="journey-step" data-step="3">
+          <span class="journey-step-dot"><span class="journey-step-num">4</span></span>
+          <span class="journey-step-label">Déploiement</span>
+          <span class="journey-step-count">8 fiches</span>
+        </a>
+        <a href="ressources.html" class="journey-step" data-step="4">
+          <span class="journey-step-dot"><span class="journey-step-num">5</span></span>
+          <span class="journey-step-label">Ressources</span>
+          <span class="journey-step-count">104 outils</span>
+        </a>
+      </div>
+      <div class="journey-progress-pill">
+        <span class="journey-progress-pill-dot"></span>
+        <span class="journey-progress-count"><strong>0</strong>/27 modules</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ENCART OPPORTUNITÉ -->
   <section class="opportunity-banner">
     <div class="opportunity-banner-inner">
@@ -113,8 +153,148 @@
     </div>
   </section>
 
+  <!-- CARTE D'ITINÉRAIRE (5 stations) -->
+  <section class="itinerary" id="itineraire">
+    <div class="itinerary-eyebrow">L'itinéraire en 5 stations</div>
+    <h2 class="itinerary-title">Le Hub n'est pas un catalogue.<br><em>C'est un chemin.</em></h2>
+    <p class="itinerary-lede">
+      Cinq stations à parcourir dans l'ordre — ou à piocher selon où tu en es. Chaque station répond à une question opérationnelle précise. Tu reviens ici à tout moment via le fil d'Ariane.
+    </p>
+
+    <div class="itinerary-grid">
+
+      <a href="prealables.html" class="station">
+        <div class="station-marker">1</div>
+        <div class="station-eyebrow">Avant de te lancer</div>
+        <div class="station-name">Préalables</div>
+        <p class="station-question">« Qu'est-ce que je dois maîtriser avant de me lancer ? »</p>
+        <div class="station-stats">
+          <span class="station-stat-num">11</span>
+          <span class="station-stat-label">préalables transverses</span>
+        </div>
+        <svg class="station-arrow" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a href="architectures.html" class="station">
+        <div class="station-marker">2</div>
+        <div class="station-eyebrow">Choisir sa stack</div>
+        <div class="station-name">Architectures</div>
+        <p class="station-question">« Quel pattern d'implémentation pour mon cas d'usage ? »</p>
+        <div class="station-stats">
+          <span class="station-stat-num">4+1</span>
+          <span class="station-stat-label">patterns canoniques</span>
+        </div>
+        <svg class="station-arrow" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a href="#modules" class="station is-key">
+        <div class="station-marker">3</div>
+        <div class="station-eyebrow">Tu es ici</div>
+        <div class="station-name">Modules</div>
+        <p class="station-question">« Comment résoudre concrètement mon problème métier ? »</p>
+        <div class="station-stats">
+          <span class="station-stat-num">27</span>
+          <span class="station-stat-label">cas d'usage opérationnels</span>
+        </div>
+        <svg class="station-arrow" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a href="deploiement.html" class="station">
+        <div class="station-marker">4</div>
+        <div class="station-eyebrow">Du POC à la prod</div>
+        <div class="station-name">Déploiement</div>
+        <p class="station-question">« Comment passer du POC à la production ? »</p>
+        <div class="station-stats">
+          <span class="station-stat-num">8</span>
+          <span class="station-stat-label">fiches techniques</span>
+        </div>
+        <svg class="station-arrow" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a href="ressources.html" class="station">
+        <div class="station-marker">5</div>
+        <div class="station-eyebrow">L'atlas outils</div>
+        <div class="station-name">Ressources</div>
+        <p class="station-question">« Quels outils pour ma stack ? »</p>
+        <div class="station-stats">
+          <span class="station-stat-num">104</span>
+          <span class="station-stat-label">fiches outils</span>
+        </div>
+        <svg class="station-arrow" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+    </div>
+  </section>
+
   <!-- MAIN -->
   <main class="main" id="modules">
+
+    <!-- WIZARD : PAR OÙ COMMENCER -->
+    <section class="starter" id="starter" aria-labelledby="starter-title">
+      <div class="starter-head">
+        <div>
+          <div class="starter-eyebrow">
+            <span class="starter-eyebrow-num">?</span>
+            <span>Pas sûr·e par où commencer</span>
+          </div>
+          <h2 class="starter-title" id="starter-title">2 questions pour identifier <em>3 modules taillés pour toi.</em></h2>
+          <p class="starter-sub">Plutôt que de scroller 27 cards, dis-nous où tu en es — on remonte les bons points d'entrée.</p>
+        </div>
+        <button class="starter-restart" type="button" aria-label="Recommencer">↻ Recommencer</button>
+      </div>
+
+      <div class="starter-question">
+        <div class="starter-question-label">
+          <span class="starter-question-num">Q1</span>
+          <span>Où en es-tu sur l'IA dans ton organisation ?</span>
+        </div>
+        <div class="starter-options">
+          <button class="starter-option" type="button" data-stage="decouverte">
+            <span class="starter-option-icon">🎯</span>
+            <span>Je démarre — réflexes individuels, sensibilisation</span>
+          </button>
+          <button class="starter-option" type="button" data-stage="deploiement">
+            <span class="starter-option-icon">🛠</span>
+            <span>Je déploie — cas d'usage métier en production</span>
+          </button>
+          <button class="starter-option" type="button" data-stage="agentique">
+            <span class="starter-option-icon">🤖</span>
+            <span>J'industrialise — cap sur l'agentique avancée</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="starter-question">
+        <div class="starter-question-label">
+          <span class="starter-question-num">Q2</span>
+          <span>Ton enjeu prioritaire ?</span>
+        </div>
+        <div class="starter-options">
+          <button class="starter-option" type="button" data-axis="productivite">
+            <span class="starter-option-icon">🚀</span>
+            <span>Productivité individuelle &amp; collective</span>
+          </button>
+          <button class="starter-option" type="button" data-axis="decision">
+            <span class="starter-option-icon">🧭</span>
+            <span>Décision &amp; gouvernance</span>
+          </button>
+          <button class="starter-option" type="button" data-axis="croissance">
+            <span class="starter-option-icon">📈</span>
+            <span>Croissance commerciale</span>
+          </button>
+          <button class="starter-option" type="button" data-axis="industrie">
+            <span class="starter-option-icon">⚙️</span>
+            <span>Industrie / opérations</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="starter-results" aria-live="polite">
+        <div class="starter-results-head">Itinéraire personnalisé</div>
+        <div class="starter-results-title"></div>
+        <div class="starter-recs"></div>
+      </div>
+    </section>
 
     <!-- FILTRES AVANCÉS -->
     <details class="filters" id="filtersPanel">
@@ -164,6 +344,10 @@
         <div>
           <h2 class="section-title">Découverte & sensibilisation</h2>
           <p class="section-desc">Premiers pas avec l'IA — usages individuels accessibles à tous, sans compétence technique préalable. Le bon point d'entrée pour se familiariser et démontrer la valeur en quelques heures.</p>
+          <div class="section-progress is-empty" data-progress-section="decouverte">
+            <span class="section-progress-count"><strong>0</strong>/4 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -263,6 +447,15 @@
       </div>
     </section>
 
+    <!-- BRIDGE narratif -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-content">
+        <div class="bridge-arrow">↓ Une fois les réflexes individuels pris…</div>
+        <p class="bridge-text">… tu peux <em>monter en échelle</em> sur la chaîne commerciale. Création de contenu, qualification de leads, automatisation du cycle vente — <strong>mêmes ROI, plus structurants</strong>.</p>
+      </div>
+    </div>
+
     <!-- SECTION MARKETING-CROISSANCE -->
     <section class="modules-section" data-section="marketing-croissance">
       <div class="section-header">
@@ -270,6 +463,10 @@
         <div>
           <h2 class="section-title">Marketing & croissance commerciale</h2>
           <p class="section-desc">Création de contenu, génération et qualification de leads, automatisation du cycle vente — du recyclage éditorial au voicebot d'accueil.</p>
+          <div class="section-progress is-empty" data-progress-section="marketing-croissance">
+            <span class="section-progress-count"><strong>0</strong>/7 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -422,6 +619,15 @@
       </div>
     </section>
 
+    <!-- BRIDGE narratif -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-content">
+        <div class="bridge-arrow">↓ Dès qu'on parle décision…</div>
+        <p class="bridge-text">… on parle <em>données sensibles</em> et <em>gouvernance</em>. Knowledge base, veille structurée, conformité RGPD &amp; AI Act — <strong>le choix d'architecture devient critique</strong>.</p>
+      </div>
+    </div>
+
     <!-- SECTION DECISION-GOUVERNANCE -->
     <section class="modules-section" data-section="decision-gouvernance">
       <div class="section-header">
@@ -429,6 +635,10 @@
         <div>
           <h2 class="section-title">Décision & gouvernance</h2>
           <p class="section-desc">Knowledge bases interrogeables, veille structurée, conformité IA. Outiller la décision et cadrer la pratique IA dans l'entreprise.</p>
+          <div class="section-progress is-empty" data-progress-section="decision-gouvernance">
+            <span class="section-progress-count"><strong>0</strong>/6 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -561,6 +771,15 @@
       </div>
     </section>
 
+    <!-- BRIDGE narratif -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-content">
+        <div class="bridge-arrow">↓ Les fonctions support concentrent…</div>
+        <p class="bridge-text">… les <em>plus gros gains potentiels</em> mais aussi les <em>risques réglementaires les plus élevés</em>. RH et finance : ne pas démarrer sans avoir lu les <strong>préalables</strong>.</p>
+      </div>
+    </div>
+
     <!-- SECTION FONCTIONS-SUPPORT -->
     <section class="modules-section" data-section="fonctions-support">
       <div class="section-header">
@@ -568,6 +787,10 @@
         <div>
           <h2 class="section-title">Fonctions support — RH &amp; Finance</h2>
           <p class="section-desc">Cas d'usage à fort enjeu réglementaire (haut risque AI Act sur certains usages RH, données personnelles en finance). Le choix d'architecture est critique.</p>
+          <div class="section-progress is-empty" data-progress-section="fonctions-support">
+            <span class="section-progress-count"><strong>0</strong>/3 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -639,6 +862,15 @@
       </div>
     </section>
 
+    <!-- BRIDGE narratif -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-content">
+        <div class="bridge-arrow">↓ Côté atelier…</div>
+        <p class="bridge-text">… l'IA opérationnelle a ses <em>propres règles</em>. Maintenance prédictive, contrôle qualité, optimisation. <strong>Le ROI est plus dur à calibrer, mais la valeur ne se mesure pas seulement en heures gagnées</strong>.</p>
+      </div>
+    </div>
+
     <!-- SECTION INDUSTRIE -->
     <section class="modules-section" data-section="industrie">
       <div class="section-header">
@@ -646,6 +878,10 @@
         <div>
           <h2 class="section-title">Industrie</h2>
           <p class="section-desc">Maintenance prédictive, contrôle qualité par vision, optimisation de production. L'IA opérationnelle dans les ateliers et chaînes industrielles.</p>
+          <div class="section-progress is-empty" data-progress-section="industrie">
+            <span class="section-progress-count"><strong>0</strong>/3 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -716,6 +952,15 @@
       </div>
     </section>
 
+    <!-- BRIDGE narratif (vers agentique) -->
+    <div class="bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-content">
+        <div class="bridge-arrow">↓ Et tout en haut de la pyramide…</div>
+        <p class="bridge-text">… les <em>dispositifs agentiques avancés</em>. Multi-agents, workflows transactionnels, gouvernance. Prérequis : <strong>préalables &amp; architectures sécurisés</strong>.</p>
+      </div>
+    </div>
+
     <!-- SECTION AGENTIQUE-AVANCE -->
     <section class="modules-section" data-section="agentique-avance">
       <div class="section-header">
@@ -723,6 +968,10 @@
         <div>
           <h2 class="section-title">Architectures agentiques avancées</h2>
           <p class="section-desc">Workflows multi-systèmes pilotés par agents, orchestration multi-agents, agents transactionnels. Niveau le plus avancé du Hub — prérequis : préalables &amp; architectures sécurisés.</p>
+          <div class="section-progress is-empty" data-progress-section="agentique-avance">
+            <span class="section-progress-count"><strong>0</strong>/4 complétés</span>
+            <span class="section-progress-track"><span class="section-progress-fill"></span></span>
+          </div>
         </div>
       </div>
       <div class="cards-grid">
@@ -815,6 +1064,34 @@
     </section>
 
   </main>
+
+  <!-- SUITE LOGIQUE — next step -->
+  <section class="next-step">
+    <div class="next-step-inner">
+      <div>
+        <div class="next-step-eyebrow">Station suivante</div>
+        <h2 class="next-step-title">Ton cas d'usage est cadré —<br><em>cap sur la mise en production.</em></h2>
+      </div>
+      <div class="next-step-cards">
+        <a href="deploiement.html" class="next-step-card">
+          <div class="next-step-card-tag">→ §04 · Déploiement</div>
+          <div class="next-step-card-title">Du POC à la production</div>
+          <div class="next-step-card-desc">RAG en prod, fine-tuning, context engineering, observabilité agents, sécurité MCP. 8 fiches techniques transverses.</div>
+          <div class="next-step-card-cta">Lire les 8 fiches
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+        <a href="ressources.html" class="next-step-card">
+          <div class="next-step-card-tag">→ §05 · Ressources</div>
+          <div class="next-step-card-title">L'atlas des 104 outils</div>
+          <div class="next-step-card-desc">LLM, orchestration, multi-agents, RAG, voice, vision, CRM, compta &amp; O2C, IDE codeurs, souverains FR. Pas de hiérarchie commerciale.</div>
+          <div class="next-step-card-cta">Parcourir l'atlas
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- À PROPOS -->
   <section class="about" id="a-propos">
