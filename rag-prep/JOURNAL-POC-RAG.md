@@ -11,6 +11,42 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.5 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.5. Tous les lots Phase 1 (correctif retrieval q-002/q-030, PR #75-77 + reruns Drer), Phase 2 (8 modules vague 5 from scratch, PR #78-83 + sondage D-026), Phase 3 (G cartographie v3 + H golden set 72q PR #84, I eval 72q 70/72 PR #85, S2.5.x correctif q-036/q-056 PR #86, Drer-S2.5.x validation 4/4 PR #87) livrés et mergés sur main (`d6966b4`).
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.5.md`** en 8 sections (~2700 mots, format conforme S2.4) :
+  1. Objectifs S2.5 (4 axes : correctif retrieval, vague 5 from scratch 8 modules, golden set 72q, validation pattern 3 niveaux retrieval)
+  2. Livrables par lot (tableau exhaustif A→J avec acteurs + commits/PR)
+  3. Métriques quantitatives (Lot I 70/72 sur 3 axes, Drer-S2.5.x q-036 #3 sim 0,3310 + q-056 #1 sim 0,4634 → extrapolation 72/72, vault 23 fichiers / 289 chunks, latence 17,7 s/q, coût S2.5 ~2,10 $)
+  4. Anomalies & observations (4 régressions résolues sur 2 phases, 3 occurrences hygiène merge, réserve méthodologique 72/72 extrapolé vs Lot I-bis, latence Drer ~19 s/q)
+  5. Décisions structurantes (5 patterns validés : 3 niveaux retrieval sur 6 cas, 4 modules sécurité non substituables, 4 modules cartographiques sans cas-école, 2e application D-026 from scratch, discipline hygiène merge)
+  6. Recommandations SPEC v2.0 (3 propositions : discipline hygiène merge `git grep <<<<<<<`, pattern 3 niveaux retrieval comme procédure normée, précision §Performances latence vault > 300 chunks)
+  7. Pistes investigation S2.6 (vague 6 PR-09/PR-10/PR-11, latence vault > 200 chunks, audit régression vault > 30 fichiers, R11 audit wikilinks, Lot I-bis re-run formel optionnel)
+  8. Coûts cumulés (S2.5 ~2,10 $, total S1→S2.5 ~7,20 $, cap mensuel D-013 50 $ très largement préservé)
+
+- **MAJ STATUS-RAG** : Lot J marqué ✅ Fait, sprint S2.5 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.5 à ouvrir** vers `main` depuis `claude/execute-s25-lot-j-rapport` (branche dérivée de main post-merge PR #87). Titre : `feat(rag): Sprint S2.5 - vague 5 production 8 modules + correctif retrieval q-030/q-036/q-056 + golden set 72q + pattern 3 niveaux retrieval validé 6 cas`.
+
+**Décisions structurantes prises :** aucune (Lot J = production rapport + clôture).
+
+**Coût API consommé (cette session Lot J) :** 0,00 $ (production texte uniquement, conforme allocation D-030 Plateforme).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.5 par Blaise après revue.
+- Arbitrage Cowork des 3 propositions d'amendement SPEC v1.9 → v2.0 (hygiène merge, pattern 3 niveaux normé, précision latence).
+- (Optionnel) Lot I-bis re-run 72q formel (~1,8 $) pour sceller le 72/72 mesuré vs extrapolé.
+- Ouverture S2.6 : vague 6 (PR-09, PR-10, PR-11) avec sondage D-026 systématique (obligatoire PR-10 + PR-11).
+
+**Blockers :** aucun pour la PR.
+
+---
+
 ### 2026-05-22 (S2.5 Lot Drer-S2.5.x — validation densification leads cu-027 + dep-07) — Claude Code Desktop — ✅ q-036 + q-056 RESTAURÉS, eval ciblée 4/4 → Phase 3 extrapolée 72/72
 
 **Contexte :** validation du Lot S2.5.x (densification Niveau 3 SPEC v1.9 des leads cu-027 §7 outils et dep-07 §eval first, v3.11.1). Objectif : faire entrer les 2 chunks cibles dans le top-5 et restaurer q-036 + q-056 à score=1, sans régression. Cette fois le correctif (`8cc300c`, PR #86) **était déjà mergé sur main** (`8b8435a`) — branche Drer-S2.5.x dérivée de main.
