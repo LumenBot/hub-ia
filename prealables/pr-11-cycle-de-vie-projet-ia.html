@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cycle de vie d'un projet IA — Hub IA Learning Center</title>
+  <meta name="description" content="Cycle de vie d'un projet IA en PME : 9 étapes séquencées, 3 quality gates obligatoires, pourquoi sauter une étape coûte 5 à 10 fois plus cher qu'en gagnant le temps économisé. La vue d'ensemble pour piloter un projet IA bout en bout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../deploiement.html" class="nav-link">Déploiement</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">← Retour aux préalables</a>
+      <div class="module-badges">
+        <span class="card-badge">🔄 Vue d'ensemble séquentielle</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">20 min de lecture</span>
+      </div>
+      <h1>🔄 Cycle de vie d'un projet IA</h1>
+      <p class="module-subtitle">9 étapes séquencées et 3 quality gates obligatoires : la vue d'ensemble bout en bout d'un projet IA en PME, depuis le cadrage jusqu'à la mise en service.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du préalable</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🧭</span>Pourquoi un cycle de vie séquencé</a></li>
+        <li><a href="#section-2"><span class="toc-icon">🔢</span>Les 9 étapes du projet IA</a></li>
+        <li><a href="#section-3"><span class="toc-icon">🚦</span>Les 3 quality gates obligatoires</a></li>
+        <li><a href="#section-4"><span class="toc-icon">💥</span>Le coût des courts-circuits</a></li>
+        <li><a href="#section-5"><span class="toc-icon">📊</span>Cas d'usage type — order-to-cash</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🔗</span>Articulation avec les préalables et DEP</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>9 étapes séquencées, 3 quality gates obligatoires : sauter une étape coûte généralement 5 à 10 fois l'effort gagné.</h2>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>Un projet IA en PME suit un cycle de vie en 9 étapes</strong> qui ne sont pas interchangeables. L'ordre compte : l'analyse de besoin avant le cadrage, le cadrage avant la spec, la spec avant le développement, le développement avant les tests, les tests avant la mise en service.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>3 quality gates obligatoires séparent les phases critiques</strong> : gate 1 (entre cadrage et spec — décision GO/NO-GO sur l'opportunité), gate 2 (entre développement et tests — validation que le livrable correspond à la spec), gate 3 (entre tests et mise en service — validation que la qualité observée est suffisante pour la production).</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>Le pattern « ne pas sauter d'étape » est une discipline projet</strong> parce que chaque étape sautée se paie 5 à 10 fois plus cher en aval. Un cadrage bâclé devient un projet en dérive de scope ; une spec absente devient un développement orienté solution avant problème ; des tests insuffisants deviennent une mise en service ratée.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>Cette vue séquentielle est complémentaire des fiches Déploiement</strong> qui couvrent chaque étape technique en détail. Ce préalable donne la <strong>carte d'ensemble</strong> ; les fiches DEP donnent les <strong>boîtes à outils</strong> pour chaque étape.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">5</div>
+            <p><strong>Le cas d'usage type d'automatisation order-to-cash</strong> illustre comment chaque étape s'applique à un projet concret de PME (cf. § 5).</p>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">9</div>
+            <div class="exec-stat-label">étapes du cycle de vie</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">3</div>
+            <div class="exec-stat-label">quality gates obligatoires</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">5 à 10×</div>
+            <div class="exec-stat-label">coût d'une étape sautée vs effort gagné</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">80 %</div>
+            <div class="exec-stat-label">des échecs interviennent avant la première ligne de code</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand cette page est utile&nbsp;:</strong> tu démarres ou pilotes un projet IA et tu veux une <strong>vue séquentielle complète</strong> du cycle de vie — de l'analyse du besoin à la mise en service. À utiliser comme carte de navigation vers <a href="pr-09-cadrer-projet-ia.html" class="tool-link">le cadrage (PR-09)</a>, <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">la vérification (PR-10)</a> et les fiches Déploiement.
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">1</div>
+        <h2 class="module-section-title">Pourquoi un cycle de vie séquencé</h2>
+      </div>
+
+      <ol>
+        <li><p><strong>L'ordre des décisions n'est pas réversible à coût égal.</strong> Décider d'un budget après avoir engagé un prestataire coûte plus cher que l'inverse. Décider d'un critère de succès après le déploiement est inutile (on ne sait plus si on a réussi ou échoué). Le séquencement protège la rationalité économique du projet.</p></li>
+        <li><p><strong>Chaque étape produit un livrable qui entre dans l'étape suivante.</strong> Sans le livrable de cadrage (<a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a>), la spec ne peut pas être rédigée correctement. Sans la spec, le développement dérive. Sans le développement testé, la mise en service est aveugle. Sauter une étape, c'est entrer dans l'étape suivante les mains vides.</p></li>
+        <li><p><strong>Les quality gates sont des points de décision conscients</strong> où on peut <strong>arrêter le projet</strong> si les critères ne sont pas atteints. Sans gates explicites, le projet continue par inertie même quand les signaux sont mauvais (cf. anti-pattern « absence de plan d'arrêt » documenté dans <a href="pr-09-cadrer-projet-ia.html" class="tool-link">le cadrage de projet</a>).</p></li>
+      </ol>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Implication pour le dirigeant</strong> : la fonction du dirigeant dans un projet IA n'est pas de « valider la solution » à la fin, c'est de <strong>valider chaque gate</strong> au moment où elle se présente. C'est un rythme managérial à intégrer dans l'agenda — pas une intervention ponctuelle en clôture.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">2</div>
+        <h2 class="module-section-title">Les 9 étapes du projet IA</h2>
+      </div>
+
+      <p>Chaque étape a un livrable propre et une durée typique. Les durées sont indicatives pour un projet PME standard (cas d'usage métier ciblé, équipe interne + 1 prestataire, budget 20-100&nbsp;K€).</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Étape</th>
+            <th>Livrable</th>
+            <th>Durée typique</th>
+            <th>Préalable / DEP de référence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Analyse du besoin métier</td>
+            <td>Liste hiérarchisée des irritants métier candidats</td>
+            <td>1-2 semaines</td>
+            <td><a href="pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>, <a href="pr-02-preables-data-si.html" class="tool-link">Données &amp; SI</a></td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Cadrage du projet</td>
+            <td>Document de cadrage 1 page (8 questions)</td>
+            <td>1-2 semaines</td>
+            <td><a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a></td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>Décision GO/NO-GO</td>
+            <td>Validation explicite par décisionnaire</td>
+            <td>Quelques jours</td>
+            <td>Quality gate 1</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>Spec fonctionnelle et technique</td>
+            <td>Document de spec détaillé (5-15 pages)</td>
+            <td>2-4 semaines</td>
+            <td><a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrage technique</a></td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>Plan de développement</td>
+            <td>Roadmap technique + planning + ressources</td>
+            <td>1-2 semaines</td>
+            <td><a href="pr-07-build-vs-buy.html" class="tool-link">Build vs buy</a>, <a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrage en production</a></td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>Développement</td>
+            <td>Code source + documentation technique</td>
+            <td>4-12 semaines</td>
+            <td><a href="../deploiement/dep-02-rag-architecture-prod.html" class="tool-link">RAG en production</a>, <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production</a></td>
+          </tr>
+          <tr>
+            <td><strong>7</strong></td>
+            <td>Tests et évaluation</td>
+            <td>Rapport d'évaluation + golden set + corrections</td>
+            <td>2-4 semaines</td>
+            <td><a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue</a></td>
+          </tr>
+          <tr>
+            <td><strong>8</strong></td>
+            <td>Validation pré-production</td>
+            <td>Validation décisionnaire pour mise en service</td>
+            <td>Quelques jours</td>
+            <td>Quality gate 2 et 3</td>
+          </tr>
+          <tr>
+            <td><strong>9</strong></td>
+            <td>Mise en service et suivi</td>
+            <td>Production opérationnelle + KPI suivis</td>
+            <td>Continu post-déploiement</td>
+            <td><a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents &amp; observabilité</a>, <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents</a>, <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier les hallucinations</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Total durée typique projet PME</strong> : 12 à 26 semaines (3 à 6 mois), variable selon complexité. Ces durées peuvent paraître longues — elles correspondent à l'observation de projets réussis. Les projets qui « vont plus vite » en sautant des étapes finissent généralement par prendre plus de temps au total.</p>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-flow">3</div>
+        <h2 class="module-section-title">Les 3 quality gates obligatoires</h2>
+      </div>
+
+      <p>Les quality gates sont des <strong>décisions conscientes</strong> prises par un décisionnaire identifié, avec critères explicites de GO ou NO-GO.</p>
+
+      <h3>Gate 1 — Entre cadrage (étape 2) et spec (étape 4)</h3>
+      <p><strong>Question décisionnelle</strong> : <em>« Le projet vaut-il la peine d'être engagé ? »</em></p>
+      <p><strong>Critères de GO</strong> : les 8 questions de cadrage (cf. <a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a>) ont reçu des réponses claires, le budget est validé, le décisionnaire est nommé, le critère de succès est mesurable, le plan d'arrêt est défini.</p>
+      <p><strong>Critères de NO-GO</strong> : un ou plusieurs critères est flou, irréaliste ou non validé. Retourner à l'étape de cadrage pour clarification — pas avancer en espérant que ça se précisera en cours de route.</p>
+      <p><strong>Décisionnaire typique</strong> : direction (dirigeant ou comité de direction).</p>
+
+      <h3>Gate 2 — Entre développement (étape 6) et tests (étape 7)</h3>
+      <p><strong>Question décisionnelle</strong> : <em>« Ce qui est livré correspond-il à ce qui était spécifié ? »</em></p>
+      <p><strong>Critères de GO</strong> : le livrable couvre l'ensemble du périmètre de spec, sans dérive non documentée. Les écarts éventuels sont explicitement listés et arbitrés.</p>
+      <p><strong>Critères de NO-GO</strong> : dérive de scope non arbitrée, fonctionnalités majeures manquantes, qualité du livrable manifestement insuffisante. Retourner au développement pour corrections.</p>
+      <p><strong>Décisionnaire typique</strong> : chef de projet IA + représentant utilisateur final.</p>
+
+      <h3>Gate 3 — Entre tests (étape 7) et mise en service (étape 9)</h3>
+      <p><strong>Question décisionnelle</strong> : <em>« La qualité observée est-elle suffisante pour la production ? »</em></p>
+      <p><strong>Critères de GO</strong> : le golden set est passé avec succès (score cible atteint), les hallucinations critiques sont absentes (cf. <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier et limiter les hallucinations</a>), le mécanisme de vérification est en place, le human owner est désigné, le plan d'arrêt est opérationnel.</p>
+      <p><strong>Critères de NO-GO</strong> : score golden set en-dessous de la cible, hallucinations critiques détectées, mécanisme de vérification non implémenté, human owner non désigné. Ne pas mettre en service un système non vérifié.</p>
+      <p><strong>Décisionnaire typique</strong> : direction + chef de projet + responsable qualité.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Cohérence avec <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">la discipline de vérification (PR-10)</a></strong> : la gate 3 intègre directement les principes de vérification — 4 niveaux proportionnés à l'enjeu, pattern « pas de claim de complétion sans preuve fraîche », human owner désigné.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">4</div>
+        <h2 class="module-section-title">Le coût des courts-circuits</h2>
+      </div>
+
+      <p>La pression de calendrier ou de budget pousse régulièrement à sauter une étape ou contourner une gate. Coût réel de chaque court-circuit, observable sur des projets réels&nbsp;:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Court-circuit</th>
+            <th>Économie apparente</th>
+            <th>Coût réel</th>
+            <th>Ratio coût/économie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sauter le cadrage (étape 2)</td>
+            <td>1-2 semaines</td>
+            <td>1-3 mois de dérive de scope en aval</td>
+            <td>4-12×</td>
+          </tr>
+          <tr>
+            <td>Sauter le GO/NO-GO (gate 1)</td>
+            <td>Quelques jours</td>
+            <td>Projet engagé sans alignement direction = abandon probable à mi-parcours</td>
+            <td>10-30×</td>
+          </tr>
+          <tr>
+            <td>Sauter la spec (étape 4)</td>
+            <td>2-4 semaines</td>
+            <td>Développement orienté solution avant problème, refonte en aval</td>
+            <td>3-6×</td>
+          </tr>
+          <tr>
+            <td>Sauter les tests (étape 7)</td>
+            <td>2-4 semaines</td>
+            <td>Mise en service ratée, perte de confiance utilisateurs, retours qualité</td>
+            <td>5-15×</td>
+          </tr>
+          <tr>
+            <td>Sauter la validation pré-production (gate 3)</td>
+            <td>Quelques jours</td>
+            <td>Incidents en production, hallucinations non détectées, contentieux</td>
+            <td>10-50× (dépend de la criticité)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-info">
+        <p>⚖️ <strong>Garde-fou</strong> : si la pression de calendrier est telle qu'on est tenté de sauter une étape, <strong>réduire le périmètre du projet</strong> plutôt que sauter l'étape. Mieux vaut livrer un périmètre v1 bien construit qu'un périmètre v2 mal exécuté.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">5</div>
+        <h2 class="module-section-title">Cas d'usage type — automatisation order-to-cash</h2>
+      </div>
+
+      <p>Illustration concrète des 9 étapes appliquées à un projet d'automatisation order-to-cash (de la commande au paiement) dans une PME industrielle de 50 salariés.</p>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">1</div>
+        <div>
+          <h4>Étape 1 — Analyse du besoin métier (2 semaines)</h4>
+          <p>Le dirigeant identifie 3 irritants candidats : (1) délai de traitement des factures fournisseurs trop long, (2) erreurs récurrentes sur les bons de livraison, (3) DSO clients qui s'allonge. Hiérarchisation : (3) prioritaire (impact trésorerie immédiat).</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">2</div>
+        <div>
+          <h4>Étape 2 — Cadrage (1 semaine)</h4>
+          <p>Document de cadrage rédigé : problème = « réduire le DSO de 45 à 30 jours sur les clients PME », utilisateur = équipe comptabilité (3 personnes), données = ERP + outil de facturation + boîte mail compta, contrainte RGPD validée, KPI = DSO mensuel, budget 30&nbsp;K€ initial + 500&nbsp;€/mois récurrent, calendrier 4 mois, plan d'arrêt = si DSO non amélioré à 6 mois post-déploiement, retour au manuel.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">3</div>
+        <div>
+          <h4>Étape 3 — Gate 1 GO/NO-GO (2 jours)</h4>
+          <p>Validation comité de direction. Décision GO. Mandat signé.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">4</div>
+        <div>
+          <h4>Étape 4 — Spec fonctionnelle et technique (3 semaines)</h4>
+          <p>Spec détaillée : agent IA qui scanne les emails compta, identifie les factures impayées, classe par ancienneté, génère des relances personnalisées validées avant envoi (niveau 2 vérification). Stack : LLM de type <a href="../ressources.html#claude" class="tool-link">Claude</a> Sonnet via API + intégration ERP.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">5</div>
+        <div>
+          <h4>Étape 5 — Plan de développement (1 semaine)</h4>
+          <p>Roadmap 8 semaines, ressources : 1 prestataire IA-natif + 1 référent interne, budget 25&nbsp;K€ dev + 5&nbsp;K€ tests.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">6</div>
+        <div>
+          <h4>Étape 6 — Développement (8 semaines)</h4>
+          <p>Réalisation par le prestataire avec sprints hebdomadaires, démos intermédiaires.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">7</div>
+        <div>
+          <h4>Étape 7 — Tests et évaluation (3 semaines)</h4>
+          <p>Construction golden set de 40 emails types, mesure de précision sur identification factures (cible 95&nbsp;%), mesure qualité relances générées (cible LLM-as-judge &gt;0,85), tests utilisateurs avec équipe compta.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">8</div>
+        <div>
+          <h4>Étape 8 — Gate 2 et 3 (3 jours)</h4>
+          <p>Gate 2 : livrable conforme à spec, validé par chef de projet. Gate 3 : score golden set 96&nbsp;%, 0 hallucination critique détectée, mécanisme de vérification niveau 2 en place (chaque relance validée humainement avant envoi), human owner désigné (responsable compta). GO mise en service.</p>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">9</div>
+        <div>
+          <h4>Étape 9 — Mise en service et suivi (continu)</h4>
+          <p>Déploiement progressif (semaine 1 = 10&nbsp;% des clients, semaine 2 = 50&nbsp;%, semaine 4 = 100&nbsp;%). Suivi DSO mensuel. Revue à 3 mois.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <p>📊 <strong>Résultat attendu</strong> : DSO de 45 à 30 jours dans les 6 mois post-déploiement. Durée totale : ~22 semaines (5,5 mois). Budget total : ~32&nbsp;K€ initial + 6&nbsp;K€/an récurrent. Note : ce cas d'usage est illustratif — les durées et budgets sont indicatifs pour calibrer les ordres de grandeur.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">6</div>
+        <h2 class="module-section-title">Articulation avec les autres préalables et fiches DEP</h2>
+      </div>
+
+      <p>Ce préalable est la <strong>carte d'ensemble</strong>. Les autres préalables et fiches Déploiement sont les <strong>boîtes à outils</strong> détaillées de chaque étape.</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Étape du cycle</th>
+            <th>Préalable détaillé</th>
+            <th>Fiche Déploiement détaillée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Analyse besoin</td>
+            <td><a href="pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>, <a href="pr-02-preables-data-si.html" class="tool-link">Données &amp; SI</a></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>2. Cadrage</td>
+            <td><a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>3. Gate 1 GO/NO-GO</td>
+            <td><a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a> (si budget arbitré)</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>4. Spec</td>
+            <td>—</td>
+            <td><a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrage technique</a></td>
+          </tr>
+          <tr>
+            <td>5. Plan dev</td>
+            <td><a href="pr-07-build-vs-buy.html" class="tool-link">Build vs buy</a></td>
+            <td><a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrage en production</a>, <a href="../deploiement/dep-04-fine-tuning-pme.html" class="tool-link">Fine-tuning PME</a> (si pertinent)</td>
+          </tr>
+          <tr>
+            <td>6. Développement</td>
+            <td>—</td>
+            <td><a href="../deploiement/dep-02-rag-architecture-prod.html" class="tool-link">RAG en production</a>, <a href="../deploiement/dep-03-context-engineering-couts.html" class="tool-link">Context engineering</a>, <a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents en production</a></td>
+          </tr>
+          <tr>
+            <td>7. Tests</td>
+            <td>—</td>
+            <td><a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation continue</a></td>
+          </tr>
+          <tr>
+            <td>8. Gate 2 et 3</td>
+            <td><a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier les hallucinations</a></td>
+            <td><a href="../deploiement/dep-07-evaluation-qualite.html" class="tool-link">Évaluation qualité</a></td>
+          </tr>
+          <tr>
+            <td>9. Mise en service</td>
+            <td><a href="pr-05-securite-ia.html" class="tool-link">Sécurité IA</a>, <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier les hallucinations</a></td>
+            <td><a href="../deploiement/dep-05-agents-observabilite.html" class="tool-link">Agents &amp; observabilité</a>, <a href="../deploiement/dep-08-securite-agents-mcp.html" class="tool-link">Sécurité agents &amp; MCP</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Lecture</strong> : un dirigeant qui pilote un projet IA peut utiliser cette page comme <strong>table des matières opérationnelle</strong> et naviguer vers le préalable ou la fiche Déploiement correspondant à l'étape qu'il aborde.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Cross-links complets</strong> : tous les préalables existants (<a href="pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>, <a href="pr-02-preables-data-si.html" class="tool-link">Données &amp; SI</a>, <a href="pr-03-maturite-humaine-formation.html" class="tool-link">Maturité humaine</a>, <a href="pr-04-marche-ia-emploi.html" class="tool-link">Marché IA &amp; emploi</a>, <a href="pr-05-securite-ia.html" class="tool-link">Sécurité IA</a>, <a href="pr-06-qualite-code-ia.html" class="tool-link">Qualité du code IA</a>, <a href="pr-07-build-vs-buy.html" class="tool-link">Build vs buy</a>, <a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a>, <a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a>, <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier les hallucinations</a>) couvrent chaque dimension de la préparation d'un projet IA. Cette page les séquence dans le cycle de vie.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">7</div>
+        <h2 class="module-section-title">Plan d'action 30 jours</h2>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">1</div>
+        <div>
+          <h4>Jours 1-7 — Diagnostic existant</h4>
+          <ul>
+            <li>Identifier les projets IA actuellement en cours dans l'entreprise</li>
+            <li>Pour chacun, positionner sur les 9 étapes : où en est-on ?</li>
+            <li>Identifier les éventuelles étapes sautées ou gates non validées</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">2</div>
+        <div>
+          <h4>Jours 8-14 — Reprise structurée</h4>
+          <ul>
+            <li>Pour les projets en dérive (étape sautée ou gate non validée) : retour à l'étape manquée</li>
+            <li>Documenter les étapes déjà franchies dans le format livrable attendu</li>
+            <li>Mettre à jour le document de cadrage si nécessaire</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">3</div>
+        <div>
+          <h4>Jours 15-21 — Mise en place des gates</h4>
+          <ul>
+            <li>Pour les projets en cours qui n'ont pas eu de gate explicite, programmer la prochaine gate</li>
+            <li>Identifier le décisionnaire de chaque gate</li>
+            <li>Formaliser les critères de GO/NO-GO en amont</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">4</div>
+        <div>
+          <h4>Jours 22-30 — Routine projet</h4>
+          <ul>
+            <li>Intégrer le cycle de vie dans les routines de pilotage de l'entreprise (exemple : revue mensuelle des projets IA = revue de gates)</li>
+            <li>Programmer les revues à fréquence régulière</li>
+            <li>Communiquer le cycle de vie à l'équipe pour partage de référentiel commun</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="ressources">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">8</div>
+        <div class="module-section-title">
+          <div class="section-number">Section 8</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
+      </div>
+
+      <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources du Hub</a>.
+      </div>
+
+      <div class="resources-cat">
+        <h3>📰 Articles de fond</h3>
+        <ul>
+          <li>
+            McKinsey State of AI 2025
+            <span class="resources-meta">« 80&nbsp;% des échecs interviennent avant la première ligne de code » (déjà canonisé, cohérence avec <a href="pr-09-cadrer-projet-ia.html" class="tool-link">Cadrer un projet IA</a> et <a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrer un projet IA en production</a>).</span>
+          </li>
+          <li>
+            <a href="https://lelab.bpifrance.fr/" target="_blank" rel="noopener">Bpifrance Le Lab — Baromètre IA PME 2025</a>
+            <span class="resources-meta">Études cycles de projets IA en PME françaises.</span>
+          </li>
+          <li>
+            <a href="https://cloudsecurityalliance.org/research/working-groups/artificial-intelligence" target="_blank" rel="noopener">Cloud Security Alliance — AI Safety &amp; Security Guidelines</a>
+            <span class="resources-meta">Guidelines qualité projet IA.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>🎓 Tutoriels &amp; cas pratiques</h3>
+        <ul>
+          <li>
+            Template de matrice de suivi des 9 étapes
+            <span class="resources-meta">Tableau à adapter pour piloter votre projet IA selon le cycle de vie décrit.</span>
+          </li>
+          <li>
+            Cas d'usage type order-to-cash
+            <span class="resources-meta">Version détaillée du cas § 5 — à télécharger et adapter à votre contexte.</span>
+          </li>
+          <li>
+            Auto-diagnostic
+            <span class="resources-meta">À quelle étape se trouve mon projet IA ? Y a-t-il des étapes sautées ? (checklist 9 questions)</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>📚 Documentation officielle &amp; études</h3>
+        <ul>
+          <li>
+            <a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — Article 11 (Documentation technique) et Article 17 (Quality management system)</a>
+            <span class="resources-meta">Exigences de documentation tout au long du cycle de vie.</span>
+          </li>
+          <li>
+            <a href="https://www.nist.gov/artificial-intelligence" target="_blank" rel="noopener">NIST AI Risk Management Framework</a>
+            <span class="resources-meta">Cycle de vie projet IA et gestion des risques par phase.</span>
+          </li>
+          <li>
+            <a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL / HAS — Guide « Accompagner le bon usage des systèmes d'IA »</a>
+            <span class="resources-meta">10 fiches dédiées au cycle de vie (déjà cité dans modules existants).</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>👥 Contacts opérationnels</h3>
+        <ul>
+          <li>
+            <a href="https://www.bpifrance.fr/nos-actualites/diagnostic-data-ia-pour-pme" target="_blank" rel="noopener">Bpifrance</a>
+            <span class="resources-meta">Diagnostic Data IA — souvent étape 1-2 d'un cycle de vie projet IA (cohérence <a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a>).</span>
+          </li>
+          <li>
+            <a href="https://www.questforchange.eu" target="_blank" rel="noopener">Réseau QFC / QFB / Quai Alpha</a>
+            <span class="resources-meta">Accompagnement structurant tout au long du cycle.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Initiative ouverte · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
