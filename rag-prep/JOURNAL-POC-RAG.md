@@ -11,6 +11,38 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot Drer-ter — validation densification lead H2 pr-07) — Claude Code Desktop — ✅ q-030 RESTAURÉ, eval 4/4, Phase 1 q-030 clôturée
+
+**Contexte :** validation du Lot S2.5.0-ter (densification chirurgicale du lead de la H2 pr-07 « Obligations réglementaires », v3.11.2 → v3.11.3). Objectif : faire entrer le chunk dans le top-5 et q-030 → score=1. **Procédure** : le fix ter (`2262c64`) n'était PAS encore mergé sur main (origin/main `4aff929` post-PR #76 = pr-07 v3.11.2) — il vivait sur la branche `claude/execute-s25-lot-s2500-ter` (poussée). Branche Drer-ter dérivée de `2262c64` (= main + fix ter), base correcte. À signaler : merger `claude/execute-s25-lot-s2500-ter` sur main.
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale** : `files=15 chunks=195 new=1 updated=10 skipped=184 deleted=1`. **Conforme** : la densification a **renommé le titre H2** (« Obligations réglementaires IA pour un projet… » → « Obligations réglementaires **à anticiper** pour un projet… ») → le `chunk_id` (slug du titre) change → ancien id supprimé (`deleted=1`) + nouvel id (`new=1`) ; les 10 autres chunks pr-07 ré-hashés (bump version). pr-07 reste **11 chunks**, total stable **195**.
+- **Eval ciblée** (golden set Lot Drer réutilisé) : **4/4 score global** (q-002 ✅, q-030 ✅, q-051 ✅, q-052 ✅). Latence ~19,5 s/q (légèrement au-dessus de la bande 12-18). Exit code 1 attendu (critère 8/10 calibré 52q).
+- **Dump retrieval** q-030 top-15 + trajectoire 3 itérations.
+
+**Résultats par cible :**
+
+| Q | Cible | Score | Chunk cible | Rang | Sim cosine | Verdict |
+|---|---|---|---|---|---|---|
+| q-002 | cu-001 | **1** ✅ | « L'essentiel à retenir » | #1 | ~0,16 | sans régression |
+| q-030 | pr-07 | **1** ✅ | **« Obligations réglementaires à anticiper… » (densifié)** | **#3** | **0,3635** | **RESTAURÉ** — pr-07 ET vigilance-confidentialite cités |
+| q-051 | pr-08 | **1** ✅ | « Fiscalité IA 2026… » | #1 | 0,5700 | sans régression |
+| q-052 | pr-08 | **1** ✅ | « Méthode — empiler… » | #1 | 0,3738 | sans régression |
+
+**Trajectoire q-030 sur 3 itérations correctif (rang / sim du chunk pr-07 réglementaire) :**
+- Lot Drer (lead patch simple) : **#13 / 0,1858** → score 0
+- Lot Drer-bis (H2 dédiée) : **#6 / 0,3062** → score 0 (hors top-5 de 0,0144)
+- Lot Drer-ter (densification lead) : **#3 / 0,3635** → **score 1** ✅ (gain +0,0573 vs bis, franchit le seuil top-5 0,3206)
+
+**Conclusion :** le pattern empirique « 3 niveaux d'intervention retrieval » est **validé end-to-end** sur q-030 — (1) lead patch simple insuffisant face à une saturation par module concurrent, (2) H2 dédiée concurrente rapproche fortement mais peut rester sous le seuil, (3) densification chirurgicale du lead (répétition contrôlée du vocabulaire question canonique : titre verbatim « à anticiper », mode question + 4 ancrages, « obligations réglementaires » 3×, « projet IA » 5×, « RGPD/AI Act/conformité/2026 » 5× chacun) franchit le dernier cran. Bonus : vigilance-confidentialite (2e source attendue) désormais cité aussi (via wikilinks du chunk pr-07). **Sprint S2.5 Phase 1 q-030 entièrement clôturé** (Lot S2.5.0 + bis + ter validés). Signal vert pour Lot F.5 (production 8 modules vague 5 + RETOUR-SONDAGE-S2.5).
+
+**Décisions structurantes prises :** aucune côté Desktop (exécution + validation). Recommandation : inscrire le pattern « 3 niveaux d'intervention retrieval » en SPEC v1.9 (cf. STATUS Cowork).
+
+**Coût API (Lot Drer-ter) :** **0,1129 $** (4 générations Sonnet + 11 chunks pr-07 ré-embeddés + 5 embeddings requête), cible ≤ 0,12 $ ✅. Cumul S1→S2.5 Drer-ter ~5,41 $.
+
+**Reste à faire :** (1) merger `claude/execute-s25-lot-s2500-ter` sur main (fix pr-07 v3.11.3) — la PR Drer-ter le porte ; (2) Lot F.5 production vague 5. q-030 ne nécessite **plus** d'itération. Artefacts sur `claude/execute-s25-lot-drer-ter-rerun-q030`, PR à ouvrir.
+
 ### 2026-05-22 (S2.5 Lot S2.5.0-ter livré) — Cowork Hub IA Plateforme — Densification lead H2 pr-07 « Obligations réglementaires » (+0,0144 sim attendu)
 
 **Contexte :** Lot Drer-bis Desktop a confirmé le pattern « H2 dédiée concurrente » du Lot S2.5.0-bis fonctionne empiriquement : chunk pr-07 « Obligations réglementaires IA » passé de rang #13 sim 0,1858 → rang #6 sim 0,3062 (+0,1204). Mais échoue d'un seul cran (manque 0,0144 sim pour entrer dans top-5 à 0,3206). Stratégie Lot S2.5.0-ter : **densification chirurgicale du lead** pour gagner les ~0,015 sim restants sans toucher au reste du module ni aux chunks pr-08.
