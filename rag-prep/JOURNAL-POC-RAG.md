@@ -11,6 +11,41 @@
 
 ## Entrées
 
+<<<<<<< Updated upstream
+=======
+### 2026-05-22 (S2.5 Lot F.5c livré) — Cowork Hub IA Plateforme — Production DEP-05 + PR-05 (sécurité technique + stratégique)
+
+**Contexte :** Phase 2 S2.5 — F.5a et F.5b mergés sur main (DEP-01 + DEP-07 + PR-01 + PR-04 + SPEC v1.9 + signal v3.12). F.5c traite les 2 modules sécurité IA en parallèle (sécurité technique opérationnelle DEP-05 + sécurité stratégique PR-05). Application stricte SPEC v1.9 (pattern 3 niveaux retrieval + AP-7 lead scope) + RETOUR-SONDAGE-S2.5 §4 + §8.
+
+**Actions menées :**
+
+- **Lot F.5c — Production DEP-05 + PR-05** (2 modules vague 5 from scratch, application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5) :
+  - **`dep-05.md` v3.11.0** (~270 lignes / ~3000 mots, module le plus dense vague 5) « Agents en production : observabilité et garde-fous ». Architecture observabilité 5 layers (logs / traces / métriques / événements / prompts-réponses). Panorama 5 outils LLMOps (LangSmith / Phoenix Arize / Helicone / Comet Opik / Langfuse). **§8 — 4 patterns industriels production 2026** (9-layer techNmak / gates TOML wernerk_au / Code Execution MCP Anthropic / Agent Skills Anthropic). **§8.5 failure receipt et ownership** v3.10 (4 éléments : inputs reçus / actions entreprises / vérification résultats / propriétaire clair — pattern anti-overclaimed completion). **§8.5bis Effective Harness pour agents long-running** v3.10 (pattern two-agent harness Anthropic Engineering mars 2026 : Initializer agent + Coding agent, mémoire externalisée en artefacts versionnés). Distinction nette avec Garry Tan Fat Skills / Thin Harness ([[cu-027]] §1bis.3) préservée. KPI canoniques (containment rate / escalation accuracy / cost per interaction). Distinction DevOps/MLOps/LLMOps. Distinction nette eval ([[dep-07]] avant déploiement) vs observabilité (DEP-05 après).
+  - **`pr-05.md` v3.11.0** (~260 lignes / ~2700 mots) « Sécurité IA — cadrage stratégique pour PME ». Citation McKinsey textuelle « 2026 : la cybersécurité agentique devient un vecteur de risque distinct du LLM classique ». **RAI maturité moyenne 2026 : 2,3/5** (vs 2,0 en 2025, ~1/3 des organisations ≥ 3, 2/3 à risque). **NIST CAISI 6 thèmes prioritaires** (agent identity & authentication / auditability & non-repudiation / interoperability + 3 autres à compléter selon HTML). **AI Agent Interoperability Profile** prévu Q4 2026. **Encart 362 incidents 2025** symétrique avec [[dep-08]] (formulation textuelle similaire, angles distincts maintenus : PR-05 stratégique vs DEP-08 technique). **PAS de cas-école PME nommé** (cohérent avec CU-020, CU-024, DEP-08). **Articulation des 4 modules sécurité IA** : PR-05 (stratégique) + DEP-05 (technique observabilité) + DEP-08 (technique MCP) + CU-026 (gouvernance managériale). 4 questions sécurité stratégique à poser ex-ante en cadrage projet.
+  - Application pattern Lot D-ter SPEC v1.9 dès la production initiale : leads des H2 « L'essentiel à retenir » différenciés (DEP-05 = sécurité technique runtime / observabilité opérationnelle ; PR-05 = sécurité IA cadrage stratégique / RAI / NIST CAISI). AP-7 strict appliqué — pas de saturation croisée attendue entre les 2 modules.
+
+- **Whitelist v2.3 → v2.4** : `dep-05` et `pr-05` retirés.
+
+**Métriques Lot F.5c :**
+- 2 nouveaux fichiers MD (~5700 mots cumulés DEP-05 + PR-05)
+- Whitelist v2.3 → v2.4 (2 codes retirés)
+- Coût : **0,00 $** (Cowork pur éditorial)
+
+**Décisions structurantes :**
+- **Pattern « 4 modules sécurité IA complémentaires »** documenté empiriquement : PR-05 + DEP-05 + DEP-08 + CU-026. Aucune duplication structurelle, 4 angles distincts (stratégique / technique runtime / technique infrastructure / gouvernance managériale).
+- **Distinction Garry Tan Fat Skills / Thin Harness (CU-027) vs Anthropic two-agent harness (DEP-05 §8.5bis)** préservée textuellement. 2 patterns distincts à ne pas fusionner.
+- **Chiffre 362 incidents Stanford** canonisé une seule fois (chiffres-macro-2026.md via I-D-007), wikilinké depuis PR-05 + DEP-08 + DEP-05. **Pas de brique transverse dédiée** (critère D-025 non satisfait : 3 wikilinks ne valent pas extraction si pas de recouvrement quasi mot-pour-mot).
+
+**Reste à faire Phase 2 S2.5** :
+- Lot F.5d : CU-020 + CU-024 (rectifications PA = Plateforme Agréée)
+- Lots G/H/I/J : whitelist v3 + cartographie v3 + golden set vague 5 + eval + RAPPORT-CC-S2.5 + PR finale
+
+**Blockers :** aucun.
+
+---
+
+
+>>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 SPEC v1.9 + Lots F.5a + F.5b livrés + signal v3.12 acté) — Cowork Hub IA Plateforme — Pattern 3 niveaux retrieval + production DEP-01/07/PR-01/PR-04 + anticipation vague 6
 
 **Signal descendant v3.12 acté en parallèle** : Cowork Hub IA a livré l'itération v3.12 HTML (PR #79 mergée) avec **3 nouveaux préalables** (PR-09 Cadrer projet IA stratégique amont / PR-10 Vérifier et limiter hallucinations / PR-11 Cycle de vie projet IA — module pivot). Aucun nouveau chiffre macro (tous déjà canonisés via I-D-003+005+006+007). **Aucun nouvel item descendant à ouvrir**. 3 codes ajoutés à la whitelist pour vague 6 (S2.6 dédié). Application D-026 fortement recommandée sur PR-10 et PR-11 (modules denses). Bonne nouvelle : mon DEP-01 produit en F.5a mentionnait déjà « futur PR-09 v3.12 » comme renvoi pour distinguer arbre décision technique vs cadrage projet — cohérence confirmée.
