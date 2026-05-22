@@ -1,0 +1,69 @@
+# Golden set ciblé — S2.5 Lot Drer-S2.5.x (validation densification leads cu-027 + dep-07)
+#
+# 4 questions extraites du golden set complet (rag/eval/questions.yaml) :
+#   - q-036 (cu-027) : cible principale — chunk §7 outils densifié doit entrer top-5
+#   - q-056 (dep-07) : cible principale — chunk §eval first densifié doit entrer top-5
+#   - q-002 (cu-001) : sanity non-régression S2.4
+#   - q-038 (dep-08) : sanity non-régression S2.4
+# Extraction à l'identique (D-022 — questions.yaml maintenu par Cowork).
+
+- id: q-036
+  question: Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?
+  expected_sources:
+  - cu-027
+  expected_concepts:
+  - Windsurf
+  - Cursor
+  - - Replit
+    - Replit Agent
+  - - Lovable
+    - Bolt.new
+    - v0
+  - Claude Code
+  - - maturité
+    - production
+  unit: cu-027
+- id: q-056
+  question: Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?
+  expected_sources:
+  - dep-07
+  expected_concepts:
+  - - eval first
+    - Anthropic
+  - - Demystifying evals
+    - Demystifying
+  - - golden set
+    - baseline
+  - - build the eval before
+    - avant de coder
+  unit: dep-07
+- id: q-002
+  question: Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?
+  expected_sources:
+  - cu-001
+  expected_concepts:
+  - source
+  - veille
+  unit: cu-001
+- id: q-038
+  question: Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?
+  expected_sources:
+  - dep-08
+  expected_concepts:
+  - AgentShield
+  - - Snyk
+    - Semgrep
+  - - 1 282
+    - '1282'
+    - 1 282 tests
+    - milliers de tests
+  - - 102 règles
+    - '102'
+    - centaine de règles
+  - - --opus
+    - mode --opus
+    - mode Opus
+  - - audit
+    - logs
+    - audit hebdo
+  unit: dep-08

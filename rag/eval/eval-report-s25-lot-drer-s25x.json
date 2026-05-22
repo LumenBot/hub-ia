@@ -1,0 +1,216 @@
+[
+  {
+    "id": "q-036",
+    "question": "Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "cited_codes": [
+      "cu-027",
+      "dep-08",
+      "pr-05"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Hiérarchisation des 7 outils de développement IA-assisté par maturité production en 2026  ### Vue d'ensemble : 3 catégories, pas 7 outils identiques  Les 7 outils se répartissent en **trois catégories de maturité croissante** — une disti"
+  },
+  {
+    "id": "q-056",
+    "question": "Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?",
+    "expected_sources": [
+      "dep-07"
+    ],
+    "expected_concepts": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "cited_codes": [
+      "dep-07",
+      "dep-01"
+    ],
+    "sources_match": [
+      "dep-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## L'heuristique « eval first » d'Anthropic pour les projets IA en 2026  L'heuristique « eval first » a été formalisée par **Anthropic Engineering en mai 2026** dans une publication intitulée *« Demystifying evals for AI agents »* [[dep-07]"
+  },
+  {
+    "id": "q-002",
+    "question": "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "source",
+      "veille"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "glossaire",
+      "pr-04",
+      "chiffres-macro-2026",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "source",
+      "veille"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sources fiables pour suivre l'actualité IA générative en 2026  Pour un dirigeant de PME/ETI qui souhaite faire de la **veille sur l'IA générative**, le Hub IA identifie trois outils complémentaires, chacun répondant à un usage distinct ["
+  },
+  {
+    "id": "q-038",
+    "question": "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "cited_codes": [
+      "dep-08",
+      "dep-05",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sécuriser des agents IA en production : outils et patterns de mitigation  ### L'outillage composite de référence  La sécurité des agents IA en 2026 repose sur un **trio d'outils complémentaires**, chacun couvrant une couche différente [["
+  }
+]

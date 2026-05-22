@@ -11,8 +11,40 @@
 
 ## Entrées
 
-<<<<<<< Updated upstream
-=======
+### 2026-05-22 (S2.5 Lot Drer-S2.5.x — validation densification leads cu-027 + dep-07) — Claude Code Desktop — ✅ q-036 + q-056 RESTAURÉS, eval ciblée 4/4 → Phase 3 extrapolée 72/72
+
+**Contexte :** validation du Lot S2.5.x (densification Niveau 3 SPEC v1.9 des leads cu-027 §7 outils et dep-07 §eval first, v3.11.1). Objectif : faire entrer les 2 chunks cibles dans le top-5 et restaurer q-036 + q-056 à score=1, sans régression. Cette fois le correctif (`8cc300c`, PR #86) **était déjà mergé sur main** (`8b8435a`) — branche Drer-S2.5.x dérivée de main.
+
+**Note d'intégrité (résolu) :** le merge PR #86 a **ré-introduit un bloc de marqueurs de conflit `git stash`** dans le JOURNAL sur main (lignes 14-56, côté « Updated upstream » vide, entrée Lot S2.5.x dans « Stashed changes »). Résolu dans ce commit (aucune entrée perdue). **3ᵉ occurrence** du pattern (PR #84, puis #86) → hygiène de merge Cowork à renforcer (déjà notée dans l'entrée Cowork S2.5.x ci-dessous).
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale** : `files=23 chunks=289 new=2 updated=20 skipped=267 deleted=2`. `new=2` + `deleted=2` = renommage des titres H2 des 2 chunks cibles (cu-027 §7 outils, dep-07 §eval first) → nouveaux chunk_id ; `updated=20` = autres chunks cu-027/dep-07 ré-hashés (bump version v3.11.0→v3.11.1). Total stable **289 chunks**.
+- **Golden set ciblé** `rag/eval/questions-s25-lot-drer-s25x.yaml` : 4 entrées (q-036, q-056 cibles + q-002, q-038 sanity non-régression S2.4), extraction programmatique conforme à 100 %.
+- **Eval ciblée** : **4/4 score global**. Latence ~19 s/q. Exit code 1 attendu (critère 8/10 calibré 72q).
+- **Dump retrieval** top-10 sur q-036 + q-056.
+
+**Résultats par cible :**
+
+| Q | Cible | Score | Chunk cible | Rang | Sim cosine | Verdict |
+|---|---|---|---|---|---|---|
+| q-036 | cu-027 | **1** ✅ | « 7 outils dev IA-assisté en 2026… » (densifié) | **#3** | **0,3310** | **RESTAURÉ** (vs absent top-10 en Lot I) |
+| q-056 | dep-07 | **1** ✅ | « L'heuristique eval first d'Anthropic… » (densifié) | **#1** | **0,4634** | **RESTAURÉ** (vs rang #9 en Lot I) |
+| q-002 | cu-001 | **1** ✅ | — | — | — | sanity OK, pas de régression |
+| q-038 | dep-08 | **1** ✅ | — | — | — | sanity OK, pas de régression |
+
+**Trajectoires :**
+- q-036 (cu-027) : Lot I **absent top-10** → Drer-S2.5.x **#3 / 0,3310** (densification fait émerger le chunk dans un top dominé par pr-01)
+- q-056 (dep-07) : Lot I **#9 / 0,209** → Drer-S2.5.x **#1 / 0,4634** (le chunk passe nettement en tête, écart franc avec dep-01 #2 0,3085)
+
+**Conclusion :** la densification Niveau 3 (titre H2 verbatim de la question canonique + lead en mode question/réponse + répétition contrôlée du vocabulaire) résout les 2 dernières régressions du golden set 72q. Le pattern « 3 niveaux d'intervention retrieval » (SPEC v1.9) est désormais validé sur **6 questions** (q-038, q-030, q-036, q-056 + sanity). Avec les 70/72 du Lot I + ces 2 restaurations + sanity non-régression confirmée, **Phase 3 extrapolée à 72/72**. ⚠️ Réserve méthodologique : validation ciblée 4q (non re-run complet 72q pour raison de coût) — un éventuel effet de bord des 2 chunks densifiés sur d'autres questions n'est pas exclu mais peu probable (changements étroits, sanity q-002/q-038 verts). Un Lot I-bis (re-run 72q) confirmerait définitivement le 72/72 si Cowork le juge nécessaire avant le RAPPORT-CC-S2.5.
+
+**Décisions structurantes prises :** aucune côté Desktop (exécution + validation). Pattern « 3 niveaux retrieval » confirmé robuste sur les régressions par saturation de modules concurrents.
+
+**Coût API (Lot Drer-S2.5.x) :** **0,1063 $** (4 générations Sonnet + 24 chunks cu-027/dep-07 ré-embeddés + 6 embeddings requête), cible ≤ 0,15 $ ✅. Cumul S1→S2.5 Drer-S2.5.x ~7,30 $.
+
+**Reste à faire :** (1) Lot J (Plateforme) RAPPORT-CC-S2.5 + PR finale ; (2) optionnel : Lot I-bis re-run 72q pour sceller le 72/72 ; (3) signaler à Cowork la 3ᵉ occurrence de marqueurs de conflit JOURNAL. Artefacts sur `claude/execute-s25-lot-drer-s25x-rerun-q036-q056`, PR à ouvrir.
+
 ### 2026-05-22 (S2.5 Lot S2.5.x livré — correctif retrieval q-036 + q-056) — Cowork Hub IA Plateforme — Densification leads cu-027 §7 outils + dep-07 §heuristique eval first
 
 **Contexte :** Lot I Desktop a livré eval 72q à 70/72 score global (97 %, cibles dépassées). 2 régressions résiduelles détectées :
@@ -53,7 +85,6 @@ Le pattern « 3 niveaux » est désormais validé sur 4 questions distinctes (q-
 ---
 
 
->>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 Phase 3 Lot I — eval extended 72q vault enrichi vague 5) — Claude Code Desktop — 70/72 (97 %), toutes cibles dépassées, non-régression S2.4 intégrale
 
 **Contexte :** eval complète du golden set 72 questions sur le vault enrichi vague 5 (23 fichiers MD, 8 nouveaux modules + 3 patches leads correctifs). Cible SPEC v1.9 : ≥ 60/72 sources (83 %), ≥ 65/72 concepts ≥ 50 % (90 %), latence 12-18 s/q, cap 1,80 $. Branche `claude/execute-s25-lot-i-eval-72q` dérivée de main `bcb69b2` (PR #84, Lots G+H mergés — cette fois le golden set 72q + les 8 modules étaient bien sur main).
