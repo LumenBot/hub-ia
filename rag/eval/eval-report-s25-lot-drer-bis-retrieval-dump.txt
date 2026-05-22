@@ -1,0 +1,22 @@
+q-030 — top-15 (post H2 dédiée pr-07 v3.11.2) :
+  # 1 [pr-08                 ] sim=0.4028  Deux deadlines à ne pas manquer en juin 2026
+  # 2 [pr-08                 ] sim=0.3830  Fiscalité IA 2026 — CIR, CII, nouveau CII-IA, JEI,
+  # 3 [pr-08                 ] sim=0.3516  L'essentiel à retenir
+  # 4 [pr-08                 ] sim=0.3512  France 2030 — Plan « Osez l'IA » et ses dispositif
+  # 5 [pr-08                 ] sim=0.3206  Pourquoi financer en 2026 change tout — 3 ruptures
+  # 6 [pr-07                 ] sim=0.3062  Obligations réglementaires IA pour un projet en PM <<<<< NOUVEAU CHUNK H2 DÉDIÉ
+  # 7 [pr-08                 ] sim=0.3002  Financements Bpifrance — 4 leviers (diagnostics, p
+  # 8 [pr-08                 ] sim=0.2956  À qui ce préalable s'adresse
+  # 9 [pr-08                 ] sim=0.2858  Plan d'action 30 jours
+  #10 [pr-08                 ] sim=0.2781  Pour aller plus loin
+  #11 [dep-08                ] sim=0.2315  SBOM IA et supply chain — sécuriser la chaîne de d
+  #12 [chiffres-macro-2026   ] sim=0.2161  55 % — TPE-PME et IA générative (Bpifrance fin 202
+  #13 [pr-07                 ] sim=0.1845  L'essentiel à retenir <== PR-07
+  #14 [chiffres-macro-2026   ] sim=0.1811  240 M€ — Bpifrance capital développement IA 2025 (
+  #15 [pr-07                 ] sim=0.1701  Ce qui a changé en 2025-2026 — trois tendances str <== PR-07
+
+Répartition codes top-40 : {'pr-08': 9, 'pr-07': 4, 'dep-08': 1, 'chiffres-macro-2026': 21, 'cu-026': 2, 'vigilance-confidentialite': 2, 'cu-001': 1}
+
+  cible [pr-07                     ] -> 1er hit rang #6  sim=0.3062  Obligations réglementaires IA pour un projet en PM
+  cible [vigilance-confidentialite ] -> 1er hit rang #24  sim=0.0988  La discipline en 4 règles
+  >>> nouveau chunk pr-07 Obligations réglementaires : rang #6 sim=0.3062

@@ -11,6 +11,68 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot Drer-bis — validation correctif structurel q-030) — Claude Code Desktop — H2 dédiée efficace mais q-030 raté d'1 rang (#6 hors top-5)
+
+**Contexte :** validation du Lot S2.5.0-bis (nouvelle H2 dédiée pr-07 « Obligations réglementaires IA », v3.11.1 → v3.11.2). Objectif : q-030 → score=1 sans régression sur q-002/q-051/q-052. **Anomalie de procédure** : le brief demandait `git checkout main`, mais le correctif S2.5.0-bis (`dfcd459`) n'était **PAS encore mergé sur main** (origin/main = pr-07 v3.11.1) — il vivait sur la branche `claude/execute-s25-lot-s2500-bis` (poussée). Branche Drer-bis dérivée de `dfcd459` (= main `5e6e9f5` post-merge PR #75 + fix pr-07), donc base correcte avec la H2 dédiée. À signaler : merger `claude/execute-s25-lot-s2500-bis` sur main.
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale** (`python -m rag.code.ingestion.ingest`) : `files=15 chunks=195 new=1 updated=10 skipped=184 deleted=0`. **Conforme** : `new=1` = nouveau chunk H2 « Obligations réglementaires IA » de pr-07 ; `updated=10` = 10 chunks pr-07 existants ré-hashés (bump version v3.11.1→v3.11.2 propagé au `[METADATA]`). pr-07 passe de 10 → **11 chunks** ; total 194 → 195.
+- **Eval ciblée** (golden set Lot Drer réutilisé) : **3/4** (q-002 ✅, q-030 ❌, q-051 ✅, q-052 ✅). Latence ~17,8 s/q. Exit code 1 attendu (critère 8/10 calibré 52q).
+- **Dump retrieval** q-030 top-15 + profond k=40.
+
+**Résultats par cible :**
+
+| Q | Cible | Score | Chunk cible | Rang | Sim cosine | Verdict |
+|---|---|---|---|---|---|---|
+| q-002 | cu-001 | **1** ✅ | « L'essentiel à retenir » | #1 | ~0,16 | pas de régression |
+| q-030 | pr-07 | **0** ❌ | **« Obligations réglementaires IA » (NOUVEAU)** | **#6** | **0,3062** | **JUSTE hors top-5** (k=5) |
+| q-051 | pr-08 | **1** ✅ | « Fiscalité IA 2026… » | #1 | 0,5700 | pas de régression |
+| q-052 | pr-08 | **1** ✅ | « Méthode — empiler… » | #1 | 0,3738 | pas de régression |
+
+**Diagnostic q-030 (signalement — escalade Lot S2.5.0-ter) :** le pattern « H2 dédiée concurrente » **FONCTIONNE** — le nouveau chunk pr-07 bondit de **#13 (sim 0,1858) → #6 (sim 0,3062)**, désormais compétitif avec pr-08. **Mais il tombe à 1 rang du seuil top-5** : les 5 premiers sont tous pr-08 (sim 0,4028 / 0,3830 / 0,3516 / 0,3512 / **0,3206**), le nouveau pr-07 #6 à **0,3062** n'est qu'à **0,0144** sous le #5 pr-08. L'eval k=5 ne le voit pas → le générateur ne reçoit que du pr-08 et répond « contexte exclusivement financement ». vigilance-confidentialite toujours loin (#24, sim 0,0988). **Le correctif a réduit l'écart de 0,12 à 0,014 — il manque un dernier coup de pouce.**
+
+**Recommandations (Lot S2.5.0-ter, hors périmètre Desktop / D-022) — par robustesse décroissante :**
+- **(a) Densifier le lead de la nouvelle H2 pr-07** avec encore plus de vocabulaire canonique q-030 (« obligations réglementaires », « anticiper », « projet IA PME 2026 ») pour pousser sim 0,3062 → > 0,3206 (gain requis : +0,015). Le plus surgical.
+- **(b) Re-scoper 1-2 chunks pr-08 sur-capturants** (« Deux deadlines… juin 2026 » 0,4028, « L'essentiel à retenir » 0,3516) pour faire descendre le #5 pr-08 sous pr-07 — réduire le framing « projet IA PME 2026 » dans leurs titres/leads.
+- **(c) Enrichir le lead vigilance-confidentialite** (rappel : q-030 = score 1 dès que pr-07 **OU** vigilance-confidentialite entre dans le top-5).
+- **(d) top_k 5 → 6** amènerait pr-07 #6 dans le contexte, mais nécessite une modif code (DEFAULT_K, hors périmètre) et le générateur resterait face à 5 chunks pr-08 → fix retrieval (a/b) plus fiable.
+
+**Décisions structurantes prises :** aucune (exécution + diagnostic ; arbitrage renvoyé à Cowork/Blaise). Pattern « H2 dédiée » validé comme **efficace mais à calibrer** (lead à densifier ou concurrence pr-08 à réduire).
+
+**Coût API (Lot Drer-bis) :** **0,1017 $** (4 générations Sonnet 0,1015 $ + 11 chunks pr-07 ré-embeddés 0,0001 $ + 5 embeddings requête ~0 $), cible ≤ 0,15 $ ✅. Cumul S1→S2.5 Drer-bis ~5,30 $.
+
+**Reste à faire :** (1) merger `claude/execute-s25-lot-s2500-bis` sur main (fix pr-07 pas encore sur main) ; (2) cadrer Lot S2.5.0-ter pour q-030 (pistes a/b/c ci-dessus) ; (3) re-rerun ciblé q-030 après ter. Artefacts sur `claude/execute-s25-lot-drer-bis-rerun-q030`, PR à ouvrir.
+
+### 2026-05-22 (S2.5 Lot S2.5.0-bis livré) — Cowork Hub IA Plateforme — Nouvelle H2 dédiée pr-07 « Obligations réglementaires IA »
+
+**Contexte :** Lot Drer Desktop a confirmé q-002 ✅ restauré mais q-030 ❌ toujours score=0. Diagnostic : le patch lead pr-07 du Lot S2.5.0 ne suffit pas car les chunks NON-lead de pr-08 (Fiscalité, Deadlines, France 2030) saturent le top-10 entier sur q-030 (10/10 chunks pr-08, sim 0,40 → 0,24). pr-07 lead enrichi reste rang #13 sim 0,1858. Arbitrage Blaise : **Option (a) — créer une H2 dédiée dans pr-07 sur obligations réglementaires**, chunk concurrent en propre.
+
+**Actions menées :**
+
+- **Patch `rag/content/prealables/pr-07.md`** : ajout d'une section H2 dédiée « **Obligations réglementaires IA pour un projet en PME 2026 (RGPD, AI Act, conformité)** » insérée entre §« Sept écueils à éviter » et §« Pour aller plus loin ». Lead bridge enrichi avec vocabulaire question canonique q-030 dès la première phrase en gras (« Obligations réglementaires à anticiper pour un projet IA en PME en 2026 : RGPD article 22, AI Act article 14 applicable au 2 août 2026, conformité sectorielle, jurisprudence Moffatt v. Air Canada... »).
+- **Contenu nouveau chunk** : 540 mots / ~700 tokens (cible 400-700 SPEC §R3 OK). 4 ancrages réglementaires structurants : (1) RGPD article 22 — décision automatisée ; (2) AI Act article 14 — supervision humaine effective applicable 2 août 2026 ; (3) Jurisprudence Moffatt v. Air Canada — l'entreprise responsable de son chatbot ; (4) Conformité sectorielle (HAS-CNIL santé, ACPR finance, AI Act haut risque défense). Articulation explicite avec cu-026 (cadre AI Act détaillé), cu-020 (conformité RGPD/AI Act), vigilance-confidentialite (données sensibles).
+- **Bump `pr-07.md` v3.11.1 → v3.11.2**
+- **Pattern Lot D-ter strictement appliqué** (chunking H2 autonome + lead bridge enrichi) + AP-7 SPEC v1.8 (lead reste dans scope strict « obligations réglementaires + build vs buy », pas généralités projet IA).
+
+**Décisions structurantes prises :**
+
+- **Pattern « régression post-production via lead bridge insuffisant »** : validé empiriquement — le patch lead seul (Lot S2.5.0) ne suffit pas quand le module concurrent (pr-08) sature le top-10 entier. Il faut créer un **chunk concurrent en propre** (nouvelle H2) avec lead bridge fort. À reconduire systématiquement pour ce type de saturation.
+- **Cas-école pédagogique S2.4 + S2.5.0 + S2.5.0-bis** à intégrer au RAPPORT-CC-S2.5 §6 comme précision SPEC v1.9 : « pour résoudre une saturation top-5 d'un module concurrent, le patch lead seul du module dominé est insuffisant si le module dominant sature plusieurs chunks ; créer une H2 dédiée concurrente dans le module dominé. »
+
+**Métriques Lot S2.5.0-bis :**
+- 1 fichier MD patché (`pr-07.md`)
+- 1 nouvelle section H2 (540 mots / ~700 tokens)
+- Coût : **0,00 $** (Cowork pur éditorial, exception D-022 ciblée éditoriale)
+
+**Reste à faire :**
+- Re-rerun Lot Drer bis Desktop sur q-030 + q-002 + q-051 + q-052 (~0,12 $) pour valider que la nouvelle H2 pr-07 a effectivement restauré q-030 sans régression sur les 3 autres
+- Si succès : intégration du RETOUR-SONDAGE-COWORK-HUB-IA-S2.5 reçu (2 rectifications critiques CU-024 PA = Plateforme Agréée ≠ Portail public, DEP-01 6 étapes = arbre de décision technique ≠ cadrage projet) + production Lot F.5 8 modules vague 5
+
+**Blockers :** aucun. Le RETOUR-SONDAGE est arrivé en parallèle (signalement Cowork Hub IA), prêt pour intégration Lot F.5.
+
+---
+
 ### 2026-05-22 (S2.5 Lot Drer — rerun eval ciblé post-correctif retrieval) — Claude Code Desktop — q-002 ✅ restauré, q-030 ❌ patch insuffisant
 
 **Contexte :** rerun eval ciblé 4 questions pour vérifier l'effet des 3 patches leads du Lot S2.5.0 (mergés sur main via PR #74, commit `903e068`) sur les 2 régressions S2.3 détectées en S2.4 Lot I (q-002 cu-001 rang #8, q-030 top-9 saturé par pr-08) — sans régression sur les 2 questions canoniques de pr-08 (q-051, q-052). Branche `claude/execute-s25-lot-drer-rerun-cibles` dérivée de main post-merge PR #74.
