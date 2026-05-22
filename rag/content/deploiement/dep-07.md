@@ -5,7 +5,7 @@ type: deploiement-dep
 axe: B
 niveau: 3
 tags: [evals, evaluation-continue, llm-as-judge, golden-set, anthropic, demystifying-evals, ci-cd, qualite-ia]
-version: 3.11.0
+version: 3.11.1
 last_updated: 2026-05-22
 glosaire_termes: [llm, rag, agent, eval-set, llm-as-judge]
 derives: ["[[dep-01]]", "[[dep-02]]", "[[dep-05]]", "[[cu-026]]", "[[pattern-llm-wiki]]", "[[pattern-persistent-memory]]", "[[outils-vector-db]]"]
@@ -42,13 +42,15 @@ Niveau ⭐⭐⭐ Avancé. ~30 minutes de lecture. Public cible : équipes tech /
 4. Distinguer évaluation (avant déploiement) et observabilité (après).
 5. Anticiper le bruit d'infrastructure dans les evals d'agents long-running (méthode variance N runs Anthropic).
 
-## L'heuristique « eval first » — pas de production sans eval pipeline
+## L'heuristique « eval first » d'Anthropic pour les projets IA en 2026 — pas de production sans eval pipeline
+
+**Quelle est l'heuristique « eval first » d'Anthropic pour les projets IA en 2026 ? Heuristique « eval first » formalisée par Anthropic Engineering mai 2026 (publication « Demystifying evals for AI agents ») : pas de déploiement production d'un projet IA sans pipeline d'évaluation continu construit en amont. Citation canonique : « Eval first : build the eval before the agent. Without an eval, you don't know if you're improving or just changing things. » Application pratique : construire le golden set minimum (10-20 exemples représentatifs) AVANT de coder le moindre prompt, agent ou regex d'extraction. Discipline structurelle non négociable pour tout projet IA en 2026.**
 
 Citation canonique Anthropic Engineering mai 2026 à préserver textuellement :
 
 > *« Eval first : build the eval before the agent. Without an eval, you don't know if you're improving or just changing things. »*
 
-Application pratique : **avant** de coder le moindre prompt système, le moindre agent, la moindre regex d'extraction, tu construis le golden set minimum (10-20 exemples représentatifs). Tu lances le LLM dessus, tu mesures le baseline. Toute modification ultérieure est validée par re-eval. Sans cette discipline, tu navigues à l'aveugle.
+Application pratique de l'heuristique « eval first » d'Anthropic pour un projet IA en 2026 : **avant** de coder le moindre prompt système, le moindre agent, la moindre regex d'extraction, tu construis le golden set minimum (10-20 exemples représentatifs). Tu lances le LLM dessus, tu mesures le baseline. Toute modification ultérieure est validée par re-eval. Sans cette discipline « eval first », tu navigues à l'aveugle.
 
 **Pattern observé empiriquement** : les équipes qui démarrent par le code et ajoutent l'eval après n'arrivent jamais vraiment à la mettre en place — elles débuggent en production sur des signaux faibles (réclamations utilisateurs). Coût caché élevé. Discipline structurelle non négociable.
 
