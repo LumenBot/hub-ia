@@ -44,12 +44,15 @@
 
 | Code | Titre métier | Vague cible |
 |---|---|---|
-| `pr-01` | Maturité organisationnelle | 3-4 |
+| ~~`pr-01`~~ | ~~Maturité organisationnelle~~ | ✅ **Produit S2.5 Lot F.5b — 22 mai 2026** (typologie 4 profils Bpifrance + high performers McKinsey + grille 4 paliers + auto-éval 10 questions) |
 | `pr-02` | Préalables data & SI | 3-4 |
 | `pr-03` | Maturité humaine & formation | 3-4 |
-| `pr-04` | Marché IA & emploi | 3-4 |
+| ~~`pr-04`~~ | ~~Marché IA & emploi~~ | ✅ **Produit S2.5 Lot F.5b — 22 mai 2026** (4 séries chiffres §2bis Bpifrance/Microsoft/McKinsey/Stanford + Transformation Paradox section 5 + prime salariale + spécificité française) |
 | `pr-05` | Sécurité IA | 3-4 |
 | `pr-06` | Qualité du code IA | 3-4 |
+| `pr-09` | **Cadrer un projet IA avant de choisir un outil** (nouveau v3.12, distinct de DEP-01 arbre décision technique) | **6** |
+| `pr-10` | **Vérifier et limiter les hallucinations IA** (nouveau v3.12, discipline managériale, articulation DEP-05 §8.5 + DEP-07 + vigilance-hallucinations) | **6** |
+| `pr-11` | **Cycle de vie d'un projet IA** (nouveau v3.12, module pivot / carte de navigation très dense, cross-links denses vers tous PR + DEP) | **6** |
 | ~~`pr-08`~~ | ~~Financer son projet IA en 2026 (nouveau préalable v3.10)~~ | ✅ **Produit S2.4 Lot F.4 — 13 mai 2026** (RULES 7→8 préalables, post-RETOUR-SONDAGE-S2.4 §1) |
 
 ## Fiches déploiement DEP planifiées (à produire vagues 3 à 5)
