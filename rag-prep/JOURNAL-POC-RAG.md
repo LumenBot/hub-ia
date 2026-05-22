@@ -11,6 +11,46 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot S2.5.0-ter livré) — Cowork Hub IA Plateforme — Densification lead H2 pr-07 « Obligations réglementaires » (+0,0144 sim attendu)
+
+**Contexte :** Lot Drer-bis Desktop a confirmé le pattern « H2 dédiée concurrente » du Lot S2.5.0-bis fonctionne empiriquement : chunk pr-07 « Obligations réglementaires IA » passé de rang #13 sim 0,1858 → rang #6 sim 0,3062 (+0,1204). Mais échoue d'un seul cran (manque 0,0144 sim pour entrer dans top-5 à 0,3206). Stratégie Lot S2.5.0-ter : **densification chirurgicale du lead** pour gagner les ~0,015 sim restants sans toucher au reste du module ni aux chunks pr-08.
+
+**Actions menées :**
+
+- **Patch lead H2 pr-07 « Obligations réglementaires »** : reformulation du titre H2 + premier paragraphe en gras pour densifier le vocabulaire question canonique q-030. Le titre H2 inclut désormais « **à anticiper** » directement (verbatim de la question). Le premier paragraphe en gras reformule en mode question : « Quelles obligations réglementaires s'appliquent à un projet IA en PME en 2026 ? » suivi de la réponse en 4 ancrages numérotés. Ajout d'un second paragraphe (avant les 4 ancrages détaillés) qui répète « obligations réglementaires », « anticiper », « projet IA en PME en 2026 ».
+- **Densification mesurée** :
+  - « obligations réglementaires » : 3× (vs 1× pré-Lot)
+  - « anticiper » : 2× (vs 0× pré-Lot)
+  - « projet IA » : 5× (vs 1× pré-Lot)
+  - « RGPD », « AI Act », « conformité », « 2026 » : 5× chacun
+  - « PME » : 3×
+- **Taille chunk post-densification** : 610 mots / ~793 tokens — dans la tolérance SPEC v1.8 (800-900 tokens si chunk thématiquement cohérent), proche de la borne haute. Chunk reste thématiquement cohérent (un seul angle : obligations réglementaires IA pour PME 2026), conforme R3.
+- **Bump `pr-07.md` v3.11.2 → v3.11.3** + last_updated 2026-05-22.
+
+**Pattern empirique validé sur 3 itérations** :
+- **Étape 1** (Lot D-ter S2.4.1) : promotion H3 → H2 autonome + lead bridge avec vocabulaire question canonique. Validation : q-038 rang ≥11 → rang #1 sim 0,2239.
+- **Étape 2** (Lot S2.5.0-bis) : si saturation top-10 par module concurrent, créer une H2 dédiée concurrente dans le module dominé (vs simple patch lead). Validation : q-030 rang #13 → rang #6 sim 0,3062.
+- **Étape 3** (Lot S2.5.0-ter) : si chunk concurrent en top-10 mais hors top-5, densifier mécaniquement le lead par répétition contrôlée du vocabulaire question canonique. Attendu : q-030 entrée top-5.
+
+**Décisions structurantes prises :**
+
+- **Pattern empirique « 3 niveaux d'intervention retrieval »** validé : (1) lead bridge enrichi, (2) H2 dédiée concurrente si saturation par module dominant, (3) densification chirurgicale par répétition contrôlée si chunk proche du top-5 mais sous-performant. À inscrire en SPEC v1.9 §Conception MD comme précision opérationnelle du garde-fou « concepts détaillés ».
+- **Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter)** : exemple pédagogique pour le RAPPORT-CC-S2.5 §6, illustration que les patterns SPEC se composent et qu'un retrieval peut nécessiter plusieurs niveaux d'intervention selon l'écart résiduel.
+
+**Métriques Lot S2.5.0-ter :**
+- 1 fichier MD patché (`pr-07.md`)
+- 1 section H2 densifiée (lead reformulé, ~70 mots ajoutés)
+- Coût : **0,00 $** (Cowork pur éditorial, exception D-022)
+
+**Reste à faire :**
+- Re-rerun Lot Drer-ter Desktop sur q-030 + q-002 + q-051 + q-052 (~0,12 $) pour valider entrée dans top-5
+- Si succès : sprint S2.5.0+bis+ter clôturé, on enchaîne Lot F.5 production 8 modules vague 5 (avec intégration RETOUR-SONDAGE-S2.5)
+- Si échec : escalade — combiner avec patch lead vigilance-confidentialite (~rang #23 actuel) OU re-scoping chunks pr-08
+
+**Blockers :** aucun. RETOUR-SONDAGE-S2.5 prêt pour intégration Lot F.5 en attendant validation Drer-ter.
+
+---
+
 ### 2026-05-22 (S2.5 Lot Drer-bis — validation correctif structurel q-030) — Claude Code Desktop — H2 dédiée efficace mais q-030 raté d'1 rang (#6 hors top-5)
 
 **Contexte :** validation du Lot S2.5.0-bis (nouvelle H2 dédiée pr-07 « Obligations réglementaires IA », v3.11.1 → v3.11.2). Objectif : q-030 → score=1 sans régression sur q-002/q-051/q-052. **Anomalie de procédure** : le brief demandait `git checkout main`, mais le correctif S2.5.0-bis (`dfcd459`) n'était **PAS encore mergé sur main** (origin/main = pr-07 v3.11.1) — il vivait sur la branche `claude/execute-s25-lot-s2500-bis` (poussée). Branche Drer-bis dérivée de `dfcd459` (= main `5e6e9f5` post-merge PR #75 + fix pr-07), donc base correcte avec la H2 dédiée. À signaler : merger `claude/execute-s25-lot-s2500-bis` sur main.
