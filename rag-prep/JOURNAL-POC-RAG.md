@@ -11,6 +11,35 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot S2.5.0-bis livré) — Cowork Hub IA Plateforme — Nouvelle H2 dédiée pr-07 « Obligations réglementaires IA »
+
+**Contexte :** Lot Drer Desktop a confirmé q-002 ✅ restauré mais q-030 ❌ toujours score=0. Diagnostic : le patch lead pr-07 du Lot S2.5.0 ne suffit pas car les chunks NON-lead de pr-08 (Fiscalité, Deadlines, France 2030) saturent le top-10 entier sur q-030 (10/10 chunks pr-08, sim 0,40 → 0,24). pr-07 lead enrichi reste rang #13 sim 0,1858. Arbitrage Blaise : **Option (a) — créer une H2 dédiée dans pr-07 sur obligations réglementaires**, chunk concurrent en propre.
+
+**Actions menées :**
+
+- **Patch `rag/content/prealables/pr-07.md`** : ajout d'une section H2 dédiée « **Obligations réglementaires IA pour un projet en PME 2026 (RGPD, AI Act, conformité)** » insérée entre §« Sept écueils à éviter » et §« Pour aller plus loin ». Lead bridge enrichi avec vocabulaire question canonique q-030 dès la première phrase en gras (« Obligations réglementaires à anticiper pour un projet IA en PME en 2026 : RGPD article 22, AI Act article 14 applicable au 2 août 2026, conformité sectorielle, jurisprudence Moffatt v. Air Canada... »).
+- **Contenu nouveau chunk** : 540 mots / ~700 tokens (cible 400-700 SPEC §R3 OK). 4 ancrages réglementaires structurants : (1) RGPD article 22 — décision automatisée ; (2) AI Act article 14 — supervision humaine effective applicable 2 août 2026 ; (3) Jurisprudence Moffatt v. Air Canada — l'entreprise responsable de son chatbot ; (4) Conformité sectorielle (HAS-CNIL santé, ACPR finance, AI Act haut risque défense). Articulation explicite avec cu-026 (cadre AI Act détaillé), cu-020 (conformité RGPD/AI Act), vigilance-confidentialite (données sensibles).
+- **Bump `pr-07.md` v3.11.1 → v3.11.2**
+- **Pattern Lot D-ter strictement appliqué** (chunking H2 autonome + lead bridge enrichi) + AP-7 SPEC v1.8 (lead reste dans scope strict « obligations réglementaires + build vs buy », pas généralités projet IA).
+
+**Décisions structurantes prises :**
+
+- **Pattern « régression post-production via lead bridge insuffisant »** : validé empiriquement — le patch lead seul (Lot S2.5.0) ne suffit pas quand le module concurrent (pr-08) sature le top-10 entier. Il faut créer un **chunk concurrent en propre** (nouvelle H2) avec lead bridge fort. À reconduire systématiquement pour ce type de saturation.
+- **Cas-école pédagogique S2.4 + S2.5.0 + S2.5.0-bis** à intégrer au RAPPORT-CC-S2.5 §6 comme précision SPEC v1.9 : « pour résoudre une saturation top-5 d'un module concurrent, le patch lead seul du module dominé est insuffisant si le module dominant sature plusieurs chunks ; créer une H2 dédiée concurrente dans le module dominé. »
+
+**Métriques Lot S2.5.0-bis :**
+- 1 fichier MD patché (`pr-07.md`)
+- 1 nouvelle section H2 (540 mots / ~700 tokens)
+- Coût : **0,00 $** (Cowork pur éditorial, exception D-022 ciblée éditoriale)
+
+**Reste à faire :**
+- Re-rerun Lot Drer bis Desktop sur q-030 + q-002 + q-051 + q-052 (~0,12 $) pour valider que la nouvelle H2 pr-07 a effectivement restauré q-030 sans régression sur les 3 autres
+- Si succès : intégration du RETOUR-SONDAGE-COWORK-HUB-IA-S2.5 reçu (2 rectifications critiques CU-024 PA = Plateforme Agréée ≠ Portail public, DEP-01 6 étapes = arbre de décision technique ≠ cadrage projet) + production Lot F.5 8 modules vague 5
+
+**Blockers :** aucun. Le RETOUR-SONDAGE est arrivé en parallèle (signalement Cowork Hub IA), prêt pour intégration Lot F.5.
+
+---
+
 ### 2026-05-22 (S2.5 Lot Drer — rerun eval ciblé post-correctif retrieval) — Claude Code Desktop — q-002 ✅ restauré, q-030 ❌ patch insuffisant
 
 **Contexte :** rerun eval ciblé 4 questions pour vérifier l'effet des 3 patches leads du Lot S2.5.0 (mergés sur main via PR #74, commit `903e068`) sur les 2 régressions S2.3 détectées en S2.4 Lot I (q-002 cu-001 rang #8, q-030 top-9 saturé par pr-08) — sans régression sur les 2 questions canoniques de pr-08 (q-051, q-052). Branche `claude/execute-s25-lot-drer-rerun-cibles` dérivée de main post-merge PR #74.
