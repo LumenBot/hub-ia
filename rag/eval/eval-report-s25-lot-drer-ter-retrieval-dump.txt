@@ -1,0 +1,21 @@
+q-030 — top-10 (post densification lead H2 pr-07 v3.11.3) :
+  # 1 [pr-08                   ] sim=0.4028  Deux deadlines à ne pas manquer en juin 2026
+  # 2 [pr-08                   ] sim=0.3830  Fiscalité IA 2026 — CIR, CII, nouveau CII-IA, 
+  # 3 [pr-07                   ] sim=0.3635  Obligations réglementaires à anticiper pour un <<<<< CHUNK DENSIFIÉ pr-07
+  # 4 [pr-08                   ] sim=0.3516  L'essentiel à retenir
+  # 5 [pr-08                   ] sim=0.3512  France 2030 — Plan « Osez l'IA » et ses dispos
+  # 6 [pr-08                   ] sim=0.3206  Pourquoi financer en 2026 change tout — 3 rupt
+  # 7 [pr-08                   ] sim=0.3002  Financements Bpifrance — 4 leviers (diagnostic
+  # 8 [pr-08                   ] sim=0.2956  À qui ce préalable s'adresse
+  # 9 [pr-08                   ] sim=0.2858  Plan d'action 30 jours
+  #10 [pr-08                   ] sim=0.2781  Pour aller plus loin
+
+>>> chunk pr-07 Obligations réglementaires (densifié) : rang #3 sim=0.3635
+    cible : rang <= 5 ET sim > 0,3206 (seuil #5 ex-pr-08 du Lot Drer-bis)
+    top-5 actuel : [('pr-08', 0.4028), ('pr-08', 0.383), ('pr-07', 0.3635), ('pr-08', 0.3516), ('pr-08', 0.3512)]
+
+TRAJECTOIRE q-030 sur 3 itérations correctif (rang / sim du chunk pr-07 réglementaire) :
+  Lot Drer      (lead patch simple)  : rang #13  sim 0,1858  -> score 0
+  Lot Drer-bis  (H2 dédiée)          : rang #6   sim 0,3062  -> score 0 (hors top-5 de 0,0144)
+  Lot Drer-ter  (densification lead) : rang #3   sim 0,3635  -> score 1  [CIBLE ATTEINTE]
+Gain final +0,0573 sim vs Drer-bis -> franchit le seuil top-5 (0,3206). q-030 = score 1. Eval 4/4.
