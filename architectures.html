@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/journey.css">
+  <script defer src="js/journey.js"></script>
   <link rel="stylesheet" href="css/module-v3.css">
   <style>
     /* Cards patterns d'architecture */
@@ -74,6 +76,44 @@
       </p>
     </div>
   </header>
+
+  <!-- FIL D'ARIANE / ITINÉRAIRE STICKY -->
+  <div class="journey" id="journey">
+    <div class="journey-inner">
+      <span class="journey-label">Itinéraire</span>
+      <div class="journey-track">
+        <a href="prealables.html" class="journey-step" data-step="0">
+          <span class="journey-step-dot"><span class="journey-step-num">1</span></span>
+          <span class="journey-step-label">Préalables</span>
+          <span class="journey-step-count">11 préalables</span>
+        </a>
+        <a href="architectures.html" class="journey-step is-current" data-step="1">
+          <span class="journey-step-dot"><span class="journey-step-num">2</span></span>
+          <span class="journey-step-label">Architectures</span>
+          <span class="journey-step-count">4+1 patterns</span>
+        </a>
+        <a href="index.html#modules" class="journey-step" data-step="2">
+          <span class="journey-step-dot"><span class="journey-step-num">3</span></span>
+          <span class="journey-step-label">Modules</span>
+          <span class="journey-step-count">27 cas d'usage</span>
+        </a>
+        <a href="deploiement.html" class="journey-step" data-step="3">
+          <span class="journey-step-dot"><span class="journey-step-num">4</span></span>
+          <span class="journey-step-label">Déploiement</span>
+          <span class="journey-step-count">8 fiches</span>
+        </a>
+        <a href="ressources.html" class="journey-step" data-step="4">
+          <span class="journey-step-dot"><span class="journey-step-num">5</span></span>
+          <span class="journey-step-label">Ressources</span>
+          <span class="journey-step-count">104 outils</span>
+        </a>
+      </div>
+      <div class="journey-progress-pill">
+        <span class="journey-progress-pill-dot"></span>
+        <span class="journey-progress-count"><strong>0</strong>/27 modules</span>
+      </div>
+    </div>
+  </div>
 
   <div class="module-layout">
 
@@ -691,6 +731,34 @@
 
     </main>
   </div>
+
+  <!-- SUITE LOGIQUE — next step -->
+  <section class="next-step">
+    <div class="next-step-inner">
+      <div>
+        <div class="next-step-eyebrow">Station suivante</div>
+        <h2 class="next-step-title">Architecture choisie —<br><em>passe au cas d'usage concret.</em></h2>
+      </div>
+      <div class="next-step-cards">
+        <a href="index.html#modules" class="next-step-card">
+          <div class="next-step-card-tag">→ §03 · Modules</div>
+          <div class="next-step-card-title">27 cas d'usage opérationnels</div>
+          <div class="next-step-card-desc">Comment résoudre concrètement ton problème métier — 6 familles, échelle de complexité à 4 niveaux, pas-à-pas et études de cas.</div>
+          <div class="next-step-card-cta">Explorer les modules
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+        <a href="deploiement.html" class="next-step-card">
+          <div class="next-step-card-tag">→ §04 · Déploiement</div>
+          <div class="next-step-card-title">Du POC à la production</div>
+          <div class="next-step-card-desc">RAG en prod, fine-tuning, context engineering, observabilité agents, sécurité MCP. 8 fiches techniques transverses.</div>
+          <div class="next-step-card-cta">Lire les 8 fiches
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
     <div class="footer-inner">
