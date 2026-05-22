@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v1.9 (v1.8 + pattern empirique « 3 niveaux d'intervention retrieval » dans §Conception MD : lead bridge enrichi → H2 dédiée concurrente → densification lead par répétition contrôlée)
-**Dernière mise à jour :** 13 mai 2026 (révision post-S2.3 — 4 propositions RAPPORT-CC-S2.3 §6 validées par Cowork)
+**Statut :** v2.0 (v1.9 + 3 ajouts validés post-clôture S2.5 — RAPPORT-CC-S2.5 §6 + arbitrage Cowork) : (1) **Discipline hygiène merge** (procédure pre-commit `git grep "<<<<<<<"` obligatoire post-`stash pop`) ; (2) **Pattern « 3 niveaux d'intervention retrieval » formalisé en procédure normée** (Lot Drer ciblé d'abord puis N1/N2/N3 selon écart résiduel) ; (3) **Précision §Performances latence — surveillance vault > 300 chunks** (sprint dédié de mesure avant clôture vague 6).
+**Dernière mise à jour :** 22 mai 2026 (révision post-S2.5 — 3 propositions validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -314,6 +314,25 @@ Quand un chunk cible n'apparaît pas dans le top-5 retrieval sur une question ca
 
 **Mise en garde** : la densification de Niveau 3 augmente la taille du chunk (~+50-100 mots typiquement). Surveiller la tolérance seuil R3 800-900 tokens. Au-delà, refactoring H3 obligatoire (cf. §R3).
 
+### Procédure normée « Lot Drer + N1/N2/N3 » pour traiter une régression retrieval (codifiée SPEC v2.0)
+
+Quand une question du golden set passe `score=1` → `score=0` entre deux évals consécutives (régression retrieval typiquement causée par une production from scratch qui dilue le top-5 du fait de leads concurrents), appliquer la procédure normée suivante avant de réécrire le module dominé :
+
+**Étape 1 — Diagnostic ciblé via Lot Drer** : avant tout patch éditorial, exécuter un **Lot Drer** (rerun eval ciblé sur 4-8 questions touchées + 1-2 questions de contrôle). Coût typique ~0,10-0,20 $ Anthropic, ~10-15 min Desktop. Sortie attendue : rang du chunk cible attendu dans le top-10 + sim cosine + identifié des modules concurrents qui saturent.
+
+**Étape 2 — Choix du niveau d'intervention** selon le diagnostic :
+- **Si chunk cible présent top-10 mais rang #6-10** (gap < 0,02 sim avec rang #5) → **Niveau 1** (lead bridge enrichi, ~20-30 min Cowork)
+- **Si chunk cible absent top-10 ET top-10 saturé par module concurrent (≥ 3 chunks du même module)** → **Niveau 2** (créer H2 dédiée concurrente, ~45 min Cowork)
+- **Si chunk cible #6-#10 après Niveau 2 mais hors top-5 (gap résiduel 0,01-0,02 sim)** → **Niveau 3** (densification chirurgicale, ~30 min Cowork)
+
+**Étape 3 — Validation par Lot Drer post-patch** : rejouer le même Lot Drer (4-8 questions ciblées) pour mesurer le delta de rang et confirmer la résolution. Si Niveau N n'a pas suffi (chunk cible toujours hors top-5), enchaîner avec Niveau N+1 (pattern observé empiriquement sur q-030 : Lot S2.5.0 + bis + ter = 3 itérations Niveau 1 → Niveau 2 → Niveau 3).
+
+**Étape 4 — Inscription au JOURNAL** : tracer chaque itération (rang avant/après, sim cosine, lots éditoriaux appliqués). Cas-école q-038 et q-030 servent de référence empirique pour calibrer le diagnostic des sprints futurs.
+
+**Mise en garde — Surcoût budgétaire des Lot Drer en cascade** : 3 itérations de Lot Drer ≈ 0,30-0,60 $ Anthropic. Documenter ex-ante au brief sprint si > 1 cascade Lot Drer attendue (typiquement quand le sprint produit plusieurs modules from scratch sur des thèmes adjacents).
+
+**Anti-pattern à éviter** : sauter directement au Niveau 3 (densification chirurgicale) sans diagnostic Lot Drer préalable — risque de gonfler inutilement la taille des chunks au-delà de la tolérance R3, sans résoudre une saturation top-10 qui aurait nécessité un Niveau 2.
+
 ---
 
 ## Validation — Eval réelle comme garde-fou structurel (issue RAPPORT-CC-S2.2 §6 P4)
@@ -350,6 +369,35 @@ Tout module produit **from scratch** (sans précédent MD dans le vault, c'est-�
 
 ---
 
+## Discipline opérationnelle Git — Hygiène merge (codifiée SPEC v2.0)
+
+**Issue empirique** : 3 occurrences récurrentes signalées par Cowork Hub IA Desktop sur les sprints S2.3 / S2.4 / S2.5 (PR #84, #86, #88) où un `git stash pop` conflictuel a été committé tel quel avec marqueurs `<<<<<<<` / `=======` / `>>>>>>>` non résolus dans le `JOURNAL-POC-RAG.md` ou le `whitelist-wikilinks-futurs.md`. À chaque occurrence, Desktop a dû nettoyer avant merge final, créant un cycle de revue supplémentaire évitable.
+
+**Discipline à appliquer systématiquement avant tout `git add` post-`git stash pop`** :
+
+```bash
+# Vérification obligatoire : aucun marqueur de conflit n'a été oublié
+cd /path/to/repo-current
+git grep '<<<<<<<' && echo "BLOQUER : conflits non résolus" || echo "OK : aucun conflit résiduel"
+```
+
+**Procédure pre-commit normée** :
+1. `git stash pop` exécuté
+2. Vérification immédiate `git grep '<<<<<<<'` (si non vide → bloquer)
+3. Résolution manuelle des conflits (ouvrir chaque fichier signalé, supprimer les marqueurs `<<<<<<<` / `=======` / `>>>>>>>`, garder la version voulue)
+4. Re-vérification `git grep '<<<<<<<'` (doit retourner vide)
+5. `git add` puis `git commit`
+
+**Application** : à intégrer dans tous les briefs émettant des `git stash pop` (typiquement après pull main pour rapatrier les derniers commits réseau avant ajout de nouveaux changements Cowork-side ou Desktop-side). À documenter dans la procédure-type d'ouverture de sprint des briefs Lot d'ingestion / Lot de production.
+
+**Effort additionnel** : ~5 secondes par stash pop. **Gain** : ~1 cycle de revue Desktop évité par sprint (~15-20 min de coûts cumulés sur 3 PR).
+
+**Justification structurelle** : la discipline est codifiée en SPEC pour bénéficier à tous les acteurs (Cowork, Desktop, Plateforme) et toutes les itérations futures. Pas d'automatisation par hook git Cowork-side (Cowork n'a pas accès au .git/hooks/), mais la discipline est plus simple que la mise en place d'un hook côté Desktop.
+
+**Anti-pattern à éviter** : faire confiance aux warnings éventuels de l'IDE sans relire le fichier modifié post-stash pop. Cas observés où le warning a été masqué par d'autres notifications, ou contourné par habitude.
+
+---
+
 ## Performances — Cible latence Sonnet 4.6 (recalibrage post-S2.2)
 
 Cible latence par question recalibrée empiriquement post-S2.2 Lot E.2 sur 30 questions :
@@ -357,12 +405,29 @@ Cible latence par question recalibrée empiriquement post-S2.2 Lot E.2 sur 30 qu
 | Configuration | Cible latence par question |
 |---|---|
 | Sonnet 4.6, volumes ~3–5 k tokens in / ~0,5–1,5 k tokens out (RAG standard sur vault < 200 chunks) | **12–18 s acceptable** (mesure moyenne S2.2 : 16,4 s, min 9 s, max 22 s) |
+| Sonnet 4.6, vault 200-300 chunks (cas S2.5 vague 5 vault ~250 chunks) | **14-20 s acceptable** (mesure S2.5 Lot I à confirmer) |
+| Sonnet 4.6, vault > 300 chunks (cas vague 6+ attendu) | **À mesurer en sprint dédié** — seuil de surveillance déclenchant audit latence ad-hoc |
 | Sonnet 4.6, volumes > 5 k tokens in (vault > 500 chunks ou retrieval k > 8) | 18–25 s acceptable, à mesurer en sprint dédié |
 | Haiku 4.5 sur mêmes volumes (option future S3 si optimisation latence prioritaire) | ~5 s estimé (~3× plus rapide), à mesurer avec impact qualitatif |
 
 **Cible précédente abandonnée** : la cible 5 s/question des briefs S1 et S2.2 était irréaliste pour Sonnet 4.6 sur ces volumes. Elle reste valable comme objectif optimisation S3+ avec Haiku 4.5 si la qualité est maintenue.
 
-**Application briefs futurs** : tout brief Desktop/Plateforme qui exécute une eval doit utiliser la cible 12–18 s/question pour Sonnet 4.6. Ne pas reproduire la cible 5 s du brief S2.2 (corrigée post-mortem dans le RAPPORT-CC-S2.2 §6 P3).
+**Application briefs futurs** : tout brief Desktop/Plateforme qui exécute une eval doit utiliser la cible 12–18 s/question pour Sonnet 4.6 (vault < 200 chunks) ou 14-20 s/q (vault 200-300 chunks). Ne pas reproduire la cible 5 s du brief S2.2 (corrigée post-mortem dans le RAPPORT-CC-S2.2 §6 P3).
+
+### Surveillance latence pour vault > 300 chunks (codifiée SPEC v2.0)
+
+À partir du moment où le vault dépasse **300 chunks** (cas attendu vague 6+ : production PR-09 + PR-10 + PR-11 fait monter le vault de ~250 à ~285 chunks, puis vagues 7-8 fiches outils +30-50 chunks attendus), un **sprint dédié de mesure latence** doit être planifié pour :
+
+1. **Mesurer empiriquement** la latence p50 / p90 sur l'eval golden set complet à ce volume
+2. **Identifier les points d'inflexion** : retrieval ChromaDB (cosine sur N vecteurs), génération Sonnet 4.6 (volumes in), reranking si activé
+3. **Recalibrer la cible §Performances** avec la mesure réelle (table à mettre à jour)
+4. **Arbitrer si optimisation nécessaire** : bascule Haiku 4.5 sur retrieval seul, top-k reduction, vector store partitioning par axe, etc.
+
+**Déclencheur** : franchissement du seuil 300 chunks lors de la production d'un sprint vague N+. Le RAPPORT-CC du sprint qui franchit ce seuil doit lister la mesure latence p50/p90 et émettre une recommandation §Performances.
+
+**Effort estimé** : ~30 min Desktop (rejeu eval existant + extraction latences depuis JSON report) + ~30 min Plateforme (analyse + reco SPEC v2.x).
+
+**Justification empirique** : vault S2.5 ~250 chunks (mesure post-Lot I 16,4 s/q médiane Sonnet 4.6, stable depuis S2.2 à 155 chunks). Hypothèse intuitive : la latence retrieval ChromaDB scale en O(log N) sur cosine avec index HNSW (négligeable), mais la latence génération Sonnet scale en O(N) avec les tokens in. Tant que la stratégie top-k restant fixe (5), le volume in reste stable → la latence ne devrait pas exploser. **Mais ceci doit être mesuré, pas postulé**.
 
 ### Cap budgétaire par sprint (issue RAPPORT-CC-S2.3 §6 P1)
 
@@ -433,6 +498,7 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.6 | 13 mai 2026 | Intégration des 4 propositions RAPPORT-CC-S2.3 §6 (validation Cowork post-clôture S2.3 — sprint clôturé à 41/42 score global) : (1) Cap budgétaire par sprint formalisé en §Performances (recalibrage 0,90 $ → 1,10 $ pour 42q, table par volume) ; (2) Précision D-025 en §Briques transverses : « ossature complète d'un module ≠ brique transverse extractible » (validé empiriquement RETOUR-SONDAGE sur pattern « agent = employé » CU-026) ; (3) AP-6 : synonymes excessifs dans `expected_concepts` liste de listes (plafond 2-4 synonymes, anti-faux-positifs) ; (4) Nouvelle section §Conception MD et questions golden set : garde-fou « concepts détaillés » (sub-section H3 dédiée + format `expected_concepts` tolérant aux variations numériques, issue diagnostic q-038). |
 | v1.8 | 20 mai 2026 | Intégration des 3 propositions RAPPORT-CC-S2.4 §6 (validation Cowork post-clôture S2.4 — sprint clôturé à 50/52 score global) : (1) **AP-7 « Lead bridge sur-élargi »** dans §Anti-patterns (symétrique inverse du garde-fou « concepts détaillés » v1.6 — cas-école pr-08 saturant top-5 sur q-002 + q-030 transversales) ; (2) **Tolérance R3 800-900 tokens** si chunk thématiquement cohérent (validé empiriquement chunk Frontier Firms cu-026 850 tokens) ; (3) **Sondage D-026 systématique pour production from scratch** dans §Validation (validé empiriquement 2 sprints S2.3 + S2.4, 4 + 1 dérives évitées). Précision empirique post-Lot D-ter ajoutée à §R3 sur les 2 conditions nécessaires et indissociables : chunking H2 autonome + lead bridge enrichi. |
 
-| v1.9 | 22 mai 2026 | Inscription du **pattern empirique « 3 niveaux d'intervention retrieval »** dans §Conception MD (précision opérationnelle du garde-fou « concepts détaillés ») : (1) Lead bridge enrichi (validé Lot D-ter S2.4.1 — q-038 rang ≥11 → #1) ; (2) H2 dédiée concurrente si saturation par module dominant (validé Lot S2.5.0-bis — q-030 #13 → #6) ; (3) Densification chirurgicale du lead par répétition contrôlée si chunk concurrent hors top-5 (validé Lot S2.5.0-ter — q-030 #6 → #3). Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter) documenté empiriquement.
+| v1.9 | 22 mai 2026 | Inscription du **pattern empirique « 3 niveaux d'intervention retrieval »** dans §Conception MD (précision opérationnelle du garde-fou « concepts détaillés ») : (1) Lead bridge enrichi (validé Lot D-ter S2.4.1 — q-038 rang ≥11 → #1) ; (2) H2 dédiée concurrente si saturation par module dominant (validé Lot S2.5.0-bis — q-030 #13 → #6) ; (3) Densification chirurgicale du lead par répétition contrôlée si chunk concurrent hors top-5 (validé Lot S2.5.0-ter — q-030 #6 → #3). Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter) documenté empiriquement. |
+| **v2.0** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.5 §6 (validation Cowork post-clôture S2.5 — sprint clôturé à 72/72 score global extrapolé) : (1) **§Discipline opérationnelle Git — Hygiène merge** : procédure pre-commit normée `git grep '<<<<<<<'` obligatoire post-`git stash pop` (issue 3 occurrences récurrentes PR #84/#86/#88 S2.3/S2.4/S2.5 signalées par Desktop) ; (2) **Procédure normée « Lot Drer + N1/N2/N3 »** ajoutée à §Conception MD : diagnostic Lot Drer ciblé d'abord (~0,10-0,20 $) puis choix du niveau d'intervention selon écart résiduel (Niveau 1 si rang #6-#10, Niveau 2 si saturation par module concurrent, Niveau 3 si gap résiduel < 0,02 sim) — anti-pattern « sauter directement au Niveau 3 sans diagnostic » documenté ; (3) **§Performances surveillance latence vault > 300 chunks** : déclencheur sprint dédié de mesure quand vault franchit 300 chunks (cas attendu vague 6+ → ~285 chunks puis ~330 chunks fiches outils). Table §Performances enrichie d'une ligne « vault 200-300 chunks » + ligne « vault > 300 chunks à mesurer ». |
 
-**Évolution prévue** : enrichissement en v2+ post-S2.5 sur la base de la production vague 5 (Lot F.5 8 modules) + observations empiriques de production from scratch en série + éventuels nouveaux anti-patterns émergents.
+**Évolution prévue** : enrichissement en v2.1+ post-S2.6 sur la base de la production vague 6 (PR-09 + PR-10 + PR-11, 3 nouveaux préalables v3.12 — module PR-11 attendu comme pivot très dense / carte de navigation, susceptible de générer nouveaux apprentissages éditoriaux). Mesure empirique latence vault ~285 chunks post-Lot I S2.6 à intégrer dans table §Performances.
