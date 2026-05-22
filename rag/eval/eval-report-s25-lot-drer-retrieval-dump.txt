@@ -1,0 +1,80 @@
+==============================================================================
+DUMP RETRIEVAL top-10 — S2.5 Lot Drer (génération Anthropic exclue)
+==============================================================================
+
+------------------------------------------------------------------------------
+q-002 — cible attendue : [cu-001]
+   Question : Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?
+   >>> [cu-001] rang #1 | sim cosine 0.1603 | dans top-5 : OUI
+   top-10 :
+     # 1  [cu-001                  ] sim=0.1603  L'essentiel à retenir  <== CIBLE
+     # 2  [chiffres-macro-2026     ] sim=0.1588  55 % — TPE-PME et IA générative (Bpifrance fin 2
+     # 3  [pr-08                   ] sim=0.1403  France 2030 — Plan « Osez l'IA » et ses disposit
+     # 4  [cu-026                  ] sim=0.1356  L'essentiel à retenir
+     # 5  [pr-08                   ] sim=0.1310  Pour aller plus loin
+     # 6  [pr-08                   ] sim=0.1191  L'essentiel à retenir
+     # 7  [pr-07                   ] sim=0.1172  Ce qui a changé en 2025-2026 — trois tendances s
+     # 8  [pr-08                   ] sim=0.1156  Deux deadlines à ne pas manquer en juin 2026
+     # 9  [pr-08                   ] sim=0.1002  Pourquoi financer en 2026 change tout — 3 ruptur
+     #10  [cu-027                  ] sim=0.0931  Rupture économique 2026 — Kimi K2.6, ECC stack, 
+
+------------------------------------------------------------------------------
+q-030 — cible attendue : [pr-07]
+   Question : Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?
+   >>> [pr-07] ABSENT du top-10 | dans top-5 : NON
+   top-10 :
+     # 1  [pr-08                   ] sim=0.4028  Deux deadlines à ne pas manquer en juin 2026
+     # 2  [pr-08                   ] sim=0.3830  Fiscalité IA 2026 — CIR, CII, nouveau CII-IA, JE
+     # 3  [pr-08                   ] sim=0.3516  L'essentiel à retenir
+     # 4  [pr-08                   ] sim=0.3512  France 2030 — Plan « Osez l'IA » et ses disposit
+     # 5  [pr-08                   ] sim=0.3206  Pourquoi financer en 2026 change tout — 3 ruptur
+     # 6  [pr-08                   ] sim=0.3002  Financements Bpifrance — 4 leviers (diagnostics,
+     # 7  [pr-08                   ] sim=0.2956  À qui ce préalable s'adresse
+     # 8  [pr-08                   ] sim=0.2858  Plan d'action 30 jours
+     # 9  [pr-08                   ] sim=0.2781  Pour aller plus loin
+     #10  [pr-08                   ] sim=0.2369  Méthode — empiler les dispositifs sans erreur
+
+------------------------------------------------------------------------------
+q-051 — cible attendue : [pr-08]
+   Question : Quels sont les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026 ?
+   >>> [pr-08] rang #1 | sim cosine 0.5700 | dans top-5 : OUI
+   top-10 :
+     # 1  [pr-08                   ] sim=0.5700  Fiscalité IA 2026 — CIR, CII, nouveau CII-IA, JE  <== CIBLE
+     # 2  [pr-08                   ] sim=0.4863  L'essentiel à retenir  <== CIBLE
+     # 3  [pr-08                   ] sim=0.4079  France 2030 — Plan « Osez l'IA » et ses disposit  <== CIBLE
+     # 4  [pr-08                   ] sim=0.4065  Pourquoi financer en 2026 change tout — 3 ruptur  <== CIBLE
+     # 5  [pr-08                   ] sim=0.3703  Financements Bpifrance — 4 leviers (diagnostics,  <== CIBLE
+     # 6  [pr-08                   ] sim=0.3482  Méthode — empiler les dispositifs sans erreur  <== CIBLE
+     # 7  [pr-08                   ] sim=0.3296  À qui ce préalable s'adresse  <== CIBLE
+     # 8  [pr-08                   ] sim=0.3125  Pour aller plus loin  <== CIBLE
+     # 9  [pr-08                   ] sim=0.3087  Plan d'action 30 jours  <== CIBLE
+     #10  [pr-08                   ] sim=0.2701  Deux deadlines à ne pas manquer en juin 2026  <== CIBLE
+
+------------------------------------------------------------------------------
+q-052 — cible attendue : [pr-08]
+   Question : Quelle est la règle des 5 étapes pour empiler les dispositifs de financement IA en PME ?
+   >>> [pr-08] rang #1 | sim cosine 0.3738 | dans top-5 : OUI
+   top-10 :
+     # 1  [pr-08                   ] sim=0.3738  Méthode — empiler les dispositifs sans erreur  <== CIBLE
+     # 2  [pr-08                   ] sim=0.3733  L'essentiel à retenir  <== CIBLE
+     # 3  [pr-08                   ] sim=0.3510  Fiscalité IA 2026 — CIR, CII, nouveau CII-IA, JE  <== CIBLE
+     # 4  [pr-08                   ] sim=0.2993  Pourquoi financer en 2026 change tout — 3 ruptur  <== CIBLE
+     # 5  [pr-08                   ] sim=0.2901  Financements Bpifrance — 4 leviers (diagnostics,  <== CIBLE
+     # 6  [pr-08                   ] sim=0.2659  France 2030 — Plan « Osez l'IA » et ses disposit  <== CIBLE
+     # 7  [pr-08                   ] sim=0.2628  À qui ce préalable s'adresse  <== CIBLE
+     # 8  [pr-08                   ] sim=0.2594  Plan d'action 30 jours  <== CIBLE
+     # 9  [pr-08                   ] sim=0.2015  Deux deadlines à ne pas manquer en juin 2026  <== CIBLE
+     #10  [pr-08                   ] sim=0.1785  Pour aller plus loin  <== CIBLE
+
+==============================================================================
+
+==============================================================================
+ANNEXE DIAGNOSTIC q-030 — recherche profonde k=40 (génération exclue)
+==============================================================================
+Répartition codes top-40 : {'pr-08': 10, 'dep-08': 1, 'chiffres-macro-2026': 21, 'pr-07': 3, 'cu-026': 2, 'vigilance-confidentialite': 2, 'cu-001': 1}
+
+  cible [pr-07                     ] -> 1er hit rang #13  sim=0.1858  L'essentiel à retenir
+  cible [vigilance-confidentialite ] -> 1er hit rang #24  sim=0.0988  La discipline en 4 règles
+
+  Lecture : top-10 = 100%% pr-08 ; pr-07(lead enrichi) seulement #13 sim 0,1858 ;
+  vigilance-confidentialite #23. Augmenter top_k a 10 n inclut PAS pr-07.

@@ -1,0 +1,58 @@
+# Golden set ciblé — S2.5 Lot Drer (rerun eval ciblé post-correctif retrieval)
+#
+# Sous-ensemble de 4 questions extraites de `rag/eval/questions.yaml` (golden set
+# complet 52 questions) pour vérifier l'effet des 3 patches leads du Lot S2.5.0 :
+#   - pr-08 v3.11.1 : lead restreint au scope strict financement
+#   - cu-001 v3.11.1 : lead enrichi vocabulaire q-002 (sources fiables actualité IA)
+#   - pr-07 v3.11.1 : lead enrichi vocabulaire q-030 (build vs buy + obligations réglementaires)
+#
+# Cibles Lot Drer :
+#   - q-002 (cu-001)  : restauration score=1 (régression S2.4 Lot I : cu-001 rang #8)
+#   - q-030 (pr-07)   : restauration score=1 (régression S2.4 Lot I : top-9 saturé par pr-08)
+#   - q-051 (pr-08)   : pas de régression (canonique pr-08, doit rester score=1)
+#   - q-052 (pr-08)   : pas de régression (canonique pr-08, doit rester score=1)
+#
+# Les 4 entrées sont copiées à l'identique du golden set complet (aucune
+# modification — D-022 : Cowork maintient questions.yaml). Toute divergence
+# serait un bug d'extraction.
+
+# === CU-001 (Recherche & veille augmentée) — cible q-002 ===
+
+- id: q-002
+  question: "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?"
+  expected_sources: [cu-001]
+  expected_concepts: [source, veille]
+  unit: cu-001
+
+# === Cross-modules (PR-07 + vigilance-confidentialite) — cible q-030 ===
+
+- id: q-030
+  question: "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?"
+  expected_sources: [pr-07, vigilance-confidentialite]
+  expected_concepts:
+    - RGPD
+    - "AI Act"
+    - [conformité, conforme, réglementation]
+  unit: cross-pr07-vigilance
+
+# === PR-08 (Financer son projet IA) — cibles q-051 + q-052 (non-régression) ===
+
+- id: q-051
+  question: "Quels sont les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026 ?"
+  expected_sources: [pr-08]
+  expected_concepts:
+    - [CIR, CII]
+    - ["CII-IA", "CII IA"]
+    - [JEI, JEII]
+    - [CICO, C3IV]
+  unit: pr-08
+
+- id: q-052
+  question: "Quelle est la règle des 5 étapes pour empiler les dispositifs de financement IA en PME ?"
+  expected_sources: [pr-08]
+  expected_concepts:
+    - ["5 étapes", "cinq étapes"]
+    - ["diagnostic Bpifrance", "Data AI Diagnostic"]
+    - ["CIR", "CII", "CII-IA"]
+    - ["JEI", "JEII", "AAP", "France 2030"]
+  unit: pr-08

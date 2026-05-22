@@ -1,0 +1,179 @@
+[
+  {
+    "id": "q-002",
+    "question": "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "source",
+      "veille"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "glossaire",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "source",
+      "veille"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sources fiables pour suivre l'actualité IA générative en 2026  Le Hub IA identifie **trois outils complémentaires** pour structurer une veille sur l'IA générative, chacun répondant à un usage distinct [[cu-001]].  **Perplexity** est reco"
+  },
+  {
+    "id": "q-030",
+    "question": "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "concepts_match": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Obligations réglementaires à anticiper pour un projet IA en PME en 2026  Je dois être transparent avec vous sur un point important : **le contexte documentaire fourni pour cette question porte exclusivement sur le financement des projets"
+  },
+  {
+    "id": "q-051",
+    "question": "Quels sont les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-08"
+    ],
+    "expected_concepts": [
+      [
+        "CIR",
+        "CII"
+      ],
+      [
+        "CII-IA",
+        "CII IA"
+      ],
+      [
+        "JEI",
+        "JEII"
+      ],
+      [
+        "CICO",
+        "C3IV"
+      ]
+    ],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "CIR",
+        "CII"
+      ],
+      [
+        "CII-IA",
+        "CII IA"
+      ],
+      [
+        "JEI",
+        "JEII"
+      ],
+      [
+        "CICO",
+        "C3IV"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026  Le Hub IA recense précisément **7 dispositifs fiscaux** mobilisables pour un projet IA en PME en 2026 [[pr-08]]. En voici le détail complet :  ---  ### Le "
+  },
+  {
+    "id": "q-052",
+    "question": "Quelle est la règle des 5 étapes pour empiler les dispositifs de financement IA en PME ?",
+    "expected_sources": [
+      "pr-08"
+    ],
+    "expected_concepts": [
+      [
+        "5 étapes",
+        "cinq étapes"
+      ],
+      [
+        "diagnostic Bpifrance",
+        "Data AI Diagnostic"
+      ],
+      [
+        "CIR",
+        "CII",
+        "CII-IA"
+      ],
+      [
+        "JEI",
+        "JEII",
+        "AAP",
+        "France 2030"
+      ]
+    ],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "5 étapes",
+        "cinq étapes"
+      ],
+      [
+        "diagnostic Bpifrance",
+        "Data AI Diagnostic"
+      ],
+      [
+        "CIR",
+        "CII",
+        "CII-IA"
+      ],
+      [
+        "JEI",
+        "JEII",
+        "AAP",
+        "France 2030"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## La règle des 5 étapes pour empiler les dispositifs de financement IA en PME  L'ordre dans lequel vous activez les dispositifs de financement n'est **pas anodin** : une mauvaise séquence peut vous coûter 10 à 30 % du financement total mob"
+  }
+]

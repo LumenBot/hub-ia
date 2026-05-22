@@ -11,6 +11,36 @@
 
 ## Entrées
 
+### 2026-05-22 (S2.5 Lot Drer — rerun eval ciblé post-correctif retrieval) — Claude Code Desktop — q-002 ✅ restauré, q-030 ❌ patch insuffisant
+
+**Contexte :** rerun eval ciblé 4 questions pour vérifier l'effet des 3 patches leads du Lot S2.5.0 (mergés sur main via PR #74, commit `903e068`) sur les 2 régressions S2.3 détectées en S2.4 Lot I (q-002 cu-001 rang #8, q-030 top-9 saturé par pr-08) — sans régression sur les 2 questions canoniques de pr-08 (q-051, q-052). Branche `claude/execute-s25-lot-drer-rerun-cibles` dérivée de main post-merge PR #74.
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale ChromaDB** (`python -m rag.code.ingestion.ingest`) : `files=15 chunks=194 new=0 updated=29 skipped=165 deleted=0 errors=0`. **Anomalie bénigne vs brief** (attendu `updated=3`) : le bump de version frontmatter (cu-001 3.8.3→3.11.1, pr-07 3.8.5→3.11.1, pr-08 3.11.0→3.11.1) est injecté dans le bloc `[METADATA]` de **chaque** chunk via `serialize_frontmatter_header()`, donc les **29 chunks** des 3 fichiers (9 cu-001 + 10 pr-07 + 10 pr-08) changent de `content_hash` — pas seulement le lead. `new=0` + `deleted=0` confirment l'absence de chunk parasite. Total stable 194 chunks. Coût ingestion 0,0003 $ (1 batch embeddings).
+- **Golden set ciblé** `rag/eval/questions-s25-lot-drer.yaml` : 4 entrées (q-002, q-030, q-051, q-052) extraites à l'identique du golden set complet (vérif programmatique : extraction 100 % conforme, D-022 respecté — aucune modif de questions.yaml).
+- **Eval ciblée** (`run_eval --questions ... --report ... --json ...`) : **3/4 score global** (q-002 ✅, q-030 ❌, q-051 ✅, q-052 ✅). Latence ~17,8 s/q (cible 12-18 ✅). Exit code 1 attendu (critère `sources_ok ≥ 8` calibré pour 52q, non atteignable sur 4q).
+- **Dump retrieval** (`rag/eval/_dump_retrieval_drer.py`, génération Anthropic exclue pour économie budget) top-10 + recherche profonde k=40 sur q-030.
+
+**Résultats par cible :**
+
+| Q | Cible | Score | Chunk cible | Rang | Sim cosine | Verdict |
+|---|---|---|---|---|---|---|
+| q-002 | cu-001 | **1** ✅ | « L'essentiel à retenir » | **#1** | 0,1603 | **RESTAURÉ** (vs rang #8 en S2.4 Lot I) — patch lead cu-001 efficace |
+| q-030 | pr-07 | **0** ❌ | « L'essentiel à retenir » | **#13** | 0,1858 | **NON RESTAURÉ** — patch lead pr-07 insuffisant |
+| q-051 | pr-08 | **1** ✅ | « Fiscalité IA 2026… » | **#1** | 0,5700 | **PAS DE RÉGRESSION** |
+| q-052 | pr-08 | **1** ✅ | « Méthode — empiler… » | **#1** | 0,3738 | **PAS DE RÉGRESSION** |
+
+**Diagnostic instrumenté q-030 (signalement immédiat — brief §points d'attention) :** le top-10 est **100 % pr-08** (sim 0,40 → 0,24). pr-07 (chunk lead enrichi) n'atteint que le **rang #13** (sim 0,1858), vigilance-confidentialite le **rang #23/24** (sim 0,0988). Le patch lead pr-07 ne touche qu'**un** chunk ; il ne peut pas casser un top-10 saturé par les **10 chunks** de pr-08 dont l'écart de similarité est ~2× (0,40 vs 0,19). **La saturation provient des chunks NON-lead de pr-08** (« Fiscalité IA 2026 », « Deux deadlines… juin 2026 », « France 2030 »…), que le patch S2.5.0 (lead uniquement) n'a pas modifiés. Cause racine : la formulation q-030 (« projet IA en PME en 2026 ») entre en collision sémantique avec le scope entier de pr-08 ; le signal réglementaire (RGPD/AI Act/conformité) est trop faible face à la masse « projet IA PME 2026 financement ». **« Augmenter top_k à 10 » n'aiderait PAS** (pr-07 absent du top-10) ; top_k ≥ 13 amènerait pr-07 dans le contexte mais noyé sous 10 chunks pr-08 → le générateur resterait ancré sur pr-08.
+
+**Recommandations remontées à Cowork (hors périmètre Desktop — D-022) :** un Lot S2.5.0-bis est nécessaire pour q-030. Pistes : (a) ajouter une **H2 dédiée** dans pr-07 sur les obligations réglementaires (RGPD/AI Act/conformité) pour créer un chunk concurrent en propre — un simple lead ne suffit pas ; (b) **re-scoper les chunks NON-lead de pr-08** (titres de sections, leads internes) pour réduire l'emprise « projet IA PME 2026 » ; (c) enrichir le lead vigilance-confidentialite avec vocabulaire réglementaire (rappel : q-030 score=1 dès que **pr-07 OU vigilance-confidentialite** entre dans le top-5) ; (d) à terme, reranking / filtrage métadonnée / hybrid retrieval (architectural, hors patch lead). q-002 et q-051/q-052 sont eux **validés** — seul q-030 reste ouvert.
+
+**Décisions structurantes prises :** aucune (Lot Drer = exécution eval + diagnostic ; arbitrage du correctif q-030 renvoyé à Cowork).
+
+**Coût API consommé (cette session Lot Drer) :** **0,1022 $ Anthropic+OpenAI** (4 générations Sonnet 0,1020 $ + 29 chunks ré-embeddés 0,0003 $ + 9 embeddings requête ~0 $), dans la cible ≤ 0,15 $. Cumul S1→S2.5 Lot Drer ~5,20 $.
+
+**Reste à faire :** transmettre le diagnostic q-030 à Cowork pour cadrage Lot S2.5.0-bis (correctif retrieval pr-07/pr-08/vigilance-confidentialite). Artefacts commités sur `claude/execute-s25-lot-drer-rerun-cibles` — PR à ouvrir vers main.
+
 ### 2026-05-19 (S2.4 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.4 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.4. Tous les lots A→I livrés et mergés sur main : Lots A (SPEC v1.6), B (canonisation 28 chiffres v3.9.0), C (fix chunking dep-08), D (rerun ciblé q-038 sur 3 itérations Desktop), E (sondage D-026 11 sous-passages Cowork Hub IA), F.1-F.4 (pattern-persistent-memory + refactor cu-008/dep-02 + patches cu-026/cu-027/dep-08 + nouveau PR-08), G (cartographie v1), H (golden set 52q), I (eval extended 52q, score 50/52 = 96 %).
