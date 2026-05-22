@@ -11,7 +11,9 @@
 
 ## Entrées
 
-### 2026-05-22 (S2.5 SPEC v1.9 + Lot F.5a livrés) — Cowork Hub IA Plateforme — Pattern 3 niveaux retrieval inscrit + production DEP-01 + DEP-07
+### 2026-05-22 (S2.5 SPEC v1.9 + Lots F.5a + F.5b livrés + signal v3.12 acté) — Cowork Hub IA Plateforme — Pattern 3 niveaux retrieval + production DEP-01/07/PR-01/PR-04 + anticipation vague 6
+
+**Signal descendant v3.12 acté en parallèle** : Cowork Hub IA a livré l'itération v3.12 HTML (PR #79 mergée) avec **3 nouveaux préalables** (PR-09 Cadrer projet IA stratégique amont / PR-10 Vérifier et limiter hallucinations / PR-11 Cycle de vie projet IA — module pivot). Aucun nouveau chiffre macro (tous déjà canonisés via I-D-003+005+006+007). **Aucun nouvel item descendant à ouvrir**. 3 codes ajoutés à la whitelist pour vague 6 (S2.6 dédié). Application D-026 fortement recommandée sur PR-10 et PR-11 (modules denses). Bonne nouvelle : mon DEP-01 produit en F.5a mentionnait déjà « futur PR-09 v3.12 » comme renvoi pour distinguer arbre décision technique vs cadrage projet — cohérence confirmée.
 
 **Contexte :** Lot Drer-ter Desktop a validé l'entrée q-030 dans le top-5 (rang #3 sim 0,3635). Phase 1 q-030 entièrement clôturée. Pattern « 3 niveaux d'intervention retrieval » validé empiriquement sur 3 itérations. Phase 2 démarre par : (1) inscription SPEC v1.9 + (2) Lot F.5a (production DEP-01 + DEP-07 en parallèle).
 
@@ -24,7 +26,17 @@
   - **`dep-07.md` v3.11.0** (~220 lignes / ~2300 mots) « Évaluation continue et qualité IA ». Référentiel canonique Anthropic Engineering 2026 (2 publications mai 2026 citées textuellement). Heuristique « eval first ». **3 types d'evals** : LLM-as-judge / offline référence / online utilisateurs. 4 définitions canoniques Anthropic (eval/harness/multi-turn/state-modifying). 5 outils 2026 (LangSmith, Phoenix Arize, Langfuse, Comet Opik, Braintrust). Méthode variance N runs (3-5) pour agents long-running. Intégration CI/CD avec gates de blocage (cohérence §8.2 gates TOML DEP-05 via wikilink, **pas de duplication**). **Distinction nette évaluation (avant) vs observabilité (après)** préservée textuellement.
   - **Application pattern 3 niveaux retrieval SPEC v1.9 dès la production initiale** : leads des H2 « L'essentiel à retenir » incluent le vocabulaire question canonique anticipée pour Lot H golden set (« Comment cadrer architecture IA pour mise en production » pour DEP-01, « Comment évaluer la qualité d'un système IA en production » pour DEP-07).
 
-- **Whitelist v2.1 → v2.2** : `dep-01` et `dep-07` retirés.
+- **Whitelist v2.1 → v2.3** : `dep-01` + `dep-07` retirés (F.5a) ; `pr-01` + `pr-04` retirés (F.5b) ; **PR-09 + PR-10 + PR-11 ajoutés vague 6** (signal v3.12).
+
+- **Lot F.5b — Production PR-01 + PR-04** (en parallèle de F.5a, application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5) :
+  - **`pr-01.md` v3.11.0** (~250 lignes / ~2500 mots) « Maturité organisationnelle face à l'IA ». **Typologie 4 profils dirigeants Bpifrance Le Lab** (Sceptiques 27 % / Bloqués 26 % / Expérimentateurs 19 % / Innovateurs 28 % — ordre canonique + tableau définitions + leviers prioritaires). **Encart McKinsey AI high performers** (6 % + 3,6× transformation + 3× redesign + citation textuelle « intentional redesigning of workflows » verbatim). **Nuance d'échelle Innovateurs 28 % vs high performers 6 %** préservée textuellement (les 2 grilles cohérentes mais ne mesurent pas la même chose). **Grille de maturité 4 paliers** (expérimentation isolée → stratégie cadrée → workflows redesignés → industrialisation). Auto-évaluation 10 questions + 3 causes structurelles de blocage (silos, validations en cascade, mandat exécutif flou). Wikilinks vers chiffres-macro-2026, pr-04, pr-07, cu-026, dep-01, dep-07.
+  - **`pr-04.md` v3.11.0** (~280 lignes / ~2800 mots) « Marché IA & emploi en 2026 ». **§2bis Tendances macro 2026 — 4 séries de chiffres** dans l'ordre canonique : Série 1 Bpifrance (58 % enjeu de survie / 55 % usage / 33 % quotidien / 26 % outillée — paradoxe enjeu vs adoption), Série 2 Microsoft Work Trend Index (49 % cognitive work / ×15 agents / 58 % Frontier Professionals / 42 % émergent), Série 3 McKinsey State of AI (88 % adoption / 39 % EBIT / 23 % scaling agentique / 32-43-13 emploi), Série 4 Stanford AI Index (53 % adoption population / Singapour 61 % UAE 54 % US 28,3 % / 172 Md$/an / 4 sur 5 étudiants). **§2ter maturité agentique** (23 % scaling + 39 % expérimentation = 62 % engagés). Paradoxe MIT NANDA 95 % sans ROI. **§5 Transformation Paradox Microsoft 2026** préservée verbatim : « le principal frein à la valeur IA n'est ni la technologie ni les collaborateurs, mais la culture de l'organisation ». Prime salariale IA + spécificité française (240 M€ Bpifrance + 77 000 offres + 76 % digitalisées). Chiffre devs juniors -20 % **non ajouté** ici (reste local à CU-027 selon RETOUR §7.3). Wikilinks vers chiffres-macro-2026, pr-01, pr-03, pr-07, pr-08, cu-027.
+
+**Métriques cumulées F.5a + F.5b :**
+- 4 nouveaux fichiers MD (~9800 mots cumulés DEP-01 + DEP-07 + PR-01 + PR-04)
+- SPEC v1.8 → v1.9 (pattern 3 niveaux retrieval codifié)
+- Whitelist v2.1 → v2.3 (4 codes retirés + 3 codes ajoutés vague 6)
+- Coût : **0,00 $** (Cowork pur éditorial)
 
 **Métriques :**
 - SPEC v1.8 → v1.9 (+1 sous-section + 1 ligne historique)
@@ -38,10 +50,11 @@
 - **Articulation DEP-07 vs DEP-02 vs DEP-05** : 3 modules complémentaires non substituables, pas de duplication.
 
 **Reste à faire Phase 3 S2.5** :
-- Lot F.5b : PR-01 + PR-04 (risque confusion à éviter)
+- ~~Lot F.5b : PR-01 + PR-04~~ ✅ Livré (entrée présente)
 - Lot F.5c : PR-05 + DEP-05 (sécurité orga vs sécurité technique)
 - Lot F.5d : CU-020 + CU-024 (rectifications PA = Plateforme Agréée)
 - Lots G/H/I/J : whitelist v3 + cartographie v2 + golden set vague 5 + eval + RAPPORT-CC-S2.5 + PR finale
+- **Vague 6 (S2.6 dédié)** : production PR-09 + PR-10 + PR-11 (3 nouveaux préalables v3.12, sondage D-026 recommandé sur PR-10 et PR-11 modules denses)
 
 **Blockers :** aucun.
 
