@@ -11,8 +11,43 @@
 
 ## Entrées
 
-<<<<<<< Updated upstream
-=======
+### 2026-05-22 (S2.5 Phase 3 Lot I — eval extended 72q vault enrichi vague 5) — Claude Code Desktop — 70/72 (97 %), toutes cibles dépassées, non-régression S2.4 intégrale
+
+**Contexte :** eval complète du golden set 72 questions sur le vault enrichi vague 5 (23 fichiers MD, 8 nouveaux modules + 3 patches leads correctifs). Cible SPEC v1.9 : ≥ 60/72 sources (83 %), ≥ 65/72 concepts ≥ 50 % (90 %), latence 12-18 s/q, cap 1,80 $. Branche `claude/execute-s25-lot-i-eval-72q` dérivée de main `bcb69b2` (PR #84, Lots G+H mergés — cette fois le golden set 72q + les 8 modules étaient bien sur main).
+
+**Note d'intégrité (résolu) :** le JOURNAL sur main contenait **2 blocs de marqueurs de conflit `git stash` non résolus** (committés via PR #84 : entrées Lots G+H et Lot F.5c, côté « Updated upstream » vide). Résolus dans ce commit en conservant l'intégralité du contenu (aucune entrée perdue) + retrait des 6 marqueurs. À signaler à Cowork (hygiène de merge).
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale** : `files=23 chunks=289 new=94 updated=0 skipped=195 deleted=0`. `new=94` = les 8 modules vague 5 (dep-01=13, dep-07=12, dep-05=17, pr-01=11, pr-04=9, pr-05=11, cu-020=10, cu-024=11). **`updated=0`** (et non ≥3 attendu au brief) : cu-001/pr-07/pr-08 étaient déjà à leur version finale dans le store local persistant (ingérés lors des lots Drer/bis/ter) → skipped, pas re-embeddés. Bénin. Total store **195 → 289 chunks**, 23 codes.
+- **Eval complète 72q** (run en arrière-plan ~21 min) : exit code 0. Latence **17,7 s/q** (cible 12-18 ✅).
+- **Dump retrieval** (génération exclue) sur les 20 questions vague 5 + les 2 échecs.
+
+**Résultats globaux :**
+
+| Indicateur | Cible | Réalisé | Statut |
+|---|---|---|---|
+| Sources retrouvées | ≥ 60/72 (83 %) | **70/72 (97 %)** | ✅ |
+| Concepts ≥ 50 % | ≥ 65/72 (90 %) | **70/72 (97 %)** | ✅ |
+| Concepts pleinement couverts | — | 64/72 (89 %) | — |
+| Score global | ≥ 60/72 | **70/72 (97 %)** | ✅ |
+| Latence | 12-18 s/q | **17,7 s/q** | ✅ |
+| Coût Anthropic+OpenAI | ≤ 1,80 $ | **1,7816 $** | ✅ |
+| Non-régression S2.4 | 5/5 | **5/5** (q-002, q-030, q-038, q-051, q-052 = 1) | ✅ |
+| Vague 5 (q-053→q-072) | — | **19/20** | ✅ |
+
+**2 échecs (score=0) — tous deux saturation retrieval (pattern connu, remède SPEC v1.9 côté Cowork) :**
+- **q-036** (cu-027, question existante) : cu-027 **absent du top-10**, top-3 = pr-01/pr-01/pr-05. **Nouvelle régression introduite par vague 5** : les nouveaux modules PR (pr-01 « profils Bpifrance », pr-05) sur-capturent « outils de développement IA-assisté / maturité production ». Concepts manquants : Windsurf, Replit, Lovable/Bolt/v0, Claude Code.
+- **q-056** (dep-07, vague 5) : dep-07 au **rang #9** (hors top-5), top-3 = dep-01×3. dep-07 (heuristique « eval first ») étouffé par dep-01 (arbre décision). Concepts manquants : Demystifying evals, golden set/baseline, build the eval before.
+
+**Observation retrieval vague 5 (rang du chunk cible, top-10) :** 18/20 ont la cible au **rang #1** (q-064 pr-04 au #2, dans top-5) ; seul q-056 hors top-5 (#9). Tous les modules vague 5 retrouvés en tête sauf dep-07 sur q-056. Similarités saines (dep-01 0,464 / pr-01 0,453 / dep-05 0,448 / pr-05 0,439 / cu-020 0,418 sur leurs Q phares).
+
+**Décisions structurantes prises :** aucune (exécution + diagnostic). Recommandation : un **Lot S2.5.x correctif** (côté Cowork, D-022) pour q-036 (cu-027 vs pr-01/pr-05) et q-056 (dep-07 vs dep-01) via le pattern « 3 niveaux d'intervention retrieval » désormais codifié SPEC v1.9 — densifier le lead du chunk cible et/ou re-scoper les leads des modules concurrents. Non bloquant : 70/72 dépasse largement la cible 60/72.
+
+**Coût API (Lot I) :** **1,7816 $** (72 générations Sonnet 1,778 $ + 94 chunks vague 5 embeddés 0,0003 $ + 72 embeddings requête + dump), cap ≤ 1,80 $ ✅. Cumul S1→S2.5 Lot I ~7,19 $.
+
+**Reste à faire :** (1) Lot J (Plateforme) RAPPORT-CC-S2.5 + PR finale ; (2) Lot S2.5.x correctif retrieval q-036 + q-056 (Cowork) ; (3) signaler à Cowork les marqueurs de conflit JOURNAL résolus. Artefacts sur `claude/execute-s25-lot-i-eval-72q`, PR à ouvrir.
+
 ### 2026-05-22 (S2.5 Phase 3 Lots G + H livrés) — Cowork Hub IA Plateforme — Cartographie v3 + golden set 72 questions
 
 **Contexte :** Phase 2 S2.5 clôturée (4 sous-lots F.5a/b/c/d + 3 patches leads + SPEC v1.9 + signal v3.12, 8 nouveaux modules + 3 leads patchés). Phase 3 démarre par les lots gouvernance (G cartographie + H golden set extension) avant l'eval Lot I Desktop.
@@ -57,7 +92,6 @@
 ---
 
 
->>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 Lot F.5d livré — vague 5 production complète) — Cowork Hub IA Plateforme — Production CU-020 + CU-024 (conformité + O2C)
 
 **Contexte :** Phase 2 S2.5 — F.5a, F.5b, F.5c mergés sur main (DEP-01 + DEP-07 + PR-01 + PR-04 + DEP-05 + PR-05 + SPEC v1.9 + signal v3.12). F.5d clôture la production vague 5 avec les 2 derniers modules (CU-020 conformité + CU-024 order-to-cash). Application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5 §1 + §2 (avec rectification critique acronymes PA = Plateforme Agréée).
@@ -99,8 +133,6 @@
 ---
 
 
-<<<<<<< Updated upstream
-=======
 ### 2026-05-22 (S2.5 Lot F.5c livré) — Cowork Hub IA Plateforme — Production DEP-05 + PR-05 (sécurité technique + stratégique)
 
 **Contexte :** Phase 2 S2.5 — F.5a et F.5b mergés sur main (DEP-01 + DEP-07 + PR-01 + PR-04 + SPEC v1.9 + signal v3.12). F.5c traite les 2 modules sécurité IA en parallèle (sécurité technique opérationnelle DEP-05 + sécurité stratégique PR-05). Application stricte SPEC v1.9 (pattern 3 niveaux retrieval + AP-7 lead scope) + RETOUR-SONDAGE-S2.5 §4 + §8.
@@ -133,7 +165,6 @@
 ---
 
 
->>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 SPEC v1.9 + Lots F.5a + F.5b livrés + signal v3.12 acté) — Cowork Hub IA Plateforme — Pattern 3 niveaux retrieval + production DEP-01/07/PR-01/PR-04 + anticipation vague 6
 
 **Signal descendant v3.12 acté en parallèle** : Cowork Hub IA a livré l'itération v3.12 HTML (PR #79 mergée) avec **3 nouveaux préalables** (PR-09 Cadrer projet IA stratégique amont / PR-10 Vérifier et limiter hallucinations / PR-11 Cycle de vie projet IA — module pivot). Aucun nouveau chiffre macro (tous déjà canonisés via I-D-003+005+006+007). **Aucun nouvel item descendant à ouvrir**. 3 codes ajoutés à la whitelist pour vague 6 (S2.6 dédié). Application D-026 fortement recommandée sur PR-10 et PR-11 (modules denses). Bonne nouvelle : mon DEP-01 produit en F.5a mentionnait déjà « futur PR-09 v3.12 » comme renvoi pour distinguer arbre décision technique vs cadrage projet — cohérence confirmée.

@@ -48,11 +48,7 @@
 | `pr-02` | Préalables data & SI | 3-4 |
 | `pr-03` | Maturité humaine & formation | 3-4 |
 | ~~`pr-04`~~ | ~~Marché IA & emploi~~ | ✅ **Produit S2.5 Lot F.5b — 22 mai 2026** (4 séries chiffres §2bis Bpifrance/Microsoft/McKinsey/Stanford + Transformation Paradox section 5 + prime salariale + spécificité française) |
-<<<<<<< Updated upstream
-| `pr-05` | Sécurité IA | 3-4 |
-=======
 | ~~`pr-05`~~ | ~~Sécurité IA~~ | ✅ **Produit S2.5 Lot F.5c — 22 mai 2026** (cybersécurité agentique McKinsey + RAI maturité 2,3/5 + NIST CAISI 6 thèmes + 362 incidents Stanford symétrique DEP-08) |
->>>>>>> Stashed changes
 | `pr-06` | Qualité du code IA | 3-4 |
 | `pr-09` | **Cadrer un projet IA avant de choisir un outil** (nouveau v3.12, distinct de DEP-01 arbre décision technique) | **6** |
 | `pr-10` | **Vérifier et limiter les hallucinations IA** (nouveau v3.12, discipline managériale, articulation DEP-05 §8.5 + DEP-07 + vigilance-hallucinations) | **6** |
