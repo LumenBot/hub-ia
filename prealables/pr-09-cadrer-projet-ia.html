@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadrer un projet IA avant de choisir un outil — Hub IA Learning Center</title>
+  <meta name="description" content="Cadrer un projet IA avant de choisir un outil : les 8 questions à se poser pour éviter le piège du tech push. Pourquoi 80 % du soin doit aller sur le cadrage initial, et comment refuser d'avancer sans clarification.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/module-v3.css">
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-title-link"><span class="nav-title">Hub IA — Learning Center</span></a>
+      <div class="nav-links">
+        <a href="../prealables.html" class="nav-link nav-link-active">Préalables</a>
+        <a href="../architectures.html" class="nav-link">Architectures</a>
+        <a href="../index.html#modules" class="nav-link">Modules</a>
+        <a href="../deploiement.html" class="nav-link">Déploiement</a>
+        <a href="../ressources.html" class="nav-link">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" class="nav-link nav-link-icon" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.7 8.2 11.3.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.2 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="module-hero">
+    <div class="module-hero-inner">
+      <a href="../prealables.html" class="module-back">← Retour aux préalables</a>
+      <div class="module-badges">
+        <span class="card-badge">🧭 Cadrage stratégique</span>
+        <span class="card-badge" style="background:var(--color-bg); color:var(--color-text-soft); border:1px solid var(--color-border);">15 min de lecture</span>
+      </div>
+      <h1>🧭 Cadrer un projet IA avant de choisir un outil</h1>
+      <p class="module-subtitle">Les 8 questions à se poser avant de regarder le moindre outil — pourquoi 80 % du soin doit aller sur le cadrage initial, et comment éviter le piège du tech push.</p>
+    </div>
+  </header>
+
+  <div class="module-layout">
+
+    <aside class="module-toc">
+      <button class="module-toc-mobile-toggle" onclick="toggleToc()">📋 Sommaire du préalable</button>
+      <div class="module-toc-label">Sommaire</div>
+      <ul class="module-toc-list" id="tocList">
+        <li><a href="#executive-summary"><span class="toc-icon">⚡</span>L'essentiel</a></li>
+        <li><a href="#section-1"><span class="toc-icon">🚨</span>Le piège du tech push</a></li>
+        <li><a href="#section-2"><span class="toc-icon">🧭</span>Les 8 questions de cadrage</a></li>
+        <li><a href="#section-3"><span class="toc-icon">⚖️</span>Pattern « refuser d'avancer »</a></li>
+        <li><a href="#section-4"><span class="toc-icon">⚠️</span>5 anti-patterns courants</a></li>
+        <li><a href="#section-5"><span class="toc-icon">🎯</span>Le livrable de cadrage minimal</a></li>
+        <li><a href="#section-6"><span class="toc-icon">🔗</span>Articulation avec les préalables</a></li>
+        <li><a href="#section-7"><span class="toc-icon">🚀</span>Plan d'action 30 jours</a></li>
+        <li><a href="#ressources"><span class="toc-icon">📚</span>Pour aller plus loin</a></li>
+      </ul>
+    </aside>
+
+    <main class="module-main">
+
+    <section class="module-section" id="executive-summary">
+      <div class="exec-summary">
+        <div class="exec-summary-label">⚡ Synthèse rapide</div>
+        <h2>80 % du soin d'un projet IA doit aller sur le cadrage initial — avant le moindre choix d'outil.</h2>
+
+        <div class="exec-takeaways">
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">1</div>
+            <p><strong>Le piège du tech push est la cause n°1 d'échec des projets IA en PME.</strong> Choisir d'abord un outil (parce qu'on l'a vu en démo, parce qu'on en a entendu parler, parce que le DSI l'utilise) puis chercher rétroactivement à quoi il va servir, mène mécaniquement à un projet sans valeur métier — même si l'outil est techniquement excellent.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">2</div>
+            <p><strong>8 questions de cadrage doivent recevoir une réponse claire avant tout choix d'outil</strong> : quel problème métier ? quel utilisateur ? quelles données disponibles ? quelles contraintes RGPD ? quel critère de succès ? quel budget ? quel calendrier ? quel arbitrage en cas d'échec ?</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">3</div>
+            <p><strong>Le pattern « refuser d'avancer sans clarification » est une discipline projet — pas une posture obstructionniste.</strong> Mieux vaut perdre 2 heures à clarifier qu'aller 2 mois dans une mauvaise direction.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">4</div>
+            <p><strong>5 anti-patterns courants à reconnaître</strong> : tech push (« j'ai vu, je veux »), boîte noire (« on verra à l'usage »), périmètre extensible, mesure de succès floue, absence de plan d'arrêt.</p>
+          </div>
+          <div class="exec-takeaway">
+            <div class="exec-takeaway-num">5</div>
+            <p><strong>Le livrable de cadrage minimal tient sur 1 page</strong> : c'est un document partageable, datable, contestable. Sans lui, aucune décision projet n'est défendable.</p>
+          </div>
+        </div>
+
+        <div class="exec-stats">
+          <div class="exec-stat">
+            <div class="exec-stat-num">80 %</div>
+            <div class="exec-stat-label">des échecs interviennent avant la première ligne de code</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">8</div>
+            <div class="exec-stat-label">questions de cadrage minimal</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">1 page</div>
+            <div class="exec-stat-label">pour le livrable de cadrage</div>
+          </div>
+          <div class="exec-stat">
+            <div class="exec-stat-num">2 heures</div>
+            <div class="exec-stat-label">d'effort cadrage = plusieurs semaines économisées</div>
+          </div>
+        </div>
+
+        <div class="exec-when">
+          <strong>Quand cette page est utile&nbsp;:</strong> tu es dirigeant PME/ETI avec un projet IA en tête et tu veux savoir <strong>comment le cadrer rigoureusement avant de rencontrer des prestataires ou de tester des outils</strong>. En complément de <a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrer un projet IA en production</a> qui traite l'angle technique du cadrage.
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-1">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">1</div>
+        <h2 class="module-section-title">Le piège du tech push</h2>
+      </div>
+
+      <h3>1.1 « J'ai vu Copilot Studio, je veux ça »</h3>
+      <p>Un dirigeant assiste à une démo impressionnante d'un outil et veut le déployer chez lui, sans avoir identifié le problème métier que l'outil résoudrait. La démo a fait son effet, mais la démo n'est pas le contexte de la PME.</p>
+
+      <h3>1.2 « Tout le monde fait du RAG (Retrieval-Augmented Generation&nbsp;: un agent IA qui consulte ta documentation interne avant de répondre), on doit en faire »</h3>
+      <p>Un dirigeant lit qu'un pattern technique est mainstream et veut le mettre en place. Le pattern peut être pertinent ou pas selon le contexte de la PME, mais la pression sociale ne fait pas un projet.</p>
+
+      <h3>1.3 « Notre DSI maîtrise ChatGPT, on va l'utiliser pour tout »</h3>
+      <p>Un dirigeant s'appuie sur les compétences disponibles en interne pour orienter le projet, plutôt que sur le besoin métier. Le risque : un outil généraliste utilisé partout, sans qu'aucun cas d'usage ne soit traité avec précision.</p>
+
+      <p><strong>Pourquoi ces réflexes sont structurants</strong> : ils paraissent rationnels (« on choisit le meilleur outil », « on suit la tendance », « on s'appuie sur l'expertise interne ») mais ils inversent l'ordre logique du projet. <strong>L'outil est une réponse, pas une question.</strong> Tant que la question n'est pas posée, l'outil n'a pas de sens.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Coût observé</strong> : Les projets IA PME démarrés par le tech push aboutissent dans une majorité de cas à des outils déployés mais peu utilisés, à des budgets engagés sans ROI mesurable, et à des équipes démotivées. Dans le pire des cas, ils consomment 6 à 12 mois de bandwidth managériale avant d'être abandonnés.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-2">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-method">2</div>
+        <h2 class="module-section-title">Les 8 questions de cadrage</h2>
+      </div>
+
+      <p>Ces 8 questions doivent recevoir une réponse claire — pas une intention, pas une approximation — avant tout choix d'outil.</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Critère de réponse claire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>Quel problème métier précis veut-on résoudre ?</td>
+            <td>Formulation en 1-2 phrases, mesurable, validée par la personne qui vit le problème</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>Quel est l'utilisateur final qui consommera l'output ?</td>
+            <td>Profil précis (poste, contexte d'usage, fréquence), pas « les équipes en général »</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>Quelles données sont disponibles et utilisables ?</td>
+            <td>Liste des sources accessibles, formats, qualité, conformité RGPD validée</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>Quelles contraintes réglementaires s'appliquent ?</td>
+            <td>RGPD, AI Act, sectorielles (santé, finance), souveraineté requise (UE/SecNumCloud)</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>Comment mesure-t-on le succès du projet ?</td>
+            <td>KPI quantifiable défini avant lancement, valeur cible, fréquence de mesure</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>Quel est le budget engageable (initial + récurrent 12 mois) ?</td>
+            <td>Ordre de grandeur validé, ligne budgétaire identifiée, marge pour itérations</td>
+          </tr>
+          <tr>
+            <td><strong>7</strong></td>
+            <td>Quel est le calendrier réaliste (POC + déploiement) ?</td>
+            <td>Étapes datées, dépendances explicites, marge pour imprévus</td>
+          </tr>
+          <tr>
+            <td><strong>8</strong></td>
+            <td>Quel est le plan d'arrêt en cas d'échec mesuré ?</td>
+            <td>Critères d'arrêt définis, décisionnaire identifié, coûts d'arrêt anticipés</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Pourquoi 8 et pas plus</strong> : 8 questions suffisent à éliminer 80 % des projets mal-conçus. Au-delà, on entre dans le détail de la spec qui appartient à l'étape suivante (cf. <a href="pr-11-cycle-de-vie-projet-ia.html" class="tool-link">Cycle de vie d'un projet IA</a>).</p>
+      <p><strong>Pourquoi 8 et pas moins</strong> : chacune de ces questions correspond à une cause classique d'échec documentée. Les sauter, c'est s'exposer au piège correspondant.</p>
+    </section>
+
+    <section class="module-section" id="section-3">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-context">3</div>
+        <h2 class="module-section-title">Pattern « refuser d'avancer sans clarification »</h2>
+      </div>
+
+      <p>Une fois les 8 questions identifiées, le pattern complémentaire est la <strong>discipline de refuser d'avancer</strong> tant qu'une réponse n'est pas claire. C'est un pattern managérial, pas technique.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Formulation opérationnelle</strong> : « Mieux vaut perdre 2 heures à clarifier qu'aller 2 mois dans une mauvaise direction. »</p>
+      </div>
+
+      <h3>Application concrète</h3>
+      <ul>
+        <li>Devant un prestataire qui propose un outil sans avoir entendu les réponses aux 8 questions : refuser d'engager, demander un cadrage commun.</li>
+        <li>Devant une équipe interne qui veut « commencer à tester » sans cadrage : refuser le lancement, demander d'abord le document de cadrage.</li>
+        <li>Devant soi-même quand on s'enthousiasme pour une démo : refuser de signer, prendre 48&nbsp;h pour passer les 8 questions.</li>
+      </ul>
+
+      <div class="callout callout-info">
+        <p>⚖️ <strong>Garde-fou</strong> : cette discipline doit rester <strong>proportionnée</strong>. Pour un POC à 500&nbsp;€ sur 2 semaines, le cadrage peut tenir en 30 minutes. Pour un projet à 50&nbsp;000&nbsp;€ sur 6 mois, il vaut probablement 1-2 jours de travail. La proportion : ~1&nbsp;% du coût total projet en effort de cadrage.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-4">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-warning">4</div>
+        <h2 class="module-section-title">5 anti-patterns courants</h2>
+      </div>
+
+      <div class="alert-block">
+        <h3>⚠️ Anti-pattern 1 — Le tech push</h3>
+        <p>Cf. § 1 pour la description détaillée. Le signal d'alerte : la décision d'outil précède la définition du problème. <strong>Correctif</strong> : poser la question 1 (quel problème métier ?) avant toute démo ou démarchage prestataire.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>⚠️ Anti-pattern 2 — La boîte noire « on verra à l'usage »</h3>
+        <p>Le projet est lancé sans critère de succès clair. L'argument : « on verra ce que ça donne en production ». Résultat : 6 mois plus tard, personne ne sait dire si le projet a réussi ou échoué, et le budget continue à couler.</p>
+        <p><strong>Correctif</strong> : la question 5 (mesure du succès) doit recevoir une réponse <strong>avant</strong> le lancement.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>⚠️ Anti-pattern 3 — Le périmètre extensible</h3>
+        <p>Le projet démarre sur un cas d'usage précis (ex : « automatiser le tri des factures fournisseurs »), puis s'étend de proche en proche. Au bout de 3 mois, le périmètre ne ressemble plus du tout au cadrage initial et le projet n'aboutit jamais.</p>
+        <p><strong>Correctif</strong> : poser explicitement « ce qui est hors périmètre v1 » dans le document de cadrage.</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>⚠️ Anti-pattern 4 — La mesure de succès floue</h3>
+        <p>Le KPI annoncé est « gagner du temps », « améliorer la qualité », « être plus moderne ». Aucun de ces critères n'est mesurable.</p>
+        <p><strong>Correctif</strong> : la mesure de succès doit être chiffrable et vérifiable (ex : « réduire le temps moyen de traitement d'une facture de 8 minutes à &lt;3 minutes »).</p>
+      </div>
+
+      <div class="alert-block">
+        <h3>⚠️ Anti-pattern 5 — L'absence de plan d'arrêt</h3>
+        <p>Le projet est engagé sans définir à quel moment on l'arrête s'il échoue. Résultat : il continue par inertie même quand les signaux sont mauvais, parce que personne n'est mandaté pour le stopper.</p>
+        <p><strong>Correctif</strong> : la question 8 (plan d'arrêt) doit recevoir une réponse opérationnelle : qui décide, sur quels critères, avec quel coût d'arrêt anticipé.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-5">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">5</div>
+        <h2 class="module-section-title">Le livrable de cadrage minimal</h2>
+      </div>
+
+      <p>Le livrable de cadrage tient sur <strong>1 page</strong>. Sa valeur n'est pas dans sa longueur, mais dans le fait qu'il est <strong>partageable</strong> (envoyable à un prestataire ou à un comité), <strong>datable</strong> (sert de référence dans le temps) et <strong>contestable</strong> (chaque ligne peut être discutée avant validation).</p>
+
+      <pre style="background:var(--color-bg-alt,#f5f5f5);padding:var(--space-4);border-radius:8px;overflow-x:auto;font-size:0.9rem;line-height:1.6;">PROJET : [titre court du projet en 5-8 mots]
+DATE DE CADRAGE : [date]
+PORTEUR : [nom + rôle]
+
+1. PROBLÈME MÉTIER (1-2 phrases) : ...
+2. UTILISATEUR FINAL : ...
+3. DONNÉES DISPONIBLES : ...
+4. CONTRAINTES RÉGLEMENTAIRES : ...
+5. MESURE DE SUCCÈS : [KPI chiffrable] = [valeur cible] mesuré [fréquence]
+6. BUDGET : [initial] + [récurrent annuel]
+7. CALENDRIER : POC [date début] → déploiement [date cible]
+8. PLAN D'ARRÊT : [critères] / décideur [nom] / coût d'arrêt anticipé [montant]
+
+HORS PÉRIMÈTRE V1 (explicite) : ...
+DEMANDE DE VALIDATION : signature / date</pre>
+
+      <div class="alert-block">
+        <p>Sans ce document, <strong>aucune décision d'engagement</strong> ne devrait être prise — ni prestataire signé, ni budget validé, ni équipe mobilisée.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-6">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-flow">6</div>
+        <h2 class="module-section-title">Articulation avec les autres préalables</h2>
+      </div>
+
+      <p><strong>Avant cette étape</strong> : si la maturité organisationnelle (<a href="pr-01-maturite-organisationnelle.html" class="tool-link">Maturité organisationnelle</a>) n'est pas validée — l'entreprise n'a pas la capacité de mener un projet IA — alors le cadrage est prématuré. Lire ce préalable d'abord.</p>
+      <p><strong>En complément</strong> : <a href="pr-02-preables-data-si.html" class="tool-link">Données &amp; SI</a> donne le contexte technique nécessaire pour qualifier les données disponibles (question 3 du cadrage). <a href="pr-04-marche-ia-emploi.html" class="tool-link">Marché IA &amp; emploi</a> éclaire l'impact organisationnel à anticiper.</p>
+      <p><strong>Après le cadrage</strong> : <a href="pr-07-build-vs-buy.html" class="tool-link">Build vs buy</a> aide à arbitrer le « comment » une fois le projet validé. <a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a> cartographie les dispositifs financiers mobilisables. <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier et limiter les hallucinations IA</a> prépare la phase d'exécution.</p>
+      <p><strong>Vue séquentielle complète</strong> : pour une carte bout en bout du projet IA (9 étapes, 3 quality gates), voir <a href="pr-11-cycle-de-vie-projet-ia.html" class="tool-link">Cycle de vie d'un projet IA</a>.</p>
+      <p><strong>Articulation avec la fiche Déploiement</strong> : <a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">Cadrer un projet IA en production</a> traite l'angle <strong>technique</strong> du cadrage (choix d'architecture, heuristique anti-hype) une fois que le projet est validé stratégiquement. Ce préalable traite l'angle <strong>stratégique amont</strong>. Les deux sont complémentaires et séquentiels : le cadrage stratégique d'abord, le cadrage technique ensuite.</p>
+
+      <div class="callout callout-info">
+        <p>💡 <strong>Articulation SEQ</strong> : cadrage stratégique → Gate 1 → cadrage technique → développement → <a href="pr-10-verifier-limiter-hallucinations.html" class="tool-link">Vérifier et limiter les hallucinations IA</a> → mise en service. Cette séquence est détaillée dans <a href="pr-11-cycle-de-vie-projet-ia.html" class="tool-link">le cycle de vie complet</a>.</p>
+      </div>
+    </section>
+
+    <section class="module-section" id="section-7">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-success">7</div>
+        <h2 class="module-section-title">Plan d'action 30 jours</h2>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">1</div>
+        <div>
+          <h4>Jours 1-7 — Identifier le projet candidat</h4>
+          <ul>
+            <li>Lister les irritants métier qui pourraient bénéficier d'une démarche IA</li>
+            <li>Choisir 1 problème prioritaire (pas 3, pas 5)</li>
+            <li>Vérifier que ce problème vaut la peine d'être résolu (impact business, fréquence, coût actuel)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">2</div>
+        <div>
+          <h4>Jours 8-14 — Répondre aux 8 questions de cadrage</h4>
+          <ul>
+            <li>Bloquer 2-3 heures dans l'agenda pour le cadrage</li>
+            <li>Inviter les personnes pertinentes (utilisateur final, responsable données, contrôleur de gestion si budget)</li>
+            <li>Documenter les réponses dans le format 1 page (cf. § 5)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">3</div>
+        <div>
+          <h4>Jours 15-21 — Faire valider le cadrage</h4>
+          <ul>
+            <li>Présenter le document à la direction ou au comité ad hoc</li>
+            <li>Recueillir les retours, les intégrer</li>
+            <li>Obtenir une validation explicite (signature ou équivalent)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="case-deep-step">
+        <div class="case-deep-step-num">4</div>
+        <div>
+          <h4>Jours 22-30 — Préparer la suite</h4>
+          <ul>
+            <li>Selon le résultat du cadrage, orienter vers <a href="pr-07-build-vs-buy.html" class="tool-link">Build vs buy</a> ou <a href="../deploiement/dep-01-cadrer-projet-prod.html" class="tool-link">le cadrage technique DEP-01</a></li>
+            <li>Si le cadrage révèle que le projet n'est pas mûr, archiver et passer au projet suivant</li>
+            <li>Si le cadrage révèle un besoin de financement, mobiliser <a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="module-section" id="ressources">
+      <div class="module-section-header">
+        <div class="module-section-icon icon-resources">8</div>
+        <div class="module-section-title">
+          <div class="section-number">Section 8</div>
+          <h2>Pour aller plus loin</h2>
+        </div>
+      </div>
+
+      <div class="callout callout-info" style="margin-bottom: var(--space-5);">
+        Pour le panorama complet des outils, retrouve les fiches détaillées sur la <a href="../ressources.html#bibliographie" class="tool-link">page Ressources du Hub</a>.
+      </div>
+
+      <div class="resources-cat">
+        <h3>📰 Articles de fond</h3>
+        <ul>
+          <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey State of AI 2025</a><span class="resources-meta">Données sur l'adoption IA et les facteurs d'échec en entreprise. Fondement de la règle des 80 % avant code.</span></li>
+          <li><a href="https://lelab.bpifrance.fr/" target="_blank" rel="noopener">Bpifrance Le Lab — Baromètre IA PME 2025</a><span class="resources-meta">Statistiques d'adoption et cas d'usage IA en PME françaises (déjà référencé dans <a href="pr-04-marche-ia-emploi.html" class="tool-link">Marché IA &amp; emploi</a> et <a href="pr-08-financer-projet-ia.html" class="tool-link">Financement</a>).</span></li>
+          <li><a href="https://cloudsecurityalliance.org/research/topics/artificial-intelligence" target="_blank" rel="noopener">Cloud Security Alliance — AI Safety and Security Guidelines</a><span class="resources-meta">Recommandations de cadrage projet IA (déjà citée dans modules existants).</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>🎓 Tutoriels &amp; cas pratiques</h3>
+        <ul>
+          <li><span class="resources-meta-title">Template document de cadrage 1 page</span><span class="resources-meta">Le format décrit en § 5 — à copier-adapter pour votre premier projet IA.</span></li>
+          <li><span class="resources-meta-title">Checklist 8 questions</span><span class="resources-meta">Version imprimable du tableau § 2 pour une session de cadrage en équipe.</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>📚 Documentation officielle &amp; études</h3>
+        <ul>
+          <li><a href="https://www.cnil.fr/fr/intelligence-artificielle" target="_blank" rel="noopener">CNIL — Recommandations sur la documentation préalable des projets IA</a><span class="resources-meta">Exigences de documentation avant déploiement d'un système IA (cohérence RGPD).</span></li>
+          <li><a href="https://artificialintelligenceact.eu/" target="_blank" rel="noopener">AI Act — Article 9 (Risk management) et Article 13 (Transparence)</a><span class="resources-meta">Exigences de documentation préalable pour les systèmes IA à risque élevé.</span></li>
+        </ul>
+      </div>
+
+      <div class="resources-cat">
+        <h3>👥 Contacts opérationnels</h3>
+        <ul>
+          <li><a href="https://www.bpifrance.fr/nos-actualites/diagnostic-data-ia-pour-pme" target="_blank" rel="noopener">Bpifrance</a><span class="resources-meta">Diagnostic Data IA — étape 1 du cadrage projet (40 % de prise en charge via plan Osez l'IA — cf. <a href="pr-08-financer-projet-ia.html" class="tool-link">Financer son projet IA</a>).</span></li>
+          <li><a href="https://www.questforchange.eu" target="_blank" rel="noopener">Réseau QFC / QFB / Quai Alpha</a><span class="resources-meta">Accompagnement structurant des projets IA des PME/ETI du Grand Est.</span></li>
+          <li><a href="https://www.grandest.fr" target="_blank" rel="noopener">Région Grand Est</a><span class="resources-meta">Dispositifs d'accompagnement amont aux projets IA.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/logos/qfc.png" alt="Quest for Change" class="footer-logo">
+        <span class="footer-title">Hub IA — Learning Center</span>
+      </div>
+      <p class="footer-text">Initiative ouverte · Mai 2026</p>
+      <div class="footer-links">
+        <a href="../prealables.html">Préalables</a>
+        <a href="../architectures.html">Architectures</a>
+        <a href="../index.html#modules">Modules</a>
+        <a href="../deploiement.html">Déploiement</a>
+        <a href="../ressources.html">Ressources</a>
+        <a href="https://github.com/LumenBot/hub-ia" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:blaise.cavalli@questforchange.eu">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/module-v3.js"></script>
+</body>
+</html>
