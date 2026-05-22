@@ -11,6 +11,53 @@
 
 ## Entrées
 
+<<<<<<< Updated upstream
+=======
+### 2026-05-22 (S2.5 Phase 3 Lots G + H livrés) — Cowork Hub IA Plateforme — Cartographie v3 + golden set 72 questions
+
+**Contexte :** Phase 2 S2.5 clôturée (4 sous-lots F.5a/b/c/d + 3 patches leads + SPEC v1.9 + signal v3.12, 8 nouveaux modules + 3 leads patchés). Phase 3 démarre par les lots gouvernance (G cartographie + H golden set extension) avant l'eval Lot I Desktop.
+
+**Actions menées :**
+
+- **Lot G — Cartographie v1 → v3** : ajout d'une section dédiée « Vague 5 — ajouts S2.5 Phase 2 » avec inventaire détaillé des **8 nouveaux modules** + **3 patches leads** :
+  - Pour chaque nouveau module : titre + version + date d'ajout + 4-5 angles thématiques principaux + mots-clés sémantiques + recouvrements connus
+  - Section dédiée Patches Lot S2.5.0+bis+ter (cu-001 v3.11.1, pr-07 v3.11.3 avec 3 itérations, pr-08 v3.11.1)
+  - Pattern empirique « 3 niveaux d'intervention retrieval » documenté avec cas-école q-030 (rang #13 → #6 → #3 sim 0,3635)
+  - Récap inventaire post-S2.5 Phase 2 : **vault à 23 fichiers MD** (vs 15 en S2.4)
+  - Historique versions enrichi (v3 = cartographie post-S2.5 Phase 2)
+
+- **Lot H — Extension golden set 52 → 72 questions** (20 nouvelles q-053 → q-072) :
+  - **dep-01** (3 questions q-053 à q-055) : heuristique anti-hype + 6 niveaux arbre décision + Jagged Frontier
+  - **dep-07** (3 questions q-056 à q-058) : heuristique « eval first » Anthropic + 3 types d'evals + distinction eval/observabilité
+  - **dep-05** (3 questions q-059 à q-061) : 5 layers observabilité + failure receipt pattern + two-agent harness Anthropic
+  - **pr-01** (2 questions q-062 à q-063) : typologie 4 profils Bpifrance + facteur de succès n°1 McKinsey (redesign workflows)
+  - **pr-04** (3 questions q-064 à q-066) : 4 séries chiffres convergents + Transformation Paradox Microsoft + paradoxe Bpifrance enjeu vs adoption
+  - **pr-05** (2 questions q-067 à q-068) : cybersécurité agentique McKinsey + NIST CAISI thèmes prioritaires
+  - **cu-020** (2 questions q-069 à q-070) : 4 articles structurants + sanctions 7 % CA / 35 M€
+  - **cu-024** (2 questions q-071 à q-072) : 6 étapes O2C + valeur IA différenciée + PA vs PPF
+  - **Application stricte SPEC v1.9** : AP-5 quoting numériques ✅, AP-6 plafond 4 synonymes ✅, AP-7 lead scope strict ✅, pattern 3 niveaux retrieval appliqué ex-ante dans les leads produits Phase 2.
+  - **Validation YAML automatique** : 72 questions, 72 ids consécutifs, AP-5 + AP-6 respectés, 0 violation.
+  - **Cible eval S2.5 recalibrée** : ≥ 60/72 sources retrouvées (≥ 83 %), ≥ 65/72 concepts ≥ 50 % (≥ 90 %).
+  - **Coût eval Lot I attendu** : 72q × ~0,025 $/q = **~1,80 $ Anthropic** (cap durci sprint S2.5 = 1,80 $ SPEC v1.9 §Performances table 50-60q + marge légère pour ~72q).
+
+**Métriques Lots G + H :**
+- 2 fichiers de gouvernance : cartographie-rag.md (v1 → v3), questions.yaml (52 → 72 questions)
+- Coût : **0,00 $** (Cowork pur éditorial)
+
+**Décisions structurantes :**
+- **Cartographie v3** consolidée inventaire vague 5 (8 modules + 3 patches leads). Pattern « 4 modules sécurité IA complémentaires » + pattern « 4 modules méthodologiques cartographiques sans cas-école PME » documentés.
+- **Cible eval S2.5** : ≥ 60/72 (83 %) sources et ≥ 65/72 (90 %) concepts — proportionnels aux cibles précédentes (S2.3 41/42 = 97 % atteinte, S2.4 50/52 = 96 % atteinte). Marge raisonnable pour absorber 20 nouvelles questions sur 8 modules from scratch.
+
+**Reste à faire S2.5 Phase 3** :
+- **Lot I (Desktop)** : eval extended 72 questions sur vault enrichi vague 5. Pull main + ingest incrémental (8 nouveaux fichiers + 3 patchés) + run_eval + commit artefacts + MAJ JOURNAL/STATUS.
+- **Lot J (Plateforme)** : RAPPORT-CC-S2.5 (8 sections format S2.4) + PR finale S2.5.
+
+**Blockers :** aucun. État stable Cowork-side, attente exécution Desktop Lot I.
+
+---
+
+
+>>>>>>> Stashed changes
 ### 2026-05-22 (S2.5 Lot F.5d livré — vague 5 production complète) — Cowork Hub IA Plateforme — Production CU-020 + CU-024 (conformité + O2C)
 
 **Contexte :** Phase 2 S2.5 — F.5a, F.5b, F.5c mergés sur main (DEP-01 + DEP-07 + PR-01 + PR-04 + DEP-05 + PR-05 + SPEC v1.9 + signal v3.12). F.5d clôture la production vague 5 avec les 2 derniers modules (CU-020 conformité + CU-024 order-to-cash). Application stricte SPEC v1.9 + RETOUR-SONDAGE-S2.5 §1 + §2 (avec rectification critique acronymes PA = Plateforme Agréée).
