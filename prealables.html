@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/journey.css">
+  <script defer src="js/journey.js"></script>
   <link rel="stylesheet" href="css/module-v3.css">
   <style>
     /* Section Préalables — page d'index */
@@ -78,6 +80,44 @@
       Ces préalables sont à connaître <strong>avant</strong> de se lancer dans un cas d'usage spécifique. Ils répondent à la question : « qu'est-ce que je dois maîtriser pour que mon projet IA réussisse ? ».
     </p>
   </header>
+
+  <!-- FIL D'ARIANE / ITINÉRAIRE STICKY -->
+  <div class="journey" id="journey">
+    <div class="journey-inner">
+      <span class="journey-label">Itinéraire</span>
+      <div class="journey-track">
+        <a href="prealables.html" class="journey-step is-current" data-step="0">
+          <span class="journey-step-dot"><span class="journey-step-num">1</span></span>
+          <span class="journey-step-label">Préalables</span>
+          <span class="journey-step-count">11 préalables</span>
+        </a>
+        <a href="architectures.html" class="journey-step" data-step="1">
+          <span class="journey-step-dot"><span class="journey-step-num">2</span></span>
+          <span class="journey-step-label">Architectures</span>
+          <span class="journey-step-count">4+1 patterns</span>
+        </a>
+        <a href="index.html#modules" class="journey-step" data-step="2">
+          <span class="journey-step-dot"><span class="journey-step-num">3</span></span>
+          <span class="journey-step-label">Modules</span>
+          <span class="journey-step-count">27 cas d'usage</span>
+        </a>
+        <a href="deploiement.html" class="journey-step" data-step="3">
+          <span class="journey-step-dot"><span class="journey-step-num">4</span></span>
+          <span class="journey-step-label">Déploiement</span>
+          <span class="journey-step-count">8 fiches</span>
+        </a>
+        <a href="ressources.html" class="journey-step" data-step="4">
+          <span class="journey-step-dot"><span class="journey-step-num">5</span></span>
+          <span class="journey-step-label">Ressources</span>
+          <span class="journey-step-count">104 outils</span>
+        </a>
+      </div>
+      <div class="journey-progress-pill">
+        <span class="journey-progress-pill-dot"></span>
+        <span class="journey-progress-count"><strong>0</strong>/27 modules</span>
+      </div>
+    </div>
+  </div>
 
   <section class="prealables-intro">
     <h2>Pourquoi cette section ?</h2>
@@ -236,6 +276,34 @@
     <p>
       <strong>Ordre conseillé pour démarrer</strong> : Maturité organisationnelle → Préalables data &amp; SI → Maturité humaine &amp; formation, puis un module correspondant à ton cas d'usage prioritaire. Les préalables sécurité et qualité du code se rejoignent en parallèle dès qu'un projet IA est lancé.
     </p>
+  </section>
+
+  <!-- SUITE LOGIQUE — next step -->
+  <section class="next-step">
+    <div class="next-step-inner">
+      <div>
+        <div class="next-step-eyebrow">Station suivante</div>
+        <h2 class="next-step-title">Préalables maîtrisés —<br><em>choisis ton architecture.</em></h2>
+      </div>
+      <div class="next-step-cards">
+        <a href="architectures.html" class="next-step-card">
+          <div class="next-step-card-tag">→ §02 · Architectures</div>
+          <div class="next-step-card-title">4+1 patterns canoniques</div>
+          <div class="next-step-card-desc">Prompt simple, RAG, fine-tuning, agents, plus l'option hybride. La méthode pour choisir le bon pattern selon ton cas d'usage.</div>
+          <div class="next-step-card-cta">Choisir son architecture
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+        <a href="index.html#modules" class="next-step-card">
+          <div class="next-step-card-tag">→ §03 · Modules</div>
+          <div class="next-step-card-title">27 cas d'usage opérationnels</div>
+          <div class="next-step-card-desc">Du réflexe individuel au dispositif agentique avancé, regroupés en 6 familles métier sur une échelle de complexité à 4 niveaux.</div>
+          <div class="next-step-card-cta">Explorer les modules
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
   </section>
 
   <footer class="footer">
