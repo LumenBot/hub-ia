@@ -1,7 +1,7 @@
 # whitelist-wikilinks-futurs.md — Liste des MD planifiés mais non encore produits
 
-**Statut :** v2 (post-S2.3 Lot B — 3 modules vague 3 produits)
-**Dernière mise à jour :** 13 mai 2026
+**Statut :** v4 (post-S2.6 Lot G — 3 préalables vague 6 produits PR-09 + PR-10 + PR-11, refonte brique vigilance-hallucinations alignée typologie 4 familles PR-10)
+**Dernière mise à jour :** 22 mai 2026
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle (D-029) :** liste des codes de fichiers MD planifiés dans la roadmap du vault mais pas encore produits. Lue par `audit-md-rag.py` v2 au démarrage. Les wikilinks pointant vers ces codes sont signalés comme **warnings** (anticipations légitimes), pas comme erreurs (wikilinks cassés).
@@ -50,9 +50,9 @@
 | ~~`pr-04`~~ | ~~Marché IA & emploi~~ | ✅ **Produit S2.5 Lot F.5b — 22 mai 2026** (4 séries chiffres §2bis Bpifrance/Microsoft/McKinsey/Stanford + Transformation Paradox section 5 + prime salariale + spécificité française) |
 | ~~`pr-05`~~ | ~~Sécurité IA~~ | ✅ **Produit S2.5 Lot F.5c — 22 mai 2026** (cybersécurité agentique McKinsey + RAI maturité 2,3/5 + NIST CAISI 6 thèmes + 362 incidents Stanford symétrique DEP-08) |
 | `pr-06` | Qualité du code IA | 3-4 |
-| `pr-09` | **Cadrer un projet IA avant de choisir un outil** (nouveau v3.12, distinct de DEP-01 arbre décision technique) | **6** |
-| `pr-10` | **Vérifier et limiter les hallucinations IA** (nouveau v3.12, discipline managériale, articulation DEP-05 §8.5 + DEP-07 + vigilance-hallucinations) | **6** |
-| `pr-11` | **Cycle de vie d'un projet IA** (nouveau v3.12, module pivot / carte de navigation très dense, cross-links denses vers tous PR + DEP) | **6** |
+| ~~`pr-09`~~ | ~~Cadrer un projet IA avant de choisir un outil~~ | ✅ **Produit S2.6 Lot F.6 — 22 mai 2026** (8 questions cadrage + 5 anti-patterns + pattern « refuser d'avancer » + template livrable 1 page + frontière explicite vs DEP-01) |
+| ~~`pr-10`~~ | ~~Vérifier et limiter les hallucinations IA~~ | ✅ **Produit S2.6 Lot F.6 — 22 mai 2026** (4 familles canoniques Chiffres inventés / Citations fabriquées / Conclusions hors-périmètre / Faux positifs de complétion + 4 niveaux de vérification proportionnés à l'enjeu N0-N3 + 5 dimensions managériales + heuristique enjeu rattrapable/réputationnel/critique) |
+| ~~`pr-11`~~ | ~~Cycle de vie d'un projet IA~~ | ✅ **Produit S2.6 Lot F.6 — 22 mai 2026** (module pivot / carte de navigation : 9 étapes séquencées + 3 quality gates GO/NO-GO + tableau coût courts-circuits 5-50× + cas-école order-to-cash PME 50 salariés non nommée) |
 | ~~`pr-08`~~ | ~~Financer son projet IA en 2026 (nouveau préalable v3.10)~~ | ✅ **Produit S2.4 Lot F.4 — 13 mai 2026** (RULES 7→8 préalables, post-RETOUR-SONDAGE-S2.4 §1) |
 
 ## Fiches déploiement DEP planifiées (à produire vagues 3 à 5)
@@ -123,3 +123,5 @@
 |---|---|---|
 | v1 | 12 mai 2026 | Initialisation post-S1bis (D-029), 69 codes whitelistés couvrant vagues 3 à 5 |
 | v2 | 13 mai 2026 | S2.3 Lot B — retrait de `cu-026`, `cu-027`, `dep-08` (produits dans le vault). 66 codes restant whitelistés. |
+| v3 | 22 mai 2026 | S2.5 Lot G — retrait de `cu-020`, `cu-024`, `dep-01`, `dep-05`, `dep-07`, `pr-01`, `pr-04`, `pr-05`, `pr-08`, `pattern-persistent-memory` (10 codes produits S2.4 + S2.5). 56 codes restant whitelistés. |
+| v4 | 22 mai 2026 | S2.6 Lot G — retrait de `pr-09`, `pr-10`, `pr-11` (3 nouveaux préalables vague 6 produits S2.6 v3.12). Refonte parallèle de la brique transverse `vigilance-hallucinations.md` (déjà présente dans le vault depuis S2.0) sur la typologie canonique 4 familles PR-10 (Chiffres inventés / Citations fabriquées / Conclusions hors-périmètre / Faux positifs de complétion) — décision D-025 validée par Blaise. **53 codes restant whitelistés**. |
