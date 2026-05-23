@@ -816,3 +816,106 @@
 # Fin de l'extension S2.5 Lot H — 20 nouvelles questions vague 5 (total golden set : 72 questions).
 # Cible eval S2.5 : ≥ 60/72 sources retrouvées (≥ 83 %), ≥ 65/72 concepts ≥ 50 % (≥ 90 %).
 # Coût eval estimé : 72q × ~0,025 $/q = ~1,80 $ Anthropic (cap durci sprint S2.5 = 1,80 $ SPEC v1.9 §Performances table 50-60q + marge).
+
+# === EXTENSION S2.6 Lot H — 9 nouvelles questions vague 6 (PR-09 + PR-10 + PR-11) ===
+# Application SPEC v2.0 stricte : AP-5 (valeurs numériques quotées), AP-6 (plafond 4 synonymes), AP-7 (scope strict).
+
+# === pr-09 (Cadrer un projet IA avant de choisir un outil) — 3 questions ===
+
+- id: q-073
+  question: "Comment cadrer un projet IA en PME avant de choisir un outil et éviter le piège du tech push ?"
+  expected_sources: [pr-09]
+  expected_concepts:
+    - ["8 questions", "huit questions", "questions de cadrage"]
+    - ["tech push", "piège tech push"]
+    - ["80 %", "80 pourcent", "avant la première ligne de code"]
+    - ["livrable", "1 page", "template"]
+  unit: pr-09
+
+- id: q-074
+  question: "Quelle différence entre PR-09 cadrage stratégique amont et DEP-01 cadrage technique d'un projet IA ?"
+  expected_sources: [pr-09]
+  expected_concepts:
+    - ["stratégique amont", "angle stratégique"]
+    - ["technique", "cadrage technique"]
+    - ["séquentiels", "complémentaires", "PR-09 d'abord"]
+    - ["décision d'engager", "alignement métier"]
+  unit: pr-09
+
+- id: q-075
+  question: "Quelles sont les 8 questions canoniques pour cadrer un projet IA et le pattern « refuser d'avancer » ?"
+  expected_sources: [pr-09]
+  expected_concepts:
+    - ["problème métier", "utilisateur final"]
+    - ["données disponibles", "contraintes réglementaires"]
+    - ["mesure du succès", "budget", "calendrier"]
+    - ["plan d'arrêt", "refuser d'avancer"]
+  unit: pr-09
+
+# === pr-10 (Vérifier et limiter les hallucinations IA) — 3 questions ===
+
+- id: q-076
+  question: "Quelles sont les 4 familles canoniques d'hallucinations IA en PME 2026 et comment les détecter ?"
+  expected_sources: [pr-10]
+  expected_concepts:
+    - ["chiffres inventés", "famille 1"]
+    - ["citations fabriquées", "famille 2"]
+    - ["conclusions hors-périmètre", "extrapolation"]
+    - ["faux positifs de complétion", "overclaimed completeness"]
+  unit: pr-10
+
+- id: q-077
+  question: "Quels sont les 4 niveaux de vérification des outputs IA proportionnés à l'enjeu en production ?"
+  expected_sources: [pr-10]
+  expected_concepts:
+    - ["niveau 0", "pas de vérification", "POC"]
+    - ["niveau 1", "échantillonnage", "faible enjeu"]
+    - ["niveau 2", "systématique humaine", "enjeu modéré"]
+    - ["niveau 3", "double validation", "agent réviseur"]
+  unit: pr-10
+
+- id: q-078
+  question: "Comment limiter les faux positifs de complétion d'un agent IA et appliquer le pattern « pas de claim sans preuve fraîche » ?"
+  expected_sources: [pr-10]
+  expected_concepts:
+    - ["preuve fraîche", "preuve indépendante"]
+    - ["faux positifs", "complétion", "overclaimed"]
+    - ["ID transaction", "accusé de réception", "vérification indépendante"]
+    - ["failure receipt", "reçu d'exécution"]
+  unit: pr-10
+
+# === pr-11 (Cycle de vie d'un projet IA) — 3 questions ===
+
+- id: q-079
+  question: "Quelles sont les 9 étapes séquencées du cycle de vie d'un projet IA en PME ?"
+  expected_sources: [pr-11]
+  expected_concepts:
+    - ["9 étapes", "neuf étapes", "étapes séquencées"]
+    - ["analyse du besoin", "cadrage", "spec"]
+    - ["développement", "tests et évaluation"]
+    - ["mise en service", "suivi"]
+  unit: pr-11
+
+- id: q-080
+  question: "Quels sont les 3 quality gates obligatoires d'un projet IA et leurs critères GO/NO-GO ?"
+  expected_sources: [pr-11]
+  expected_concepts:
+    - ["3 quality gates", "trois quality gates"]
+    - ["gate 1", "vaut la peine d'être engagé"]
+    - ["gate 2", "livré correspond", "spécifié"]
+    - ["gate 3", "qualité observée", "suffisante pour la production"]
+  unit: pr-11
+
+- id: q-081
+  question: "Combien coûte le court-circuit d'une étape du cycle de vie d'un projet IA selon les ratios documentés ?"
+  expected_sources: [pr-11]
+  expected_concepts:
+    - ["5 à 10×", "5 à 10 fois", "coût"]
+    - ["10 à 50×", "cadrage bâclé"]
+    - ["court-circuit", "courts-circuits", "étape sautée"]
+    - ["80 %", "avant la première ligne de code"]
+  unit: pr-11
+
+# Fin de l'extension S2.6 Lot H — 9 nouvelles questions vague 6 (total golden set : 81 questions).
+# Cible eval S2.6 : ≥ 70/81 sources retrouvées (≥ 86 %), ≥ 73/81 concepts ≥ 50 % (≥ 90 %).
+# Coût eval estimé : 81q × ~0,025 $/q = ~2,03 $ Anthropic (cap durci sprint S2.6 = 2,00 $ SPEC v2.0 §Performances extrapolation linéaire 75-80q).
