@@ -1,0 +1,24 @@
+=== DUMP RETRIEVAL vague 6 (q-073 → q-081) — rang cible + audit AP-7 PR-11 ===
+  q-073 exp=['pr-09']            cible #1 sim 0.576   top5=['pr-09', 'pr-09', 'pr-09', 'pr-09', 'pr-09'] | AP-7: pr-11 en top-5 ranks AUCUN ✅
+  q-074 exp=['pr-09']            cible #1 sim 0.436   top5=['pr-09', 'pr-09', 'pr-05', 'dep-01', 'pr-09']
+  q-075 exp=['pr-09']            cible #1 sim 0.407   top5=['pr-09', 'pr-09', 'pr-09', 'pr-09', 'pr-09']
+  q-076 exp=['pr-10']            cible #2 sim 0.259   top5=['vigilance-hallucinations', 'pr-10', 'pr-10', 'vigilance-hallucinations', 'pr-10'] | AP-7: pr-11 en top-5 ranks AUCUN ✅
+  q-077 exp=['pr-10']            cible #1 sim 0.410   top5=['pr-10', 'pr-10', 'pr-10', 'pr-10', 'pr-10']
+  q-078 exp=['pr-10']            cible #1 sim 0.283   top5=['pr-10', 'vigilance-hallucinations', 'pr-10', 'pr-10', 'vigilance-hallucinations']
+  q-079 exp=['pr-11']            cible #1 sim 0.424   top5=['pr-11', 'pr-11', 'pr-11', 'pr-11', 'pr-11']
+  q-080 exp=['pr-11']            cible #1 sim 0.413   top5=['pr-11', 'pr-11', 'pr-11', 'pr-11', 'pr-11']
+  q-081 exp=['pr-11']            cible #1 sim 0.488   top5=['pr-11', 'pr-11', 'pr-11', 'dep-01', 'dep-01']
+
+=== AP-7 détail q-073 (PR-09) + q-076 (PR-10) — top-5 complet ===
+  q-073: Comment cadrer un projet IA en PME avant de choisir un outil
+    #1 [pr-09                 ] sim=0.576  Le piège du tech push
+    #2 [pr-09                 ] sim=0.435  L'essentiel à retenir
+    #3 [pr-09                 ] sim=0.397  Plan d'action 30 jours pour intégrer l
+    #4 [pr-09                 ] sim=0.370  Le pattern « refuser d'avancer » sans 
+    #5 [pr-09                 ] sim=0.365  Les 5 anti-patterns de cadrage les plu
+  q-076: Quelles sont les 4 familles canoniques d'hallucinations IA e
+    #1 [vigilance-hallucinations] sim=0.268  Les 4 familles d'hallucinations (typol
+    #2 [pr-10                 ] sim=0.259  Pourquoi les hallucinations sont struc
+    #3 [pr-10                 ] sim=0.255  L'essentiel à retenir
+    #4 [vigilance-hallucinations] sim=0.232  Cas d'application typiques
+    #5 [pr-10                 ] sim=0.219  Les 5 dimensions managériales de la di

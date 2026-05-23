@@ -11,6 +11,43 @@
 
 ## Entrées
 
+### 2026-05-23 (S2.6 Lot I — eval extended 81q vault post-vague 6 + latence p50/p90) — Claude Code Desktop — 81/81 (100 %), 2 alertes (cap coût +0,05 $, p90 latence 22s)
+
+**Contexte :** eval complète du golden set 81 questions sur le vault post-vague 6 (26 fichiers MD, +3 modules PR-09/PR-10/PR-11 + refonte brique vigilance-hallucinations v3.12.0). Prérequis Lot F.6 + G + H mergés sur main (PR #93, `bd1ebc1`). Branche `s2.6-eval-vague-6` dérivée de main. **Discipline SPEC v2.0 appliquée** : `git grep "<<<<<<<"` = vide avant tout `git add` (aucun marqueur de conflit cette fois — hygiène merge Cowork rétablie après les 3 occurrences PR #84/#86/#88).
+
+**Actions menées :**
+
+- **Ré-ingestion incrémentale** : `files=26 chunks=318 new=30 updated=6 skipped=282 deleted=1`. `new=30` = vague 6 (pr-09=9, pr-10=10, pr-11=9) + 2 nouvelles sections vigilance-hallucinations ; `updated=6` + `deleted=1` = refonte brique vigilance-hallucinations (v→3.12.0). Total store **289 → 318 chunks**, 26 codes. **Franchissement du seuil 300 chunks** (bande SPEC v2.0 §Performances « 200-300 »).
+- **Eval complète 81q** (run arrière-plan ~24 min) : exit 0.
+- **Dump retrieval** vague 6 + audit AP-7 PR-11.
+
+**Résultats globaux :**
+
+| Indicateur | Cible | Réalisé | Statut |
+|---|---|---|---|
+| Sources retrouvées | ≥ 70/81 (86 %) | **81/81 (100 %)** | ✅ |
+| Concepts ≥ 50 % | ≥ 73/81 (90 %) | **81/81 (100 %)** | ✅ |
+| Concepts pleinement couverts | — | 73/81 (90 %) | — |
+| Score global | ≥ 73/81 | **81/81 (100 %)** | ✅ |
+| Latence p50 / p90 | 14-20 s/q | **p50 19,0s ✅ / p90 22,0s ⚠️** | ⚠️ p90 |
+| Coût Anthropic | ≤ 2,00 $ | **2,0509 $** | ⚠️ +0,05 $ |
+| Non-régression S2.5 (7q) | 7/7 | **7/7** (q-002/q-030/q-036/q-038/q-051/q-052/q-056 = 1) | ✅ |
+| Vague 6 (q-073→q-081) | — | **9/9** | ✅ |
+
+**Observations retrieval vague 6 :** 8/9 cibles au **rang #1** (q-076 au #2 derrière vigilance-hallucinations, co-source légitime sur « 4 familles d'hallucinations »). Similarités fortes (pr-09 0,576 / pr-11 0,488 / pr-10 0,410). pr-09/pr-10/pr-11 tous récupérés + cités sur leurs questions.
+
+**Audit AP-7 PR-11 (module pivot dense) — RÉUSSI ✅ :** sur q-073 (PR-09) top-5 = pr-09 ×5 (pr-11 **absent**) ; sur q-076 (PR-10) top-5 = vigilance-hallucinations + pr-10 (pr-11 **absent**). Le module pivot très cross-linké **ne sature pas** les questions hors scope — discipline AP-7 lead scope validée empiriquement à la production.
+
+**2 alertes (non bloquantes, score 100 %) :**
+- **Coût** : 2,0509 $ Anthropic = **+0,05 $ au-dessus du cap 2,00 $** (+2,5 %). Cause : 81q × ~0,0253 $/q ; le cap était calibré pour 75-80q. Recommandation : recalibrer cap S2.7 à ~2,10 $ pour 81q (ou affiner si vault grossit).
+- **Latence** : p50 19,0s (dans 14-20 ✅) mais **p90 22,0s > borne 20s** (max 24s). Le vault a franchi **318 chunks (> 300)**, sortant de la bande SPEC v2.0 §Performances « 200-300 chunks ». **Recommandation §Performances v2.1** (cf. reporting brief) : pour S2.7, soit étendre la bande de latence cible pour vault 300-400 chunks, soit envisager un reranking / réduction top_k si la latence continue de dériver. À ce stade : tendance modérée, non bloquante.
+
+**Décisions structurantes prises :** aucune côté Desktop (exécution + diagnostic). Recommandations remontées : recalibrage cap coût + §Performances v2.1 latence.
+
+**Coût API (Lot I) :** **2,0512 $** total (81 générations Sonnet 2,0509 $ + 30 chunks vague 6 embeddés 0,0003 $ + 81 embeddings requête ~0 $), Anthropic 2,0509 $ (cap 2,00 $ dépassé de 0,05 $). Cumul S1→S2.6 Lot I ~9,35 $.
+
+**Reste à faire :** (1) Lot J (Plateforme) RAPPORT-CC-S2.6 (intégrer latence p50/p90 §3 + 2 alertes) + PR finale ; (2) arbitrage cap coût + §Performances v2.1 (Cowork/Blaise). Aucune régression → **pas de Lot Drer nécessaire** (81/81). Artefacts sur `s2.6-eval-vague-6`, PR à ouvrir.
+
 ### 2026-05-22 (S2.5 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.5 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.5. Tous les lots Phase 1 (correctif retrieval q-002/q-030, PR #75-77 + reruns Drer), Phase 2 (8 modules vague 5 from scratch, PR #78-83 + sondage D-026), Phase 3 (G cartographie v3 + H golden set 72q PR #84, I eval 72q 70/72 PR #85, S2.5.x correctif q-036/q-056 PR #86, Drer-S2.5.x validation 4/4 PR #87) livrés et mergés sur main (`d6966b4`).
