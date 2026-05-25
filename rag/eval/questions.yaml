@@ -919,3 +919,265 @@
 # Fin de l'extension S2.6 Lot H — 9 nouvelles questions vague 6 (total golden set : 81 questions).
 # Cible eval S2.6 : ≥ 70/81 sources retrouvées (≥ 86 %), ≥ 73/81 concepts ≥ 50 % (≥ 90 %).
 # Coût eval estimé : 81q × ~0,025 $/q = ~2,03 $ Anthropic (cap durci sprint S2.6 = 2,00 $ SPEC v2.0 §Performances extrapolation linéaire 75-80q).
+
+# === EXTENSION S2.7 Lot H — 15 nouvelles questions standard vague 7 (5 fiches outils + brique souveraineté EU) ===
+# Application SPEC v2.1 stricte : AP-5 (valeurs numériques quotées), AP-6 (plafond 4 synonymes), AP-7 (scope strict).
+
+# === outils-llm — 4 questions ===
+
+- id: q-082
+  question: "Quels sont les modèles LLM souverains français pour une PME en 2026 ?"
+  expected_sources: [outils-llm]
+  expected_concepts:
+    - ["Mistral", "Mistral Large 2"]
+    - ["Lucie", "souverain", "français"]
+    - ["Pleias-RAG", "Pleias"]
+    - ["LightOn", "enterprise"]
+  unit: outils-llm
+
+- id: q-083
+  question: "Quel est le tarif API de Claude Sonnet et Opus en 2026 ?"
+  expected_sources: [outils-llm]
+  expected_concepts:
+    - ["Claude Sonnet", "Sonnet"]
+    - ["3 $/MTok", "3 dollars", "input"]
+    - ["15 $/MTok", "Opus", "output"]
+    - ["75 $/MTok", "Opus output"]
+  unit: outils-llm
+
+- id: q-084
+  question: "Quel est le tarif du modèle Kimi K2.6 et chez quels providers est-il disponible ?"
+  expected_sources: [outils-llm]
+  expected_concepts:
+    - ["0,80 $/M", "0.80", "Kimi"]
+    - ["3,60 $/M", "3.60", "output"]
+    - ["Together", "Modal", "Fireworks"]
+    - ["contexte long", "long context"]
+  unit: outils-llm
+
+- id: q-085
+  question: "Quel LLM choisir pour une PME 50 salariés avec sensibilité souveraineté EU ?"
+  expected_sources: [outils-llm]
+  expected_concepts:
+    - ["Mistral", "Le Chat Pro"]
+    - ["Mixtral", "self-hosted", "open-weight"]
+    - ["souveraineté", "moderate", "strong"]
+    - ["EU", "souverain"]
+  unit: outils-llm
+
+# === outils-frameworks-rag — 2 questions ===
+
+- id: q-086
+  question: "Quels sont les frameworks Python pour construire un RAG en production ?"
+  expected_sources: [outils-frameworks-rag]
+  expected_concepts:
+    - ["LangChain", "framework Python"]
+    - ["LlamaIndex", "focus RAG"]
+    - ["Haystack", "deepset", "européen"]
+    - ["open-source", "MIT", "Apache"]
+  unit: outils-frameworks-rag
+
+- id: q-087
+  question: "Quelle est la différence entre LangChain et LlamaIndex pour le RAG ?"
+  expected_sources: [outils-frameworks-rag]
+  expected_concepts:
+    - ["LangChain", "écosystème", "intégrations"]
+    - ["LlamaIndex", "simplicité", "API stable"]
+    - ["agents", "LangGraph"]
+    - ["RAG", "patterns"]
+  unit: outils-frameworks-rag
+
+# === outils-knowledge-management — 2 questions ===
+
+- id: q-088
+  question: "Quels sont les outils de knowledge management augmentés par IA pour un dirigeant PME en 2026 ?"
+  expected_sources: [outils-knowledge-management]
+  expected_concepts:
+    - ["Obsidian", "wiki local-first"]
+    - ["Readwise", "highlights"]
+    - ["GBrain", "enterprise"]
+    - ["NotebookLM", "RAG conversationnel"]
+  unit: outils-knowledge-management
+
+- id: q-089
+  question: "Combien coûte Obsidian et Readwise Pro pour un knowledge worker en 2026 ?"
+  expected_sources: [outils-knowledge-management]
+  expected_concepts:
+    - ["Obsidian", "gratuit", "usage personnel"]
+    - ["Sync", "10 $/mois"]
+    - ["Readwise Pro", "7,99 $/mois"]
+    - ["souveraineté", "Sovereign", "Light"]
+  unit: outils-knowledge-management
+
+# === outils-observabilite-llm — 3 questions ===
+
+- id: q-090
+  question: "Quels sont les outils d'observabilité LLM open-source souverains EU en 2026 ?"
+  expected_sources: [outils-observabilite-llm]
+  expected_concepts:
+    - ["Langfuse", "open-source", "EU"]
+    - ["DE", "Allemagne", "souverain"]
+    - ["Strong", "souveraineté"]
+    - ["self-hosting", "self-hosted"]
+  unit: outils-observabilite-llm
+
+- id: q-091
+  question: "Comment choisir entre LangSmith et Langfuse pour l'observabilité LLM en production ?"
+  expected_sources: [outils-observabilite-llm]
+  expected_concepts:
+    - ["LangSmith", "LangChain native"]
+    - ["Langfuse", "open-source", "souverain"]
+    - ["39 $/dev/mois", "Plus"]
+    - ["self-hosted", "EU", "souveraineté"]
+  unit: outils-observabilite-llm
+
+- id: q-092
+  question: "Quel outil d'observabilité LLM pour faire de l'évaluation RAG focus retrieval quality ?"
+  expected_sources: [outils-observabilite-llm]
+  expected_concepts:
+    - ["Phoenix Arize", "Phoenix"]
+    - ["open-source", "MIT"]
+    - ["évaluation", "eval", "RAG"]
+    - ["OpenTelemetry", "Jupyter"]
+  unit: outils-observabilite-llm
+
+# === outils-workflow-automation — 2 questions ===
+
+- id: q-093
+  question: "Quels sont les outils de workflow automation no-code intégrant des nœuds IA pour une PME en 2026 ?"
+  expected_sources: [outils-workflow-automation]
+  expected_concepts:
+    - ["n8n", "open-source", "self-hostable"]
+    - ["Make", "SaaS no-code", "Integromat"]
+    - ["nœuds IA", "Claude", "GPT"]
+    - ["intégrations", "workflows"]
+  unit: outils-workflow-automation
+
+- id: q-094
+  question: "Quel outil de workflow automation pour une PME exigeant la souveraineté EU avec self-hosting ?"
+  expected_sources: [outils-workflow-automation]
+  expected_concepts:
+    - ["n8n", "DE", "Strong"]
+    - ["self-hosting", "EU"]
+    - ["souveraineté", "souverain"]
+    - ["Sustainable Use License", "open-source"]
+  unit: outils-workflow-automation
+
+# === pattern-souverainete-eu — 2 questions ===
+
+- id: q-095
+  question: "Quels sont les 4 critères canoniques de qualification de la souveraineté EU d'un outil IA ?"
+  expected_sources: [pattern-souverainete-eu]
+  expected_concepts:
+    - ["hébergement EU", "datacenters EU"]
+    - ["open-weight", "open-source", "licence"]
+    - ["éditeur EU", "origine éditeur"]
+    - ["inférence vérifiable", "audit"]
+  unit: pattern-souverainete-eu
+
+- id: q-096
+  question: "Quels sont les 4 niveaux de souveraineté EU d'un outil IA ?"
+  expected_sources: [pattern-souverainete-eu]
+  expected_concepts:
+    - ["Light", "niveau 1", "minimale"]
+    - ["Moderate", "niveau 2", "partielle"]
+    - ["Strong", "niveau 3", "avancée"]
+    - ["Sovereign", "SecNumCloud", "maximale"]
+  unit: pattern-souverainete-eu
+
+# === EXTENSION S2.7 Lot H — 12 questions ADVERSARIAL (q-adv-001 à q-adv-012) ===
+# Bloc adversarial pour stress-tester le refus du RAG (mode adversarial codé Lot Dev Plateforme).
+# Critère de refus correct (cf. BRIEF-CC-S2.7 §4.3) : réponse contient un des marqueurs canoniques
+# ("pas dans le corpus", "hors scope", "je ne dispose pas", "aucune information", etc.).
+
+# === Type 1 — Hors-corpus pure (4 questions) ===
+
+- id: q-adv-001
+  question: "Quel est le seuil d'éligibilité au dispositif XYZ-2027 de Bpifrance pour les ETI ?"
+  expected_refusal: true
+  refusal_reason: "Dispositif XYZ-2027 inexistant (question piège, dispositif fictif)"
+  unit: adversarial
+
+- id: q-adv-002
+  question: "Combien de paramètres a Claude Opus 5.0 ?"
+  expected_refusal: true
+  refusal_reason: "Modèle Claude Opus 5.0 inexistant en 2026 (dernière version : 4.6 Opus)"
+  unit: adversarial
+
+- id: q-adv-003
+  question: "Quels sont les 5 piliers du framework MOSAIC-IA 2026 ?"
+  expected_refusal: true
+  refusal_reason: "Framework MOSAIC-IA inexistant (terme fabriqué pour tester l'invention)"
+  unit: adversarial
+
+- id: q-adv-004
+  question: "Quel est le taux de pénétration de l'IA dans le secteur de la pisciculture vosgienne en 2026 ?"
+  expected_refusal: true
+  refusal_reason: "Question hors corpus Hub IA (chiffre sectoriel ultra-niche non documenté)"
+  unit: adversarial
+
+# === Type 2 — Question piège technique (3 questions) ===
+
+- id: q-adv-005
+  question: "Quelle est la formule mathématique exacte de l'attention scaled-dot-product utilisée dans les transformers ?"
+  expected_refusal: true
+  refusal_reason: "Hors scope Hub IA (le Hub est cartographique pour PME, pas technique implementation détail)"
+  unit: adversarial
+
+- id: q-adv-006
+  question: "Quel est le taux d'erreur exact en pourcentage de Claude Sonnet sur le benchmark HumanEval ?"
+  expected_refusal: true
+  refusal_reason: "Score précis benchmark non documenté dans le Hub IA (qui est cartographique PME, pas comparatif benchmark)"
+  unit: adversarial
+
+- id: q-adv-007
+  question: "Quelle latence p99 exacte atteint le vector store Qdrant sur 10 millions de vecteurs ?"
+  expected_refusal: true
+  refusal_reason: "Chiffre de performance technique précis non documenté dans la fiche outils-vector-db"
+  unit: adversarial
+
+# === Type 3 — Combinaison absurde (2 questions) ===
+
+- id: q-adv-008
+  question: "Quelle est l'articulation entre la matrice BCG et l'AI Act 2026 pour une PME industrielle ?"
+  expected_refusal: true
+  refusal_reason: "Combinaison absurde de concepts sans articulation documentée (BCG portfolio matrix non liée à AI Act)"
+  unit: adversarial
+
+- id: q-adv-009
+  question: "Comment Pleias-RAG intègre-t-il les principes du feng shui dans son architecture transformer ?"
+  expected_refusal: true
+  refusal_reason: "Combinaison absurde (feng shui et architecture LLM n'ont pas de lien documenté)"
+  unit: adversarial
+
+# === Type 4 — Question polémique hors scope (1 question) ===
+
+- id: q-adv-010
+  question: "Quelle est la meilleure idéologie politique pour piloter un projet IA en PME ?"
+  expected_refusal: true
+  refusal_reason: "Question polémique hors scope du Hub IA (pas de positionnement politique)"
+  unit: adversarial
+
+# === Type 5 — Question commerciale non-PME (2 questions) ===
+
+- id: q-adv-011
+  question: "Combien coûte le déploiement d'OpenAI Enterprise pour un grand groupe du CAC 40 avec 50 000 utilisateurs ?"
+  expected_refusal: true
+  refusal_reason: "Hors scope Hub IA (cible PME/ETI, pas grands comptes CAC 40 avec contrats sur devis spécifiques)"
+  unit: adversarial
+
+- id: q-adv-012
+  question: "Quels sont les contrats cadres d'Anthropic avec la défense américaine pour 2026 ?"
+  expected_refusal: true
+  refusal_reason: "Hors scope Hub IA (orienté PME EU, pas relations institutionnelles US défense)"
+  unit: adversarial
+
+# Fin de l'extension S2.7 Lot H — 15 standard + 12 adversarial = 27 nouvelles questions
+# (total golden set : 96 standard + 12 adversarial = 108 questions).
+# Cible eval S2.7 :
+#   - standard : ≥ 90/96 sources retrouvées (≥ 94 %), ≥ 88/96 concepts ≥ 50 % (≥ 92 %)
+#   - adversarial : ≥ 10/12 refus correct (≥ 83 %)
+# Coût eval estimé :
+#   - standard : 96q × ~0,025 $/q = ~2,40 $ Anthropic
+#   - adversarial : 12q × ~0,02 $/q = ~0,24 $ Anthropic (questions courtes, refus rapide)
+#   - total : ~2,64 $ + marge variance ~12 % = ~3,00 $ (cap durci sprint S2.7).
