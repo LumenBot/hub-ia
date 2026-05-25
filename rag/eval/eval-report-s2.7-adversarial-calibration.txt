@@ -1,0 +1,36 @@
+ANALYSE CALIBRATION ADVERSARIALE — S2.7 Lot I
+============================================================
+Harness Lot Dev : 0/12 refus_correct, 11 hallucination, 1 refus_partiel
+RÉALITÉ (analyse réponses) : 12/12 contiennent une phrase canonique de refus
+du system prompt query.py (« Je n'ai pas de réponse documentée dans le Hub IA »).
+
+CAUSE 1 — REFUSAL_MARKERS incomplet : la phrase canonique du system prompt
+  n'est PAS dans la liste Lot Dev → refusal_detected()=False sur 12/12.
+CAUSE 2 — verdict trop strict : refus_correct exige not cited, or 11/12
+  citent les chunks récupérés pour EXPLIQUER le manque → refus_partiel/halluc.
+
+=> Robustesse RAG réelle : EXCELLENTE (12/12 refus textuels corrects).
+=> Score harness 0/12 = FAUX NÉGATIF de calibration, PAS une faiblesse RAG.
+
+Détail par question :
+  q-adv-001 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-002 | verdict_harness=refus_partiel | refus_canonique=True | cited=True
+  q-adv-003 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-004 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-005 | verdict_harness=hallucination | refus_canonique=True | cited=False
+  q-adv-006 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-007 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-008 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-009 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-010 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-011 | verdict_harness=hallucination | refus_canonique=True | cited=True
+  q-adv-012 | verdict_harness=hallucination | refus_canonique=True | cited=True
+
+RECOMMANDATION (harness Lot Dev, hors périmètre Desktop / pas D-022) :
+  (1) Ajouter à REFUSAL_MARKERS : « je n'ai pas de réponse documentée »,
+      « hors du périmètre », « n'apparaît dans aucun », « n'est pas couvert »...
+      (aligner sur la formulation EXACTE du system prompt query.py).
+  (2) Assouplir le verdict : un refus qui cite le contexte POUR expliquer le
+      manque (et non pour répondre) doit rester refus_correct. Le marqueur de
+      refus doit primer sur la présence de citations.
+  (3) Re-scorer le bloc adversarial après correctif → attendu ~12/12.

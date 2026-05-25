@@ -11,6 +11,42 @@
 
 ## Entrées
 
+### 2026-05-25 (S2.7 Lot I — eval extended 108q (96 std + 12 adv) + latence p50/p90) — Claude Code Desktop — Standard 96/96 ✅, adversarial 0/12 (FAUX NÉGATIF harness, RAG refuse 12/12)
+
+**Contexte :** double-axe S2.7 — eval standard sur vault post-vague 7 (32 MD, +5 fiches outils + brique souveraineté EU) + 1er eval adversarial (12 questions pièges, mode Lot Dev). Prérequis Lot A + Lot Dev + Lot F.7+G+H mergés (PR #96/#97/#98, main `a7bb5c8`). Branche `s2.7-eval-vague-7-adversarial`. Discipline SPEC v2.0 hygiène merge OK (`git grep "<<<<<<<"` = vide).
+
+**Écart procédure (résolu) :** le brief prescrivait `run_eval --filter-unit adversarial`, mais le **flag `--filter-unit` n'existe pas** dans l'implémentation Lot Dev (PR #97). Le code auto-dispatche chaque question (`is_adversarial()` via `expected_refusal`/`expected_sources: []`) et produit un rapport 2 blocs. Contourné en splittant questions.yaml en 2 sous-golden-sets dérivés (lecture seule, D-022 respecté) → 1 run par mode, artefacts `-standard` + `-adversarial` natifs, coût identique (96+12=108 générations).
+
+**Actions menées :**
+- **Ré-ingestion incrémentale** : `files=32 chunks=380 new=62 updated=0 deleted=0`. `new=62` = vague 7 (5 fiches outils + pattern-souverainete-eu). Total **318 → 380 chunks**.
+- **Eval standard** (96q) + **eval adversarial** (12q), runs séquentiels arrière-plan ~31 min.
+- **Dump/analyse calibration adversariale** (`eval-report-s2.7-adversarial-calibration.txt`).
+
+**Résultats :**
+
+| Bloc | Indicateur | Cible | Réalisé | Statut |
+|---|---|---|---|---|
+| Standard | sources / score global | ≥ 90/100 | **96/96 (100 %)** | ✅ |
+| Standard | concepts pleinement | — | 88/96 (8 partiels score=1) | — |
+| Adversarial | refus correct (harness) | ≥ 80 % | **0/12 (0 %)** | ❌ harness |
+| Adversarial | refus textuel **réel** (analyse) | — | **12/12 (100 %)** | ✅ RAG |
+| Latence standard | p50≤21 / p90≤25 | — | **p50 19,0s / p90 22,0s** | ✅ |
+| Latence adversarial | p50≤21 / p90≤25 | — | **p50 10,0s / p90 15,0s** | ✅ |
+| Coût Anthropic | ≤ 3,00 $ | **2,5866 $** | ✅ |
+| Non-régression (7q) | 7/7 | **7/7** (q-002/q-030/q-036/q-038/q-051/q-052/q-056) | ✅ |
+
+**🔴 Observation critique bloc adversarial — FAUX NÉGATIF du harness, pas une faiblesse RAG :** les **12/12 réponses adversariales contiennent la phrase canonique de refus** du system prompt query.py (« Je n'ai pas de réponse documentée dans le Hub IA »). Le RAG **refuse donc correctement sur les 12**. Mais le harness Lot Dev les classe 0/12 refus_correct (11 hallucination + 1 refus_partiel) à cause de **2 bugs de calibration** :
+- **Cause 1** — `REFUSAL_MARKERS` incomplet : la phrase canonique du system prompt **n'y figure pas** (markers = « pas dans le corpus », « hors scope », « je ne dispose pas »… mais PAS « je n'ai pas de réponse documentée ») → `refusal_detected()` = False sur 12/12.
+- **Cause 2** — verdict trop strict : `refus_correct` exige `not cited`, or 11/12 citent les chunks récupérés **pour expliquer le manque** (« le contexte porte sur [[X]], pas sur votre question ») → classés refus_partiel/hallucination. Seul q-adv-005 sans citation.
+
+**Robustesse RAG réelle = excellente (12/12 refus francs).** Le score 0/12 mesure un défaut du harness, pas du RAG. **Pas de Lot Drer** (ni régression retrieval, ni problème vault).
+
+**Décisions structurantes prises :** aucune côté Desktop. **Recommandation forte (harness Lot Dev — code, hors périmètre Desktop) :** (1) ajouter à `REFUSAL_MARKERS` la formulation exacte du system prompt (« je n'ai pas de réponse documentée », « hors du périmètre », « n'apparaît dans aucun »…) ; (2) faire primer le marqueur de refus sur la présence de citations dans le verdict ; (3) re-scorer le bloc adversarial → attendu ~12/12. À traiter avant le RAPPORT-CC-S2.7 (Lot J) pour ne pas publier un « 0/12 » trompeur.
+
+**Coût API (Lot I) :** **2,5871 $** total (108 générations Sonnet 2,5866 $ + 62 chunks vague 7 embeddés + 108 embeddings requête), cap ≤ 3,00 $ ✅. Cumul S1→S2.7 Lot I ~13,5 $.
+
+**Reste à faire :** (1) **correctif harness adversarial** (Plateforme, REFUSAL_MARKERS + verdict) puis re-scoring ; (2) Lot J RAPPORT-CC-S2.7 (latence p50/p90 par mode §3 + finding calibration adversariale) ; (3) éventuel enrichissement du system prompt pour aligner sur les markers si Cowork préfère l'inverse. Artefacts sur `s2.7-eval-vague-7-adversarial`, PR à ouvrir.
+
 ### 2026-05-23 (S2.7 Lot Dev livré) — Claude Code Hub IA Plateforme — Extension run_eval mode adversarial
 
 **Contexte :** Sprint S2.7 ouvert (allocation D-030 enrichie — la Plateforme intervient dès le démarrage sur le Lot Dev, en parallèle du sondage Cowork, pas seulement en clôture). Lot A (SPEC v2.1 + BRIEF-CC-S2.7, PR #96) déjà mergé sur main. Lot Dev = extension `rag/code/eval/run_eval.py` pour gérer un mode adversarial (questions pièges où le RAG doit refuser de répondre).
