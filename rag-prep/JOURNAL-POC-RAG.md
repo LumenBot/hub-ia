@@ -11,6 +11,42 @@
 
 ## Entrées
 
+### 2026-05-23 (S2.6 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.6 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.6. Tous les lots A (SPEC v2.0 + brief, PR #89), E (sondage D-026), F.6 + G + H (vague 6 PR-09/PR-10/PR-11 + refonte vigilance-hallucinations + cartographie + golden set 81q, PR #93), I (eval extended 81q, PR #94) livrés et mergés sur main (`e655ce6`). **Premier score parfait du projet : 81/81 (100 %)**.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.6.md`** en 8 sections (~2600 mots, format conforme S2.5) :
+  1. Objectifs S2.6 (3 axes : vague 6 PR-09/10/11, golden set 81q, mesure latence p50/p90)
+  2. Livrables par lot (tableau A→J + acteurs + PR #89/#92/#93/#94)
+  3. Métriques quantitatives (81/81 sur 3 axes, non-régression S2.5 7/7, vague 6 9/9, **latence p50 19,0 s / p90 22,0 s**, coût 2,0509 $, vault 26 MD / 318 chunks)
+  4. Anomalies & observations (audit AP-7 PR-11 réussi en prévention, alerte coût +2,5 %, alerte latence p90 +2 s, hygiène merge respectée 0 marqueur, premier score parfait)
+  5. Décisions structurantes (3 patterns : AP-7 préventif validé, hygiène merge préventive efficace dès v2.0, patterns retrieval cumulés → score parfait à la 1re eval)
+  6. Recommandations SPEC v2.1 (3 propositions : recalibrage cap coût ~2,15 $, extension bande latence vault 300-400 chunks, pattern production module pivot dense PR-11)
+  7. Pistes investigation S2.7 (audit R11 wikilinks + 5 fichiers outils-*, sprint latence si vault > 400 chunks, questions adverses/hors-corpus, démarrage vague 7 architectures + fiches outils, Lot I-bis non requis)
+  8. Coûts cumulés (S2.6 ~2,05 $, total S1→S2.6 ~9,25 $, cap mensuel D-013 50 $ largement préservé)
+
+- **MAJ STATUS-RAG** : Lot J marqué ✅ Fait, sprint S2.6 clôturé côté Plateforme, en attente merge manuel Blaise.
+
+- **MAJ JOURNAL** (cette entrée).
+
+- **PR finale S2.6 à ouvrir** vers `main` depuis `claude/execute-s26-lot-j-rapport` (branche dérivée de main post-merge PR #94). Titre : `feat(rag): Sprint S2.6 - vague 6 (PR-09 + PR-10 + PR-11) + golden set 81q + mesure latence p50/p90 (eval 81/81 = 100 %)`.
+
+**Décisions structurantes prises :** aucune (Lot J = production rapport + clôture).
+
+**Coût API consommé (cette session Lot J) :** 0,00 $ (production texte uniquement, conforme allocation D-030 Plateforme).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.6 par Blaise après revue.
+- Arbitrage Cowork des 3 propositions d'amendement SPEC v2.0 → v2.1 (recalibrage cap coût, extension bande latence, pattern module pivot dense).
+- Arbitrage des 2 alertes non bloquantes : cap coût (recalibrer ~2,10-2,15 $), latence p90 (surveiller / reranking / top-k si dérive).
+- Ouverture S2.7 : audit R11 wikilinks (pré-requis 5+ fichiers outils-*), questions adverses golden set, démarrage vague 7 (architectures A1-A4 + fiches outils), surveillance latence vault > 400 chunks.
+
+**Blockers :** aucun pour la PR.
+
+---
+
 ### 2026-05-23 (S2.6 Lot I — eval extended 81q vault post-vague 6 + latence p50/p90) — Claude Code Desktop — 81/81 (100 %), 2 alertes (cap coût +0,05 $, p90 latence 22s)
 
 **Contexte :** eval complète du golden set 81 questions sur le vault post-vague 6 (26 fichiers MD, +3 modules PR-09/PR-10/PR-11 + refonte brique vigilance-hallucinations v3.12.0). Prérequis Lot F.6 + G + H mergés sur main (PR #93, `bd1ebc1`). Branche `s2.6-eval-vague-6` dérivée de main. **Discipline SPEC v2.0 appliquée** : `git grep "<<<<<<<"` = vide avant tout `git add` (aucun marqueur de conflit cette fois — hygiène merge Cowork rétablie après les 3 occurrences PR #84/#86/#88).
