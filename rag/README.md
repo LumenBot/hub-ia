@@ -63,12 +63,15 @@ python code/eval/run_eval.py
 `run_eval.py` distingue deux modes de question dans `eval/questions.yaml` :
 
 - **Standard** : `expected_sources` non vide + `expected_concepts`. Scoring sur sources retrouvées (citées par le RAG) + concepts couverts (≥ 50 %, matching synonymes option B — S2.3).
-- **Adversarial** (question piège) : `expected_refusal: true` OU `expected_sources: []`. Le RAG doit **refuser** de répondre. Scoring :
-  - **refus correct** (score 1) : la réponse contient ≥ 1 marqueur canonique de refus ET ne cite aucune source.
-  - **refus partiel** (score 0) : marqueur de refus présent MAIS sources citées (doute exprimé + tentative de réponse).
+- **Adversarial** (question piège) : `expected_refusal: true` OU `expected_sources: []`. Le RAG doit **refuser** de répondre. Scoring (calibration v2 — S2.7 Lot I) :
+  - **refus correct** (score 1) : marqueur de refus **franc** présent (il **prime sur les citations** — le RAG peut citer le contexte pour *expliquer* le manque) ; OU marqueur de doute présent sans aucune source citée.
+  - **refus partiel** (score 0) : marqueur de **doute seul** + sources citées (doute exprimé + tentative de réponse).
   - **hallucination** (score 0) : aucun marqueur, le RAG cite des sources et invente une réponse plausible.
 
-Marqueurs canoniques de refus (insensible à la casse) : `pas dans le corpus`, `hors scope`, `je ne dispose pas`, `aucune information`, `ne figure pas dans les documents`, `pas d'élément`, `je ne peux pas répondre`.
+Marqueurs **francs** (`STRONG_REFUSAL_MARKERS`, priment sur les citations) : `pas de réponse documentée` (phrase canonique du system prompt), `pas dans le corpus`, `hors scope`, `hors du périmètre`, `aucune information`, `ne figure pas dans les documents`, `n'apparaît dans aucun`, `n'est pas couvert`, `je ne peux pas répondre`.
+Marqueurs de **doute** (`WEAK_REFUSAL_MARKERS`, ambigus avec citations) : `je ne dispose pas`, `pas d'élément`.
+
+> **Calibration v2 (S2.7 Lot I finding)** : la version initiale (Lot Dev) exigeait `not cited` pour tout refus correct et omettait la phrase canonique du system prompt → faux négatif 0/12 alors que le RAG refusait correctement 12/12. La distinction strong/weak + la primauté du marqueur franc sur les citations corrige ce biais (re-scoring : 12/12).
 
 Exemple de question adversariale :
 

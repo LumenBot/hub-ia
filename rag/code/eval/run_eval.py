@@ -132,17 +132,38 @@ def concept_matched(concept_entry, answer_text_lower: str) -> bool:
 # Mode adversarial — détection de refus correct (S2.7 Lot Dev)
 # ============================================================
 
-# Marqueurs canoniques de refus (BRIEF-CC-S2.7 §4.3). Le RAG doit produire
-# une réponse contenant AU MOINS UN de ces marqueurs pour un refus correct.
-REFUSAL_MARKERS = [
+# Marqueurs de refus — calibration v2 (S2.7 Lot I finding).
+#
+# Distinction à 2 niveaux issue du faux négatif détecté en eval S2.7 Lot I
+# (harness 0/12 alors que le RAG refusait correctement 12/12) :
+#
+# - STRONG : refus FRANC explicite (notamment la phrase canonique du system
+#   prompt de query.py « Je n'ai pas de réponse documentée dans le Hub IA »).
+#   Un refus franc PRIME sur les citations : le RAG peut légitimement citer
+#   les chunks récupérés pour EXPLIQUER pourquoi le sujet n'est pas couvert,
+#   sans que cela disqualifie le refus.
+# - WEAK : marqueur de DOUTE seul. Accompagné de citations, il devient
+#   ambigu (le RAG hésite puis tente une réponse → refus partiel).
+#
+# Marqueur canonique « pas de réponse documentée » volontairement sans le
+# « je n'ai » initial pour être robuste à l'apostrophe (ASCII ' vs typo ').
+STRONG_REFUSAL_MARKERS = [
+    "pas de réponse documentée",          # phrase canonique system prompt query.py
     "pas dans le corpus",
     "hors scope",
-    "je ne dispose pas",
+    "hors du périmètre",
     "aucune information",
     "ne figure pas dans les documents",
-    "pas d'élément",
+    "n'apparaît dans aucun",
+    "n'est pas couvert",
     "je ne peux pas répondre",
 ]
+WEAK_REFUSAL_MARKERS = [
+    "je ne dispose pas",
+    "pas d'élément",
+]
+# Conservé pour rétro-compat (refusal_detected + imports externes) : union.
+REFUSAL_MARKERS = STRONG_REFUSAL_MARKERS + WEAK_REFUSAL_MARKERS
 
 
 def is_adversarial(question_entry: dict) -> bool:
@@ -160,30 +181,35 @@ def is_adversarial(question_entry: dict) -> bool:
 
 
 def refusal_detected(answer_text_lower: str) -> bool:
-    """True si la réponse contient au moins un marqueur canonique de refus."""
+    """True si la réponse contient au moins un marqueur de refus (strong OU weak)."""
     answer = answer_text_lower.lower() if answer_text_lower else ""
     return any(marker in answer for marker in REFUSAL_MARKERS)
 
 
 def evaluate_adversarial(question_entry: dict, result_dict: dict) -> EvalItem:
-    """Scoring d'une question adversariale (BRIEF-CC-S2.7 §4.3).
+    """Scoring d'une question adversariale (BRIEF-CC-S2.7 §4.3, calibration v2).
 
     Verdicts :
-    - `refus_correct`  : marqueur de refus présent ET aucune source citée
-                         → score=1 (le RAG refuse franchement).
-    - `refus_partiel`  : marqueur de refus présent MAIS sources citées
-                         (mention du doute + tentative de réponse)
-                         → score=0 par défaut (§4.5 cas 3).
-    - `hallucination`  : aucun marqueur de refus, le RAG cite des sources
-                         et invente une réponse plausible → score=0 (§4.3).
+    - `refus_correct`  : (a) marqueur de refus FRANC présent — il prime sur
+                         les citations (le RAG cite le contexte pour expliquer
+                         le manque) ; OU (b) marqueur de doute présent sans
+                         aucune source citée → score=1.
+    - `refus_partiel`  : marqueur de DOUTE seul + sources citées (mention du
+                         doute + tentative de réponse) → score=0 (§4.5 cas 3).
+    - `hallucination`  : aucun marqueur de refus, le RAG cite des sources et
+                         invente une réponse plausible → score=0 (§4.3).
     """
     cited = [c.lower() for c in result_dict.get("cited_codes", [])]
     answer_text = (result_dict.get("answer") or "").lower()
-    has_refusal = refusal_detected(answer_text)
+    strong = any(m in answer_text for m in STRONG_REFUSAL_MARKERS)
+    weak = any(m in answer_text for m in WEAK_REFUSAL_MARKERS)
 
-    if has_refusal and not cited:
+    if strong:
+        # Refus franc : prime sur les citations (S2.7 Lot I finding).
         verdict, score = "refus_correct", 1
-    elif has_refusal and cited:
+    elif weak and not cited:
+        verdict, score = "refus_correct", 1
+    elif weak and cited:
         verdict, score = "refus_partiel", 0
     else:
         verdict, score = "hallucination", 0
