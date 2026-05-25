@@ -143,9 +143,9 @@ class TestFormatReport:
             answer_preview="ko",
         )
         report = run_eval.format_report([item_ok, item_ko])
-        assert "1/2" in report  # sources_ok
+        assert "1/2" in report  # sources_ok (bloc standard)
         assert "q1" in report and "q2" in report
-        assert "non atteinte" in report  # 1/2 < 8/10
+        assert "BLOC 1" in report  # S2.7 : reporting 2 blocs
 
 
 # ============================================================
@@ -412,3 +412,128 @@ class TestRetroCompatV1Inchangee:
         item = run_eval.evaluate_one(q, r)
         assert item.score_global == 1
         assert set(item.concepts_match) == {"retrieval", "fine-tuning"}
+
+
+# ============================================================
+# S2.7 Lot Dev — Mode adversarial (refus correct vs hallucination)
+# ============================================================
+
+class TestIsAdversarial:
+    def test_expected_refusal_true(self):
+        assert run_eval.is_adversarial({"id": "q", "expected_refusal": True}) is True
+
+    def test_expected_sources_vide(self):
+        assert run_eval.is_adversarial({"id": "q", "expected_sources": []}) is True
+
+    def test_standard_non_adversarial(self):
+        assert run_eval.is_adversarial({"id": "q", "expected_sources": ["cu-001"]}) is False
+
+    def test_absence_champs_non_adversarial(self):
+        # ni expected_refusal ni expected_sources vide → standard
+        assert run_eval.is_adversarial({"id": "q", "expected_concepts": ["x"]}) is False
+
+
+class TestRefusalDetected:
+    def test_chaque_marqueur_canonique_detecte(self):
+        for marker in run_eval.REFUSAL_MARKERS:
+            assert run_eval.refusal_detected(f"Réponse : {marker} sur ce sujet.") is True
+
+    def test_case_insensible(self):
+        assert run_eval.refusal_detected("JE NE DISPOSE PAS de cette donnée") is True
+
+    def test_aucun_marqueur(self):
+        assert run_eval.refusal_detected("Voici une réponse détaillée et assurée.") is False
+
+
+class TestEvaluateAdversarial:
+    def test_refus_correct_score_1(self):
+        """Cas 1 brief §4.5 : marqueur de refus + aucune source citée → score=1."""
+        q = {"id": "q-adv-001", "question": "Seuil dispositif XYZ-2027 ?", "expected_refusal": True}
+        r = {"answer": "Ce dispositif ne figure pas dans les documents du Hub IA.", "cited_codes": []}
+        item = run_eval.evaluate_one(q, r)
+        assert item.mode == "adversarial"
+        assert item.adversarial_verdict == "refus_correct"
+        assert item.score_global == 1
+
+    def test_hallucination_score_0(self):
+        """Cas 2 brief §4.5 : sources citées + réponse inventée (aucun marqueur) → score=0."""
+        q = {"id": "q-adv-002", "question": "Seuil dispositif XYZ-2027 ?", "expected_sources": []}
+        r = {
+            "answer": "Le seuil d'éligibilité au dispositif XYZ-2027 est de 250 salariés [PR-08].",
+            "cited_codes": ["pr-08"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        assert item.mode == "adversarial"
+        assert item.adversarial_verdict == "hallucination"
+        assert item.score_global == 0
+
+    def test_refus_partiel_score_0(self):
+        """Cas 3 brief §4.5 : marqueur de doute + tentative de réponse (sources citées)
+        → refus partiel, défaut score=0."""
+        q = {"id": "q-adv-003", "question": "Seuil dispositif XYZ-2027 ?", "expected_refusal": True}
+        r = {
+            "answer": "Je ne dispose pas de cette information précise, mais d'après [PR-08] "
+                      "le seuil pourrait être autour de 250 salariés.",
+            "cited_codes": ["pr-08"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        assert item.mode == "adversarial"
+        assert item.adversarial_verdict == "refus_partiel"
+        assert item.score_global == 0
+
+    def test_dispatch_via_evaluate_one(self):
+        """evaluate_one() doit router vers le scoring adversarial automatiquement."""
+        q = {"id": "q-adv", "question": "?", "expected_sources": []}
+        r = {"answer": "Aucune information dans le corpus.", "cited_codes": []}
+        item = run_eval.evaluate_one(q, r)
+        assert item.mode == "adversarial"
+
+    def test_serialisation_json(self):
+        import json
+        q = {"id": "q-adv", "question": "?", "expected_refusal": True}
+        r = {"answer": "hors scope du Hub IA", "cited_codes": []}
+        item = run_eval.evaluate_one(q, r)
+        s = json.dumps(item.to_dict(), ensure_ascii=False)
+        assert "adversarial" in s
+        assert "refus_correct" in s
+
+
+class TestFormatReportAdversarial:
+    def test_reporting_deux_blocs(self):
+        std = run_eval.EvalItem(
+            id="q-std", question="?", expected_sources=["cu-001"], expected_concepts=["veille"],
+            cited_codes=["cu-001"], sources_match=["cu-001"], sources_missing=[],
+            concepts_match=["veille"], concepts_missing=[], score_global=1,
+            answer_preview="ok", mode="standard",
+        )
+        adv_ok = run_eval.EvalItem(
+            id="q-adv-ok", question="?", expected_sources=[], expected_concepts=[],
+            cited_codes=[], sources_match=[], sources_missing=[],
+            concepts_match=[], concepts_missing=[], score_global=1,
+            answer_preview="hors scope", mode="adversarial", adversarial_verdict="refus_correct",
+        )
+        adv_hallu = run_eval.EvalItem(
+            id="q-adv-hallu", question="?", expected_sources=[], expected_concepts=[],
+            cited_codes=["pr-08"], sources_match=[], sources_missing=[],
+            concepts_match=[], concepts_missing=[], score_global=0,
+            answer_preview="réponse inventée", mode="adversarial", adversarial_verdict="hallucination",
+        )
+        report = run_eval.format_report([std, adv_ok, adv_hallu])
+        assert "BLOC 1" in report
+        assert "BLOC 2" in report
+        assert "ADVERSARIAL" in report.upper()
+        assert "Refus corrects : 1/2" in report
+        assert "Hallucinations détectées : 1/2" in report
+        # La question hallucination doit être listée nommément
+        assert "q-adv-hallu" in report
+
+    def test_pas_de_bloc_adversarial_si_aucune(self):
+        std = run_eval.EvalItem(
+            id="q-std", question="?", expected_sources=["cu-001"], expected_concepts=["veille"],
+            cited_codes=["cu-001"], sources_match=["cu-001"], sources_missing=[],
+            concepts_match=["veille"], concepts_missing=[], score_global=1,
+            answer_preview="ok",
+        )
+        report = run_eval.format_report([std])
+        assert "BLOC 1" in report
+        assert "BLOC 2" not in report

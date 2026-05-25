@@ -11,6 +11,39 @@
 
 ## Entrées
 
+### 2026-05-23 (S2.7 Lot Dev livré) — Claude Code Hub IA Plateforme — Extension run_eval mode adversarial
+
+**Contexte :** Sprint S2.7 ouvert (allocation D-030 enrichie — la Plateforme intervient dès le démarrage sur le Lot Dev, en parallèle du sondage Cowork, pas seulement en clôture). Lot A (SPEC v2.1 + BRIEF-CC-S2.7, PR #96) déjà mergé sur main. Lot Dev = extension `rag/code/eval/run_eval.py` pour gérer un mode adversarial (questions pièges où le RAG doit refuser de répondre).
+
+**Actions menées :**
+
+- **Mode adversarial dans `run_eval.py`** (BRIEF-CC-S2.7 §4) :
+  - `is_adversarial(question_entry)` : détecte une question piège via `expected_refusal: true` OU `expected_sources: []`.
+  - `REFUSAL_MARKERS` : 7 marqueurs canoniques de refus (§4.3) — « pas dans le corpus », « hors scope », « je ne dispose pas », « aucune information », « ne figure pas dans les documents », « pas d'élément », « je ne peux pas répondre ».
+  - `refusal_detected(answer)` : True si ≥ 1 marqueur présent (insensible à la casse).
+  - `evaluate_adversarial()` : 3 verdicts — **refus_correct** (marqueur + 0 source citée → score 1), **refus_partiel** (marqueur + sources citées = doute + tentative → score 0), **hallucination** (aucun marqueur, sources citées + réponse inventée → score 0).
+  - `evaluate_one()` dispatche automatiquement standard vs adversarial.
+  - `EvalItem` étendu de 2 champs optionnels (`mode`, `adversarial_verdict`) avec défauts → rétro-compat totale.
+- **Reporting 2 blocs** (`format_report`) : Bloc 1 eval standard (sources/concepts) + Bloc 2 eval adversarial (refus corrects, hallucinations détectées avec liste nominative, refus partiels).
+- **Tests +14** dans `test_run_eval.py` : `is_adversarial` (4), `refusal_detected` (3), `evaluate_adversarial` (6 dont les 3 cas obligatoires §4.5 refus correct / hallucination / refus partiel + dispatch + sérialisation JSON), `format_report` 2 blocs (2). 1 test format_report v1 adapté (« non atteinte » → « BLOC 1 »).
+- **README** `rag/README.md` : nouvelle section « Évaluation — modes standard et adversarial (S2.7) » (format YAML, 7 marqueurs, 3 verdicts, reporting 2 blocs).
+
+**Suite tests** : 204/204 verts (190 cumulés + 14 nouveaux S2.7 Lot Dev).
+
+**Décisions structurantes prises :** aucune (Lot Dev = extension code, pas de décision structurelle).
+
+**Coût API consommé :** 0,00 $ (extension code + tests mockés, pas d'eval pendant le dev — conforme brief §4.6).
+
+**Reste à faire :**
+- Lot B (Cowork Hub IA) — sondage D-026 vague 7 (5 fiches outils).
+- Lot F.7 (Cowork) — production 5 fiches outils + golden set adversarial (~5-8 questions pièges).
+- Lot I (Desktop) — eval extended standard + adversarial.
+- Lot J (Plateforme) — RAPPORT-CC-S2.7 (focus interprétation score adversarial : overfit golden set S2.6 vs robustesse réelle) + PR finale.
+
+**Blockers :** aucun pour le Lot Dev. Lot J en attente du Lot I Desktop.
+
+---
+
 ### 2026-05-23 (S2.6 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.6 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.6. Tous les lots A (SPEC v2.0 + brief, PR #89), E (sondage D-026), F.6 + G + H (vague 6 PR-09/PR-10/PR-11 + refonte vigilance-hallucinations + cartographie + golden set 81q, PR #93), I (eval extended 81q, PR #94) livrés et mergés sur main (`e655ce6`). **Premier score parfait du projet : 81/81 (100 %)**.
