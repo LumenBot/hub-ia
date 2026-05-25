@@ -158,17 +158,23 @@ class TestQuestionsYaml:
         questions_path = os.path.join(os.path.dirname(HERE), "..", "eval", "questions.yaml")
         with open(questions_path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-        # S2.3 Lot C v2 : golden set passé à 42 questions
-        # (30 enrichies synonymes + 9 vague 3 + 3 bonus post-RETOUR-SONDAGE).
-        # On vérifie un volume ≥ 30 pour rester tolérant aux ajustements
-        # futurs du golden set sans recasser ce test.
+        # S2.3 Lot C v2 : golden set passé à 42 questions, puis enrichi
+        # vagues 4/5/6 + questions adversariales (S2.7). Volume ≥ 30 tolérant.
         assert len(data) >= 30
         for entry in data:
             assert "id" in entry
             assert "question" in entry
-            assert "expected_sources" in entry and entry["expected_sources"]
-            assert "expected_concepts" in entry and entry["expected_concepts"]
-            assert "unit" in entry
+            # S2.7 : deux types valides — standard (sources + concepts) ou
+            # adversarial (expected_refusal true OU expected_sources vide).
+            is_adv = entry.get("expected_refusal") is True or (
+                "expected_sources" in entry and not entry["expected_sources"]
+            )
+            if is_adv:
+                # Question adversariale : pas de sources/concepts attendus.
+                assert entry.get("expected_refusal") is True or entry.get("expected_sources") == []
+            else:
+                assert "expected_sources" in entry and entry["expected_sources"]
+                assert "expected_concepts" in entry and entry["expected_concepts"]
 
     def test_golden_set_couvre_5_unites_pilotes_et_extensions_s22(self):
         """Les 5 unités pilotes S1 doivent rester couvertes, plus les
@@ -487,6 +493,30 @@ class TestEvaluateAdversarial:
         r = {"answer": "Aucune information dans le corpus.", "cited_codes": []}
         item = run_eval.evaluate_one(q, r)
         assert item.mode == "adversarial"
+
+    def test_refus_franc_avec_citations_reste_correct(self):
+        """S2.7 Lot I finding (calibration v2) : un refus FRANC (phrase
+        canonique du system prompt) reste refus_correct MÊME si le RAG cite
+        le contexte pour EXPLIQUER le manque. C'est le faux négatif corrigé
+        (harness 0/12 → 12/12)."""
+        q = {"id": "q-adv-001", "question": "Seuil dispositif XYZ-2027 ?", "expected_refusal": True}
+        r = {
+            "answer": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question. "
+                      "Le dispositif XYZ-2027 n'apparaît dans aucun des extraits du vault [PR-08].",
+            "cited_codes": ["pr-08"],
+        }
+        item = run_eval.evaluate_one(q, r)
+        assert item.adversarial_verdict == "refus_correct"
+        assert item.score_global == 1
+
+    def test_strong_marker_prime_sur_citations(self):
+        """Chaque marqueur STRONG doit donner refus_correct même avec sources."""
+        for marker in run_eval.STRONG_REFUSAL_MARKERS:
+            q = {"id": "q", "question": "?", "expected_refusal": True}
+            r = {"answer": f"Réponse : {marker} sur ce sujet.", "cited_codes": ["pr-08"]}
+            item = run_eval.evaluate_adversarial(q, r)
+            assert item.adversarial_verdict == "refus_correct", f"marker={marker}"
+            assert item.score_global == 1
 
     def test_serialisation_json(self):
         import json

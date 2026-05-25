@@ -11,6 +11,35 @@
 
 ## Entrées
 
+### 2026-05-25 (S2.7 Lot Dev fix — correctif harness adversarial) — Claude Code Hub IA Plateforme — Calibration v2 markers + re-scoring 12/12
+
+**Contexte :** le Lot I Desktop a révélé un **faux négatif du harness adversarial** Lot Dev (0/12 refus corrects alors que le RAG refuse correctement 12/12). 2 bugs de calibration côté code Plateforme (pas le vault, pas une faiblesse RAG) : (1) `REFUSAL_MARKERS` ne contenait pas la phrase canonique du system prompt « Je n'ai pas de réponse documentée dans le Hub IA » ; (2) le verdict `refus_correct` exigeait `not cited`, or 11/12 réponses citent le contexte pour *expliquer* le manque. Correctif requis avant le Lot J (sinon le rapport publierait un « 0/12 » trompeur).
+
+**Actions menées :**
+
+- **Calibration v2 de `run_eval.py`** (BRIEF-CC-S2.7 §4 + finding Lot I) :
+  - Distinction `STRONG_REFUSAL_MARKERS` (refus franc — phrase canonique « pas de réponse documentée » + « hors scope », « n'apparaît dans aucun », « n'est pas couvert », etc.) vs `WEAK_REFUSAL_MARKERS` (doute — « je ne dispose pas », « pas d'élément »). `REFUSAL_MARKERS` = union (rétro-compat `refusal_detected`).
+  - `evaluate_adversarial()` révisé : marqueur **franc prime sur les citations** → refus_correct même si sources citées (le RAG cite le contexte pour expliquer le manque). Marqueur de doute seul + citations → refus_partiel. Aucun marqueur → hallucination.
+  - Marqueur canonique « pas de réponse documentée » sans le « je n'ai » initial → robuste à l'apostrophe (ASCII ' vs typo ').
+- **Tests +2** (`test_refus_franc_avec_citations_reste_correct` reproduit le cas-école Lot I, `test_strong_marker_prime_sur_citations` paramétré sur tous les STRONG markers). Les 14 tests adversarial existants restent verts (rétro-compat). 1 test golden set YAML adapté (tolère les questions adversariales sans expected_sources).
+- **Re-scoring offline** (`rag/eval/_rescore_adversarial.py`, coût 0 $) : ré-applique la logique corrigée sur les réponses du JSON Lot I (`answer_preview` proxy, phrase canonique en tête vérifiée) → **12/12 refus corrects** (vs 0/12 harness). Rapport : `rag/eval/eval-report-s2.7-adversarial-rescored.md`.
+- **README** `rag/README.md` : section adversarial mise à jour (strong/weak markers + note calibration v2 + primauté marqueur franc).
+
+**Suite tests** : 206/206 verts (204 cumulés + 2 nouveaux Lot Dev fix).
+
+**Décisions structurantes prises :** aucune (correctif de calibration code, pas de décision structurelle).
+
+**Coût API consommé :** 0,00 $ (correctif code + tests + re-scoring offline, aucun appel API).
+
+**Conclusion robustesse RAG** : EXCELLENTE — 96/96 standard + **12/12 refus adversariaux corrects** après calibration v2. Le score parfait S2.6 n'était PAS de l'overfit : le RAG refuse correctement les questions hors-corpus (test de robustesse réel passé). À développer dans le Lot J RAPPORT-CC-S2.7.
+
+**Reste à faire :**
+- Lot J (Plateforme) — RAPPORT-CC-S2.7 (latence p50/p90 par mode §3 + finding calibration adversariale + interprétation overfit vs robustesse) + PR finale, après merge de ce correctif.
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-25 (S2.7 Lot I — eval extended 108q (96 std + 12 adv) + latence p50/p90) — Claude Code Desktop — Standard 96/96 ✅, adversarial 0/12 (FAUX NÉGATIF harness, RAG refuse 12/12)
 
 **Contexte :** double-axe S2.7 — eval standard sur vault post-vague 7 (32 MD, +5 fiches outils + brique souveraineté EU) + 1er eval adversarial (12 questions pièges, mode Lot Dev). Prérequis Lot A + Lot Dev + Lot F.7+G+H mergés (PR #96/#97/#98, main `a7bb5c8`). Branche `s2.7-eval-vague-7-adversarial`. Discipline SPEC v2.0 hygiène merge OK (`git grep "<<<<<<<"` = vide).
