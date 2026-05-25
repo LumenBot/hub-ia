@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v2.0 (v1.9 + 3 ajouts validés post-clôture S2.5 — RAPPORT-CC-S2.5 §6 + arbitrage Cowork) : (1) **Discipline hygiène merge** (procédure pre-commit `git grep "<<<<<<<"` obligatoire post-`stash pop`) ; (2) **Pattern « 3 niveaux d'intervention retrieval » formalisé en procédure normée** (Lot Drer ciblé d'abord puis N1/N2/N3 selon écart résiduel) ; (3) **Précision §Performances latence — surveillance vault > 300 chunks** (sprint dédié de mesure avant clôture vague 6).
-**Dernière mise à jour :** 22 mai 2026 (révision post-S2.5 — 3 propositions validées par Cowork)
+**Statut :** v2.1 (v2.0 + 3 ajouts validés post-clôture S2.6 — RAPPORT-CC-S2.6 §6 + arbitrage Cowork) : (1) **Recalibrage cap coût 80-90q → 2,15 $** (mesure empirique S2.6 — 81q × 0,0253 $/q = 2,05 $ + marge variance 5 %) ; (2) **Extension bande latence vault 300-400 chunks** (p50 ≤ 20 s / p90 ≤ 24 s, mesure empirique S2.6 vault 318 chunks p50 19,0 s / p90 22,0 s) + recommandations reranking / réduction top-k / cache embeddings pour vault > 400 chunks ; (3) **Pattern production module pivot dense formalisé** (H2 autonome + lead-scope restreint AP-7 préventif + chunking ≤ 900 tokens, validé empiriquement PR-11 — 1er score parfait 81/81).
+**Dernière mise à jour :** 22 mai 2026 (révision post-S2.6 — 3 propositions Plateforme validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -333,6 +333,26 @@ Quand une question du golden set passe `score=1` → `score=0` entre deux évals
 
 **Anti-pattern à éviter** : sauter directement au Niveau 3 (densification chirurgicale) sans diagnostic Lot Drer préalable — risque de gonfler inutilement la taille des chunks au-delà de la tolérance R3, sans résoudre une saturation top-10 qui aurait nécessité un Niveau 2.
 
+### Pattern « production module pivot dense » (codifié SPEC v2.1)
+
+Un **module pivot** est un module dont la valeur principale tient à la séquence d'ensemble qu'il structure (carte de navigation, cycle de vie, framework transverse), avec cross-links denses vers de nombreux autres modules. Caractéristiques typiques : module dense (≥ 500 lignes HTML, ≥ 200 lignes MD attendues), vocabulaire transverse, mention de la majorité des autres modules du domaine.
+
+**Risque structurel** : ce type de module est **maximalement exposé à AP-7** (lead bridge sur-élargi → saturation top-5 retrieval sur questions transversales étouffant les modules d'étape plus pertinents).
+
+**Pattern préventif validé empiriquement S2.6 sur PR-11** (cycle de vie projet IA — 1er score parfait 81/81 sans Lot Drer, validation AP-7 réussie en prévention) :
+
+1. **H2 autonome stricte** : chaque concept propre du module pivot devient une H2 dédiée et sémantiquement autonome, jamais une simple subdivision H3 d'une H2 large. Cas-école PR-11 : tableau 9 étapes en H2 dédiée + 3 quality gates en H2 dédiée + tableau coûts courts-circuits en H2 dédiée + cas-école order-to-cash en H2 dédiée + tableau articulation préalables/DEP en H2 dédiée.
+
+2. **Lead-scope restreint (AP-7 préventif)** : le lead du module pivot doit contenir dès la première phrase en gras le **vocabulaire propre** du module (« 9 étapes séquencées non interchangeables », « 3 quality gates obligatoires », « carte de navigation bout en bout ») PLUTÔT QUE le vocabulaire transverse générique (« projet IA », « cycle », « étapes »). Les termes génériques restent présents mais associés systématiquement aux mots-clés ancrants spécifiques.
+
+3. **Chunking ≤ 900 tokens strict** : tolérance R3 800-900 tokens applicable mais à ne pas dépasser sur un module pivot — la densité crosslinks augmente naturellement la taille effective des chunks à l'embedding du fait de la répétition de vocabulaire transverse. Si une H2 du module pivot dépasse 900 tokens, refactoring H3 obligatoire (cf. R3).
+
+4. **Audit AP-7 préventif** : à la production, lister 5-6 questions hors scope que le module pivot ne doit PAS dominer en top-5. Vérifier visuellement le lead avant Lot I. Pas besoin de Lot Drer si la discipline est appliquée à la production.
+
+**Application** : pour tout module identifié comme pivot avant production (typiquement : modules de type « cycle de vie », « cartographie transverse », « framework structurant cross-domaines »), appliquer le pattern dès la conception MD. Indication ex-ante au brief sprint si module pivot prévu.
+
+**Distinction vs procédure normée Lot Drer + N1/N2/N3** : le pattern module pivot est **préventif** (appliqué à la production from scratch), la procédure Lot Drer + N1/N2/N3 est **curative** (appliquée post-régression détectée par Lot I). Les deux sont complémentaires.
+
 ---
 
 ## Validation — Eval réelle comme garde-fou structurel (issue RAPPORT-CC-S2.2 §6 P4)
@@ -406,7 +426,8 @@ Cible latence par question recalibrée empiriquement post-S2.2 Lot E.2 sur 30 qu
 |---|---|
 | Sonnet 4.6, volumes ~3–5 k tokens in / ~0,5–1,5 k tokens out (RAG standard sur vault < 200 chunks) | **12–18 s acceptable** (mesure moyenne S2.2 : 16,4 s, min 9 s, max 22 s) |
 | Sonnet 4.6, vault 200-300 chunks (cas S2.5 vague 5 vault ~250 chunks) | **14-20 s acceptable** (mesure S2.5 Lot I à confirmer) |
-| Sonnet 4.6, vault > 300 chunks (cas vague 6+ attendu) | **À mesurer en sprint dédié** — seuil de surveillance déclenchant audit latence ad-hoc |
+| **Sonnet 4.6, vault 300-400 chunks** (cas S2.6 vault 318 chunks) | **p50 ≤ 20 s / p90 ≤ 24 s** (mesure empirique S2.6 Lot I : p50 **19,0 s** / p90 **22,0 s** sur 81q) |
+| Sonnet 4.6, vault > 400 chunks (cas vague 7+ projeté) | **À mesurer en sprint dédié** — envisager optimisations : reranking, réduction top-k (5 → 3), cache embeddings, partitioning par axe |
 | Sonnet 4.6, volumes > 5 k tokens in (vault > 500 chunks ou retrieval k > 8) | 18–25 s acceptable, à mesurer en sprint dédié |
 | Haiku 4.5 sur mêmes volumes (option future S3 si optimisation latence prioritaire) | ~5 s estimé (~3× plus rapide), à mesurer avec impact qualitatif |
 
@@ -439,7 +460,10 @@ Cap durci par sprint recalibré post-S2.3 (mesure empirique Lot E sur 42 questio
 | 20-40 questions | 0,90 $ | Cap intermédiaire |
 | **40-50 questions** | **1,10 $** | Cap calibré sur S2.3 (42q × 0,025 $/q = 1,05 $ + marge variance ~5 %) |
 | 50-60 questions | 1,35 $ | Extrapolation linéaire — à confirmer empiriquement |
-| > 60 questions | À cadrer ad hoc | Considérer eval ciblée par sous-ensemble ou bascule Haiku 4.5 |
+| **70-80 questions** | **1,90 $** | Cap calibré sur S2.5 (72q × 0,0253 $/q = 1,82 $ + marge variance 5 %) |
+| **80-90 questions** | **2,15 $** | **Cap calibré empiriquement S2.6** (81q × 0,0253 $/q = 2,05 $ + marge variance 5 %) |
+| 90-100 questions | 2,40 $ | Extrapolation linéaire — à confirmer empiriquement S2.7 |
+| > 100 questions | À cadrer ad hoc | Considérer eval ciblée par sous-ensemble ou bascule Haiku 4.5 |
 
 Le cap durci sprint est une **alerte opérationnelle**, pas un hard-stop absolu (cf. décision S2.2 Lot D). Tant que le cap mensuel D-013 (50 $/mois Anthropic) est respecté, un dépassement de cap durci est acceptable s'il est documenté ex-ante au RAPPORT-CC-* du sprint.
 
@@ -500,5 +524,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 
 | v1.9 | 22 mai 2026 | Inscription du **pattern empirique « 3 niveaux d'intervention retrieval »** dans §Conception MD (précision opérationnelle du garde-fou « concepts détaillés ») : (1) Lead bridge enrichi (validé Lot D-ter S2.4.1 — q-038 rang ≥11 → #1) ; (2) H2 dédiée concurrente si saturation par module dominant (validé Lot S2.5.0-bis — q-030 #13 → #6) ; (3) Densification chirurgicale du lead par répétition contrôlée si chunk concurrent hors top-5 (validé Lot S2.5.0-ter — q-030 #6 → #3). Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter) documenté empiriquement. |
 | **v2.0** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.5 §6 (validation Cowork post-clôture S2.5 — sprint clôturé à 72/72 score global extrapolé) : (1) **§Discipline opérationnelle Git — Hygiène merge** : procédure pre-commit normée `git grep '<<<<<<<'` obligatoire post-`git stash pop` (issue 3 occurrences récurrentes PR #84/#86/#88 S2.3/S2.4/S2.5 signalées par Desktop) ; (2) **Procédure normée « Lot Drer + N1/N2/N3 »** ajoutée à §Conception MD : diagnostic Lot Drer ciblé d'abord (~0,10-0,20 $) puis choix du niveau d'intervention selon écart résiduel (Niveau 1 si rang #6-#10, Niveau 2 si saturation par module concurrent, Niveau 3 si gap résiduel < 0,02 sim) — anti-pattern « sauter directement au Niveau 3 sans diagnostic » documenté ; (3) **§Performances surveillance latence vault > 300 chunks** : déclencheur sprint dédié de mesure quand vault franchit 300 chunks (cas attendu vague 6+ → ~285 chunks puis ~330 chunks fiches outils). Table §Performances enrichie d'une ligne « vault 200-300 chunks » + ligne « vault > 300 chunks à mesurer ». |
+| **v2.1** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.6 §6 (validation Cowork post-clôture S2.6 — **1er score parfait 81/81** sur vault 26 MD / 318 chunks, sans Lot Drer en cascade) : (1) **Recalibrage cap coût** §Performances : table Cap budgétaire enrichie de 3 lignes empiriques 70-80q (1,90 $ calibré S2.5), **80-90q (2,15 $ calibré S2.6)**, et 90-100q (2,40 $ extrapolation à confirmer S2.7) — dépassement +2,5 % mécanique S2.6 documenté ; (2) **Extension bande latence vault 300-400 chunks** §Performances : ligne « > 300 chunks à mesurer » de v2.0 remplacée par mesure empirique S2.6 — **p50 ≤ 20 s / p90 ≤ 24 s** (mesure réelle p50 19,0 s / p90 22,0 s sur 81q vault 318 chunks) + recommandations optimisations pour vault > 400 chunks (reranking, top-k réduction 5→3, cache embeddings, partitioning par axe) ; (3) **Pattern « production module pivot dense »** ajouté à §Conception MD : H2 autonome stricte + lead-scope restreint (AP-7 préventif) + chunking ≤ 900 tokens + audit AP-7 préventif à la production — validé empiriquement PR-11 (629 lignes HTML, 9 H2 dédiées, score parfait sans Lot Drer). Distinction explicite vs procédure normée Lot Drer + N1/N2/N3 : pattern module pivot = **préventif** (production from scratch), Lot Drer + N1/N2/N3 = **curatif** (post-régression Lot I). |
 
-**Évolution prévue** : enrichissement en v2.1+ post-S2.6 sur la base de la production vague 6 (PR-09 + PR-10 + PR-11, 3 nouveaux préalables v3.12 — module PR-11 attendu comme pivot très dense / carte de navigation, susceptible de générer nouveaux apprentissages éditoriaux). Mesure empirique latence vault ~285 chunks post-Lot I S2.6 à intégrer dans table §Performances.
+**Évolution prévue** : enrichissement en v2.2+ post-S2.7 sur la base de la production vague 7 (5 fiches outils prioritaires) + extension run_eval mode adversarial (10-15 questions hors-corpus / pièges pour stress-tester le refus du RAG). Mesure empirique latence vault > 400 chunks projetée post-vague 7 (vault ~360-380 chunks attendu).
