@@ -11,6 +11,41 @@
 
 ## Entrées
 
+### 2026-05-25 (S2.7 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.7 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.7. Tous les lots livrés et mergés : A (SPEC v2.1, PR #96), Dev (mode adversarial run_eval, PR #97), B (sondage D-026 vague 7), F.7+G+H (5 fiches outils + souveraineté EU + golden set 108q, PR #98), I (eval 108q, PR #99), Dev fix (calibration v2 harness adversarial, PR #100 mergée). Correctif harness validé avant le rapport.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.7.md`** en 8 sections (~2700 mots, format conforme S2.6) :
+  1. Objectifs S2.7 (4 axes : vague 7 fiches outils, mode adversarial, golden set 108q, question structurante overfit vs robustesse)
+  2. Livrables par lot (A→J + double intervention Plateforme Lot Dev + Lot Dev fix)
+  3. Métriques (standard 96/96 = 100 %, adversarial 12/12 après calibration v2, latence standard p50 19/p90 22s + adversarial p50 10/p90 15s, coût 2,5866 $, vault 32 MD / 380 chunks)
+  4. Anomalies (faux négatif harness 0/12 → 12/12 résolu, écart procédure --filter-unit, hygiène merge OK)
+  5. Décisions structurantes (4 findings : robustesse réelle PAS overfit, harness = code critique à valider, refus franc ≠ absence citations, allocation D-030 enrichie validée)
+  6. Recommandations SPEC v2.2 (validation manuelle nouvelle règle scoring, codifier critère « citer pour expliquer le manque », extension golden set adversarial ~2q/vague)
+  7. Pistes S2.8 (R11 wikilinks désormais implémentable — 6 fiches outils ≥ 5 pré-requis, sprint latence vault > 400, extension adversariale, vague 8 architectures, re-run adversarial formel optionnel)
+  8. Coûts cumulés (S2.7 ~2,59 $, total S1→S2.7 ~11,84 $, cap mensuel D-013 préservé, recharge à anticiper avant vague 8)
+
+- **Finding central** : la question d'ouverture du sprint (« score parfait S2.6 = overfit ou robustesse ? ») est tranchée → **robustesse réelle**. 96/96 standard + 12/12 adversarial = le RAG discrimine correctement corpus vs hors-corpus, refuse les questions pièges sans halluciner.
+
+- **MAJ STATUS-RAG** : Lot J ✅ Fait, sprint S2.7 clôturé côté Plateforme.
+- **MAJ JOURNAL** (cette entrée).
+- **PR finale S2.7 à ouvrir** vers `main` depuis `claude/execute-s27-lot-j-rapport`. Titre : `feat(rag): Sprint S2.7 - vague 7 (5 fiches outils) + mode adversarial + robustesse RAG validée (96/96 std + 12/12 adv)`.
+
+**Décisions structurantes prises :** aucune (Lot J = production rapport + clôture).
+
+**Coût API consommé (cette session Lot J) :** 0,00 $ (production texte uniquement, conforme allocation D-030 Plateforme).
+
+**Reste à faire :**
+- Merge manuel de la PR finale S2.7 par Blaise après revue.
+- Arbitrage Cowork des 3 propositions d'amendement SPEC v2.1 → v2.2.
+- Ouverture S2.8 : R11 wikilinks (pré-requis rempli), sprint latence si vault > 400 chunks, vague 8 architectures A1-A4, décision budgétaire (recharge / Haiku 4.5 / top-k réduit).
+
+**Blockers :** aucun.
+
+---
+
 ### 2026-05-25 (S2.7 Lot Dev fix — correctif harness adversarial) — Claude Code Hub IA Plateforme — Calibration v2 markers + re-scoring 12/12
 
 **Contexte :** le Lot I Desktop a révélé un **faux négatif du harness adversarial** Lot Dev (0/12 refus corrects alors que le RAG refuse correctement 12/12). 2 bugs de calibration côté code Plateforme (pas le vault, pas une faiblesse RAG) : (1) `REFUSAL_MARKERS` ne contenait pas la phrase canonique du system prompt « Je n'ai pas de réponse documentée dans le Hub IA » ; (2) le verdict `refus_correct` exigeait `not cited`, or 11/12 réponses citent le contexte pour *expliquer* le manque. Correctif requis avant le Lot J (sinon le rapport publierait un « 0/12 » trompeur).
