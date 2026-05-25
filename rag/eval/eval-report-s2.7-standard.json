@@ -1,0 +1,4967 @@
+[
+  {
+    "id": "q-001",
+    "question": "Qu'est-ce que la veille IA et comment la structurer dans une PME ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "veille",
+      "source",
+      [
+        "méthode",
+        "méthodologie",
+        "approche"
+      ]
+    ],
+    "cited_codes": [
+      "cu-001",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "veille",
+      "source",
+      [
+        "méthode",
+        "méthodologie",
+        "approche"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## La veille IA : définition et structuration en PME  ### Ce qu'est la veille IA augmentée  La **veille IA** désigne l'usage d'outils d'intelligence artificielle générative pour surveiller en continu l'actualité d'un secteur, d'une réglemen",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-002",
+    "question": "Quelles sont les sources fiables pour suivre l'actualité IA générative en 2026 ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "source",
+      "veille"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite",
+      "pr-04",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "source",
+      "veille"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sources fiables pour suivre l'actualité IA générative en 2026  Le Hub IA Learning Center documente trois outils de veille structurée, répondant chacun à un usage distinct [[cu-001]] :  - **Perplexity** pour les recherches web sourcées en",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-011",
+    "question": "Quels sont les trois outils pour les trois usages distincts de la recherche augmentée IA ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      "Perplexity",
+      "Mistral",
+      "NotebookLM"
+    ],
+    "cited_codes": [
+      "cu-001",
+      "glossaire",
+      "vigilance-confidentialite",
+      "vigilance-hallucinations"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Perplexity",
+      "Mistral",
+      "NotebookLM"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les trois outils pour trois usages distincts de la recherche augmentée IA  Selon le module dédié à la recherche et veille augmentée, trois outils ont été sélectionnés parce qu'ils répondent chacun à un besoin précis et différent [[cu-001",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-012",
+    "question": "Comment éviter les hallucinations quand on utilise un outil de recherche augmentée comme Perplexity ?",
+    "expected_sources": [
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "expected_concepts": [
+      "hallucination",
+      [
+        "vérification",
+        "vérifier"
+      ],
+      "source"
+    ],
+    "cited_codes": [
+      "pr-10",
+      "vigilance-hallucinations",
+      "cu-001"
+    ],
+    "sources_match": [
+      "cu-001",
+      "vigilance-hallucinations"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "hallucination",
+      [
+        "vérification",
+        "vérifier"
+      ],
+      "source"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Éviter les hallucinations avec Perplexity : une discipline en plusieurs niveaux  ### Comprendre d'abord pourquoi le risque existe  Les outils comme Perplexity s'appuient sur des LLM (grands modèles de langage) qui **génèrent le mot le pl",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-013",
+    "question": "Combien d'heures par semaine peut-on gagner avec la recherche augmentée IA en PME ?",
+    "expected_sources": [
+      "cu-001"
+    ],
+    "expected_concepts": [
+      [
+        "heures",
+        "heure"
+      ],
+      "semaine",
+      [
+        "gain",
+        "gains",
+        "productivité"
+      ]
+    ],
+    "cited_codes": [
+      "cu-001",
+      "vigilance-hallucinations",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-001"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "heures",
+        "heure"
+      ],
+      "semaine",
+      [
+        "gain",
+        "gains",
+        "productivité"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Gain de temps avec la recherche augmentée IA en PME  La réponse documentée est claire : **3 à 5 heures par semaine** peuvent être récupérées grâce à la recherche augmentée IA, sur des tâches comme la préparation de réunions, les comparai",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-003",
+    "question": "Quelle est la différence entre RAG et fine-tuning ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "fine-tuning",
+      [
+        "mise à jour",
+        "actualisation",
+        "fraîcheur"
+      ]
+    ],
+    "cited_codes": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "fine-tuning",
+      [
+        "mise à jour",
+        "actualisation",
+        "fraîcheur"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## RAG vs Fine-tuning : deux façons très différentes d'enrichir un modèle d'IA  Ces deux approches répondent à la même question — *comment faire en sorte qu'un modèle d'IA connaisse vos informations métier ?* — mais avec des logiques opposé",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-004",
+    "question": "Comment fonctionne une knowledge base interne avec RAG ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "retrieval",
+      "embedding",
+      [
+        "citation",
+        "source",
+        "référence"
+      ]
+    ],
+    "cited_codes": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "retrieval",
+      "embedding",
+      [
+        "citation",
+        "source",
+        "référence"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Comment fonctionne une knowledge base interne avec RAG ?  Le **RAG** (*Retrieval-Augmented Generation* — génération augmentée par récupération) est une architecture qui permet à un modèle d'IA de répondre à des questions en s'appuyant su",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-014",
+    "question": "Quels sont les pièges à éviter lors de la mise en place d'un RAG en entreprise ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "garbage",
+      "droits",
+      "maintenance",
+      "hallucination"
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "garbage",
+      "droits",
+      "maintenance",
+      "hallucination"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les pièges à éviter lors de la mise en place d'un RAG en entreprise  La mise en œuvre d'un RAG (Retrieval-Augmented Generation — système qui connecte un modèle de langage à une base documentaire pour qu'il réponde en s'appuyant sur vos p",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-015",
+    "question": "Quelle architecture choisir pour un RAG sur documentation interne stratégique ?",
+    "expected_sources": [
+      "cu-008"
+    ],
+    "expected_concepts": [
+      "A3",
+      "A4",
+      [
+        "souveraineté",
+        "souverain"
+      ]
+    ],
+    "cited_codes": [
+      "cu-008",
+      "dep-02",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-008"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "A3",
+      "A4",
+      [
+        "souveraineté",
+        "souverain"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Architecture RAG pour documentation interne stratégique  ### 1. Le premier arbitrage : la souveraineté avant l'architecture technique  Pour de la **documentation interne stratégique** — procédures, contrats, savoir-faire — la contrainte ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-016",
+    "question": "Combien de temps perd-on en moyenne par jour à chercher de l'information dans une organisation ?",
+    "expected_sources": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "1,8 heures",
+        "1,8 heure"
+      ],
+      "McKinsey"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "cu-008",
+      "cu-001"
+    ],
+    "sources_match": [
+      "cu-008",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "1,8 heures",
+        "1,8 heure"
+      ],
+      "McKinsey"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Temps perdu à chercher l'information : que disent les données ?  Selon McKinsey (2025), un collaborateur perd en moyenne **1,8 heure par jour** à chercher de l'information dans une organisation moyenne. [[chiffres-macro-2026#18-h-jour-te",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-005",
+    "question": "Comment arbitrer entre construire en interne ou acheter une solution IA (build vs buy) ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "build",
+      "buy",
+      [
+        "coût",
+        "coûts",
+        "prix",
+        "budget"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "build",
+      "buy",
+      [
+        "coût",
+        "coûts",
+        "prix",
+        "budget"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Arbitrer entre build et buy pour un projet IA  ### La règle de départ : BUY par défaut, BUILD par exception justifiée  Avant tout arbitrage, intégrez une donnée de contexte structurante : [[chiffres-macro-2026#95-pourcent-projets-genai-s",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-006",
+    "question": "Quels critères considérer pour le build vs buy d'une plateforme IA en PME ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      [
+        "arbitrage",
+        "décision"
+      ],
+      [
+        "critère",
+        "critères",
+        "facteur"
+      ]
+    ],
+    "cited_codes": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "arbitrage",
+        "décision"
+      ],
+      [
+        "critère",
+        "critères",
+        "facteur"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Build vs Buy d'une plateforme IA en PME : les critères clés  ### La matrice de décision en 6 critères  Pour arbitrer rapidement, [[pr-07]] propose une grille de décision applicable en 15 minutes, structurée autour de **6 critères** :  | ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-017",
+    "question": "Qu'est-ce que le scaling gap dans les projets IA en entreprise ?",
+    "expected_sources": [
+      "pr-07"
+    ],
+    "expected_concepts": [
+      "scaling",
+      "gap",
+      "workflow",
+      [
+        "redesign",
+        "refonte",
+        "refonder"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07",
+      "dep-01"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "scaling",
+      "gap",
+      "workflow",
+      [
+        "redesign",
+        "refonte",
+        "refonder"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le scaling gap : quand les projets IA peinent à passer du POC à la valeur réelle  Le **scaling gap** (littéralement : l'écart de montée en charge) désigne le fossé qui sépare les expérimentations IA prometteuses d'une création de valeur ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-018",
+    "question": "Le fine-tuning de petits modèles SLM est-il une alternative au build vs buy en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "dep-04"
+    ],
+    "expected_concepts": [
+      "SLM",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "cited_codes": [
+      "pr-07",
+      "glossaire",
+      "chiffres-macro-2026",
+      "dep-04"
+    ],
+    "sources_match": [
+      "pr-07",
+      "dep-04"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "SLM",
+      "fine-tuning",
+      "troisième voie"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le fine-tuning SLM : une troisième voie entre Build et Buy  Oui, en 2026, le fine-tuning de petits modèles SLM (Small Language Models — modèles de langage de taille réduite, de 1 à 8 milliards de paramètres) s'affirme explicitement comme",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-019",
+    "question": "Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?",
+    "expected_sources": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "95 %",
+        "95%"
+      ],
+      "ROI",
+      "gouvernance",
+      [
+        "redesign",
+        "refonte"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-07",
+      "pr-04",
+      "dep-01"
+    ],
+    "sources_match": [
+      "pr-07",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "95 %",
+        "95%"
+      ],
+      "ROI",
+      "gouvernance",
+      [
+        "redesign",
+        "refonte"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Pourquoi 95 % des projets GenAI ne génèrent-ils pas de ROI mesurable ?  Le chiffre est posé d'emblée : **95 % des projets GenAI déployés en entreprise ne génèrent pas de ROI mesurable** [[chiffres-macro-2026#95-pourcent-projets-genai-san",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-007",
+    "question": "Comment mettre un système RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "production",
+      [
+        "évaluation",
+        "eval",
+        "évaluer"
+      ],
+      [
+        "itération",
+        "itérer",
+        "itératif"
+      ]
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "production",
+      [
+        "évaluation",
+        "eval",
+        "évaluer"
+      ],
+      [
+        "itération",
+        "itérer",
+        "itératif"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Mettre un système RAG en production : les étapes clés  ### 1. Comprendre les composants qui comptent vraiment  Avant de déployer, il faut savoir où investir votre énergie. Par ordre d'impact sur la qualité finale [[dep-02#Les choix techn",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-008",
+    "question": "Qu'est-ce que le cycle Stitch Evaluate Iterate pour le déploiement RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "dep-07"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le cycle Stitch → Evaluate → Iterate  ### Le constat de départ  Les benchmarks publics (classements comme le MTEB) évaluent les modèles sur des données génériques. Sur votre corpus métier spécifique — contrats, fiches produits, documenta",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-020",
+    "question": "Quelles sont les 7 étapes d'une pipeline RAG hybride en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chunking",
+      "embedding",
+      "retrieval",
+      "reranking",
+      "generation"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 étapes d'une pipeline RAG hybride en production  Voici l'architecture standard 2026 pour les corpus moyens et grands, telle que documentée dans le Hub IA [[dep-02]]. Ton prestataire doit être capable de te les réciter sans hésiter ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-021",
+    "question": "Comment évaluer la qualité d'un RAG en production ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "dep-07"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "eval",
+      "golden",
+      "stitch",
+      "evaluate",
+      "iterate"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Évaluer la qualité d'un RAG en production  La règle fondamentale est simple : **sans pipeline d'évaluation, vous ne pouvez pas savoir si une modification améliore ou dégrade votre système** [[dep-02]]. Tout choix devient alors subjectif ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-022",
+    "question": "Quel est l'impact relatif des choix techniques sur la qualité d'un RAG ?",
+    "expected_sources": [
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "embedding",
+      "reranking",
+      "chunking",
+      [
+        "vector",
+        "vectorielle",
+        "vectoriel"
+      ]
+    ],
+    "cited_codes": [
+      "dep-02"
+    ],
+    "sources_match": [
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "embedding",
+      "reranking",
+      "chunking",
+      [
+        "vector",
+        "vectorielle",
+        "vectoriel"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Impact relatif des choix techniques sur la qualité d'un RAG  ### Un classement clair par ordre d'impact  Tous les choix techniques d'un pipeline RAG n'ont pas le même poids. Voici la hiérarchie documentée [[dep-02#Les choix techniques qu",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-009",
+    "question": "Quelle vector database choisir pour démarrer un POC RAG ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "chromadb",
+      [
+        "vector",
+        "vectorielle",
+        "vectoriel"
+      ]
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "chromadb",
+      [
+        "vector",
+        "vectorielle",
+        "vectoriel"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database choisir pour démarrer un POC RAG ?  La réponse dépend principalement d'une question simple : **avez-vous déjà PostgreSQL dans votre système d'information ?** Si oui, la recommandation est claire : commencez avec **",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-010",
+    "question": "Pinecone, Qdrant, Weaviate ou ChromaDB : sur quels critères choisir ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "cited_codes": [
+      "dep-02",
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pinecone",
+      "qdrant",
+      "weaviate",
+      "chromadb"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Choisir son vector store : les 4 critères décisifs  La question « Quel vector store choisir ? » est en réalité une **question piège** [[dep-02]]. Le vector store n'est qu'un moteur de stockage : la qualité de votre RAG viendra surtout du",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-023",
+    "question": "Quand choisir pgvector plutôt que Qdrant pour un RAG en PME ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      "pgvector",
+      "Postgres",
+      "Qdrant"
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "pgvector",
+      "Postgres",
+      "Qdrant"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## pgvector ou Qdrant pour votre RAG en PME ?  La réponse tient à **trois critères** : votre stack existante, le volume de documents, et votre capacité opérationnelle.  ---  ### Choisissez **pgvector** si…  Vous avez déjà **PostgreSQL en pr",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-024",
+    "question": "Quelle vector database choisir pour un RAG souverain en Europe ?",
+    "expected_sources": [
+      "outils-vector-db"
+    ],
+    "expected_concepts": [
+      [
+        "souveraineté",
+        "souverain",
+        "souveraine"
+      ],
+      "Qdrant",
+      "self-host",
+      [
+        "EU",
+        "Europe",
+        "européen"
+      ]
+    ],
+    "cited_codes": [
+      "outils-vector-db",
+      "glossaire",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "outils-vector-db"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "souveraineté",
+        "souverain",
+        "souveraine"
+      ],
+      "Qdrant",
+      "self-host",
+      [
+        "EU",
+        "Europe",
+        "européen"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quelle vector database choisir pour un RAG souverain en Europe ?  **La réponse par défaut : Qdrant self-hosted**  Pour un RAG souverain en Europe, **Qdrant** est le choix de référence [[outils-vector-db#Qdrant — référence open-source en ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-025",
+    "question": "Quelle discipline appliquer face aux hallucinations d'un LLM ?",
+    "expected_sources": [
+      "vigilance-hallucinations"
+    ],
+    "expected_concepts": [
+      [
+        "vérifier",
+        "vérification"
+      ],
+      "source",
+      [
+        "challenger",
+        "contester"
+      ]
+    ],
+    "cited_codes": [
+      "vigilance-hallucinations",
+      "chiffres-macro-2026",
+      "pr-10",
+      "cu-008",
+      "dep-02",
+      "glossaire",
+      "dep-05",
+      "dep-07"
+    ],
+    "sources_match": [
+      "vigilance-hallucinations"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "vérifier",
+        "vérification"
+      ],
+      "source"
+    ],
+    "concepts_missing": [
+      [
+        "challenger",
+        "contester"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Faire face aux hallucinations d'un LLM : la discipline à adopter  ### Comprendre d'abord pourquoi cela arrive  Une **hallucination** est une affirmation fausse présentée avec assurance par un modèle d'IA [[vigilance-hallucinations#Qu'est",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-026",
+    "question": "Quelles données ne jamais coller dans un chatbot grand public ?",
+    "expected_sources": [
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      [
+        "personnelles",
+        "personnelle"
+      ],
+      [
+        "contractuelles",
+        "contractuelle"
+      ],
+      [
+        "stratégiques",
+        "stratégique"
+      ],
+      [
+        "régulées",
+        "régulée"
+      ]
+    ],
+    "cited_codes": [
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "vigilance-confidentialite"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "personnelles",
+        "personnelle"
+      ],
+      [
+        "contractuelles",
+        "contractuelle"
+      ],
+      [
+        "stratégiques",
+        "stratégique"
+      ],
+      [
+        "régulées",
+        "régulée"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Données à ne jamais coller dans un chatbot grand public  Le principe de base est simple : tout ce que vous saisissez dans un chatbot grand public (ChatGPT, Gemini, Perplexity, etc.) est envoyé sur les serveurs de l'éditeur, peut être con",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-027",
+    "question": "Quel pourcentage des organisations IA ont redesigné leurs workflows ?",
+    "expected_sources": [
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "21 %",
+        "21%"
+      ],
+      "McKinsey",
+      [
+        "workflow",
+        "workflows"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-01"
+    ],
+    "sources_match": [
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "21 %",
+        "21%"
+      ],
+      "McKinsey",
+      [
+        "workflow",
+        "workflows"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Pourcentage des organisations IA ayant redesigné leurs workflows  **21 % seulement des organisations qui utilisent l'IA ont redesigné leurs workflows** [[chiffres-macro-2026#21-pourcent-organisations-ia-ayant-redesigne-leurs-workflows-mc",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-028",
+    "question": "Qu'est-ce que le pattern LLM Wiki de Karpathy et quand l'utiliser ?",
+    "expected_sources": [
+      "pattern-llm-wiki"
+    ],
+    "expected_concepts": [
+      "Karpathy",
+      [
+        "synthèse",
+        "synthétiser",
+        "synthétique"
+      ],
+      [
+        "persistant",
+        "persistance",
+        "persistent"
+      ],
+      "markdown"
+    ],
+    "cited_codes": [
+      "pattern-llm-wiki",
+      "dep-02",
+      "cu-008",
+      "cu-014"
+    ],
+    "sources_match": [
+      "pattern-llm-wiki"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Karpathy",
+      [
+        "synthèse",
+        "synthétiser",
+        "synthétique"
+      ],
+      [
+        "persistant",
+        "persistance",
+        "persistent"
+      ],
+      "markdown"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le pattern LLM Wiki de Karpathy  Le **LLM Wiki** est une alternative architecturale au RAG vectoriel classique, proposée par Andrej Karpathy en avril 2026 dans un gist GitHub (17 millions de vues, 5 000 stars en quelques jours) [[pattern",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-029",
+    "question": "Pour un corpus stable de 50K tokens, dois-je choisir un RAG vectoriel ou un LLM Wiki ?",
+    "expected_sources": [
+      "pattern-llm-wiki",
+      "dep-02"
+    ],
+    "expected_concepts": [
+      "LLM Wiki",
+      [
+        "50K",
+        "50 K",
+        "50000",
+        "50 000"
+      ],
+      [
+        "économie",
+        "économies",
+        "gain",
+        "réduction"
+      ],
+      [
+        "stable",
+        "stabilité"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-llm-wiki",
+      "dep-02",
+      "cu-008"
+    ],
+    "sources_match": [
+      "pattern-llm-wiki",
+      "dep-02"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "LLM Wiki",
+      [
+        "50K",
+        "50 K",
+        "50000",
+        "50 000"
+      ],
+      [
+        "économie",
+        "économies",
+        "gain",
+        "réduction"
+      ],
+      [
+        "stable",
+        "stabilité"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## RAG vectoriel ou LLM Wiki pour 50 000 tokens stables ?  **La réponse courte : LLM Wiki.** Pour un corpus de 50 000 tokens (soit environ l'équivalent d'un gros manuel produit ou d'une FAQ technique complète) dont le contenu est stable — c",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-030",
+    "question": "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "cited_codes": [
+      "pr-07",
+      "cu-020",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Obligations réglementaires à anticiper pour un projet IA en PME en 2026  Quatre ancrages réglementaires structurent tout projet IA en PME européenne en 2026. Le premier est le **RGPD article 22**, qui interdit les décisions « fondées exc",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-031",
+    "question": "Que nous apprend le cas Klarna sur l'évolution de la gouvernance des agents IA en entreprise ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      "Klarna",
+      [
+        "2,3 M",
+        "2,3 millions"
+      ],
+      "700",
+      [
+        "gouvernance",
+        "gouverner"
+      ],
+      [
+        "ajustement",
+        "ajuster",
+        "ajustée"
+      ]
+    ],
+    "cited_codes": [
+      "cu-026"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Klarna",
+      [
+        "2,3 M",
+        "2,3 millions"
+      ],
+      "700",
+      [
+        "gouvernance",
+        "gouverner"
+      ],
+      [
+        "ajustement",
+        "ajuster",
+        "ajustée"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Ce que le cas Klarna enseigne sur la gouvernance des agents IA  ### Un cas d'ajustement, pas d'échec  Klarna, fintech suédoise spécialisée dans le *buy now, pay later* (paiement fractionné), a déployé en partenariat avec OpenAI un agent ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-032",
+    "question": "Quelles sont les 7 dimensions du framework de gouvernance des agents IA ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      [
+        "7 dimensions",
+        "sept dimensions"
+      ],
+      "tâche",
+      [
+        "droits",
+        "droit"
+      ],
+      "escalade",
+      "KPI",
+      "audit",
+      "versions",
+      [
+        "onboarding",
+        "offboarding"
+      ]
+    ],
+    "cited_codes": [
+      "cu-026",
+      "dep-08"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "7 dimensions",
+        "sept dimensions"
+      ],
+      "tâche",
+      [
+        "droits",
+        "droit"
+      ],
+      "escalade",
+      "KPI",
+      "audit",
+      "versions",
+      [
+        "onboarding",
+        "offboarding"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 dimensions du framework de gouvernance des agents IA  Le module [[cu-026]] structure la gouvernance de tout agent IA en production autour de **7 dimensions opérationnelles**. L'idée centrale est de traiter l'agent comme un employé ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-033",
+    "question": "Pourquoi traiter un agent IA comme un employé est-il le pattern central de la gouvernance agents ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      "employé",
+      [
+        "droits",
+        "droit"
+      ],
+      [
+        "escalade",
+        "escalader"
+      ],
+      [
+        "évaluation",
+        "évaluer"
+      ],
+      "tâche"
+    ],
+    "cited_codes": [
+      "cu-026"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "employé",
+      [
+        "droits",
+        "droit"
+      ],
+      [
+        "escalade",
+        "escalader"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "évaluation",
+        "évaluer"
+      ],
+      "tâche"
+    ],
+    "score_global": 1,
+    "answer_preview": "## Pourquoi traiter un agent IA comme un employé ?  Un agent IA en production n'est pas un simple script ou un chatbot passif : c'est une entité qui **prend des décisions, manipule des données et parle au nom de l'entreprise** [[cu-026#L'ag",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-040",
+    "question": "Quelles obligations réglementaires européennes s'appliquent à la gouvernance d'agents IA en 2026 ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      "AI Act",
+      "RGPD",
+      [
+        "article 14",
+        "art. 14",
+        "article 22",
+        "art. 22"
+      ],
+      "2 août 2026",
+      "Moffatt"
+    ],
+    "cited_codes": [
+      "cu-026",
+      "cu-020"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "AI Act",
+      "RGPD",
+      [
+        "article 14",
+        "art. 14",
+        "article 22",
+        "art. 22"
+      ],
+      "2 août 2026",
+      "Moffatt"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Obligations réglementaires européennes pour la gouvernance d'agents IA en 2026  ### Le bloc réglementaire de référence : 3 ancrages fondamentaux  Toute organisation déployant des agents IA en Europe doit maîtriser trois textes qui formen",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-034",
+    "question": "Quelle économie d'inférence apporte Kimi K2.6 par rapport à Claude Opus 4.7 dans la stack ECC ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "ECC",
+      "Kimi",
+      [
+        "Opus",
+        "Claude Opus"
+      ],
+      [
+        "80",
+        "90"
+      ],
+      [
+        "économie",
+        "économies",
+        "gain",
+        "réduction"
+      ],
+      "inférence"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "cu-027",
+      "outils-llm"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "ECC",
+      "Kimi",
+      [
+        "Opus",
+        "Claude Opus"
+      ],
+      [
+        "80",
+        "90"
+      ],
+      [
+        "économie",
+        "économies",
+        "gain",
+        "réduction"
+      ],
+      "inférence"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Économie d'inférence de Kimi K2.6 vs Claude Opus 4.7 dans la stack ECC  La bascule de Claude Opus 4.7 vers Kimi K2.6 génère une **économie typique de 80 à 90 % de la facture d'inférence** (c'est-à-dire le coût des appels API, les requête",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-035",
+    "question": "Quel cas-école documenté illustre les risques d'un développement IA-assisté sans gouvernance produit ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "Tea App",
+      [
+        "72 000",
+        "72000"
+      ],
+      [
+        "fuite",
+        "fuitées",
+        "fuités"
+      ],
+      "Firebase",
+      [
+        "gouvernance produit",
+        "gouvernance"
+      ]
+    ],
+    "cited_codes": [
+      "cu-027",
+      "pr-10",
+      "cu-026"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Tea App",
+      [
+        "72 000",
+        "72000"
+      ],
+      [
+        "fuite",
+        "fuitées",
+        "fuités"
+      ],
+      "Firebase",
+      [
+        "gouvernance produit",
+        "gouvernance"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le cas Tea App : quand le développement IA-assisté sans gouvernance produit tourne à la fuite de données massive  Le cas d'école documenté le plus parlant est celui de **Tea**, une application de dating américaine lancée en 2025. En juil",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-036",
+    "question": "Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "cited_codes": [
+      "cu-027",
+      "dep-08",
+      "vigilance-confidentialite",
+      "pr-01"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Hiérarchisation des 7 outils de développement IA-assisté par maturité production en 2026  ### La grille en trois catégories  Le module [[cu-027]] établit une hiérarchisation canonique des 7 outils selon **trois catégories distinctes**, à",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-041",
+    "question": "Qu'est-ce que le pattern Fat Skills / Thin Harness de Garry Tan pour le développement IA-assisté ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "Garry Tan",
+      "Fat Skills",
+      "Thin Harness",
+      "ECC"
+    ],
+    "cited_codes": [
+      "cu-027",
+      "dep-05"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Garry Tan",
+      "Fat Skills",
+      "Thin Harness",
+      "ECC"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le pattern Fat Skills / Thin Harness de Garry Tan  Ce pattern a été formalisé en 2026 par **Garry Tan**, président de Y Combinator, dans le contexte du développement d'applications IA-assisté [[cu-027]]. L'idée centrale est simple : **où",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-037",
+    "question": "Quels sont les 4 vecteurs d'attaque connus contre les agents IA et MCP servers en 2026 ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "MCP",
+      [
+        "MCP compromis",
+        "MCP malveillant"
+      ],
+      "prompt injection",
+      [
+        "skills",
+        "skills malveillants"
+      ],
+      "supply chain",
+      "CVE-2025-59536"
+    ],
+    "cited_codes": [
+      "dep-08",
+      "pr-05"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "MCP",
+      "prompt injection",
+      [
+        "skills",
+        "skills malveillants"
+      ],
+      "supply chain",
+      "CVE-2025-59536"
+    ],
+    "concepts_missing": [
+      [
+        "MCP compromis",
+        "MCP malveillant"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Les 4 vecteurs d'attaque contre les agents IA et MCP servers en 2026  Les agents IA présentent une **surface d'attaque structurellement différente** des applications web classiques — un audit OWASP standard ne couvre pas ces couches [[de",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-038",
+    "question": "Quels outils et patterns de mitigation appliquer pour sécuriser des agents IA en production ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "cited_codes": [
+      "dep-08",
+      "dep-05"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "AgentShield",
+      [
+        "Snyk",
+        "Semgrep"
+      ],
+      [
+        "1 282",
+        "1282",
+        "1 282 tests",
+        "milliers de tests"
+      ],
+      [
+        "102 règles",
+        "102",
+        "centaine de règles"
+      ],
+      [
+        "--opus",
+        "mode --opus",
+        "mode Opus"
+      ],
+      [
+        "audit",
+        "logs",
+        "audit hebdo"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sécuriser des agents IA en production : outils et patterns de mitigation  ### L'outillage composite de référence : AgentShield + Snyk + Semgrep  La sécurisation opérationnelle d'agents IA en production repose en 2026 sur une combinaison ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-039",
+    "question": "Quels incidents et CVE documentés illustrent les risques techniques des agents IA en production ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "CVE-2025-59536",
+      [
+        "MCP STDIO",
+        "STDIO"
+      ],
+      "OpenClaw",
+      [
+        "Moltbook",
+        "1,5 M",
+        "1 500 000"
+      ],
+      [
+        "incident",
+        "incidents"
+      ]
+    ],
+    "cited_codes": [
+      "dep-08",
+      "chiffres-macro-2026",
+      "pr-05",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "CVE-2025-59536",
+      [
+        "MCP STDIO",
+        "STDIO"
+      ],
+      "OpenClaw",
+      [
+        "Moltbook",
+        "1,5 M",
+        "1 500 000"
+      ],
+      [
+        "incident",
+        "incidents"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Incidents et CVE documentés sur les agents IA en production  ### Les 4 incidents de référence  Le module de sécurité agents du Hub IA documente quatre incidents majeurs à connaître, à citer textuellement [[dep-08#les-4-incidents-et-cve-d",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-042",
+    "question": "Comment sécuriser les fichiers de configuration d'agents IA en production (CLAUDE.md, hooks, configs) ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      "CLAUDE.md",
+      [
+        "hooks",
+        "configs"
+      ],
+      [
+        "versioning",
+        "git"
+      ],
+      [
+        "revue PR",
+        "revue de PR"
+      ],
+      "AgentShield",
+      [
+        "audit",
+        "hebdo",
+        "mensuel"
+      ]
+    ],
+    "cited_codes": [
+      "dep-08",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "CLAUDE.md",
+      [
+        "hooks",
+        "configs"
+      ],
+      [
+        "versioning",
+        "git"
+      ],
+      "AgentShield",
+      [
+        "audit",
+        "hebdo",
+        "mensuel"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "revue PR",
+        "revue de PR"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Sécuriser les fichiers de configuration d'agents IA en production  La sécurité des fichiers de configuration (CLAUDE.md, hooks, settings.json, MCP configs) est un vecteur d'attaque à part entière, distinct des vulnérabilités web classiqu",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-043",
+    "question": "Quels sont les 4 signaux convergents du pattern persistent memory pour agents IA en mai 2026 ?",
+    "expected_sources": [
+      "pattern-persistent-memory"
+    ],
+    "expected_concepts": [
+      [
+        "Long context",
+        "SubQ",
+        "10 M tokens"
+      ],
+      [
+        "LLM Wiki",
+        "Karpathy"
+      ],
+      [
+        "Vargas",
+        "Hermes Agent",
+        "persistent memory"
+      ],
+      [
+        "agentmemory",
+        "13 200"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-persistent-memory",
+      "pattern-llm-wiki",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "pattern-persistent-memory"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Long context",
+        "SubQ",
+        "10 M tokens"
+      ],
+      [
+        "LLM Wiki",
+        "Karpathy"
+      ],
+      [
+        "Vargas",
+        "Hermes Agent",
+        "persistent memory"
+      ],
+      [
+        "agentmemory",
+        "13 200"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 signaux convergents du pattern Persistent Memory (mai 2026)  En mai 2026, quatre signaux convergents transforment la **persistent memory pour agents IA** — c'est-à-dire la capacité d'un agent à conserver et réutiliser de la mémoire",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-044",
+    "question": "Quels benchmarks documentent les performances d'agentmemory par rapport à BM25 ?",
+    "expected_sources": [
+      "pattern-persistent-memory"
+    ],
+    "expected_concepts": [
+      [
+        "95,2 %",
+        "95,2"
+      ],
+      [
+        "86,2 %",
+        "86,2",
+        "BM25"
+      ],
+      [
+        "÷ 100",
+        "divisé par 100",
+        "coût token"
+      ],
+      [
+        "agentmemory",
+        "Rohit Ghumare"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-persistent-memory",
+      "cu-008",
+      "dep-02",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pattern-persistent-memory"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "95,2 %",
+        "95,2"
+      ],
+      [
+        "86,2 %",
+        "86,2",
+        "BM25"
+      ],
+      [
+        "÷ 100",
+        "divisé par 100",
+        "coût token"
+      ],
+      [
+        "agentmemory",
+        "Rohit Ghumare"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Benchmarks agentmemory vs BM25  Les benchmarks documentant les performances d'agentmemory par rapport à BM25 proviennent **directement du dépôt GitHub du projet** (`github.com/rohitg00/agentmemory`), et non d'une publication académique i",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-045",
+    "question": "Quand privilégier la persistent memory plutôt que le RAG classique pour un agent IA en production ?",
+    "expected_sources": [
+      "cu-008",
+      "pattern-persistent-memory"
+    ],
+    "expected_concepts": [
+      [
+        "persistent memory",
+        "mémoire conversationnelle"
+      ],
+      [
+        "agent",
+        "agents"
+      ],
+      [
+        "stateful",
+        "multi-tours",
+        "multi-sessions"
+      ],
+      [
+        "RAG stateless",
+        "RAG classique"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-persistent-memory",
+      "cu-008",
+      "dep-02",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-008",
+      "pattern-persistent-memory"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "persistent memory",
+        "mémoire conversationnelle"
+      ],
+      [
+        "agent",
+        "agents"
+      ],
+      [
+        "stateful",
+        "multi-tours",
+        "multi-sessions"
+      ],
+      [
+        "RAG stateless",
+        "RAG classique"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quand privilégier la persistent memory plutôt que le RAG classique ?  **Le critère décisif est la statefulness** (c'est-à-dire le fait qu'un agent doive « se souvenir » d'une session à l'autre ou maintenir un contexte évolutif au fil des",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-046",
+    "question": "Quelle architecture pour un agent en production avec mémoire conversationnelle multi-tours ?",
+    "expected_sources": [
+      "dep-02",
+      "pattern-persistent-memory"
+    ],
+    "expected_concepts": [
+      [
+        "persistent memory",
+        "agentmemory"
+      ],
+      [
+        "local-first",
+        "SQLite",
+        "FAISS"
+      ],
+      [
+        "mémoire conversationnelle",
+        "agent"
+      ],
+      [
+        "souveraineté",
+        "A3",
+        "A4"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-persistent-memory",
+      "dep-02",
+      "vigilance-confidentialite",
+      "dep-05"
+    ],
+    "sources_match": [
+      "dep-02",
+      "pattern-persistent-memory"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "persistent memory",
+        "agentmemory"
+      ],
+      [
+        "local-first",
+        "SQLite",
+        "FAISS"
+      ],
+      [
+        "mémoire conversationnelle",
+        "agent"
+      ],
+      [
+        "souveraineté",
+        "A3",
+        "A4"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Architecture recommandée : agent en production avec mémoire conversationnelle multi-tours  ### La réponse directe : privilegier la *persistent memory* mutualisable  Pour un agent IA en production nécessitant une mémoire conversationnelle",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-047",
+    "question": "Quels sont les 4 patterns Microsoft Frontier Firms pour la collaboration humain-agent IA ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      "Author",
+      "Editor",
+      "Director",
+      "Orchestrator"
+    ],
+    "cited_codes": [
+      "cu-026",
+      "cu-014"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Author",
+      "Editor",
+      "Director",
+      "Orchestrator"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 patterns Microsoft Frontier Firms de collaboration humain-agent IA  Le contexte du vault Hub IA mentionne explicitement l'existence de ces 4 patterns et les nomme — **Author, Editor, Director, Orchestrator** [[cu-026]] — mais ne dé",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-048",
+    "question": "Comment articuler les 4 patterns Microsoft avec le framework 7 dimensions de gouvernance des agents IA ?",
+    "expected_sources": [
+      "cu-026"
+    ],
+    "expected_concepts": [
+      [
+        "4 patterns",
+        "Author",
+        "Editor"
+      ],
+      [
+        "7 dimensions",
+        "Tâche",
+        "Droits"
+      ],
+      [
+        "distinction",
+        "distincts",
+        "complémentaire"
+      ],
+      [
+        "répartition",
+        "conception"
+      ]
+    ],
+    "cited_codes": [
+      "cu-026",
+      "dep-05",
+      "pattern-persistent-memory"
+    ],
+    "sources_match": [
+      "cu-026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "4 patterns",
+        "Author",
+        "Editor"
+      ],
+      [
+        "7 dimensions",
+        "Tâche",
+        "Droits"
+      ],
+      [
+        "distinction",
+        "distincts",
+        "complémentaire"
+      ],
+      [
+        "répartition",
+        "conception"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Articuler les 4 patterns Microsoft et le framework 7 dimensions  ### Deux grilles distinctes, pas interchangeables  Le point de départ est une mise en garde explicite du module : **ne pas fusionner ces deux outils**. Ils répondent à des ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-049",
+    "question": "Quel est le gain de productivité IA mesuré en customer support et software dev en 2026 selon Stanford ?",
+    "expected_sources": [
+      "cu-027",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "14-26 %",
+        "14 à 26",
+        "14 %",
+        "26 %"
+      ],
+      [
+        "Stanford",
+        "Stanford AI Index"
+      ],
+      [
+        "customer support",
+        "software dev"
+      ],
+      [
+        "-20 %",
+        "devs juniors",
+        "emploi"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "cu-027",
+      "pr-04"
+    ],
+    "sources_match": [
+      "cu-027",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "14-26 %",
+        "14 à 26",
+        "14 %",
+        "26 %"
+      ],
+      [
+        "Stanford",
+        "Stanford AI Index"
+      ],
+      [
+        "customer support",
+        "software dev"
+      ],
+      [
+        "-20 %",
+        "devs juniors",
+        "emploi"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Gain de productivité IA en customer support et software dev (Stanford 2026)  Selon le **Stanford AI Index Report 2026**, les cohortes ayant intégré l'IA dans leur organisation enregistrent un **gain de productivité de 14 à 26 %** dans de",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-050",
+    "question": "Quelles disciplines SBOM IA appliquer pour sécuriser la chaîne de dépendances d'agents IA en production ?",
+    "expected_sources": [
+      "dep-08"
+    ],
+    "expected_concepts": [
+      [
+        "SBOM",
+        "SBOM IA"
+      ],
+      [
+        "ANSSI",
+        "G7"
+      ],
+      [
+        "supply chain",
+        "chaîne de dépendances"
+      ],
+      [
+        "inventaire",
+        "audit",
+        "CVE"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "dep-08",
+      "cu-026",
+      "dep-05",
+      "pr-05"
+    ],
+    "sources_match": [
+      "dep-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "SBOM",
+        "SBOM IA"
+      ],
+      [
+        "ANSSI",
+        "G7"
+      ],
+      [
+        "supply chain",
+        "chaîne de dépendances"
+      ],
+      [
+        "inventaire",
+        "audit",
+        "CVE"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 disciplines SBOM IA pour sécuriser la chaîne de dépendances agents en production  ### Pourquoi c'est urgent en 2026  Le contexte chiffré est sans équivoque : **362 incidents IA documentés en 2025**, soit une hausse de **+55 % par r",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-051",
+    "question": "Quels sont les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-08"
+    ],
+    "expected_concepts": [
+      [
+        "CIR",
+        "CII"
+      ],
+      [
+        "CII-IA",
+        "CII IA"
+      ],
+      [
+        "JEI",
+        "JEII"
+      ],
+      [
+        "CICO",
+        "C3IV"
+      ]
+    ],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "CIR",
+        "CII"
+      ],
+      [
+        "CII-IA",
+        "CII IA"
+      ],
+      [
+        "JEI",
+        "JEII"
+      ],
+      [
+        "CICO",
+        "C3IV"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 7 dispositifs fiscaux mobilisables pour financer un projet IA en PME en 2026  Le contexte documenté dans le Hub IA recense précisément **7 dispositifs fiscaux** mobilisables en 2026, répartis entre dispositifs classiques maintenus et",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-052",
+    "question": "Quelle est la règle des 5 étapes pour empiler les dispositifs de financement IA en PME ?",
+    "expected_sources": [
+      "pr-08"
+    ],
+    "expected_concepts": [
+      [
+        "5 étapes",
+        "cinq étapes"
+      ],
+      [
+        "diagnostic Bpifrance",
+        "Data AI Diagnostic"
+      ],
+      [
+        "CIR",
+        "CII",
+        "CII-IA"
+      ],
+      [
+        "JEI",
+        "JEII",
+        "AAP",
+        "France 2030"
+      ]
+    ],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-08"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "5 étapes",
+        "cinq étapes"
+      ],
+      [
+        "diagnostic Bpifrance",
+        "Data AI Diagnostic"
+      ],
+      [
+        "CIR",
+        "CII",
+        "CII-IA"
+      ],
+      [
+        "JEI",
+        "JEII",
+        "AAP",
+        "France 2030"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## La règle des 5 étapes pour empiler les dispositifs de financement IA en PME  La règle des 5 étapes est une **séquence chronologique stricte** : l'ordre d'enchaînement des dispositifs n'est pas neutre. L'inverser peut coûter entre 10 et 3",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-053",
+    "question": "Quelle heuristique anti-hype 2026 pour cadrer l'architecture d'un projet IA ?",
+    "expected_sources": [
+      "dep-01"
+    ],
+    "expected_concepts": [
+      [
+        "heuristique anti-hype",
+        "anti-hype"
+      ],
+      [
+        "Single LLM call",
+        "single LLM"
+      ],
+      [
+        "scaler",
+        "prouvé nécessaire"
+      ],
+      [
+        "6 niveaux",
+        "arbre de décision"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "dep-01",
+      "dep-02",
+      "dep-04",
+      "dep-05",
+      "cu-014"
+    ],
+    "sources_match": [
+      "dep-01"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "heuristique anti-hype",
+        "anti-hype"
+      ],
+      [
+        "Single LLM call",
+        "single LLM"
+      ],
+      [
+        "scaler",
+        "prouvé nécessaire"
+      ],
+      [
+        "6 niveaux",
+        "arbre de décision"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Heuristique anti-hype 2026 : cadrer l'architecture d'un projet IA  ### La règle d'or : *Single LLM call d'abord, scaler seulement si prouvé nécessaire*  L'erreur architecturale la plus coûteuse de 2026 est de démarrer directement en mult",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-054",
+    "question": "Quels sont les 6 niveaux de l'arbre de décision technique pour choisir une architecture IA ?",
+    "expected_sources": [
+      "dep-01"
+    ],
+    "expected_concepts": [
+      [
+        "Single LLM call",
+        "single LLM"
+      ],
+      [
+        "Long context",
+        "long-context"
+      ],
+      "RAG",
+      [
+        "Fine-tuning",
+        "Single agent",
+        "Multi-agent"
+      ]
+    ],
+    "cited_codes": [
+      "dep-01",
+      "dep-02",
+      "dep-04",
+      "dep-05",
+      "cu-014",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-01"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Single LLM call",
+        "single LLM"
+      ],
+      [
+        "Long context",
+        "long-context"
+      ],
+      "RAG",
+      [
+        "Fine-tuning",
+        "Single agent",
+        "Multi-agent"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 6 niveaux de l'arbre de décision technique  L'arbre de décision architectural du Hub IA repose sur une **heuristique anti-hype** dont la règle d'or est : *« Single LLM call d'abord, scaler seulement si prouvé nécessaire. »* [[dep-01#",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-055",
+    "question": "Qu'est-ce que le concept Jagged Frontier de Stanford et pourquoi est-il important pour cadrer un projet IA ?",
+    "expected_sources": [
+      "dep-01"
+    ],
+    "expected_concepts": [
+      [
+        "Jagged Frontier",
+        "frontière dentelée"
+      ],
+      "Stanford",
+      [
+        "IMO",
+        "horloge analogique"
+      ],
+      [
+        "démo",
+        "extrapoler"
+      ]
+    ],
+    "cited_codes": [
+      "dep-01",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "dep-01"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Jagged Frontier",
+        "frontière dentelée"
+      ],
+      "Stanford",
+      [
+        "IMO",
+        "horloge analogique"
+      ],
+      [
+        "démo",
+        "extrapoler"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le concept Jagged Frontier — et pourquoi il est critique pour cadrer votre projet IA  ### Qu'est-ce que le Jagged Frontier ?  Le **Jagged Frontier** (littéralement : « frontière dentelée ») est un concept issu du Stanford AI Index Report",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-056",
+    "question": "Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?",
+    "expected_sources": [
+      "dep-07"
+    ],
+    "expected_concepts": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "cited_codes": [
+      "dep-07",
+      "dep-01"
+    ],
+    "sources_match": [
+      "dep-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## L'heuristique « eval first » d'Anthropic pour les projets IA en 2026  L'heuristique « eval first » a été formalisée par **Anthropic Engineering en mai 2026**, dans une publication intitulée *« Demystifying evals for AI agents »* [[dep-07",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-057",
+    "question": "Quels sont les 3 types d'evals complémentaires pour évaluer un système IA en production ?",
+    "expected_sources": [
+      "dep-07"
+    ],
+    "expected_concepts": [
+      [
+        "LLM-as-judge",
+        "LLM as judge"
+      ],
+      [
+        "offline",
+        "golden set",
+        "référence"
+      ],
+      [
+        "online",
+        "utilisateurs réels"
+      ],
+      [
+        "complémentaires",
+        "non substituables"
+      ]
+    ],
+    "cited_codes": [
+      "dep-07",
+      "dep-05"
+    ],
+    "sources_match": [
+      "dep-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "LLM-as-judge",
+        "LLM as judge"
+      ],
+      [
+        "offline",
+        "golden set",
+        "référence"
+      ],
+      [
+        "online",
+        "utilisateurs réels"
+      ],
+      [
+        "complémentaires",
+        "non substituables"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 3 types d'evals complémentaires pour évaluer un système IA en production  Un principe fondamental structure la discipline d'évaluation : **les trois types sont complémentaires et non substituables** — aucun ne suffit seul [[dep-07]].",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-058",
+    "question": "Comment distinguer évaluation et observabilité d'un système IA en production ?",
+    "expected_sources": [
+      "dep-07",
+      "dep-05"
+    ],
+    "expected_concepts": [
+      [
+        "evals",
+        "évaluation"
+      ],
+      [
+        "observabilité",
+        "observabilite"
+      ],
+      [
+        "avant déploiement",
+        "après"
+      ],
+      [
+        "sortie",
+        "prod"
+      ]
+    ],
+    "cited_codes": [
+      "dep-07",
+      "dep-05"
+    ],
+    "sources_match": [
+      "dep-07",
+      "dep-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "evals",
+        "évaluation"
+      ],
+      [
+        "observabilité",
+        "observabilite"
+      ],
+      [
+        "sortie",
+        "prod"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "avant déploiement",
+        "après"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Évaluation vs observabilité : deux disciplines complémentaires, non interchangeables  ### La distinction en une phrase  La formulation canonique du Hub IA résume la différence de façon tranchée : *« Les evals répondent à \"est-ce que la s",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-059",
+    "question": "Quelle architecture d'observabilité pour des agents IA en production ?",
+    "expected_sources": [
+      "dep-05"
+    ],
+    "expected_concepts": [
+      [
+        "5 layers",
+        "cinq layers"
+      ],
+      [
+        "logs",
+        "traces",
+        "métriques"
+      ],
+      [
+        "événements",
+        "evenements",
+        "événements métier"
+      ],
+      [
+        "prompts",
+        "réponses",
+        "reponses"
+      ]
+    ],
+    "cited_codes": [
+      "dep-05",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "5 layers",
+        "cinq layers"
+      ],
+      [
+        "logs",
+        "traces",
+        "métriques"
+      ],
+      [
+        "événements",
+        "evenements",
+        "événements métier"
+      ],
+      [
+        "prompts",
+        "réponses",
+        "reponses"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Architecture d'observabilité pour des agents IA en production  ### Pourquoi une observabilité dédiée est indispensable  Un agent IA en production se distingue radicalement d'un service web classique par trois propriétés : **stochasticité",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-060",
+    "question": "Qu'est-ce que le failure receipt pattern et comment l'appliquer pour les agents IA ?",
+    "expected_sources": [
+      "dep-05"
+    ],
+    "expected_concepts": [
+      [
+        "failure receipt",
+        "failure receipts"
+      ],
+      [
+        "overclaimed completion",
+        "overclaimed"
+      ],
+      [
+        "inputs reçus",
+        "actions entreprises"
+      ],
+      [
+        "vérification",
+        "propriétaire"
+      ]
+    ],
+    "cited_codes": [
+      "dep-05",
+      "pr-10",
+      "cu-026"
+    ],
+    "sources_match": [
+      "dep-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "failure receipt",
+        "failure receipts"
+      ],
+      [
+        "overclaimed completion",
+        "overclaimed"
+      ],
+      [
+        "inputs reçus",
+        "actions entreprises"
+      ],
+      [
+        "vérification",
+        "propriétaire"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le failure receipt pattern : définition et application pour les agents IA  ### Quel problème ce pattern résout-il ?  Le failure receipt pattern est un **mécanisme correctif** conçu pour répondre à un risque structurel propre aux agents I",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-061",
+    "question": "Qu'est-ce que le pattern two-agent harness Anthropic pour les agents long-running ?",
+    "expected_sources": [
+      "dep-05"
+    ],
+    "expected_concepts": [
+      [
+        "two-agent harness",
+        "two agent"
+      ],
+      [
+        "Initializer agent",
+        "Initializer"
+      ],
+      [
+        "Coding agent"
+      ],
+      [
+        "progress log",
+        "artefacts externes",
+        "mémoire externalisée"
+      ]
+    ],
+    "cited_codes": [
+      "dep-05",
+      "pattern-persistent-memory",
+      "cu-027"
+    ],
+    "sources_match": [
+      "dep-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "two-agent harness",
+        "two agent"
+      ],
+      [
+        "Initializer agent",
+        "Initializer"
+      ],
+      [
+        "Coding agent"
+      ],
+      [
+        "progress log",
+        "artefacts externes",
+        "mémoire externalisée"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le pattern two-agent harness Anthropic pour les agents long-running  ### De quoi s'agit-il ?  Le **pattern two-agent harness** est une architecture documentée par Anthropic Engineering en mars 2026, conçue spécifiquement pour les **workf",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-062",
+    "question": "Quelle est la typologie 4 profils dirigeants Bpifrance Le Lab face à l'IA ?",
+    "expected_sources": [
+      "pr-01"
+    ],
+    "expected_concepts": [
+      "Sceptiques",
+      "Bloqués",
+      "Expérimentateurs",
+      "Innovateurs"
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-01"
+    ],
+    "sources_match": [
+      "pr-01"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Sceptiques",
+      "Bloqués",
+      "Expérimentateurs",
+      "Innovateurs"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Typologie des 4 profils dirigeants Bpifrance Le Lab face à l'IA  L'étude Bpifrance Le Lab « Osez l'IA » (2026) a interrogé **plus de 1 200 dirigeants de PME-TPE françaises** et identifié quatre profils canoniques selon leur rapport à l'I",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-063",
+    "question": "Quel est le facteur de succès n°1 mesuré pour la valeur IA en entreprise selon McKinsey ?",
+    "expected_sources": [
+      "pr-01",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "redesign",
+        "intentional redesigning",
+        "workflows"
+      ],
+      [
+        "high performers",
+        "AI high performers"
+      ],
+      [
+        "6 %",
+        "6 pourcent"
+      ],
+      [
+        "McKinsey",
+        "State of AI"
+      ]
+    ],
+    "cited_codes": [
+      "pr-01",
+      "chiffres-macro-2026",
+      "pr-04"
+    ],
+    "sources_match": [
+      "pr-01",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "redesign",
+        "intentional redesigning",
+        "workflows"
+      ],
+      [
+        "high performers",
+        "AI high performers"
+      ],
+      [
+        "6 %",
+        "6 pourcent"
+      ],
+      [
+        "McKinsey",
+        "State of AI"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le redesign intentionnel des workflows : facteur de succès n°1  Selon l'étude McKinsey *State of AI 2025*, le facteur de succès n°1 mesuré pour la valeur IA en entreprise est le **redesign intentionnel des workflows** — c'est-à-dire la r",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-064",
+    "question": "Quelles sont les 4 séries de chiffres convergents du marché IA en 2026 ?",
+    "expected_sources": [
+      "pr-04"
+    ],
+    "expected_concepts": [
+      "Bpifrance",
+      "Microsoft",
+      "McKinsey",
+      "Stanford"
+    ],
+    "cited_codes": [
+      "pr-04",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-04"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Bpifrance",
+      "Microsoft",
+      "McKinsey",
+      "Stanford"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 séries de chiffres convergents du marché IA en 2026  Le Hub IA identifie **4 séries de chiffres convergents** qui, ensemble, cadrent l'état du marché IA en 2026 [[pr-04#L'essentiel à retenir]]. Voici chacune d'elles :  ---  ### 1. ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-065",
+    "question": "Qu'est-ce que le Transformation Paradox de Microsoft 2026 ?",
+    "expected_sources": [
+      "pr-04"
+    ],
+    "expected_concepts": [
+      [
+        "Transformation Paradox"
+      ],
+      "Microsoft",
+      [
+        "culture",
+        "culture de l'organisation"
+      ],
+      [
+        "frein",
+        "valeur IA"
+      ]
+    ],
+    "cited_codes": [
+      "pr-04",
+      "chiffres-macro-2026",
+      "pr-01"
+    ],
+    "sources_match": [
+      "pr-04"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Transformation Paradox"
+      ],
+      "Microsoft",
+      [
+        "culture",
+        "culture de l'organisation"
+      ],
+      [
+        "frein",
+        "valeur IA"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le Transformation Paradox de Microsoft 2026  Le **Transformation Paradox** est un concept issu du *Microsoft Work Trend Index 2026* qui peut se résumer ainsi : **le principal frein à la création de valeur par l'IA en entreprise n'est ni ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-066",
+    "question": "Quel est le paradoxe enjeu vs adoption de l'IA en TPE-PME française selon Bpifrance ?",
+    "expected_sources": [
+      "pr-04",
+      "chiffres-macro-2026"
+    ],
+    "expected_concepts": [
+      [
+        "58 %",
+        "58 pourcent"
+      ],
+      [
+        "enjeu de survie"
+      ],
+      [
+        "33 %",
+        "adoption quotidienne"
+      ],
+      "Bpifrance"
+    ],
+    "cited_codes": [
+      "pr-04",
+      "chiffres-macro-2026",
+      "pr-01"
+    ],
+    "sources_match": [
+      "pr-04",
+      "chiffres-macro-2026"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "58 %",
+        "58 pourcent"
+      ],
+      [
+        "enjeu de survie"
+      ],
+      [
+        "33 %",
+        "adoption quotidienne"
+      ],
+      "Bpifrance"
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Le paradoxe enjeu vs adoption de l'IA en TPE-PME française selon Bpifrance  Le paradoxe identifié par Bpifrance Le Lab est saisissant dans sa formulation : **58 % des dirigeants de TPE-PME considèrent l'IA comme un enjeu de survie**, mai",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-067",
+    "question": "Qu'est-ce que la cybersécurité agentique selon McKinsey 2026 et pourquoi est-elle un vecteur de risque distinct ?",
+    "expected_sources": [
+      "pr-05"
+    ],
+    "expected_concepts": [
+      [
+        "cybersécurité agentique",
+        "cybersecurite agentique"
+      ],
+      "McKinsey",
+      [
+        "vecteur de risque",
+        "distinct du LLM"
+      ],
+      [
+        "Securing the agentic enterprise"
+      ]
+    ],
+    "cited_codes": [
+      "pr-05",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "cybersécurité agentique",
+        "cybersecurite agentique"
+      ],
+      "McKinsey",
+      [
+        "vecteur de risque",
+        "distinct du LLM"
+      ],
+      [
+        "Securing the agentic enterprise"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## La cybersécurité agentique selon McKinsey 2026  McKinsey formule explicitement, dans son rapport « Securing the agentic enterprise » (mai 2026) : *« 2026 : la cybersécurité agentique devient un vecteur de risque distinct du LLM classique",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-068",
+    "question": "Quels sont les thèmes prioritaires du NIST CAISI pour la sécurité IA en 2026 ?",
+    "expected_sources": [
+      "pr-05"
+    ],
+    "expected_concepts": [
+      [
+        "NIST CAISI",
+        "NIST"
+      ],
+      [
+        "agent identity",
+        "identity & authentication"
+      ],
+      [
+        "auditability"
+      ],
+      [
+        "interoperability",
+        "AI Agent Interoperability Profile"
+      ]
+    ],
+    "cited_codes": [
+      "pr-05"
+    ],
+    "sources_match": [
+      "pr-05"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "NIST CAISI",
+        "NIST"
+      ],
+      [
+        "agent identity",
+        "identity & authentication"
+      ],
+      [
+        "auditability"
+      ],
+      [
+        "interoperability",
+        "AI Agent Interoperability Profile"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 6 thèmes prioritaires du NIST CAISI pour la sécurité IA en 2026  Le **NIST CAISI** (Center for AI Standards and Innovation — l'organisme américain de standardisation technique pour l'IA) publie en 2026 un cadre référentiel dédié à la",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-069",
+    "question": "Quels sont les 4 articles structurants pour la conformité d'un projet IA en PME 2026 ?",
+    "expected_sources": [
+      "cu-020"
+    ],
+    "expected_concepts": [
+      [
+        "RGPD",
+        "article 22"
+      ],
+      [
+        "AI Act",
+        "article 4"
+      ],
+      [
+        "article 14"
+      ],
+      [
+        "article 50",
+        "transparence"
+      ]
+    ],
+    "cited_codes": [
+      "cu-020",
+      "cu-026",
+      "pr-05",
+      "vigilance-confidentialite"
+    ],
+    "sources_match": [
+      "cu-020"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "RGPD",
+        "article 22"
+      ],
+      [
+        "AI Act",
+        "article 4"
+      ],
+      [
+        "article 14"
+      ],
+      [
+        "article 50",
+        "transparence"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 articles structurants pour la conformité IA en PME 2026  Pour tout projet IA en PME européenne, la conformité repose sur **quatre articles clés**, issus de deux textes réglementaires : le RGPD et l'AI Act [[cu-020#Cadre réglementai",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-070",
+    "question": "Quelles sont les sanctions maximales prévues par l'AI Act européen ?",
+    "expected_sources": [
+      "cu-020"
+    ],
+    "expected_concepts": [
+      [
+        "7 %",
+        "7 pourcent",
+        "CA mondial"
+      ],
+      [
+        "35 M€",
+        "35 millions"
+      ],
+      [
+        "2 août 2026"
+      ],
+      [
+        "sanctions",
+        "sanctions effectives"
+      ]
+    ],
+    "cited_codes": [
+      "cu-020"
+    ],
+    "sources_match": [
+      "cu-020"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "7 %",
+        "7 pourcent",
+        "CA mondial"
+      ],
+      [
+        "35 M€",
+        "35 millions"
+      ],
+      [
+        "2 août 2026"
+      ],
+      [
+        "sanctions",
+        "sanctions effectives"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Sanctions maximales prévues par l'AI Act européen  L'AI Act européen prévoit deux montants de sanctions maximales, et c'est **le plus élevé des deux qui s'applique** dans chaque cas [[cu-020#Sanctions chiffrées — 7 % CA mondial / 35 M€]]",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-071",
+    "question": "Quelles sont les 6 étapes canoniques d'un workflow order-to-cash et où la valeur IA est-elle la plus forte ?",
+    "expected_sources": [
+      "cu-024"
+    ],
+    "expected_concepts": [
+      [
+        "devis",
+        "bon de commande"
+      ],
+      [
+        "facturation",
+        "relance"
+      ],
+      [
+        "encaissement",
+        "lettrage"
+      ],
+      [
+        "forte valeur",
+        "étapes 4 et 6",
+        "relance et lettrage"
+      ]
+    ],
+    "cited_codes": [
+      "cu-024"
+    ],
+    "sources_match": [
+      "cu-024"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "devis",
+        "bon de commande"
+      ],
+      [
+        "facturation",
+        "relance"
+      ],
+      [
+        "encaissement",
+        "lettrage"
+      ],
+      [
+        "forte valeur",
+        "étapes 4 et 6",
+        "relance et lettrage"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 6 étapes canoniques de l'Order-to-Cash et la valeur IA par étape  ### Le workflow en un coup d'œil  Le workflow **Order-to-Cash (O2C)** — c'est-à-dire le processus qui va de la commande client jusqu'à l'encaissement effectif — compre",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-072",
+    "question": "Quelle est la différence entre une Plateforme Agréée (PA) et le Portail Public de Facturation (PPF) ?",
+    "expected_sources": [
+      "cu-024"
+    ],
+    "expected_concepts": [
+      [
+        "Plateforme Agréée",
+        "PA"
+      ],
+      [
+        "PPF",
+        "Portail Public de Facturation"
+      ],
+      [
+        "DGFiP",
+        "loi de finances 2026",
+        "art. 27"
+      ],
+      [
+        "125 PA",
+        "1er septembre 2026"
+      ]
+    ],
+    "cited_codes": [
+      "cu-024"
+    ],
+    "sources_match": [
+      "cu-024"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Plateforme Agréée",
+        "PA"
+      ],
+      [
+        "PPF",
+        "Portail Public de Facturation"
+      ],
+      [
+        "DGFiP",
+        "loi de finances 2026",
+        "art. 27"
+      ],
+      [
+        "125 PA",
+        "1er septembre 2026"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## PA vs PPF : deux acteurs distincts de la facturation électronique  La distinction est fondamentale et souvent source de confusion. Une **PA (Plateforme Agréée)** est un opérateur **privé**, immatriculé par la DGFiP (Direction Générale de",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-073",
+    "question": "Comment cadrer un projet IA en PME avant de choisir un outil et éviter le piège du tech push ?",
+    "expected_sources": [
+      "pr-09"
+    ],
+    "expected_concepts": [
+      [
+        "8 questions",
+        "huit questions",
+        "questions de cadrage"
+      ],
+      [
+        "tech push",
+        "piège tech push"
+      ],
+      [
+        "80 %",
+        "80 pourcent",
+        "avant la première ligne de code"
+      ],
+      [
+        "livrable",
+        "1 page",
+        "template"
+      ]
+    ],
+    "cited_codes": [
+      "pr-09",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-09"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "8 questions",
+        "huit questions",
+        "questions de cadrage"
+      ],
+      [
+        "tech push",
+        "piège tech push"
+      ],
+      [
+        "80 %",
+        "80 pourcent",
+        "avant la première ligne de code"
+      ],
+      [
+        "livrable",
+        "1 page",
+        "template"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Cadrer un projet IA en PME avant de choisir un outil  ### Commencer par le problème, pas par la technologie  Le piège le plus fréquent en PME s'appelle le **tech push** : on entend parler d'un outil (ChatGPT, Claude, Mistral, RAG…) et on",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-074",
+    "question": "Quelle différence entre PR-09 cadrage stratégique amont et DEP-01 cadrage technique d'un projet IA ?",
+    "expected_sources": [
+      "pr-09"
+    ],
+    "expected_concepts": [
+      [
+        "stratégique amont",
+        "angle stratégique"
+      ],
+      [
+        "technique",
+        "cadrage technique"
+      ],
+      [
+        "séquentiels",
+        "complémentaires",
+        "PR-09 d'abord"
+      ],
+      [
+        "décision d'engager",
+        "alignement métier"
+      ]
+    ],
+    "cited_codes": [
+      "pr-09",
+      "dep-01"
+    ],
+    "sources_match": [
+      "pr-09"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "stratégique amont",
+        "angle stratégique"
+      ],
+      [
+        "technique",
+        "cadrage technique"
+      ],
+      [
+        "séquentiels",
+        "complémentaires",
+        "PR-09 d'abord"
+      ],
+      [
+        "décision d'engager",
+        "alignement métier"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## PR-09 vs DEP-01 : deux cadrages complémentaires, pas concurrents  La distinction est nette et documentée de façon canonique dans le Hub : **PR-09 traite l'angle stratégique *amont* du cadrage, DEP-01 traite l'angle technique *aval*, une ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-075",
+    "question": "Quelles sont les 8 questions canoniques pour cadrer un projet IA et le pattern « refuser d'avancer » ?",
+    "expected_sources": [
+      "pr-09"
+    ],
+    "expected_concepts": [
+      [
+        "problème métier",
+        "utilisateur final"
+      ],
+      [
+        "données disponibles",
+        "contraintes réglementaires"
+      ],
+      [
+        "mesure du succès",
+        "budget",
+        "calendrier"
+      ],
+      [
+        "plan d'arrêt",
+        "refuser d'avancer"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-09",
+      "cu-020",
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-09"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "problème métier",
+        "utilisateur final"
+      ],
+      [
+        "données disponibles",
+        "contraintes réglementaires"
+      ],
+      [
+        "mesure du succès",
+        "budget",
+        "calendrier"
+      ],
+      [
+        "plan d'arrêt",
+        "refuser d'avancer"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 8 questions canoniques de cadrage et le pattern « refuser d'avancer »  ### Pourquoi cadrer avant de choisir un outil ?  Le piège le plus fréquent en PME est le **tech push** : partir du nom d'un outil (« on voudrait mettre du RAG », ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-076",
+    "question": "Quelles sont les 4 familles canoniques d'hallucinations IA en PME 2026 et comment les détecter ?",
+    "expected_sources": [
+      "pr-10"
+    ],
+    "expected_concepts": [
+      [
+        "chiffres inventés",
+        "famille 1"
+      ],
+      [
+        "citations fabriquées",
+        "famille 2"
+      ],
+      [
+        "conclusions hors-périmètre",
+        "extrapolation"
+      ],
+      [
+        "faux positifs de complétion",
+        "overclaimed completeness"
+      ]
+    ],
+    "cited_codes": [
+      "vigilance-hallucinations",
+      "chiffres-macro-2026",
+      "pr-10"
+    ],
+    "sources_match": [
+      "pr-10"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "chiffres inventés",
+        "famille 1"
+      ],
+      [
+        "citations fabriquées",
+        "famille 2"
+      ],
+      [
+        "conclusions hors-périmètre",
+        "extrapolation"
+      ],
+      [
+        "faux positifs de complétion",
+        "overclaimed completeness"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 familles canoniques d'hallucinations IA en PME 2026  ### Pourquoi ce sujet est fondamental  Avant d'entrer dans la typologie, un point de cadrage essentiel : les hallucinations ne sont **pas un bug à corriger**, mais une propriété ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-077",
+    "question": "Quels sont les 4 niveaux de vérification des outputs IA proportionnés à l'enjeu en production ?",
+    "expected_sources": [
+      "pr-10"
+    ],
+    "expected_concepts": [
+      [
+        "niveau 0",
+        "pas de vérification",
+        "POC"
+      ],
+      [
+        "niveau 1",
+        "échantillonnage",
+        "faible enjeu"
+      ],
+      [
+        "niveau 2",
+        "systématique humaine",
+        "enjeu modéré"
+      ],
+      [
+        "niveau 3",
+        "double validation",
+        "agent réviseur"
+      ]
+    ],
+    "cited_codes": [
+      "pr-10",
+      "dep-05",
+      "dep-07",
+      "vigilance-hallucinations"
+    ],
+    "sources_match": [
+      "pr-10"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "niveau 0",
+        "pas de vérification",
+        "POC"
+      ],
+      [
+        "niveau 1",
+        "échantillonnage",
+        "faible enjeu"
+      ],
+      [
+        "niveau 2",
+        "systématique humaine",
+        "enjeu modéré"
+      ],
+      [
+        "niveau 3",
+        "double validation",
+        "agent réviseur"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 niveaux de vérification des outputs IA proportionnés à l'enjeu  Le principe fondateur est simple : le choix du niveau de vérification est une **décision managériale à prendre usage par usage**, pas une propriété de la technologie. ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-078",
+    "question": "Comment limiter les faux positifs de complétion d'un agent IA et appliquer le pattern « pas de claim sans preuve fraîche » ?",
+    "expected_sources": [
+      "pr-10"
+    ],
+    "expected_concepts": [
+      [
+        "preuve fraîche",
+        "preuve indépendante"
+      ],
+      [
+        "faux positifs",
+        "complétion",
+        "overclaimed"
+      ],
+      [
+        "ID transaction",
+        "accusé de réception",
+        "vérification indépendante"
+      ],
+      [
+        "failure receipt",
+        "reçu d'exécution"
+      ]
+    ],
+    "cited_codes": [
+      "pr-10",
+      "dep-05"
+    ],
+    "sources_match": [
+      "pr-10"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "preuve fraîche",
+        "preuve indépendante"
+      ],
+      [
+        "faux positifs",
+        "complétion",
+        "overclaimed"
+      ],
+      [
+        "ID transaction",
+        "accusé de réception",
+        "vérification indépendante"
+      ],
+      [
+        "failure receipt",
+        "reçu d'exécution"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Limiter les faux positifs de complétion et appliquer le pattern « pas de claim sans preuve fraîche »  ### Comprendre le problème : qu'est-ce qu'un faux positif de complétion ?  Les faux positifs de complétion — appelés « **overclaimed co",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-079",
+    "question": "Quelles sont les 9 étapes séquencées du cycle de vie d'un projet IA en PME ?",
+    "expected_sources": [
+      "pr-11"
+    ],
+    "expected_concepts": [
+      [
+        "9 étapes",
+        "neuf étapes",
+        "étapes séquencées"
+      ],
+      [
+        "analyse du besoin",
+        "cadrage",
+        "spec"
+      ],
+      [
+        "développement",
+        "tests et évaluation"
+      ],
+      [
+        "mise en service",
+        "suivi"
+      ]
+    ],
+    "cited_codes": [
+      "pr-11",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-11"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "9 étapes",
+        "neuf étapes",
+        "étapes séquencées"
+      ],
+      [
+        "analyse du besoin",
+        "cadrage",
+        "spec"
+      ],
+      [
+        "développement",
+        "tests et évaluation"
+      ],
+      [
+        "mise en service",
+        "suivi"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 9 étapes séquencées du cycle de vie d'un projet IA en PME  Le module [[pr-11]] définit une **carte de navigation canonique** en 9 étapes non interchangeables. L'ordre est impératif : chaque étape fournit les éléments nécessaires à la",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-080",
+    "question": "Quels sont les 3 quality gates obligatoires d'un projet IA et leurs critères GO/NO-GO ?",
+    "expected_sources": [
+      "pr-11"
+    ],
+    "expected_concepts": [
+      [
+        "3 quality gates",
+        "trois quality gates"
+      ],
+      [
+        "gate 1",
+        "vaut la peine d'être engagé"
+      ],
+      [
+        "gate 2",
+        "livré correspond",
+        "spécifié"
+      ],
+      [
+        "gate 3",
+        "qualité observée",
+        "suffisante pour la production"
+      ]
+    ],
+    "cited_codes": [
+      "pr-11",
+      "pr-09",
+      "chiffres-macro-2026",
+      "dep-07",
+      "pr-10",
+      "pr-05",
+      "dep-08",
+      "dep-05"
+    ],
+    "sources_match": [
+      "pr-11"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "3 quality gates",
+        "trois quality gates"
+      ],
+      [
+        "gate 1",
+        "vaut la peine d'être engagé"
+      ],
+      [
+        "gate 2",
+        "livré correspond",
+        "spécifié"
+      ],
+      [
+        "gate 3",
+        "qualité observée",
+        "suffisante pour la production"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 3 quality gates obligatoires d'un projet IA  Un **quality gate** (ou « porte de validation ») est un point de contrôle formel dans le cycle de vie d'un projet IA où le sponsor prend une décision documentée — GO ou NO-GO — avant de pa",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-081",
+    "question": "Combien coûte le court-circuit d'une étape du cycle de vie d'un projet IA selon les ratios documentés ?",
+    "expected_sources": [
+      "pr-11"
+    ],
+    "expected_concepts": [
+      [
+        "5 à 10×",
+        "5 à 10 fois",
+        "coût"
+      ],
+      [
+        "10 à 50×",
+        "cadrage bâclé"
+      ],
+      [
+        "court-circuit",
+        "courts-circuits",
+        "étape sautée"
+      ],
+      [
+        "80 %",
+        "avant la première ligne de code"
+      ]
+    ],
+    "cited_codes": [
+      "pr-11",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-11"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "5 à 10×",
+        "5 à 10 fois",
+        "coût"
+      ],
+      [
+        "10 à 50×",
+        "cadrage bâclé"
+      ],
+      [
+        "court-circuit",
+        "courts-circuits",
+        "étape sautée"
+      ],
+      [
+        "80 %",
+        "avant la première ligne de code"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Coût des courts-circuits dans un projet IA  Le Hub IA documente précisément les ratios coût/effort pour chaque étape court-circuitée. La fourchette **générale à retenir** est de **5 à 10× le coût de l'étape sautée par rapport à l'effort ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-082",
+    "question": "Quels sont les modèles LLM souverains français pour une PME en 2026 ?",
+    "expected_sources": [
+      "outils-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Mistral",
+        "Mistral Large 2"
+      ],
+      [
+        "Lucie",
+        "souverain",
+        "français"
+      ],
+      [
+        "Pleias-RAG",
+        "Pleias"
+      ],
+      [
+        "LightOn",
+        "enterprise"
+      ]
+    ],
+    "cited_codes": [
+      "outils-llm",
+      "pattern-souverainete-eu",
+      "chiffres-macro-2026",
+      "dep-06"
+    ],
+    "sources_match": [
+      "outils-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Mistral",
+        "Mistral Large 2"
+      ],
+      [
+        "Lucie",
+        "souverain",
+        "français"
+      ],
+      [
+        "Pleias-RAG",
+        "Pleias"
+      ],
+      [
+        "LightOn",
+        "enterprise"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Modèles LLM souverains français pour une PME en 2026  En 2026, le marché identifie **4 modèles souverains français** de référence : **Mistral, Lucie, Pleias-RAG et LightOn** [[outils-llm#Quand utiliser un modèle LLM]]. Le bon choix dépen",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-083",
+    "question": "Quel est le tarif API de Claude Sonnet et Opus en 2026 ?",
+    "expected_sources": [
+      "outils-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Claude Sonnet",
+        "Sonnet"
+      ],
+      [
+        "3 $/MTok",
+        "3 dollars",
+        "input"
+      ],
+      [
+        "15 $/MTok",
+        "Opus",
+        "output"
+      ],
+      [
+        "75 $/MTok",
+        "Opus output"
+      ]
+    ],
+    "cited_codes": [
+      "outils-llm",
+      "chiffres-macro-2026",
+      "cu-027"
+    ],
+    "sources_match": [
+      "outils-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Claude Sonnet",
+        "Sonnet"
+      ],
+      [
+        "3 $/MTok",
+        "3 dollars",
+        "input"
+      ],
+      [
+        "15 $/MTok",
+        "Opus",
+        "output"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "75 $/MTok",
+        "Opus output"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Tarifs API Claude Sonnet et Opus en 2026  Le contexte du Hub IA fournit des données tarifaires claires pour ces deux modèles.  **Claude Sonnet** est tarifé à **3 $/M tokens en input et 15 $/M tokens en output** [[outils-llm#Comparatif sy",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-084",
+    "question": "Quel est le tarif du modèle Kimi K2.6 et chez quels providers est-il disponible ?",
+    "expected_sources": [
+      "outils-llm"
+    ],
+    "expected_concepts": [
+      [
+        "0,80 $/M",
+        "0.80",
+        "Kimi"
+      ],
+      [
+        "3,60 $/M",
+        "3.60",
+        "output"
+      ],
+      [
+        "Together",
+        "Modal",
+        "Fireworks"
+      ],
+      [
+        "contexte long",
+        "long context"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "outils-llm",
+      "pattern-souverainete-eu",
+      "cu-027"
+    ],
+    "sources_match": [
+      "outils-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "0,80 $/M",
+        "0.80",
+        "Kimi"
+      ],
+      [
+        "3,60 $/M",
+        "3.60",
+        "output"
+      ],
+      [
+        "Together",
+        "Modal",
+        "Fireworks"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "contexte long",
+        "long context"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Tarif et disponibilité du modèle Kimi K2.6  **Tarification**  Kimi K2.6 (développé par Moonshot AI, sorti en 2026 en open-source) est tarifé à **0,80 $/million de tokens en input et 3,60 $/million de tokens en output** [[chiffres-macro-2",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-085",
+    "question": "Quel LLM choisir pour une PME 50 salariés avec sensibilité souveraineté EU ?",
+    "expected_sources": [
+      "outils-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Mistral",
+        "Le Chat Pro"
+      ],
+      [
+        "Mixtral",
+        "self-hosted",
+        "open-weight"
+      ],
+      [
+        "souveraineté",
+        "moderate",
+        "strong"
+      ],
+      [
+        "EU",
+        "souverain"
+      ]
+    ],
+    "cited_codes": [
+      "outils-llm",
+      "pattern-souverainete-eu"
+    ],
+    "sources_match": [
+      "outils-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Mistral",
+        "Le Chat Pro"
+      ],
+      [
+        "Mixtral",
+        "self-hosted",
+        "open-weight"
+      ],
+      [
+        "souveraineté",
+        "moderate",
+        "strong"
+      ],
+      [
+        "EU",
+        "souverain"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Quel LLM choisir pour une PME de 50 salariés avec sensibilité souveraineté EU ?  ### Recommandation principale : Mistral en configuration hybride  Pour une PME de 50 salariés avec une sensibilité souveraineté européenne, la recommandatio",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-086",
+    "question": "Quels sont les frameworks Python pour construire un RAG en production ?",
+    "expected_sources": [
+      "outils-frameworks-rag"
+    ],
+    "expected_concepts": [
+      [
+        "LangChain",
+        "framework Python"
+      ],
+      [
+        "LlamaIndex",
+        "focus RAG"
+      ],
+      [
+        "Haystack",
+        "deepset",
+        "européen"
+      ],
+      [
+        "open-source",
+        "MIT",
+        "Apache"
+      ]
+    ],
+    "cited_codes": [
+      "outils-frameworks-rag"
+    ],
+    "sources_match": [
+      "outils-frameworks-rag"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "LangChain",
+        "framework Python"
+      ],
+      [
+        "LlamaIndex",
+        "focus RAG"
+      ],
+      [
+        "Haystack",
+        "deepset",
+        "européen"
+      ],
+      [
+        "open-source",
+        "MIT",
+        "Apache"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Frameworks Python pour un RAG en production  Trois frameworks Python font référence en 2026 pour construire un système RAG (Retrieval-Augmented Generation — architecture qui connecte un modèle de langage à une base documentaire pour répo",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-087",
+    "question": "Quelle est la différence entre LangChain et LlamaIndex pour le RAG ?",
+    "expected_sources": [
+      "outils-frameworks-rag"
+    ],
+    "expected_concepts": [
+      [
+        "LangChain",
+        "écosystème",
+        "intégrations"
+      ],
+      [
+        "LlamaIndex",
+        "simplicité",
+        "API stable"
+      ],
+      [
+        "agents",
+        "LangGraph"
+      ],
+      [
+        "RAG",
+        "patterns"
+      ]
+    ],
+    "cited_codes": [
+      "outils-frameworks-rag"
+    ],
+    "sources_match": [
+      "outils-frameworks-rag"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "LangChain",
+        "écosystème",
+        "intégrations"
+      ],
+      [
+        "LlamaIndex",
+        "simplicité",
+        "API stable"
+      ],
+      [
+        "agents",
+        "LangGraph"
+      ],
+      [
+        "RAG",
+        "patterns"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## LangChain vs LlamaIndex pour le RAG : quelle différence ?  Ces deux outils sont tous deux des **frameworks RAG** — c'est-à-dire des bibliothèques Python qui pré-câblent les briques d'un système RAG (ingestion de documents, découpage, cal",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-088",
+    "question": "Quels sont les outils de knowledge management augmentés par IA pour un dirigeant PME en 2026 ?",
+    "expected_sources": [
+      "outils-knowledge-management"
+    ],
+    "expected_concepts": [
+      [
+        "Obsidian",
+        "wiki local-first"
+      ],
+      [
+        "Readwise",
+        "highlights"
+      ],
+      [
+        "GBrain",
+        "enterprise"
+      ],
+      [
+        "NotebookLM",
+        "RAG conversationnel"
+      ]
+    ],
+    "cited_codes": [
+      "outils-knowledge-management",
+      "cu-008",
+      "cu-025",
+      "outils-vector-db"
+    ],
+    "sources_match": [
+      "outils-knowledge-management"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Obsidian",
+        "wiki local-first"
+      ],
+      [
+        "Readwise",
+        "highlights"
+      ],
+      [
+        "GBrain",
+        "enterprise"
+      ],
+      [
+        "NotebookLM",
+        "RAG conversationnel"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Outils de knowledge management augmentés par IA pour un dirigeant PME en 2026  Le **knowledge management (KM) augmenté par IA** désigne les outils qui permettent de capitaliser vos connaissances quotidiennes — notes, articles lus, compte",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-089",
+    "question": "Combien coûte Obsidian et Readwise Pro pour un knowledge worker en 2026 ?",
+    "expected_sources": [
+      "outils-knowledge-management"
+    ],
+    "expected_concepts": [
+      [
+        "Obsidian",
+        "gratuit",
+        "usage personnel"
+      ],
+      [
+        "Sync",
+        "10 $/mois"
+      ],
+      [
+        "Readwise Pro",
+        "7,99 $/mois"
+      ],
+      [
+        "souveraineté",
+        "Sovereign",
+        "Light"
+      ]
+    ],
+    "cited_codes": [
+      "outils-knowledge-management"
+    ],
+    "sources_match": [
+      "outils-knowledge-management"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Obsidian",
+        "gratuit",
+        "usage personnel"
+      ],
+      [
+        "Sync",
+        "10 $/mois"
+      ],
+      [
+        "Readwise Pro",
+        "7,99 $/mois"
+      ],
+      [
+        "souveraineté",
+        "Sovereign",
+        "Light"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Coûts d'Obsidian et Readwise Pro pour un knowledge worker en 2026  **Obsidian** est **gratuit pour un usage personnel** [[outils-knowledge-management#Obsidian — référence wiki local-first]]. Si vous souhaitez synchroniser vos notes entre",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-090",
+    "question": "Quels sont les outils d'observabilité LLM open-source souverains EU en 2026 ?",
+    "expected_sources": [
+      "outils-observabilite-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Langfuse",
+        "open-source",
+        "EU"
+      ],
+      [
+        "DE",
+        "Allemagne",
+        "souverain"
+      ],
+      [
+        "Strong",
+        "souveraineté"
+      ],
+      [
+        "self-hosting",
+        "self-hosted"
+      ]
+    ],
+    "cited_codes": [
+      "outils-observabilite-llm",
+      "pattern-souverainete-eu"
+    ],
+    "sources_match": [
+      "outils-observabilite-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Langfuse",
+        "open-source",
+        "EU"
+      ],
+      [
+        "DE",
+        "Allemagne",
+        "souverain"
+      ],
+      [
+        "Strong",
+        "souveraineté"
+      ],
+      [
+        "self-hosting",
+        "self-hosted"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Outils d'observabilité LLM open-source souverains EU en 2026  Un outil d'**observabilité LLM** (équivalent des outils APM classiques, mais spécialisé IA) trace les appels LLM, mesure la latence, les coûts et le taux d'erreur, évalue la q",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-091",
+    "question": "Comment choisir entre LangSmith et Langfuse pour l'observabilité LLM en production ?",
+    "expected_sources": [
+      "outils-observabilite-llm"
+    ],
+    "expected_concepts": [
+      [
+        "LangSmith",
+        "LangChain native"
+      ],
+      [
+        "Langfuse",
+        "open-source",
+        "souverain"
+      ],
+      [
+        "39 $/dev/mois",
+        "Plus"
+      ],
+      [
+        "self-hosted",
+        "EU",
+        "souveraineté"
+      ]
+    ],
+    "cited_codes": [
+      "outils-observabilite-llm",
+      "dep-05",
+      "dep-07",
+      "pr-10"
+    ],
+    "sources_match": [
+      "outils-observabilite-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "LangSmith",
+        "LangChain native"
+      ],
+      [
+        "Langfuse",
+        "open-source",
+        "souverain"
+      ],
+      [
+        "self-hosted",
+        "EU",
+        "souveraineté"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "39 $/dev/mois",
+        "Plus"
+      ]
+    ],
+    "score_global": 1,
+    "answer_preview": "## Choisir entre LangSmith et Langfuse pour l'observabilité LLM en production  ### Le critère principal : votre stack et vos exigences de souveraineté  La décision tient essentiellement à **deux questions** : utilisez-vous déjà LangChain, e",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-092",
+    "question": "Quel outil d'observabilité LLM pour faire de l'évaluation RAG focus retrieval quality ?",
+    "expected_sources": [
+      "outils-observabilite-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Phoenix Arize",
+        "Phoenix"
+      ],
+      [
+        "open-source",
+        "MIT"
+      ],
+      [
+        "évaluation",
+        "eval",
+        "RAG"
+      ],
+      [
+        "OpenTelemetry",
+        "Jupyter"
+      ]
+    ],
+    "cited_codes": [
+      "outils-observabilite-llm",
+      "dep-07",
+      "dep-02"
+    ],
+    "sources_match": [
+      "outils-observabilite-llm"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Phoenix Arize",
+        "Phoenix"
+      ],
+      [
+        "open-source",
+        "MIT"
+      ],
+      [
+        "évaluation",
+        "eval",
+        "RAG"
+      ],
+      [
+        "OpenTelemetry",
+        "Jupyter"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Outil d'observabilité LLM pour l'évaluation RAG — focus retrieval quality  Pour un focus spécifique sur la **qualité de retrieval RAG** (c'est-à-dire mesurer si les bons passages sont bien remontés par votre système de recherche document",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-093",
+    "question": "Quels sont les outils de workflow automation no-code intégrant des nœuds IA pour une PME en 2026 ?",
+    "expected_sources": [
+      "outils-workflow-automation"
+    ],
+    "expected_concepts": [
+      [
+        "n8n",
+        "open-source",
+        "self-hostable"
+      ],
+      [
+        "Make",
+        "SaaS no-code",
+        "Integromat"
+      ],
+      [
+        "nœuds IA",
+        "Claude",
+        "GPT"
+      ],
+      [
+        "intégrations",
+        "workflows"
+      ]
+    ],
+    "cited_codes": [
+      "outils-workflow-automation"
+    ],
+    "sources_match": [
+      "outils-workflow-automation"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "n8n",
+        "open-source",
+        "self-hostable"
+      ],
+      [
+        "Make",
+        "SaaS no-code",
+        "Integromat"
+      ],
+      [
+        "nœuds IA",
+        "Claude",
+        "GPT"
+      ],
+      [
+        "intégrations",
+        "workflows"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Outils de workflow automation no-code avec nœuds IA pour une PME en 2026  Le marché 2026 distingue **deux familles complémentaires** d'outils [[outils-workflow-automation#Quand utiliser un outil de workflow automation]] :  - Les **workfl",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-094",
+    "question": "Quel outil de workflow automation pour une PME exigeant la souveraineté EU avec self-hosting ?",
+    "expected_sources": [
+      "outils-workflow-automation"
+    ],
+    "expected_concepts": [
+      [
+        "n8n",
+        "DE",
+        "Strong"
+      ],
+      [
+        "self-hosting",
+        "EU"
+      ],
+      [
+        "souveraineté",
+        "souverain"
+      ],
+      [
+        "Sustainable Use License",
+        "open-source"
+      ]
+    ],
+    "cited_codes": [
+      "outils-workflow-automation",
+      "pattern-souverainete-eu"
+    ],
+    "sources_match": [
+      "outils-workflow-automation"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "n8n",
+        "DE",
+        "Strong"
+      ],
+      [
+        "self-hosting",
+        "EU"
+      ],
+      [
+        "souveraineté",
+        "souverain"
+      ],
+      [
+        "Sustainable Use License",
+        "open-source"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Outil de workflow automation souverain EU avec self-hosting pour PME  Pour une PME exigeant la souveraineté européenne avec self-hosting, **n8n est la recommandation de référence** [[outils-workflow-automation#n8n — référence open-source",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-095",
+    "question": "Quels sont les 4 critères canoniques de qualification de la souveraineté EU d'un outil IA ?",
+    "expected_sources": [
+      "pattern-souverainete-eu"
+    ],
+    "expected_concepts": [
+      [
+        "hébergement EU",
+        "datacenters EU"
+      ],
+      [
+        "open-weight",
+        "open-source",
+        "licence"
+      ],
+      [
+        "éditeur EU",
+        "origine éditeur"
+      ],
+      [
+        "inférence vérifiable",
+        "audit"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-souverainete-eu"
+    ],
+    "sources_match": [
+      "pattern-souverainete-eu"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "hébergement EU",
+        "datacenters EU"
+      ],
+      [
+        "open-weight",
+        "open-source",
+        "licence"
+      ],
+      [
+        "éditeur EU",
+        "origine éditeur"
+      ],
+      [
+        "inférence vérifiable",
+        "audit"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 critères canoniques de qualification de la souveraineté EU  Selon le pattern transverse dédié [[pattern-souverainete-eu]], un outil IA est évalué sur quatre critères distincts pour qualifier son niveau de souveraineté européenne. C",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-096",
+    "question": "Quels sont les 4 niveaux de souveraineté EU d'un outil IA ?",
+    "expected_sources": [
+      "pattern-souverainete-eu"
+    ],
+    "expected_concepts": [
+      [
+        "Light",
+        "niveau 1",
+        "minimale"
+      ],
+      [
+        "Moderate",
+        "niveau 2",
+        "partielle"
+      ],
+      [
+        "Strong",
+        "niveau 3",
+        "avancée"
+      ],
+      [
+        "Sovereign",
+        "SecNumCloud",
+        "maximale"
+      ]
+    ],
+    "cited_codes": [
+      "pattern-souverainete-eu",
+      "cu-020",
+      "pr-05"
+    ],
+    "sources_match": [
+      "pattern-souverainete-eu"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "Light",
+        "niveau 1",
+        "minimale"
+      ],
+      [
+        "Moderate",
+        "niveau 2",
+        "partielle"
+      ],
+      [
+        "Strong",
+        "niveau 3",
+        "avancée"
+      ],
+      [
+        "Sovereign",
+        "SecNumCloud",
+        "maximale"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Les 4 niveaux de souveraineté EU d'un outil IA  Le [[pattern-souverainete-eu]] du Hub IA définit une **échelle à 4 niveaux** permettant de qualifier la souveraineté d'un outil et d'arbitrer son usage selon la sensibilité des données trai",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  }
+]

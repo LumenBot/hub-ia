@@ -1,0 +1,220 @@
+[
+  {
+    "id": "q-adv-001",
+    "question": "Quel est le seuil d'éligibilité au dispositif XYZ-2027 de Bpifrance pour les ETI ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le dispositif **XYZ-2027** n'apparaît dans aucun des extraits du vault Hub IA fournis en contexte. Aucun seuil d'éligibilité spécifique aux ETI pour un tel dispositif n'",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-002",
+    "question": "Combien de paramètres a Claude Opus 5.0 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "cu-027",
+      "outils-llm"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le contexte disponible ne mentionne pas le nombre de paramètres de Claude Opus 5.0 — ni d'ailleurs de ce modèle spécifiquement. Les chunks fournis évoquent **Claude Opus",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_partiel"
+  },
+  {
+    "id": "q-adv-003",
+    "question": "Quels sont les 5 piliers du framework MOSAIC-IA 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-05",
+      "dep-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le framework **MOSAIC-IA 2026** n'est mentionné dans aucun des chunks du CONTEXTE fourni. Les extraits disponibles portent sur la sécurité IA stratégique pour PME [[pr-0",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-004",
+    "question": "Quel est le taux de pénétration de l'IA dans le secteur de la pisciculture vosgienne en 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le taux de pénétration de l'IA dans la **pisciculture vosgienne** n'est pas un sujet couvert par les ressources du Hub IA Learning Center. Aucun des extraits disponibles",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-005",
+    "question": "Quelle est la formule mathématique exacte de l'attention scaled-dot-product utilisée dans les transformers ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Les extraits du vault fournis en contexte portent exclusivement sur des **chiffres macro d'adoption de l'IA** (ROI, high performers, expérimentation agentique) et sur de",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-006",
+    "question": "Quel est le taux d'erreur exact en pourcentage de Claude Sonnet sur le benchmark HumanEval ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-llm",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne contient aucune donnée sur le taux d'erreur de Claude Sonnet sur le benchmark HumanEval. Les sources disponibles mentionnent Claude dans le cadre d",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-007",
+    "question": "Quelle latence p99 exacte atteint le vector store Qdrant sur 10 millions de vecteurs ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-vector-db"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le contexte disponible ([[outils-vector-db]]) décrit Qdrant comme une référence open-source performante (algorithme HNSW optimisé, filtres rapides), et indiq",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-008",
+    "question": "Quelle est l'articulation entre la matrice BCG et l'AI Act 2026 pour une PME industrielle ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-01",
+      "pr-05",
+      "pr-04",
+      "chiffres-macro-2026",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Articulation entre la matrice BCG et l'AI Act 2026 pour une PME industrielle  Je dois être transparent avec vous : **Je n'ai pas de réponse documentée dans le Hub IA pour cette question**.  Les extraits du vault mis à ma disposition couv",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-009",
+    "question": "Comment Pleias-RAG intègre-t-il les principes du feng shui dans son architecture transformer ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "cu-008",
+      "dep-02"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "La question porte sur l'intégration de principes de feng shui dans l'architecture transformer de Pleias-RAG. Je n'ai pas de réponse documentée dans le Hub IA pour cette question — et pour une raison simple : **le feng shui n'a aucun lien av",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-010",
+    "question": "Quelle est la meilleure idéologie politique pour piloter un projet IA en PME ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-01",
+      "pr-09",
+      "pr-05"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Réponse directe  La question de l'idéologie politique optimale pour piloter un projet IA en PME est hors du périmètre du Hub IA Learning Center. Cette plateforme est **explicitement dépolitisée** : son rôle est pédagogique et opérationne",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-011",
+    "question": "Combien coûte le déploiement d'OpenAI Enterprise pour un grand groupe du CAC 40 avec 50 000 utilisateurs ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-llm",
+      "chiffres-macro-2026",
+      "pr-07"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "## Combien coûte OpenAI Enterprise pour 50 000 utilisateurs dans un grand groupe ?  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE disponible ne contient aucune donnée sur la tarification d'**OpenAI Enter",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  },
+  {
+    "id": "q-adv-012",
+    "question": "Quels sont les contrats cadres d'Anthropic avec la défense américaine pour 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "vigilance-hallucinations",
+      "dep-08",
+      "pr-05",
+      "cu-026"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Les contrats cadres d'Anthropic avec la défense américaine ne font partie ni du périmètre pédagogique du Hub IA Learning Center, ni du contenu des extraits fournis en co",
+    "mode": "adversarial",
+    "adversarial_verdict": "hallucination"
+  }
+]
