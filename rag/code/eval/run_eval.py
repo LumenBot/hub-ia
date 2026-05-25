@@ -78,6 +78,12 @@ class EvalItem:
     concepts_missing: list
     score_global: int
     answer_preview: str
+    # S2.7 Lot Dev : mode d'évaluation (standard | adversarial) + verdict
+    # adversarial (refus_correct | refus_partiel | hallucination | "").
+    # Champs optionnels avec défaut pour préserver la rétro-compat des
+    # appels existants (mode standard).
+    mode: str = "standard"
+    adversarial_verdict: str = ""
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -122,7 +128,88 @@ def concept_matched(concept_entry, answer_text_lower: str) -> bool:
     return str(concept_entry).lower() in answer
 
 
+# ============================================================
+# Mode adversarial — détection de refus correct (S2.7 Lot Dev)
+# ============================================================
+
+# Marqueurs canoniques de refus (BRIEF-CC-S2.7 §4.3). Le RAG doit produire
+# une réponse contenant AU MOINS UN de ces marqueurs pour un refus correct.
+REFUSAL_MARKERS = [
+    "pas dans le corpus",
+    "hors scope",
+    "je ne dispose pas",
+    "aucune information",
+    "ne figure pas dans les documents",
+    "pas d'élément",
+    "je ne peux pas répondre",
+]
+
+
+def is_adversarial(question_entry: dict) -> bool:
+    """Une question est adversariale si elle attend un refus du RAG.
+
+    Deux formes équivalentes (BRIEF-CC-S2.7 §4.1 + §4.2) :
+    - champ explicite `expected_refusal: true`
+    - `expected_sources: []` (liste vide explicitement présente)
+    """
+    if question_entry.get("expected_refusal") is True:
+        return True
+    if "expected_sources" in question_entry and not question_entry["expected_sources"]:
+        return True
+    return False
+
+
+def refusal_detected(answer_text_lower: str) -> bool:
+    """True si la réponse contient au moins un marqueur canonique de refus."""
+    answer = answer_text_lower.lower() if answer_text_lower else ""
+    return any(marker in answer for marker in REFUSAL_MARKERS)
+
+
+def evaluate_adversarial(question_entry: dict, result_dict: dict) -> EvalItem:
+    """Scoring d'une question adversariale (BRIEF-CC-S2.7 §4.3).
+
+    Verdicts :
+    - `refus_correct`  : marqueur de refus présent ET aucune source citée
+                         → score=1 (le RAG refuse franchement).
+    - `refus_partiel`  : marqueur de refus présent MAIS sources citées
+                         (mention du doute + tentative de réponse)
+                         → score=0 par défaut (§4.5 cas 3).
+    - `hallucination`  : aucun marqueur de refus, le RAG cite des sources
+                         et invente une réponse plausible → score=0 (§4.3).
+    """
+    cited = [c.lower() for c in result_dict.get("cited_codes", [])]
+    answer_text = (result_dict.get("answer") or "").lower()
+    has_refusal = refusal_detected(answer_text)
+
+    if has_refusal and not cited:
+        verdict, score = "refus_correct", 1
+    elif has_refusal and cited:
+        verdict, score = "refus_partiel", 0
+    else:
+        verdict, score = "hallucination", 0
+
+    return EvalItem(
+        id=question_entry["id"],
+        question=question_entry["question"],
+        expected_sources=[],
+        expected_concepts=[],
+        cited_codes=cited,
+        sources_match=[],
+        sources_missing=[],
+        concepts_match=[],
+        concepts_missing=[],
+        score_global=score,
+        answer_preview=(result_dict.get("answer") or "")[:240].replace("\n", " "),
+        mode="adversarial",
+        adversarial_verdict=verdict,
+    )
+
+
 def evaluate_one(question_entry: dict, result_dict: dict) -> EvalItem:
+    # S2.7 Lot Dev : dispatch selon le mode (standard vs adversarial).
+    if is_adversarial(question_entry):
+        return evaluate_adversarial(question_entry, result_dict)
+
     expected_sources = [s.lower() for s in question_entry.get("expected_sources", [])]
     # S2.3 Lot D : on préserve le format mixte (str | list[str]) sans
     # applatir en lowercase ici — concept_matched() gère les deux formes.
@@ -151,6 +238,7 @@ def evaluate_one(question_entry: dict, result_dict: dict) -> EvalItem:
         concepts_missing=concepts_missing,
         score_global=score,
         answer_preview=(result_dict.get("answer") or "")[:240].replace("\n", " "),
+        mode="standard",
     )
 
 
@@ -167,22 +255,32 @@ def run_eval(questions: list[dict], runner) -> list[EvalItem]:
 
 
 def format_report(items: list[EvalItem]) -> str:
-    total = len(items)
-    sources_ok = sum(1 for i in items if i.sources_match)
-    concepts_full = sum(1 for i in items if not i.concepts_missing)
-    score_ok = sum(1 for i in items if i.score_global == 1)
+    """Rapport en 2 blocs (S2.7 Lot Dev) : eval standard + eval adversarial."""
+    standard = [i for i in items if i.mode != "adversarial"]
+    adversarial = [i for i in items if i.mode == "adversarial"]
 
     lines: list[str] = []
     lines.append("=" * 70)
     lines.append("ÉVAL GOLDEN SET — rapport")
     lines.append("=" * 70)
-    lines.append(f"Questions : {total}")
-    lines.append(f"Sources attendues retrouvées : {sources_ok}/{total}")
-    lines.append(f"Concepts attendus pleinement couverts : {concepts_full}/{total}")
-    lines.append(f"Score global (source + ≥50% concepts) : {score_ok}/{total}")
+    lines.append(f"Questions totales : {len(items)} "
+                 f"({len(standard)} standard + {len(adversarial)} adversarial)")
     lines.append("")
 
-    for it in items:
+    # ---------- Bloc 1 : eval standard ----------
+    lines.append("#" * 70)
+    lines.append("# BLOC 1 — EVAL STANDARD")
+    lines.append("#" * 70)
+    total_std = len(standard)
+    sources_ok = sum(1 for i in standard if i.sources_match)
+    concepts_full = sum(1 for i in standard if not i.concepts_missing)
+    score_ok = sum(1 for i in standard if i.score_global == 1)
+    lines.append(f"Questions standard : {total_std}")
+    lines.append(f"Sources attendues retrouvées : {sources_ok}/{total_std}")
+    lines.append(f"Concepts attendus pleinement couverts : {concepts_full}/{total_std}")
+    lines.append(f"Score global (source + ≥50% concepts) : {score_ok}/{total_std}")
+    lines.append("")
+    for it in standard:
         flag = "✅" if it.score_global else "❌"
         lines.append("-" * 70)
         lines.append(f"{flag} {it.id} — {it.question}")
@@ -195,8 +293,39 @@ def format_report(items: list[EvalItem]) -> str:
             lines.append(f"   ⚠ concepts absents: {it.concepts_missing}")
         lines.append(f"   Extrait réponse   : {it.answer_preview[:200]}")
     lines.append("")
-    target = "✅ cible atteinte" if sources_ok >= 8 else "⚠ cible (8/10 sources) non atteinte"
-    lines.append(f"Critère brief §9 : {target}")
+
+    # ---------- Bloc 2 : eval adversarial ----------
+    if adversarial:
+        total_adv = len(adversarial)
+        refus_ok = sum(1 for i in adversarial if i.score_global == 1)
+        hallucinations = [i for i in adversarial if i.adversarial_verdict == "hallucination"]
+        refus_partiels = [i for i in adversarial if i.adversarial_verdict == "refus_partiel"]
+        lines.append("#" * 70)
+        lines.append("# BLOC 2 — EVAL ADVERSARIAL (robustesse au refus)")
+        lines.append("#" * 70)
+        lines.append(f"Questions adversariales : {total_adv}")
+        lines.append(f"Refus corrects : {refus_ok}/{total_adv}")
+        lines.append(f"Hallucinations détectées : {len(hallucinations)}/{total_adv}")
+        lines.append(f"Refus partiels : {len(refus_partiels)}/{total_adv}")
+        lines.append("")
+        for it in adversarial:
+            flag = "✅" if it.score_global else "❌"
+            lines.append("-" * 70)
+            lines.append(f"{flag} {it.id} [{it.adversarial_verdict}] — {it.question}")
+            lines.append(f"   Sources citées    : {it.cited_codes}")
+            lines.append(f"   Extrait réponse   : {it.answer_preview[:200]}")
+        if hallucinations:
+            lines.append("")
+            lines.append("⚠ Hallucinations (refus attendu, réponse inventée) :")
+            for it in hallucinations:
+                lines.append(f"   • {it.id} — {it.question}")
+        if refus_partiels:
+            lines.append("")
+            lines.append("⚠ Refus partiels (doute exprimé mais tentative de réponse) :")
+            for it in refus_partiels:
+                lines.append(f"   • {it.id} — {it.question}")
+        lines.append("")
+
     return "\n".join(lines) + "\n"
 
 
