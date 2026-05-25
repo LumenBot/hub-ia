@@ -1,7 +1,7 @@
 # whitelist-wikilinks-futurs.md — Liste des MD planifiés mais non encore produits
 
-**Statut :** v4 (post-S2.6 Lot G — 3 préalables vague 6 produits PR-09 + PR-10 + PR-11, refonte brique vigilance-hallucinations alignée typologie 4 familles PR-10)
-**Dernière mise à jour :** 22 mai 2026
+**Statut :** v5 (post-S2.7 Lot G — 5 fiches outils vague 7 produites + brique pattern-souverainete-eu créée)
+**Dernière mise à jour :** 25 mai 2026
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle (D-029) :** liste des codes de fichiers MD planifiés dans la roadmap du vault mais pas encore produits. Lue par `audit-md-rag.py` v2 au démarrage. Les wikilinks pointant vers ces codes sont signalés comme **warnings** (anticipations légitimes), pas comme erreurs (wikilinks cassés).
@@ -92,20 +92,20 @@
 
 ## Fiches outils par catégorie planifiées (issu cartographie HTML couple 1)
 
-À produire au fil des modules qui les nécessitent — pas urgent en vague 3.
+À produire au fil des modules qui les nécessitent.
 
-- `outils-llm` (modèles LLM : Claude, GPT, Gemini, Mistral, Llama, Kimi K2.6, DeepSeek)
-- `outils-frameworks-rag` (LangChain, LlamaIndex, Dify, Flowise)
+- ~~`outils-llm`~~ ✅ **Produit S2.7 Lot F.7 — 25 mai 2026** (11 outils HTML cat-llm : Claude, GPT, Mistral, NotebookLM, Mixtral, Llama, Qwen, Kimi K2/K2.6, Lucie, Pleias-RAG, LightOn — tarifs canoniques R10 + grille choix PME)
+- ~~`outils-frameworks-rag`~~ ✅ **Produit S2.7 Lot F.7 — 25 mai 2026** (LangChain, LlamaIndex, Haystack, LangFlow + mention satellite Dify/Flowise)
 - `outils-ide-dev-ia` (Cursor, Claude Code, Windsurf, GitHub Copilot Workspace)
 - `outils-app-builders-no-code` (Lovable, Bolt.new, v0, Replit Agent)
-- `outils-workflow-automation` (n8n, Make, Zapier, LangFlow, AAFLOW)
-- `outils-llm-gateway` (LiteLLM, OpenRouter, Helicone)
-- `outils-observabilite-llm` (Comet Opik, LangSmith, Helicone, Phoenix Arize, Langfuse)
+- ~~`outils-workflow-automation`~~ ✅ **Produit S2.7 Lot F.7 — 25 mai 2026** (n8n, Make, Dify, Flowise, Composio, AAFLOW, Beever Atlas — Zapier sondage léger couple 1 en cours)
+- `outils-llm-gateway` (LiteLLM, OpenRouter)
+- ~~`outils-observabilite-llm`~~ ✅ **Produit S2.7 Lot F.7 — 25 mai 2026** (Langfuse, LangSmith, Comet Opik, Phoenix Arize, Helicone — production anticipative, catégorie HTML cat-observabilite-llm en cours de création sondage léger couple 1)
 - `outils-gardefous-prompt-injection` (NeMo Guardrails, Lakera Guard, Rebuff)
 - `outils-audit-securite-agents` (AgentShield, Snyk, Semgrep)
 - `outils-inference-open-source` (vLLM, llama.cpp, Unsloth, Triton, Ollama)
 - `outils-voice` (Whisper, ElevenLabs)
-- `outils-knowledge-management` (Obsidian, GBrain, Readwise, Airr, NotebookLM, Beever Atlas, SuperSplat)
+- ~~`outils-knowledge-management`~~ ✅ **Produit S2.7 Lot F.7 — 25 mai 2026** (Obsidian, Readwise, Airr, GBrain, SuperSplat + mention satellite NotebookLM / Beever Atlas)
 - `outils-compta-facturation-fr` (Pennylane, Sellsy, Axonaut, Esker, Sidetrade, Tacton)
 - `outils-crm-propositions` (HubSpot, Salesforce, PandaDoc)
 - `outils-navigateurs-agentiques` (Atlas, Comet, Claude pour Chrome, Operator)
@@ -125,3 +125,4 @@
 | v2 | 13 mai 2026 | S2.3 Lot B — retrait de `cu-026`, `cu-027`, `dep-08` (produits dans le vault). 66 codes restant whitelistés. |
 | v3 | 22 mai 2026 | S2.5 Lot G — retrait de `cu-020`, `cu-024`, `dep-01`, `dep-05`, `dep-07`, `pr-01`, `pr-04`, `pr-05`, `pr-08`, `pattern-persistent-memory` (10 codes produits S2.4 + S2.5). 56 codes restant whitelistés. |
 | v4 | 22 mai 2026 | S2.6 Lot G — retrait de `pr-09`, `pr-10`, `pr-11` (3 nouveaux préalables vague 6 produits S2.6 v3.12). Refonte parallèle de la brique transverse `vigilance-hallucinations.md` (déjà présente dans le vault depuis S2.0) sur la typologie canonique 4 familles PR-10 (Chiffres inventés / Citations fabriquées / Conclusions hors-périmètre / Faux positifs de complétion) — décision D-025 validée par Blaise. **53 codes restant whitelistés**. |
+| **v5** | **25 mai 2026** | S2.7 Lot G — retrait de **5 fiches outils** : `outils-llm`, `outils-frameworks-rag`, `outils-knowledge-management`, `outils-observabilite-llm`, `outils-workflow-automation`. **Création parallèle de la brique transverse `pattern-souverainete-eu.md`** (D-025 validée — récurrence forte sur 5 fiches : Mistral / Lucie / Pleias-RAG / LightOn / Langfuse / Beever Atlas / n8n / Composio). **Activation R11 audit wikilinks outils glossariés** (seuil 5+ fichiers `outils-*.md` franchi : 6 fichiers au total avec outils-vector-db). 2 drafts sondage couple 1 en parallèle (non bloquants) : ajout Gemini/DeepSeek/Zapier HTML + création cat-observabilite-llm. **48 codes restant whitelistés**. |
