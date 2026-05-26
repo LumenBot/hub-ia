@@ -11,6 +11,54 @@
 
 ## Entrées
 
+### 2026-05-26 (S2.8 Lot Dev R11 livré — citation_audit.py) — Claude Code Hub IA Plateforme — Extension audit pipeline + VALIDATION-SCORING
+
+**Contexte :** ouverture S2.8 sur BRIEF-CC-S2.8 (Cowork, branche `s2.8-lot-a-spec-v22-brief` non mergée, commit `c6a31ef`) + SPEC v2.2 en vigueur. Récurrence du pattern Lot Dev S2.7 (Plateforme code en plus de rapporter). Activation de R11 désormais possible : 6 fiches `outils-*.md` produites en S2.7 (vector-db S1 + LLM/frameworks-rag/KM/observabilité/workflow vague 7), seuil 5+ franchi.
+
+**Actions menées :**
+
+- **Création `rag/code/audit/citation_audit.py`** (~360 lignes) — module standalone + importable, aligné sur le style de `audit-md-rag.py` (dataclasses `Tool`, `Manquement`, `FileResult` + helpers `list_md_files`, `split_frontmatter`, `split_sections`, `slugify`). Implémente l'algorithme BRIEF-CC-S2.8 §4.2 :
+  1. `parse_outils_fiches()` parse les 6 fiches → extrait la liste canonique des outils par H2 (heuristique : nom avant ` — ` ou ` (Vendeur)`, méta-sections « Quand… / Comparatif… / Recommandations… / Pour aller… / Outils …. » filtrées, split ` / ` pour aliases type « Kimi K2 / K2.6 »).
+  2. `find_first_naked_occurrence()` détecte la 1re mention en clair (hors `[[...]]`) avec **match case-sensitive + word boundary stricte `(?<![\w-])...(?![\w-])`** — mitigation faux positifs « make » → « Make », « GPT » ⊅ « ChatGPT », « Pleias-RAG » avec tiret OK.
+  3. `check_r11_for_file()` vérifie qu'un wikilink vers la fiche source apparaît au plus tard à cette position. Auto-exclusion des fiches `outils-*.md` (auto-référence).
+  4. Reporting Markdown (`format_md_report`) + JSON (`to_json_payload`) avec recommandation `[[fiche|Nom]]` par manquement.
+  5. CLI `--vault / --report / --json / --strict` (exit 1 si manquement en mode strict).
+
+- **Tests `rag/code/audit/test_citation_audit.py`** (~280 lignes, 28 tests verts) — fixtures `tmp_path` avec mini-fiches `outils-llm` + `outils-vector-db` synthétiques. Classes : `TestExtractToolNames` (8), `TestParseOutilsFiches` (3), `TestNakedOccurrence` (7 dont case-sensitivity + word-boundary + aliases multiples), `TestCheckPositive` (3 : wikilink avant / wikilink alias inline / outil non mentionné), `TestCheckNegative` (2 : nu sans wikilink / wikilink après la 1re mention), `TestAutoExclusion` (1), `TestLineNumbering` (1), `TestReportingSmoke` (3). **Non-régression** : `pytest rag/code/audit/` = **121/121 passed** (93 audit-md-rag + 28 citation_audit).
+
+- **`rag-prep/briefs/VALIDATION-SCORING-S2.8-R11.md` produit** (obligatoire SPEC v2.2) — trace écrite des 5 cas représentatifs (3 positifs + 2 négatifs) avec MD de test minimal, score attendu / score obtenu / diagnostic. Tableau de synthèse `5/5 conforme`. Section « Risques de faux positifs identifiés (et mitigations en place) » documente 6 garde-fous testés (mots anglais ambigus, sous-chaînes, tirets, aliases multiples, frontmatter exclu, auto-référence).
+
+- **Rapport réel sur le vault actuel** : `rag-prep/reports/audit-md-rag-R11-s2.8.md` (Markdown 101 lignes) + `audit-md-rag-R11-s2.8.json` (985 lignes structure machine-lisible) :
+  - 6 fiches outils parsées, **36 outils canoniques détectés**
+  - 32 fichiers MD audités (26 effectivement scannés, 6 fiches outils-* auto-exclues)
+  - **85 manquements R11 détectés sur 21 fichiers**, 3 mentions correctement wikilinkées
+  - Top 5 fichiers concernés : `dep-01` (6), `dep-05` (7), `dep-07` (5), `modules/cu-008` (10), `glossaire.md` (7)
+  - Outils les plus souvent manqués : `Claude`, `Mistral`, `GPT` (cluster « LLM mainstream » jamais wikilinké), `Qdrant`/`pgvector`/`ChromaDB`/`Pinecone` (cluster « vector store »), `LangChain`, `Langfuse`/`LangSmith` (cluster observabilité dep-05/dep-07)
+
+- **`rag/README.md` MAJ** : ajout section « Audit R11 — wikilinks outils glossariés (S2.8) » avec commandes CLI + algorithme + référence VALIDATION-SCORING.
+
+- **Branche** : travail sur `claude/execute-pilot-batches-mBSIp` (resync intégral avec `main`, 127 commits ahead post-merge), PR à ouvrir.
+
+**Findings clés :**
+
+1. **Dérive R11 massive attendue, pas surprenante** : 85 manquements reflètent une production rapide vagues 5-7 sans discipline R11 (la règle n'existait pas avant aujourd'hui). Effort patch ≈ 30-60 min Cowork groupé (1 wikilink par 1re occurrence par MD, modification ciblée). Le brief §4.5 prévoit intégration fin de sprint OU déférement S2.9 selon volume — vu le volume modéré, fin S2.8 reste faisable.
+2. **Le rapport JSON expose la `tools_index`** : 36 outils canoniques avec aliases + source_fiche + anchor, exploitable Cowork-side comme référence pour les patches éditoriaux groupés.
+3. **Bibliothèque de wikilinks recommandés clé en main** : chaque manquement reporté inclut la syntaxe exacte à coller (`[[outils-llm|Mistral]]`, etc.) — Cowork n'a qu'à appliquer mécaniquement.
+4. **Garde-fous SPEC v2.2 §Validation manuelle respectés** : 5/5 cas validés AVANT l'exécution réelle sur le vault. Si la règle avait été faussement permissive (oubli mitigation case-sensitive sur « Make »), le rapport aurait sous-estimé les manquements ; si faussement stricte (matching dans frontmatter), il aurait sur-estimé.
+
+**Coût Anthropic Lot Dev** : **0 $** (aucun appel API, dev + tests + audit local uniquement).
+
+**Reste à faire S2.8 :**
+
+- Cowork : sondage D-026 vague 8 + production 4 architectures A1-A4 + Lot G (whitelist v6 + cartographie v5) + Lot H (golden set +6-8 std + +2 adv)
+- Cowork : patches éditoriaux R11 sur les 85 manquements (fin S2.8 ou déféré S2.9 selon arbitrage Blaise)
+- Desktop : Lot I eval extended ~104 std + ~14 adv (cap 2,80 $) + alerte vault > 400 chunks
+- Plateforme : Lot J RAPPORT-CC-S2.8 (8 sections format S2.7) + PR finale
+
+**Next** : PR Lot Dev R11 à ouvrir Plateforme-side, puis monitor pour le déclenchement Lot J post-Desktop.
+
+---
+
 ### 2026-05-25 (S2.7 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.7 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.7. Tous les lots livrés et mergés : A (SPEC v2.1, PR #96), Dev (mode adversarial run_eval, PR #97), B (sondage D-026 vague 7), F.7+G+H (5 fiches outils + souveraineté EU + golden set 108q, PR #98), I (eval 108q, PR #99), Dev fix (calibration v2 harness adversarial, PR #100 mergée). Correctif harness validé avant le rapport.
