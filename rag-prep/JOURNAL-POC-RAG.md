@@ -11,6 +11,48 @@
 
 ## Entrées
 
+### 2026-05-26 (S2.8 Lot I — eval extended 118q (104 std + 14 adv) + alerte vault > 400) — Claude Code Desktop — Standard 103/104 ✅, adversarial 14/14 ✅, recommandation S2.9 optimisation
+
+**Contexte :** double-axe S2.8 sur vault post-vague 8 (38 MD : +5 architectures A1-A4-Hybride + brique pattern-grille-decision-architecture). Prérequis Lot A (SPEC v2.2, PR #102), Lot F.8+G+H (PR #103), Lot Dev R11 citation_audit (`7fd78e2`), PR #104 mergés sur main `0c74352`. Branche `s2.8-eval-vague-8` créée depuis origin/main (mon main local était en retard de 6 commits + working tree dirty du processus concurrent, stashé pour préserver le travail Cowork). Discipline SPEC v2.0 hygiène merge OK (aucun marqueur).
+
+**Écart procédure récurrent (2ᵉ occurrence) :** le brief prescrit à nouveau `run_eval --filter-unit adversarial`, mais **ce flag n'a TOUJOURS pas été ajouté** au code (vérifié sur main : argparse = `--questions/--report/--json` uniquement). PR #100 (S2.7 Dev fix) a corrigé `REFUSAL_MARKERS` + verdict (cf. ci-dessous) mais pas ajouté le flag CLI. Contourné comme en S2.7 via 2 sous-golden-sets dérivés (D-022 respecté), artefacts natifs `-standard`/`-adversarial`, coût identique. **À fixer durablement (Plateforme)** : ajouter le flag `--filter-unit {standard,adversarial}` à argparse pour éviter la 3ᵉ occurrence en S2.9.
+
+**Actions menées :**
+- **Ré-ingestion incrémentale** : `files=38 chunks=444 new=64 updated=0 deleted=0`. `new=64` = vague 8 (5 architectures × ~10 chunks + pattern-grille). Total **380 → 444 chunks**.
+- **🔴 Vault franchit 400 chunks** (444, légèrement au-delà projection 420-440 du brief) → recommandation S2.9 explicite (cf. infra).
+- **Eval standard** (104q) + **eval adversarial** (14q), runs séquentiels arrière-plan ~34 min.
+- **Dump retrieval q-083** (échec) pour caractérisation.
+
+**Résultats :**
+
+| Bloc | Indicateur | Cible | Réalisé | Statut |
+|---|---|---|---|---|
+| Standard | sources / score global | ≥ 96/104 | **103/104 (99 %)** | ✅ |
+| Standard | concepts pleinement | — | 93/104 | — |
+| Adversarial | refus_correct | ≥ 12/14 | **14/14 (100 %)** 🎉 | ✅ |
+| Adversarial | hallucinations / partiels | — | **0 / 0** | ✅ |
+| Latence standard | p50≤22 / p90≤26 | — | **p50 19,0s / p90 22,0s** | ✅ |
+| Latence adversarial | p50≤12 / p90≤17 | — | **p50 10,0s / p90 12,0s** | ✅ |
+| Coût Anthropic | 2,80-3,00 $ | **2,8460 $** | ✅ |
+| Non-régression (9q surveillées) | 9/9 | **9/9** (q-002/030/036/038/051/052/056/073/076) | ✅ |
+
+**Validation harness adversarial PR #100 (Plateforme) :** le fix v2 (enrichissement `REFUSAL_MARKERS` + verdict assoupli) fonctionne **parfaitement** — **14/14 refus_correct, 0 faux négatif**. Le re-scoring attendu post-S2.7 est confirmé empiriquement. Pas seulement les 12 questions S2.7 mais aussi les 2 nouvelles q-adv-013/014.
+
+**1 échec standard — q-083 (caractérisation, non bloquant) :** « Quel est le tarif API de Claude Sonnet et Opus en 2026 ? » Cible `outils-llm` au **rang #6 (sim -0,067, hors top-5)**, étouffée par chiffres-macro-2026 + 3 chunks « Coût indicatif » des nouvelles architectures vague 8 (#2, #4, #5). Similarités très basses (négatives) : la question porte sur des prix unitaires $/MTok que le vault couvre indirectement (« économie d'inférence 80-90 % », « 8-10 K$/mois équipe ») plutôt que littéralement. **Saturation pattern vague 8** sur le vocabulaire pricing. Correctif possible S2.9 par pattern « 3 niveaux retrieval » SPEC v1.9 (densifier lead outils-llm §Comparatif synthétique ou §Recommandations PME avec « tarif API », « Sonnet », « Opus », « $/MTok ») ou re-scoper les sections « Coût indicatif » des architectures.
+
+**🟡 Recommandation explicite S2.9 — sprint dédié optimisation (alerte vault > 400) :** le vault est passé à **444 chunks** (de 380 en S2.7), franchissant le seuil 400. Latence Sonnet 4.6 reste sous les cibles (p50 19s/p90 22s), mais on est dans la zone haute des bandes successivement relâchées (S2.6 → S2.7 → S2.8 : 14-20 → 14-25 → 14-26). **Pistes S2.9** :
+- (a) **Reranking** post-retrieval (re-classement des top-K=10 par cross-encoder type Cohere/Voyage) pour limiter le bruit sans grossir le contexte ;
+- (b) **Réduction top_k** (5 → 3 ?) si la qualité tient — réduit le contexte d'input (latence + coût) ;
+- (c) **Embeddings plus performants** (text-embedding-3-large vs -small) si le rappel sémantique fléchit avec la taille du vault ;
+- (d) **Index hybride** (BM25 + dense) pour éviter le drift sémantique sur les questions vocabulaire-spécifiques (cas q-083) ;
+- (e) **Eviction de chunks à faible signal** (low-readability, low-uniqueness) pour réduire le bruit. À cadrer post-Lot J S2.8.
+
+**Décisions structurantes prises :** aucune côté Desktop. Recommandations remontées : (1) sprint S2.9 optimisation retrieval/latence ; (2) ajout flag CLI `--filter-unit` (2ᵉ occurrence brief vs code) ; (3) correctif q-083 (optionnel, non bloquant).
+
+**Coût API (Lot I) :** **2,8466 $** total (118 générations Sonnet 2,8460 $ + 64 chunks vague 8 embeddés + 118 embeddings requête), cap 2,80-3,00 $ ✅. Cumul S1→S2.8 Lot I ~16,4 $.
+
+**Reste à faire :** (1) Lot J RAPPORT-CC-S2.8 (latence p50/p90 §3 + recommandation S2.9 explicite + diagnostic q-083 + validation harness PR #100 14/14) ; (2) arbitrage Cowork pistes S2.9 ; (3) correctif `--filter-unit` argparse (Plateforme). Pas de Lot Drer (1 échec isolé, non-régression intégrale, cibles dépassées). Artefacts sur `s2.8-eval-vague-8`, PR à ouvrir.
+
 ### 2026-05-26 (S2.8 Lot Dev R11 livré — citation_audit.py) — Claude Code Hub IA Plateforme — Extension audit pipeline + VALIDATION-SCORING
 
 **Contexte :** ouverture S2.8 sur BRIEF-CC-S2.8 (Cowork, branche `s2.8-lot-a-spec-v22-brief` non mergée, commit `c6a31ef`) + SPEC v2.2 en vigueur. Récurrence du pattern Lot Dev S2.7 (Plateforme code en plus de rapporter). Activation de R11 désormais possible : 6 fiches `outils-*.md` produites en S2.7 (vector-db S1 + LLM/frameworks-rag/KM/observabilité/workflow vague 7), seuil 5+ franchi.
