@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v2.2 (v2.1 + 3 ajouts validés post-clôture S2.7 — RAPPORT-CC-S2.7 §6 + arbitrage Cowork) : (1) **Validation manuelle obligatoire d'une nouvelle règle de scoring** avant rejeu eval complet (cas-école faux négatif harness S2.7 — bloc adversarial passé de 0/12 à 12/12 après calibration v2) ; (2) **Pattern « citer pour expliquer le manque » = refus correct** codifié dans la §Validation adversarial (le RAG peut citer une source pour orienter l'utilisateur sans hallucinerla réponse) ; (3) **Extension golden set adversarial systématique ~2 questions/vague** (discipline continue de stress-test léger vs gros bloc unique S2.7).
-**Dernière mise à jour :** 25 mai 2026 (révision post-S2.7 — 3 propositions Plateforme validées par Cowork)
+**Statut :** v2.3 (v2.2 + 3 ajouts validés post-clôture S2.8 — RAPPORT-CC-S2.8 §6 + arbitrage Cowork) : (1) **AP-8 « saturation cluster de fiches sœurs »** codifié dans §Anti-patterns (cas-école q-083 vague 8 — 3e mode de saturation retrieval distinct AP-7 module pivot dense et AP-7 lead bridge sur-élargi, traité par Lot Drer + N1/N2/N3 standard SPEC v2.0) ; (2) **Officialisation Lot Dev Plateforme dès démarrage de sprint** dans §Allocation D-030 (codification empirique S2.7 mode adversarial run_eval + S2.8 R11 citation_audit — pattern récurrent à inscrire) ; (3) **Bug-fix `--filter-unit`** identifié comme item tooling S2.9 (détection pendant Lot I S2.8, mention dans §Validation comme dette de code à traiter).
+**Dernière mise à jour :** 26 mai 2026 (révision post-S2.8 — 3 propositions Plateforme validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -277,6 +277,20 @@ Critère de test : si on retirait le concept du module candidat, le module perdr
    - *Audit* : à chaque production module, lister 3-5 questions hors scope que le module ne doit PAS dominer en top-5 ; reformuler le lead s'il les domine au retrieval.
    - *Statut* : anti-pattern fort, audit manuel à la production (audit automatisable en v3 audit-md-rag.py si signature distance cosine).
 
+13. **AP-8 — Saturation cluster de fiches sœurs** (anti-pattern empirique nouveau, issue RAPPORT-CC-S2.8 §4 — validé empiriquement par régression q-083 S2.8 Lot I, distinct AP-7) : quand plusieurs fiches **thématiquement proches** (cluster de fiches sœurs : fiches outils par catégorie, architectures A1-A4-Hybride, fiches par étape de cycle) partagent un vocabulaire commun fort (acteurs nommés, chiffres, concepts canoniques), une question canonique qui cible **une** fiche du cluster peut voir son retrieval **dilué** sur l'ensemble du cluster. Aucune fiche ne domine clairement → score score=0 voire score<1.
+   - *Cas-école* : q-083 « tarif API Claude Sonnet et Opus » (cible : `outils-llm`). Conséquence S2.8 : le RAG distribue le score sur outils-llm + architecture-a1 + architecture-a2 + cu-001 (qui mentionnent tous Claude avec contexte tarifaire), aucune fiche ne saturE top-1, réponse incomplète sur les chiffres précis.
+   - *Distinction des autres modes de saturation* :
+     * **AP-7 lead bridge sur-élargi** = 1 fiche unique avec vocabulaire trop large étouffe les autres
+     * **AP-7 module pivot dense** = 1 module pivot (PR-11) avec vocabulaire transverse risque la saturation
+     * **AP-8 cluster fiches sœurs** = N fiches thématiquement proches diluent le retrieval entre elles sur une question canonique
+   - *Discipline préventive* : pour chaque chunk d'une fiche d'un cluster (outils-*, architectures-*, fiches par étape), inclure dès la première phrase en gras du chunk un **marqueur de discrimination** qui ancre la fiche au sein du cluster (« **Tarification API Claude par Anthropic** » dans outils-llm vs « **Stack A2 propriétaire managé** » dans architecture-a2). Le marqueur de discrimination est plus restrictif que le marqueur de scope AP-7.
+   - *Procédure curative* : Lot Drer + N1/N2/N3 SPEC v2.0 reste applicable :
+     * **Niveau 1 (lead bridge enrichi)** : ajouter au lead du chunk cible un marqueur de discrimination spécifique au cluster
+     * **Niveau 2 (H2 dédiée concurrente)** : créer une H2 dédiée focalisée sur le sous-périmètre de la question canonique
+     * **Niveau 3 (densification chirurgicale)** : densifier le lead avec le vocabulaire question canonique attendu
+   - *Audit* : à chaque production de fiche dans un cluster (outils-*, architectures-*, etc.), tester ex-ante 2-3 questions canoniques qui cibleraient une fiche du cluster ; vérifier que le top-1 retrieval cible bien la fiche attendue.
+   - *Statut* : anti-pattern fort, validation à la production. Audit automatisable en v3 audit-md-rag.py si détection de cluster + signature cosine cross-fiches d'un même cluster.
+
 ---
 
 ## Conception MD et questions golden set — garde-fou « concepts détaillés » (issue RAPPORT-CC-S2.3 §6 P4)
@@ -546,7 +560,66 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 ### Roadmap audit v3 (post-vague 3, à activer selon RetEx d'usage)
 
 14. **R5 v3 « première occurrence seulement »** : R5 v2 actuelle (S2.1) signale toute occurrence d'un terme glossaire utilisé en clair (51 warnings observés). Évolution prévue en audit v3 : ne signaler que la première occurrence par fichier MD, pour encourager le wikilink initial sans saturer le texte de wikilinks répétés. Mise en œuvre conditionnelle à un RetEx post-vague 3 confirmant le besoin.
-15. **R11 — outil glossarié doit wikilinker vers sa fiche** (inspiré couple 1 v3.9 Règle I.1 « cross-site outils ») : toute mention dans un MD d'un outil ayant sa propre fiche `outils-{categorie}.md` doit la wikilinker à sa première occurrence dans le fichier. Application différée à audit v3, après que 5+ fichiers `outils-*.md` soient produits dans le vault (actuellement 1 seul : `outils-vector-db.md`).
+15. **R11 — outil glossarié doit wikilinker vers sa fiche** (inspiré couple 1 v3.9 Règle I.1 « cross-site outils ») : toute mention dans un MD d'un outil ayant sa propre fiche `outils-{categorie}.md` doit la wikilinker à sa première occurrence dans le fichier. ✅ **Activé S2.7 Lot G** : seuil 5+ fichiers `outils-*.md` franchi (6 fichiers post-vague 7). ✅ **Implémenté S2.8 Lot Dev** : `rag/code/audit/citation_audit.py` (~480 lignes, 28 tests verts + non-régression 121/121 audit-md-rag.py). Audit S2.8 : 85 manquements détectés sur 21 fichiers existants (cu-008 10, dep-05 7, glossaire 7, pattern-souverainete-eu 10, dep-02 5, etc.). Patches éditoriaux différés S2.9 selon arbitrage Cowork (recommandation non bloquante retrieval).
+
+---
+
+## Allocation hybride D-030 — Lot Dev Plateforme dès démarrage de sprint (codifiée SPEC v2.3)
+
+**Issue empirique** : 2 sprints consécutifs (S2.7 + S2.8) ont vu Plateforme livrer un **Lot Dev** code en parallèle des Lots production Cowork, sur les chantiers tech/eval/audit :
+
+- **S2.7 Lot Dev** : extension `rag/code/eval/run_eval.py` mode adversarial (champ `expected_refusal`, 7 marqueurs de refus canoniques, scoring séparé standard / adversarial)
+- **S2.8 Lot Dev R11** : création `rag/code/audit/citation_audit.py` (~480 lignes, parse 6 fiches outils → 36 outils canoniques, audit du vault avec word boundary stricte + case-sensitive, CLI complet `--report/--json/--strict`, 28 tests + non-régression 121/121)
+
+Ce **pattern Lot Dev Plateforme dès démarrage** est désormais codifié systématique pour tout sprint qui implique un chantier code/eval/audit nouveau (mode d'eval, règle d'audit, extension d'outil), en parallèle des Lots de production éditoriale Cowork.
+
+### Discipline structurelle
+
+Pour tout sprint avec chantier tech identifié :
+
+1. **Lot A SPEC** (Cowork) : produit Cowork-side au démarrage avec les ajouts SPEC v(N+1) issus du sprint précédent
+2. **Lot Dev** (Plateforme) : démarre **en parallèle** du Lot B sondage D-026 (s'il y en a un) ou directement après Lot A si pas de production from scratch
+3. **Lot B sondage D-026** (Cowork → Cowork Hub IA) : démarre en parallèle du Lot Dev si production from scratch attendue
+4. **Lot F.x production** (Cowork) : démarre après Lot B clôturé + Lot Dev si dépendance code (rare — la plupart des Lot F sont indépendants du Lot Dev)
+5. **Lot I eval** (Desktop) : démarre après Lot F.x + Lot Dev mergés sur main
+6. **Lot J rapport** (Plateforme) : clôture, post-Lot I
+
+### Validation manuelle obligatoire des nouvelles règles de scoring (SPEC v2.2 maintenue)
+
+Pour tout Lot Dev qui introduit une nouvelle règle de scoring (extension run_eval, nouvelle métrique d'audit, etc.), la procédure SPEC v2.2 §Validation manuelle reste obligatoire :
+
+- **3 cas attendus positifs** + **2 cas attendus négatifs** documentés ex-ante dans `briefs/VALIDATION-SCORING-S{N}-{regle}.md`
+- Vérification que le scorer score=1/0 conformément à l'attendu avant rejeu eval Lot I
+
+Validé empiriquement S2.8 Lot Dev R11 (5/5 cas conformes AVANT exécution réelle, prévenu faux négatif systémique).
+
+### Coût Anthropic Lot Dev
+
+**0 $** typique (dev local Python + tests unitaires + documentation, pas d'appels API en eval pendant le dev). Le Lot Dev n'impacte donc pas le cap durci sprint, qui reste piloté par le Lot I.
+
+### Effort estimé Lot Dev
+
+2-4h dev + tests + validation selon complexité. Cas S2.7 mode adversarial : 2-3h. Cas S2.8 R11 citation_audit.py : 3-4h.
+
+---
+
+## Tech debt code identifié — Items à traiter S2.9+ (codifié SPEC v2.3)
+
+**Issue S2.8 Lot I** : détection d'un bug `--filter-unit` dans `rag/code/eval/run_eval.py` lors de l'exécution de l'eval adversarial. Le filtre par unit (typiquement `--filter-unit adversarial`) ne fonctionne pas exactement comme attendu (à diagnostiquer précisément dans Lot Dev S2.9).
+
+**Items tech debt code à traiter S2.9 sprint optimisation/tech debt** :
+
+1. **Bug-fix `--filter-unit`** dans `run_eval.py` (Plateforme Lot Dev S2.9)
+2. **Patches R11 éditoriaux** (Cowork F.9, 85 manquements détectés audit S2.8)
+3. **Benchmark optimisations latence** (Desktop, vault 444 chunks au-dessus seuil 400 SPEC v2.1) :
+   - Reranking (Cohere reranker ou cross-encoder)
+   - Top-k 5→3 (impact qualité vs latence)
+   - Embeddings -large (passage à text-embedding-3-large 1536 dim vs -small 1024 dim)
+   - BM25+dense (hybrid retrieval)
+   - Haiku 4.5 sur eval (remplacement Sonnet 4.6, gain latence ~3× attendu)
+4. **Audit v3 audit-md-rag.py R5 v3 + R11 cluster-aware** (à déclencher si volume justifie en post-S2.9)
+
+L'arbitrage S2.9 final sur les optimisations latence à activer en production sera fait au RAPPORT-CC-S2.9 selon mesures empiriques (qualité retenue + gain latence + impact coût).
 
 ---
 
@@ -567,5 +640,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | **v2.0** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.5 §6 (validation Cowork post-clôture S2.5 — sprint clôturé à 72/72 score global extrapolé) : (1) **§Discipline opérationnelle Git — Hygiène merge** : procédure pre-commit normée `git grep '<<<<<<<'` obligatoire post-`git stash pop` (issue 3 occurrences récurrentes PR #84/#86/#88 S2.3/S2.4/S2.5 signalées par Desktop) ; (2) **Procédure normée « Lot Drer + N1/N2/N3 »** ajoutée à §Conception MD : diagnostic Lot Drer ciblé d'abord (~0,10-0,20 $) puis choix du niveau d'intervention selon écart résiduel (Niveau 1 si rang #6-#10, Niveau 2 si saturation par module concurrent, Niveau 3 si gap résiduel < 0,02 sim) — anti-pattern « sauter directement au Niveau 3 sans diagnostic » documenté ; (3) **§Performances surveillance latence vault > 300 chunks** : déclencheur sprint dédié de mesure quand vault franchit 300 chunks (cas attendu vague 6+ → ~285 chunks puis ~330 chunks fiches outils). Table §Performances enrichie d'une ligne « vault 200-300 chunks » + ligne « vault > 300 chunks à mesurer ». |
 | **v2.1** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.6 §6 (validation Cowork post-clôture S2.6 — **1er score parfait 81/81** sur vault 26 MD / 318 chunks, sans Lot Drer en cascade) : (1) **Recalibrage cap coût** §Performances : table Cap budgétaire enrichie de 3 lignes empiriques 70-80q (1,90 $ calibré S2.5), **80-90q (2,15 $ calibré S2.6)**, et 90-100q (2,40 $ extrapolation à confirmer S2.7) — dépassement +2,5 % mécanique S2.6 documenté ; (2) **Extension bande latence vault 300-400 chunks** §Performances : ligne « > 300 chunks à mesurer » de v2.0 remplacée par mesure empirique S2.6 — **p50 ≤ 20 s / p90 ≤ 24 s** (mesure réelle p50 19,0 s / p90 22,0 s sur 81q vault 318 chunks) + recommandations optimisations pour vault > 400 chunks (reranking, top-k réduction 5→3, cache embeddings, partitioning par axe) ; (3) **Pattern « production module pivot dense »** ajouté à §Conception MD : H2 autonome stricte + lead-scope restreint (AP-7 préventif) + chunking ≤ 900 tokens + audit AP-7 préventif à la production — validé empiriquement PR-11 (629 lignes HTML, 9 H2 dédiées, score parfait sans Lot Drer). Distinction explicite vs procédure normée Lot Drer + N1/N2/N3 : pattern module pivot = **préventif** (production from scratch), Lot Drer + N1/N2/N3 = **curatif** (post-régression Lot I). |
 | **v2.2** | **25 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.7 §6 (validation Cowork post-clôture S2.7 — **double validation 96/96 standard + 12/12 adversarial = robustesse RAG confirmée, premier instrument adversarial validé**) : (1) **Validation manuelle obligatoire d'une nouvelle règle de scoring** ajoutée à §Validation : ex-ante sur 5 cas représentatifs (3 positifs + 2 négatifs) avec trace écrite Cowork-side dans `briefs/VALIDATION-SCORING-S{N}-*` — cas-école faux négatif harness adversarial S2.7 (0/12 → 12/12 après calibration v2) documenté empiriquement ; (2) **Pattern « citer pour expliquer le manque » = refus correct** codifié dans §Validation adversarial : le RAG peut citer une source pour orienter sans halluciner, ce pattern est éditorialement désirable et **ne doit pas être pénalisé** dans le scoring adversarial — extension officielle de la liste des marqueurs de refus correct ; (3) **Extension golden set adversarial systématique ~2 questions/vague** : discipline continue de stress-test léger (vs gros bloc unique S2.7 à 12 questions) — couvre 5 types canoniques (hors-corpus pure, piège technique, combinaison absurde, polémique hors scope, commercial non-PME). Permet détection précoce de dérive robustesse au fil des productions de contenu. |
+| **v2.3** | **26 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.8 §6 (validation Cowork post-clôture S2.8 — **103/104 standard + 14/14 adversarial sur vault 444 chunks, seuil 400 SPEC v2.1 franchi**) : (1) **AP-8 « saturation cluster de fiches sœurs »** codifié dans §Anti-patterns (cas-école q-083 vague 8 — 3e mode de saturation retrieval distinct AP-7 lead bridge sur-élargi et AP-7 module pivot dense — N fiches thématiquement proches diluent le retrieval entre elles ; discipline préventive : marqueur de discrimination intra-cluster ; procédure curative : Lot Drer + N1/N2/N3 standard SPEC v2.0) ; (2) **Officialisation Lot Dev Plateforme dès démarrage de sprint** ajoutée à §Allocation hybride D-030 (codification empirique S2.7 mode adversarial run_eval + S2.8 R11 citation_audit — pattern récurrent à inscrire dans le brief sprint pour tout chantier tech/eval/audit) ; (3) **Tech debt code identifié** : nouvelle section §Tech debt code §S2.9 items (bug-fix `--filter-unit` détecté pendant Lot I S2.8 + patches R11 éditoriaux 85 manquements + benchmark optimisations latence reranking/top-k/embeddings-large/BM25+dense/Haiku 4.5). R11 activé empiriquement S2.7/S2.8 (✅ implémenté `citation_audit.py` 28 tests + non-régression 121/121, ✅ audit livré 85 manquements, ✅ activation roadmap audit v3 ligne 15). |
 
-**Évolution prévue** : enrichissement en v2.3+ post-S2.8 sur la base de la production vague 8 (4 architectures A1-A4) + activation R11 audit wikilinks outils glossariés (citation_audit.py) + extension golden set adversarial +2 questions selon SPEC v2.2 §rythme. Mesure empirique latence vault > 400 chunks projetée si vague 8 fait franchir le seuil (vault ~380 chunks post-S2.7, projection vague 8 = ~420-440 chunks selon densité architectures).
+**Évolution prévue** : enrichissement en v2.4+ post-S2.9 sprint optimisation/tech debt pur sur la base des mesures empiriques benchmark (reranking, top-k 5→3, embeddings-large, BM25+dense, Haiku 4.5) et de la correction tech debt (bug-fix `--filter-unit` + patches R11). Décision finale sur les optimisations à activer en production prise au RAPPORT-CC-S2.9 selon arbitrage qualité retrieval / gain latence / impact coût.
