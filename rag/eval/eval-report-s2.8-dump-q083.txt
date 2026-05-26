@@ -1,0 +1,13 @@
+q-083 : Quel est le tarif API de Claude Sonnet et Opus en 2026 ?
+cible: ['outils-llm']
+cible outils-llm: rang #6 sim -0.067
+  # 1 [chiffres-macro-2026             ] sim=0.141 80 à 90 % — économie d'inférence Kimi K2
+  # 2 [architecture-a1-saas-proprietaire] sim=0.123 Coût indicatif (vague 8)
+  # 3 [cu-027                          ] sim=-0.040 Rupture économique 2026 — Kimi K2.6, ECC
+  # 4 [architecture-a3-os-cloud-souverain] sim=-0.040 Coût indicatif (vague 8)
+  # 5 [architecture-a2-proprietaire-managee] sim=-0.055 Coût indicatif (vague 8)
+  # 6 [outils-llm                      ] sim=-0.067 Recommandations PME par profil <== CIBLE
+  # 7 [outils-llm                      ] sim=-0.091 Comparatif synthétique <== CIBLE
+  # 8 [chiffres-macro-2026             ] sim=-0.096 8-10 K$/mois — équipe 3-4 dev juniors re
+  # 9 [outils-llm                      ] sim=-0.109 Claude (Anthropic) — référence raisonnem <== CIBLE
+  #10 [cu-024                          ] sim=-0.123 L'essentiel à retenir
