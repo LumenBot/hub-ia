@@ -1,7 +1,7 @@
 # SPEC-MD-POUR-RAG.md — Cahier des charges des fichiers MD pour le RAG
 
-**Statut :** v2.1 (v2.0 + 3 ajouts validés post-clôture S2.6 — RAPPORT-CC-S2.6 §6 + arbitrage Cowork) : (1) **Recalibrage cap coût 80-90q → 2,15 $** (mesure empirique S2.6 — 81q × 0,0253 $/q = 2,05 $ + marge variance 5 %) ; (2) **Extension bande latence vault 300-400 chunks** (p50 ≤ 20 s / p90 ≤ 24 s, mesure empirique S2.6 vault 318 chunks p50 19,0 s / p90 22,0 s) + recommandations reranking / réduction top-k / cache embeddings pour vault > 400 chunks ; (3) **Pattern production module pivot dense formalisé** (H2 autonome + lead-scope restreint AP-7 préventif + chunking ≤ 900 tokens, validé empiriquement PR-11 — 1er score parfait 81/81).
-**Dernière mise à jour :** 22 mai 2026 (révision post-S2.6 — 3 propositions Plateforme validées par Cowork)
+**Statut :** v2.2 (v2.1 + 3 ajouts validés post-clôture S2.7 — RAPPORT-CC-S2.7 §6 + arbitrage Cowork) : (1) **Validation manuelle obligatoire d'une nouvelle règle de scoring** avant rejeu eval complet (cas-école faux négatif harness S2.7 — bloc adversarial passé de 0/12 à 12/12 après calibration v2) ; (2) **Pattern « citer pour expliquer le manque » = refus correct** codifié dans la §Validation adversarial (le RAG peut citer une source pour orienter l'utilisateur sans hallucinerla réponse) ; (3) **Extension golden set adversarial systématique ~2 questions/vague** (discipline continue de stress-test léger vs gros bloc unique S2.7).
+**Dernière mise à jour :** 25 mai 2026 (révision post-S2.7 — 3 propositions Plateforme validées par Cowork)
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle :** spécifier le **format technique** des fichiers MD du vault `rag/content/`. Ce fichier traite des conventions concrètes (frontmatter, chunking, naming, wikilinks). Pour la stratégie de retranscription, voir `STRATEGIE-MD-RAG.md`.
@@ -387,6 +387,47 @@ Tout module produit **from scratch** (sans précédent MD dans le vault, c'est-�
 
 **Statut** : règle structurelle pour production from scratch. Pour production de patches sur modules existants déjà produits (cas Lot F.3 S2.4 = patches CU-026/CU-027/DEP-08), le sondage D-026 reste recommandé sur les passages denses mais n'est pas systématique.
 
+### Validation adversariale du RAG — Stress-test refus correct (codifié SPEC v2.2)
+
+L'eval golden set standard mesure la **capacité du RAG à répondre correctement aux questions du périmètre**. Elle ne mesure pas la **capacité du RAG à refuser correctement les questions hors-périmètre** — pourtant tout aussi essentielle pour discriminer la qualité (overfit vs robustesse réelle).
+
+**Pattern validé empiriquement S2.7** : extension du golden set avec **~10-15 questions adversariales** initialement + **~2 questions adversariales par vague** ensuite (rythme continu codifié SPEC v2.2), couvrant 5 types :
+1. **Hors-corpus pure** (dispositif inexistant, sigle fabriqué, chiffre sectoriel non documenté)
+2. **Question piège technique** (paramètre LLM précis non documenté Hub, score benchmark exact)
+3. **Combinaison absurde** (concepts cités hors-articulation possible)
+4. **Question polémique hors scope** (positionnement politique, jugement de valeur)
+5. **Question commerciale non-PME** (grands comptes hors scope Hub IA PME)
+
+**Critère de refus correct** (extension SPEC v2.2 — codification post-incident S2.7 faux négatif harness) :
+
+Le RAG produit un **refus correct** si sa réponse contient au moins **un des marqueurs canoniques** suivants (matching insensible à la casse) :
+- "pas dans le corpus"
+- "hors scope"
+- "je ne dispose pas"
+- "aucune information"
+- "ne figure pas dans les documents"
+- "pas d'élément"
+- "je ne peux pas répondre"
+
+**Extension SPEC v2.2 — Pattern « citer pour expliquer le manque » = refus correct** : si le RAG **cite une source pour orienter l'utilisateur vers un sujet voisin** (« je ne dispose pas d'information sur ce dispositif spécifique, voir [[cu-001]] pour des sources fiables sur l'actualité IA »), cela compte comme **refus correct**. Ce pattern est **éditorialement désirable** (orienter plutôt que halluciner), donc à ne pas pénaliser dans le scoring.
+
+**Anti-pattern à détecter** : le RAG cite des sources ET invente une réponse plausible mais non sourcée → considéré comme hallucination, score=0.
+
+### Validation manuelle obligatoire d'une nouvelle règle de scoring (codifiée SPEC v2.2)
+
+**Issue empirique S2.7** : la première version du scorer adversarial Lot Dev a produit un **faux négatif systémique** — bloc adversarial scoré 0/12 alors que les réponses RAG étaient en réalité des refus corrects (mais avec pattern « citer pour expliquer le manque » non reconnu par le scorer initial). La calibration v2 du scorer (ajout du pattern d'extension ci-dessus) a corrigé le score à 12/12.
+
+**Discipline structurelle** : toute **nouvelle règle de scoring** introduite dans `rag/code/eval/` (nouveau marqueur de refus, nouveau type d'eval, nouvelle métrique, nouveau parsing de réponse) doit faire l'objet d'une **validation manuelle ex-ante** sur au moins **5 cas représentatifs** :
+
+1. **3 cas attendus positifs** : réponses qui doivent être scorées en succès → vérifier que le scorer score=1
+2. **2 cas attendus négatifs** : réponses qui doivent être scorées en échec → vérifier que le scorer score=0
+
+**Format de la validation** : trace écrite Cowork-side dans `briefs/VALIDATION-SCORING-S{N}-{nouvelle-regle}.md` listant les 5 cas + réponse simulée + score attendu + score obtenu + diagnostic.
+
+**Sans cette validation préalable** : risque de fausser l'interprétation du sprint complet (cas S2.7 = 0/12 mal interprété en « overfit confirmé » alors qu'il s'agissait d'un faux négatif).
+
+**Effort estimé** : 15-30 min par règle (rédaction validation + cas représentatifs + test). **Gain** : éviter 1 cycle de re-eval complet (~0,30 $ Anthropic + 15 min Desktop) + éviter une mauvaise interprétation stratégique du sprint.
+
 ---
 
 ## Discipline opérationnelle Git — Hygiène merge (codifiée SPEC v2.0)
@@ -525,5 +566,6 @@ L'audit `rag/code/audit/audit-md-rag.py` accepte ces options (cumulables) pour a
 | v1.9 | 22 mai 2026 | Inscription du **pattern empirique « 3 niveaux d'intervention retrieval »** dans §Conception MD (précision opérationnelle du garde-fou « concepts détaillés ») : (1) Lead bridge enrichi (validé Lot D-ter S2.4.1 — q-038 rang ≥11 → #1) ; (2) H2 dédiée concurrente si saturation par module dominant (validé Lot S2.5.0-bis — q-030 #13 → #6) ; (3) Densification chirurgicale du lead par répétition contrôlée si chunk concurrent hors top-5 (validé Lot S2.5.0-ter — q-030 #6 → #3). Cas-école q-030 (3 itérations Lot S2.5.0/bis/ter) documenté empiriquement. |
 | **v2.0** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.5 §6 (validation Cowork post-clôture S2.5 — sprint clôturé à 72/72 score global extrapolé) : (1) **§Discipline opérationnelle Git — Hygiène merge** : procédure pre-commit normée `git grep '<<<<<<<'` obligatoire post-`git stash pop` (issue 3 occurrences récurrentes PR #84/#86/#88 S2.3/S2.4/S2.5 signalées par Desktop) ; (2) **Procédure normée « Lot Drer + N1/N2/N3 »** ajoutée à §Conception MD : diagnostic Lot Drer ciblé d'abord (~0,10-0,20 $) puis choix du niveau d'intervention selon écart résiduel (Niveau 1 si rang #6-#10, Niveau 2 si saturation par module concurrent, Niveau 3 si gap résiduel < 0,02 sim) — anti-pattern « sauter directement au Niveau 3 sans diagnostic » documenté ; (3) **§Performances surveillance latence vault > 300 chunks** : déclencheur sprint dédié de mesure quand vault franchit 300 chunks (cas attendu vague 6+ → ~285 chunks puis ~330 chunks fiches outils). Table §Performances enrichie d'une ligne « vault 200-300 chunks » + ligne « vault > 300 chunks à mesurer ». |
 | **v2.1** | **22 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.6 §6 (validation Cowork post-clôture S2.6 — **1er score parfait 81/81** sur vault 26 MD / 318 chunks, sans Lot Drer en cascade) : (1) **Recalibrage cap coût** §Performances : table Cap budgétaire enrichie de 3 lignes empiriques 70-80q (1,90 $ calibré S2.5), **80-90q (2,15 $ calibré S2.6)**, et 90-100q (2,40 $ extrapolation à confirmer S2.7) — dépassement +2,5 % mécanique S2.6 documenté ; (2) **Extension bande latence vault 300-400 chunks** §Performances : ligne « > 300 chunks à mesurer » de v2.0 remplacée par mesure empirique S2.6 — **p50 ≤ 20 s / p90 ≤ 24 s** (mesure réelle p50 19,0 s / p90 22,0 s sur 81q vault 318 chunks) + recommandations optimisations pour vault > 400 chunks (reranking, top-k réduction 5→3, cache embeddings, partitioning par axe) ; (3) **Pattern « production module pivot dense »** ajouté à §Conception MD : H2 autonome stricte + lead-scope restreint (AP-7 préventif) + chunking ≤ 900 tokens + audit AP-7 préventif à la production — validé empiriquement PR-11 (629 lignes HTML, 9 H2 dédiées, score parfait sans Lot Drer). Distinction explicite vs procédure normée Lot Drer + N1/N2/N3 : pattern module pivot = **préventif** (production from scratch), Lot Drer + N1/N2/N3 = **curatif** (post-régression Lot I). |
+| **v2.2** | **25 mai 2026** | Intégration des 3 propositions RAPPORT-CC-S2.7 §6 (validation Cowork post-clôture S2.7 — **double validation 96/96 standard + 12/12 adversarial = robustesse RAG confirmée, premier instrument adversarial validé**) : (1) **Validation manuelle obligatoire d'une nouvelle règle de scoring** ajoutée à §Validation : ex-ante sur 5 cas représentatifs (3 positifs + 2 négatifs) avec trace écrite Cowork-side dans `briefs/VALIDATION-SCORING-S{N}-*` — cas-école faux négatif harness adversarial S2.7 (0/12 → 12/12 après calibration v2) documenté empiriquement ; (2) **Pattern « citer pour expliquer le manque » = refus correct** codifié dans §Validation adversarial : le RAG peut citer une source pour orienter sans halluciner, ce pattern est éditorialement désirable et **ne doit pas être pénalisé** dans le scoring adversarial — extension officielle de la liste des marqueurs de refus correct ; (3) **Extension golden set adversarial systématique ~2 questions/vague** : discipline continue de stress-test léger (vs gros bloc unique S2.7 à 12 questions) — couvre 5 types canoniques (hors-corpus pure, piège technique, combinaison absurde, polémique hors scope, commercial non-PME). Permet détection précoce de dérive robustesse au fil des productions de contenu. |
 
-**Évolution prévue** : enrichissement en v2.2+ post-S2.7 sur la base de la production vague 7 (5 fiches outils prioritaires) + extension run_eval mode adversarial (10-15 questions hors-corpus / pièges pour stress-tester le refus du RAG). Mesure empirique latence vault > 400 chunks projetée post-vague 7 (vault ~360-380 chunks attendu).
+**Évolution prévue** : enrichissement en v2.3+ post-S2.8 sur la base de la production vague 8 (4 architectures A1-A4) + activation R11 audit wikilinks outils glossariés (citation_audit.py) + extension golden set adversarial +2 questions selon SPEC v2.2 §rythme. Mesure empirique latence vault > 400 chunks projetée si vague 8 fait franchir le seuil (vault ~380 chunks post-S2.7, projection vague 8 = ~420-440 chunks selon densité architectures).
