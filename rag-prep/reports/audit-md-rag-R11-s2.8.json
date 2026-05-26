@@ -1,0 +1,986 @@
+{
+  "rule": "R11",
+  "spec_ref": "SPEC-MD-POUR-RAG.md v1.4 §audit v3 + BRIEF-CC-S2.8 §4",
+  "vault": "/home/user/hub-ia/rag/content",
+  "summary": {
+    "fiches_parsed": 6,
+    "tools_canonical": 36,
+    "files_audited": 32,
+    "files_with_manquements": 21,
+    "manquements_total": 85,
+    "ok_mentions_total": 3
+  },
+  "tools_index": [
+    {
+      "display_name": "LangChain",
+      "aliases": [
+        "LangChain"
+      ],
+      "source_fiche": "outils-frameworks-rag",
+      "anchor": "langchain"
+    },
+    {
+      "display_name": "LlamaIndex",
+      "aliases": [
+        "LlamaIndex"
+      ],
+      "source_fiche": "outils-frameworks-rag",
+      "anchor": "llamaindex"
+    },
+    {
+      "display_name": "Haystack",
+      "aliases": [
+        "Haystack"
+      ],
+      "source_fiche": "outils-frameworks-rag",
+      "anchor": "haystack"
+    },
+    {
+      "display_name": "LangFlow",
+      "aliases": [
+        "LangFlow"
+      ],
+      "source_fiche": "outils-frameworks-rag",
+      "anchor": "langflow"
+    },
+    {
+      "display_name": "Obsidian",
+      "aliases": [
+        "Obsidian"
+      ],
+      "source_fiche": "outils-knowledge-management",
+      "anchor": "obsidian"
+    },
+    {
+      "display_name": "Readwise",
+      "aliases": [
+        "Readwise"
+      ],
+      "source_fiche": "outils-knowledge-management",
+      "anchor": "readwise"
+    },
+    {
+      "display_name": "Airr",
+      "aliases": [
+        "Airr"
+      ],
+      "source_fiche": "outils-knowledge-management",
+      "anchor": "airr"
+    },
+    {
+      "display_name": "GBrain",
+      "aliases": [
+        "GBrain"
+      ],
+      "source_fiche": "outils-knowledge-management",
+      "anchor": "gbrain"
+    },
+    {
+      "display_name": "SuperSplat",
+      "aliases": [
+        "SuperSplat"
+      ],
+      "source_fiche": "outils-knowledge-management",
+      "anchor": "supersplat"
+    },
+    {
+      "display_name": "Claude",
+      "aliases": [
+        "Claude"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "claude"
+    },
+    {
+      "display_name": "GPT",
+      "aliases": [
+        "GPT"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "gpt"
+    },
+    {
+      "display_name": "Mistral",
+      "aliases": [
+        "Mistral"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "mistral"
+    },
+    {
+      "display_name": "NotebookLM",
+      "aliases": [
+        "NotebookLM"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "notebooklm"
+    },
+    {
+      "display_name": "Mixtral",
+      "aliases": [
+        "Mixtral"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "mixtral"
+    },
+    {
+      "display_name": "Llama",
+      "aliases": [
+        "Llama"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "llama"
+    },
+    {
+      "display_name": "Qwen",
+      "aliases": [
+        "Qwen"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "qwen"
+    },
+    {
+      "display_name": "Kimi K2",
+      "aliases": [
+        "Kimi K2",
+        "K2.6"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "kimi-k2"
+    },
+    {
+      "display_name": "Lucie",
+      "aliases": [
+        "Lucie"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "lucie"
+    },
+    {
+      "display_name": "Pleias-RAG",
+      "aliases": [
+        "Pleias-RAG"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "pleias-rag"
+    },
+    {
+      "display_name": "LightOn",
+      "aliases": [
+        "LightOn"
+      ],
+      "source_fiche": "outils-llm",
+      "anchor": "lighton"
+    },
+    {
+      "display_name": "Langfuse",
+      "aliases": [
+        "Langfuse"
+      ],
+      "source_fiche": "outils-observabilite-llm",
+      "anchor": "langfuse"
+    },
+    {
+      "display_name": "LangSmith",
+      "aliases": [
+        "LangSmith"
+      ],
+      "source_fiche": "outils-observabilite-llm",
+      "anchor": "langsmith"
+    },
+    {
+      "display_name": "Comet Opik",
+      "aliases": [
+        "Comet Opik"
+      ],
+      "source_fiche": "outils-observabilite-llm",
+      "anchor": "comet-opik"
+    },
+    {
+      "display_name": "Phoenix Arize",
+      "aliases": [
+        "Phoenix Arize"
+      ],
+      "source_fiche": "outils-observabilite-llm",
+      "anchor": "phoenix-arize"
+    },
+    {
+      "display_name": "Helicone",
+      "aliases": [
+        "Helicone"
+      ],
+      "source_fiche": "outils-observabilite-llm",
+      "anchor": "helicone"
+    },
+    {
+      "display_name": "Qdrant",
+      "aliases": [
+        "Qdrant"
+      ],
+      "source_fiche": "outils-vector-db",
+      "anchor": "qdrant"
+    },
+    {
+      "display_name": "pgvector",
+      "aliases": [
+        "pgvector"
+      ],
+      "source_fiche": "outils-vector-db",
+      "anchor": "pgvector"
+    },
+    {
+      "display_name": "Pinecone",
+      "aliases": [
+        "Pinecone"
+      ],
+      "source_fiche": "outils-vector-db",
+      "anchor": "pinecone"
+    },
+    {
+      "display_name": "ChromaDB",
+      "aliases": [
+        "ChromaDB"
+      ],
+      "source_fiche": "outils-vector-db",
+      "anchor": "chromadb"
+    },
+    {
+      "display_name": "n8n",
+      "aliases": [
+        "n8n"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "n8n"
+    },
+    {
+      "display_name": "Make",
+      "aliases": [
+        "Make"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "make"
+    },
+    {
+      "display_name": "Dify",
+      "aliases": [
+        "Dify"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "dify"
+    },
+    {
+      "display_name": "Flowise",
+      "aliases": [
+        "Flowise"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "flowise"
+    },
+    {
+      "display_name": "Composio",
+      "aliases": [
+        "Composio"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "composio"
+    },
+    {
+      "display_name": "AAFLOW",
+      "aliases": [
+        "AAFLOW"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "aaflow"
+    },
+    {
+      "display_name": "Beever Atlas",
+      "aliases": [
+        "Beever Atlas"
+      ],
+      "source_fiche": "outils-workflow-automation",
+      "anchor": "beever-atlas"
+    }
+  ],
+  "manquements": [
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 49,
+      "snippet": "L'appel le plus simple : une seule requête à un LLM (Claude, GPT, Mistral) avec un prompt bien construit. Pas de mémo...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 49,
+      "snippet": "L'appel le plus simple : une seule requête à un LLM (Claude, GPT, Mistral) avec un prompt bien construit. Pas de mémo...",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 49,
+      "snippet": "L'appel le plus simple : une seule requête à un LLM (Claude, GPT, Mistral) avec un prompt bien construit. Pas de mémo...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "Qdrant",
+      "source_fiche": "outils-vector-db",
+      "line": 65,
+      "snippet": "Tu indexes ton corpus dans une base vectorielle (ChromaDB, Qdrant, pgvector — cf. [[outils-vector-db]]) et tu fais un...",
+      "recommendation": "[[outils-vector-db|Qdrant]]"
+    },
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "pgvector",
+      "source_fiche": "outils-vector-db",
+      "line": 65,
+      "snippet": "Tu indexes ton corpus dans une base vectorielle (ChromaDB, Qdrant, pgvector — cf. [[outils-vector-db]]) et tu fais un...",
+      "recommendation": "[[outils-vector-db|pgvector]]"
+    },
+    {
+      "file": "deploiement/dep-01.md",
+      "tool": "ChromaDB",
+      "source_fiche": "outils-vector-db",
+      "line": 65,
+      "snippet": "Tu indexes ton corpus dans une base vectorielle (ChromaDB, Qdrant, pgvector — cf. [[outils-vector-db]]) et tu fais un...",
+      "recommendation": "[[outils-vector-db|ChromaDB]]"
+    },
+    {
+      "file": "deploiement/dep-02.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 66,
+      "snippet": "Pattern documenté en détail dans la brique transverse [[pattern-persistent-memory]] (4 signaux convergents mai 2026 :...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "deploiement/dep-02.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 86,
+      "snippet": "2. **Embedding** : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, Mistral Embed, Cohere Embed)",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "deploiement/dep-02.md",
+      "tool": "Qdrant",
+      "source_fiche": "outils-vector-db",
+      "line": 21,
+      "snippet": "**Le [[glossaire#vector-store]] n'est PAS la décision principale.** Beaucoup de PME se trompent en passant 80 % du te...",
+      "recommendation": "[[outils-vector-db|Qdrant]]"
+    },
+    {
+      "file": "deploiement/dep-02.md",
+      "tool": "Pinecone",
+      "source_fiche": "outils-vector-db",
+      "line": 21,
+      "snippet": "**Le [[glossaire#vector-store]] n'est PAS la décision principale.** Beaucoup de PME se trompent en passant 80 % du te...",
+      "recommendation": "[[outils-vector-db|Pinecone]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "LangChain",
+      "source_fiche": "outils-frameworks-rag",
+      "line": 69,
+      "snippet": "| **LangSmith** | Native LangChain | Traces complètes + eval intégré |",
+      "recommendation": "[[outils-frameworks-rag|LangChain]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 29,
+      "snippet": "Ce module est pour toi si tu opères un agent IA en production (Claude Code, agent custom, multi-agents) et tu veux st...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "Langfuse",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 49,
+      "snippet": "Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outi...",
+      "recommendation": "[[outils-observabilite-llm|Langfuse]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "LangSmith",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 49,
+      "snippet": "Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outi...",
+      "recommendation": "[[outils-observabilite-llm|LangSmith]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "Comet Opik",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 49,
+      "snippet": "Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outi...",
+      "recommendation": "[[outils-observabilite-llm|Comet Opik]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "Phoenix Arize",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 49,
+      "snippet": "Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outi...",
+      "recommendation": "[[outils-observabilite-llm|Phoenix Arize]]"
+    },
+    {
+      "file": "deploiement/dep-05.md",
+      "tool": "Helicone",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 57,
+      "snippet": "3. **Métriques** : indicateurs agrégés (latence p50/p95, taux d'erreur, coût par requête, taux de containment). Outil...",
+      "recommendation": "[[outils-observabilite-llm|Helicone]]"
+    },
+    {
+      "file": "deploiement/dep-07.md",
+      "tool": "LangChain",
+      "source_fiche": "outils-frameworks-rag",
+      "line": 112,
+      "snippet": "| **LangSmith** | LangChain native, SaaS | Intégration native LangChain, traces complètes |",
+      "recommendation": "[[outils-frameworks-rag|LangChain]]"
+    },
+    {
+      "file": "deploiement/dep-07.md",
+      "tool": "Langfuse",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 114,
+      "snippet": "| **Langfuse** | Open-source self-host | Eval + observability unifié, prix bas |",
+      "recommendation": "[[outils-observabilite-llm|Langfuse]]"
+    },
+    {
+      "file": "deploiement/dep-07.md",
+      "tool": "LangSmith",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 112,
+      "snippet": "| **LangSmith** | LangChain native, SaaS | Intégration native LangChain, traces complètes |",
+      "recommendation": "[[outils-observabilite-llm|LangSmith]]"
+    },
+    {
+      "file": "deploiement/dep-07.md",
+      "tool": "Comet Opik",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 115,
+      "snippet": "| **Comet Opik** | SaaS focus LLM | LLM-as-judge templates, dashboards |",
+      "recommendation": "[[outils-observabilite-llm|Comet Opik]]"
+    },
+    {
+      "file": "deploiement/dep-07.md",
+      "tool": "Phoenix Arize",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 113,
+      "snippet": "| **Phoenix Arize** | Open-source self-host possible | Embeddings drift detection, monitoring offline |",
+      "recommendation": "[[outils-observabilite-llm|Phoenix Arize]]"
+    },
+    {
+      "file": "deploiement/dep-08.md",
+      "tool": "LangChain",
+      "source_fiche": "outils-frameworks-rag",
+      "line": 19,
+      "snippet": "**57 % des organisations** déploient des agents IA en production (LangChain 2026), mais la surface d'attaque des agen...",
+      "recommendation": "[[outils-frameworks-rag|LangChain]]"
+    },
+    {
+      "file": "deploiement/dep-08.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 21,
+      "snippet": "Quatre incidents/CVE de référence à 2026 fixent le décor : **CVE-2025-59536** (Claude Code, CVSS 8.7, RCE via MCP ser...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 33,
+      "snippet": "Large Language Model : modèle d'IA générative type ChatGPT, Claude, Gemini, Mistral, Llama. Capable de comprendre et ...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 45,
+      "snippet": "Interface de programmation qui permet à un logiciel d'en appeler un autre. Les LLM modernes (Claude, GPT, Mistral) so...",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 29,
+      "snippet": "Représentation numérique d'un texte (un vecteur de quelques centaines à quelques milliers de nombres) qui capture son...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "Llama",
+      "source_fiche": "outils-llm",
+      "line": 33,
+      "snippet": "Large Language Model : modèle d'IA générative type ChatGPT, Claude, Gemini, Mistral, Llama. Capable de comprendre et ...",
+      "recommendation": "[[outils-llm|Llama]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "Qdrant",
+      "source_fiche": "outils-vector-db",
+      "line": 25,
+      "snippet": "Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de...",
+      "recommendation": "[[outils-vector-db|Qdrant]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "pgvector",
+      "source_fiche": "outils-vector-db",
+      "line": 25,
+      "snippet": "Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de...",
+      "recommendation": "[[outils-vector-db|pgvector]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "Pinecone",
+      "source_fiche": "outils-vector-db",
+      "line": 25,
+      "snippet": "Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de...",
+      "recommendation": "[[outils-vector-db|Pinecone]]"
+    },
+    {
+      "file": "glossaire.md",
+      "tool": "ChromaDB",
+      "source_fiche": "outils-vector-db",
+      "line": 25,
+      "snippet": "Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de...",
+      "recommendation": "[[outils-vector-db|ChromaDB]]"
+    },
+    {
+      "file": "modules/cu-001.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 51,
+      "snippet": "**Modèle économique** : gratuit avec limite quotidienne, Pro à 20 €/mois pour accès illimité et choix du modèle sous-...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "modules/cu-001.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 51,
+      "snippet": "**Modèle économique** : gratuit avec limite quotidienne, Pro à 20 €/mois pour accès illimité et choix du modèle sous-...",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "modules/cu-001.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 19,
+      "snippet": "**Recherche augmentée IA et veille IA générative en PME 2026 : sources fiables pour suivre l'actualité IA (Perplexity...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "modules/cu-001.md",
+      "tool": "NotebookLM",
+      "source_fiche": "outils-llm",
+      "line": 19,
+      "snippet": "**Recherche augmentée IA et veille IA générative en PME 2026 : sources fiables pour suivre l'actualité IA (Perplexity...",
+      "recommendation": "[[outils-llm|NotebookLM]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "LangChain",
+      "source_fiche": "outils-frameworks-rag",
+      "line": 98,
+      "snippet": "Vectara et Glean sont les références enterprise : connecteurs natifs avec Drive, Slack, Notion, Confluence, gestion f...",
+      "recommendation": "[[outils-frameworks-rag|LangChain]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 63,
+      "snippet": "2. **Modèle IA** (Claude, GPT, Mistral) qui consulte la base vectorielle pour récupérer les chunks pertinents.",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 63,
+      "snippet": "2. **Modèle IA** (Claude, GPT, Mistral) qui consulte la base vectorielle pour récupérer les chunks pertinents.",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 63,
+      "snippet": "2. **Modèle IA** (Claude, GPT, Mistral) qui consulte la base vectorielle pour récupérer les chunks pertinents.",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "NotebookLM",
+      "source_fiche": "outils-llm",
+      "line": 25,
+      "snippet": "**Approche pragmatique en 3 voies** : NotebookLM (gratuit, démarrage en zone moindre risque), Dify ou Flowise (open-s...",
+      "recommendation": "[[outils-llm|NotebookLM]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Lucie",
+      "source_fiche": "outils-llm",
+      "line": 104,
+      "snippet": "**Alternatives souveraines RAG** : pour les structures avec exigences AI Act renforcées ou données sensibles, deux op...",
+      "recommendation": "[[outils-llm|Lucie]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Pleias-RAG",
+      "source_fiche": "outils-llm",
+      "line": 104,
+      "snippet": "**Alternatives souveraines RAG** : pour les structures avec exigences AI Act renforcées ou données sensibles, deux op...",
+      "recommendation": "[[outils-llm|Pleias-RAG]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Qdrant",
+      "source_fiche": "outils-vector-db",
+      "line": 59,
+      "snippet": "3. **Base vectorielle** : indexation des chunks dans un [[glossaire#vector-store]] (Pinecone, Qdrant, ChromaDB, pgvec...",
+      "recommendation": "[[outils-vector-db|Qdrant]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "pgvector",
+      "source_fiche": "outils-vector-db",
+      "line": 59,
+      "snippet": "3. **Base vectorielle** : indexation des chunks dans un [[glossaire#vector-store]] (Pinecone, Qdrant, ChromaDB, pgvec...",
+      "recommendation": "[[outils-vector-db|pgvector]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Pinecone",
+      "source_fiche": "outils-vector-db",
+      "line": 59,
+      "snippet": "3. **Base vectorielle** : indexation des chunks dans un [[glossaire#vector-store]] (Pinecone, Qdrant, ChromaDB, pgvec...",
+      "recommendation": "[[outils-vector-db|Pinecone]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "ChromaDB",
+      "source_fiche": "outils-vector-db",
+      "line": 59,
+      "snippet": "3. **Base vectorielle** : indexation des chunks dans un [[glossaire#vector-store]] (Pinecone, Qdrant, ChromaDB, pgvec...",
+      "recommendation": "[[outils-vector-db|ChromaDB]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Dify",
+      "source_fiche": "outils-workflow-automation",
+      "line": 25,
+      "snippet": "**Approche pragmatique en 3 voies** : NotebookLM (gratuit, démarrage en zone moindre risque), Dify ou Flowise (open-s...",
+      "recommendation": "[[outils-workflow-automation|Dify]]"
+    },
+    {
+      "file": "modules/cu-008.md",
+      "tool": "Flowise",
+      "source_fiche": "outils-workflow-automation",
+      "line": 25,
+      "snippet": "**Approche pragmatique en 3 voies** : NotebookLM (gratuit, démarrage en zone moindre risque), Dify ou Flowise (open-s...",
+      "recommendation": "[[outils-workflow-automation|Flowise]]"
+    },
+    {
+      "file": "modules/cu-020.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 104,
+      "snippet": "1. **Applicabilité du RGPD aux modèles IA** : un modèle entraîné sur des données personnelles est lui-même un traitem...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "modules/cu-024.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 110,
+      "snippet": "Les outils dev IA-assisté (Cursor, Claude Code, etc.) **ne sont pas pertinents** pour ce module — l'O2C est un workfl...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "modules/cu-027.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 19,
+      "snippet": "Le développement IA-assisté n'est plus une promesse — c'est un marché outillé avec 7 outils canoniques regroupés en 3...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "modules/cu-027.md",
+      "tool": "Kimi K2",
+      "source_fiche": "outils-llm",
+      "line": 21,
+      "snippet": "Côté économie, la rupture 2026 est double. D'abord, **Kimi K2.6 (Moonshot AI, open-source) coûte 0,80 $/M tokens inpu...",
+      "recommendation": "[[outils-llm|Kimi K2]]"
+    },
+    {
+      "file": "prealables/pr-04.md",
+      "tool": "Kimi K2",
+      "source_fiche": "outils-llm",
+      "line": 193,
+      "snippet": "**Renvois utiles** : [[pr-01]] (Maturité organisationnelle — posture dirigeant + 4 profils), [[pr-03]] (Maturité huma...",
+      "recommendation": "[[outils-llm|Kimi K2]]"
+    },
+    {
+      "file": "prealables/pr-07.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 21,
+      "snippet": "**Le seuil de rentabilité du « build » s'est effondré**. Un MVP qui demandait 4-6 mois à une ESN classique se prototy...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "prealables/pr-07.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 77,
+      "snippet": "**4. Le cas est bien servi par un modèle généraliste.** Génération de mails, traduction, transcription audio, résumé ...",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "prealables/pr-07.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 77,
+      "snippet": "**4. Le cas est bien servi par un modèle généraliste.** Génération de mails, traduction, transcription audio, résumé ...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "prealables/pr-07.md",
+      "tool": "n8n",
+      "source_fiche": "outils-workflow-automation",
+      "line": 108,
+      "snippet": "- **Intégrations IA pour faire tenir le tout** : Make, Zapier, n8n IA-augmentés. Ce ne sont ni des SaaS purs ni des b...",
+      "recommendation": "[[outils-workflow-automation|n8n]]"
+    },
+    {
+      "file": "prealables/pr-07.md",
+      "tool": "Make",
+      "source_fiche": "outils-workflow-automation",
+      "line": 108,
+      "snippet": "- **Intégrations IA pour faire tenir le tout** : Make, Zapier, n8n IA-augmentés. Ce ne sont ni des SaaS purs ni des b...",
+      "recommendation": "[[outils-workflow-automation|Make]]"
+    },
+    {
+      "file": "prealables/pr-08.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 51,
+      "snippet": "**Rupture 2 — France 2030 en phase « diffusion »**. Après une phase « émergence » (2021-2024) centrée sur les acteurs...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "prealables/pr-09.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 21,
+      "snippet": "Le piège classique du tech push : commencer par l'outil (« on va mettre du Claude là-dedans ») au lieu de commencer p...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "prealables/pr-09.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 43,
+      "snippet": "Le tech push, c'est commencer par la techno : *« on entend parler de ChatGPT / Claude / Mistral, on devrait en faire ...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "transverses/chiffres-macro-2026.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 207,
+      "snippet": "## 80 à 90 % — économie d'inférence Kimi K2.6 vs Claude Opus 4.7 (Moonshot AI, 2026)",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "transverses/chiffres-macro-2026.md",
+      "tool": "Kimi K2",
+      "source_fiche": "outils-llm",
+      "line": 207,
+      "snippet": "## 80 à 90 % — économie d'inférence Kimi K2.6 vs Claude Opus 4.7 (Moonshot AI, 2026)",
+      "recommendation": "[[outils-llm|Kimi K2]]"
+    },
+    {
+      "file": "transverses/pattern-llm-wiki.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 60,
+      "snippet": "| RAG vectoriel (Pinecone + OpenAI + Claude) | ~150-300 €/mois | Modérée (re-indexation manuelle) |",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "transverses/pattern-llm-wiki.md",
+      "tool": "NotebookLM",
+      "source_fiche": "outils-llm",
+      "line": 85,
+      "snippet": "3. **Maturité organisationnelle** : capacité à maintenir une base markdown structurée par un LLM ? Si oui → LLM Wiki ...",
+      "recommendation": "[[outils-llm|NotebookLM]]"
+    },
+    {
+      "file": "transverses/pattern-llm-wiki.md",
+      "tool": "Pinecone",
+      "source_fiche": "outils-vector-db",
+      "line": 60,
+      "snippet": "| RAG vectoriel (Pinecone + OpenAI + Claude) | ~150-300 €/mois | Modérée (re-indexation manuelle) |",
+      "recommendation": "[[outils-vector-db|Pinecone]]"
+    },
+    {
+      "file": "transverses/pattern-persistent-memory.md",
+      "tool": "Obsidian",
+      "source_fiche": "outils-knowledge-management",
+      "line": 87,
+      "snippet": "2. **Hermes Agent** — produit par Jean Vargas (Signal 3), Codex runtime + intégrations MCP (Obsidian, Reddit, GitHub,...",
+      "recommendation": "[[outils-knowledge-management|Obsidian]]"
+    },
+    {
+      "file": "transverses/pattern-persistent-memory.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 86,
+      "snippet": "1. **Claude Code** — agent CLI Anthropic, hooks natifs pre-tool / post-tool / on-error",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 63,
+      "snippet": "**Exemples** : la plupart des SaaS US avec option « EU region » (ChatGPT, GPT API en région EU sans Cloud Act protect...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "GPT",
+      "source_fiche": "outils-llm",
+      "line": 63,
+      "snippet": "**Exemples** : la plupart des SaaS US avec option « EU region » (ChatGPT, GPT API en région EU sans Cloud Act protect...",
+      "recommendation": "[[outils-llm|GPT]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 41,
+      "snippet": "Cas idéal : licence Apache 2.0 + repository GitHub actif. Cas acceptable : licence open-weight (Llama Community Licen...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Mixtral",
+      "source_fiche": "outils-llm",
+      "line": 87,
+      "snippet": "- **Mistral** (FR) — Mistral Large 2, Mixtral, Le Chat. Niveau Moderate à Strong selon configuration. Voir [[outils-l...",
+      "recommendation": "[[outils-llm|Mixtral]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Llama",
+      "source_fiche": "outils-llm",
+      "line": 41,
+      "snippet": "Cas idéal : licence Apache 2.0 + repository GitHub actif. Cas acceptable : licence open-weight (Llama Community Licen...",
+      "recommendation": "[[outils-llm|Llama]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Lucie",
+      "source_fiche": "outils-llm",
+      "line": 75,
+      "snippet": "**Exemples** : Pleias-RAG (open-weight + éditeur FR + hébergement EU possible), Lucie (souverain FR open-weight), Lan...",
+      "recommendation": "[[outils-llm|Lucie]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Pleias-RAG",
+      "source_fiche": "outils-llm",
+      "line": 75,
+      "snippet": "**Exemples** : Pleias-RAG (open-weight + éditeur FR + hébergement EU possible), Lucie (souverain FR open-weight), Lan...",
+      "recommendation": "[[outils-llm|Pleias-RAG]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "LightOn",
+      "source_fiche": "outils-llm",
+      "line": 81,
+      "snippet": "**Exemples** : LightOn enterprise (éditeur FR, hébergement on-premise ou SecNumCloud, licence enterprise), certaines ...",
+      "recommendation": "[[outils-llm|LightOn]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Langfuse",
+      "source_fiche": "outils-observabilite-llm",
+      "line": 75,
+      "snippet": "**Exemples** : Pleias-RAG (open-weight + éditeur FR + hébergement EU possible), Lucie (souverain FR open-weight), Lan...",
+      "recommendation": "[[outils-observabilite-llm|Langfuse]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "Qdrant",
+      "source_fiche": "outils-vector-db",
+      "line": 100,
+      "snippet": "- **Qdrant** (DE, open-source) — vector store self-hostable EU. Niveau Strong. Voir [[outils-vector-db]].",
+      "recommendation": "[[outils-vector-db|Qdrant]]"
+    },
+    {
+      "file": "transverses/pattern-souverainete-eu.md",
+      "tool": "n8n",
+      "source_fiche": "outils-workflow-automation",
+      "line": 94,
+      "snippet": "- **n8n** (DE, open-source) — workflow automation auto-hébergeable. Niveau Strong. Voir [[outils-workflow-automation]].",
+      "recommendation": "[[outils-workflow-automation|n8n]]"
+    },
+    {
+      "file": "transverses/vigilance-confidentialite.md",
+      "tool": "Claude",
+      "source_fiche": "outils-llm",
+      "line": 41,
+      "snippet": "**Option 1 — Versions Pro et Enterprise des LLM majeurs.** ChatGPT Team/Enterprise, Claude pour les entreprises, Gemi...",
+      "recommendation": "[[outils-llm|Claude]]"
+    },
+    {
+      "file": "transverses/vigilance-confidentialite.md",
+      "tool": "Mistral",
+      "source_fiche": "outils-llm",
+      "line": 43,
+      "snippet": "**Option 2 — Acteurs européens avec [[glossaire#souverainete]] EU.** Mistral Le Chat Pro (hébergement EU, certificati...",
+      "recommendation": "[[outils-llm|Mistral]]"
+    },
+    {
+      "file": "transverses/vigilance-confidentialite.md",
+      "tool": "Llama",
+      "source_fiche": "outils-llm",
+      "line": 45,
+      "snippet": "**Option 3 — Modèles open-source en self-hosted ou [[glossaire#on-premise]].** Llama, Mistral, Qwen, Phi déployés sur...",
+      "recommendation": "[[outils-llm|Llama]]"
+    },
+    {
+      "file": "transverses/vigilance-confidentialite.md",
+      "tool": "Qwen",
+      "source_fiche": "outils-llm",
+      "line": 45,
+      "snippet": "**Option 3 — Modèles open-source en self-hosted ou [[glossaire#on-premise]].** Llama, Mistral, Qwen, Phi déployés sur...",
+      "recommendation": "[[outils-llm|Qwen]]"
+    },
+    {
+      "file": "transverses/vigilance-hallucinations.md",
+      "tool": "NotebookLM",
+      "source_fiche": "outils-llm",
+      "line": 79,
+      "snippet": "- **Recherche augmentée** ([[cu-001]]) : vérifier au moins une source citée par Perplexity, Le Chat Pro ou NotebookLM...",
+      "recommendation": "[[outils-llm|NotebookLM]]"
+    }
+  ]
+}

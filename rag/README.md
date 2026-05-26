@@ -17,7 +17,7 @@ rag/
 ├── code/
 │   ├── ingestion/    # ingest.py — chunking + embeddings + ChromaDB
 │   ├── backend/      # query.py — retrieval + Claude (CLI S1, Worker S3)
-│   ├── audit/        # audit-md-rag.py — conformité MD vs SPEC v1
+│   ├── audit/        # audit-md-rag.py (R1-R10) + citation_audit.py (R11 S2.8)
 │   └── eval/         # run_eval.py — rejoue le golden set
 ├── eval/
 │   ├── questions.yaml      # 10 questions pilote
@@ -57,6 +57,40 @@ python code/backend/query.py "Quelle différence entre RAG et fine-tuning ?"
 # 4. Évaluation golden set
 python code/eval/run_eval.py
 ```
+
+## Audit R11 — wikilinks outils glossariés (S2.8)
+
+`citation_audit.py` implémente la règle R11 (SPEC v1.4 §audit v3 activée
+S2.8) : tout outil ayant sa propre fiche `outils-*.md` doit être wikilinké
+à sa **première occurrence** dans tout autre MD qui le mentionne.
+
+```bash
+# Audit R11 sur le vault — rapport Markdown + JSON
+python code/audit/citation_audit.py \
+    --report ../rag-prep/reports/audit-md-rag-R11-s2.8.md \
+    --json ../rag-prep/reports/audit-md-rag-R11-s2.8.json
+
+# Mode CI : exit 1 si au moins 1 manquement
+python code/audit/citation_audit.py --strict
+```
+
+L'algorithme :
+
+1. Parse les 6 fiches `outils-*.md` du vault → liste canonique d'outils
+   par section H2 (heuristique : `^Nom (Vendeur) — description` → `Nom`,
+   méta-sections « Quand… », « Comparatif… », « Recommandations… » ignorées).
+2. Pour chaque autre MD : cherche la 1re occurrence **en clair** (hors
+   `[[...]]`) de chaque outil, en match **case-sensitive** + word boundary
+   stricte (évite faux positifs « make », « ChatGPT ⊅ GPT »).
+3. Vérifie qu'un wikilink vers la fiche source (toutes formes :
+   `[[outils-llm]]`, `[[outils-llm#mistral]]`, `[[outils-llm|Mistral]]`)
+   apparaît au plus tard à cette position. Sinon → manquement reporté
+   avec recommandation `[[fiche|Nom]]`.
+4. Auto-exclusion des fiches `outils-*.md` (auto-référence).
+
+Validation 5 cas (SPEC v2.2 obligatoire) :
+`rag-prep/briefs/VALIDATION-SCORING-S2.8-R11.md`. Tests :
+`pytest rag/code/audit/test_citation_audit.py -v` (28 tests).
 
 ## Évaluation — modes standard et adversarial (S2.7)
 
