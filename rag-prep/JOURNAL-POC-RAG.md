@@ -11,6 +11,38 @@
 
 ## Entrées
 
+### 2026-05-26 (S2.8 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.8 + PR finale
+
+**Contexte :** clôture définitive du sprint S2.8 après merge des PR #102 (A SPEC v2.2 + BRIEF), #103 (F.8+G+H 5 archis + golden set 118q), #104 (Lot Dev R11 citation_audit.py), #105 (Lot I eval extended). Triple axe S2.8 validé : R11 audit livré et opérationnel + production vague 8 réussie + extension golden set adv +2 conforme rythme SPEC v2.2.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.8.md`** en 8 sections (~3000 mots, format conforme S2.7) :
+  1. Objectifs S2.8 (triple axe : R11 + vague 8 + +2 adv + question structurante vault > 400)
+  2. Livrables par lot (A→J + Lot Dev R11 nouveau pattern Plateforme dès démarrage)
+  3. Métriques quantitatives (standard 103/104 = 99 %, adversarial 14/14 = 100 % 🎉, latence p50/p90 par mode sous cibles, coût 2,8466 $, vault 38 MD / 444 chunks)
+  4. Anomalies (vault > 400 = déclencheur S2.9, q-083 saturation cluster fiches sœurs, --filter-unit 2ᵉ occurrence, hygiène merge OK, +1 fiche Hybride + 1 brique transverse vs projection)
+  5. Décisions structurantes (4 findings : robustesse +10 questions, citer pour expliquer le manque résiste, R11 zero régression + SPEC v2.2 §Validation manuelle validée empiriquement, nouveau pattern saturation cluster fiches sœurs)
+  6. Recommandations SPEC v2.3 (3 propositions : pattern « cluster de fiches sœurs → différenciation leads », officialiser Lot Dev Plateforme dès démarrage, fix --filter-unit)
+  7. Pistes S2.9 (sprint dédié optimisation latence : reranking, top-k 5→3, embeddings -large, BM25+dense, éviction low-signal, Haiku 4.5 sur eval, fix --filter-unit + patches R11 Cowork)
+  8. Coûts cumulés (S2.8 ~2,85 $, total S1→S2.8 ~14,69 $, recharge Anthropic obligatoire avant vague 9)
+
+- **Finding central** : double validation 103/104 standard + 14/14 adversarial sur panel élargi 118q (vs 108q S2.7) → la calibration v2 du harness adversarial (PR #100) tient sur l'extension du gold set. Le RAG continue à discriminer correctement corpus vs hors-corpus.
+
+- **Alerte vault > 400 confirmée** (444 chunks, +11 % au-dessus seuil) → recommandation S2.9 sprint d'optimisation explicitement déclenchée (déclencheur codifié BRIEF-CC-S2.8 §1.4 atteint). Vague 9 (production CU restants) à différer après S2.9.
+
+- **R11 audit opérationnel** : 85 manquements détectés sur 21/32 fichiers MD du vault, 36 outils canoniques indexés. Patches Cowork ~30-60 min groupé prévus fin S2.8 ou déférés S2.9. 0 régression sur les 121 tests audit (+28 nouveaux verts).
+
+- **q-083 cas-école nouveau pattern saturation** : cluster de 5 fiches architectures sœurs A1-A4-Hybride avec même H2 « Coût indicatif » étouffe `outils-llm` rang #6 sur la question tarifs API. Pattern différent du AP-7 module pivot dense — proposition SPEC v2.3 §AP-8 « cluster de fiches sœurs → différenciation des leads ».
+
+- **Branche** : `claude/execute-s28-lot-j-rapport` (depuis `origin/main` post-merge PR #105). PR finale à ouvrir.
+
+**Coût Anthropic Lot J** : 0 $ (rapport sans appel API).
+
+**Sprint S2.8 clôturé côté Plateforme** — en attente merge Blaise + arbitrage Cowork des 3 propositions SPEC v2.3. Next : décision Blaise sur l'ouverture S2.9 (sprint dédié optimisation) avant la production vague 9.
+
+---
+
 ### 2026-05-26 (S2.8 Lot I — eval extended 118q (104 std + 14 adv) + alerte vault > 400) — Claude Code Desktop — Standard 103/104 ✅, adversarial 14/14 ✅, recommandation S2.9 optimisation
 
 **Contexte :** double-axe S2.8 sur vault post-vague 8 (38 MD : +5 architectures A1-A4-Hybride + brique pattern-grille-decision-architecture). Prérequis Lot A (SPEC v2.2, PR #102), Lot F.8+G+H (PR #103), Lot Dev R11 citation_audit (`7fd78e2`), PR #104 mergés sur main `0c74352`. Branche `s2.8-eval-vague-8` créée depuis origin/main (mon main local était en retard de 6 commits + working tree dirty du processus concurrent, stashé pour préserver le travail Cowork). Discipline SPEC v2.0 hygiène merge OK (aucun marqueur).
