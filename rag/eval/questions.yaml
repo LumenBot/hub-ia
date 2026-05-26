@@ -1180,4 +1180,124 @@
 # Coût eval estimé :
 #   - standard : 96q × ~0,025 $/q = ~2,40 $ Anthropic
 #   - adversarial : 12q × ~0,02 $/q = ~0,24 $ Anthropic (questions courtes, refus rapide)
+
+# === EXTENSION S2.8 Lot H — 8 nouvelles questions standard vague 8 (5 architectures A1-A4-Hybride + brique pattern-grille) ===
+# Application SPEC v2.2 stricte : AP-5 (valeurs numériques quotées), AP-6 (plafond 4 synonymes), AP-7 (scope strict).
+
+# === architecture-a1-saas-proprietaire — 1 question ===
+
+- id: q-097
+  question: "Quels sont les exemples canoniques d'architecture A1 SaaS propriétaire IA pour une PME 2026 et pourquoi Le Chat Mistral y est classé ?"
+  expected_sources: [architecture-a1-saas-proprietaire]
+  expected_concepts:
+    - ["ChatGPT", "Claude", "Gemini"]
+    - ["Le Chat Mistral", "cloud public"]
+    - ["cloud public direct", "accès direct"]
+    - ["Notion AI", "Slack AI", "M365 Copilot"]
+  unit: architecture-a1-saas-proprietaire
+
+# === architecture-a2-proprietaire-managee — 1 question ===
+
+- id: q-098
+  question: "Quelle est la frontière entre architecture A1 SaaS et A2 propriétaire managé pour un projet IA en PME ?"
+  expected_sources: [architecture-a2-proprietaire-managee]
+  expected_concepts:
+    - ["cloud public direct", "A1"]
+    - ["cloud client", "data residency"]
+    - ["AWS Bedrock", "Azure OpenAI", "Vertex AI"]
+    - ["CLOUD Act", "hyperscaler"]
+  unit: architecture-a2-proprietaire-managee
+
+# === architecture-a3-os-cloud-souverain — 2 questions ===
+
+- id: q-099
+  question: "Quels sont les exemples canoniques d'architecture A3 open-source sur cloud souverain EU pour une PME 2026 ?"
+  expected_sources: [architecture-a3-os-cloud-souverain]
+  expected_concepts:
+    - ["Mistral Cloud EU", "Mistral Large 2"]
+    - ["Lucie", "OVHcloud", "Scaleway"]
+    - ["Pleias-RAG", "juridique"]
+    - ["open-weight", "souverain"]
+  unit: architecture-a3-os-cloud-souverain
+
+- id: q-100
+  question: "Pourquoi 80 à 90 % des cas PME/ETI sont éligibles à l'architecture A3 open-source cloud souverain EU ?"
+  expected_sources: [architecture-a3-os-cloud-souverain]
+  expected_concepts:
+    - ["80-90 %", "80 à 90 pourcent", "PME/ETI"]
+    - ["souveraineté juridique", "Strong"]
+    - ["auditabilité", "poids ouverts"]
+    - ["CLOUD Act", "non soumis"]
+  unit: architecture-a3-os-cloud-souverain
+
+# === architecture-a4-os-on-premise — 1 question ===
+
+- id: q-101
+  question: "Quelles sont les conditions de bascule de l'architecture A3 cloud souverain vers A4 on-premise pour un projet IA ?"
+  expected_sources: [architecture-a4-os-on-premise]
+  expected_concepts:
+    - ["aucune sortie", "données ultra-stratégiques"]
+    - ["défense", "santé sensible", "HDS"]
+    - ["OIV", "OSE", "NIS2"]
+    - ["LightOn Paradigm", "vLLM", "TGI"]
+  unit: architecture-a4-os-on-premise
+
+# === architecture-hybride — 2 questions ===
+
+- id: q-102
+  question: "Pourquoi l'architecture Hybride orientée flux est-elle « le pattern le plus fréquent en réalité opérationnelle » pour une ETI 2026 ?"
+  expected_sources: [architecture-hybride]
+  expected_concepts:
+    - ["plus fréquent", "réalité opérationnelle"]
+    - ["orienté flux", "calibrée par cas d'usage"]
+    - ["sensibilité", "données"]
+    - ["A1", "A2", "A3", "A4"]
+  unit: architecture-hybride
+
+- id: q-103
+  question: "Quelles sont les 4 disciplines de gouvernance et 3 anti-patterns d'une architecture Hybride en PME/ETI ?"
+  expected_sources: [architecture-hybride]
+  expected_concepts:
+    - ["politique IA documentée", "Shadow AI"]
+    - ["2-3 patterns", "patchwork ingérable"]
+    - ["mise à jour régulière", "cartographie"]
+    - ["cloud-first", "souverain partout"]
+  unit: architecture-hybride
+
+# === pattern-grille-decision-architecture — 1 question ===
+
+- id: q-104
+  question: "Quels sont les 5 critères canoniques de la grille de décision architecture IA pour une PME 2026 ?"
+  expected_sources: [pattern-grille-decision-architecture]
+  expected_concepts:
+    - ["sensibilité des données", "critère 1"]
+    - ["haut risque AI Act", "critère 2"]
+    - ["time-to-value", "maturité technique"]
+    - ["budget annuel", "5 critères"]
+  unit: pattern-grille-decision-architecture
+
+# === EXTENSION S2.8 Lot H — 2 questions ADVERSARIAL (q-adv-013 + q-adv-014) — rythme SPEC v2.2 +2/vague ===
+
+- id: q-adv-013
+  question: "Quelle est l'architecture XYZ-2027 de la French Tech pour les ETI souveraines ?"
+  expected_refusal: true
+  refusal_reason: "Architecture XYZ-2027 inexistante (question piège, dispositif fictif). Type 1 hors-corpus pure."
+  unit: adversarial
+
+- id: q-adv-014
+  question: "Quel est le MTBF exact en heures de l'architecture A4 on-premise pour une PME 50 salariés ?"
+  expected_refusal: true
+  refusal_reason: "MTBF précis non documenté HTML pour A4 (chiffre technique exact hors scope cartographique Hub IA). Type 2 piège technique."
+  unit: adversarial
+
+# Fin de l'extension S2.8 Lot H — 8 standard + 2 adversarial = 10 nouvelles questions
+# (total golden set : 104 standard + 14 adversarial = 118 questions).
+# Cible eval S2.8 :
+#   - standard : ≥ 96/104 sources retrouvées (≥ 92 %), ≥ 96/104 concepts ≥ 50 % (≥ 92 %)
+#   - adversarial : ≥ 12/14 refus correct (≥ 86 %)
+# Coût eval estimé :
+#   - standard : 104q × ~0,025 $/q = ~2,60 $ Anthropic
+#   - adversarial : 14q × ~0,02 $/q = ~0,28 $ Anthropic
+#   - total : ~2,88 $ + marge variance ~3 % = ~3,00 $ (cap durci sprint S2.8 = 2,80 $ SPEC v2.1, légère bordure).
+# Alerte vault > 400 chunks : projection ~420-440 chunks avec 6 nouveaux MD architectures.
 #   - total : ~2,64 $ + marge variance ~12 % = ~3,00 $ (cap durci sprint S2.7).

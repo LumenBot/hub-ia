@@ -1,7 +1,7 @@
 # whitelist-wikilinks-futurs.md — Liste des MD planifiés mais non encore produits
 
-**Statut :** v5 (post-S2.7 Lot G — 5 fiches outils vague 7 produites + brique pattern-souverainete-eu créée)
-**Dernière mise à jour :** 25 mai 2026
+**Statut :** v6 (post-S2.8 Lot G — 5 architectures vague 8 produites A1+A2+A3+A4+Hybride + brique pattern-grille-decision-architecture créée)
+**Dernière mise à jour :** 26 mai 2026
 **Maintainer :** Cowork Hub IA Plateforme
 
 > **Rôle (D-029) :** liste des codes de fichiers MD planifiés dans la roadmap du vault mais pas encore produits. Lue par `audit-md-rag.py` v2 au démarrage. Les wikilinks pointant vers ces codes sont signalés comme **warnings** (anticipations légitimes), pas comme erreurs (wikilinks cassés).
@@ -72,9 +72,11 @@
 | Code | Titre | Vague cible |
 |---|---|---|
 | `a1` | SaaS propriétaire | 4 |
-| `a2` | Propriétaire managé EU | 4 |
-| `a3` | Open-source cloud souverain | 4 |
-| `a4` | Open-source on-premise | 4 |
+| ~~`a1`~~ | ~~SaaS propriétaire~~ | ✅ **Produit S2.8 Lot F.8 — 26 mai 2026** (renommé `architecture-a1-saas-proprietaire.md` — cloud public direct, exemples canoniques ChatGPT/Claude/Gemini/Le Chat Mistral/Notion AI/Slack AI/M365 Copilot, tarifs R10) |
+| ~~`a2`~~ | ~~Propriétaire managé EU~~ | ✅ **Produit S2.8 Lot F.8 — 26 mai 2026** (renommé `architecture-a2-proprietaire-managee.md` — hyperscaler avec data residency EU, AWS Bedrock/Azure OpenAI/Vertex AI/Anthropic on Vertex, caveat CLOUD Act) |
+| ~~`a3`~~ | ~~Open-source cloud souverain~~ | ✅ **Produit S2.8 Lot F.8 — 26 mai 2026** (renommé `architecture-a3-os-cloud-souverain.md` — modèle open-weight sur cloud souverain EU, Mistral Cloud EU / Lucie OVHcloud-Scaleway-Outscale / Pleias-RAG, 80-90 % des cas PME/ETI éligibles) |
+| ~~`a4`~~ | ~~Open-source on-premise~~ | ✅ **Produit S2.8 Lot F.8 — 26 mai 2026** (renommé `architecture-a4-os-on-premise.md` — infrastructure cliente, LightOn Paradigm / Ollama / vLLM / TGI / Edge AI, niveau Sovereign HDS/OIV/défense) |
+| **NOUVEAU** | `architecture-hybride.md` | ✅ **Produit S2.8 Lot F.8 — 26 mai 2026** (5e pattern non anticipé DRAFT, découvert via D-026 — combinaison orientée flux, « le plus fréquent en réalité opérationnelle » HTML, 4 disciplines gouvernance + 3 anti-patterns) |
 
 ## Briques transverses planifiées (priorisées dans STATUS-RAG §Vague 3)
 
@@ -126,3 +128,4 @@
 | v3 | 22 mai 2026 | S2.5 Lot G — retrait de `cu-020`, `cu-024`, `dep-01`, `dep-05`, `dep-07`, `pr-01`, `pr-04`, `pr-05`, `pr-08`, `pattern-persistent-memory` (10 codes produits S2.4 + S2.5). 56 codes restant whitelistés. |
 | v4 | 22 mai 2026 | S2.6 Lot G — retrait de `pr-09`, `pr-10`, `pr-11` (3 nouveaux préalables vague 6 produits S2.6 v3.12). Refonte parallèle de la brique transverse `vigilance-hallucinations.md` (déjà présente dans le vault depuis S2.0) sur la typologie canonique 4 familles PR-10 (Chiffres inventés / Citations fabriquées / Conclusions hors-périmètre / Faux positifs de complétion) — décision D-025 validée par Blaise. **53 codes restant whitelistés**. |
 | **v5** | **25 mai 2026** | S2.7 Lot G — retrait de **5 fiches outils** : `outils-llm`, `outils-frameworks-rag`, `outils-knowledge-management`, `outils-observabilite-llm`, `outils-workflow-automation`. **Création parallèle de la brique transverse `pattern-souverainete-eu.md`** (D-025 validée — récurrence forte sur 5 fiches : Mistral / Lucie / Pleias-RAG / LightOn / Langfuse / Beever Atlas / n8n / Composio). **Activation R11 audit wikilinks outils glossariés** (seuil 5+ fichiers `outils-*.md` franchi : 6 fichiers au total avec outils-vector-db). 2 drafts sondage couple 1 en parallèle (non bloquants) : ajout Gemini/DeepSeek/Zapier HTML + création cat-observabilite-llm. **48 codes restant whitelistés**. |
+| **v6** | **26 mai 2026** | S2.8 Lot G — retrait de **4 architectures** : `a1`, `a2`, `a3`, `a4` (renommées `architecture-aX-*.md` lors de la production). **Découverte structurante via D-026** : 5e pattern Hybride explicitement HTML « le plus fréquent en réalité opérationnelle » non anticipé DRAFT → **production `architecture-hybride.md` ajoutée**. **Création parallèle brique transverse `pattern-grille-decision-architecture.md`** (D-025 validée — méthode 5 critères : sensibilité données / haut risque AI Act / time-to-value / maturité technique / budget annuel — wikilinkée par les 5 fiches architecture + PR-09 + CU-020). 6 livrables vague 8 totaux. **43 codes restant whitelistés**. Cumul D-026 sur 6 sprints : ~12 dérives évitées (S2.8 = 3 majeures évitées seule : oubli Hybride, frontière A1/A2, invention TCO). |
