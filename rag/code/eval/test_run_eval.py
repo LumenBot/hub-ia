@@ -567,3 +567,76 @@ class TestFormatReportAdversarial:
         report = run_eval.format_report([std])
         assert "BLOC 1" in report
         assert "BLOC 2" not in report
+
+
+# ============================================================
+# Tests S2.9 Lot Dev — filter_questions_by_unit
+# ============================================================
+
+class TestFilterQuestionsByUnit:
+    """Couvre le bug-fix `--filter-unit` (S2.9 Lot Dev, 2e occurrence de
+    l'écart procédure S2.7/S2.8). Documenté `briefs/DIAGNOSTIC-FILTER-UNIT-S2.9.md`.
+
+    Stratégie de matching adversarial = union de 2 signaux pour robustesse :
+    1. `unit: adversarial` explicite dans la YAML (convention Cowork)
+    2. `is_adversarial()` sémantique (expected_refusal=true OU expected_sources=[])
+    """
+
+    QUESTIONS = [
+        {"id": "q-001", "question": "?", "unit": "cu-001",
+         "expected_sources": ["cu-001"], "expected_concepts": []},
+        {"id": "q-002", "question": "?", "unit": "dep-05",
+         "expected_sources": ["dep-05"], "expected_concepts": []},
+        {"id": "q-adv-001", "question": "?", "unit": "adversarial",
+         "expected_refusal": True},
+        # Adversarial via signal sémantique seul (pas de champ `unit:` explicite)
+        {"id": "q-adv-002", "question": "?", "expected_refusal": True},
+        # Adversarial via expected_sources vide explicite (sans champ `unit:`)
+        {"id": "q-adv-003", "question": "?", "expected_sources": []},
+    ]
+
+    def test_filter_none_keeps_all(self):
+        out = run_eval.filter_questions_by_unit(self.QUESTIONS, None)
+        assert [q["id"] for q in out] == ["q-001", "q-002", "q-adv-001", "q-adv-002", "q-adv-003"]
+
+    def test_filter_all_keeps_all(self):
+        out = run_eval.filter_questions_by_unit(self.QUESTIONS, "all")
+        assert len(out) == 5
+
+    def test_filter_adversarial_keeps_adversarial(self):
+        out = run_eval.filter_questions_by_unit(self.QUESTIONS, "adversarial")
+        assert [q["id"] for q in out] == ["q-adv-001", "q-adv-002", "q-adv-003"]
+
+    def test_filter_standard_keeps_non_adversarial(self):
+        out = run_eval.filter_questions_by_unit(self.QUESTIONS, "standard")
+        assert [q["id"] for q in out] == ["q-001", "q-002"]
+
+    def test_filter_unknown_value_raises(self):
+        with pytest.raises(ValueError, match="filter-unit"):
+            run_eval.filter_questions_by_unit(self.QUESTIONS, "azerty")
+
+    def test_filter_does_not_mutate_input(self):
+        before = list(self.QUESTIONS)
+        run_eval.filter_questions_by_unit(self.QUESTIONS, "adversarial")
+        assert self.QUESTIONS == before
+
+    def test_filter_empty_input(self):
+        assert run_eval.filter_questions_by_unit([], "adversarial") == []
+        assert run_eval.filter_questions_by_unit([], "standard") == []
+        assert run_eval.filter_questions_by_unit([], None) == []
+
+    def test_filter_unit_case_sensitive_for_yaml_value(self):
+        # La convention YAML est `unit: adversarial` lowercase. On tolère néanmoins
+        # les variantes de casse côté valeur YAML (défense en profondeur).
+        qs = [{"id": "q-x", "question": "?", "unit": "Adversarial",
+               "expected_refusal": True}]
+        out = run_eval.filter_questions_by_unit(qs, "adversarial")
+        assert len(out) == 1
+
+
+class TestFilterUnitCLI:
+    """Smoke tests CLI : le flag `--filter-unit` est bien parsé par argparse."""
+
+    def test_cli_choices_include_three_values(self):
+        # Garantit que les 3 valeurs prévues par BRIEF-CC-S2.9 §5.3 sont supportées.
+        assert set(run_eval.FILTER_UNIT_CHOICES) == {"standard", "adversarial", "all"}

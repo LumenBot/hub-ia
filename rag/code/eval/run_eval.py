@@ -272,6 +272,44 @@ def evaluate_one(question_entry: dict, result_dict: dict) -> EvalItem:
 # Orchestration
 # ============================================================
 
+# Valeurs reconnues par le flag CLI `--filter-unit` (S2.9 Lot Dev).
+# - "standard"    : ne garde que les questions non adversariales
+#                   (`unit:` ≠ "adversarial" ET non `expected_refusal: true`)
+# - "adversarial" : ne garde que les questions adversariales
+# - "all"         : pas de filtrage (équivalent à l'absence de flag)
+FILTER_UNIT_CHOICES = ("standard", "adversarial", "all")
+
+
+def filter_questions_by_unit(questions: list[dict], filter_unit: str | None) -> list[dict]:
+    """Filtre `questions` selon le mode demandé (S2.9 Lot Dev — bug-fix
+    `--filter-unit`).
+
+    La détection « adversarial » est délibérément union de deux signaux pour
+    éviter une 3e occurrence de l'écart procédure observé S2.7/S2.8 (cf.
+    `briefs/DIAGNOSTIC-FILTER-UNIT-S2.9.md`) :
+    - champ explicite `unit: adversarial` dans la YAML
+    - critère sémantique `is_adversarial()` (i.e. `expected_refusal: true` ou
+      `expected_sources: []`)
+
+    Si `filter_unit` est `None` ou "all" : retourne la liste inchangée.
+    """
+    if filter_unit is None or filter_unit == "all":
+        return list(questions)
+    if filter_unit not in FILTER_UNIT_CHOICES:
+        raise ValueError(
+            f"--filter-unit doit appartenir à {FILTER_UNIT_CHOICES}, reçu : {filter_unit!r}"
+        )
+
+    def _is_adv(q: dict) -> bool:
+        if str(q.get("unit", "")).strip().lower() == "adversarial":
+            return True
+        return is_adversarial(q)
+
+    if filter_unit == "adversarial":
+        return [q for q in questions if _is_adv(q)]
+    return [q for q in questions if not _is_adv(q)]
+
+
 def run_eval(questions: list[dict], runner) -> list[EvalItem]:
     items: list[EvalItem] = []
     for q in questions:
@@ -381,6 +419,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--questions", default=DEFAULT_QUESTIONS)
     parser.add_argument("--report", default=None, help="chemin du rapport texte (défaut: stdout)")
     parser.add_argument("--json", default=None, help="dump JSON détaillé en plus du rapport")
+    parser.add_argument(
+        "--filter-unit",
+        dest="filter_unit",
+        default=None,
+        choices=FILTER_UNIT_CHOICES,
+        help=(
+            "filtre les questions par mode (S2.9 Lot Dev) : "
+            "`standard` = non adversariales, `adversarial` = adversariales "
+            "(unit=adversarial OU expected_refusal=true OU expected_sources=[]), "
+            "`all` = pas de filtrage (défaut)."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if not os.path.exists(args.questions):
@@ -389,6 +439,13 @@ def main(argv: list[str] | None = None) -> int:
 
     with open(args.questions, encoding="utf-8") as f:
         questions = yaml.safe_load(f) or []
+
+    questions = filter_questions_by_unit(questions, args.filter_unit)
+    if not questions:
+        print(
+            f"[avertissement] aucune question après filtrage --filter-unit={args.filter_unit!r}",
+            file=sys.stderr,
+        )
 
     runner = make_real_runner()
     items = run_eval(questions, runner)
