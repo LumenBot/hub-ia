@@ -11,6 +11,38 @@
 
 ## Entrées
 
+### 2026-05-27 (S2.9 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.9 + arbitrage final + PR finale
+
+**Contexte :** clôture définitive du sprint S2.9 après merge des PR #107 (A SPEC v2.3 + BRIEF), #108 (Lot Dev --filter-unit), #109 (F.9 patches R11 vague 5-7), #110 (Lot I baseline + Bench-2/3/4/5 + comparatif), #111 (F.9-bis patches R11 résiduels vague 8). Premier sprint **sans production éditoriale** du POC — focus exclusif tech debt + optimisation latence/coût. Triple validation : R11 audit clean, bug-fix --filter-unit opérationnel, 2 optimisations retenues empiriquement pour adoption production.
+
+**Actions menées :**
+
+- **Production `rag-prep/reports/RAPPORT-CC-S2.9.md`** en 8 sections (~3500 mots, format conforme S2.8) :
+  1. Objectifs S2.9 (4 axes : patches R11 + bug-fix --filter-unit + benchmarks 4/5 + arbitrage final + question structurante AP-8 soluble par retrieval seul)
+  2. Livrables par lot (A → J, **pattern Lot Dev Plateforme dès démarrage 3ᵉ sprint consécutif** confirmé)
+  3. Métriques par benchmark — tableau comparatif 20q stratifié : baseline 19/20, bench-2 top-k 3 = 18/20 (-1 std), bench-3 embed-large = 17/20 (-2 adv), **bench-4 BM25 hybrid = 20/20 🎯**, **bench-5 Haiku = 19/20 -76 % coût / -58 % p50**, bench-1 non exécuté
+  4. Anomalies (Bench-1 non exécuté à reprogrammer S2.10, Bench-3 cas-école « meilleur embed ≠ meilleur retrieval », Bench-2 régression q-030, **AP-8 soluble par BM25 hybrid sans modif éditoriale**, incohérence budget brief 118q × 6 vs cap 3,50 $ arbitrée Desktop sous-set 20q, hygiène merge OK 4ᵉ sprint)
+  5. Décisions structurantes — arbitrage final : ✅ adopter BM25 hybrid + Haiku 4.5, ❌ skipper top-k 3 + embed-large, ⏭️ reprogrammer reranking S2.10. Combinaison Haiku + BM25 hybrid à benchmarker S2.10 (projection 20/20 + p50 ~6 s + 0,12 $/20q)
+  6. 4 propositions SPEC v2.4 : (a) codifier pattern curatif « activer BM25 hybrid si AP-8 récurrent », (b) Haiku 4.5 baseline prod + routing Sonnet ad-hoc + recalibrage table latence/coût, (c) anti-pattern « 3ᵉ occurrence brief CLI » (validation --help avant ouverture brief), (d) sous-set échantillonné 15-25q par défaut sur benchmarks d'optimisation
+  7. Pistes S2.10 (priorité absolue combinaison Haiku + BM25 hybrid, intégrations prod Lot Dev Plateforme, bench-1 reranking si capacité acquise, démarrage vague 9 CU restants avec stack optimisée)
+  8. Coûts cumulés (S2.9 ~1,65 $ — *inverse la tendance 2,5-2,85 $/sprint* grâce Haiku 4.5, cumul S1→S2.9 ~16,34 $, marge cap mensuel D-013 confortable)
+
+- **Finding central** : 2 optimisations à adopter en production validées empiriquement — **BM25+dense hybrid** (résout AP-8 cluster fiches sœurs q-083 : 20/20 vs 19/20 baseline, sans modification éditoriale) + **Haiku 4.5 par défaut** (qualité préservée 19/20, latence p50 -58 %, coût -76 %). Pattern « sprint tech debt pur » inédit dans le POC validé empiriquement.
+
+- **Validation empirique SPEC v2.3 §AP-8** : le pattern « cluster de fiches sœurs → saturation retrieval » identifié S2.8 §5 Finding 4 est **soluble par fusion lexicale + sémantique sans coût éditorial**. Le signal BM25 (« API », « Sonnet », « Opus ») fait émerger outils-llm dans le top-5 face à la saturation « Coût indicatif » des 5 architectures.
+
+- **Pivot économique majeur** : Haiku 4.5 préserve qualité 19/20 sur sous-set 20q (stress + adversarial). Pour le même budget Anthropic mensuel, ×4 plus d'évaluations OU ×3-4 plus de production possibles. Routing ad-hoc Sonnet conservé pour requêtes à risque (RGPD complexe, AI Act juridique).
+
+- **R11 audit clean confirmé** : 0 manquement / 70 mentions correctes sur 38 MD du vault post-Lot F.9 + F.9-bis Cowork. Discipline R11 désormais en production avec audit automatisable CI.
+
+- **Branche** : `claude/execute-s29-lot-j-rapport` (depuis `origin/main` post-merge PR #111). PR finale à ouvrir.
+
+**Coût Anthropic Lot J** : 0 $ (rapport sans appel API).
+
+**Sprint S2.9 clôturé côté Plateforme** — en attente merge Blaise + arbitrage Cowork des 4 propositions SPEC v2.4 + arbitrage Blaise sur la voie reranking (Cohere/Voyage cloud vs sentence_transformers local 500 MB). Next : S2.10 prioritaire = combinaison Haiku + BM25 hybrid + intégration prod (Lot Dev Plateforme retrieval + génération) avant démarrage vague 9.
+
+---
+
 ### 2026-05-27 (S2.9 Lot I référence + 4 benchmarks sur sous-set 20q) — Claude Code Desktop — BM25 hybrid 20/20 🎯 + Haiku -76 % coût ; Bench-1 reranking non exécuté
 
 **Contexte :** Lot I référence post-patches R11 + 5 benchmarks d'optimisation (latence/coût/qualité). Prérequis sur main : Lot A (SPEC v2.3 + brief, PR #107), Lot Dev `--filter-unit` (PR #108, `18cce81`), Lot F.9 patches R11 (PR #109, `24c5dba`). Branche `s2.9-eval-reference` créée depuis origin/main (mon main local en retard de 6 commits + working tree dirty Cowork → stash `s2.8-pre-checkout` préservé).
