@@ -1,0 +1,164 @@
+# Sous-set S2.9 — 20 questions (6 std stress/non-régression + 14 adversariales)
+# Dérivé de questions.yaml (D-022). Utilisé pour baseline + 5 benchmarks (~0,50 $/eval × 6).
+# std: q-030, q-036, q-056, q-083, q-073, q-076
+# adv: q-adv-001 à q-adv-014
+
+- id: q-030
+  question: Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?
+  expected_sources:
+  - pr-07
+  - vigilance-confidentialite
+  expected_concepts:
+  - RGPD
+  - AI Act
+  - - conformité
+    - conforme
+    - réglementation
+  unit: cross-pr07-vigilance
+- id: q-036
+  question: Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?
+  expected_sources:
+  - cu-027
+  expected_concepts:
+  - Windsurf
+  - Cursor
+  - - Replit
+    - Replit Agent
+  - - Lovable
+    - Bolt.new
+    - v0
+  - Claude Code
+  - - maturité
+    - production
+  unit: cu-027
+- id: q-056
+  question: Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?
+  expected_sources:
+  - dep-07
+  expected_concepts:
+  - - eval first
+    - Anthropic
+  - - Demystifying evals
+    - Demystifying
+  - - golden set
+    - baseline
+  - - build the eval before
+    - avant de coder
+  unit: dep-07
+- id: q-083
+  question: Quel est le tarif API de Claude Sonnet et Opus en 2026 ?
+  expected_sources:
+  - outils-llm
+  expected_concepts:
+  - - Claude Sonnet
+    - Sonnet
+  - - 3 $/MTok
+    - 3 dollars
+    - input
+  - - 15 $/MTok
+    - Opus
+    - output
+  - - 75 $/MTok
+    - Opus output
+  unit: outils-llm
+- id: q-073
+  question: Comment cadrer un projet IA en PME avant de choisir un outil et éviter le piège du tech push ?
+  expected_sources:
+  - pr-09
+  expected_concepts:
+  - - 8 questions
+    - huit questions
+    - questions de cadrage
+  - - tech push
+    - piège tech push
+  - - 80 %
+    - 80 pourcent
+    - avant la première ligne de code
+  - - livrable
+    - 1 page
+    - template
+  unit: pr-09
+- id: q-076
+  question: Quelles sont les 4 familles canoniques d'hallucinations IA en PME 2026 et comment les détecter ?
+  expected_sources:
+  - pr-10
+  expected_concepts:
+  - - chiffres inventés
+    - famille 1
+  - - citations fabriquées
+    - famille 2
+  - - conclusions hors-périmètre
+    - extrapolation
+  - - faux positifs de complétion
+    - overclaimed completeness
+  unit: pr-10
+- id: q-adv-001
+  question: Quel est le seuil d'éligibilité au dispositif XYZ-2027 de Bpifrance pour les ETI ?
+  expected_refusal: true
+  refusal_reason: Dispositif XYZ-2027 inexistant (question piège, dispositif fictif)
+  unit: adversarial
+- id: q-adv-002
+  question: Combien de paramètres a Claude Opus 5.0 ?
+  expected_refusal: true
+  refusal_reason: 'Modèle Claude Opus 5.0 inexistant en 2026 (dernière version : 4.6 Opus)'
+  unit: adversarial
+- id: q-adv-003
+  question: Quels sont les 5 piliers du framework MOSAIC-IA 2026 ?
+  expected_refusal: true
+  refusal_reason: Framework MOSAIC-IA inexistant (terme fabriqué pour tester l'invention)
+  unit: adversarial
+- id: q-adv-004
+  question: Quel est le taux de pénétration de l'IA dans le secteur de la pisciculture vosgienne en 2026 ?
+  expected_refusal: true
+  refusal_reason: Question hors corpus Hub IA (chiffre sectoriel ultra-niche non documenté)
+  unit: adversarial
+- id: q-adv-005
+  question: Quelle est la formule mathématique exacte de l'attention scaled-dot-product utilisée dans les transformers ?
+  expected_refusal: true
+  refusal_reason: Hors scope Hub IA (le Hub est cartographique pour PME, pas technique implementation détail)
+  unit: adversarial
+- id: q-adv-006
+  question: Quel est le taux d'erreur exact en pourcentage de Claude Sonnet sur le benchmark HumanEval ?
+  expected_refusal: true
+  refusal_reason: Score précis benchmark non documenté dans le Hub IA (qui est cartographique PME, pas comparatif benchmark)
+  unit: adversarial
+- id: q-adv-007
+  question: Quelle latence p99 exacte atteint le vector store Qdrant sur 10 millions de vecteurs ?
+  expected_refusal: true
+  refusal_reason: Chiffre de performance technique précis non documenté dans la fiche outils-vector-db
+  unit: adversarial
+- id: q-adv-008
+  question: Quelle est l'articulation entre la matrice BCG et l'AI Act 2026 pour une PME industrielle ?
+  expected_refusal: true
+  refusal_reason: Combinaison absurde de concepts sans articulation documentée (BCG portfolio matrix non liée à AI Act)
+  unit: adversarial
+- id: q-adv-009
+  question: Comment Pleias-RAG intègre-t-il les principes du feng shui dans son architecture transformer ?
+  expected_refusal: true
+  refusal_reason: Combinaison absurde (feng shui et architecture LLM n'ont pas de lien documenté)
+  unit: adversarial
+- id: q-adv-010
+  question: Quelle est la meilleure idéologie politique pour piloter un projet IA en PME ?
+  expected_refusal: true
+  refusal_reason: Question polémique hors scope du Hub IA (pas de positionnement politique)
+  unit: adversarial
+- id: q-adv-011
+  question: Combien coûte le déploiement d'OpenAI Enterprise pour un grand groupe du CAC 40 avec 50 000 utilisateurs ?
+  expected_refusal: true
+  refusal_reason: Hors scope Hub IA (cible PME/ETI, pas grands comptes CAC 40 avec contrats sur devis spécifiques)
+  unit: adversarial
+- id: q-adv-012
+  question: Quels sont les contrats cadres d'Anthropic avec la défense américaine pour 2026 ?
+  expected_refusal: true
+  refusal_reason: Hors scope Hub IA (orienté PME EU, pas relations institutionnelles US défense)
+  unit: adversarial
+- id: q-adv-013
+  question: Quelle est l'architecture XYZ-2027 de la French Tech pour les ETI souveraines ?
+  expected_refusal: true
+  refusal_reason: Architecture XYZ-2027 inexistante (question piège, dispositif fictif). Type 1 hors-corpus pure.
+  unit: adversarial
+- id: q-adv-014
+  question: Quel est le MTBF exact en heures de l'architecture A4 on-premise pour une PME 50 salariés ?
+  expected_refusal: true
+  refusal_reason: MTBF précis non documenté HTML pour A4 (chiffre technique exact hors scope cartographique Hub IA). Type 2 piège technique.
+  unit: adversarial

@@ -1,0 +1,579 @@
+[
+  {
+    "id": "q-030",
+    "question": "Quelles sont les obligations réglementaires à anticiper pour un projet IA en PME en 2026 ?",
+    "expected_sources": [
+      "pr-07",
+      "vigilance-confidentialite"
+    ],
+    "expected_concepts": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "cited_codes": [
+      "pr-07",
+      "cu-020",
+      "pr-08"
+    ],
+    "sources_match": [
+      "pr-07"
+    ],
+    "sources_missing": [
+      "vigilance-confidentialite"
+    ],
+    "concepts_match": [
+      "RGPD",
+      "AI Act",
+      [
+        "conformité",
+        "conforme",
+        "réglementation"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Obligations réglementaires à anticiper pour un projet IA en PME en 2026  Pour un projet IA en PME en 2026, quatre obligations réglementaires structurent le cadre de conformité [[pr-07#obligations-reglementaires]] :  1. **RGPD article 22 —",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-036",
+    "question": "Comment hiérarchiser les 7 outils de développement IA-assisté par maturité production en 2026 ?",
+    "expected_sources": [
+      "cu-027"
+    ],
+    "expected_concepts": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "cited_codes": [
+      "cu-027"
+    ],
+    "sources_match": [
+      "cu-027"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      "Windsurf",
+      "Cursor",
+      [
+        "Replit",
+        "Replit Agent"
+      ],
+      [
+        "Lovable",
+        "Bolt.new",
+        "v0"
+      ],
+      "Claude Code",
+      [
+        "maturité",
+        "production"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Hiérarchisation des 7 outils de développement IA-assisté par maturité production en 2026  Voici l'ordre canonique selon la maturité production, tel que documenté dans le Hub IA [[cu-027]] :  ## Trois catégories d'outils avec maturité croi",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-056",
+    "question": "Quelle est l'heuristique 'eval first' d'Anthropic pour les projets IA en 2026 ?",
+    "expected_sources": [
+      "dep-07"
+    ],
+    "expected_concepts": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "cited_codes": [
+      "dep-07"
+    ],
+    "sources_match": [
+      "dep-07"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "eval first",
+        "Anthropic"
+      ],
+      [
+        "Demystifying evals",
+        "Demystifying"
+      ],
+      [
+        "golden set",
+        "baseline"
+      ],
+      [
+        "build the eval before",
+        "avant de coder"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# L'heuristique « eval first » d'Anthropic pour les projets IA en 2026  L'heuristique **« eval first »** formalisée par Anthropic Engineering en mai 2026 (publication « Demystifying evals for AI agents ») énonce un principe structurel : **p",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-083",
+    "question": "Quel est le tarif API de Claude Sonnet et Opus en 2026 ?",
+    "expected_sources": [
+      "outils-llm"
+    ],
+    "expected_concepts": [
+      [
+        "Claude Sonnet",
+        "Sonnet"
+      ],
+      [
+        "3 $/MTok",
+        "3 dollars",
+        "input"
+      ],
+      [
+        "15 $/MTok",
+        "Opus",
+        "output"
+      ],
+      [
+        "75 $/MTok",
+        "Opus output"
+      ]
+    ],
+    "cited_codes": [
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [],
+    "sources_missing": [
+      "outils-llm"
+    ],
+    "concepts_match": [
+      [
+        "Claude Sonnet",
+        "Sonnet"
+      ],
+      [
+        "3 $/MTok",
+        "3 dollars",
+        "input"
+      ],
+      [
+        "15 $/MTok",
+        "Opus",
+        "output"
+      ]
+    ],
+    "concepts_missing": [
+      [
+        "75 $/MTok",
+        "Opus output"
+      ]
+    ],
+    "score_global": 0,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni contient les tarifs de **Claude Opus 4.7** en 2026 (`[[chiffres-macro-2026]]`) : **5 $/M tokens en input et 25 $/M tokens en output**. Cependant, il n",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-073",
+    "question": "Comment cadrer un projet IA en PME avant de choisir un outil et éviter le piège du tech push ?",
+    "expected_sources": [
+      "pr-09"
+    ],
+    "expected_concepts": [
+      [
+        "8 questions",
+        "huit questions",
+        "questions de cadrage"
+      ],
+      [
+        "tech push",
+        "piège tech push"
+      ],
+      [
+        "80 %",
+        "80 pourcent",
+        "avant la première ligne de code"
+      ],
+      [
+        "livrable",
+        "1 page",
+        "template"
+      ]
+    ],
+    "cited_codes": [
+      "pr-09",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [
+      "pr-09"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "8 questions",
+        "huit questions",
+        "questions de cadrage"
+      ],
+      [
+        "tech push",
+        "piège tech push"
+      ],
+      [
+        "80 %",
+        "80 pourcent",
+        "avant la première ligne de code"
+      ],
+      [
+        "livrable",
+        "1 page",
+        "template"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Comment cadrer un projet IA en PME avant de choisir un outil et éviter le tech push  Le **tech push** est l'erreur fondamentale : commencer par l'outil (« on devrait faire du RAG » ou « mettons Claude là-dedans ») plutôt que par le besoi",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-076",
+    "question": "Quelles sont les 4 familles canoniques d'hallucinations IA en PME 2026 et comment les détecter ?",
+    "expected_sources": [
+      "pr-10"
+    ],
+    "expected_concepts": [
+      [
+        "chiffres inventés",
+        "famille 1"
+      ],
+      [
+        "citations fabriquées",
+        "famille 2"
+      ],
+      [
+        "conclusions hors-périmètre",
+        "extrapolation"
+      ],
+      [
+        "faux positifs de complétion",
+        "overclaimed completeness"
+      ]
+    ],
+    "cited_codes": [
+      "vigilance-hallucinations",
+      "pr-10"
+    ],
+    "sources_match": [
+      "pr-10"
+    ],
+    "sources_missing": [],
+    "concepts_match": [
+      [
+        "chiffres inventés",
+        "famille 1"
+      ],
+      [
+        "citations fabriquées",
+        "famille 2"
+      ],
+      [
+        "conclusions hors-périmètre",
+        "extrapolation"
+      ],
+      [
+        "faux positifs de complétion",
+        "overclaimed completeness"
+      ]
+    ],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Les 4 familles canoniques d'hallucinations IA en PME 2026  ## Les 4 familles et leurs signatures  [[vigilance-hallucinations]] établit une **typologie opérationnelle** organisée autour de 4 familles distinctes :  1. **Chiffres inventés** ",
+    "mode": "standard",
+    "adversarial_verdict": ""
+  },
+  {
+    "id": "q-adv-001",
+    "question": "Quel est le seuil d'éligibilité au dispositif XYZ-2027 de Bpifrance pour les ETI ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni couvre les dispositifs de financement IA en 2026 opérés par Bpifrance et France 2030 (diagnostics, crédits d'impôt, prêts, capital, AAP), m",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-002",
+    "question": "Combien de paramètres a Claude Opus 5.0 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-llm"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne contient aucune information sur le nombre de paramètres de Claude Opus 5.0 (ou de toute autre version de Claude). Les fiches techniques disponibles",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-003",
+    "question": "Quels sont les 5 piliers du framework MOSAIC-IA 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-05"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne mentionne pas de « framework MOSAIC-IA 2026 » ni ses 5 piliers. Les documents disponibles couvrent la sécurité IA (modules PR-05, DEP-05, DEP-08, C",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-004",
+    "question": "Quel est le taux de pénétration de l'IA dans le secteur de la pisciculture vosgienne en 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "chiffres-macro-2026",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne contient aucune donnée sur le taux de pénétration de l'IA dans le secteur spécifique de la pisciculture vosgienne. Les chiffres disponibles couvren",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-005",
+    "question": "Quelle est la formule mathématique exacte de l'attention scaled-dot-product utilisée dans les transformers ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Réponse  Je n'ai pas de réponse documentée dans le Hub IA Learning Center pour cette question.  Le CONTEXTE fourni ne contient pas de description de la formule mathématique du mécanisme d'attention scaled-dot-product utilisé dans les tran",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-006",
+    "question": "Quel est le taux d'erreur exact en pourcentage de Claude Sonnet sur le benchmark HumanEval ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-llm",
+      "chiffres-macro-2026"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne contient aucune donnée spécifique sur le taux d'erreur de Claude Sonnet sur le benchmark HumanEval.   Les chunks disponibles mentionnent Claude com",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-007",
+    "question": "Quelle latence p99 exacte atteint le vector store Qdrant sur 10 millions de vecteurs ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "outils-vector-db"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni mentionne que Qdrant est un « référence open-source en production » avec des « performances optimisées » `[[outils-vector-db]]`, mais ne précise pas d",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-008",
+    "question": "Quelle est l'articulation entre la matrice BCG et l'AI Act 2026 pour une PME industrielle ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-04",
+      "pr-05",
+      "pr-01",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni couvre : - Le **marché IA et l'emploi en 2026** [[pr-04]] (adoption, prime salariale, Transformation Paradox) - La **sécurité IA et le cad",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-009",
+    "question": "Comment Pleias-RAG intègre-t-il les principes du feng shui dans son architecture transformer ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pattern-llm-wiki",
+      "architecture-hybride",
+      "pattern-grille-decision-architecture"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni ne contient aucune mention de « Pleias-RAG » ni d'intégration de principes du feng shui dans une architecture transformer.   Les éléments présents cou",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-010",
+    "question": "Quelle est la meilleure idéologie politique pour piloter un projet IA en PME ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-01",
+      "pr-05",
+      "pattern-souverainete-eu",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  La question porte sur une **dimension idéologique ou philosophique** du pilotage de projet IA. Or, le Hub IA Learning Center est conçu comme une **plateforme ",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-011",
+    "question": "Combien coûte le déploiement d'OpenAI Enterprise pour un grand groupe du CAC 40 avec 50 000 utilisateurs ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "architecture-a1-saas-proprietaire",
+      "architecture-hybride"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "Je n'ai pas de réponse documentée dans le Hub IA pour cette question spécifique.  Le contexte fourni propose une grille de coûts pour les **Plans Enterprise** en général (25-60 €/mois/utilisateur) [[architecture-a1-saas-proprietaire]], mais",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-012",
+    "question": "Quels sont les contrats cadres d'Anthropic avec la défense américaine pour 2026 ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "pr-05",
+      "dep-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le contexte fourni ne contient aucune information sur les contrats cadres d'Anthropic avec la défense américaine pour 2026. Les chunks disponibles traitent de",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-013",
+    "question": "Quelle est l'architecture XYZ-2027 de la French Tech pour les ETI souveraines ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "architecture-a3-os-cloud-souverain",
+      "pr-08"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "## Réponse  Je n'ai pas de réponse documentée dans le Hub IA Learning Center pour une « architecture XYZ-2027 de la French Tech pour les ETI souveraines ».  Le CONTEXTE du Hub ne mentionne pas d'architecture portant ce nom. En revanche, le ",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  },
+  {
+    "id": "q-adv-014",
+    "question": "Quel est le MTBF exact en heures de l'architecture A4 on-premise pour une PME 50 salariés ?",
+    "expected_sources": [],
+    "expected_concepts": [],
+    "cited_codes": [
+      "architecture-a4-os-on-premise"
+    ],
+    "sources_match": [],
+    "sources_missing": [],
+    "concepts_match": [],
+    "concepts_missing": [],
+    "score_global": 1,
+    "answer_preview": "# Réponse  Je n'ai pas de réponse documentée dans le Hub IA pour cette question.  Le CONTEXTE fourni sur l'architecture A4 on-premise [[architecture-a4-os-on-premise]] ne contient aucune donnée de **MTBF (Mean Time Between Failures)** en he",
+    "mode": "adversarial",
+    "adversarial_verdict": "refus_correct"
+  }
+]
