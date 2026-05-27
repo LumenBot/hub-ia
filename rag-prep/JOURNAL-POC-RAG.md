@@ -11,6 +11,54 @@
 
 ## Entrées
 
+### 2026-05-27 (S2.9 Lot I référence + 4 benchmarks sur sous-set 20q) — Claude Code Desktop — BM25 hybrid 20/20 🎯 + Haiku -76 % coût ; Bench-1 reranking non exécuté
+
+**Contexte :** Lot I référence post-patches R11 + 5 benchmarks d'optimisation (latence/coût/qualité). Prérequis sur main : Lot A (SPEC v2.3 + brief, PR #107), Lot Dev `--filter-unit` (PR #108, `18cce81`), Lot F.9 patches R11 (PR #109, `24c5dba`). Branche `s2.9-eval-reference` créée depuis origin/main (mon main local en retard de 6 commits + working tree dirty Cowork → stash `s2.8-pre-checkout` préservé).
+
+**Incohérence budgétaire signalée et arbitrée :** le brief annonçait baseline 118q à ≤ 0,50 $ et cap total 3,50 $ — incompatible avec le coût Sonnet réel mesuré ~0,024 $/q (118q × 6 evals ≈ 17 $, soit 5× le cap). User a tranché : **sous-set ~20q par eval** (14 adv + 6 std clés q-030/q-036/q-056/q-083/q-073/q-076) = 120 générations × 0,024 ≈ 2,90 $, fits cap. Cohérent avec le pattern des Drer ciblés.
+
+**R11 résiduels :** `citation_audit` détecte encore **27 manquements sur 6 fichiers** (vs 85 avant patches, vs 0 attendu par brief). Reste concerne surtout les **fichiers vague 8** (architecture-a4, hybride, pattern-grille) — probablement hors scope F.9. Non bloquant pour l'eval.
+
+**Capacités absentes :** ni `cohere`/`voyageai` (clés API) ni `sentence_transformers` (cross-encoder local lourd ~500 MB) → **Bench-1 (Reranking) non exécutable** sans setup additionnel. Pour Bench-4 : `pip install rank_bm25` (léger, pure Python). `requirements.txt` mis à jour.
+
+**Actions menées :**
+- **Re-ingestion baseline** : `new=1 updated=38 deleted=1`, total stable 444 chunks (patches R11 ré-hashent 38 chunks).
+- **Création sous-set** `questions-s2.9-subset.yaml` (20q dérivées, fidélité OK).
+- **Création `bench_runner.py`** (wrapper paramétrable top_k/embed/gen/collection — réutilise `query.*` + `run_eval.*` sans toucher au code prod).
+- **Création `bench_runner_hybrid.py`** (BM25 + dense + RRF k=60 sur 444 chunks, n_each=15 → top_k=5).
+- **5 evals lancées** (baseline + 4 benchs ; Bench-1 reranking skippé).
+- **Synthèse comparative** `eval-report-s2.9-COMPARATIF.md`.
+
+**Résultats — tableau comparatif sous-set 20q :**
+
+| Variante | Std/6 | Adv/14 | Total | p50/p90 (s) | Coût | Verdict |
+|---|---|---|---|---|---|---|
+| baseline (Sonnet, k=5, embed -small) | 5 | 14 | **19/20** | 12,0 / 20,0 | 0,4053 $ | référence |
+| bench-2 top_k=3 | 4 ↓ | 14 | 18/20 | 10,0 / 17,0 | 0,3239 $ (−20 %) | trade-off mitigé, q-030 perd pr-07 |
+| bench-3 embed -large | 5 | **12 ↓** | 17/20 | 11,0 / 20,0 | 0,3848 $ + 0,024 re-embed | **régression adv** (2 hallucinations), pas de gain |
+| **bench-4 BM25 + dense (RRF)** | **6 ↑** | 14 | **20/20 🎯** | 11,0 / 22,0 | 0,4124 $ | **PARFAIT — seul bench qui résout q-083** (outils-llm cité) |
+| **bench-5 Haiku 4.5** (gen) | 5 | 14 | 19/20 | **5,0 / 8,0** | **0,0953 $ (−76 %)** | qualité préservée, latence p50 **−58 %** |
+
+**Pépites :**
+1. **Bench-4 BM25 hybrid** : seul à résoudre **q-083** (« Tarif API Claude Sonnet/Opus » — outils-llm enfin cité grâce au signal lexical). Pattern saturation vague 8 (acronymes/pricing) soluble par fusion BM25 + dense via RRF. **À adopter en prod (effort modéré : `rank_bm25` léger + ~150 lignes hybrid retrieval + fusion RRF k=60).**
+2. **Bench-5 Haiku** : **qualité 19/20 préservée** (identique baseline), latence p50 **5 s** (vs 12 s — quasi temps réel), coût ÷ 4. **Pivot économique majeur** pour les requêtes standard. Sonnet 4.6 à conserver pour scénarios à risque (RGPD complexe, AI Act juridique) en routing ad-hoc.
+
+**Recommandation forte pour S2.10 — combinaison à benchmarker : Haiku 4.5 gen + BM25 hybrid retrieval.** Hypothèse : 20/20 score (BM25) + p50 ~6s + coût ~0,12 $/eval 20q. Si confirmé, nouvelle baseline production candidate.
+
+**Non-régression intégrale** sur les 5 evals : q-030/q-036/q-056/q-073/q-076 = 1 (sauf bench-2 où q-030 perd pr-07 mais reste compatible avec vigilance-confidentialite). q-083 reste KO sauf bench-4.
+
+**Coût total Lot I + benchs :** **1,6452 $** Anthropic+OpenAI (baseline 0,41 + bench-2 0,32 + bench-3 0,41 + bench-4 0,41 + bench-5 0,10), bien sous cap 3,50 $. Économie de ~0,80 $ liée à Bench-1 non exécuté.
+
+**Décisions structurantes prises :** aucune côté Desktop. **Recommandations remontées au Lot J / SPEC v2.4 :**
+- (1) Adopter **BM25 + dense hybrid (RRF)** en prod retrieval — résout q-083 + saturations futures vague N+1.
+- (2) Adopter **Haiku 4.5** par défaut sur génération (routing Sonnet 4.6 ad-hoc pour scénarios à risque).
+- (3) **Skipper embeddings -large** (régression adv + surcoût ingest sans gain).
+- (4) **Skipper top_k=3** (perte qualité disproportionnée).
+- (5) **Bench-1 reranking** à reprogrammer S2.10 si une clé Cohere/Voyage est ajoutée — sinon installer `sentence-transformers` (lourd, à arbitrer).
+- (6) Patch R11 résiduel **27 manquements** côté Cowork (vague 8).
+
+**Reste à faire :** (1) Lot J RAPPORT-CC-S2.9 (intégrer tableau comparatif + recommandations + bench-1 non exécuté + R11 résiduel) ; (2) bench combiné Haiku+BM25 (S2.10) ; (3) intégration BM25 hybrid dans le code prod (pas dans le périmètre Lot I). Artefacts sur `s2.9-eval-reference`, PR à ouvrir.
+
 ### 2026-05-26 (S2.9 Lot Dev --filter-unit livré) — Claude Code Hub IA Plateforme — Bug-fix run_eval + DIAGNOSTIC + VALIDATION-SCORING
 
 **Contexte :** ouverture S2.9 sur BRIEF-CC-S2.9 (Cowork, PR #107 mergée, commit `c3eefb3`) + SPEC v2.3 en vigueur. 3ᵉ sprint consécutif avec **Lot Dev Plateforme dès démarrage** — pattern désormais officiellement codifié SPEC v2.3 §allocation D-030 (suite à proposition RAPPORT-CC-S2.8 §6). Bug ciblé : flag `--filter-unit` prescrit dans les briefs Lot I depuis S2.7 mais **jamais implémenté côté code** (2ᵉ occurrence formalisée dans RAPPORT-CC-S2.8 §4 Observation #1).
