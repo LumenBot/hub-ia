@@ -18,7 +18,7 @@ public_cible: [ops, r&d, tech]
 
 **Trois architectures cohabitent en 2026 selon le volume de corpus.** Pour < 100K tokens → [[glossaire#llm-wiki]] Karpathy (95 % moins coûteux). Pour 100K-10M tokens → [[glossaire#retrieval-hybride]] (dense + sparse + [[glossaire#reranker|reranking]]). Au-delà → RAG hybride avec sharding et caching avancé. **Le mauvais choix coûte 10× plus.**
 
-**Le [[glossaire#vector-store]] n'est PAS la décision principale.** Beaucoup de PME se trompent en passant 80 % du temps sur le choix Pinecone vs Qdrant. Le bon modèle d'[[glossaire#embeddings]] et le reranking pèsent 5 à 10 fois plus sur la qualité finale.
+**Le [[glossaire#vector-store]] n'est PAS la décision principale.** Beaucoup de PME se trompent en passant 80 % du temps sur le choix [[outils-vector-db|Pinecone]] vs [[outils-vector-db|Qdrant]]. Le bon modèle d'[[glossaire#embeddings]] et le reranking pèsent 5 à 10 fois plus sur la qualité finale.
 
 **Une pipeline de retrieval bien faite réduit les [[vigilance-hallucinations|hallucinations]] de 70 à 90 %** (Source : Techment 2026, reproductible). Mais cela exige une discipline : chunking adapté, retrieval hybride, reranking obligatoire, eval pipeline pour mesurer.
 
@@ -63,7 +63,7 @@ Pattern documenté en détail dans la brique transverse [[pattern-llm-wiki]] (à
 
 **Architecture recommandée pour un agent IA en production avec mémoire conversationnelle multi-tours, multi-sessions ou multi-agents : privilégier une couche persistent memory mutualisable (cf. agentmemory et l'écosystème de hooks partagés) plutôt qu'un RAG hybride classique stateless. Architecture local-first SQLite + FAISS compatible souveraineté A3/A4. Benchmark de référence : 95,2 % r@5 vs 86,2 % BM25 + coût token ÷ 100+.**
 
-Pattern documenté en détail dans la brique transverse [[pattern-persistent-memory]] (4 signaux convergents mai 2026 : long context natif SubQ, LLM Wiki post-Karpathy, persistent memory Vargas, agentmemory infrastructure ; benchmarks ; écosystème de hooks multi-agents Claude Code / Hermes Agent / OpenClaw / Codex CLI / Cursor / Gemini CLI ; préfiguration pattern A5 « Agents fédérés / persistent memory »).
+Pattern documenté en détail dans la brique transverse [[pattern-persistent-memory]] (4 signaux convergents mai 2026 : long context natif SubQ, LLM Wiki post-Karpathy, persistent memory Vargas, agentmemory infrastructure ; benchmarks ; écosystème de hooks multi-agents [[outils-llm|Claude]] Code / Hermes Agent / OpenClaw / Codex CLI / Cursor / Gemini CLI ; préfiguration pattern A5 « Agents fédérés / persistent memory »).
 
 **Mini-tableau de décision opérationnelle** (à utiliser en complément du tableau principal § « Tableau de décision RAG » ci-dessous — ne PAS fusionner les deux, ce sont des arbitrages distincts) :
 
@@ -83,7 +83,7 @@ Pattern documenté en détail dans la brique transverse [[pattern-persistent-mem
 Sept étapes à connaître (ton prestataire doit te les réciter sans hésiter) :
 
 1. **Chunking** : découpage du corpus en passages de 256-1024 tokens avec overlap de 100 tokens
-2. **Embedding** : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, Mistral Embed, Cohere Embed)
+2. **Embedding** : conversion de chaque chunk en vecteur (OpenAI text-embedding-3-small, [[outils-llm|Mistral]] Embed, Cohere Embed)
 3. **Indexation** : stockage des vecteurs + métadonnées dans le [[glossaire#vector-store]]
 4. **Query rewriting** : reformulation de la requête utilisateur pour optimiser la recherche
 5. **[[glossaire#retrieval-hybride|Retrieval hybride]]** : recherche dense (vector similarity) + recherche sparse (BM25) en parallèle

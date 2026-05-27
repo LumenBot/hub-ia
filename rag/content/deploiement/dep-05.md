@@ -26,7 +26,7 @@ L'observabilité des agents IA en production est la discipline **opérationnelle
 
 ## À qui ce module s'adresse
 
-Ce module est pour toi si tu opères un agent IA en production (Claude Code, agent custom, multi-agents) et tu veux structurer l'observabilité + les garde-fous runtime ; si tu construis une stack LLMOps et tu te demandes quels outils choisir ; si tu vois des « overclaimed completions » (agents qui déclarent avoir fini sans avoir vraiment fini) et tu veux le pattern failure receipt ; ou si tu déploies un agent long-running (workflows multi-tours, multi-sessions) et tu veux le pattern two-agent harness Anthropic.
+Ce module est pour toi si tu opères un agent IA en production ([[outils-llm|Claude]] Code, agent custom, multi-agents) et tu veux structurer l'observabilité + les garde-fous runtime ; si tu construis une stack LLMOps et tu te demandes quels outils choisir ; si tu vois des « overclaimed completions » (agents qui déclarent avoir fini sans avoir vraiment fini) et tu veux le pattern failure receipt ; ou si tu déploies un agent long-running (workflows multi-tours, multi-sessions) et tu veux le pattern two-agent harness Anthropic.
 
 Niveau ⭐⭐⭐⭐ Expert. ~40 minutes de lecture. Public cible : équipes tech / R&D / ops, LLMOps, responsables production IA.
 
@@ -46,7 +46,7 @@ Un agent IA en production produit une trace **stochastique**, **multi-étapes**,
 - **Multi-étapes** : un agent enchaîne tool calls, génération, retrieval, validation. Une erreur à l'étape N peut avoir sa cause à l'étape N-2. L'observabilité doit tracer la chaîne complète.
 - **Statefulness** : un agent avec mémoire conversationnelle (cf. [[pattern-persistent-memory]]) accumule un contexte qui influence ses décisions. L'observabilité doit suivre l'état au fil des sessions.
 
-Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outils dédiés LLMOps (LangSmith, Phoenix Arize, Comet Opik, Langfuse, etc.).
+Un dashboard d'observabilité classique (Datadog, New Relic) ne couvre pas ces 3 propriétés. D'où l'émergence des outils dédiés LLMOps ([[outils-observabilite-llm|LangSmith]], [[outils-observabilite-llm|Phoenix Arize]], [[outils-observabilite-llm|Comet Opik]], [[outils-observabilite-llm|Langfuse]], etc.).
 
 ## Architecture observabilité 5 layers
 
@@ -54,7 +54,7 @@ Cinq couches à instrumenter pour avoir une vue complète d'un agent en producti
 
 1. **Logs** : journal des événements bruts (requête entrante, appels API, exceptions). Niveau le plus bas. Outil : Sentry, ELK, Datadog logs.
 2. **Traces** : reconstruction de la chaîne d'exécution multi-étapes (prompt → retrieval → LLM call → tool call → réponse). Outil : LangSmith, Phoenix Arize, Langfuse.
-3. **Métriques** : indicateurs agrégés (latence p50/p95, taux d'erreur, coût par requête, taux de containment). Outil : Prometheus + Grafana, Helicone, Comet Opik.
+3. **Métriques** : indicateurs agrégés (latence p50/p95, taux d'erreur, coût par requête, taux de containment). Outil : Prometheus + Grafana, [[outils-observabilite-llm|Helicone]], Comet Opik.
 4. **Événements métier** : occurrences typées (« escalade vers humain », « décision à effet juridique », « hallucination détectée »). Outil : événements custom dans LangSmith / Langfuse.
 5. **Prompts et réponses** : capture complète des inputs/outputs LLM pour analyse a posteriori et eval continue. Outil : LangSmith, Langfuse, Comet Opik.
 
@@ -66,7 +66,7 @@ Cinq plateformes principales (cf. [[dep-07]] §Outils d'évaluation 2026 pour le
 
 | Outil | Focus principal | Force différentielle |
 |---|---|---|
-| **LangSmith** | Native LangChain | Traces complètes + eval intégré |
+| **LangSmith** | Native [[outils-frameworks-rag|LangChain]] | Traces complètes + eval intégré |
 | **Phoenix Arize** | Open-source self-host | Embeddings drift detection |
 | **Helicone** | SaaS focus métriques | Métriques coût par requête fines |
 | **Comet Opik** | SaaS focus eval | LLM-as-judge templates |

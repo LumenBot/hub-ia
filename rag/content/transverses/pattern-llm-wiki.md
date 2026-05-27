@@ -57,7 +57,7 @@ Pour une PME avec un corpus de 50K tokens (calcul typique) :
 
 | Architecture | Coût mensuel typique | Maintenance |
 |---|---|---|
-| RAG vectoriel (Pinecone + OpenAI + Claude) | ~150-300 €/mois | Modérée (re-indexation manuelle) |
+| RAG vectoriel ([[outils-vector-db|Pinecone]] + OpenAI + [[outils-llm|Claude]]) | ~150-300 €/mois | Modérée (re-indexation manuelle) |
 | LLM Wiki (Claude uniquement, base MD) | ~10-50 €/mois | Légère (le LLM auto-maintient) |
 
 **Économie potentielle de 90 %** sur les petits corpus stables. À pondérer par l'effort de mise en place initial (similaire dans les deux cas).
@@ -82,7 +82,7 @@ Ces 5 patterns représentent la trajectoire architecturale la plus prometteuse p
 
 1. **Volume et stabilité du corpus** : < 100K tokens et stable ? → LLM Wiki probablement pertinent. Sinon → RAG hybride.
 2. **Cas d'usage temps réel** : besoin de réponses sur des données qui changent en continu ? → RAG vectoriel obligatoire.
-3. **Maturité organisationnelle** : capacité à maintenir une base markdown structurée par un LLM ? Si oui → LLM Wiki accessible. Si non → SaaS RAG type NotebookLM en première étape.
+3. **Maturité organisationnelle** : capacité à maintenir une base markdown structurée par un LLM ? Si oui → LLM Wiki accessible. Si non → SaaS RAG type [[outils-llm|NotebookLM]] en première étape.
 
 ## Implication pour les PME qui démarrent un RAG
 

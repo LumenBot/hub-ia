@@ -38,7 +38,7 @@ Cas idéal : certification SecNumCloud (qualification ANSSI) ou équivalent nati
 
 L'outil est disponible en licence permissive (Apache 2.0, MIT, BSD) ou en licence open-weight (poids du modèle distribués, code d'inférence open-source). L'utilisateur peut self-héberger sans dépendre du fournisseur, auditer le code, forker en cas de fork stratégique.
 
-Cas idéal : licence Apache 2.0 + repository GitHub actif. Cas acceptable : licence open-weight (Llama Community License, Mistral Research License) avec restrictions commerciales raisonnables.
+Cas idéal : licence Apache 2.0 + repository GitHub actif. Cas acceptable : licence open-weight ([[outils-llm|Llama]] Community License, [[outils-llm|Mistral]] Research License) avec restrictions commerciales raisonnables.
 
 ### Critère 3 — Origine éditeur EU
 
@@ -60,7 +60,7 @@ Cas idéal : inférence on-premise full + audit logs locaux. Cas acceptable : in
 
 L'outil **satisfait 1 critère sur 4**, typiquement l'hébergement EU optionnel (mais hors UE par défaut). Usage acceptable pour des données peu sensibles, des POC, du prototypage. À éviter pour la production avec données métier critiques.
 
-**Exemples** : la plupart des SaaS US avec option « EU region » (ChatGPT, GPT API en région EU sans Cloud Act protection effective, certains outils Claude Code en région UE).
+**Exemples** : la plupart des SaaS US avec option « EU region » (ChatGPT, [[outils-llm|GPT]] API en région EU sans Cloud Act protection effective, certains outils [[outils-llm|Claude]] Code en région UE).
 
 ### Niveau 2 — Moderate (souveraineté partielle)
 
@@ -72,32 +72,32 @@ L'outil **satisfait 2 critères sur 4**, typiquement hébergement EU contractual
 
 L'outil **satisfait 3 critères sur 4**, typiquement hébergement EU + open-weight + éditeur EU. Recommandé pour les cas d'usage sensibles (données clients, R&D, propriété intellectuelle, conformité réglementaire stricte).
 
-**Exemples** : Pleias-RAG (open-weight + éditeur FR + hébergement EU possible), Lucie (souverain FR open-weight), Langfuse (open-source + éditeur DE + self-hosting EU).
+**Exemples** : [[outils-llm|Pleias-RAG]] (open-weight + éditeur FR + hébergement EU possible), [[outils-llm|Lucie]] (souverain FR open-weight), [[outils-observabilite-llm|Langfuse]] (open-source + éditeur DE + self-hosting EU).
 
 ### Niveau 4 — Sovereign Cloud SecNumCloud (souveraineté maximale)
 
 L'outil **satisfait les 4 critères**, certification SecNumCloud (ANSSI) ou équivalent national. Niveau requis pour les opérateurs d'importance vitale (OIV), opérateurs de services essentiels (OSE) au sens de NIS2, données de santé (HDS), données classifiées.
 
-**Exemples** : LightOn enterprise (éditeur FR, hébergement on-premise ou SecNumCloud, licence enterprise), certaines installations Mistral on-premise avec contractualisation SecNumCloud, déploiements Outscale + Mistral.
+**Exemples** : [[outils-llm|LightOn]] enterprise (éditeur FR, hébergement on-premise ou SecNumCloud, licence enterprise), certaines installations Mistral on-premise avec contractualisation SecNumCloud, déploiements Outscale + Mistral.
 
 ## Acteurs de référence par catégorie
 
 ### Modèles LLM souverains EU
 
-- **Mistral** (FR) — Mistral Large 2, Mixtral, Le Chat. Niveau Moderate à Strong selon configuration. Voir [[outils-llm]].
+- **Mistral** (FR) — Mistral Large 2, [[outils-llm|Mixtral]], Le Chat. Niveau Moderate à Strong selon configuration. Voir [[outils-llm]].
 - **Lucie** (FR) — Modèle open-weight souverain France. Niveau Strong. Voir [[outils-llm]].
 - **Pleias-RAG** (FR) — Spécialisé RAG juridique/réglementaire. Niveau Strong. Voir [[outils-llm]].
 - **LightOn** (FR) — Solution enterprise full souveraine. Niveau Sovereign. Voir [[outils-llm]].
 
 ### Frameworks et orchestration souverains
 
-- **n8n** (DE, open-source) — workflow automation auto-hébergeable. Niveau Strong. Voir [[outils-workflow-automation]].
+- **[[outils-workflow-automation|n8n]]** (DE, open-source) — workflow automation auto-hébergeable. Niveau Strong. Voir [[outils-workflow-automation]].
 - **Composio** (open-source) — outils agents auto-hébergeables. Niveau Moderate à Strong. Voir [[outils-workflow-automation]].
 
 ### Knowledge management & RAG souverains
 
 - **Beever Atlas** (FR) — knowledge management souverain. Niveau Strong. Voir [[outils-workflow-automation]].
-- **Qdrant** (DE, open-source) — vector store self-hostable EU. Niveau Strong. Voir [[outils-vector-db]].
+- **[[outils-vector-db|Qdrant]]** (DE, open-source) — vector store self-hostable EU. Niveau Strong. Voir [[outils-vector-db]].
 - **pgvector** (open-source, PostgreSQL) — extension auto-hébergeable. Niveau Strong selon hébergement. Voir [[outils-vector-db]].
 
 ### Observabilité LLM souveraine

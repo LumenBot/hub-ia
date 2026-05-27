@@ -204,7 +204,7 @@ Anchor stratégique de la « pression à l'IA » qui motive les démarches d'ado
 
 **Modules concernés** : [[pr-04]], [[pr-01]].
 
-## 80 à 90 % — économie d'inférence Kimi K2.6 vs Claude Opus 4.7 (Moonshot AI, 2026)
+## 80 à 90 % — économie d'inférence [[outils-llm|Kimi K2]].6 vs [[outils-llm|Claude]] Opus 4.7 (Moonshot AI, 2026)
 
 **Économie typique de 80 à 90 % de la facture d'inférence en bascule Kimi K2.6 vs Claude Opus 4.7.**
 

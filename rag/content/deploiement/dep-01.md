@@ -46,7 +46,7 @@ L'**arbre de décision architectural** en 6 niveaux, à tester séquentiellement
 
 ### Niveau 1 — Single LLM call
 
-L'appel le plus simple : une seule requête à un LLM (Claude, GPT, Mistral) avec un prompt bien construit. Pas de mémoire, pas de retrieval, pas d'orchestration. Si le contexte rentre dans la fenêtre du modèle et la qualité de réponse est satisfaisante, tu n'as **rien d'autre à faire**.
+L'appel le plus simple : une seule requête à un LLM ([[outils-llm|Claude]], [[outils-llm|GPT]], [[outils-llm|Mistral]]) avec un prompt bien construit. Pas de mémoire, pas de retrieval, pas d'orchestration. Si le contexte rentre dans la fenêtre du modèle et la qualité de réponse est satisfaisante, tu n'as **rien d'autre à faire**.
 
 Cas types : génération de contenu standard (résumé, traduction, reformulation), Q&A sur un document court, classification, extraction structurée. Coût ~0,01-0,1 $ par appel selon modèle. Latence < 5 s. Maintenance quasi nulle.
 
@@ -62,7 +62,7 @@ Cas types : analyse d'un document long, comparaison de plusieurs sources, raison
 
 ### Niveau 3 — RAG (Retrieval-Augmented Generation)
 
-Tu indexes ton corpus dans une base vectorielle (ChromaDB, Qdrant, pgvector — cf. [[outils-vector-db]]) et tu fais une recherche sémantique avant chaque requête pour ne ramener que les chunks pertinents. Détails dans [[dep-02]] (RAG en production — anatomie d'une pipeline) et [[cu-008]] (Knowledge base interne RAG).
+Tu indexes ton corpus dans une base vectorielle ([[outils-vector-db|ChromaDB]], [[outils-vector-db|Qdrant]], [[outils-vector-db|pgvector]] — cf. [[outils-vector-db]]) et tu fais une recherche sémantique avant chaque requête pour ne ramener que les chunks pertinents. Détails dans [[dep-02]] (RAG en production — anatomie d'une pipeline) et [[cu-008]] (Knowledge base interne RAG).
 
 Cas types : Q&A sur un corpus large (> 100K tokens), recherche d'information dans un patrimoine documentaire évolutif, support client avec base de connaissance. Coût ~0,01-0,05 $ par requête après l'investissement initial d'indexation.
 

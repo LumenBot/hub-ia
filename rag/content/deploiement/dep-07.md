@@ -109,10 +109,10 @@ Cinq plateformes principales (cf. fiche outils-observabilite-llm à produire pos
 
 | Outil | Profil | Force différentielle |
 |---|---|---|
-| **LangSmith** | LangChain native, SaaS | Intégration native LangChain, traces complètes |
-| **Phoenix Arize** | Open-source self-host possible | Embeddings drift detection, monitoring offline |
-| **Langfuse** | Open-source self-host | Eval + observability unifié, prix bas |
-| **Comet Opik** | SaaS focus LLM | LLM-as-judge templates, dashboards |
+| **[[outils-observabilite-llm|LangSmith]]** | [[outils-frameworks-rag|LangChain]] native, SaaS | Intégration native LangChain, traces complètes |
+| **[[outils-observabilite-llm|Phoenix Arize]]** | Open-source self-host possible | Embeddings drift detection, monitoring offline |
+| **[[outils-observabilite-llm|Langfuse]]** | Open-source self-host | Eval + observability unifié, prix bas |
+| **[[outils-observabilite-llm|Comet Opik]]** | SaaS focus LLM | LLM-as-judge templates, dashboards |
 | **Braintrust** | **Eval-first SaaS** | Outil dédié au type 2 (golden set + CI/CD intégré) |
 
 Choix dépend de la stack existante et de la maturité de l'équipe. Pour démarrer minimaliste, un golden set YAML + un script Python suffisent (pattern POC validé empiriquement, cf. [[dep-02]]).
