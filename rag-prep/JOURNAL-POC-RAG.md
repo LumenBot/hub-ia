@@ -11,6 +11,51 @@
 
 ## Entrées
 
+### 2026-05-26 (S2.9 Lot Dev --filter-unit livré) — Claude Code Hub IA Plateforme — Bug-fix run_eval + DIAGNOSTIC + VALIDATION-SCORING
+
+**Contexte :** ouverture S2.9 sur BRIEF-CC-S2.9 (Cowork, PR #107 mergée, commit `c3eefb3`) + SPEC v2.3 en vigueur. 3ᵉ sprint consécutif avec **Lot Dev Plateforme dès démarrage** — pattern désormais officiellement codifié SPEC v2.3 §allocation D-030 (suite à proposition RAPPORT-CC-S2.8 §6). Bug ciblé : flag `--filter-unit` prescrit dans les briefs Lot I depuis S2.7 mais **jamais implémenté côté code** (2ᵉ occurrence formalisée dans RAPPORT-CC-S2.8 §4 Observation #1).
+
+**Actions menées :**
+
+- **Diagnostic `rag-prep/briefs/DIAGNOSTIC-FILTER-UNIT-S2.9.md`** — état du flag absent, historique S2.7/S2.8 (Desktop contourne par 2 sous-YAML dérivés), cause root (calibration v2 S2.7 a corrigé scoring sans toucher à la sélection), proposition garde-fou SPEC v2.4 contre 3ᵉ occurrence.
+
+- **Correctif minimal `rag/code/eval/run_eval.py`** :
+  - Ajout constante `FILTER_UNIT_CHOICES = ("standard", "adversarial", "all")`
+  - Ajout fonction `filter_questions_by_unit(questions, filter_unit)` — **union de 2 signaux pour détection adversariale** (défense en profondeur) : champ explicite `unit: adversarial` (convention Cowork YAML) OU `is_adversarial()` sémantique (`expected_refusal: true` OU `expected_sources: []`)
+  - `None`/`"all"` → passe-tout (rétro-compat absolue)
+  - Valeur inconnue → `ValueError` (fail-fast vs silent fallback — choix délibéré pour éviter une nouvelle dérive silencieuse brief↔code)
+  - Ajout flag CLI `--filter-unit {standard,adversarial,all}` à argparse avec `choices=` (double validation argparse + fonction)
+  - Avertissement stderr si le filtre laisse 0 questions (préserve usages CI sub-set vide)
+  - **Aucune autre fonction modifiée** — `run_eval(questions, runner)` continue d'itérer sur la liste qu'on lui passe.
+
+- **9 tests unitaires `rag/code/eval/test_run_eval.py`** (classes `TestFilterQuestionsByUnit` + `TestFilterUnitCLI`) — couverture : filtre None/all/adv/std, ValueError fail-fast, immutabilité de l'input, liste vide en entrée, variantes de casse YAML, exposition des 3 choix CLI.
+
+- **VALIDATION-SCORING-S2.9-FILTER-UNIT.md** (SPEC v2.2/v2.3 §Validation manuelle, application par analogie au filtrage) — 5 cas représentatifs (3 positifs + 2 négatifs) avec fixture YAML mini-golden-set, score 5/5 conforme. Section « Risques de régression identifiés (et mitigations en place) » documente 6 garde-fous testés (mutation, filtre vide, valeurs non-supportées, casse YAML, signal sémantique seul, expected_sources vide seul).
+
+- **Non-régression** : `pytest rag/code/` → **243/243 verts** (vs 234 avant). +9 tests, 0 régression sur les modules audit / citation_audit / scoring / report.
+
+- **Smoke CLI** : `python3 rag/code/eval/run_eval.py --help` affiche le flag avec les 3 choix et la description S2.9 Lot Dev.
+
+- **Branche** : `claude/execute-s29-lot-dev-filter-unit` (depuis `origin/main` post-merge PR #107). PR à ouvrir.
+
+**Findings clés :**
+
+1. **Pattern récurrent confirmé** : 3ᵉ sprint consécutif où Plateforme code dès le démarrage (S2.7 mode adversarial → S2.8 R11 audit → S2.9 bug-fix CLI). La codification SPEC v2.3 §allocation D-030 (proposition RAPPORT-CC-S2.8 §6) est validée empiriquement dès son 1ᵉʳ sprint d'application.
+2. **Discipline brief↔code à graver** : 2 occurrences absorbées par contournement éditorial avant ce fix. Proposition SPEC v2.4 (cf. DIAGNOSTIC §6) : tout flag CLI prescrit dans un brief doit être validé empiriquement avant ouverture du brief (analogue à la discipline SPEC v2.2 §Validation manuelle d'une nouvelle règle de scoring).
+3. **Choix de design fail-fast** : refuser une valeur inconnue avec `ValueError` plutôt que silencieusement défaillir. Coût zéro pour l'usage normal, gain : impossible de re-créer une 3ᵉ occurrence de l'écart silencieux.
+
+**Coût Anthropic Lot Dev S2.9** : 0 $ (dev local, sans appel API).
+
+**Reste à faire S2.9 :**
+
+- Cowork : Lot F.9 patches R11 éditoriaux (85 manquements, ~2-3h)
+- Desktop : Lot I référence (eval post-patches R11 + bug-fix, ~0,50 $) puis Lots Bench-1 à Bench-5 (reranking / top-k 3 / embeddings -large / BM25+dense / Haiku 4.5 sur eval, ~3,00 $)
+- Plateforme : Lot J RAPPORT-CC-S2.9 (8 sections format S2.8 avec analyse comparative des 5 benchmarks + arbitrage final SPEC v2.4) + PR finale
+
+**Next :** PR Lot Dev `--filter-unit` à ouvrir Plateforme-side.
+
+---
+
 ### 2026-05-26 (S2.8 Lot J livré — clôture sprint) — Claude Code Hub IA Plateforme — RAPPORT-CC-S2.8 + PR finale
 
 **Contexte :** clôture définitive du sprint S2.8 après merge des PR #102 (A SPEC v2.2 + BRIEF), #103 (F.8+G+H 5 archis + golden set 118q), #104 (Lot Dev R11 citation_audit.py), #105 (Lot I eval extended). Triple axe S2.8 validé : R11 audit livré et opérationnel + production vague 8 réussie + extension golden set adv +2 conforme rythme SPEC v2.2.
