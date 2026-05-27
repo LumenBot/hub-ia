@@ -132,13 +132,13 @@ Le pattern Hybride orienté flux (« chaque cas d'usage est analysé pour sa sen
 
 - Critères : standard PME / non haut risque / time-to-value semaines / maturité faible-moyenne / budget 20-40 K€/an
 - **Architectures éligibles** : A1, A2
-- **Recommandation** : démarrer A1 (Le Chat Pro + ChatGPT Plus + Claude Pro pour usages individuels) → bascule A2 si volumétrie justifie API d'entreprise
+- **Recommandation** : démarrer A1 (Le Chat Pro + ChatGPT Plus + [[outils-llm|Claude]] Pro pour usages individuels) → bascule A2 si volumétrie justifie API d'entreprise
 
 ### Cas 2 — PME industrielle 100 salariés, R&D protégée
 
 - Critères : stratégique (R&D) / non haut risque / time-to-value 6-12 mois / maturité avancée / budget 80-150 K€/an
 - **Architectures éligibles** : A3, A4
-- **Recommandation** : A3 (Mistral Cloud EU + Lucie OVHcloud pour les outils R&D, auditabilité du modèle + souveraineté EU forte)
+- **Recommandation** : A3 ([[outils-llm|Mistral]] Cloud EU + [[outils-llm|Lucie]] OVHcloud pour les outils R&D, auditabilité du modèle + souveraineté EU forte)
 
 ### Cas 3 — PME santé 30 salariés, données patients
 

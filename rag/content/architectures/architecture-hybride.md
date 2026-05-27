@@ -16,7 +16,7 @@ public_cible: [dirigeant, ops, r&d]
 
 ## L'essentiel à retenir
 
-**Architecture Hybride en PME/ETI 2026 : combinaison orientée flux des patterns A1/A2/A3/A4 calibrée par cas d'usage selon la sensibilité des données et les exigences de souveraineté. Pattern explicitement décrit côté HTML Hub IA comme « le pattern le plus fréquent en réalité opérationnelle » — une PME / ETI typique en 2026 a souvent une stack hybride même sans s'en rendre compte. Exemple type : ChatGPT/Claude grand public pour usages individuels (A1) + Mistral Cloud EU pour agents IA traitant des données client (A3) + AWS Bedrock data residency EU pour cas haut risque RH/finance (A2) + Mistral self-hosted on-premise pour R&D protégée (A4). 4 disciplines clés : politique IA documentée + cartographie Shadow AI + choix technologiques convergents (max 2-3 patterns) + mise à jour régulière. 3 anti-patterns : Cloud-first sans réflexion / Souverain partout / Patchwork ingérable. Voir [[pattern-grille-decision-architecture]] §quand-passer-hybride pour la méthode décisionnelle.**
+**Architecture Hybride en PME/ETI 2026 : combinaison orientée flux des patterns A1/A2/A3/A4 calibrée par cas d'usage selon la sensibilité des données et les exigences de souveraineté. Pattern explicitement décrit côté HTML Hub IA comme « le pattern le plus fréquent en réalité opérationnelle » — une PME / ETI typique en 2026 a souvent une stack hybride même sans s'en rendre compte. Exemple type : ChatGPT/[[outils-llm|Claude]] grand public pour usages individuels (A1) + [[outils-llm|Mistral]] Cloud EU pour agents IA traitant des données client (A3) + AWS Bedrock data residency EU pour cas haut risque RH/finance (A2) + Mistral self-hosted on-premise pour R&D protégée (A4). 4 disciplines clés : politique IA documentée + cartographie Shadow AI + choix technologiques convergents (max 2-3 patterns) + mise à jour régulière. 3 anti-patterns : Cloud-first sans réflexion / Souverain partout / Patchwork ingérable. Voir [[pattern-grille-decision-architecture]] §quand-passer-hybride pour la méthode décisionnelle.**
 
 **Principe directeur** : « Forcer un seul pattern pour tous les usages = inefficacité économique et organisationnelle. Le bon design est orienté flux : chaque cas d'usage est analysé pour sa sensibilité, et la stack est calibrée en conséquence. »
 
@@ -126,7 +126,7 @@ L'architecture Hybride n'est pas un pattern « parallèle » aux 4 autres — c'
 
 ### 🔭 Variantes à surveiller
 
-- **Hybride orienté flux avec routing automatique** : émergence d'orchestrateurs (Composio, Beever Atlas, n8n) qui routent automatiquement vers la bonne architecture selon métadonnées du cas d'usage
+- **Hybride orienté flux avec routing automatique** : émergence d'orchestrateurs ([[outils-workflow-automation|Composio]], [[outils-workflow-automation|Beever Atlas]], [[outils-workflow-automation|n8n]]) qui routent automatiquement vers la bonne architecture selon métadonnées du cas d'usage
 - **Coopératives EU** (Petals, EuroLLM) : variante Hybride distribuée avec partage d'infrastructure entre PME/ETI
 - **BYOM (Bring Your Own Model)** : pattern émergent qui floute les frontières A2/A3 (modèle propriétaire fine-tuné déployé en cloud souverain EU)
 
