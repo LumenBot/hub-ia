@@ -16,7 +16,7 @@ public_cible: [dirigeant, ops, r&d]
 
 ## L'essentiel à retenir
 
-**Architecture A1 SaaS propriétaire en PME 2026 : accès direct au modèle IA via l'API ou l'interface du fournisseur, hébergé sur son cloud public mondial. Pattern le plus simple, plus rapide à mettre en place, idéal pour démarrer ou pour des usages individuels. Exemples canoniques : ChatGPT, Claude, Gemini, Le Chat Mistral (cas particulier : modèle propriétaire mais éditeur EU), Notion AI, Slack AI, Microsoft 365 Copilot. Plan grand public 0 à 30 €/mois/utilisateur, API usage ~0,01-0,10 € par 1k tokens, plans Enterprise 25-60 €/mois/utilisateur. Souveraineté Light (cloud public mondial, exposé au CLOUD Act pour les éditeurs US). Voir [[pattern-grille-decision-architecture]] pour le positionnement vs A2/A3/A4/Hybride. Frontière A1/A2 = cloud public direct vs cloud client avec data residency.**
+**Architecture A1 SaaS propriétaire en PME 2026 : accès direct au modèle IA via l'API ou l'interface du fournisseur, hébergé sur son cloud public mondial. Pattern le plus simple, plus rapide à mettre en place, idéal pour démarrer ou pour des usages individuels. Exemples canoniques : ChatGPT, [[outils-llm|Claude]], Gemini, Le Chat [[outils-llm|Mistral]] (cas particulier : modèle propriétaire mais éditeur EU), Notion AI, Slack AI, Microsoft 365 Copilot. Plan grand public 0 à 30 €/mois/utilisateur, API usage ~0,01-0,10 € par 1k tokens, plans Enterprise 25-60 €/mois/utilisateur. Souveraineté Light (cloud public mondial, exposé au CLOUD Act pour les éditeurs US). Voir [[pattern-grille-decision-architecture]] pour le positionnement vs A2/A3/A4/Hybride. Frontière A1/A2 = cloud public direct vs cloud client avec data residency.**
 
 **Cas particulier important** : Le Chat Mistral est classé A1 même si l'éditeur est EU — le critère structurant n'est pas l'origine de l'éditeur mais l'**accès direct via le cloud public du fournisseur**. La souveraineté n'est pas une propriété de l'éditeur, c'est une propriété du **mode d'hébergement et de contrôle des données**.
 
@@ -28,7 +28,7 @@ Niveau ⭐⭐ Intermédiaire. Public cible : dirigeants, équipes métier, knowl
 
 ## Description
 
-**SaaS propriétaire en mode cloud public direct** : modèle IA propriétaire (Claude, GPT, Gemini, Le Chat Mistral, etc.) consommé via l'API du fournisseur ou son interface web/desktop, sans passer par un cloud intermédiaire client. C'est le mode « plug-and-play » du marché 2026.
+**SaaS propriétaire en mode cloud public direct** : modèle IA propriétaire (Claude, [[outils-llm|GPT]], Gemini, Le Chat Mistral, etc.) consommé via l'API du fournisseur ou son interface web/desktop, sans passer par un cloud intermédiaire client. C'est le mode « plug-and-play » du marché 2026.
 
 ## Méta
 

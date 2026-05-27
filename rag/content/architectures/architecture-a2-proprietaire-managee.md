@@ -28,7 +28,7 @@ Niveau ⭐⭐⭐ Avancé. Public cible : DSI, RSSI, dirigeants tech.
 
 ## Description
 
-**Modèle propriétaire managed via cloud hyperscaler** : le modèle propriétaire (Claude via AWS Bedrock, GPT via Azure OpenAI, Gemini via Vertex AI) est consommé via le cloud du client. Le client garde la maîtrise du VPC, des contrats, de la data residency. Le fournisseur du modèle ne voit pas les données client (engagement no-training contractuel typique).
+**Modèle propriétaire managed via cloud hyperscaler** : le modèle propriétaire ([[outils-llm|Claude]] via AWS Bedrock, [[outils-llm|GPT]] via Azure OpenAI, Gemini via Vertex AI) est consommé via le cloud du client. Le client garde la maîtrise du VPC, des contrats, de la data residency. Le fournisseur du modèle ne voit pas les données client (engagement no-training contractuel typique).
 
 ## Méta
 
@@ -43,7 +43,7 @@ Niveau ⭐⭐⭐ Avancé. Public cible : DSI, RSSI, dirigeants tech.
 
 Citations textuelles à transposer fidèlement :
 
-- **AWS Bedrock** : Claude (Anthropic), Llama (Meta), Mistral, Cohere, etc. — région EU possible
+- **AWS Bedrock** : Claude (Anthropic), [[outils-llm|Llama]] (Meta), [[outils-llm|Mistral]], Cohere, etc. — région EU possible
 - **Azure OpenAI** : GPT-4o, GPT-5 — région EU possible (France Central, Sweden Central)
 - **Vertex AI** (Google Cloud) : Gemini, Anthropic Claude on Vertex AI, Cohere on Vertex AI — région EU possible (europe-west)
 - **OpenAI Enterprise** : engagement no-training contractualisé + data residency EU + audit + SLA renforcé
@@ -92,7 +92,7 @@ Coûts canoniques HTML à citer textuellement (R10 stricte) :
 ## Articulation cross-archis (frontières)
 
 - **A2 vs A1** : la frontière est **cloud public direct vs cloud client avec data residency contrôlée**. Pas l'origine de l'éditeur. Le Chat Mistral via cloud Mistral public = A1. Anthropic Claude on AWS Bedrock région Francfort = A2. Le modèle peut être identique (Claude), c'est le mode d'accès et de contrôle qui change.
-- **A2 vs A3** : double frontière — modèle (propriétaire vs open-weight) ET cloud (hyperscaler CLOUD Act vs cloud souverain EU). A2 = Anthropic Claude on AWS Bedrock. A3 = Mixtral sur OVHcloud. Auditabilité du modèle absente A2 vs présente A3.
+- **A2 vs A3** : double frontière — modèle (propriétaire vs open-weight) ET cloud (hyperscaler CLOUD Act vs cloud souverain EU). A2 = Anthropic Claude on AWS Bedrock. A3 = [[outils-llm|Mixtral]] sur OVHcloud. Auditabilité du modèle absente A2 vs présente A3.
 - **A2 vs A4** : A4 = full on-premise. A2 = cloud hyperscaler géré. Différence opérationnelle maximale (équipe MLOps interne requise A4 vs équipe cloud existante mobilisable A2).
 - **A2 dans une stack Hybride** : fréquent pour les cas RH/finance (haut risque AI Act demande data residency contractuelle, sans aller jusqu'à on-premise). Voir [[architecture-hybride]].
 
