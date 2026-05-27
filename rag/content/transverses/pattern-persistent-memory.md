@@ -83,8 +83,8 @@ Ces benchmarks **restent locaux à agentmemory et aux modules CU-008 / DEP-02**.
 
 Six outils intégrant nativement persistent memory ou hooks compatibles (ordre canonique HTML, à préserver textuellement) :
 
-1. **Claude Code** — agent CLI Anthropic, hooks natifs pre-tool / post-tool / on-error
-2. **Hermes Agent** — produit par Jean Vargas (Signal 3), Codex runtime + intégrations MCP (Obsidian, Reddit, GitHub, Stripe — citées dans la [[outils-frameworks-rag|fiche Hermes Agent]] post-v3.11, pas dans cette brique)
+1. **[[outils-llm|Claude]] Code** — agent CLI Anthropic, hooks natifs pre-tool / post-tool / on-error
+2. **Hermes Agent** — produit par Jean Vargas (Signal 3), Codex runtime + intégrations MCP ([[outils-knowledge-management|Obsidian]], Reddit, GitHub, Stripe — citées dans la [[outils-frameworks-rag|fiche Hermes Agent]] post-v3.11, pas dans cette brique)
 3. **OpenClaw** — marketplace skills/MCP (cf. cas OpenClaw 12 % skills malveillants détaillé en [[dep-08]])
 4. **Codex CLI** — agent CLI OpenAI
 5. **Cursor** — éditeur IDE IA, hooks de session persistants

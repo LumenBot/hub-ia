@@ -22,15 +22,15 @@ Retrieval-Augmented Generation : un agent IA qui consulte ta documentation inter
 
 ## Vector store
 
-Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de données spécialisée dans le stockage et la recherche de représentations numériques de texte ([[glossaire#embeddings]]). Permet de retrouver les passages sémantiquement proches d'une requête. Exemples : Qdrant, Pinecone, ChromaDB, pgvector.
+Aussi appelé « vector database » ou « base vectorielle ». Brique centrale de tout système [[glossaire#rag]] : base de données spécialisée dans le stockage et la recherche de représentations numériques de texte ([[glossaire#embeddings]]). Permet de retrouver les passages sémantiquement proches d'une requête. Exemples : [[outils-vector-db|Qdrant]], [[outils-vector-db|Pinecone]], [[outils-vector-db|ChromaDB]], [[outils-vector-db|pgvector]].
 
 ## Embeddings
 
-Représentation numérique d'un texte (un vecteur de quelques centaines à quelques milliers de nombres) qui capture son sens. Deux textes proches sémantiquement ont des embeddings proches géométriquement. Permet à l'IA de comparer, classer et retrouver du contenu par sens et non par mots-clés. Produits par un modèle d'embedding (OpenAI text-embedding-3, Mistral Embed, sentence-transformers, etc.).
+Représentation numérique d'un texte (un vecteur de quelques centaines à quelques milliers de nombres) qui capture son sens. Deux textes proches sémantiquement ont des embeddings proches géométriquement. Permet à l'IA de comparer, classer et retrouver du contenu par sens et non par mots-clés. Produits par un modèle d'embedding (OpenAI text-embedding-3, [[outils-llm|Mistral]] Embed, sentence-transformers, etc.).
 
 ## LLM
 
-Large Language Model : modèle d'IA générative type ChatGPT, Claude, Gemini, Mistral, Llama. Capable de comprendre et produire du texte en langage naturel sur la base de milliards de paramètres entraînés sur d'énormes corpus.
+Large Language Model : modèle d'IA générative type ChatGPT, [[outils-llm|Claude]], Gemini, Mistral, [[outils-llm|Llama]]. Capable de comprendre et produire du texte en langage naturel sur la base de milliards de paramètres entraînés sur d'énormes corpus.
 
 ## POC
 
@@ -42,7 +42,7 @@ Minimum Viable Product : version la plus simple d'un produit qu'on peut déjà m
 
 ## API
 
-Interface de programmation qui permet à un logiciel d'en appeler un autre. Les LLM modernes (Claude, GPT, Mistral) sont accessibles par API pour intégration dans des applications custom — c'est ce qui permet de construire un agent ou un [[glossaire#rag]] sur leur capacité de génération.
+Interface de programmation qui permet à un logiciel d'en appeler un autre. Les LLM modernes (Claude, [[outils-llm|GPT]], Mistral) sont accessibles par API pour intégration dans des applications custom — c'est ce qui permet de construire un agent ou un [[glossaire#rag]] sur leur capacité de génération.
 
 ## SaaS
 

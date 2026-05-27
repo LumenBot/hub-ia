@@ -38,11 +38,11 @@ Le risque ne dépend pas de la sensibilité subjective qu'on attribue à la donn
 
 ## Les 3 options pour traiter les données sensibles avec l'IA
 
-**Option 1 — Versions Pro et Enterprise des LLM majeurs.** ChatGPT Team/Enterprise, Claude pour les entreprises, Gemini Workspace : engagent contractuellement à ne pas utiliser les données pour entraînement. Vérifier les Data Processing Agreements (DPA). Reste un transfert hors UE pour la plupart des acteurs.
+**Option 1 — Versions Pro et Enterprise des LLM majeurs.** ChatGPT Team/Enterprise, [[outils-llm|Claude]] pour les entreprises, Gemini Workspace : engagent contractuellement à ne pas utiliser les données pour entraînement. Vérifier les Data Processing Agreements (DPA). Reste un transfert hors UE pour la plupart des acteurs.
 
-**Option 2 — Acteurs européens avec [[glossaire#souverainete]] EU.** Mistral Le Chat Pro (hébergement EU, certifications ISO 27001 et SOC 2 pour le Chat Pro), Mistral La Plateforme via partenaires EU, OpenAI via Azure Europe avec configuration adéquate. Garanties RGPD natives, juridiction européenne applicable. À privilégier pour les organisations soumises à des contraintes RGPD strictes.
+**Option 2 — Acteurs européens avec [[glossaire#souverainete]] EU.** [[outils-llm|Mistral]] Le Chat Pro (hébergement EU, certifications ISO 27001 et SOC 2 pour le Chat Pro), Mistral La Plateforme via partenaires EU, OpenAI via Azure Europe avec configuration adéquate. Garanties RGPD natives, juridiction européenne applicable. À privilégier pour les organisations soumises à des contraintes RGPD strictes.
 
-**Option 3 — Modèles open-source en self-hosted ou [[glossaire#on-premise]].** Llama, Mistral, Qwen, Phi déployés sur infrastructure interne ou cloud souverain (OVH, Scaleway, 3DS Outscale, Cloud Temple). [[glossaire#souverainete]] maximale, contrôle total des données. Compromis : compétences techniques requises pour opérer en production.
+**Option 3 — Modèles open-source en self-hosted ou [[glossaire#on-premise]].** [[outils-llm|Llama]], Mistral, [[outils-llm|Qwen]], Phi déployés sur infrastructure interne ou cloud souverain (OVH, Scaleway, 3DS Outscale, Cloud Temple). [[glossaire#souverainete]] maximale, contrôle total des données. Compromis : compétences techniques requises pour opérer en production.
 
 Le choix entre ces 3 options dépend du niveau de sensibilité, du cadre réglementaire, des compétences disponibles et du budget. Cadrage détaillé dans [[pr-05]] (Sécurité IA) et [[cu-020]] (Conformité RGPD & AI Act).
 

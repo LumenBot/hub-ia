@@ -76,7 +76,7 @@ Pour les contextes où l'hallucination doit être mitigée structurellement (pas
 
 ## Cas d'application typiques
 
-- **Recherche augmentée** ([[cu-001]]) : vérifier au moins une source citée par Perplexity, Le Chat Pro ou NotebookLM avant d'inclure un chiffre dans une note de comité — vigilance familles 1 et 2.
+- **Recherche augmentée** ([[cu-001]]) : vérifier au moins une source citée par Perplexity, Le Chat Pro ou [[outils-llm|NotebookLM]] avant d'inclure un chiffre dans une note de comité — vigilance familles 1 et 2.
 - **Rédactionnel** ([[cu-002]]) : ne jamais publier un contenu écrit par IA sans relecture humaine — un chiffre inventé dans un communiqué de presse engage la responsabilité. Vigilance familles 1 et 3.
 - **Veille concurrentielle** ([[cu-011]]) et **veille AAP** ([[cu-012]]) : croiser systématiquement avec les sources officielles (registres, sites institutionnels). Vigilance familles 1, 2 et 3.
 - **Workflow agentique** ([[cu-015]], [[cu-013]]) : pattern failure receipt obligatoire pour chaque action externe (email envoyé, paiement déclenché, fichier créé). Vigilance famille 4.
