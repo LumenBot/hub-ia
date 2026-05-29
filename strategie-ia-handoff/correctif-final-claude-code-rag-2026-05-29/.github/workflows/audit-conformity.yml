@@ -1,0 +1,97 @@
+# GitHub Actions — audit de conformité du repo strategie-ia
+#
+# Déclenchement : à chaque PR vers `main` + à chaque push sur `main`.
+# Jobs :
+#   - audit-conformity : naming, en-têtes, métadonnées (§1, §2, §6, §9, §11, §12 CONVENTIONS.md v1.1)
+#   - check-links      : liens internes morts (relatifs + wikilinks Obsidian)
+#   - check-index      : INDEX.md à jour vis-à-vis du contenu réel du repo
+#   - check-merge-markers : aucun marqueur `<<<<<<<` non résolu dans le code source
+#
+# Politique : un job qui échoue bloque le merge si branch protection « must pass » est active
+# (cf. INSTRUCTIONS-CAVALLI.md). Régime R3 fast-track mineur (CONTRIBUTING.md §2) : si
+# CI verte, l'owner fonctionnel peut auto-approve sa propre PR pour typo/dead link/README.
+
+name: audit-conformity
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  audit-conformity:
+    name: Conformité conventions (§1, §2, §6, §9, §11, §12)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # nécessaire pour `--staged` (diff HEAD)
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Audit conformité (mode strict sur PR, mode normal sur push)
+        run: |
+          chmod +x 07-tech-et-architecture/deploiement/ci-cd/scripts/audit-conformity.sh
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            ./07-tech-et-architecture/deploiement/ci-cd/scripts/audit-conformity.sh --staged
+          else
+            ./07-tech-et-architecture/deploiement/ci-cd/scripts/audit-conformity.sh
+          fi
+
+  check-links:
+    name: Liens internes (Markdown + wikilinks Obsidian)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Vérification liens internes morts
+        run: |
+          chmod +x 07-tech-et-architecture/deploiement/ci-cd/scripts/check-links.sh
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            ./07-tech-et-architecture/deploiement/ci-cd/scripts/check-links.sh --staged
+          else
+            ./07-tech-et-architecture/deploiement/ci-cd/scripts/check-links.sh
+          fi
+
+  check-index:
+    name: INDEX.md à jour vis-à-vis du contenu repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Vérification synchronisation INDEX.md
+        run: |
+          chmod +x 07-tech-et-architecture/deploiement/ci-cd/scripts/generate-index.sh
+          ./07-tech-et-architecture/deploiement/ci-cd/scripts/generate-index.sh --check
+
+  check-merge-markers:
+    name: Aucun marqueur de conflit non résolu (SPEC v2.0 hygiène merge)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Détection marqueurs <<<<<<<
+        run: |
+          if git grep -l '^<<<<<<< ' -- ':!**/_archives/**' 2>/dev/null | head -1 | grep -q .; then
+            echo "[erreur] marqueurs de conflit non résolus détectés :"
+            git grep -l '^<<<<<<< ' -- ':!**/_archives/**'
+            exit 1
+          fi
+          echo "[OK] aucun marqueur de conflit dans le code source."

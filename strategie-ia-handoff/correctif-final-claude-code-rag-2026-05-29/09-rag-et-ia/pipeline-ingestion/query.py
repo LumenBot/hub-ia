@@ -1,0 +1,393 @@
+#!/usr/bin/env python3
+"""
+Backend RAG — CLI Python S1 (Cloudflare Worker reporté à S3)
+=============================================================
+
+Reçoit une question en CLI, calcule son embedding (OpenAI), récupère le top-k=5
+dans ChromaDB, construit un contexte (chunks + métadonnées), appelle Claude
+Sonnet 4.6 (D-005) avec un system prompt structuré, retourne la réponse + les
+codes sources citées.
+
+Usage :
+    python3 rag/code/backend/query.py "Quelle différence entre RAG et fine-tuning ?"
+    python3 rag/code/backend/query.py -k 3 --json "ma question"
+
+Variables d'env attendues :
+    OPENAI_API_KEY            (embedding question)
+    ANTHROPIC_API_KEY         (génération)
+    RAG_EMBEDDING_MODEL       (défaut : text-embedding-3-small)
+    RAG_GEN_MODEL             (défaut : claude-sonnet-4-6)
+    RAG_VECTOR_STORE_PATH     (défaut : rag/code/vector_store)
+
+Réfs : D-005, D-006, D-007, D-008 (S3).
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+from dataclasses import dataclass
+from typing import Any
+
+# Chargement automatique de rag/code/.env (S1ter Lot S1c.1)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _env  # noqa: F401  # side-effect: load_env() au moment de l'import
+
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DEFAULT_STORE = os.path.join(ROOT, "code", "vector_store")
+DEFAULT_COLLECTION = "hub-ia-rag"
+DEFAULT_K = 5
+
+SYSTEM_PROMPT = """Tu es l'assistant du Hub IA Learning Center, plateforme \
+pédagogique destinée aux dirigeants de PME/ETI françaises non-IT. Tu réponds à \
+leurs questions sur l'IA générative, l'agentique, le RAG, et leurs prérequis.
+
+Ton et style :
+- Pédagogique, concret, dépolitisé.
+- Pas de jargon non défini ; quand un terme technique est utilisé, on le \
+glose en une phrase.
+- Pas d'invention de chiffres ou de sources : seules les données présentes \
+dans le CONTEXTE ci-dessous sont valides.
+
+Briques transverses — sources canoniques privilégiées (D-025) :
+- `chiffres-macro-2026` : référentiel canonique des chiffres macro du Hub \
+(95 % MIT NANDA, 67 % Bpifrance, 1,8 h/jour McKinsey, etc.). Cite-le en \
+priorité dès qu'un chiffre macro est mobilisé.
+- `vigilance-*` (vigilance-hallucinations, vigilance-confidentialite) : \
+patterns de vigilance communs à plusieurs modules. À mobiliser dès qu'une \
+question évoque sécurité, fiabilité ou conformité.
+- `pattern-*` (pattern-llm-wiki, pattern-eval-set-golden, etc.) : \
+patterns techniques transversaux. À mobiliser dès qu'une architecture \
+récurrente est concernée.
+- `glossaire` : définitions canoniques des termes du Hub. À mobiliser pour \
+toute glose de terme technique.
+
+Quand un chunk du CONTEXTE provient d'une brique transverse, traite-la comme \
+**source d'autorité supérieure** à une mention équivalente trouvée dans un \
+module CU/PR/DEP (préfère la formulation canonique transverse).
+
+Citations obligatoires :
+- Format **préféré** (Obsidian wikilink, aligné avec le vault RAG) : \
+`[[code]]` ou `[[code#section]]` pour pointer une section précise — \
+exemple `[[chiffres-macro-2026#95-pourcent-mit-nanda-2025]]`, `[[pattern-llm-wiki]]`.
+- Format **accepté** (rétro-compatibilité historique) : `[CODE]` entre \
+crochets simples — exemple `[CU-008]`, `[DEP-02]`.
+- Chaque assertion factuelle doit être suivie d'au moins une citation \
+(wikilink préféré, crochets simples accepté).
+- Si le CONTEXTE ne couvre pas la question, dis explicitement « Je n'ai pas \
+de réponse documentée dans le Hub IA pour cette question » plutôt que d'extrapoler.
+
+Format de réponse :
+1. Réponse directe en 2-4 paragraphes.
+2. Ligne « Sources : » à la fin listant les codes utilisés (ex. : CU-001, \
+DEP-02, chiffres-macro-2026).
+"""
+
+
+@dataclass
+class RetrievedChunk:
+    chunk_id: str
+    document: str
+    metadata: dict
+    distance: float
+
+
+@dataclass
+class QueryResult:
+    question: str
+    answer: str
+    chunks: list[RetrievedChunk]
+    cited_codes: list[str]
+
+    def to_dict(self) -> dict:
+        return {
+            "question": self.question,
+            "answer": self.answer,
+            "cited_codes": self.cited_codes,
+            "chunks": [
+                {
+                    "chunk_id": c.chunk_id,
+                    "code": c.metadata.get("code", ""),
+                    "titre": c.metadata.get("titre", ""),
+                    "h2_title": c.metadata.get("h2_title", ""),
+                    "source_file": c.metadata.get("source_file", ""),
+                    "distance": c.distance,
+                }
+                for c in self.chunks
+            ],
+        }
+
+
+# ============================================================
+# Abstractions (mockables en test)
+# ============================================================
+
+class Embedder:
+    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None,
+                 cost_log_path: str | None = None):
+        self.model = model
+        self._client = None
+        self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        self._cost_log_path = cost_log_path
+
+    def _ensure(self):
+        if self._client is None:
+            if not self._api_key:
+                raise RuntimeError("OPENAI_API_KEY manquante")
+            from openai import OpenAI  # type: ignore
+            self._client = OpenAI(api_key=self._api_key)
+        return self._client
+
+    def embed_one(self, text: str) -> list[float]:
+        client = self._ensure()
+        resp = client.embeddings.create(model=self.model, input=[text])
+        # S2.2 Lot C — instrumentation coût
+        try:
+            import _cost  # noqa: F401
+            tokens_in = getattr(getattr(resp, "usage", None), "prompt_tokens", 0) or 0
+            _cost.log_cost(
+                script="query.py",
+                model=self.model,
+                tokens_in=int(tokens_in),
+                tokens_out=0,
+                log_path=self._cost_log_path,
+            )
+        except Exception:
+            pass
+        return resp.data[0].embedding
+
+
+class Retriever:
+    """Wrapper minimal sur ChromaDB pour récupérer les top-k chunks."""
+
+    def __init__(self, persist_path: str = DEFAULT_STORE, collection: str = DEFAULT_COLLECTION, client=None):
+        if client is not None:
+            self._client = client
+        else:
+            import chromadb  # type: ignore
+            self._client = chromadb.PersistentClient(path=persist_path)
+        self.collection = self._client.get_or_create_collection(name=collection)
+
+    def query(self, embedding: list[float], k: int = DEFAULT_K) -> list[RetrievedChunk]:
+        res = self.collection.query(
+            query_embeddings=[embedding],
+            n_results=k,
+            include=["documents", "metadatas", "distances"],
+        )
+        ids = (res.get("ids") or [[]])[0]
+        docs = (res.get("documents") or [[]])[0]
+        metas = (res.get("metadatas") or [[]])[0]
+        dists = (res.get("distances") or [[]])[0]
+        return [
+            RetrievedChunk(chunk_id=i, document=d, metadata=m or {}, distance=float(dist))
+            for i, d, m, dist in zip(ids, docs, metas, dists)
+        ]
+
+
+class Generator:
+    def __init__(self, model: str = "claude-sonnet-4-6", api_key: str | None = None,
+                 cost_log_path: str | None = None):
+        self.model = model
+        self._client = None
+        self._api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+        self._cost_log_path = cost_log_path
+
+    def _ensure(self):
+        if self._client is None:
+            if not self._api_key:
+                raise RuntimeError("ANTHROPIC_API_KEY manquante")
+            import anthropic  # type: ignore
+            self._client = anthropic.Anthropic(api_key=self._api_key)
+        return self._client
+
+    def generate(self, system: str, user: str, max_tokens: int = 1024) -> str:
+        client = self._ensure()
+        msg = client.messages.create(
+            model=self.model,
+            max_tokens=max_tokens,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        )
+        # S2.2 Lot C — instrumentation coût
+        try:
+            import _cost  # noqa: F401
+            usage = getattr(msg, "usage", None)
+            tokens_in = getattr(usage, "input_tokens", 0) or 0
+            tokens_out = getattr(usage, "output_tokens", 0) or 0
+            _cost.log_cost(
+                script="query.py",
+                model=self.model,
+                tokens_in=int(tokens_in),
+                tokens_out=int(tokens_out),
+                log_path=self._cost_log_path,
+            )
+        except Exception:
+            pass
+        return "".join(block.text for block in msg.content if getattr(block, "type", None) == "text")
+
+
+# ============================================================
+# Construction du contexte + extraction des citations
+# ============================================================
+
+def build_context(chunks: list[RetrievedChunk]) -> str:
+    """Concatène les chunks récupérés pour le prompt utilisateur."""
+    blocks: list[str] = []
+    for i, c in enumerate(chunks, 1):
+        code = c.metadata.get("code", "?")
+        titre = c.metadata.get("titre", "")
+        h2 = c.metadata.get("h2_title", "")
+        blocks.append(
+            f"--- Chunk #{i} | code={code} | titre={titre} | section={h2} "
+            f"| similarity={1 - c.distance:.3f} ---\n{c.document}"
+        )
+    return "\n\n".join(blocks)
+
+
+def build_user_prompt(question: str, chunks: list[RetrievedChunk]) -> str:
+    if not chunks:
+        return (
+            f"QUESTION : {question}\n\n"
+            "CONTEXTE : (aucun chunk pertinent trouvé dans le vault)\n\n"
+            "Réponds en indiquant que la question n'est pas couverte par le Hub IA."
+        )
+    return (
+        f"QUESTION :\n{question}\n\n"
+        f"CONTEXTE — extraits du vault Hub IA :\n\n{build_context(chunks)}\n\n"
+        "Réponds à la question en t'appuyant strictement sur le CONTEXTE ci-dessus. "
+        "Cite les codes sources entre crochets après chaque assertion factuelle. "
+        "Termine par une ligne « Sources : ... »."
+    )
+
+
+# ----- Extraction des citations dans la réponse Claude --------------
+# Deux formats sont reconnus, alignés avec le system prompt enrichi v2 :
+#
+# 1. Wikilink Obsidian (format **préféré**) : `[[code]]`, `[[code#ancre]]`,
+#    `[[code|alias]]`, `[[code#ancre|alias]]`. Codes en kebab-case lowercase,
+#    famille libre (cu-NNN, pr-NN, dep-NN, aN, outils-*, glossaire,
+#    chiffres-macro-YYYY, vigilance-*, pattern-*, methodologie-*, etc.).
+#
+# 2. Crochets simples (rétro-compatibilité) : `[CU-NNN]`, `[PR-NN]`,
+#    `[DEP-NN]`, `[AN]`, `[OUTILS-*]`, `[TRANSVERSE-*]`. Lookbehind/lookahead
+#    négatifs pour ne pas matcher à l'intérieur d'un wikilink `[[...]]`.
+#
+# Sortie normalisée en lowercase, alignée avec `run_eval.py` qui matche en
+# lowercase contre `expected_sources` du golden set.
+
+WIKILINK_CITATION_PATTERN = re.compile(
+    r"\[\[([a-zA-Z][a-zA-Z0-9-]*)(?:#[^\]\|]*)?(?:\|[^\]]*)?\]\]"
+)
+BRACKET_CITATION_PATTERN = re.compile(
+    r"(?<!\[)\[(CU-\d+|PR-\d+|DEP-\d+|A\d+|OUTILS-[A-Z0-9-]+|TRANSVERSE-[A-Z0-9-]+)\](?!\])",
+    re.IGNORECASE,
+)
+# Conservé pour rétro-compatibilité avec d'éventuels imports externes
+# antérieurs au refactor S2.2 Lot E.1 (alias vers BRACKET_CITATION_PATTERN).
+CODE_PATTERN = BRACKET_CITATION_PATTERN
+
+
+def extract_cited_codes(answer: str) -> list[str]:
+    """Extrait les codes cités dans la réponse Claude.
+
+    Reconnaît :
+    - wikilinks Obsidian (préférés) : `[[code]]`, `[[code#ancre]]`,
+      `[[code|alias]]`, `[[code#ancre|alias]]` — toute famille de code en
+      kebab-case lowercase.
+    - crochets simples (rétro-compat) : `[CU-NNN]`, `[PR-NN]`, `[DEP-NN]`,
+      `[AN]`, `[OUTILS-*]`, `[TRANSVERSE-*]` — pattern strict UPPERCASE.
+
+    Sortie : liste de codes lowercase, dédupliquée, dans l'ordre d'apparition.
+    """
+    matches: list[tuple[int, str]] = []
+    for m in WIKILINK_CITATION_PATTERN.finditer(answer):
+        matches.append((m.start(), m.group(1).lower()))
+    for m in BRACKET_CITATION_PATTERN.finditer(answer):
+        matches.append((m.start(), m.group(1).lower()))
+
+    matches.sort(key=lambda x: x[0])
+    seen: set[str] = set()
+    out: list[str] = []
+    for _, code in matches:
+        if code not in seen:
+            seen.add(code)
+            out.append(code)
+    return out
+
+
+# ============================================================
+# Orchestration
+# ============================================================
+
+def answer_question(
+    question: str,
+    embedder: Embedder,
+    retriever: Retriever,
+    generator: Generator,
+    k: int = DEFAULT_K,
+    system_prompt: str = SYSTEM_PROMPT,
+) -> QueryResult:
+    q_vec = embedder.embed_one(question)
+    chunks = retriever.query(q_vec, k=k)
+    user_prompt = build_user_prompt(question, chunks)
+    answer = generator.generate(system_prompt, user_prompt)
+    return QueryResult(
+        question=question,
+        answer=answer,
+        chunks=chunks,
+        cited_codes=extract_cited_codes(answer),
+    )
+
+
+# ============================================================
+# CLI
+# ============================================================
+
+def format_human(result: QueryResult) -> str:
+    lines: list[str] = []
+    lines.append("=" * 70)
+    lines.append(f"Q: {result.question}")
+    lines.append("=" * 70)
+    lines.append(result.answer.strip())
+    lines.append("")
+    lines.append("-" * 70)
+    lines.append(f"Top-{len(result.chunks)} chunks récupérés :")
+    for c in result.chunks:
+        code = c.metadata.get("code", "?")
+        h2 = c.metadata.get("h2_title", "")
+        lines.append(f"  • [{code.upper()}] {h2}  (sim={1 - c.distance:.3f})")
+    if result.cited_codes:
+        lines.append(f"Codes cités dans la réponse : {', '.join(result.cited_codes)}")
+    return "\n".join(lines)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Backend RAG CLI — question → réponse Claude avec citations.")
+    parser.add_argument("question", help="question à poser au Hub IA")
+    parser.add_argument("-k", "--top-k", type=int, default=DEFAULT_K)
+    parser.add_argument("--store", default=os.environ.get("RAG_VECTOR_STORE_PATH", DEFAULT_STORE))
+    parser.add_argument("--collection", default=DEFAULT_COLLECTION)
+    parser.add_argument("--embedding-model", default=os.environ.get("RAG_EMBEDDING_MODEL", "text-embedding-3-small"))
+    parser.add_argument("--gen-model", default=os.environ.get("RAG_GEN_MODEL", "claude-sonnet-4-6"))
+    parser.add_argument("--json", action="store_true", help="sortie JSON pour pipeline (eval)")
+    args = parser.parse_args(argv)
+
+    embedder = Embedder(model=args.embedding_model)
+    retriever = Retriever(persist_path=args.store, collection=args.collection)
+    generator = Generator(model=args.gen_model)
+
+    result = answer_question(args.question, embedder, retriever, generator, k=args.top_k)
+
+    if args.json:
+        print(json.dumps(result.to_dict(), ensure_ascii=False, indent=2))
+    else:
+        print(format_human(result))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
